@@ -229,7 +229,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
         charset = contentType.charset(UTF8);
       }
 
-      logger.log("");
+      logger.log("Request body:");
       if (isPlaintext(buffer)) {
         logger.log(buffer.readString(charset));
         logger.log(
@@ -286,7 +286,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
       }
 
       if (contentLength != 0) {
-        logger.log("");
+        logger.log("Response body:");
         logger.log(buffer.clone().readString(charset));
       }
 
