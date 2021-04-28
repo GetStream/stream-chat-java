@@ -70,11 +70,11 @@ public class ChannelConfig {
 
   @NotNull
   @JsonProperty("automod")
-  private String automod;
+  private AutoMod automod;
 
   @NotNull
   @JsonProperty("automod_behavior")
-  private String modBehavior;
+  private AutoModBehavior modBehavior;
 
   @NotNull
   @JsonProperty("created_at")
@@ -94,7 +94,7 @@ public class ChannelConfig {
 
   @Nullable
   @JsonProperty("blocklist_behavior")
-  private String blocklistBehavior;
+  private BlocklistBehavior blocklistBehavior;
 
   @Nullable
   @JsonProperty("automod_thresholds")
@@ -111,5 +111,24 @@ public class ChannelConfig {
     @Nullable
     @JsonProperty("block")
     private Integer block;
+  }
+
+  public enum AutoMod {
+    @JsonProperty("disabled")
+    DISABLED, @JsonProperty("simple")
+    SIMPLE, @JsonProperty("AI")
+    AI
+  }
+
+  public enum AutoModBehavior {
+    @JsonProperty("flag")
+    FLAG, @JsonProperty("block")
+    BLOCK
+  }
+
+  public enum BlocklistBehavior {
+    @JsonProperty("flag")
+    FLAG, @JsonProperty("block")
+    BLOCK
   }
 }
