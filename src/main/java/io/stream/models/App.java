@@ -75,16 +75,14 @@ public class App extends StreamResponse {
 
     /**
      * Creates builder to build {@link APNConfig}.
-     * 
+     *
      * @return created builder
      */
     public static Builder builder() {
       return new Builder();
     }
 
-    /**
-     * Builder to build {@link APNConfig}.
-     */
+    /** Builder to build {@link APNConfig}. */
     public static final class Builder {
       private Boolean enabled;
       private Boolean development;
@@ -157,7 +155,6 @@ public class App extends StreamResponse {
         return new APNConfig(this);
       }
     }
-
   }
 
   @Data
@@ -184,16 +181,14 @@ public class App extends StreamResponse {
 
     /**
      * Creates builder to build {@link FirebaseConfig}.
-     * 
+     *
      * @return created builder
      */
     public static Builder builder() {
       return new Builder();
     }
 
-    /**
-     * Builder to build {@link FirebaseConfig}.
-     */
+    /** Builder to build {@link FirebaseConfig}. */
     public static final class Builder {
       private Boolean enabled;
       private String notificationTemplate;
@@ -240,7 +235,6 @@ public class App extends StreamResponse {
     @NotNull
     @JsonProperty("firebase")
     private FirebaseConfig firebaseConfig;
-
   }
 
   @Data
@@ -278,7 +272,6 @@ public class App extends StreamResponse {
     @NotNull
     @JsonProperty("updated_at")
     private Date updatedAt;
-
   }
 
   @Data
@@ -411,16 +404,14 @@ public class App extends StreamResponse {
 
     /**
      * Creates builder to build {@link FileUploadConfig}.
-     * 
+     *
      * @return created builder
      */
     public static Builder builder() {
       return new Builder();
     }
 
-    /**
-     * Builder to build {@link FileUploadConfig}.
-     */
+    /** Builder to build {@link FileUploadConfig}. */
     public static final class Builder {
       private List<String> allowedFileExtensions = Collections.emptyList();
       private List<String> blockedFileExtensions = Collections.emptyList();
@@ -544,7 +535,6 @@ public class App extends StreamResponse {
     @JsonProperty("multi_tenant_enabled")
     private Boolean multiTenantEnabled;
 
-
     private AppSettings(UpdateAppRequest builder) {
       this.disableAuth = builder.disableAuth;
       this.disablePermissions = builder.disablePermissions;
@@ -569,24 +559,22 @@ public class App extends StreamResponse {
     }
   }
 
-
   @Nullable
   @JsonProperty("app")
   private AppConfig app;
-
 
   /**
    * Creates an update request.
    * 
    * @return the created request
    */
-  public final static UpdateAppRequest update() {
+  public static final UpdateAppRequest update() {
     return new UpdateAppRequest();
   }
 
   /**
    * Retrieves the app.
-   * 
+   *
    * @return the retrieved app
    * @throws StreamException when IO problem occurs or the stream API return an error
    */
@@ -743,7 +731,7 @@ public class App extends StreamResponse {
     @NotNull
     /**
      * Executes the request
-     * 
+     *
      * @return the rate limit information
      * @throws StreamException when IO problem occurs or the stream API return an error
      */

@@ -12,11 +12,12 @@ package io.stream.services.framework;
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
- * 
+ *
  * Derived from Square HttpLogginInterceptor
  */
 
 import static okhttp3.internal.platform.Platform.INFO;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -37,10 +38,10 @@ import okio.BufferedSource;
 
 /**
  * An OkHttp interceptor which logs request and response information. Can be applied as an
- * {@linkplain OkHttpClient#interceptors() application interceptor} or as a
- * {@linkplain OkHttpClient#networkInterceptors() network interceptor}.
- * <p>
- * The format of the logs created by this class should not be considered stable and may change
+ * {@linkplain OkHttpClient#interceptors() application interceptor} or as a {@linkplain
+ * OkHttpClient#networkInterceptors() network interceptor}.
+ *
+ * <p>The format of the logs created by this class should not be considered stable and may change
  * slightly between releases. If you need a stable logging format, use your own interceptor.
  */
 public final class HttpLoggingInterceptor implements Interceptor {
@@ -52,26 +53,21 @@ public final class HttpLoggingInterceptor implements Interceptor {
     /**
      * Logs request and response lines.
      *
-     * <p>
-     * Example:
-     * 
-     * <pre>
-     * {@code
+     * <p>Example:
+     *
+     * <pre>{@code
      * --> POST /greeting http/1.1 (3-byte body)
      *
      * <-- 200 OK (22ms, 6-byte body)
-     * }
-     * </pre>
+     * }</pre>
      */
     BASIC,
     /**
      * Logs request and response lines and their respective headers.
      *
-     * <p>
-     * Example:
-     * 
-     * <pre>
-     * {@code
+     * <p>Example:
+     *
+     * <pre>{@code
      * --> POST /greeting http/1.1
      * Host: example.com
      * Content-Type: plain/text
@@ -82,18 +78,15 @@ public final class HttpLoggingInterceptor implements Interceptor {
      * Content-Type: plain/text
      * Content-Length: 6
      * <-- END HTTP
-     * }
-     * </pre>
+     * }</pre>
      */
     HEADERS,
     /**
      * Logs request and response lines and their respective bodies (if present).
      *
-     * <p>
-     * Example:
-     * 
-     * <pre>
-     * {@code
+     * <p>Example:
+     *
+     * <pre>{@code
      * --> POST /greeting http/1.1
      *
      * Hi?
@@ -103,18 +96,15 @@ public final class HttpLoggingInterceptor implements Interceptor {
      *
      * Hello!
      * <-- END HTTP
-     * }
-     * </pre>
+     * }</pre>
      */
     BODY,
     /**
      * Logs request and response lines and their respective headers and bodies (if present).
      *
-     * <p>
-     * Example:
-     * 
-     * <pre>
-     * {@code
+     * <p>Example:
+     *
+     * <pre>{@code
      * --> POST /greeting http/1.1
      * Host: example.com
      * Content-Type: plain/text
@@ -129,8 +119,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
      *
      * Hello!
      * <-- END HTTP
-     * }
-     * </pre>
+     * }</pre>
      */
     HEADERS_AND_BODY
   }
@@ -139,12 +128,13 @@ public final class HttpLoggingInterceptor implements Interceptor {
     void log(String message);
 
     /** A {@link Logger} defaults output appropriate for the current platform. */
-    Logger DEFAULT = new Logger() {
-      @Override
-      public void log(String message) {
-        Platform.get().log(INFO, message, null);
-      }
-    };
+    Logger DEFAULT =
+        new Logger() {
+          @Override
+          public void log(String message) {
+            Platform.get().log(INFO, message, null);
+          }
+        };
   }
 
   public HttpLoggingInterceptor() {
@@ -161,8 +151,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
 
   /** Change the level at which this interceptor logs. */
   public HttpLoggingInterceptor setLevel(Level level) {
-    if (level == null)
-      throw new NullPointerException("level == null. Use Level.NONE instead.");
+    if (level == null) throw new NullPointerException("level == null. Use Level.NONE instead.");
     this.level = level;
     return this;
   }
@@ -187,8 +176,12 @@ public final class HttpLoggingInterceptor implements Interceptor {
     boolean hasRequestBody = requestBody != null;
 
     Connection connection = chain.connection();
-    String requestStartMessage = "--> " + request.method() + ' ' + request.url()
-        + (connection != null ? " " + connection.protocol() : "");
+    String requestStartMessage =
+        "--> "
+            + request.method()
+            + ' '
+            + request.url()
+            + (connection != null ? " " + connection.protocol() : "");
     if (!logHeaders && hasRequestBody) {
       requestStartMessage += " (" + requestBody.contentLength() + "-byte body)";
     }
@@ -235,8 +228,12 @@ public final class HttpLoggingInterceptor implements Interceptor {
         logger.log(
             "--> END " + request.method() + " (" + requestBody.contentLength() + "-byte body)");
       } else {
-        logger.log("--> END " + request.method() + " (binary " + requestBody.contentLength()
-            + "-byte body omitted)");
+        logger.log(
+            "--> END "
+                + request.method()
+                + " (binary "
+                + requestBody.contentLength()
+                + "-byte body omitted)");
       }
     }
 
@@ -254,9 +251,16 @@ public final class HttpLoggingInterceptor implements Interceptor {
     long contentLength = responseBody.contentLength();
     String bodySize = contentLength != -1 ? contentLength + "-byte" : "unknown-length";
     logger.log(
-        "<-- " + response.code() + (response.message().isEmpty() ? "" : ' ' + response.message())
-            + ' ' + response.request().url() + " (" + tookMs + "ms"
-            + (!logHeaders ? ", " + bodySize + " body" : "") + ')');
+        "<-- "
+            + response.code()
+            + (response.message().isEmpty() ? "" : ' ' + response.message())
+            + ' '
+            + response.request().url()
+            + " ("
+            + tookMs
+            + "ms"
+            + (!logHeaders ? ", " + bodySize + " body" : "")
+            + ')');
 
     if (logHeaders) {
       Headers headers = response.headers();
