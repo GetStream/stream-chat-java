@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.exceptions.StreamException;
+import io.stream.models.ChannelConfig.ChannelConfigStringCommands;
 import io.stream.models.framework.StreamResponse;
 import io.stream.services.AppService;
 import io.stream.services.framework.StreamServiceGenerator;
@@ -306,7 +307,7 @@ public class App extends StreamResponse {
 
     @NotNull
     @JsonProperty("channel_configs")
-    private Map<String, ChannelConfig> configNameMap;
+    private Map<String, ChannelConfigStringCommands> configNameMap;
 
     @NotNull
     @JsonProperty("policies")
@@ -577,7 +578,7 @@ public class App extends StreamResponse {
   /**
    * Creates an update request.
    * 
-   * @return created request
+   * @return the created request
    */
   public final static UpdateAppRequest update() {
     return new UpdateAppRequest();

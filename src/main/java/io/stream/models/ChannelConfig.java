@@ -3,90 +3,89 @@ package io.stream.models;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.stream.models.framework.StreamResponse;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class ChannelConfig {
+@EqualsAndHashCode(callSuper = false)
+public class ChannelConfig extends StreamResponse {
+
   public ChannelConfig() {}
 
-  @NotNull
+  @Nullable
   @JsonProperty("name")
   private String name;
 
-  @NotNull
+  @Nullable
   @JsonProperty("typing_events")
   private Boolean typingEvents;
 
-  @NotNull
+  @Nullable
   @JsonProperty("read_events")
   private Boolean readEvents;
 
-  @NotNull
+  @Nullable
   @JsonProperty("connect_events")
   private Boolean connectEvents;
 
-  @NotNull
+  @Nullable
   @JsonProperty("search")
   private Boolean search;
 
-  @NotNull
+  @Nullable
   @JsonProperty("reactions")
   private Boolean reactions;
 
-  @NotNull
+  @Nullable
   @JsonProperty("replies")
   private Boolean replies;
 
-  @NotNull
+  @Nullable
   @JsonProperty("uploads")
   private Boolean uploads;
 
-  @NotNull
+  @Nullable
   @JsonProperty("url_enrichment")
   private Boolean urlEnrichment;
 
-  @NotNull
+  @Nullable
   @JsonProperty("custom_events")
   private Boolean customEvents;
 
-  @NotNull
+  @Nullable
   @JsonProperty("mutes")
   private Boolean mutes;
 
-  @NotNull
+  @Nullable
   @JsonProperty("push_notifications")
   private Boolean pushNotifications;
 
-  @NotNull
+  @Nullable
   @JsonProperty("message_retention")
   private String messageRetention;
 
-  @NotNull
+  @Nullable
   @JsonProperty("max_message_length")
   private Integer maxMessageLength;
 
-  @NotNull
+  @Nullable
   @JsonProperty("automod")
   private AutoMod automod;
 
-  @NotNull
+  @Nullable
   @JsonProperty("automod_behavior")
-  private AutoModBehavior modBehavior;
+  private AutoModBehavior automodBehavior;
 
-  @NotNull
+  @Nullable
   @JsonProperty("created_at")
   private Date createdAt;
 
-  @NotNull
+  @Nullable
   @JsonProperty("updated_at")
   private Date updatedAt;
-
-  @Nullable
-  @JsonProperty("commands")
-  private List<String> commands;
 
   @Nullable
   @JsonProperty("blocklist")
@@ -130,5 +129,14 @@ public class ChannelConfig {
     @JsonProperty("flag")
     FLAG, @JsonProperty("block")
     BLOCK
+  }
+
+  @Data
+  @EqualsAndHashCode(callSuper = false)
+  public static class ChannelConfigStringCommands extends ChannelConfig {
+
+    @Nullable
+    @JsonProperty("commands")
+    private List<String> commands;
   }
 }
