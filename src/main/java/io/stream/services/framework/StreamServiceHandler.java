@@ -1,9 +1,9 @@
 package io.stream.services.framework;
 
-import java.io.IOException;
 import io.stream.exceptions.StreamException;
 import io.stream.models.framework.StreamResponse;
 import io.stream.models.framework.StreamResponse.RateLimitData;
+import java.io.IOException;
 import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.Response;

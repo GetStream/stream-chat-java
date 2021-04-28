@@ -1,10 +1,10 @@
 package io.stream;
 
+import io.stream.exceptions.StreamException;
+import io.stream.models.App;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import io.stream.exceptions.StreamException;
-import io.stream.models.App;
 
 public class AppTest extends BasicTest {
 
@@ -39,5 +39,4 @@ public class AppTest extends BasicTest {
     StreamException exception = Assertions.assertThrows(StreamException.class, () -> App.get());
     Assertions.assertEquals(401, exception.getResponseData().getStatusCode());
   }
-
 }

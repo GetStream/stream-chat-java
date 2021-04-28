@@ -1,9 +1,9 @@
 package io.stream.services;
 
-import org.jetbrains.annotations.NotNull;
 import io.stream.models.App;
 import io.stream.models.App.AppSettings;
 import io.stream.models.framework.StreamResponse;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

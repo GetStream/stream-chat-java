@@ -1,12 +1,12 @@
 package io.stream.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import lombok.Data;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 
 @Data
 public class ChannelConfig {
@@ -115,20 +115,24 @@ public class ChannelConfig {
 
   public enum AutoMod {
     @JsonProperty("disabled")
-    DISABLED, @JsonProperty("simple")
-    SIMPLE, @JsonProperty("AI")
+    DISABLED,
+    @JsonProperty("simple")
+    SIMPLE,
+    @JsonProperty("AI")
     AI
   }
 
   public enum AutoModBehavior {
     @JsonProperty("flag")
-    FLAG, @JsonProperty("block")
+    FLAG,
+    @JsonProperty("block")
     BLOCK
   }
 
   public enum BlocklistBehavior {
     @JsonProperty("flag")
-    FLAG, @JsonProperty("block")
+    FLAG,
+    @JsonProperty("block")
     BLOCK
   }
 }
