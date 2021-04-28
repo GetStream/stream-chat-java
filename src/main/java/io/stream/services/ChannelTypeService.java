@@ -1,11 +1,11 @@
 package io.stream.services;
 
-import org.jetbrains.annotations.NotNull;
 import io.stream.models.ChannelType;
 import io.stream.models.ChannelType.ChannelTypeRequestData;
 import io.stream.models.ChannelType.ChannelTypeRequestDataWithoutNameSerialization;
 import io.stream.models.ChannelType.ListChannelTypeResponse;
 import io.stream.models.framework.StreamResponse;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -32,6 +32,7 @@ public interface ChannelTypeService {
 
   @PUT("channeltypes/{name}")
   @NotNull
-  Call<ChannelTypeRequestData> update(@Path("name") String name,
+  Call<ChannelTypeRequestData> update(
+      @Path("name") String name,
       @NotNull @Body ChannelTypeRequestDataWithoutNameSerialization channelTypeRequest);
 }

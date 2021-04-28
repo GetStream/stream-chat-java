@@ -1,13 +1,13 @@
 package io.stream.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.stream.models.framework.StreamResponse;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import org.jetbrains.annotations.Nullable;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.stream.models.framework.StreamResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.jetbrains.annotations.Nullable;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -114,20 +114,24 @@ public class ChannelConfig extends StreamResponse {
 
   public enum AutoMod {
     @JsonProperty("disabled")
-    DISABLED, @JsonProperty("simple")
-    SIMPLE, @JsonProperty("AI")
+    DISABLED,
+    @JsonProperty("simple")
+    SIMPLE,
+    @JsonProperty("AI")
     AI
   }
 
   public enum AutoModBehavior {
     @JsonProperty("flag")
-    FLAG, @JsonProperty("block")
+    FLAG,
+    @JsonProperty("block")
     BLOCK
   }
 
   public enum BlocklistBehavior {
     @JsonProperty("flag")
-    FLAG, @JsonProperty("block")
+    FLAG,
+    @JsonProperty("block")
     BLOCK
   }
 

@@ -1,14 +1,15 @@
 package io.stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+
 import io.stream.models.ChannelConfig.AutoMod;
 import io.stream.models.ChannelType;
 import io.stream.models.ChannelType.ListChannelTypeResponse;
 import lombok.extern.java.Log;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 @Log
 public class ChannelTypeTest extends BasicTest {
@@ -25,7 +26,6 @@ public class ChannelTypeTest extends BasicTest {
     assertEquals(channelType.getName(), channelName);
     Assertions.assertDoesNotThrow(() -> ChannelType.delete(channelName));
   }
-
 
   @DisplayName("Can delete channel type after creation with no Exception")
   @Test
@@ -64,5 +64,4 @@ public class ChannelTypeTest extends BasicTest {
     log.info("Channel updated");
     Assertions.assertDoesNotThrow(() -> ChannelType.delete(channelName));
   }
-
 }

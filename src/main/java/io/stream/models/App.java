@@ -1,11 +1,5 @@
 package io.stream.models;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.exceptions.StreamException;
 import io.stream.models.ChannelConfig.ChannelConfigStringCommands;
@@ -13,8 +7,14 @@ import io.stream.models.framework.StreamResponse;
 import io.stream.services.AppService;
 import io.stream.services.framework.StreamServiceGenerator;
 import io.stream.services.framework.StreamServiceHandler;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -225,8 +225,7 @@ public class App extends StreamResponse {
   public static final class PushNotificationFields {
     public PushNotificationFields() {}
 
-    @NotNull
-    private String version;
+    @NotNull private String version;
 
     @NotNull
     @JsonProperty("apn")
@@ -565,7 +564,7 @@ public class App extends StreamResponse {
 
   /**
    * Creates an update request.
-   * 
+   *
    * @return the created request
    */
   public static final UpdateAppRequest update() {
@@ -736,8 +735,9 @@ public class App extends StreamResponse {
      * @throws StreamException when IO problem occurs or the stream API return an error
      */
     public StreamResponse request() throws StreamException {
-      return new StreamServiceHandler().handle(
-          StreamServiceGenerator.createService(AppService.class).update(new AppSettings(this)));
+      return new StreamServiceHandler()
+          .handle(
+              StreamServiceGenerator.createService(AppService.class).update(new AppSettings(this)));
     }
   }
 

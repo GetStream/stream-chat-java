@@ -1,11 +1,5 @@
 package io.stream.models;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.exceptions.StreamException;
@@ -14,8 +8,14 @@ import io.stream.models.framework.StreamResponse;
 import io.stream.services.ChannelTypeService;
 import io.stream.services.framework.StreamServiceGenerator;
 import io.stream.services.framework.StreamServiceHandler;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -69,7 +69,6 @@ public class ChannelType extends ChannelConfig {
     @NotNull
     @JsonProperty("priority")
     private Integer priority;
-
   }
 
   public static class Right {
@@ -140,9 +139,7 @@ public class ChannelType extends ChannelConfig {
       this.permissions = channelTypeRequest.permissions;
     }
 
-    /**
-     * Builder to build {@link ChannelTypeRequestData}.
-     */
+    /** Builder to build {@link ChannelTypeRequestData}. */
     public static final class ChannelTypeRequest {
       private String name;
       private Boolean typingEvents;
@@ -174,7 +171,8 @@ public class ChannelType extends ChannelConfig {
       }
 
       private enum Mode {
-        CREATE, UPDATE
+        CREATE,
+        UPDATE
       }
 
       @NotNull
@@ -320,28 +318,32 @@ public class ChannelType extends ChannelConfig {
       @NotNull
       /**
        * Executes the request
-       * 
+       *
        * @return the request data
        * @throws StreamException when IO problem occurs or the stream API return an error
        */
       public StreamResponse request() throws StreamException {
         switch (mode) {
           case CREATE:
-            return new StreamServiceHandler().handle(StreamServiceGenerator
-                .createService(ChannelTypeService.class).create(new ChannelTypeRequestData(this)));
+            return new StreamServiceHandler()
+                .handle(
+                    StreamServiceGenerator.createService(ChannelTypeService.class)
+                        .create(new ChannelTypeRequestData(this)));
           case UPDATE:
             ChannelTypeRequestDataWithoutNameSerialization channelTypeRequestData =
                 new ChannelTypeRequestDataWithoutNameSerialization(this);
             return new StreamServiceHandler()
-                .handle(StreamServiceGenerator.createService(ChannelTypeService.class)
-                    .update(channelTypeRequestData.getName(), channelTypeRequestData));
+                .handle(
+                    StreamServiceGenerator.createService(ChannelTypeService.class)
+                        .update(channelTypeRequestData.getName(), channelTypeRequestData));
           default:
             throw StreamException.build("Should not happen, unsupported mode");
         }
       }
 
       public ChannelTypeRequest withDefaultConfig() {
-        return this.withAutomod(DEFAULT_AUTOMOD).withAutomodBehavior(DEFAULT_MOD_BEHAVIOR)
+        return this.withAutomod(DEFAULT_AUTOMOD)
+            .withAutomodBehavior(DEFAULT_MOD_BEHAVIOR)
             .withMaxMessageLength(DEFAULT_MAX_MESSAGE_LENGTH)
             .withMessageRetention(DEFAULT_MESSAGE_RETENTION)
             .withPushNotifications(DEFAULT_PUSH_NOTIFICATIONS);
@@ -365,12 +367,11 @@ public class ChannelType extends ChannelConfig {
     @NotNull
     @JsonProperty("channel_types")
     private Map<String, ChannelType> channelTypes;
-
   }
 
   /**
    * Creates an update request.
-   * 
+   *
    * @return the created request
    */
   public static ChannelTypeRequest update() {
@@ -379,7 +380,7 @@ public class ChannelType extends ChannelConfig {
 
   /**
    * Creates an create request.
-   * 
+   *
    * @return the created request
    */
   public static ChannelTypeRequest create() {
@@ -388,7 +389,7 @@ public class ChannelType extends ChannelConfig {
 
   /**
    * Retrieves a channel type by name.
-   * 
+   *
    * @param name the channel type name
    * @return the retrieved channel type
    * @throws StreamException when IO problem occurs or the stream API return an error
@@ -400,7 +401,7 @@ public class ChannelType extends ChannelConfig {
 
   /**
    * Lists all channel types
-   * 
+   *
    * @return the channel types in a map
    * @throws StreamException when IO problem occurs or the stream API return an error
    */
@@ -411,7 +412,7 @@ public class ChannelType extends ChannelConfig {
 
   /**
    * Deletes a channel type by name.
-   * 
+   *
    * @param name the channel type name
    * @return the rate limit information
    * @throws StreamException when IO problem occurs or the stream API return an error
