@@ -1,7 +1,5 @@
 package io.stream.services.framework;
 
-import static okhttp3.internal.platform.Platform.INFO;
-
 /*
  * Copyright (C) 2021, Stream.IO, Inc
  *
@@ -18,6 +16,7 @@ import static okhttp3.internal.platform.Platform.INFO;
  * Derived from Square HttpLogginInterceptor
  */
 
+import static okhttp3.internal.platform.Platform.INFO;
 import java.io.EOFException;
 import java.io.IOException;
 import java.nio.charset.Charset;
