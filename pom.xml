@@ -38,6 +38,34 @@
 				<version>2.22.2</version>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.theoryinpractise</groupId>
+					<artifactId>googleformatter-maven-plugin</artifactId>
+					<version>1.7.5</version>
+					<executions>
+						<execution>
+							<id>reformat-sources</id>
+							<configuration>
+								<includeStale>true</includeStale>
+								<style>GOOGLE</style>
+								<formatMain>true</formatMain>
+								<formatTest>true</formatTest>
+								<filterModified>false</filterModified>
+								<skip>false</skip>
+								<fixImports>false</fixImports>
+								<maxLineLength>100</maxLineLength>
+							</configuration>
+							<goals>
+								<goal>format</goal>
+							</goals>
+							<phase>process-sources</phase>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
