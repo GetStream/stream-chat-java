@@ -20,11 +20,12 @@ public interface ChannelTypeService {
   Call<ChannelTypeRequestData> create(@NotNull @Body ChannelTypeRequestData channelType);
 
   @DELETE("channeltypes/{name}")
-  Call<StreamResponse> delete(@Path("name") String name);
+  @NotNull
+  Call<StreamResponse> delete(@NotNull @Path("name") String name);
 
   @GET("channeltypes/{name}")
   @NotNull
-  Call<ChannelType> get(@Path("name") String name);
+  Call<ChannelType> get(@NotNull @Path("name") String name);
 
   @GET("channeltypes")
   @NotNull
@@ -33,6 +34,6 @@ public interface ChannelTypeService {
   @PUT("channeltypes/{name}")
   @NotNull
   Call<ChannelTypeRequestData> update(
-      @Path("name") String name,
+      @NotNull @Path("name") String name,
       @NotNull @Body ChannelTypeRequestDataWithoutNameSerialization channelTypeRequest);
 }
