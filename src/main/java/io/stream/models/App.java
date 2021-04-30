@@ -50,16 +50,16 @@ public class App extends StreamResponse {
     private String host;
 
     @Nullable
-    @JsonProperty("bundle_id")
-    private String bundleID;
+    @JsonProperty("bundle_Id")
+    private String bundleId;
 
     @Nullable
-    @JsonProperty("team_id")
-    private String teamID;
+    @JsonProperty("team_Id")
+    private String teamId;
 
     @Nullable
-    @JsonProperty("key_id")
-    private String keyID;
+    @JsonProperty("key_Id")
+    private String keyId;
 
     private APNConfig(Builder builder) {
       this.enabled = builder.enabled;
@@ -68,9 +68,9 @@ public class App extends StreamResponse {
       this.authKey = builder.authKey;
       this.notificationTemplate = builder.notificationTemplate;
       this.host = builder.host;
-      this.bundleID = builder.bundleID;
-      this.teamID = builder.teamID;
-      this.keyID = builder.keyID;
+      this.bundleId = builder.bundleId;
+      this.teamId = builder.teamId;
+      this.keyId = builder.keyId;
     }
 
     /**
@@ -90,9 +90,9 @@ public class App extends StreamResponse {
       private byte[] authKey;
       private String notificationTemplate;
       private String host;
-      private String bundleID;
-      private String teamID;
-      private String keyID;
+      private String bundleId;
+      private String teamId;
+      private String keyId;
 
       private Builder() {}
 
@@ -133,20 +133,20 @@ public class App extends StreamResponse {
       }
 
       @NotNull
-      public Builder withBundleID(@NotNull String bundleID) {
-        this.bundleID = bundleID;
+      public Builder withBundleId(@NotNull String bundleId) {
+        this.bundleId = bundleId;
         return this;
       }
 
       @NotNull
-      public Builder withTeamID(@NotNull String teamID) {
-        this.teamID = teamID;
+      public Builder withTeamId(@NotNull String teamId) {
+        this.teamId = teamId;
         return this;
       }
 
       @NotNull
-      public Builder withKeyID(@NotNull String keyID) {
-        this.keyID = keyID;
+      public Builder withKeyId(@NotNull String keyId) {
+        this.keyId = keyId;
         return this;
       }
 
