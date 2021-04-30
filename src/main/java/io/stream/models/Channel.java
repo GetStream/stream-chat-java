@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.exceptions.StreamException;
 import io.stream.models.Channel.ChannelGetRequestData.ChannelGetRequest;
+import io.stream.models.Channel.ChannelListRequestData.ChannelListRequest;
 import io.stream.models.Channel.ChannelUpdateRequestData.ChannelUpdateRequest;
 import io.stream.models.ChannelType.BlocklistBehavior;
 import io.stream.models.ChannelType.ChannelTypeWithCommands;
@@ -219,7 +220,7 @@ public class Channel {
       this.members = builder.members;
       this.configOverrides = builder.configOverrides;
     }
-    
+
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
       return this.additionalFields;
@@ -1244,6 +1245,16 @@ public class Channel {
   @NotNull
   public static ChannelDeleteRequest delete(@NotNull String type, @NotNull String id) {
     return new ChannelDeleteRequest(type, id);
+  }
+  
+  /**
+   * Creates a list request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelListRequest list() {
+    return new ChannelListRequest();
   }
 
   /**
