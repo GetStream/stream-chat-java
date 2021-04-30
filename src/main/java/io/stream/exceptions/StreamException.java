@@ -20,8 +20,8 @@ public class StreamException extends Exception {
     this.responseData = responseData;
   }
 
-  private StreamException(IOException e) {
-    super(e);
+  private StreamException(Throwable t) {
+    super(t);
   }
 
   /**
@@ -52,13 +52,13 @@ public class StreamException extends Exception {
   }
 
   /**
-   * Builds a StreamException when an IOException occurs calling the API
+   * Builds a StreamException when an exception occurs calling the API
    *
-   * @param e the underlying IOException
+   * @param e the underlying exception
    * @return the StreamException
    */
-  public static StreamException build(IOException e) {
-    return new StreamException(e);
+  public static StreamException build(Throwable t) {
+    return new StreamException(t);
   }
 
   @Data

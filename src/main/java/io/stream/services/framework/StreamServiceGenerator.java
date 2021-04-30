@@ -35,8 +35,7 @@ public class StreamServiceGenerator {
 
   private static boolean failOnUnknownProperties = false;
 
-  public static @NotNull <S> S createService(@NotNull Class<S> serviceClass)
-      throws StreamException {
+  public static @NotNull <S> S createService(@NotNull Class<S> serviceClass) {
     if (getApiKey() == null) {
       StreamException.build(
           "Missing Stream API key. Please set STREAM_KEY environment variable or System property");

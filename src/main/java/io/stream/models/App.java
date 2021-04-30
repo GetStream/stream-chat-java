@@ -1,21 +1,22 @@
 package io.stream.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.stream.exceptions.StreamException;
-import io.stream.models.App.AppUpdateRequestData.AppUpdateRequest;
-import io.stream.models.ChannelType.ChannelTypeWithStringCommands;
-import io.stream.models.framework.StreamResponseObject;
-import io.stream.services.AppService;
-import io.stream.services.framework.StreamServiceGenerator;
-import io.stream.services.framework.StreamServiceHandler;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.stream.exceptions.StreamException;
+import io.stream.models.App.AppUpdateRequestData.AppUpdateRequest;
+import io.stream.models.ChannelType.ChannelTypeWithStringCommands;
+import io.stream.models.framework.StreamRequest;
+import io.stream.models.framework.StreamResponseObject;
+import io.stream.services.AppService;
+import io.stream.services.framework.StreamServiceGenerator;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import retrofit2.Call;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -565,17 +566,11 @@ public class App extends StreamResponseObject {
     }
   }
 
-  public static class AppGetRequest {
-    /**
-     * Executes the request
-     *
-     * @return the retrieved app
-     * @throws StreamException when IO problem occurs or the stream API return an error
-     */
-    @NotNull
-    public App request() throws StreamException {
-      return new StreamServiceHandler()
-          .handle(StreamServiceGenerator.createService(AppService.class).get());
+  public static class AppGetRequest extends StreamRequest<App> {
+
+    @Override
+    protected Call<App> generateCall() {
+      return StreamServiceGenerator.createService(AppService.class).get();
     }
   }
 
@@ -685,7 +680,7 @@ public class App extends StreamResponseObject {
       this.multiTenantEnabled = builder.multiTenantEnabled;
     }
 
-    public static class AppUpdateRequest {
+    public static class AppUpdateRequest extends StreamRequest<StreamResponseObject> {
       private Boolean disableAuth;
       private Boolean disablePermissions;
       private APNConfigRequestObject aPNConfig;
@@ -834,19 +829,11 @@ public class App extends StreamResponseObject {
         this.multiTenantEnabled = multiTenantEnabled;
         return this;
       }
-
-      @NotNull
-      /**
-       * Executes the request
-       *
-       * @return the rate limit information
-       * @throws StreamException when IO problem occurs or the stream API return an error
-       */
-      public StreamResponseObject request() throws StreamException {
-        return new StreamServiceHandler()
-            .handle(
-                StreamServiceGenerator.createService(AppService.class)
-                    .update(new AppUpdateRequestData(this)));
+      
+      @Override
+      protected Call<StreamResponseObject> generateCall() {
+        return StreamServiceGenerator.createService(AppService.class)
+            .update(new AppUpdateRequestData(this));
       }
     }
   }

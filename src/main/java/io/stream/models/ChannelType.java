@@ -1,22 +1,23 @@
 package io.stream.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.stream.exceptions.StreamException;
-import io.stream.models.ChannelType.ChannelTypeCreateRequestData.ChannelTypeCreateRequest;
-import io.stream.models.ChannelType.ChannelTypeUpdateRequestData.ChannelTypeUpdateRequest;
-import io.stream.models.framework.StreamResponse;
-import io.stream.models.framework.StreamResponseObject;
-import io.stream.services.ChannelTypeService;
-import io.stream.services.framework.StreamServiceGenerator;
-import io.stream.services.framework.StreamServiceHandler;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.stream.exceptions.StreamException;
+import io.stream.models.ChannelType.ChannelTypeCreateRequestData.ChannelTypeCreateRequest;
+import io.stream.models.ChannelType.ChannelTypeUpdateRequestData.ChannelTypeUpdateRequest;
+import io.stream.models.framework.StreamRequest;
+import io.stream.models.framework.StreamResponse;
+import io.stream.models.framework.StreamResponseObject;
+import io.stream.services.ChannelTypeService;
+import io.stream.services.framework.StreamServiceGenerator;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import retrofit2.Call;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -265,7 +266,7 @@ public class ChannelType {
       this.permissions = channelTypeCreateRequest.permissions;
     }
 
-    public static class ChannelTypeCreateRequest {
+    public static class ChannelTypeCreateRequest extends StreamRequest<ChannelTypeCreateResponse> {
       private String name;
       private Boolean typingEvents;
       private Boolean readEvents;
@@ -434,43 +435,25 @@ public class ChannelType {
         this.permissions = permissions;
         return this;
       }
-
-      @NotNull
-      /**
-       * Executes the request
-       *
-       * @return the request data
-       * @throws StreamException when IO problem occurs or the stream API return an error
-       */
-      public ChannelTypeUpdateRequestData request() throws StreamException {
-        ChannelTypeCreateRequestData channelTypeRequestWithName =
-            new ChannelTypeCreateRequestData(this);
-        return new StreamServiceHandler()
-            .handle(
-                StreamServiceGenerator.createService(ChannelTypeService.class)
-                    .create(channelTypeRequestWithName));
+      
+      @Override
+      protected Call<ChannelTypeCreateResponse> generateCall() {
+        return StreamServiceGenerator.createService(ChannelTypeService.class)
+            .create(new ChannelTypeCreateRequestData(this));
       }
     }
   }
 
-  public static class ChannelTypeGetRequest {
+  public static class ChannelTypeGetRequest extends StreamRequest<ChannelTypeGetResponse> {
     private String name;
 
     private ChannelTypeGetRequest(String name) {
       this.name = name;
     }
-
-    /**
-     * Retrieves a channel type by name.
-     *
-     * @param name the channel type name
-     * @return the retrieved channel type, null if not found
-     * @throws StreamException when IO problem occurs or the stream API return an error
-     */
-    @Nullable
-    public ChannelType request() throws StreamException {
-      return new StreamServiceHandler()
-          .handle(StreamServiceGenerator.createService(ChannelTypeService.class).get(name));
+    
+    @Override
+    protected Call<ChannelTypeGetResponse> generateCall() {
+      return StreamServiceGenerator.createService(ChannelTypeService.class).get(name);
     }
   }
 
@@ -581,7 +564,7 @@ public class ChannelType {
     @JsonProperty("permissions")
     protected List<Permission> permissions;
 
-    public static class ChannelTypeUpdateRequest {
+    public static class ChannelTypeUpdateRequest extends StreamRequest<ChannelTypeUpdateResponse> {
       private String name;
       private Boolean typingEvents;
       private Boolean readEvents;
@@ -730,58 +713,35 @@ public class ChannelType {
         this.permissions = permissions;
         return this;
       }
-
-      @NotNull
-      /**
-       * Executes the request
-       *
-       * @return the request data
-       * @throws StreamException when IO problem occurs or the stream API return an error
-       */
-      public ChannelTypeUpdateRequestData request() throws StreamException {
-        ChannelTypeUpdateRequestData channelTypeRequest = new ChannelTypeUpdateRequestData(this);
-        return new StreamServiceHandler()
-            .handle(
-                StreamServiceGenerator.createService(ChannelTypeService.class)
-                    .update(name, channelTypeRequest));
+      
+      @Override
+      protected Call<ChannelTypeUpdateResponse> generateCall() {
+        return StreamServiceGenerator.createService(ChannelTypeService.class)
+            .update(name, new ChannelTypeUpdateRequestData(this));
       }
     }
   }
 
-  public static class ChannelTypeDeleteRequest {
+  public static class ChannelTypeDeleteRequest extends StreamRequest<StreamResponseObject> {
     private String name;
 
     private ChannelTypeDeleteRequest(String name) {
       this.name = name;
     }
-
-    /**
-     * Executes the request
-     *
-     * @return the rate limit information
-     * @throws StreamException when IO problem occurs or the stream API return an error
-     */
-    @Nullable
-    public StreamResponseObject request() throws StreamException {
-      return new StreamServiceHandler()
-          .handle(StreamServiceGenerator.createService(ChannelTypeService.class).delete(name));
+    
+    @Override
+    protected Call<StreamResponseObject> generateCall() {
+      return StreamServiceGenerator.createService(ChannelTypeService.class).delete(name);
     }
   }
 
-  public static class ChannelTypeListRequest {
+  public static class ChannelTypeListRequest extends StreamRequest<ChannelTypeListResponse> {
 
     private ChannelTypeListRequest() {}
-
-    /**
-     * Executes the request
-     *
-     * @return the channel types, in a map
-     * @throws StreamException when IO problem occurs or the stream API return an error
-     */
-    @Nullable
-    public ChannelTypeListResponse request() throws StreamException {
-      return new StreamServiceHandler()
-          .handle(StreamServiceGenerator.createService(ChannelTypeService.class).list());
+    
+    @Override
+    protected Call<ChannelTypeListResponse> generateCall() {
+      return StreamServiceGenerator.createService(ChannelTypeService.class).list();
     }
   }
 

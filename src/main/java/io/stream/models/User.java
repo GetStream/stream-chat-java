@@ -1,26 +1,26 @@
 package io.stream.models;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.stream.exceptions.StreamException;
-import io.stream.models.User.UserListRequestData.UserQueryRequest;
-import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
-import io.stream.models.framework.StreamResponseObject;
-import io.stream.services.UserService;
-import io.stream.services.framework.StreamServiceGenerator;
-import io.stream.services.framework.StreamServiceHandler;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.stream.models.User.UserListRequestData.UserQueryRequest;
+import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
+import io.stream.models.framework.StreamRequest;
+import io.stream.models.framework.StreamResponseObject;
+import io.stream.services.UserService;
+import io.stream.services.framework.StreamServiceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import retrofit2.Call;
 
 @Data
 public class User {
@@ -303,7 +303,7 @@ public class User {
       this.users = builder.users;
     }
 
-    public static class UserUpsertRequest {
+    public static class UserUpsertRequest extends StreamRequest<UsersUpsertResponse> {
       private Map<String, UserRequestObject> users = new HashMap<>();
 
       private UserUpsertRequest() {}
@@ -322,13 +322,11 @@ public class User {
         this.users.put(user.getId(), user);
         return this;
       }
-
-      @NotNull
-      public UsersUpsertResponse request() throws StreamException {
-        return new StreamServiceHandler()
-            .handle(
-                StreamServiceGenerator.createService(UserService.class)
-                    .upsert(new UserUpsertRequestData(this)));
+      
+      @Override
+      protected Call<UsersUpsertResponse> generateCall() {
+        return StreamServiceGenerator.createService(UserService.class)
+            .upsert(new UserUpsertRequestData(this));
       }
     }
   }
@@ -378,7 +376,7 @@ public class User {
       this.connectionId = builder.connectionId;
     }
 
-    public static class UserQueryRequest {
+    public static class UserQueryRequest extends StreamRequest<UsersListResponse> {
       private Map<String, Object> filterConditions = Collections.emptyMap();
       private List<Sort> sort = Collections.emptyList();
       private Boolean presence;
@@ -438,18 +436,10 @@ public class User {
         return this;
       }
 
-      /**
-       * Executes the request
-       *
-       * @return the users in a response object
-       * @throws StreamException when IO problem occurs or the stream API return an error
-       */
-      @NotNull
-      public UsersListResponse request() throws StreamException {
-        return new StreamServiceHandler()
-            .handle(
-                StreamServiceGenerator.createService(UserService.class)
-                    .list(new UserListRequestData(this)));
+      @Override
+      protected Call<UsersListResponse> generateCall() {
+        return StreamServiceGenerator.createService(UserService.class)
+            .list(new UserListRequestData(this));
       }
     }
   }

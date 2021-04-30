@@ -1,10 +1,16 @@
 package io.stream.models;
 
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.stream.exceptions.StreamException;
 import io.stream.models.Channel.ChannelGetRequestData.ChannelGetRequest;
 import io.stream.models.Channel.ChannelListRequestData.ChannelListRequest;
 import io.stream.models.Channel.ChannelUpdateRequestData.ChannelUpdateRequest;
@@ -12,19 +18,13 @@ import io.stream.models.ChannelType.BlocklistBehavior;
 import io.stream.models.ChannelType.ChannelTypeWithCommands;
 import io.stream.models.Message.MessageRequestObject;
 import io.stream.models.User.UserRequestObject;
+import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.ChannelService;
 import io.stream.services.framework.StreamServiceGenerator;
-import io.stream.services.framework.StreamServiceHandler;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import retrofit2.Call;
 
 @Data
 public class Channel {
@@ -636,7 +636,7 @@ public class Channel {
       this.watchers = builder.watchers;
     }
 
-    public static class ChannelGetRequest {
+    public static class ChannelGetRequest extends StreamRequest<ChannelGetResponse> {
       private String channelId;
       private String channelType;
       private String connectionId;
@@ -701,25 +701,15 @@ public class Channel {
         return this;
       }
 
-      /**
-       * Executes the request
-       *
-       * @return the channel get response
-       * @throws StreamException when IO problem occurs or the stream API return an error
-       */
-      @NotNull
-      public ChannelGetResponse request() throws StreamException {
+      @Override
+      protected Call<ChannelGetResponse> generateCall() {
         if (this.channelId != null) {
-          return new StreamServiceHandler()
-              .handle(
-                  StreamServiceGenerator.createService(ChannelService.class)
+          return StreamServiceGenerator.createService(ChannelService.class)
                       .getOrCreateWithId(
-                          this.channelType, this.channelId, new ChannelGetRequestData(this)));
+                          this.channelType, this.channelId, new ChannelGetRequestData(this));
         }
-        return new StreamServiceHandler()
-            .handle(
-                StreamServiceGenerator.createService(ChannelService.class)
-                    .getOrCreateWithoutId(this.channelType, new ChannelGetRequestData(this)));
+        return StreamServiceGenerator.createService(ChannelService.class)
+                    .getOrCreateWithoutId(this.channelType, new ChannelGetRequestData(this));
       }
     }
   }
@@ -794,7 +784,7 @@ public class Channel {
       this.user = builder.user;
     }
 
-    public static class ChannelUpdateRequest {
+    public static class ChannelUpdateRequest extends StreamRequest<ChannelUpdateResponse> {
       private String channelId;
       private String channelType;
       private List<String> addMembers = Collections.emptyList();
@@ -893,24 +883,16 @@ public class Channel {
         this.user = user;
         return this;
       }
-
-      /**
-       * Executes the request
-       *
-       * @return the channel update response
-       * @throws StreamException when IO problem occurs or the stream API return an error
-       */
-      @NotNull
-      public ChannelUpdateResponse request() throws StreamException {
-        return new StreamServiceHandler()
-            .handle(
-                StreamServiceGenerator.createService(ChannelService.class)
-                    .update(this.channelType, this.channelId, new ChannelUpdateRequestData(this)));
+      
+      @Override
+      protected Call<ChannelUpdateResponse> generateCall() {
+        return StreamServiceGenerator.createService(ChannelService.class)
+            .update(this.channelType, this.channelId, new ChannelUpdateRequestData(this));
       }
     }
   }
 
-  public static class ChannelDeleteRequest {
+  public static class ChannelDeleteRequest extends StreamRequest<ChannelDeleteResponse> {
     private String channelId;
     private String channelType;
 
@@ -918,19 +900,11 @@ public class Channel {
       this.channelType = channelType;
       this.channelId = channelId;
     }
-
-    /**
-     * Executes the request
-     *
-     * @return the channel in a channel delete response
-     * @throws StreamException when IO problem occurs or the stream API return an error
-     */
-    @NotNull
-    public ChannelDeleteResponse request() throws StreamException {
-      return new StreamServiceHandler()
-          .handle(
-              StreamServiceGenerator.createService(ChannelService.class)
-                  .delete(this.channelType, this.channelId));
+    
+    @Override
+    protected Call<ChannelDeleteResponse> generateCall() {
+      return StreamServiceGenerator.createService(ChannelService.class)
+          .delete(this.channelType, this.channelId);
     }
   }
 
@@ -998,7 +972,7 @@ public class Channel {
       this.connectionId = builder.connectionId;
     }
 
-    public static class ChannelListRequest {
+    public static class ChannelListRequest extends StreamRequest<ChannelListResponse> {
       private Map<String, Object> filterConditions = Collections.emptyMap();
       private List<Sort> sort = Collections.emptyList();
       private Boolean watch;
@@ -1086,24 +1060,16 @@ public class Channel {
         this.connectionId = connectionId;
         return this;
       }
-
-      /**
-       * Executes the request
-       *
-       * @return the channel list response
-       * @throws StreamException when IO problem occurs or the stream API return an error
-       */
-      @NotNull
-      public ChannelListResponse request() throws StreamException {
-        return new StreamServiceHandler()
-            .handle(
-                StreamServiceGenerator.createService(ChannelService.class)
-                    .list(new ChannelListRequestData(this)));
+      
+      @Override
+      protected Call<ChannelListResponse> generateCall() {
+        return StreamServiceGenerator.createService(ChannelService.class)
+            .list(new ChannelListRequestData(this));
       }
     }
   }
 
-  public static class ChannelTruncateRequest {
+  public static class ChannelTruncateRequest extends StreamRequest<ChannelTruncateResponse> {
     private String channelId;
     private String channelType;
 
@@ -1111,19 +1077,11 @@ public class Channel {
       this.channelType = channelType;
       this.channelId = channelId;
     }
-
-    /**
-     * Executes the request
-     *
-     * @return the channel in a channel truncate response
-     * @throws StreamException when IO problem occurs or the stream API return an error
-     */
-    @NotNull
-    public ChannelTruncateResponse request() throws StreamException {
-      return new StreamServiceHandler()
-          .handle(
-              StreamServiceGenerator.createService(ChannelService.class)
-                  .truncate(this.channelType, this.channelId));
+    
+    @Override
+    protected Call<ChannelTruncateResponse> generateCall() {
+      return StreamServiceGenerator.createService(ChannelService.class)
+          .truncate(this.channelType, this.channelId);
     }
   }
 
