@@ -616,6 +616,8 @@ public class Channel {
     @JsonProperty("connection_id")
     private String connectionId;
 
+    @Nullable
+    @JsonProperty("data")
     private ChannelRequestObject data;
 
     @Nullable
