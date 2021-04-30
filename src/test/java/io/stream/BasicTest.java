@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import io.stream.exceptions.StreamException;
 import io.stream.models.Channel;
-import io.stream.models.User;
-import io.stream.models.Channel.ChannelMemberRequest;
 import io.stream.models.Channel.ChannelGetResponse;
+import io.stream.models.Channel.ChannelMemberRequest;
 import io.stream.models.Channel.ChannelRequest;
+import io.stream.models.User;
 import io.stream.models.User.UserRequest;
 import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
 import io.stream.services.framework.StreamServiceGenerator;
@@ -22,6 +23,11 @@ public class BasicTest {
 
   static void enableLoging() {
     StreamServiceGenerator.logEnabled = true;
+  }
+
+  @BeforeEach
+  void resetProperties() {
+    setProperties();
   }
 
   @BeforeAll
