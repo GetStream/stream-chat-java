@@ -8,6 +8,7 @@ import io.stream.models.Channel.ChannelRequestObject;
 import io.stream.models.User;
 import io.stream.models.User.UserRequestObject;
 import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
+import io.stream.services.framework.HttpLoggingInterceptor;
 import io.stream.services.framework.StreamServiceGenerator;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -21,8 +22,8 @@ public class BasicTest {
   protected static UserRequestObject serverUser;
   protected static List<UserRequestObject> testUsers = new ArrayList<>();
 
-  static void enableLoging() {
-    StreamServiceGenerator.logEnabled = true;
+  static void enableLogging() {
+    StreamServiceGenerator.logLevel = HttpLoggingInterceptor.Level.BODY;
   }
 
   @BeforeEach
@@ -33,7 +34,7 @@ public class BasicTest {
   @BeforeAll
   static void setup() throws Exception {
     // failOnUnknownProperties();
-    StreamServiceGenerator.logEnabled = true;
+    enableLogging();
     setProperties();
     upsertUsers();
   }

@@ -30,8 +30,8 @@ public class StreamServiceGenerator {
 
   private static Retrofit retrofit;
 
-  /** Turn this flag to enable logging of http requests */
-  public static boolean logEnabled = false;
+  /** Change this to enable logging of http requests */
+  public static HttpLoggingInterceptor.Level logLevel = HttpLoggingInterceptor.Level.NONE;
 
   private static boolean failOnUnknownProperties = false;
 
@@ -53,11 +53,9 @@ public class StreamServiceGenerator {
       OkHttpClient.Builder httpClient =
           new OkHttpClient.Builder().connectTimeout(streamChatTimeout, TimeUnit.MILLISECONDS);
       httpClient.interceptors().clear();
-      if (logEnabled) {
-        HttpLoggingInterceptor loggingInterceptor =
-            new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
-        httpClient.addInterceptor(loggingInterceptor);
-      }
+      HttpLoggingInterceptor loggingInterceptor =
+          new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+      httpClient.addInterceptor(loggingInterceptor);
       httpClient.addInterceptor(
           chain -> {
             Request original = chain.request();
