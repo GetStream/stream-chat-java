@@ -17,7 +17,7 @@ import retrofit2.http.Path;
 public interface ChannelTypeService {
   @POST("channeltypes")
   @NotNull
-  Call<ChannelTypeRequestData> create(@NotNull @Body ChannelTypeRequestData channelType);
+  Call<ChannelTypeRequestData> create(@NotNull @Body ChannelTypeRequestData channelTypeRequestData);
 
   @DELETE("channeltypes/{name}")
   @NotNull
@@ -35,5 +35,5 @@ public interface ChannelTypeService {
   @NotNull
   Call<ChannelTypeRequestData> update(
       @NotNull @Path("name") String name,
-      @NotNull @Body ChannelTypeRequestDataWithoutNameSerialization channelTypeRequest);
+      @NotNull @Body ChannelTypeRequestDataWithoutNameSerialization channelTypeRequestDataWithoutNameSerialization);
 }

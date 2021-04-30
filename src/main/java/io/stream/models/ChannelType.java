@@ -1,30 +1,27 @@
 package io.stream.models;
 
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.exceptions.StreamException;
+import io.stream.models.ChannelConfig.ChannelConfigWithCommands;
 import io.stream.models.ChannelType.ChannelTypeRequestData.ChannelTypeRequest;
 import io.stream.models.framework.StreamResponse;
 import io.stream.services.ChannelTypeService;
 import io.stream.services.framework.StreamServiceGenerator;
 import io.stream.services.framework.StreamServiceHandler;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class ChannelType extends ChannelConfig {
+public class ChannelType extends ChannelConfigWithCommands {
   public ChannelType() {}
-
-  @Nullable
-  @JsonProperty("commands")
-  private List<Command> commands;
 
   @Nullable
   @JsonProperty("roles")
@@ -96,7 +93,7 @@ public class ChannelType extends ChannelConfig {
 
   @Data
   @EqualsAndHashCode(callSuper = false)
-  public static class ChannelTypeRequestData extends ChannelConfigStringCommands {
+  public static class ChannelTypeRequestData extends ChannelConfigWithStringCommands {
     private static final boolean DEFAULT_PUSH_NOTIFICATIONS = true;
 
     private static final AutoModBehavior DEFAULT_MOD_BEHAVIOR = AutoModBehavior.FLAG;

@@ -137,10 +137,20 @@ public class ChannelConfig extends StreamResponse {
 
   @Data
   @EqualsAndHashCode(callSuper = false)
-  public static class ChannelConfigStringCommands extends ChannelConfig {
+  public static class ChannelConfigWithStringCommands extends ChannelConfig {
 
     @Nullable
     @JsonProperty("commands")
     private List<String> commands;
   }
+  
+  @Data
+  @EqualsAndHashCode(callSuper = false)
+  public static class ChannelConfigWithCommands extends ChannelConfig {
+
+    @Nullable
+    @JsonProperty("commands")
+    private List<Command> commands;
+  }
+  
 }

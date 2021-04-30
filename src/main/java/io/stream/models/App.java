@@ -1,20 +1,20 @@
 package io.stream.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.stream.exceptions.StreamException;
-import io.stream.models.ChannelConfig.ChannelConfigStringCommands;
-import io.stream.models.framework.StreamResponse;
-import io.stream.services.AppService;
-import io.stream.services.framework.StreamServiceGenerator;
-import io.stream.services.framework.StreamServiceHandler;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.stream.exceptions.StreamException;
+import io.stream.models.ChannelConfig.ChannelConfigWithStringCommands;
+import io.stream.models.framework.StreamResponse;
+import io.stream.services.AppService;
+import io.stream.services.framework.StreamServiceGenerator;
+import io.stream.services.framework.StreamServiceHandler;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -299,7 +299,7 @@ public class App extends StreamResponse {
 
     @NotNull
     @JsonProperty("channel_configs")
-    private Map<String, ChannelConfigStringCommands> configNameMap;
+    private Map<String, ChannelConfigWithStringCommands> configNameMap;
 
     @NotNull
     @JsonProperty("policies")
