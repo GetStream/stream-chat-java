@@ -1,8 +1,8 @@
 package io.stream.services;
 
 import io.stream.models.App;
-import io.stream.models.App.AppSettings;
-import io.stream.models.framework.StreamResponse;
+import io.stream.models.App.AppUpdateRequestData;
+import io.stream.models.framework.StreamResponseObject;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -16,5 +16,5 @@ public interface AppService {
 
   @PATCH("app")
   @NotNull
-  Call<StreamResponse> update(@NotNull @Body AppSettings appSettings);
+  Call<StreamResponseObject> update(@NotNull @Body AppUpdateRequestData appSettings);
 }

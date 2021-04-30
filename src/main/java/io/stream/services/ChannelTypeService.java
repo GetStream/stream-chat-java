@@ -1,11 +1,13 @@
 package io.stream.services;
 
-import io.stream.models.ChannelType;
-import io.stream.models.ChannelType.ChannelTypeRequestData;
-import io.stream.models.ChannelType.ChannelTypeRequestDataWithoutNameSerialization;
-import io.stream.models.ChannelType.ListChannelTypeResponse;
-import io.stream.models.framework.StreamResponse;
 import org.jetbrains.annotations.NotNull;
+import io.stream.models.ChannelType.ChannelTypeCreateResponse;
+import io.stream.models.ChannelType.ChannelTypeGetResponse;
+import io.stream.models.ChannelType.ChannelTypeRequest;
+import io.stream.models.ChannelType.ChannelTypeRequestWithName;
+import io.stream.models.ChannelType.ChannelTypeUpdateResponse;
+import io.stream.models.ChannelType.ListChannelTypeResponse;
+import io.stream.models.framework.StreamResponseObject;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -17,15 +19,16 @@ import retrofit2.http.Path;
 public interface ChannelTypeService {
   @POST("channeltypes")
   @NotNull
-  Call<ChannelTypeRequestData> create(@NotNull @Body ChannelTypeRequestData channelTypeRequestData);
+  Call<ChannelTypeCreateResponse> create(
+      @NotNull @Body ChannelTypeRequestWithName channelTypeRequestWithName);
 
   @DELETE("channeltypes/{name}")
   @NotNull
-  Call<StreamResponse> delete(@NotNull @Path("name") String name);
+  Call<StreamResponseObject> delete(@NotNull @Path("name") String name);
 
   @GET("channeltypes/{name}")
   @NotNull
-  Call<ChannelType> get(@NotNull @Path("name") String name);
+  Call<ChannelTypeGetResponse> get(@NotNull @Path("name") String name);
 
   @GET("channeltypes")
   @NotNull
@@ -33,9 +36,6 @@ public interface ChannelTypeService {
 
   @PUT("channeltypes/{name}")
   @NotNull
-  Call<ChannelTypeRequestData> update(
-      @NotNull @Path("name") String name,
-      @NotNull @Body
-          ChannelTypeRequestDataWithoutNameSerialization
-              channelTypeRequestDataWithoutNameSerialization);
+  Call<ChannelTypeUpdateResponse> update(
+      @NotNull @Path("name") String name, @NotNull @Body ChannelTypeRequest channelTypeRequest);
 }

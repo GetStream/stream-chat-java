@@ -15,11 +15,11 @@ import io.stream.exceptions.StreamException;
 import io.stream.models.Channel.ChannelGetRequestData.ChannelGetRequest;
 import io.stream.models.Channel.ChannelListRequestData.ChannelListRequest;
 import io.stream.models.Channel.ChannelUpdateRequestData.ChannelUpdateRequest;
-import io.stream.models.ChannelConfig.BlocklistBehavior;
-import io.stream.models.ChannelConfig.ChannelConfigWithCommands;
+import io.stream.models.ChannelType.BlocklistBehavior;
+import io.stream.models.ChannelType.ChannelTypeWithCommands;
 import io.stream.models.Message.MessageRequest;
 import io.stream.models.User.UserRequest;
-import io.stream.models.framework.StreamResponse;
+import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.ChannelService;
 import io.stream.services.framework.StreamServiceGenerator;
 import io.stream.services.framework.StreamServiceHandler;
@@ -50,7 +50,7 @@ public class Channel {
 
   @NotNull
   @JsonProperty("config")
-  private ChannelConfigWithCommands config;
+  private ChannelTypeWithCommands config;
 
   @Nullable
   @JsonProperty("created_by")
@@ -102,6 +102,76 @@ public class Channel {
   @JsonAnySetter
   public void setAdditionalField(String name, Object value) {
     this.additionalFields.put(name, value);
+  }
+
+  @Data
+  public static class ChannelRead {
+    public ChannelRead() {}
+
+    @Nullable
+    @JsonProperty("user")
+    private User user;
+
+    @Nullable
+    @JsonProperty("last_read")
+    private Date lastRead;
+
+    @Nullable
+    @JsonProperty("unread_messages")
+    private Integer unreadMessages;
+  }
+
+  @Data
+  public static class ChannelMember {
+    public ChannelMember() {}
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private User user;
+
+    @Nullable
+    @JsonProperty("is_moderator")
+    private Boolean isModerator;
+
+    @Nullable
+    @JsonProperty("invited")
+    private Boolean invited;
+
+    @Nullable
+    @JsonProperty("invite_accepted_at")
+    private Date inviteAcceptedAt;
+
+    @Nullable
+    @JsonProperty("invite_rejected_at")
+    private Date inviteRejectedAt;
+
+    @Nullable
+    @JsonProperty("role")
+    private String role;
+
+    @Nullable
+    @JsonProperty("created_at")
+    private Date createdAt;
+
+    @Nullable
+    @JsonProperty("updated_at")
+    private Date updatedAt;
+
+    @Nullable
+    @JsonProperty("banned")
+    private Boolean banned;
+
+    @Nullable
+    @JsonProperty("ban_expires")
+    private String banExpires;
+
+    @Nullable
+    @JsonProperty("shadow_banned")
+    private Boolean shadowBanned;
   }
 
   @Data
@@ -1021,7 +1091,7 @@ public class Channel {
 
   @Data
   @EqualsAndHashCode(callSuper = false)
-  public static class ChannelGetResponse extends StreamResponse {
+  public static class ChannelGetResponse extends StreamResponseObject {
     public ChannelGetResponse() {}
 
     @Nullable
@@ -1066,78 +1136,8 @@ public class Channel {
   }
 
   @Data
-  public static class ChannelRead {
-    public ChannelRead() {}
-
-    @Nullable
-    @JsonProperty("user")
-    private User user;
-
-    @Nullable
-    @JsonProperty("last_read")
-    private Date lastRead;
-
-    @Nullable
-    @JsonProperty("unread_messages")
-    private Integer unreadMessages;
-  }
-
-  @Data
-  public static class ChannelMember {
-    public ChannelMember() {}
-
-    @Nullable
-    @JsonProperty("user_id")
-    private String userId;
-
-    @Nullable
-    @JsonProperty("user")
-    private User user;
-
-    @Nullable
-    @JsonProperty("is_moderator")
-    private Boolean isModerator;
-
-    @Nullable
-    @JsonProperty("invited")
-    private Boolean invited;
-
-    @Nullable
-    @JsonProperty("invite_accepted_at")
-    private Date inviteAcceptedAt;
-
-    @Nullable
-    @JsonProperty("invite_rejected_at")
-    private Date inviteRejectedAt;
-
-    @Nullable
-    @JsonProperty("role")
-    private String role;
-
-    @Nullable
-    @JsonProperty("created_at")
-    private Date createdAt;
-
-    @Nullable
-    @JsonProperty("updated_at")
-    private Date updatedAt;
-
-    @Nullable
-    @JsonProperty("banned")
-    private Boolean banned;
-
-    @Nullable
-    @JsonProperty("ban_expires")
-    private String banExpires;
-
-    @Nullable
-    @JsonProperty("shadow_banned")
-    private Boolean shadowBanned;
-  }
-
-  @Data
   @EqualsAndHashCode(callSuper = false)
-  public static class ChannelUpdateResponse extends StreamResponse {
+  public static class ChannelUpdateResponse extends StreamResponseObject {
     public ChannelUpdateResponse() {}
 
     @Nullable
@@ -1155,7 +1155,7 @@ public class Channel {
 
   @Data
   @EqualsAndHashCode(callSuper = false)
-  public static class ChannelDeleteResponse extends StreamResponse {
+  public static class ChannelDeleteResponse extends StreamResponseObject {
     public ChannelDeleteResponse() {}
 
     @Nullable
@@ -1165,7 +1165,7 @@ public class Channel {
 
   @Data
   @EqualsAndHashCode(callSuper = false)
-  public static class ChannelTruncateResponse extends StreamResponse {
+  public static class ChannelTruncateResponse extends StreamResponseObject {
     public ChannelTruncateResponse() {}
 
     @Nullable
@@ -1175,7 +1175,7 @@ public class Channel {
 
   @Data
   @EqualsAndHashCode(callSuper = false)
-  public static class ChannelListResponse extends StreamResponse {
+  public static class ChannelListResponse extends StreamResponseObject {
     public ChannelListResponse() {}
 
     @Nullable

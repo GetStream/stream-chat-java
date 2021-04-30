@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.exceptions.StreamException;
 import io.stream.models.User.UserListRequestData.UserQueryRequest;
 import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
-import io.stream.models.framework.StreamResponse;
+import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.UserService;
 import io.stream.services.framework.StreamServiceGenerator;
 import io.stream.services.framework.StreamServiceHandler;
@@ -499,7 +499,7 @@ public class User {
 
   @Data
   @EqualsAndHashCode(callSuper = false)
-  public static class UsersUpsertResponse extends StreamResponse {
+  public static class UsersUpsertResponse extends StreamResponseObject {
     public UsersUpsertResponse() {}
 
     @NotNull
@@ -509,7 +509,7 @@ public class User {
 
   @Data
   @EqualsAndHashCode(callSuper = false)
-  public static class UsersListResponse extends StreamResponse {
+  public static class UsersListResponse extends StreamResponseObject {
     public UsersListResponse() {}
 
     @NotNull

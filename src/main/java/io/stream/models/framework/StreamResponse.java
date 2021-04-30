@@ -2,10 +2,11 @@ package io.stream.models.framework;
 
 import lombok.Data;
 
-@Data
-public class StreamResponse {
+public interface StreamResponse {
 
-  private RateLimitData rateLimitData;
+  RateLimitData getRateLimitData();
+
+  void setRateLimitData(RateLimitData rateLimitData);
 
   @Data
   public static final class RateLimitData {

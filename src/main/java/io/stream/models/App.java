@@ -8,8 +8,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.exceptions.StreamException;
-import io.stream.models.ChannelConfig.ChannelConfigWithStringCommands;
-import io.stream.models.framework.StreamResponse;
+import io.stream.models.App.AppUpdateRequestData.AppUpdateRequest;
+import io.stream.models.ChannelType.ChannelTypeWithStringCommands;
+import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.AppService;
 import io.stream.services.framework.StreamServiceGenerator;
 import io.stream.services.framework.StreamServiceHandler;
@@ -18,8 +19,12 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class App extends StreamResponse {
+public class App extends StreamResponseObject {
   public App() {}
+
+  @Nullable
+  @JsonProperty("app")
+  private AppConfig app;
 
   @Data
   public static final class APNConfig {
@@ -60,101 +65,6 @@ public class App extends StreamResponse {
     @Nullable
     @JsonProperty("key_Id")
     private String keyId;
-
-    private APNConfig(Builder builder) {
-      this.enabled = builder.enabled;
-      this.development = builder.development;
-      this.authType = builder.authType;
-      this.authKey = builder.authKey;
-      this.notificationTemplate = builder.notificationTemplate;
-      this.host = builder.host;
-      this.bundleId = builder.bundleId;
-      this.teamId = builder.teamId;
-      this.keyId = builder.keyId;
-    }
-
-    /**
-     * Creates builder to build {@link APNConfig}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link APNConfig}. */
-    public static final class Builder {
-      private Boolean enabled;
-      private Boolean development;
-      private String authType;
-      private byte[] authKey;
-      private String notificationTemplate;
-      private String host;
-      private String bundleId;
-      private String teamId;
-      private String keyId;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withEnabled(@NotNull Boolean enabled) {
-        this.enabled = enabled;
-        return this;
-      }
-
-      @NotNull
-      public Builder withDevelopment(@NotNull Boolean development) {
-        this.development = development;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAuthType(@NotNull String authType) {
-        this.authType = authType;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAuthKey(@NotNull byte[] authKey) {
-        this.authKey = authKey;
-        return this;
-      }
-
-      @NotNull
-      public Builder withNotificationTemplate(@NotNull String notificationTemplate) {
-        this.notificationTemplate = notificationTemplate;
-        return this;
-      }
-
-      @NotNull
-      public Builder withHost(@NotNull String host) {
-        this.host = host;
-        return this;
-      }
-
-      @NotNull
-      public Builder withBundleId(@NotNull String bundleId) {
-        this.bundleId = bundleId;
-        return this;
-      }
-
-      @NotNull
-      public Builder withTeamId(@NotNull String teamId) {
-        this.teamId = teamId;
-        return this;
-      }
-
-      @NotNull
-      public Builder withKeyId(@NotNull String keyId) {
-        this.keyId = keyId;
-        return this;
-      }
-
-      @NotNull
-      public APNConfig build() {
-        return new APNConfig(this);
-      }
-    }
   }
 
   @Data
@@ -172,53 +82,6 @@ public class App extends StreamResponse {
     @NotNull
     @JsonProperty("data_template")
     private String dataTemplate;
-
-    private FirebaseConfig(Builder builder) {
-      this.enabled = builder.enabled;
-      this.notificationTemplate = builder.notificationTemplate;
-      this.dataTemplate = builder.dataTemplate;
-    }
-
-    /**
-     * Creates builder to build {@link FirebaseConfig}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link FirebaseConfig}. */
-    public static final class Builder {
-      private Boolean enabled;
-      private String notificationTemplate;
-      private String dataTemplate;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withEnabled(@NotNull Boolean enabled) {
-        this.enabled = enabled;
-        return this;
-      }
-
-      @NotNull
-      public Builder withNotificationTemplate(@NotNull String notificationTemplate) {
-        this.notificationTemplate = notificationTemplate;
-        return this;
-      }
-
-      @NotNull
-      public Builder withDataTemplate(@NotNull String dataTemplate) {
-        this.dataTemplate = dataTemplate;
-        return this;
-      }
-
-      @NotNull
-      public FirebaseConfig build() {
-        return new FirebaseConfig(this);
-      }
-    }
   }
 
   @Data
@@ -299,7 +162,7 @@ public class App extends StreamResponse {
 
     @NotNull
     @JsonProperty("channel_configs")
-    private Map<String, ChannelConfigWithStringCommands> configNameMap;
+    private Map<String, ChannelTypeWithStringCommands> channelConfigs;
 
     @NotNull
     @JsonProperty("policies")
@@ -393,66 +256,11 @@ public class App extends StreamResponse {
     @Nullable
     @JsonProperty("blocked_mime_types")
     private List<String> blockedMimeTypes;
-
-    private FileUploadConfig(Builder builder) {
-      this.allowedFileExtensions = builder.allowedFileExtensions;
-      this.blockedFileExtensions = builder.blockedFileExtensions;
-      this.allowedMimeTypes = builder.allowedMimeTypes;
-      this.blockedMimeTypes = builder.blockedMimeTypes;
-    }
-
-    /**
-     * Creates builder to build {@link FileUploadConfig}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link FileUploadConfig}. */
-    public static final class Builder {
-      private List<String> allowedFileExtensions = Collections.emptyList();
-      private List<String> blockedFileExtensions = Collections.emptyList();
-      private List<String> allowedMimeTypes = Collections.emptyList();
-      private List<String> blockedMimeTypes = Collections.emptyList();
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withAllowedFileExtensions(@NotNull List<String> allowedFileExtensions) {
-        this.allowedFileExtensions = allowedFileExtensions;
-        return this;
-      }
-
-      @NotNull
-      public Builder withBlockedFileExtensions(@NotNull List<String> blockedFileExtensions) {
-        this.blockedFileExtensions = blockedFileExtensions;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAllowedMimeTypes(@NotNull List<String> allowedMimeTypes) {
-        this.allowedMimeTypes = allowedMimeTypes;
-        return this;
-      }
-
-      @NotNull
-      public Builder withBlockedMimeTypes(@NotNull List<String> blockedMimeTypes) {
-        this.blockedMimeTypes = blockedMimeTypes;
-        return this;
-      }
-
-      @NotNull
-      public FileUploadConfig build() {
-        return new FileUploadConfig(this);
-      }
-    }
   }
 
   @Data
-  public static final class AppSettings {
-    public AppSettings() {}
+  public static final class AppUpdateRequestData {
+    public AppUpdateRequestData() {}
 
     @Nullable
     @JsonProperty("disable_auth_checks")
@@ -464,15 +272,15 @@ public class App extends StreamResponse {
 
     @Nullable
     @JsonProperty("apn_config")
-    private APNConfig aPNConfig;
+    private APNConfigRequest aPNConfig;
 
     @Nullable
     @JsonProperty("firebase_config")
-    private FirebaseConfig firebaseConfig;
+    private FirebaseConfigRequest firebaseConfig;
 
     @Nullable
     @JsonProperty("push_config")
-    private PushConfig pushConfig;
+    private PushConfigRequest pushConfig;
 
     @Nullable
     @JsonProperty("user_search_disallowed_roles")
@@ -492,11 +300,11 @@ public class App extends StreamResponse {
 
     @Nullable
     @JsonProperty("file_upload_config")
-    private FileUploadConfig fileUploadConfig;
+    private FileUploadConfigRequest fileUploadConfig;
 
     @Nullable
     @JsonProperty("image_upload_config")
-    private FileUploadConfig imageUploadConfig;
+    private FileUploadConfigRequest imageUploadConfig;
 
     @Nullable
     @JsonProperty("before_message_send_hook_url")
@@ -534,7 +342,7 @@ public class App extends StreamResponse {
     @JsonProperty("multi_tenant_enabled")
     private Boolean multiTenantEnabled;
 
-    private AppSettings(UpdateAppRequest builder) {
+    private AppUpdateRequestData(AppUpdateRequest builder) {
       this.disableAuth = builder.disableAuth;
       this.disablePermissions = builder.disablePermissions;
       this.aPNConfig = builder.aPNConfig;
@@ -556,19 +364,454 @@ public class App extends StreamResponse {
       this.webhookURL = builder.webhookURL;
       this.multiTenantEnabled = builder.multiTenantEnabled;
     }
+
+    public static final class AppUpdateRequest {
+      private Boolean disableAuth;
+      private Boolean disablePermissions;
+      private APNConfigRequest aPNConfig;
+      private FirebaseConfigRequest firebaseConfig;
+      private PushConfigRequest pushConfig;
+      private List<String> userSearchDisallowedRoles = Collections.emptyList();
+      private String customActionHandlerUrl;
+      private String enforceUniqueUsernames;
+      private String permissionVersion;
+      private FileUploadConfigRequest fileUploadConfig;
+      private FileUploadConfigRequest imageUploadConfig;
+      private String beforeMessageSendHookUrl;
+      private Boolean autoTranslationEnabled;
+      private Boolean imageModerationEnabled;
+      private List<String> imageModerationLabels = Collections.emptyList();
+      private String sqsUrl;
+      private String sqsKey;
+      private String sqsSecret;
+      private String webhookURL;
+      private Boolean multiTenantEnabled;
+
+      private AppUpdateRequest() {}
+
+      @NotNull
+      public AppUpdateRequest withDisableAuth(@NotNull Boolean disableAuth) {
+        this.disableAuth = disableAuth;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withDisablePermissions(@NotNull Boolean disablePermissions) {
+        this.disablePermissions = disablePermissions;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withAPNConfig(@NotNull APNConfigRequest aPNConfig) {
+        this.aPNConfig = aPNConfig;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withFirebaseConfig(@NotNull FirebaseConfigRequest firebaseConfig) {
+        this.firebaseConfig = firebaseConfig;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withPushConfig(@NotNull PushConfigRequest pushConfig) {
+        this.pushConfig = pushConfig;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withUserSearchDisallowedRoles(
+          @NotNull List<String> userSearchDisallowedRoles) {
+        this.userSearchDisallowedRoles = userSearchDisallowedRoles;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withCustomActionHandlerUrl(@NotNull String customActionHandlerUrl) {
+        this.customActionHandlerUrl = customActionHandlerUrl;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withEnforceUniqueUsernames(@NotNull String enforceUniqueUsernames) {
+        this.enforceUniqueUsernames = enforceUniqueUsernames;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withPermissionVersion(@NotNull String permissionVersion) {
+        this.permissionVersion = permissionVersion;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withFileUploadConfig(
+          @NotNull FileUploadConfigRequest fileUploadConfig) {
+        this.fileUploadConfig = fileUploadConfig;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withImageUploadConfig(
+          @NotNull FileUploadConfigRequest imageUploadConfig) {
+        this.imageUploadConfig = imageUploadConfig;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withBeforeMessageSendHookUrl(
+          @NotNull String beforeMessageSendHookUrl) {
+        this.beforeMessageSendHookUrl = beforeMessageSendHookUrl;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withAutoTranslationEnabled(@NotNull Boolean autoTranslationEnabled) {
+        this.autoTranslationEnabled = autoTranslationEnabled;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withImageModerationEnabled(@NotNull Boolean imageModerationEnabled) {
+        this.imageModerationEnabled = imageModerationEnabled;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withImageModerationLabels(
+          @NotNull List<String> imageModerationLabels) {
+        this.imageModerationLabels = imageModerationLabels;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withSqsUrl(@NotNull String sqsUrl) {
+        this.sqsUrl = sqsUrl;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withSqsKey(@NotNull String sqsKey) {
+        this.sqsKey = sqsKey;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withSqsSecret(@NotNull String sqsSecret) {
+        this.sqsSecret = sqsSecret;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withWebhookURL(@NotNull String webhookURL) {
+        this.webhookURL = webhookURL;
+        return this;
+      }
+
+      @NotNull
+      public AppUpdateRequest withMultiTenantEnabled(@NotNull Boolean multiTenantEnabled) {
+        this.multiTenantEnabled = multiTenantEnabled;
+        return this;
+      }
+
+      @NotNull
+      /**
+       * Executes the request
+       *
+       * @return the rate limit information
+       * @throws StreamException when IO problem occurs or the stream API return an error
+       */
+      public StreamResponseObject request() throws StreamException {
+        return new StreamServiceHandler()
+            .handle(
+                StreamServiceGenerator.createService(AppService.class)
+                    .update(new AppUpdateRequestData(this)));
+      }
+    }
   }
 
-  @Nullable
-  @JsonProperty("app")
-  private AppConfig app;
+  @Data
+  public static final class FileUploadConfigRequest {
+    public FileUploadConfigRequest() {}
 
-  /**
-   * Creates an update request.
-   *
-   * @return the created request
-   */
-  public static final UpdateAppRequest update() {
-    return new UpdateAppRequest();
+    @Nullable
+    @JsonProperty("allowed_file_extensions")
+    private List<String> allowedFileExtensions;
+
+    @Nullable
+    @JsonProperty("blocked_file_extensions")
+    private List<String> blockedFileExtensions;
+
+    @Nullable
+    @JsonProperty("allowed_mime_types")
+    private List<String> allowedMimeTypes;
+
+    @Nullable
+    @JsonProperty("blocked_mime_types")
+    private List<String> blockedMimeTypes;
+
+    private FileUploadConfigRequest(Builder builder) {
+      this.allowedFileExtensions = builder.allowedFileExtensions;
+      this.blockedFileExtensions = builder.blockedFileExtensions;
+      this.allowedMimeTypes = builder.allowedMimeTypes;
+      this.blockedMimeTypes = builder.blockedMimeTypes;
+    }
+
+    /**
+     * Creates builder to build {@link FileUploadConfigRequest}.
+     *
+     * @return created builder
+     */
+    public static Builder builder() {
+      return new Builder();
+    }
+
+    /** Builder to build {@link FileUploadConfigRequest}. */
+    public static final class Builder {
+      private List<String> allowedFileExtensions = Collections.emptyList();
+      private List<String> blockedFileExtensions = Collections.emptyList();
+      private List<String> allowedMimeTypes = Collections.emptyList();
+      private List<String> blockedMimeTypes = Collections.emptyList();
+
+      private Builder() {}
+
+      @NotNull
+      public Builder withAllowedFileExtensions(@NotNull List<String> allowedFileExtensions) {
+        this.allowedFileExtensions = allowedFileExtensions;
+        return this;
+      }
+
+      @NotNull
+      public Builder withBlockedFileExtensions(@NotNull List<String> blockedFileExtensions) {
+        this.blockedFileExtensions = blockedFileExtensions;
+        return this;
+      }
+
+      @NotNull
+      public Builder withAllowedMimeTypes(@NotNull List<String> allowedMimeTypes) {
+        this.allowedMimeTypes = allowedMimeTypes;
+        return this;
+      }
+
+      @NotNull
+      public Builder withBlockedMimeTypes(@NotNull List<String> blockedMimeTypes) {
+        this.blockedMimeTypes = blockedMimeTypes;
+        return this;
+      }
+
+      @NotNull
+      public FileUploadConfigRequest build() {
+        return new FileUploadConfigRequest(this);
+      }
+    }
+  }
+
+  @Data
+  public static final class APNConfigRequest {
+    public APNConfigRequest() {}
+
+    @NotNull
+    @JsonProperty("enabled")
+    private Boolean enabled;
+
+    @NotNull
+    @JsonProperty("development")
+    private Boolean development;
+
+    @Nullable
+    @JsonProperty("auth_type")
+    private String authType;
+
+    @Nullable
+    @JsonProperty("auth_key")
+    private byte[] authKey;
+
+    @NotNull
+    @JsonProperty("notification_template")
+    private String notificationTemplate;
+
+    @Nullable
+    @JsonProperty("host")
+    private String host;
+
+    @Nullable
+    @JsonProperty("bundle_Id")
+    private String bundleId;
+
+    @Nullable
+    @JsonProperty("team_Id")
+    private String teamId;
+
+    @Nullable
+    @JsonProperty("key_Id")
+    private String keyId;
+
+    private APNConfigRequest(Builder builder) {
+      this.enabled = builder.enabled;
+      this.development = builder.development;
+      this.authType = builder.authType;
+      this.authKey = builder.authKey;
+      this.notificationTemplate = builder.notificationTemplate;
+      this.host = builder.host;
+      this.bundleId = builder.bundleId;
+      this.teamId = builder.teamId;
+      this.keyId = builder.keyId;
+    }
+
+    /**
+     * Creates builder to build {@link APNConfigRequest}.
+     *
+     * @return created builder
+     */
+    public static Builder builder() {
+      return new Builder();
+    }
+
+    /** Builder to build {@link APNConfigRequest}. */
+    public static final class Builder {
+      private Boolean enabled;
+      private Boolean development;
+      private String authType;
+      private byte[] authKey;
+      private String notificationTemplate;
+      private String host;
+      private String bundleId;
+      private String teamId;
+      private String keyId;
+
+      private Builder() {}
+
+      @NotNull
+      public Builder withEnabled(@NotNull Boolean enabled) {
+        this.enabled = enabled;
+        return this;
+      }
+
+      @NotNull
+      public Builder withDevelopment(@NotNull Boolean development) {
+        this.development = development;
+        return this;
+      }
+
+      @NotNull
+      public Builder withAuthType(@NotNull String authType) {
+        this.authType = authType;
+        return this;
+      }
+
+      @NotNull
+      public Builder withAuthKey(@NotNull byte[] authKey) {
+        this.authKey = authKey;
+        return this;
+      }
+
+      @NotNull
+      public Builder withNotificationTemplate(@NotNull String notificationTemplate) {
+        this.notificationTemplate = notificationTemplate;
+        return this;
+      }
+
+      @NotNull
+      public Builder withHost(@NotNull String host) {
+        this.host = host;
+        return this;
+      }
+
+      @NotNull
+      public Builder withBundleId(@NotNull String bundleId) {
+        this.bundleId = bundleId;
+        return this;
+      }
+
+      @NotNull
+      public Builder withTeamId(@NotNull String teamId) {
+        this.teamId = teamId;
+        return this;
+      }
+
+      @NotNull
+      public Builder withKeyId(@NotNull String keyId) {
+        this.keyId = keyId;
+        return this;
+      }
+
+      @NotNull
+      public APNConfigRequest build() {
+        return new APNConfigRequest(this);
+      }
+    }
+  }
+
+  @Data
+  public static final class FirebaseConfigRequest {
+    public FirebaseConfigRequest() {}
+
+    @NotNull
+    @JsonProperty("enabled")
+    private Boolean enabled;
+
+    @NotNull
+    @JsonProperty("notification_template")
+    private String notificationTemplate;
+
+    @NotNull
+    @JsonProperty("data_template")
+    private String dataTemplate;
+
+    private FirebaseConfigRequest(Builder builder) {
+      this.enabled = builder.enabled;
+      this.notificationTemplate = builder.notificationTemplate;
+      this.dataTemplate = builder.dataTemplate;
+    }
+
+    /**
+     * Creates builder to build {@link FirebaseConfigRequest}.
+     *
+     * @return created builder
+     */
+    public static Builder builder() {
+      return new Builder();
+    }
+
+    /** Builder to build {@link FirebaseConfigRequest}. */
+    public static final class Builder {
+      private Boolean enabled;
+      private String notificationTemplate;
+      private String dataTemplate;
+
+      private Builder() {}
+
+      @NotNull
+      public Builder withEnabled(@NotNull Boolean enabled) {
+        this.enabled = enabled;
+        return this;
+      }
+
+      @NotNull
+      public Builder withNotificationTemplate(@NotNull String notificationTemplate) {
+        this.notificationTemplate = notificationTemplate;
+        return this;
+      }
+
+      @NotNull
+      public Builder withDataTemplate(@NotNull String dataTemplate) {
+        this.dataTemplate = dataTemplate;
+        return this;
+      }
+
+      @NotNull
+      public FirebaseConfigRequest build() {
+        return new FirebaseConfigRequest(this);
+      }
+    }
+  }
+
+  public static class PushConfigRequest {
+    public PushConfigRequest() {}
+
+    @Nullable
+    @JsonProperty("version")
+    private String version;
   }
 
   /**
@@ -582,170 +825,12 @@ public class App extends StreamResponse {
         .handle(StreamServiceGenerator.createService(AppService.class).get());
   }
 
-  public static final class UpdateAppRequest {
-    private Boolean disableAuth;
-    private Boolean disablePermissions;
-    private APNConfig aPNConfig;
-    private FirebaseConfig firebaseConfig;
-    private PushConfig pushConfig;
-    private List<String> userSearchDisallowedRoles = Collections.emptyList();
-    private String customActionHandlerUrl;
-    private String enforceUniqueUsernames;
-    private String permissionVersion;
-    private FileUploadConfig fileUploadConfig;
-    private FileUploadConfig imageUploadConfig;
-    private String beforeMessageSendHookUrl;
-    private Boolean autoTranslationEnabled;
-    private Boolean imageModerationEnabled;
-    private List<String> imageModerationLabels = Collections.emptyList();
-    private String sqsUrl;
-    private String sqsKey;
-    private String sqsSecret;
-    private String webhookURL;
-    private Boolean multiTenantEnabled;
-
-    private UpdateAppRequest() {}
-
-    @NotNull
-    public UpdateAppRequest withDisableAuth(@NotNull Boolean disableAuth) {
-      this.disableAuth = disableAuth;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withDisablePermissions(@NotNull Boolean disablePermissions) {
-      this.disablePermissions = disablePermissions;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withAPNConfig(@NotNull APNConfig aPNConfig) {
-      this.aPNConfig = aPNConfig;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withFirebaseConfig(@NotNull FirebaseConfig firebaseConfig) {
-      this.firebaseConfig = firebaseConfig;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withPushConfig(@NotNull PushConfig pushConfig) {
-      this.pushConfig = pushConfig;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withUserSearchDisallowedRoles(
-        @NotNull List<String> userSearchDisallowedRoles) {
-      this.userSearchDisallowedRoles = userSearchDisallowedRoles;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withCustomActionHandlerUrl(@NotNull String customActionHandlerUrl) {
-      this.customActionHandlerUrl = customActionHandlerUrl;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withEnforceUniqueUsernames(@NotNull String enforceUniqueUsernames) {
-      this.enforceUniqueUsernames = enforceUniqueUsernames;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withPermissionVersion(@NotNull String permissionVersion) {
-      this.permissionVersion = permissionVersion;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withFileUploadConfig(@NotNull FileUploadConfig fileUploadConfig) {
-      this.fileUploadConfig = fileUploadConfig;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withImageUploadConfig(@NotNull FileUploadConfig imageUploadConfig) {
-      this.imageUploadConfig = imageUploadConfig;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withBeforeMessageSendHookUrl(@NotNull String beforeMessageSendHookUrl) {
-      this.beforeMessageSendHookUrl = beforeMessageSendHookUrl;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withAutoTranslationEnabled(@NotNull Boolean autoTranslationEnabled) {
-      this.autoTranslationEnabled = autoTranslationEnabled;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withImageModerationEnabled(@NotNull Boolean imageModerationEnabled) {
-      this.imageModerationEnabled = imageModerationEnabled;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withImageModerationLabels(@NotNull List<String> imageModerationLabels) {
-      this.imageModerationLabels = imageModerationLabels;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withSqsUrl(@NotNull String sqsUrl) {
-      this.sqsUrl = sqsUrl;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withSqsKey(@NotNull String sqsKey) {
-      this.sqsKey = sqsKey;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withSqsSecret(@NotNull String sqsSecret) {
-      this.sqsSecret = sqsSecret;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withWebhookURL(@NotNull String webhookURL) {
-      this.webhookURL = webhookURL;
-      return this;
-    }
-
-    @NotNull
-    public UpdateAppRequest withMultiTenantEnabled(@NotNull Boolean multiTenantEnabled) {
-      this.multiTenantEnabled = multiTenantEnabled;
-      return this;
-    }
-
-    @NotNull
-    /**
-     * Executes the request
-     *
-     * @return the rate limit information
-     * @throws StreamException when IO problem occurs or the stream API return an error
-     */
-    public StreamResponse request() throws StreamException {
-      return new StreamServiceHandler()
-          .handle(
-              StreamServiceGenerator.createService(AppService.class).update(new AppSettings(this)));
-    }
-  }
-
-  static class PushConfig {
-    public PushConfig() {}
-
-    @Nullable
-    @JsonProperty("version")
-    private String version;
+  /**
+   * Creates an update request.
+   *
+   * @return the created request
+   */
+  public static final AppUpdateRequest update() {
+    return new AppUpdateRequest();
   }
 }
