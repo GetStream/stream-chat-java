@@ -1,5 +1,6 @@
 package io.stream.models;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -523,7 +524,7 @@ public class User {
     }
 
     public static class UserPartialUpdateRequest extends StreamRequest<UserPartialUpdateResponse> {
-      private List<UserPartialUpdateRequestObject> users;
+      private List<UserPartialUpdateRequestObject> users = new ArrayList<>();
 
       private UserPartialUpdateRequest() {}
 
@@ -533,6 +534,12 @@ public class User {
         return this;
       }
 
+      @NotNull
+      public UserPartialUpdateRequest addUser(@NotNull UserPartialUpdateRequestObject user) {
+        this.users.add(user);
+        return this;
+      }
+      
       @Override
       protected Call<UserPartialUpdateResponse> generateCall() {
         return StreamServiceGenerator.createService(UserService.class)
