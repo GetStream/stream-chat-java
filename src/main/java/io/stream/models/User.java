@@ -163,7 +163,6 @@ public class User {
   }
 
   public static class UserRequestObject {
-    public UserRequestObject() {}
 
     @NotNull
     @JsonProperty("id")
@@ -295,7 +294,6 @@ public class User {
   }
 
   public static class UserUpsertRequestData {
-    public UserUpsertRequestData() {}
 
     @NotNull
     @JsonProperty("users")

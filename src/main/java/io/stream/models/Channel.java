@@ -175,11 +175,7 @@ public class Channel {
     private Boolean shadowBanned;
   }
 
-  @Data
   public static class ChannelRequestObject {
-    public ChannelRequestObject() {
-      additionalFields = new HashMap<>();
-    }
 
     @Nullable
     @JsonProperty("created_by")
@@ -223,15 +219,10 @@ public class Channel {
       this.members = builder.members;
       this.configOverrides = builder.configOverrides;
     }
-
+    
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
       return this.additionalFields;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalField(String name, Object value) {
-      this.additionalFields.put(name, value);
     }
 
     /**
@@ -312,8 +303,6 @@ public class Channel {
   }
 
   public static class ChannelMemberRequestObject {
-
-    public ChannelMemberRequestObject() {}
 
     @Nullable
     @JsonProperty("user_id")
@@ -485,8 +474,6 @@ public class Channel {
 
   public static class ConfigOverridesRequestObject {
 
-    public ConfigOverridesRequestObject() {}
-
     @Nullable
     @JsonProperty("typing_events")
     private Boolean typingEvents;
@@ -610,7 +597,6 @@ public class Channel {
   }
 
   public static class ChannelGetRequestData {
-    public ChannelGetRequestData() {}
 
     @Nullable
     @JsonProperty("connection_id")
@@ -741,7 +727,6 @@ public class Channel {
   }
 
   public static class ChannelUpdateRequestData {
-    public ChannelUpdateRequestData() {}
 
     @NotNull
     @JsonProperty("add_members")

@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.exceptions.StreamException;
+import io.stream.models.App.AppUpdateRequestData.AppUpdateRequest;
 import io.stream.models.ChannelType.ChannelTypeWithStringCommands;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.AppService;
@@ -258,7 +259,6 @@ public class App extends StreamResponseObject {
   }
 
   public static class FileUploadConfigRequestObject {
-    public FileUploadConfigRequestObject() {}
 
     @Nullable
     @JsonProperty("allowed_file_extensions")
@@ -333,8 +333,6 @@ public class App extends StreamResponseObject {
   }
 
   public static class APNConfigRequestObject {
-    public APNConfigRequestObject() {}
-
     @NotNull
     @JsonProperty("enabled")
     private Boolean enabled;
@@ -468,7 +466,6 @@ public class App extends StreamResponseObject {
   }
 
   public static class FirebaseConfigRequestObject {
-    public FirebaseConfigRequestObject() {}
 
     @NotNull
     @JsonProperty("enabled")
@@ -531,7 +528,6 @@ public class App extends StreamResponseObject {
   }
 
   public static class PushConfigRequestObject {
-    public PushConfigRequestObject() {}
 
     @Nullable
     @JsonProperty("version")

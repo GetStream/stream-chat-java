@@ -239,7 +239,7 @@ public class ChannelType {
     @JsonProperty("name")
     private String name;
 
-    public ChannelTypeCreateRequestData() {}
+    private ChannelTypeCreateRequestData() {} // This is necessary for inheritance
 
     private ChannelTypeCreateRequestData(ChannelTypeCreateRequest channelTypeCreateRequest) {
       this.name = channelTypeCreateRequest.name;
@@ -475,7 +475,7 @@ public class ChannelType {
   
   public static class ChannelTypeUpdateRequestData {
 
-    public ChannelTypeUpdateRequestData() {}
+    private ChannelTypeUpdateRequestData() {} // This is necessary for inheritance
 
     private ChannelTypeUpdateRequestData(ChannelTypeUpdateRequest channelTypeUpdateRequest) {
       this.typingEvents = channelTypeUpdateRequest.typingEvents;

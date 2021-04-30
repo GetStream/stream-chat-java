@@ -239,9 +239,6 @@ public class Message {
   }
 
   public static class MessageRequestObject {
-    public MessageRequestObject() {
-      additionalFields = new HashMap<>();
-    }
 
     @Nullable
     @JsonProperty("text")
@@ -339,11 +336,6 @@ public class Message {
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
       return this.additionalFields;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalField(String name, Object value) {
-      this.additionalFields.put(name, value);
     }
 
     /**
@@ -496,9 +488,6 @@ public class Message {
   }
 
   public static class MessageRequestObjectMessage {
-    public MessageRequestObjectMessage() {
-      additionalFields = new HashMap<>();
-    }
 
     @Nullable
     @JsonProperty("text")
@@ -546,11 +535,6 @@ public class Message {
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
       return this.additionalFields;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalField(String name, Object value) {
-      this.additionalFields.put(name, value);
     }
 
     /**
@@ -674,9 +658,6 @@ public class Message {
   }
 
   public static class AttachmentRequestObject {
-    public AttachmentRequestObject() {
-      additionalFields = new HashMap<>();
-    }
 
     @Nullable
     @JsonProperty("type")
@@ -779,11 +760,6 @@ public class Message {
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
       return this.additionalFields;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalField(String name, Object value) {
-      this.additionalFields.put(name, value);
     }
 
     /**
@@ -943,7 +919,6 @@ public class Message {
   }
 
   public static class ActionRequestObject {
-    public ActionRequestObject() {}
 
     @NotNull
     @JsonProperty("name")
@@ -1029,12 +1004,9 @@ public class Message {
         return new ActionRequestObject(this);
       }
     }
-
-
   }
 
   public static class FieldRequestObject {
-    public FieldRequestObject() {}
 
     @NotNull
     @JsonProperty("type")
@@ -1096,7 +1068,5 @@ public class Message {
         return new FieldRequestObject(this);
       }
     }
-
-
   }
 }
