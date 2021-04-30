@@ -19,15 +19,14 @@ public class Sort {
 
   /**
    * Creates builder to build {@link Sort}.
+   *
    * @return created builder
    */
   public static Builder builder() {
     return new Builder();
   }
 
-  /**
-   * Builder to build {@link Sort}.
-   */
+  /** Builder to build {@link Sort}. */
   public static final class Builder {
     private String field;
     private Integer direction;
@@ -51,6 +50,4 @@ public class Sort {
       return new Sort(this);
     }
   }
-  
-  
 }

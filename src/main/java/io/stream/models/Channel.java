@@ -92,9 +92,7 @@ public class Channel {
   @JsonProperty("last_message_at")
   private Date lastMessageAt;
 
-  @NotNull
-  @JsonIgnore
-  private Map<String, Object> additionalFields;
+  @NotNull @JsonIgnore private Map<String, Object> additionalFields;
 
   @JsonAnyGetter
   public Map<String, Object> getAdditionalFields() {
@@ -182,9 +180,7 @@ public class Channel {
     @JsonProperty("created_by")
     private UserRequestObject createdBy;
 
-    @Nullable
-    @JsonIgnore
-    private Map<String, Object> additionalFields;
+    @Nullable @JsonIgnore private Map<String, Object> additionalFields;
 
     @Nullable
     @JsonProperty("team")
@@ -520,16 +516,14 @@ public class Channel {
 
     /**
      * Creates builder to build {@link ConfigOverridesRequestObject}.
-     * 
+     *
      * @return created builder
      */
     public static Builder builder() {
       return new Builder();
     }
 
-    /**
-     * Builder to build {@link ConfigOverridesRequestObject}.
-     */
+    /** Builder to build {@link ConfigOverridesRequestObject}. */
     public static final class Builder {
       private Boolean typingEvents;
       private Boolean reactions;
@@ -717,12 +711,15 @@ public class Channel {
       public ChannelGetResponse request() throws StreamException {
         if (this.channelId != null) {
           return new StreamServiceHandler()
-              .handle(StreamServiceGenerator.createService(ChannelService.class).getOrCreateWithId(
-                  this.channelType, this.channelId, new ChannelGetRequestData(this)));
+              .handle(
+                  StreamServiceGenerator.createService(ChannelService.class)
+                      .getOrCreateWithId(
+                          this.channelType, this.channelId, new ChannelGetRequestData(this)));
         }
         return new StreamServiceHandler()
-            .handle(StreamServiceGenerator.createService(ChannelService.class)
-                .getOrCreateWithoutId(this.channelType, new ChannelGetRequestData(this)));
+            .handle(
+                StreamServiceGenerator.createService(ChannelService.class)
+                    .getOrCreateWithoutId(this.channelType, new ChannelGetRequestData(this)));
       }
     }
   }
@@ -906,8 +903,9 @@ public class Channel {
       @NotNull
       public ChannelUpdateResponse request() throws StreamException {
         return new StreamServiceHandler()
-            .handle(StreamServiceGenerator.createService(ChannelService.class)
-                .update(this.channelType, this.channelId, new ChannelUpdateRequestData(this)));
+            .handle(
+                StreamServiceGenerator.createService(ChannelService.class)
+                    .update(this.channelType, this.channelId, new ChannelUpdateRequestData(this)));
       }
     }
   }
@@ -929,8 +927,10 @@ public class Channel {
      */
     @NotNull
     public ChannelDeleteResponse request() throws StreamException {
-      return new StreamServiceHandler().handle(StreamServiceGenerator
-          .createService(ChannelService.class).delete(this.channelType, this.channelId));
+      return new StreamServiceHandler()
+          .handle(
+              StreamServiceGenerator.createService(ChannelService.class)
+                  .delete(this.channelType, this.channelId));
     }
   }
 
@@ -1095,8 +1095,10 @@ public class Channel {
        */
       @NotNull
       public ChannelListResponse request() throws StreamException {
-        return new StreamServiceHandler().handle(StreamServiceGenerator
-            .createService(ChannelService.class).list(new ChannelListRequestData(this)));
+        return new StreamServiceHandler()
+            .handle(
+                StreamServiceGenerator.createService(ChannelService.class)
+                    .list(new ChannelListRequestData(this)));
       }
     }
   }
@@ -1118,8 +1120,10 @@ public class Channel {
      */
     @NotNull
     public ChannelTruncateResponse request() throws StreamException {
-      return new StreamServiceHandler().handle(StreamServiceGenerator
-          .createService(ChannelService.class).truncate(this.channelType, this.channelId));
+      return new StreamServiceHandler()
+          .handle(
+              StreamServiceGenerator.createService(ChannelService.class)
+                  .truncate(this.channelType, this.channelId));
     }
   }
 
@@ -1246,7 +1250,7 @@ public class Channel {
   public static ChannelDeleteRequest delete(@NotNull String type, @NotNull String id) {
     return new ChannelDeleteRequest(type, id);
   }
-  
+
   /**
    * Creates a list request
    *

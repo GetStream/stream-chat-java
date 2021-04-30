@@ -89,9 +89,7 @@ public class Message {
   @JsonProperty("deleted_at")
   private Date deletedAt;
 
-  @NotNull
-  @JsonIgnore
-  private Map<String, Object> additionalFields;
+  @NotNull @JsonIgnore private Map<String, Object> additionalFields;
 
   @JsonAnyGetter
   public Map<String, Object> getAdditionalFields() {
@@ -181,9 +179,7 @@ public class Message {
     @JsonProperty("og_scrape_url")
     private String ogScrapeURL;
 
-    @Nullable
-    @JsonIgnore
-    private Map<String, Object> additionalFields;
+    @Nullable @JsonIgnore private Map<String, Object> additionalFields;
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
@@ -308,9 +304,7 @@ public class Message {
     @JsonProperty("pinned_at")
     private Date pinnedAt;
 
-    @Nullable
-    @JsonIgnore
-    private Map<String, Object> additionalFields;
+    @Nullable @JsonIgnore private Map<String, Object> additionalFields;
 
     private MessageRequestObject(Builder builder) {
       this.text = builder.text;
@@ -340,16 +334,14 @@ public class Message {
 
     /**
      * Creates builder to build {@link MessageRequestObject}.
-     * 
+     *
      * @return created builder
      */
     public static Builder builder() {
       return new Builder();
     }
 
-    /**
-     * Builder to build {@link MessageRequestObject}.
-     */
+    /** Builder to build {@link MessageRequestObject}. */
     public static final class Builder {
       private String text;
       private String mml;
@@ -517,9 +509,7 @@ public class Message {
     @JsonProperty("silent")
     private Boolean silent;
 
-    @Nullable
-    @JsonIgnore
-    private Map<String, Object> additionalFields;
+    @Nullable @JsonIgnore private Map<String, Object> additionalFields;
 
     private MessageRequestObjectMessage(Builder builder) {
       this.text = builder.text;
@@ -539,16 +529,14 @@ public class Message {
 
     /**
      * Creates builder to build {@link MessageRequestObjectMessage}.
-     * 
+     *
      * @return created builder
      */
     public static Builder builder() {
       return new Builder();
     }
 
-    /**
-     * Builder to build {@link MessageRequestObjectMessage}.
-     */
+    /** Builder to build {@link MessageRequestObjectMessage}. */
     public static final class Builder {
       private String text;
       private List<Attachment> attachments = Collections.emptyList();
@@ -629,16 +617,14 @@ public class Message {
 
     /**
      * Creates builder to build {@link MessageRequestObjectUser}.
-     * 
+     *
      * @return created builder
      */
     public static Builder builder() {
       return new Builder();
     }
 
-    /**
-     * Builder to build {@link MessageRequestObjectUser}.
-     */
+    /** Builder to build {@link MessageRequestObjectUser}. */
     public static final class Builder {
       private String id;
 
@@ -731,9 +717,7 @@ public class Message {
     @JsonProperty("og_scrape_url")
     private String ogScrapeURL;
 
-    @Nullable
-    @JsonIgnore
-    private Map<String, Object> additionalFields;
+    @Nullable @JsonIgnore private Map<String, Object> additionalFields;
 
     private AttachmentRequestObject(Builder builder) {
       this.type = builder.type;
@@ -764,16 +748,14 @@ public class Message {
 
     /**
      * Creates builder to build {@link AttachmentRequestObject}.
-     * 
+     *
      * @return created builder
      */
     public static Builder builder() {
       return new Builder();
     }
 
-    /**
-     * Builder to build {@link AttachmentRequestObject}.
-     */
+    /** Builder to build {@link AttachmentRequestObject}. */
     public static final class Builder {
       private String type;
       private String fallback;
@@ -950,16 +932,14 @@ public class Message {
 
     /**
      * Creates builder to build {@link ActionRequestObject}.
-     * 
+     *
      * @return created builder
      */
     public static Builder builder() {
       return new Builder();
     }
 
-    /**
-     * Builder to build {@link ActionRequestObject}.
-     */
+    /** Builder to build {@link ActionRequestObject}. */
     public static final class Builder {
       private String name;
       private String text;
@@ -1028,16 +1008,14 @@ public class Message {
 
     /**
      * Creates builder to build {@link FieldRequestObject}.
-     * 
+     *
      * @return created builder
      */
     public static Builder builder() {
       return new Builder();
     }
 
-    /**
-     * Builder to build {@link FieldRequestObject}.
-     */
+    /** Builder to build {@link FieldRequestObject}. */
     public static final class Builder {
       private String type;
       private String value;

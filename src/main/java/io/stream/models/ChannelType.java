@@ -264,7 +264,7 @@ public class ChannelType {
       this.commands = channelTypeCreateRequest.commands;
       this.permissions = channelTypeCreateRequest.permissions;
     }
-    
+
     public static class ChannelTypeCreateRequest {
       private String name;
       private Boolean typingEvents;
@@ -397,7 +397,8 @@ public class ChannelType {
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withAutomodBehavior(@NotNull AutoModBehavior automodBehavior) {
+      public ChannelTypeCreateRequest withAutomodBehavior(
+          @NotNull AutoModBehavior automodBehavior) {
         this.automodBehavior = automodBehavior;
         return this;
       }
@@ -472,7 +473,7 @@ public class ChannelType {
           .handle(StreamServiceGenerator.createService(ChannelTypeService.class).get(name));
     }
   }
-  
+
   public static class ChannelTypeUpdateRequestData {
 
     private ChannelTypeUpdateRequestData() {} // This is necessary for inheritance
@@ -579,7 +580,7 @@ public class ChannelType {
     @Nullable
     @JsonProperty("permissions")
     protected List<Permission> permissions;
-    
+
     public static class ChannelTypeUpdateRequest {
       private String name;
       private Boolean typingEvents;
@@ -692,7 +693,8 @@ public class ChannelType {
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withAutomodBehavior(@NotNull AutoModBehavior automodBehavior) {
+      public ChannelTypeUpdateRequest withAutomodBehavior(
+          @NotNull AutoModBehavior automodBehavior) {
         this.automodBehavior = automodBehavior;
         return this;
       }

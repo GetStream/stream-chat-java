@@ -88,8 +88,7 @@ public class App extends StreamResponseObject {
   public static class PushNotificationFields {
     public PushNotificationFields() {}
 
-    @NotNull
-    private String version;
+    @NotNull private String version;
 
     @NotNull
     @JsonProperty("apn")
@@ -540,16 +539,14 @@ public class App extends StreamResponseObject {
 
     /**
      * Creates builder to build {@link PushConfigRequestObject}.
-     * 
+     *
      * @return created builder
      */
     public static Builder builder() {
       return new Builder();
     }
 
-    /**
-     * Builder to build {@link PushConfigRequestObject}.
-     */
+    /** Builder to build {@link PushConfigRequestObject}. */
     public static final class Builder {
       private String version;
 
@@ -846,8 +843,10 @@ public class App extends StreamResponseObject {
        * @throws StreamException when IO problem occurs or the stream API return an error
        */
       public StreamResponseObject request() throws StreamException {
-        return new StreamServiceHandler().handle(StreamServiceGenerator
-            .createService(AppService.class).update(new AppUpdateRequestData(this)));
+        return new StreamServiceHandler()
+            .handle(
+                StreamServiceGenerator.createService(AppService.class)
+                    .update(new AppUpdateRequestData(this)));
       }
     }
   }
