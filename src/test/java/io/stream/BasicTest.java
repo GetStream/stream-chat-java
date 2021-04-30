@@ -10,16 +10,16 @@ import org.junit.jupiter.api.BeforeEach;
 import io.stream.exceptions.StreamException;
 import io.stream.models.Channel;
 import io.stream.models.Channel.ChannelGetResponse;
-import io.stream.models.Channel.ChannelMemberRequest;
-import io.stream.models.Channel.ChannelRequest;
+import io.stream.models.Channel.ChannelMemberRequestObject;
+import io.stream.models.Channel.ChannelRequestObject;
 import io.stream.models.User;
-import io.stream.models.User.UserRequest;
+import io.stream.models.User.UserRequestObject;
 import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
 import io.stream.services.framework.StreamServiceGenerator;
 
 public class BasicTest {
-  protected static UserRequest serverUser;
-  protected static List<UserRequest> testUsers = new ArrayList<>();
+  protected static UserRequestObject serverUser;
+  protected static List<UserRequestObject> testUsers = new ArrayList<>();
 
   static void enableLoging() {
     StreamServiceGenerator.logEnabled = true;
@@ -47,23 +47,23 @@ public class BasicTest {
 
   static void upsertUsers() throws StreamException {
     serverUser =
-        UserRequest.builder()
+        UserRequestObject.builder()
             .withId(RandomStringUtils.randomAlphabetic(10))
             .withName("Gandalf the Grey")
             .build();
     testUsers.add(serverUser);
     testUsers.add(
-        UserRequest.builder()
+        UserRequestObject.builder()
             .withId(RandomStringUtils.randomAlphabetic(10))
             .withName("Frodo Baggins")
             .build());
     testUsers.add(
-        UserRequest.builder()
+        UserRequestObject.builder()
             .withId(RandomStringUtils.randomAlphabetic(10))
             .withName("Frodo Baggins")
             .build());
     testUsers.add(
-        UserRequest.builder()
+        UserRequestObject.builder()
             .withId(RandomStringUtils.randomAlphabetic(10))
             .withName("Samwise Gamgee")
             .build());
@@ -81,16 +81,16 @@ public class BasicTest {
         "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s %2$s %5$s%6$s%n");
   }
 
-  protected List<ChannelMemberRequest> buildChannelMembersList() {
+  protected List<ChannelMemberRequestObject> buildChannelMembersList() {
     return testUsers.stream()
-        .map(user -> ChannelMemberRequest.builder().withUser(user).build())
+        .map(user -> ChannelMemberRequestObject.builder().withUser(user).build())
         .collect(Collectors.toList());
   }
 
   protected ChannelGetResponse createRandomChannel() throws StreamException {
     return Channel.getOrCreate("team", RandomStringUtils.randomAlphabetic(12))
         .withData(
-            ChannelRequest.builder()
+            ChannelRequestObject.builder()
                 .withCreatedBy(serverUser)
                 .withMembers(buildChannelMembersList())
                 .build())
@@ -100,7 +100,7 @@ public class BasicTest {
   protected ChannelGetResponse getRandomChannel() throws StreamException {
     return Channel.getOrCreate("team", null)
         .withData(
-            ChannelRequest.builder()
+            ChannelRequestObject.builder()
                 .withCreatedBy(serverUser)
                 .withMembers(buildChannelMembersList())
                 .build())

@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.stream.models.User.UserRequest;
+import io.stream.models.User.UserRequestObject;
 import lombok.Data;
 
 @Data
@@ -234,8 +234,8 @@ public class Message {
   }
 
   @Data
-  public static class MessageRequest {
-    public MessageRequest() {
+  public static class MessageRequestObject {
+    public MessageRequestObject() {
       additionalFields = new HashMap<>();
     }
 
@@ -249,7 +249,7 @@ public class Message {
 
     @Nullable
     @JsonProperty("user")
-    private UserRequest user;
+    private UserRequestObject user;
 
     @Nullable
     @JsonProperty("parent_id")
@@ -257,7 +257,7 @@ public class Message {
 
     @Nullable
     @JsonProperty("attachments")
-    private List<AttachmentRequest> attachments;
+    private List<AttachmentRequestObject> attachments;
 
     @Nullable
     @JsonProperty("show_in_channel")
@@ -321,8 +321,8 @@ public class Message {
   }
 
   @Data
-  public static class MessageRequestMessage {
-    public MessageRequestMessage() {
+  public static class MessageRequestObjectMessage {
+    public MessageRequestObjectMessage() {
       additionalFields = new HashMap<>();
     }
 
@@ -336,7 +336,7 @@ public class Message {
 
     @Nullable
     @JsonProperty("user")
-    private MessageRequestUser user;
+    private MessageRequestObjectUser user;
 
     @Nullable
     @JsonProperty("mentioned_users")
@@ -368,8 +368,8 @@ public class Message {
   }
 
   @Data
-  public static class MessageRequestUser {
-    public MessageRequestUser() {}
+  public static class MessageRequestObjectUser {
+    public MessageRequestObjectUser() {}
 
     @NotNull
     @JsonProperty("id")
@@ -377,8 +377,8 @@ public class Message {
   }
 
   @Data
-  public static class AttachmentRequest {
-    public AttachmentRequest() {
+  public static class AttachmentRequestObject {
+    public AttachmentRequestObject() {
       additionalFields = new HashMap<>();
     }
 
@@ -440,11 +440,11 @@ public class Message {
 
     @Nullable
     @JsonProperty("actions")
-    private List<ActionRequest> actions;
+    private List<ActionRequestObject> actions;
 
     @Nullable
     @JsonProperty("fields")
-    private List<FieldRequest> fields;
+    private List<FieldRequestObject> fields;
 
     @Nullable
     @JsonProperty("asset_url")
@@ -468,8 +468,8 @@ public class Message {
   }
 
   @Data
-  public static class ActionRequest {
-    public ActionRequest() {}
+  public static class ActionRequestObject {
+    public ActionRequestObject() {}
 
     @NotNull
     @JsonProperty("name")
@@ -493,8 +493,8 @@ public class Message {
   }
 
   @Data
-  public static class FieldRequest {
-    public FieldRequest() {}
+  public static class FieldRequestObject {
+    public FieldRequestObject() {}
 
     @NotNull
     @JsonProperty("type")

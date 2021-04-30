@@ -232,11 +232,11 @@ public class ChannelType {
   }
 
   @Data
-  public static class ChannelTypeRequest {
+  public static class ChannelTypeRequestObject {
 
-    public ChannelTypeRequest() {}
+    public ChannelTypeRequestObject() {}
 
-    private ChannelTypeRequest(ChannelTypeUpdateRequest channelTypeUpdateRequest) {
+    private ChannelTypeRequestObject(ChannelTypeUpdateRequest channelTypeUpdateRequest) {
       this.typingEvents = channelTypeUpdateRequest.typingEvents;
       this.readEvents = channelTypeUpdateRequest.readEvents;
       this.connectEvents = channelTypeUpdateRequest.connectEvents;
@@ -342,15 +342,15 @@ public class ChannelType {
 
   @Data
   @EqualsAndHashCode(callSuper = false)
-  public static class ChannelTypeRequestWithName extends ChannelTypeRequest {
+  public static class ChannelTypeRequestObjectWithName extends ChannelTypeRequestObject {
 
     @Nullable
     @JsonProperty("name")
     private String name;
 
-    public ChannelTypeRequestWithName() {}
+    public ChannelTypeRequestObjectWithName() {}
 
-    private ChannelTypeRequestWithName(ChannelTypeCreateRequest channelTypeCreateRequest) {
+    private ChannelTypeRequestObjectWithName(ChannelTypeCreateRequest channelTypeCreateRequest) {
       this.name = channelTypeCreateRequest.name;
       this.typingEvents = channelTypeCreateRequest.typingEvents;
       this.readEvents = channelTypeCreateRequest.readEvents;
@@ -551,8 +551,8 @@ public class ChannelType {
      * @return the request data
      * @throws StreamException when IO problem occurs or the stream API return an error
      */
-    public ChannelTypeRequest request() throws StreamException {
-      ChannelTypeRequestWithName channelTypeRequestWithName = new ChannelTypeRequestWithName(this);
+    public ChannelTypeRequestObject request() throws StreamException {
+      ChannelTypeRequestObjectWithName channelTypeRequestWithName = new ChannelTypeRequestObjectWithName(this);
       return new StreamServiceHandler()
           .handle(
               StreamServiceGenerator.createService(ChannelTypeService.class)
@@ -716,8 +716,8 @@ public class ChannelType {
      * @return the request data
      * @throws StreamException when IO problem occurs or the stream API return an error
      */
-    public ChannelTypeRequest request() throws StreamException {
-      ChannelTypeRequest channelTypeRequest = new ChannelTypeRequest(this);
+    public ChannelTypeRequestObject request() throws StreamException {
+      ChannelTypeRequestObject channelTypeRequest = new ChannelTypeRequestObject(this);
       return new StreamServiceHandler()
           .handle(
               StreamServiceGenerator.createService(ChannelTypeService.class)
@@ -743,14 +743,14 @@ public class ChannelType {
 
   @Data
   @EqualsAndHashCode(callSuper = false)
-  public static class ChannelTypeCreateResponse extends ChannelTypeRequestWithName
+  public static class ChannelTypeCreateResponse extends ChannelTypeRequestObjectWithName
       implements StreamResponse {
     private RateLimitData rateLimitData;
   }
 
   @Data
   @EqualsAndHashCode(callSuper = false)
-  public static class ChannelTypeUpdateResponse extends ChannelTypeRequestWithName
+  public static class ChannelTypeUpdateResponse extends ChannelTypeRequestObjectWithName
       implements StreamResponse {
     private RateLimitData rateLimitData;
   }

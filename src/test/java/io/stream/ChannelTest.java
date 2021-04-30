@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Test;
 import io.stream.exceptions.StreamException;
 import io.stream.models.Channel;
 import io.stream.models.Channel.ChannelMember;
-import io.stream.models.Channel.ChannelMemberRequest;
+import io.stream.models.Channel.ChannelMemberRequestObject;
 import io.stream.models.Channel.ChannelGetResponse;
-import io.stream.models.Channel.ChannelRequest;
+import io.stream.models.Channel.ChannelRequestObject;
 import io.stream.models.Channel.ChannelUpdateResponse;
 import lombok.extern.java.Log;
 

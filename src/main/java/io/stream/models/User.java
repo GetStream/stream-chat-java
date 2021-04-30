@@ -180,62 +180,10 @@ public class User {
     @JsonProperty("updated_at")
     private Date updatedAt;
   }
-
+  
   @Data
-  public static class UserUpsertRequestData {
-    public UserUpsertRequestData() {}
-
-    @NotNull
-    @JsonProperty("users")
-    private Map<String, UserRequest> users;
-
-    private UserUpsertRequestData(UserUpsertRequest builder) {
-      this.users = builder.users;
-    }
-
-    /**
-     * Creates builder to build {@link UserUpsertRequestData}.
-     *
-     * @return created builder
-     */
-    public static UserUpsertRequest builder() {
-      return new UserUpsertRequest();
-    }
-
-    /** Builder to build {@link UserUpsertRequestData}. */
-    public static final class UserUpsertRequest {
-      private Map<String, UserRequest> users = new HashMap<>();
-
-      private UserUpsertRequest() {}
-
-      @NotNull
-      public UserUpsertRequest withUsers(@NotNull Map<String, UserRequest> users) {
-        this.users = users;
-        return this;
-      }
-
-      @NotNull
-      public UserUpsertRequest addUser(@NotNull UserRequest user) {
-        if (user.getId() == null) {
-          throw new IllegalArgumentException("user id cannot be null");
-        }
-        this.users.put(user.getId(), user);
-        return this;
-      }
-
-      @NotNull
-      public UsersUpsertResponse request() throws StreamException {
-        return new StreamServiceHandler()
-            .handle(
-                StreamServiceGenerator.createService(UserService.class)
-                    .upsert(new UserUpsertRequestData(this)));
-      }
-    }
-  }
-
-  @Data
-  public static class UserRequest {
-    public UserRequest() {}
+  public static class UserRequestObject {
+    public UserRequestObject() {}
 
     @NotNull
     @JsonProperty("id")
@@ -267,7 +215,7 @@ public class User {
 
     @Nullable @JsonIgnore private Map<String, Object> additionalFields;
 
-    private UserRequest(Builder builder) {
+    private UserRequestObject(Builder builder) {
       this.id = builder.id;
       this.name = builder.name;
       this.role = builder.role;
@@ -289,7 +237,7 @@ public class User {
     }
 
     /**
-     * Creates builder to build {@link UserRequest}.
+     * Creates builder to build {@link UserRequestObject}.
      *
      * @return created builder
      */
@@ -297,7 +245,7 @@ public class User {
       return new Builder();
     }
 
-    /** Builder to build {@link UserRequest}. */
+    /** Builder to build {@link UserRequestObject}. */
     public static final class Builder {
       private String id;
       private String name;
@@ -359,8 +307,60 @@ public class User {
       }
 
       @NotNull
-      public UserRequest build() {
-        return new UserRequest(this);
+      public UserRequestObject build() {
+        return new UserRequestObject(this);
+      }
+    }
+  }
+
+  @Data
+  public static class UserUpsertRequestData {
+    public UserUpsertRequestData() {}
+
+    @NotNull
+    @JsonProperty("users")
+    private Map<String, UserRequestObject> users;
+
+    private UserUpsertRequestData(UserUpsertRequest builder) {
+      this.users = builder.users;
+    }
+
+    /**
+     * Creates builder to build {@link UserUpsertRequestData}.
+     *
+     * @return created builder
+     */
+    public static UserUpsertRequest builder() {
+      return new UserUpsertRequest();
+    }
+
+    /** Builder to build {@link UserUpsertRequestData}. */
+    public static final class UserUpsertRequest {
+      private Map<String, UserRequestObject> users = new HashMap<>();
+
+      private UserUpsertRequest() {}
+
+      @NotNull
+      public UserUpsertRequest withUsers(@NotNull Map<String, UserRequestObject> users) {
+        this.users = users;
+        return this;
+      }
+
+      @NotNull
+      public UserUpsertRequest addUser(@NotNull UserRequestObject user) {
+        if (user.getId() == null) {
+          throw new IllegalArgumentException("user id cannot be null");
+        }
+        this.users.put(user.getId(), user);
+        return this;
+      }
+
+      @NotNull
+      public UsersUpsertResponse request() throws StreamException {
+        return new StreamServiceHandler()
+            .handle(
+                StreamServiceGenerator.createService(UserService.class)
+                    .upsert(new UserUpsertRequestData(this)));
       }
     }
   }
