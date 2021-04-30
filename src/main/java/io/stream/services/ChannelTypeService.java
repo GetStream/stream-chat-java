@@ -35,5 +35,7 @@ public interface ChannelTypeService {
   @NotNull
   Call<ChannelTypeRequestData> update(
       @NotNull @Path("name") String name,
-      @NotNull @Body ChannelTypeRequestDataWithoutNameSerialization channelTypeRequestDataWithoutNameSerialization);
+      @NotNull @Body
+          ChannelTypeRequestDataWithoutNameSerialization
+              channelTypeRequestDataWithoutNameSerialization);
 }

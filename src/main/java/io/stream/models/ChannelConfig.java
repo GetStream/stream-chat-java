@@ -143,7 +143,7 @@ public class ChannelConfig extends StreamResponse {
     @JsonProperty("commands")
     private List<String> commands;
   }
-  
+
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class ChannelConfigWithCommands extends ChannelConfig {
@@ -152,5 +152,4 @@ public class ChannelConfig extends StreamResponse {
     @JsonProperty("commands")
     private List<Command> commands;
   }
-  
 }
