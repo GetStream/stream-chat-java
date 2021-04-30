@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import io.stream.models.ChannelType;
 import io.stream.models.ChannelType.AutoMod;
-import io.stream.models.ChannelType.ListChannelTypeResponse;
+import io.stream.models.ChannelType.ChannelTypeListResponse;
 import lombok.extern.java.Log;
 
 @Log
@@ -20,7 +20,8 @@ public class ChannelTypeTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () -> ChannelType.create().withDefaultConfig().withName(channelName).request());
     log.info("Channel created");
-    ChannelType channelType = Assertions.assertDoesNotThrow(() -> ChannelType.get(channelName));
+    ChannelType channelType =
+        Assertions.assertDoesNotThrow(() -> ChannelType.get(channelName).request());
     log.info("Channel retrieved");
     assertEquals(channelType.getName(), channelName);
     Assertions.assertDoesNotThrow(() -> ChannelType.delete(channelName));
@@ -33,7 +34,7 @@ public class ChannelTypeTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () -> ChannelType.create().withDefaultConfig().withName(channelName).request());
     log.info("Channel created");
-    Assertions.assertDoesNotThrow(() -> ChannelType.delete(channelName));
+    Assertions.assertDoesNotThrow(() -> ChannelType.delete(channelName).request());
     log.info("Channel deleted");
   }
 
@@ -44,8 +45,8 @@ public class ChannelTypeTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () -> ChannelType.create().withDefaultConfig().withName(channelName).request());
     log.info("Channel created");
-    ListChannelTypeResponse listChannelTypeResponse =
-        Assertions.assertDoesNotThrow(() -> ChannelType.list());
+    ChannelTypeListResponse listChannelTypeResponse =
+        Assertions.assertDoesNotThrow(() -> ChannelType.list().request());
     log.info("Channels listed");
     Assertions.assertTrue(listChannelTypeResponse.getChannelTypes().containsKey(channelName));
     Assertions.assertDoesNotThrow(() -> ChannelType.delete(channelName));

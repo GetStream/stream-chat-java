@@ -11,7 +11,7 @@ public class AppTest extends BasicTest {
   @DisplayName("App Get does not throw Exception")
   @Test
   void whenCallingGetApp_thenNoException() {
-    Assertions.assertDoesNotThrow(() -> App.get());
+    Assertions.assertDoesNotThrow(() -> App.get().request());
   }
 
   @DisplayName("App Settings update does not throw Exception")

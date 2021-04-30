@@ -111,26 +111,6 @@ public class User {
     this.additionalFields.put(name, value);
   }
 
-  /**
-   * Creates a query request
-   *
-   * @return the created request
-   */
-  @NotNull
-  public static UserQueryRequest list() {
-    return UserListRequestData.builder();
-  }
-
-  /**
-   * Creates an upsert request
-   *
-   * @return the created request
-   */
-  @NotNull
-  public static UserUpsertRequest upsert() {
-    return UserUpsertRequestData.builder();
-  }
-
   @Data
   public static class Mute {
     public Mute() {}
@@ -180,7 +160,7 @@ public class User {
     @JsonProperty("updated_at")
     private Date updatedAt;
   }
-  
+
   @Data
   public static class UserRequestObject {
     public UserRequestObject() {}
@@ -325,16 +305,6 @@ public class User {
       this.users = builder.users;
     }
 
-    /**
-     * Creates builder to build {@link UserUpsertRequestData}.
-     *
-     * @return created builder
-     */
-    public static UserUpsertRequest builder() {
-      return new UserUpsertRequest();
-    }
-
-    /** Builder to build {@link UserUpsertRequestData}. */
     public static final class UserUpsertRequest {
       private Map<String, UserRequestObject> users = new HashMap<>();
 
@@ -411,16 +381,6 @@ public class User {
       this.connectionId = builder.connectionId;
     }
 
-    /**
-     * Creates builder to build {@link UserListRequestData}.
-     *
-     * @return created builder
-     */
-    public static UserQueryRequest builder() {
-      return new UserQueryRequest();
-    }
-
-    /** Builder to build {@link UserListRequestData}. */
     public static final class UserQueryRequest {
       private Map<String, Object> filterConditions = Collections.emptyMap();
       private List<Sort> sort = Collections.emptyList();
@@ -515,5 +475,25 @@ public class User {
     @NotNull
     @JsonProperty("users")
     private List<User> users;
+  }
+
+  /**
+   * Creates a query request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static UserQueryRequest list() {
+    return new UserQueryRequest();
+  }
+
+  /**
+   * Creates an upsert request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static UserUpsertRequest upsert() {
+    return new UserUpsertRequest();
   }
 }

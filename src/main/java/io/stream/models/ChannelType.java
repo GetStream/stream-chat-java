@@ -552,11 +552,33 @@ public class ChannelType {
      * @throws StreamException when IO problem occurs or the stream API return an error
      */
     public ChannelTypeRequestObject request() throws StreamException {
-      ChannelTypeRequestObjectWithName channelTypeRequestWithName = new ChannelTypeRequestObjectWithName(this);
+      ChannelTypeRequestObjectWithName channelTypeRequestWithName =
+          new ChannelTypeRequestObjectWithName(this);
       return new StreamServiceHandler()
           .handle(
               StreamServiceGenerator.createService(ChannelTypeService.class)
                   .create(channelTypeRequestWithName));
+    }
+  }
+
+  public static class ChannelTypeGetRequest {
+    private String name;
+
+    private ChannelTypeGetRequest(String name) {
+      this.name = name;
+    }
+
+    /**
+     * Retrieves a channel type by name.
+     *
+     * @param name the channel type name
+     * @return the retrieved channel type, null if not found
+     * @throws StreamException when IO problem occurs or the stream API return an error
+     */
+    @Nullable
+    public ChannelType request() throws StreamException {
+      return new StreamServiceHandler()
+          .handle(StreamServiceGenerator.createService(ChannelTypeService.class).get(name));
     }
   }
 
@@ -725,20 +747,41 @@ public class ChannelType {
     }
   }
 
-  @Data
-  @EqualsAndHashCode(callSuper = false)
-  public static class ListChannelTypeResponse extends StreamResponseObject {
-    public ListChannelTypeResponse() {}
+  public static class ChannelTypeDeleteRequest {
+    private String name;
 
-    @NotNull
-    @JsonProperty("channel_types")
-    private Map<String, ChannelTypeWithCommands> channelTypes;
+    private ChannelTypeDeleteRequest(String name) {
+      this.name = name;
+    }
+
+    /**
+     * Executes the request
+     *
+     * @return the rate limit information
+     * @throws StreamException when IO problem occurs or the stream API return an error
+     */
+    @Nullable
+    public StreamResponseObject request() throws StreamException {
+      return new StreamServiceHandler()
+          .handle(StreamServiceGenerator.createService(ChannelTypeService.class).delete(name));
+    }
   }
 
-  @Data
-  @EqualsAndHashCode(callSuper = false)
-  public static class ChannelTypeGetResponse extends ChannelType implements StreamResponse {
-    private RateLimitData rateLimitData;
+  public static class ChannelTypeListRequest {
+
+    private ChannelTypeListRequest() {}
+
+    /**
+     * Executes the request
+     *
+     * @return the channel types, in a map
+     * @throws StreamException when IO problem occurs or the stream API return an error
+     */
+    @Nullable
+    public ChannelTypeListResponse request() throws StreamException {
+      return new StreamServiceHandler()
+          .handle(StreamServiceGenerator.createService(ChannelTypeService.class).list());
+    }
   }
 
   @Data
@@ -750,62 +793,78 @@ public class ChannelType {
 
   @Data
   @EqualsAndHashCode(callSuper = false)
+  public static class ChannelTypeGetResponse extends ChannelType implements StreamResponse {
+    private RateLimitData rateLimitData;
+  }
+
+  @Data
+  @EqualsAndHashCode(callSuper = false)
   public static class ChannelTypeUpdateResponse extends ChannelTypeRequestObjectWithName
       implements StreamResponse {
     private RateLimitData rateLimitData;
   }
 
-  /**
-   * Creates an update request.
-   *
-   * @param the name of the channel type to update
-   * @return the created request
-   */
-  public static ChannelTypeUpdateRequest update(@NotNull String name) {
-    return new ChannelTypeUpdateRequest(name);
+  @Data
+  @EqualsAndHashCode(callSuper = false)
+  public static class ChannelTypeListResponse extends StreamResponseObject {
+    public ChannelTypeListResponse() {}
+
+    @NotNull
+    @JsonProperty("channel_types")
+    private Map<String, ChannelTypeWithCommands> channelTypes;
   }
 
   /**
-   * Creates an create request.
+   * Creates an create request
    *
    * @return the created request
    */
+  @NotNull
   public static ChannelTypeCreateRequest create() {
     return new ChannelTypeCreateRequest();
   }
 
   /**
-   * Retrieves a channel type by name.
+   * Creates a get request
    *
    * @param name the channel type name
-   * @return the retrieved channel type
-   * @throws StreamException when IO problem occurs or the stream API return an error
+   * @return the created request
    */
-  public static ChannelType get(String name) throws StreamException {
-    return new StreamServiceHandler()
-        .handle(StreamServiceGenerator.createService(ChannelTypeService.class).get(name));
+  @NotNull
+  public static ChannelTypeGetRequest get(String name) throws StreamException {
+    return new ChannelTypeGetRequest(name);
   }
 
   /**
-   * Lists all channel types
+   * Creates an update request
+   *
+   * @param the name of the channel type to update
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelTypeUpdateRequest update(@NotNull String name) {
+    return new ChannelTypeUpdateRequest(name);
+  }
+
+  /**
+   * Creates a delete request
+   *
+   * @param name the channel type name
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelTypeDeleteRequest delete(String name) throws StreamException {
+    return new ChannelTypeDeleteRequest(name);
+  }
+
+  /**
+   * Creates a list request
    *
    * @return the channel types in a map
    * @throws StreamException when IO problem occurs or the stream API return an error
    */
-  public static ListChannelTypeResponse list() throws StreamException {
-    return new StreamServiceHandler()
-        .handle(StreamServiceGenerator.createService(ChannelTypeService.class).list());
-  }
-
-  /**
-   * Deletes a channel type by name.
-   *
-   * @param name the channel type name
-   * @return the rate limit information
-   * @throws StreamException when IO problem occurs or the stream API return an error
-   */
-  public static StreamResponseObject delete(String name) throws StreamException {
-    return new StreamServiceHandler()
-        .handle(StreamServiceGenerator.createService(ChannelTypeService.class).delete(name));
+  @NotNull
+  public static ChannelTypeListRequest list() throws StreamException {
+    return new ChannelTypeListRequest();
   }
 }

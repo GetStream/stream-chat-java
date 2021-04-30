@@ -6,7 +6,7 @@ import io.stream.models.ChannelType.ChannelTypeGetResponse;
 import io.stream.models.ChannelType.ChannelTypeRequestObject;
 import io.stream.models.ChannelType.ChannelTypeRequestObjectWithName;
 import io.stream.models.ChannelType.ChannelTypeUpdateResponse;
-import io.stream.models.ChannelType.ListChannelTypeResponse;
+import io.stream.models.ChannelType.ChannelTypeListResponse;
 import io.stream.models.framework.StreamResponseObject;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -32,10 +32,11 @@ public interface ChannelTypeService {
 
   @GET("channeltypes")
   @NotNull
-  Call<ListChannelTypeResponse> list();
+  Call<ChannelTypeListResponse> list();
 
   @PUT("channeltypes/{name}")
   @NotNull
   Call<ChannelTypeUpdateResponse> update(
-      @NotNull @Path("name") String name, @NotNull @Body ChannelTypeRequestObject channelTypeRequest);
+      @NotNull @Path("name") String name,
+      @NotNull @Body ChannelTypeRequestObject channelTypeRequest);
 }

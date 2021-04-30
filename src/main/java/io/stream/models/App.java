@@ -541,7 +541,21 @@ public class App extends StreamResponseObject {
     @JsonProperty("version")
     private String version;
   }
-  
+
+  public static class AppGetRequest {
+    /**
+     * Executes the request
+     *
+     * @return the retrieved app
+     * @throws StreamException when IO problem occurs or the stream API return an error
+     */
+    @NotNull
+    public App request() throws StreamException {
+      return new StreamServiceHandler()
+          .handle(StreamServiceGenerator.createService(AppService.class).get());
+    }
+  }
+
   @Data
   public static final class AppUpdateRequestData {
     public AppUpdateRequestData() {}
@@ -692,7 +706,8 @@ public class App extends StreamResponseObject {
       }
 
       @NotNull
-      public AppUpdateRequest withFirebaseConfig(@NotNull FirebaseConfigRequestObject firebaseConfig) {
+      public AppUpdateRequest withFirebaseConfig(
+          @NotNull FirebaseConfigRequestObject firebaseConfig) {
         this.firebaseConfig = firebaseConfig;
         return this;
       }
@@ -815,14 +830,13 @@ public class App extends StreamResponseObject {
   }
 
   /**
-   * Retrieves the app.
+   * Creates a get request.
    *
-   * @return the retrieved app
-   * @throws StreamException when IO problem occurs or the stream API return an error
+   * @return the created request
    */
-  public static App get() throws StreamException {
-    return new StreamServiceHandler()
-        .handle(StreamServiceGenerator.createService(AppService.class).get());
+  @NotNull
+  public static AppGetRequest get() throws StreamException {
+    return new AppGetRequest();
   }
 
   /**
@@ -830,7 +844,8 @@ public class App extends StreamResponseObject {
    *
    * @return the created request
    */
-  public static final AppUpdateRequest update() {
+  @NotNull
+  public static AppUpdateRequest update() {
     return new AppUpdateRequest();
   }
 }
