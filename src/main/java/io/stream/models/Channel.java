@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.exceptions.StreamException;
 import io.stream.models.Channel.ChannelGetRequestData.ChannelGetRequest;
-import io.stream.models.Channel.ChannelListRequestData.ChannelListRequest;
 import io.stream.models.Channel.ChannelUpdateRequestData.ChannelUpdateRequest;
 import io.stream.models.ChannelType.BlocklistBehavior;
 import io.stream.models.ChannelType.ChannelTypeWithCommands;
@@ -92,7 +91,9 @@ public class Channel {
   @JsonProperty("last_message_at")
   private Date lastMessageAt;
 
-  @NotNull @JsonIgnore private Map<String, Object> additionalFields;
+  @NotNull
+  @JsonIgnore
+  private Map<String, Object> additionalFields;
 
   @JsonAnyGetter
   public Map<String, Object> getAdditionalFields() {
@@ -184,7 +185,9 @@ public class Channel {
     @JsonProperty("created_by")
     private UserRequestObject createdBy;
 
-    @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+    @Nullable
+    @JsonIgnore
+    private Map<String, Object> additionalFields;
 
     @Nullable
     @JsonProperty("team")
@@ -308,7 +311,6 @@ public class Channel {
     }
   }
 
-  @Data
   public static class ChannelMemberRequestObject {
 
     public ChannelMemberRequestObject() {}
@@ -516,9 +518,97 @@ public class Channel {
     @Nullable
     @JsonProperty("blocklist_behavior")
     private BlocklistBehavior blocklistBehavior;
+
+    private ConfigOverridesRequestObject(Builder builder) {
+      this.typingEvents = builder.typingEvents;
+      this.reactions = builder.reactions;
+      this.replies = builder.replies;
+      this.uploads = builder.uploads;
+      this.urlEnrichment = builder.urlEnrichment;
+      this.maxMessageLength = builder.maxMessageLength;
+      this.blocklist = builder.blocklist;
+      this.blocklistBehavior = builder.blocklistBehavior;
+    }
+
+    /**
+     * Creates builder to build {@link ConfigOverridesRequestObject}.
+     * 
+     * @return created builder
+     */
+    public static Builder builder() {
+      return new Builder();
+    }
+
+    /**
+     * Builder to build {@link ConfigOverridesRequestObject}.
+     */
+    public static final class Builder {
+      private Boolean typingEvents;
+      private Boolean reactions;
+      private Boolean replies;
+      private Boolean uploads;
+      private Boolean urlEnrichment;
+      private Integer maxMessageLength;
+      private String blocklist;
+      private BlocklistBehavior blocklistBehavior;
+
+      private Builder() {}
+
+      @NotNull
+      public Builder withTypingEvents(@NotNull Boolean typingEvents) {
+        this.typingEvents = typingEvents;
+        return this;
+      }
+
+      @NotNull
+      public Builder withReactions(@NotNull Boolean reactions) {
+        this.reactions = reactions;
+        return this;
+      }
+
+      @NotNull
+      public Builder withReplies(@NotNull Boolean replies) {
+        this.replies = replies;
+        return this;
+      }
+
+      @NotNull
+      public Builder withUploads(@NotNull Boolean uploads) {
+        this.uploads = uploads;
+        return this;
+      }
+
+      @NotNull
+      public Builder withUrlEnrichment(@NotNull Boolean urlEnrichment) {
+        this.urlEnrichment = urlEnrichment;
+        return this;
+      }
+
+      @NotNull
+      public Builder withMaxMessageLength(@NotNull Integer maxMessageLength) {
+        this.maxMessageLength = maxMessageLength;
+        return this;
+      }
+
+      @NotNull
+      public Builder withBlocklist(@NotNull String blocklist) {
+        this.blocklist = blocklist;
+        return this;
+      }
+
+      @NotNull
+      public Builder withBlocklistBehavior(@NotNull BlocklistBehavior blocklistBehavior) {
+        this.blocklistBehavior = blocklistBehavior;
+        return this;
+      }
+
+      @NotNull
+      public ConfigOverridesRequestObject build() {
+        return new ConfigOverridesRequestObject(this);
+      }
+    }
   }
 
-  @Data
   public static class ChannelGetRequestData {
     public ChannelGetRequestData() {}
 
@@ -638,20 +728,16 @@ public class Channel {
       public ChannelGetResponse request() throws StreamException {
         if (this.channelId != null) {
           return new StreamServiceHandler()
-              .handle(
-                  StreamServiceGenerator.createService(ChannelService.class)
-                      .getOrCreateWithId(
-                          this.channelType, this.channelId, new ChannelGetRequestData(this)));
+              .handle(StreamServiceGenerator.createService(ChannelService.class).getOrCreateWithId(
+                  this.channelType, this.channelId, new ChannelGetRequestData(this)));
         }
         return new StreamServiceHandler()
-            .handle(
-                StreamServiceGenerator.createService(ChannelService.class)
-                    .getOrCreateWithoutId(this.channelType, new ChannelGetRequestData(this)));
+            .handle(StreamServiceGenerator.createService(ChannelService.class)
+                .getOrCreateWithoutId(this.channelType, new ChannelGetRequestData(this)));
       }
     }
   }
 
-  @Data
   public static class ChannelUpdateRequestData {
     public ChannelUpdateRequestData() {}
 
@@ -832,14 +918,12 @@ public class Channel {
       @NotNull
       public ChannelUpdateResponse request() throws StreamException {
         return new StreamServiceHandler()
-            .handle(
-                StreamServiceGenerator.createService(ChannelService.class)
-                    .update(this.channelType, this.channelId, new ChannelUpdateRequestData(this)));
+            .handle(StreamServiceGenerator.createService(ChannelService.class)
+                .update(this.channelType, this.channelId, new ChannelUpdateRequestData(this)));
       }
     }
   }
 
-  @Data
   public static class ChannelDeleteRequest {
     private String channelId;
     private String channelType;
@@ -857,14 +941,11 @@ public class Channel {
      */
     @NotNull
     public ChannelDeleteResponse request() throws StreamException {
-      return new StreamServiceHandler()
-          .handle(
-              StreamServiceGenerator.createService(ChannelService.class)
-                  .delete(this.channelType, this.channelId));
+      return new StreamServiceHandler().handle(StreamServiceGenerator
+          .createService(ChannelService.class).delete(this.channelType, this.channelId));
     }
   }
 
-  @Data
   public static class ChannelListRequestData {
     @Nullable
     @JsonProperty("filter_conditions")
@@ -1026,15 +1107,12 @@ public class Channel {
        */
       @NotNull
       public ChannelListResponse request() throws StreamException {
-        return new StreamServiceHandler()
-            .handle(
-                StreamServiceGenerator.createService(ChannelService.class)
-                    .list(new ChannelListRequestData(this)));
+        return new StreamServiceHandler().handle(StreamServiceGenerator
+            .createService(ChannelService.class).list(new ChannelListRequestData(this)));
       }
     }
   }
 
-  @Data
   public static class ChannelTruncateRequest {
     private String channelId;
     private String channelType;
@@ -1052,10 +1130,8 @@ public class Channel {
      */
     @NotNull
     public ChannelTruncateResponse request() throws StreamException {
-      return new StreamServiceHandler()
-          .handle(
-              StreamServiceGenerator.createService(ChannelService.class)
-                  .truncate(this.channelType, this.channelId));
+      return new StreamServiceHandler().handle(StreamServiceGenerator
+          .createService(ChannelService.class).truncate(this.channelType, this.channelId));
     }
   }
 
@@ -1181,16 +1257,6 @@ public class Channel {
   @NotNull
   public static ChannelDeleteRequest delete(@NotNull String type, @NotNull String id) {
     return new ChannelDeleteRequest(type, id);
-  }
-
-  /**
-   * Creates a list request
-   *
-   * @return the created request
-   */
-  @NotNull
-  public static ChannelListRequest list() {
-    return new ChannelListRequest();
   }
 
   /**

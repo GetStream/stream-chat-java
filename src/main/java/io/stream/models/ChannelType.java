@@ -231,7 +231,6 @@ public class ChannelType {
     private List<Command> commands;
   }
 
-  @Data
   public static class ChannelTypeRequestObject {
 
     public ChannelTypeRequestObject() {}
@@ -340,8 +339,6 @@ public class ChannelType {
     protected List<Permission> permissions;
   }
 
-  @Data
-  @EqualsAndHashCode(callSuper = false)
   public static class ChannelTypeRequestObjectWithName extends ChannelTypeRequestObject {
 
     @Nullable

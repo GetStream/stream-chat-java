@@ -20,6 +20,7 @@ import io.stream.services.framework.StreamServiceGenerator;
 import io.stream.services.framework.StreamServiceHandler;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 @Data
 public class User {
@@ -161,12 +162,12 @@ public class User {
     private Date updatedAt;
   }
 
-  @Data
   public static class UserRequestObject {
     public UserRequestObject() {}
 
     @NotNull
     @JsonProperty("id")
+    @Getter
     private String id;
 
     @Nullable
@@ -293,7 +294,6 @@ public class User {
     }
   }
 
-  @Data
   public static class UserUpsertRequestData {
     public UserUpsertRequestData() {}
 
@@ -335,7 +335,6 @@ public class User {
     }
   }
 
-  @Data
   public static class UserListRequestData {
 
     @NotNull

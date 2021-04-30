@@ -8,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.exceptions.StreamException;
-import io.stream.models.App.AppUpdateRequestData.AppUpdateRequest;
 import io.stream.models.ChannelType.ChannelTypeWithStringCommands;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.AppService;
@@ -258,7 +257,6 @@ public class App extends StreamResponseObject {
     private List<String> blockedMimeTypes;
   }
 
-  @Data
   public static final class FileUploadConfigRequestObject {
     public FileUploadConfigRequestObject() {}
 
@@ -334,7 +332,6 @@ public class App extends StreamResponseObject {
     }
   }
 
-  @Data
   public static final class APNConfigRequestObject {
     public APNConfigRequestObject() {}
 
@@ -470,7 +467,6 @@ public class App extends StreamResponseObject {
     }
   }
 
-  @Data
   public static final class FirebaseConfigRequestObject {
     public FirebaseConfigRequestObject() {}
 
@@ -540,6 +536,38 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("version")
     private String version;
+
+    private PushConfigRequestObject(Builder builder) {
+      this.version = builder.version;
+    }
+
+    /**
+     * Creates builder to build {@link PushConfigRequestObject}.
+     * @return created builder
+     */
+    public static Builder builder() {
+      return new Builder();
+    }
+
+    /**
+     * Builder to build {@link PushConfigRequestObject}.
+     */
+    public static final class Builder {
+      private String version;
+
+      private Builder() {}
+
+      @NotNull
+      public Builder withVersion(@NotNull String version) {
+        this.version = version;
+        return this;
+      }
+
+      @NotNull
+      public PushConfigRequestObject build() {
+        return new PushConfigRequestObject(this);
+      }
+    }
   }
 
   public static class AppGetRequest {
@@ -556,7 +584,6 @@ public class App extends StreamResponseObject {
     }
   }
 
-  @Data
   public static final class AppUpdateRequestData {
     public AppUpdateRequestData() {}
 
@@ -827,25 +854,5 @@ public class App extends StreamResponseObject {
                     .update(new AppUpdateRequestData(this)));
       }
     }
-  }
-
-  /**
-   * Creates a get request.
-   *
-   * @return the created request
-   */
-  @NotNull
-  public static AppGetRequest get() throws StreamException {
-    return new AppGetRequest();
-  }
-
-  /**
-   * Creates an update request.
-   *
-   * @return the created request
-   */
-  @NotNull
-  public static AppUpdateRequest update() {
-    return new AppUpdateRequest();
   }
 }
