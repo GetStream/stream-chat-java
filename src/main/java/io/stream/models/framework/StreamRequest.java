@@ -1,9 +1,9 @@
 package io.stream.models.framework;
 
-import java.util.function.Consumer;
-import org.jetbrains.annotations.NotNull;
 import io.stream.exceptions.StreamException;
 import io.stream.services.framework.StreamServiceHandler;
+import java.util.function.Consumer;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 
 public abstract class StreamRequest<T extends StreamResponse> {

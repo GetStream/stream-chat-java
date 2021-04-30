@@ -1,10 +1,10 @@
 package io.stream.services;
 
-import org.jetbrains.annotations.NotNull;
 import io.stream.models.Message.MessageSendRequestData;
 import io.stream.models.Message.MessageSendResponse;
 import io.stream.models.Message.MessageUpdateRequestData;
 import io.stream.models.Message.MessageUpdateResponse;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;

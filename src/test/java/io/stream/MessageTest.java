@@ -1,11 +1,11 @@
 package io.stream;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import io.stream.models.Channel;
 import io.stream.models.Message;
 import io.stream.models.Message.MessageRequestObject;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 public class MessageTest extends BasicTest {
 
