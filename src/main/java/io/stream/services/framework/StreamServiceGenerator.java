@@ -1,23 +1,27 @@
 package io.stream.services.framework;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.stream.exceptions.StreamException;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import java.security.Key;
 import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import javax.crypto.spec.SecretKeySpec;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.stream.exceptions.StreamException;
 import lombok.extern.java.Log;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -71,7 +75,7 @@ public class StreamServiceGenerator {
                     .build();
             return chain.proceed(request);
           });
-      ObjectMapper mapper = new ObjectMapper();
+      final ObjectMapper mapper = new ObjectMapper();
       mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, failOnUnknownProperties);
       String baseUrl =
           System.getenv("STREAM_CHAT_URL") != null
@@ -80,6 +84,31 @@ public class StreamServiceGenerator {
       Retrofit.Builder builder =
           new Retrofit.Builder()
               .baseUrl(baseUrl)
+              .addConverterFactory(
+                  new Converter.Factory() {
+                    @Override
+                    public Converter<?, String> stringConverter(
+                        final Type type, final Annotation[] annotations, final Retrofit retrofit) {
+                      if (!hasToJson(annotations)) {
+                        return super.stringConverter(type, annotations, retrofit);
+                      }
+
+                      return value -> {
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        mapper.writeValue(baos, value);
+                        return baos.toString("UTF-8");
+                      };
+                    }
+
+                    private boolean hasToJson(final Annotation[] annotations) {
+                      for (final Annotation annotation : annotations) {
+                        if (annotation instanceof ToJson) {
+                          return true;
+                        }
+                      }
+                      return false;
+                    }
+                  })
               .addConverterFactory(JacksonConverterFactory.create(mapper));
       builder.client(httpClient.build());
       retrofit = builder.build();
