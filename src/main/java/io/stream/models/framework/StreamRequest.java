@@ -22,7 +22,7 @@ public abstract class StreamRequest<T extends StreamResponse> {
 
   /**
    * Executes the request asynchronously
-   * 
+   *
    * @param onSuccess executed when the request is successful
    * @param onError executed when IO problem occurs or the stream API return an error
    */

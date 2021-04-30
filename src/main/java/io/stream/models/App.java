@@ -829,7 +829,7 @@ public class App extends StreamResponseObject {
         this.multiTenantEnabled = multiTenantEnabled;
         return this;
       }
-      
+
       @Override
       protected Call<StreamResponseObject> generateCall() {
         return StreamServiceGenerator.createService(AppService.class)

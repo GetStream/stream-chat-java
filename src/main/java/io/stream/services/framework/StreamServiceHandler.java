@@ -22,25 +22,27 @@ public class StreamServiceHandler {
       throw StreamException.build(e);
     }
   }
-  
-  public <T extends StreamResponse> void handleAsync(Call<T> call, Consumer<T> onSuccess, Consumer<StreamException> onError) {
-    call.enqueue(new Callback<T>() {
-      @Override
-      public void onResponse(Call<T> call, Response<T> response) {
-          if (response.isSuccessful()) {
-            onSuccess.accept(enrichResponse(response));
-          } else {
-            onError.accept(StreamException.build(response.errorBody()));
-          }
-      }
 
-      @Override
-      public void onFailure(Call<T> call, Throwable throwable) {
-          onError.accept(StreamException.build(throwable));
-      }
-  });
+  public <T extends StreamResponse> void handleAsync(
+      Call<T> call, Consumer<T> onSuccess, Consumer<StreamException> onError) {
+    call.enqueue(
+        new Callback<T>() {
+          @Override
+          public void onResponse(Call<T> call, Response<T> response) {
+            if (response.isSuccessful()) {
+              onSuccess.accept(enrichResponse(response));
+            } else {
+              onError.accept(StreamException.build(response.errorBody()));
+            }
+          }
+
+          @Override
+          public void onFailure(Call<T> call, Throwable throwable) {
+            onError.accept(StreamException.build(throwable));
+          }
+        });
   }
-  
+
   private <T extends StreamResponse> T enrichResponse(Response<T> response) {
     T result = response.body();
     Headers headers = response.headers();

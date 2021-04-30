@@ -705,11 +705,10 @@ public class Channel {
       protected Call<ChannelGetResponse> generateCall() {
         if (this.channelId != null) {
           return StreamServiceGenerator.createService(ChannelService.class)
-                      .getOrCreateWithId(
-                          this.channelType, this.channelId, new ChannelGetRequestData(this));
+              .getOrCreateWithId(this.channelType, this.channelId, new ChannelGetRequestData(this));
         }
         return StreamServiceGenerator.createService(ChannelService.class)
-                    .getOrCreateWithoutId(this.channelType, new ChannelGetRequestData(this));
+            .getOrCreateWithoutId(this.channelType, new ChannelGetRequestData(this));
       }
     }
   }
@@ -883,7 +882,7 @@ public class Channel {
         this.user = user;
         return this;
       }
-      
+
       @Override
       protected Call<ChannelUpdateResponse> generateCall() {
         return StreamServiceGenerator.createService(ChannelService.class)
@@ -900,7 +899,7 @@ public class Channel {
       this.channelType = channelType;
       this.channelId = channelId;
     }
-    
+
     @Override
     protected Call<ChannelDeleteResponse> generateCall() {
       return StreamServiceGenerator.createService(ChannelService.class)
@@ -1060,7 +1059,7 @@ public class Channel {
         this.connectionId = connectionId;
         return this;
       }
-      
+
       @Override
       protected Call<ChannelListResponse> generateCall() {
         return StreamServiceGenerator.createService(ChannelService.class)
@@ -1077,7 +1076,7 @@ public class Channel {
       this.channelType = channelType;
       this.channelId = channelId;
     }
-    
+
     @Override
     protected Call<ChannelTruncateResponse> generateCall() {
       return StreamServiceGenerator.createService(ChannelService.class)

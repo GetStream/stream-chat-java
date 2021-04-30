@@ -322,7 +322,7 @@ public class User {
         this.users.put(user.getId(), user);
         return this;
       }
-      
+
       @Override
       protected Call<UsersUpsertResponse> generateCall() {
         return StreamServiceGenerator.createService(UserService.class)

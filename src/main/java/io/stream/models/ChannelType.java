@@ -435,7 +435,7 @@ public class ChannelType {
         this.permissions = permissions;
         return this;
       }
-      
+
       @Override
       protected Call<ChannelTypeCreateResponse> generateCall() {
         return StreamServiceGenerator.createService(ChannelTypeService.class)
@@ -450,7 +450,7 @@ public class ChannelType {
     private ChannelTypeGetRequest(String name) {
       this.name = name;
     }
-    
+
     @Override
     protected Call<ChannelTypeGetResponse> generateCall() {
       return StreamServiceGenerator.createService(ChannelTypeService.class).get(name);
@@ -713,7 +713,7 @@ public class ChannelType {
         this.permissions = permissions;
         return this;
       }
-      
+
       @Override
       protected Call<ChannelTypeUpdateResponse> generateCall() {
         return StreamServiceGenerator.createService(ChannelTypeService.class)
@@ -728,7 +728,7 @@ public class ChannelType {
     private ChannelTypeDeleteRequest(String name) {
       this.name = name;
     }
-    
+
     @Override
     protected Call<StreamResponseObject> generateCall() {
       return StreamServiceGenerator.createService(ChannelTypeService.class).delete(name);
@@ -738,7 +738,7 @@ public class ChannelType {
   public static class ChannelTypeListRequest extends StreamRequest<ChannelTypeListResponse> {
 
     private ChannelTypeListRequest() {}
-    
+
     @Override
     protected Call<ChannelTypeListResponse> generateCall() {
       return StreamServiceGenerator.createService(ChannelTypeService.class).list();
