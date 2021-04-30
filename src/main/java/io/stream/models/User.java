@@ -1,6 +1,5 @@
 package io.stream.models;
 
-import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,6 +11,7 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.UserService;
 import io.stream.services.framework.StreamServiceGenerator;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -294,7 +294,7 @@ public class User {
       }
     }
   }
-  
+
   public static class UserPartialUpdateRequestObject {
     public UserPartialUpdateRequestObject() {}
 
@@ -318,15 +318,14 @@ public class User {
 
     /**
      * Creates builder to build {@link UserPartialUpdateRequestObject}.
+     *
      * @return created builder
      */
     public static Builder builder() {
       return new Builder();
     }
 
-    /**
-     * Builder to build {@link UserPartialUpdateRequestObject}.
-     */
+    /** Builder to build {@link UserPartialUpdateRequestObject}. */
     public static final class Builder {
       private String id;
       private Map<String, Object> setValue = Collections.emptyMap();
@@ -357,8 +356,6 @@ public class User {
         return new UserPartialUpdateRequestObject(this);
       }
     }
-    
-    
   }
 
   public static class UserUpsertRequestData {
@@ -511,14 +508,14 @@ public class User {
       }
     }
   }
-  
+
   public static class UserPartialUpdateRequestData {
     public UserPartialUpdateRequestData() {}
 
     @NotNull
     @JsonProperty("users")
     private List<UserPartialUpdateRequestObject> users;
-    
+
     private UserPartialUpdateRequestData(UserPartialUpdateRequest userPartialUpdateRequest) {
       this.users = userPartialUpdateRequest.users;
     }
@@ -529,7 +526,8 @@ public class User {
       private UserPartialUpdateRequest() {}
 
       @NotNull
-      public UserPartialUpdateRequest withUsers(@NotNull List<UserPartialUpdateRequestObject> users) {
+      public UserPartialUpdateRequest withUsers(
+          @NotNull List<UserPartialUpdateRequestObject> users) {
         this.users = users;
         return this;
       }
@@ -539,7 +537,7 @@ public class User {
         this.users.add(user);
         return this;
       }
-      
+
       @Override
       protected Call<UserPartialUpdateResponse> generateCall() {
         return StreamServiceGenerator.createService(UserService.class)
@@ -567,7 +565,7 @@ public class User {
     @JsonProperty("users")
     private List<User> users;
   }
-  
+
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class UserPartialUpdateResponse extends StreamResponseObject {
@@ -577,7 +575,7 @@ public class User {
     @JsonProperty("users")
     private Map<String, User> users;
   }
-  
+
   /**
    * Creates a query request
    *
@@ -597,7 +595,7 @@ public class User {
   public static UserUpsertRequest upsert() {
     return new UserUpsertRequest();
   }
-  
+
   /**
    * Creates a partial update request
    *
