@@ -1084,7 +1084,7 @@ public class Message {
       this.skipPush = builder.skipPush;
     }
 
-    public static final class MessageSendRequest extends StreamRequest<MessageSendResponse> {
+    public static class MessageSendRequest extends StreamRequest<MessageSendResponse> {
       private String channelId;
       private String channelType;
       private MessageRequestObject message;
@@ -1124,7 +1124,7 @@ public class Message {
       this.message = builder.message;
     }
 
-    public static final class MessageUpdateRequest extends StreamRequest<MessageUpdateResponse> {
+    public static class MessageUpdateRequest extends StreamRequest<MessageUpdateResponse> {
       private String id;
       private MessageRequestObject message;
 
