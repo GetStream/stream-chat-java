@@ -305,7 +305,7 @@ public class User {
       this.users = builder.users;
     }
 
-    public static final class UserUpsertRequest {
+    public static class UserUpsertRequest {
       private Map<String, UserRequestObject> users = new HashMap<>();
 
       private UserUpsertRequest() {}
@@ -380,7 +380,7 @@ public class User {
       this.connectionId = builder.connectionId;
     }
 
-    public static final class UserQueryRequest {
+    public static class UserQueryRequest {
       private Map<String, Object> filterConditions = Collections.emptyMap();
       private List<Sort> sort = Collections.emptyList();
       private Boolean presence;

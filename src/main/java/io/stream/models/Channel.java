@@ -653,7 +653,7 @@ public class Channel {
       this.watchers = builder.watchers;
     }
 
-    public static final class ChannelGetRequest {
+    public static class ChannelGetRequest {
       private String channelId;
       private String channelType;
       private String connectionId;
@@ -809,7 +809,7 @@ public class Channel {
       this.user = builder.user;
     }
 
-    public static final class ChannelUpdateRequest {
+    public static class ChannelUpdateRequest {
       private String channelId;
       private String channelType;
       private List<String> addMembers = Collections.emptyList();
@@ -1010,7 +1010,7 @@ public class Channel {
       this.connectionId = builder.connectionId;
     }
 
-    public static final class ChannelListRequest {
+    public static class ChannelListRequest {
       private Map<String, Object> filterConditions = Collections.emptyMap();
       private List<Sort> sort = Collections.emptyList();
       private Boolean watch;

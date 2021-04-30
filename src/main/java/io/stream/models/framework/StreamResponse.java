@@ -9,7 +9,7 @@ public interface StreamResponse {
   void setRateLimitData(RateLimitData rateLimitData);
 
   @Data
-  public static final class RateLimitData {
+  public static class RateLimitData {
     private int ratelimitLimit;
 
     private int ratelimitRemaining;

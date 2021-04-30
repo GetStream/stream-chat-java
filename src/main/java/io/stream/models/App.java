@@ -26,7 +26,7 @@ public class App extends StreamResponseObject {
   private AppConfig app;
 
   @Data
-  public static final class APNConfig {
+  public static class APNConfig {
     public APNConfig() {}
 
     @NotNull
@@ -67,7 +67,7 @@ public class App extends StreamResponseObject {
   }
 
   @Data
-  public static final class FirebaseConfig {
+  public static class FirebaseConfig {
     public FirebaseConfig() {}
 
     @NotNull
@@ -84,7 +84,7 @@ public class App extends StreamResponseObject {
   }
 
   @Data
-  public static final class PushNotificationFields {
+  public static class PushNotificationFields {
     public PushNotificationFields() {}
 
     @NotNull private String version;
@@ -99,7 +99,7 @@ public class App extends StreamResponseObject {
   }
 
   @Data
-  public static final class Policy {
+  public static class Policy {
     public Policy() {}
 
     @NotNull
@@ -136,7 +136,7 @@ public class App extends StreamResponseObject {
   }
 
   @Data
-  public static final class AppConfig {
+  public static class AppConfig {
     public AppConfig() {}
 
     @NotNull
@@ -237,7 +237,7 @@ public class App extends StreamResponseObject {
   }
 
   @Data
-  public static final class FileUploadConfig {
+  public static class FileUploadConfig {
     public FileUploadConfig() {}
 
     @Nullable
@@ -257,7 +257,7 @@ public class App extends StreamResponseObject {
     private List<String> blockedMimeTypes;
   }
 
-  public static final class FileUploadConfigRequestObject {
+  public static class FileUploadConfigRequestObject {
     public FileUploadConfigRequestObject() {}
 
     @Nullable
@@ -332,7 +332,7 @@ public class App extends StreamResponseObject {
     }
   }
 
-  public static final class APNConfigRequestObject {
+  public static class APNConfigRequestObject {
     public APNConfigRequestObject() {}
 
     @NotNull
@@ -467,7 +467,7 @@ public class App extends StreamResponseObject {
     }
   }
 
-  public static final class FirebaseConfigRequestObject {
+  public static class FirebaseConfigRequestObject {
     public FirebaseConfigRequestObject() {}
 
     @NotNull
@@ -584,7 +584,7 @@ public class App extends StreamResponseObject {
     }
   }
 
-  public static final class AppUpdateRequestData {
+  public static class AppUpdateRequestData {
     public AppUpdateRequestData() {}
 
     @Nullable
@@ -690,7 +690,7 @@ public class App extends StreamResponseObject {
       this.multiTenantEnabled = builder.multiTenantEnabled;
     }
 
-    public static final class AppUpdateRequest {
+    public static class AppUpdateRequest {
       private Boolean disableAuth;
       private Boolean disablePermissions;
       private APNConfigRequestObject aPNConfig;
