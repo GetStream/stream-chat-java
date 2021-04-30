@@ -1,0 +1,41 @@
+package io.stream.models;
+
+import java.util.HashMap;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+
+@Data
+public class Reaction {
+  public Reaction() {
+    additionalFields = new HashMap<>();
+  }
+
+  @NotNull
+  @JsonProperty("message_id")
+  private String messageId;
+
+  @NotNull
+  @JsonProperty("user_id")
+  private String userId;
+
+  @NotNull
+  @JsonProperty("type")
+  private String type;
+
+  @NotNull @JsonIgnore private Map<String, Object> additionalFields;
+
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalFields() {
+    return this.additionalFields;
+  }
+
+  @JsonAnySetter
+  public void setAdditionalField(String name, Object value) {
+    this.additionalFields.put(name, value);
+  }
+}
