@@ -1,19 +1,26 @@
 package io.stream.models;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.stream.models.User.UserRequestObject;
-import java.awt.TrayIcon.MessageType;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import lombok.Data;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.stream.models.Message.MessageSendRequestData.MessageSendRequest;
+import io.stream.models.Message.MessageUpdateRequestData.MessageUpdateRequest;
+import io.stream.models.User.UserRequestObject;
+import io.stream.models.framework.StreamRequest;
+import io.stream.models.framework.StreamResponseObject;
+import io.stream.services.MessageService;
+import io.stream.services.framework.StreamServiceGenerator;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import retrofit2.Call;
 
 @Data
 public class Message {
@@ -99,6 +106,21 @@ public class Message {
   @JsonAnySetter
   public void setAdditionalField(String name, Object value) {
     this.additionalFields.put(name, value);
+  }
+
+  public enum MessageType {
+    @JsonProperty("regular")
+    REGULAR,
+    @JsonProperty("ephemeral")
+    EPHEMERAL,
+    @JsonProperty("error")
+    ERROR,
+    @JsonProperty("reply")
+    REPLY,
+    @JsonProperty("system")
+    SYSTEM,
+    @JsonProperty("deleted")
+    DELETED
   }
 
   @Data
@@ -1046,5 +1068,122 @@ public class Message {
         return new FieldRequestObject(this);
       }
     }
+  }
+
+  public static class MessageSendRequestData {
+    @Nullable
+    @JsonProperty("message")
+    private MessageRequestObject message;
+
+    @Nullable
+    @JsonProperty("skip_push")
+    private Boolean skipPush;
+
+    private MessageSendRequestData(MessageSendRequest builder) {
+      this.message = builder.message;
+      this.skipPush = builder.skipPush;
+    }
+
+    public static final class MessageSendRequest extends StreamRequest<MessageSendResponse> {
+      private String channelId;
+      private String channelType;
+      private MessageRequestObject message;
+      private Boolean skipPush;
+
+      private MessageSendRequest(String channelType, String channelId) {
+        this.channelType = channelType;
+        this.channelId = channelId;
+      }
+
+      @NotNull
+      public MessageSendRequest withMessage(@NotNull MessageRequestObject message) {
+        this.message = message;
+        return this;
+      }
+
+      @NotNull
+      public MessageSendRequest withSkipPush(@NotNull Boolean skipPush) {
+        this.skipPush = skipPush;
+        return this;
+      }
+
+      @Override
+      protected Call<MessageSendResponse> generateCall() {
+        return StreamServiceGenerator.createService(MessageService.class)
+            .send(this.channelType, this.channelId, new MessageSendRequestData(this));
+      }
+    }
+  }
+
+  public static class MessageUpdateRequestData {
+    @Nullable
+    @JsonProperty("message")
+    private MessageRequestObject message;
+
+    private MessageUpdateRequestData(MessageUpdateRequest builder) {
+      this.message = builder.message;
+    }
+
+    public static final class MessageUpdateRequest extends StreamRequest<MessageUpdateResponse> {
+      private String id;
+      private MessageRequestObject message;
+
+      private MessageUpdateRequest(String id) {
+        this.id = id;
+      }
+
+      @NotNull
+      public MessageUpdateRequest withMessage(@NotNull MessageRequestObject message) {
+        this.message = message;
+        return this;
+      }
+
+      @NotNull
+      public MessageUpdateRequestData build() {
+        return new MessageUpdateRequestData(this);
+      }
+
+      @Override
+      protected Call<MessageUpdateResponse> generateCall() {
+        return StreamServiceGenerator.createService(MessageService.class)
+            .update(this.id, new MessageUpdateRequestData(this));
+      }
+    }
+  }
+
+  @Data
+  @EqualsAndHashCode(callSuper = false)
+  public static class MessageSendResponse extends StreamResponseObject {
+    @Nullable
+    @JsonProperty("message")
+    private Message message;
+  }
+
+  @Data
+  @EqualsAndHashCode(callSuper = false)
+  public static class MessageUpdateResponse extends StreamResponseObject {
+    @Nullable
+    @JsonProperty("message")
+    private Message message;
+  }
+
+  /**
+   * Creates send request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static MessageSendRequest send(@NotNull String channelType, @NotNull String channelId) {
+    return new MessageSendRequest(channelType, channelId);
+  }
+
+  /**
+   * Creates an update request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static MessageUpdateRequest update(@NotNull String id) {
+    return new MessageUpdateRequest(id);
   }
 }
