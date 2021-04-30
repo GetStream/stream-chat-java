@@ -4,9 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import io.stream.models.User;
-import lombok.extern.java.Log;
 
-@Log
 public class UserTest extends BasicTest {
 
   @DisplayName("Can fetch user with no Exception")
