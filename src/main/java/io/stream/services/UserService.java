@@ -1,11 +1,11 @@
 package io.stream.services;
 
-import org.jetbrains.annotations.NotNull;
 import io.stream.models.User.UserListRequestData;
-import io.stream.models.User.UsersListResponse;
 import io.stream.models.User.UserUpsertRequestData;
+import io.stream.models.User.UsersListResponse;
 import io.stream.models.User.UsersUpsertResponse;
 import io.stream.services.framework.ToJson;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

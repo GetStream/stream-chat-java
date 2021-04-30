@@ -1,9 +1,9 @@
 package io.stream;
 
+import io.stream.models.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import io.stream.models.User;
 
 public class UserTest extends BasicTest {
 

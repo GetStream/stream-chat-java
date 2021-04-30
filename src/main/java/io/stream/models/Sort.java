@@ -1,7 +1,7 @@
 package io.stream.models;
 
-import org.jetbrains.annotations.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.jetbrains.annotations.NotNull;
 
 public class Sort {
   @NotNull

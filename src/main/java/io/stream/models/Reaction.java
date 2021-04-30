@@ -1,13 +1,13 @@
 package io.stream.models;
 
-import java.util.HashMap;
-import java.util.Map;
-import org.jetbrains.annotations.NotNull;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.Data;
+import org.jetbrains.annotations.NotNull;
 
 @Data
 public class Reaction {

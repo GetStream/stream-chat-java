@@ -1,8 +1,8 @@
 package io.stream.models;
 
-import org.jetbrains.annotations.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.jetbrains.annotations.NotNull;
 
 @Data
 public class Command {

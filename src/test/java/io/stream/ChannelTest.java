@@ -1,14 +1,14 @@
 package io.stream;
 
+import io.stream.models.Channel;
+import io.stream.models.Channel.ChannelGetResponse;
+import io.stream.models.Channel.ChannelMember;
+import io.stream.models.Channel.ChannelUpdateResponse;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import io.stream.models.Channel;
-import io.stream.models.Channel.ChannelGetResponse;
-import io.stream.models.Channel.ChannelMember;
-import io.stream.models.Channel.ChannelUpdateResponse;
 
 public class ChannelTest extends BasicTest {
 

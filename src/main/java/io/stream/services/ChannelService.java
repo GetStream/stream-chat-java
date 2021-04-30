@@ -1,15 +1,15 @@
 package io.stream.services;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import io.stream.models.Channel.ChannelDeleteResponse;
-import io.stream.models.Channel.ChannelListResponse;
-import io.stream.models.Channel.ChannelListRequestData;
+import io.stream.models.Channel.ChannelGetRequestData;
 import io.stream.models.Channel.ChannelGetResponse;
+import io.stream.models.Channel.ChannelListRequestData;
+import io.stream.models.Channel.ChannelListResponse;
 import io.stream.models.Channel.ChannelTruncateResponse;
 import io.stream.models.Channel.ChannelUpdateRequestData;
 import io.stream.models.Channel.ChannelUpdateResponse;
-import io.stream.models.Channel.ChannelGetRequestData;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

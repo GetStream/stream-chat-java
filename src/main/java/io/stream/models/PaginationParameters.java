@@ -1,8 +1,8 @@
 package io.stream.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PaginationParameters {
   @Nullable
