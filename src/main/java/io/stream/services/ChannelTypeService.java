@@ -3,8 +3,8 @@ package io.stream.services;
 import org.jetbrains.annotations.NotNull;
 import io.stream.models.ChannelType.ChannelTypeCreateResponse;
 import io.stream.models.ChannelType.ChannelTypeGetResponse;
-import io.stream.models.ChannelType.ChannelTypeRequestObject;
-import io.stream.models.ChannelType.ChannelTypeRequestObjectWithName;
+import io.stream.models.ChannelType.ChannelTypeUpdateRequestData;
+import io.stream.models.ChannelType.ChannelTypeCreateRequestData;
 import io.stream.models.ChannelType.ChannelTypeUpdateResponse;
 import io.stream.models.ChannelType.ChannelTypeListResponse;
 import io.stream.models.framework.StreamResponseObject;
@@ -20,7 +20,7 @@ public interface ChannelTypeService {
   @POST("channeltypes")
   @NotNull
   Call<ChannelTypeCreateResponse> create(
-      @NotNull @Body ChannelTypeRequestObjectWithName channelTypeRequestWithName);
+      @NotNull @Body ChannelTypeCreateRequestData channelTypeRequestWithName);
 
   @DELETE("channeltypes/{name}")
   @NotNull
@@ -38,5 +38,5 @@ public interface ChannelTypeService {
   @NotNull
   Call<ChannelTypeUpdateResponse> update(
       @NotNull @Path("name") String name,
-      @NotNull @Body ChannelTypeRequestObject channelTypeRequest);
+      @NotNull @Body ChannelTypeUpdateRequestData channelTypeUpdateRequestData);
 }
