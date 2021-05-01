@@ -1,9 +1,17 @@
 package io.stream.models;
 
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.stream.models.Message.MessageSearchRequestData.MessageSearchRequest;
 import io.stream.models.Message.MessageSendRequestData.MessageSendRequest;
 import io.stream.models.Message.MessageUpdateRequestData.MessageUpdateRequest;
 import io.stream.models.User.UserRequestObject;
@@ -11,15 +19,8 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.MessageService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -254,6 +255,25 @@ public class Message {
     @NotNull
     @JsonProperty("short")
     private Boolean shortField;
+  }
+
+  @Data
+  public static class SearchResult {
+    public SearchResult() {}
+
+    @NotNull
+    @JsonProperty("message")
+    private SearchResultMessage message;
+  }
+
+  @Data
+  @EqualsAndHashCode(callSuper = false)
+  public static class SearchResultMessage extends Message {
+    public SearchResultMessage() {}
+
+    @NotNull
+    @JsonProperty("channel")
+    private Channel channel;
   }
 
   public static class MessageRequestObject {
@@ -1138,11 +1158,6 @@ public class Message {
         return this;
       }
 
-      @NotNull
-      public MessageUpdateRequestData build() {
-        return new MessageUpdateRequestData(this);
-      }
-
       @Override
       protected Call<MessageUpdateResponse> generateCall() {
         return StreamServiceGenerator.createService(MessageService.class)
@@ -1151,10 +1166,95 @@ public class Message {
     }
   }
 
+  public static class MessageSearchRequestData {
+    @Nullable
+    @JsonProperty("query")
+    private String query;
+
+    @NotNull
+    @JsonProperty("filter_conditions")
+    private Map<String, Object> filterConditions;
+
+    @Nullable
+    @JsonProperty("message_filter_conditions")
+    private Map<String, Object> messageFilterConditions;
+
+    @Nullable
+    @JsonProperty("limit")
+    private Integer limit;
+
+    @Nullable
+    @JsonProperty("offset")
+    private Integer offset;
+
+    private MessageSearchRequestData(MessageSearchRequest messageSearchRequest) {
+      this.query = messageSearchRequest.query;
+      this.filterConditions = messageSearchRequest.filterConditions;
+      this.messageFilterConditions = messageSearchRequest.messageFilterConditions;
+      this.limit = messageSearchRequest.limit;
+      this.offset = messageSearchRequest.offset;
+    }
+
+    public static final class MessageSearchRequest extends StreamRequest<MessageSearchResponse> {
+      private String query;
+      private Map<String, Object> filterConditions = Collections.emptyMap();
+      private Map<String, Object> messageFilterConditions = Collections.emptyMap();
+      private Integer limit;
+      private Integer offset;
+
+      private MessageSearchRequest() {}
+
+      @NotNull
+      public MessageSearchRequest withQuery(@NotNull String query) {
+        this.query = query;
+        return this;
+      }
+
+      @NotNull
+      public MessageSearchRequest withFilterConditions(
+          @NotNull Map<String, Object> filterConditions) {
+        this.filterConditions = filterConditions;
+        return this;
+      }
+
+      @NotNull
+      public MessageSearchRequest withMessageFilterConditions(
+          @NotNull Map<String, Object> messageFilterConditions) {
+        this.messageFilterConditions = messageFilterConditions;
+        return this;
+      }
+
+      @NotNull
+      public MessageSearchRequest withLimit(@NotNull Integer limit) {
+        this.limit = limit;
+        return this;
+      }
+
+      @NotNull
+      public MessageSearchRequest withOffset(@NotNull Integer offset) {
+        this.offset = offset;
+        return this;
+      }
+
+      @NotNull
+      public MessageSearchRequestData build() {
+        return new MessageSearchRequestData(this);
+      }
+
+      @Override
+      protected Call<MessageSearchResponse> generateCall() {
+        return StreamServiceGenerator.createService(MessageService.class)
+            .search(new MessageSearchRequestData(this));
+      }
+    }
+  }
+
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class MessageSendResponse extends StreamResponseObject {
-    @Nullable
+    public MessageSendResponse() {}
+
+    @NotNull
     @JsonProperty("message")
     private Message message;
   }
@@ -1162,9 +1262,21 @@ public class Message {
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class MessageUpdateResponse extends StreamResponseObject {
-    @Nullable
+    public MessageUpdateResponse() {}
+
+    @NotNull
     @JsonProperty("message")
     private Message message;
+  }
+
+  @Data
+  @EqualsAndHashCode(callSuper = false)
+  public static class MessageSearchResponse extends StreamResponseObject {
+    public MessageSearchResponse() {}
+
+    @NotNull
+    @JsonProperty("results")
+    private List<SearchResult> results;
   }
 
   /**
@@ -1185,5 +1297,15 @@ public class Message {
   @NotNull
   public static MessageUpdateRequest update(@NotNull String id) {
     return new MessageUpdateRequest(id);
+  }
+
+  /**
+   * Creates a search request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static MessageSearchRequest search() {
+    return new MessageSearchRequest();
   }
 }
