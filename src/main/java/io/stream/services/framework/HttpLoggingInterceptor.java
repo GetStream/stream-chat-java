@@ -169,7 +169,14 @@ public final class HttpLoggingInterceptor implements Interceptor {
       return chain.proceed(request);
     }
 
-    boolean logBody = level == Level.HEADERS_AND_BODY || level == Level.BODY;
+    boolean logRequestBody =
+        request.header("X-Stream-LogRequestBody") == null
+                && (level == Level.HEADERS_AND_BODY || level == Level.BODY)
+            || Boolean.parseBoolean(request.header("X-Stream-LogRequestBody"));
+    boolean logResponseBody =
+        request.header("X-Stream-LogResponseBody") == null
+                && (level == Level.HEADERS_AND_BODY || level == Level.BODY)
+            || Boolean.parseBoolean(request.header("X-Stream-LogResponseBody"));
     boolean logHeaders = level == Level.HEADERS_AND_BODY || level == Level.HEADERS;
 
     RequestBody requestBody = request.body();
@@ -208,7 +215,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
         }
       }
     }
-    if (!logBody || !hasRequestBody) {
+    if (!logRequestBody || !hasRequestBody) {
       logger.log("--> END " + request.method());
     } else if (bodyEncoded(request.headers())) {
       logger.log("--> END " + request.method() + " (encoded body omitted)");
@@ -268,7 +275,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
         logger.log(headers.name(i) + ": " + headers.value(i));
       }
     }
-    if (!logBody || !HttpHeaders.hasBody(response)) {
+    if (!logResponseBody || !HttpHeaders.hasBody(response)) {
       logger.log("<-- END HTTP");
     } else if (bodyEncoded(response.headers())) {
       logger.log("<-- END HTTP (encoded body omitted)");
