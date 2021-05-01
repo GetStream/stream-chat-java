@@ -1,27 +1,29 @@
 package io.stream.models;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.stream.models.User.UserListRequestData.UserQueryRequest;
-import io.stream.models.User.UserPartialUpdateRequestData.UserPartialUpdateRequest;
-import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
-import io.stream.models.framework.StreamRequest;
-import io.stream.models.framework.StreamResponseObject;
-import io.stream.services.UserService;
-import io.stream.services.framework.StreamServiceGenerator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.stream.models.User.UserBanRequestData.UserBanRequest;
+import io.stream.models.User.UserListRequestData.UserQueryRequest;
+import io.stream.models.User.UserPartialUpdateRequestData.UserPartialUpdateRequest;
+import io.stream.models.User.UserQueryBannedRequestData.UserQueryBannedRequest;
+import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
+import io.stream.models.framework.StreamRequest;
+import io.stream.models.framework.StreamResponseObject;
+import io.stream.services.UserService;
+import io.stream.services.framework.StreamServiceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -162,6 +164,39 @@ public class User {
     @NotNull
     @JsonProperty("updated_at")
     private Date updatedAt;
+  }
+
+  @Data
+  public static class Ban {
+    public Ban() {}
+
+    @Nullable
+    @JsonProperty("channel")
+    private Channel channel;
+
+    @Nullable
+    @JsonProperty("user")
+    private User user;
+
+    @Nullable
+    @JsonProperty("expires")
+    private Date expires;
+
+    @Nullable
+    @JsonProperty("reason")
+    private String reason;
+
+    @Nullable
+    @JsonProperty("shadow")
+    private Boolean shadow;
+
+    @NotNull
+    @JsonProperty("banned_by")
+    private User bannedBy;
+
+    @NotNull
+    @JsonProperty("created_at")
+    private Date createdAt;
   }
 
   public static class UserRequestObject {
@@ -546,6 +581,292 @@ public class User {
     }
   }
 
+  public static class UserQueryBannedRequestData {
+    @Nullable
+    @JsonProperty("filter_conditions")
+    private Map<String, Object> filterConditions;
+
+    @Nullable
+    @JsonProperty("sort")
+    private List<Sort> sort;
+
+    @Nullable
+    @JsonProperty("limit")
+    private Integer limit;
+
+    @Nullable
+    @JsonProperty("offset")
+    private Integer offset;
+
+    @Nullable
+    @JsonProperty("created_at_after_or_equal")
+    private Date createdAtAfterOrEqual;
+
+    @Nullable
+    @JsonProperty("created_at_after")
+    private Date createdAtAfter;
+
+    @Nullable
+    @JsonProperty("created_at_before_or_equal")
+    private Date createdAtBeforeOrEqual;
+
+    @Nullable
+    @JsonProperty("created_at_before")
+    private Date createdAtBefore;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    private UserQueryBannedRequestData(UserQueryBannedRequest userQueryBannedRequest) {
+      this.filterConditions = userQueryBannedRequest.filterConditions;
+      this.sort = userQueryBannedRequest.sort;
+      this.limit = userQueryBannedRequest.limit;
+      this.offset = userQueryBannedRequest.offset;
+      this.createdAtAfterOrEqual = userQueryBannedRequest.createdAtAfterOrEqual;
+      this.createdAtAfter = userQueryBannedRequest.createdAtAfter;
+      this.createdAtBeforeOrEqual = userQueryBannedRequest.createdAtBeforeOrEqual;
+      this.createdAtBefore = userQueryBannedRequest.createdAtBefore;
+      this.userId = userQueryBannedRequest.userId;
+      this.user = userQueryBannedRequest.user;
+    }
+
+    public static class UserQueryBannedRequest extends StreamRequest<UserQueryBannedResponse> {
+      private Map<String, Object> filterConditions = Collections.emptyMap();
+      private List<Sort> sort = Collections.emptyList();
+      private Integer limit;
+      private Integer offset;
+      private Date createdAtAfterOrEqual;
+      private Date createdAtAfter;
+      private Date createdAtBeforeOrEqual;
+      private Date createdAtBefore;
+      private String userId;
+      private UserRequestObject user;
+
+      private UserQueryBannedRequest() {}
+
+      @NotNull
+      public UserQueryBannedRequest withFilterConditions(
+          @NotNull Map<String, Object> filterConditions) {
+        this.filterConditions = filterConditions;
+        return this;
+      }
+
+      @NotNull
+      public UserQueryBannedRequest withSort(@NotNull List<Sort> sort) {
+        this.sort = sort;
+        return this;
+      }
+
+      @NotNull
+      public UserQueryBannedRequest withLimit(@NotNull Integer limit) {
+        this.limit = limit;
+        return this;
+      }
+
+      @NotNull
+      public UserQueryBannedRequest withOffset(@NotNull Integer offset) {
+        this.offset = offset;
+        return this;
+      }
+
+      @NotNull
+      public UserQueryBannedRequest withCreatedAtAfterOrEqual(@NotNull Date createdAtAfterOrEqual) {
+        this.createdAtAfterOrEqual = createdAtAfterOrEqual;
+        return this;
+      }
+
+      @NotNull
+      public UserQueryBannedRequest withCreatedAtAfter(@NotNull Date createdAtAfter) {
+        this.createdAtAfter = createdAtAfter;
+        return this;
+      }
+
+      @NotNull
+      public UserQueryBannedRequest withCreatedAtBeforeOrEqual(
+          @NotNull Date createdAtBeforeOrEqual) {
+        this.createdAtBeforeOrEqual = createdAtBeforeOrEqual;
+        return this;
+      }
+
+      @NotNull
+      public UserQueryBannedRequest withCreatedAtBefore(@NotNull Date createdAtBefore) {
+        this.createdAtBefore = createdAtBefore;
+        return this;
+      }
+
+      @NotNull
+      public UserQueryBannedRequest withUserId(@NotNull String userId) {
+        this.userId = userId;
+        return this;
+      }
+
+      @NotNull
+      public UserQueryBannedRequest withUser(@NotNull UserRequestObject user) {
+        this.user = user;
+        return this;
+      }
+
+      @Override
+      protected Call<UserQueryBannedResponse> generateCall() {
+        return StreamServiceGenerator.createService(UserService.class)
+            .queryBanned(new UserQueryBannedRequestData(this));
+      }
+    }
+  }
+
+  public static class UserBanRequestData {
+    @NotNull
+    @JsonProperty("target_user_id")
+    private String targetUserId;
+
+    @Nullable
+    @JsonProperty("timeout")
+    private Integer timeout;
+
+    @Nullable
+    @JsonProperty("reason")
+    private String reason;
+
+    @Nullable
+    @JsonProperty("type")
+    private String type;
+
+    @Nullable
+    @JsonProperty("id")
+    private String id;
+
+    @Nullable
+    @JsonProperty("shadow")
+    private Boolean shadow;
+
+    @Nullable
+    @JsonProperty("ip_ban")
+    private Boolean ipBan;
+
+    @Nullable
+    @JsonProperty("banned_by_id")
+    private String bannedById;
+
+    @Nullable
+    @JsonProperty("banned_by")
+    private UserRequestObject bannedBy;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    private UserBanRequestData(UserBanRequest userBanRequest) {
+      this.targetUserId = userBanRequest.targetUserId;
+      this.timeout = userBanRequest.timeout;
+      this.reason = userBanRequest.reason;
+      this.type = userBanRequest.type;
+      this.id = userBanRequest.id;
+      this.shadow = userBanRequest.shadow;
+      this.ipBan = userBanRequest.ipBan;
+      this.bannedById = userBanRequest.bannedById;
+      this.bannedBy = userBanRequest.bannedBy;
+      this.userId = userBanRequest.userId;
+      this.user = userBanRequest.user;
+    }
+
+    public static class UserBanRequest extends StreamRequest<StreamResponseObject> {
+      private String targetUserId;
+      private Integer timeout;
+      private String reason;
+      private String type;
+      private String id;
+      private Boolean shadow;
+      private Boolean ipBan;
+      private String bannedById;
+      private UserRequestObject bannedBy;
+      private String userId;
+      private UserRequestObject user;
+
+      private UserBanRequest() {}
+
+      @NotNull
+      public UserBanRequest withTargetUserId(@NotNull String targetUserId) {
+        this.targetUserId = targetUserId;
+        return this;
+      }
+
+      @NotNull
+      public UserBanRequest withTimeout(@NotNull Integer timeout) {
+        this.timeout = timeout;
+        return this;
+      }
+
+      @NotNull
+      public UserBanRequest withReason(@NotNull String reason) {
+        this.reason = reason;
+        return this;
+      }
+
+      @NotNull
+      public UserBanRequest withType(@NotNull String type) {
+        this.type = type;
+        return this;
+      }
+
+      @NotNull
+      public UserBanRequest withId(@NotNull String id) {
+        this.id = id;
+        return this;
+      }
+
+      @NotNull
+      public UserBanRequest withShadow(@NotNull Boolean shadow) {
+        this.shadow = shadow;
+        return this;
+      }
+
+      @NotNull
+      public UserBanRequest withIpBan(@NotNull Boolean ipBan) {
+        this.ipBan = ipBan;
+        return this;
+      }
+
+      @NotNull
+      public UserBanRequest withBannedById(@NotNull String bannedById) {
+        this.bannedById = bannedById;
+        return this;
+      }
+
+      @NotNull
+      public UserBanRequest withBannedBy(@NotNull UserRequestObject bannedBy) {
+        this.bannedBy = bannedBy;
+        return this;
+      }
+
+      @NotNull
+      public UserBanRequest withUserId(@NotNull String userId) {
+        this.userId = userId;
+        return this;
+      }
+
+      @NotNull
+      public UserBanRequest withUser(@NotNull UserRequestObject user) {
+        this.user = user;
+        return this;
+      }
+
+      @Override
+      protected Call<StreamResponseObject> generateCall() {
+        return StreamServiceGenerator.createService(UserService.class)
+            .ban(new UserBanRequestData(this));
+      }
+    }
+  }
+
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class UserUpsertResponse extends StreamResponseObject {
@@ -576,6 +897,16 @@ public class User {
     private Map<String, User> users;
   }
 
+  @Data
+  @EqualsAndHashCode(callSuper = false)
+  public static class UserQueryBannedResponse extends StreamResponseObject {
+    public UserQueryBannedResponse() {}
+
+    @NotNull
+    @JsonProperty("bans")
+    private List<Ban> bans;
+  }
+
   /**
    * Creates a query request
    *
@@ -604,5 +935,25 @@ public class User {
   @NotNull
   public static UserPartialUpdateRequest partialUpdate() {
     return new UserPartialUpdateRequest();
+  }
+
+  /**
+   * Creates a ban request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static UserBanRequest ban() {
+    return new UserBanRequest();
+  }
+
+  /**
+   * Creates a query banned request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static UserQueryBannedRequest queryBanned() {
+    return new UserQueryBannedRequest();
   }
 }

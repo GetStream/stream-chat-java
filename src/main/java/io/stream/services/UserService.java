@@ -1,13 +1,17 @@
 package io.stream.services;
 
+import org.jetbrains.annotations.NotNull;
+import io.stream.models.User.UserBanRequestData;
 import io.stream.models.User.UserListRequestData;
 import io.stream.models.User.UserListResponse;
 import io.stream.models.User.UserPartialUpdateRequestData;
 import io.stream.models.User.UserPartialUpdateResponse;
+import io.stream.models.User.UserQueryBannedRequestData;
+import io.stream.models.User.UserQueryBannedResponse;
 import io.stream.models.User.UserUpsertRequestData;
 import io.stream.models.User.UserUpsertResponse;
+import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.framework.ToJson;
-import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -26,4 +30,11 @@ public interface UserService {
   @PATCH("users")
   Call<UserPartialUpdateResponse> partialUpdate(
       @NotNull @Body UserPartialUpdateRequestData userPartialUpdateRequestData);
+
+  @GET("query_banned_users")
+  Call<UserQueryBannedResponse> queryBanned(
+      @NotNull @ToJson @Query("payload") UserQueryBannedRequestData userQueryBannedRequestData);
+
+  @POST("moderation/ban")
+  Call<StreamResponseObject> ban(@NotNull @Body UserBanRequestData userBanRequestData);
 }

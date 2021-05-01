@@ -4,8 +4,10 @@ import io.stream.models.User;
 import io.stream.models.User.UserPartialUpdateRequestObject;
 import io.stream.models.User.UserRequestObject;
 import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
@@ -62,5 +64,30 @@ public class UserTest extends BasicTest {
             .get(user.getId());
     Assertions.assertNull(updatedUser.getName());
     Assertions.assertEquals(addedValue, updatedUser.getAdditionalFields().get(addedKey));
+  }
+
+  @DisplayName("Can ban user with no Exception")
+  @Test
+  void whenBanUser_thenNoException() {
+    String userId = RandomStringUtils.randomAlphabetic(10);
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.addUser(
+        UserRequestObject.builder().withId(userId).withName("User to ban").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+    Assertions.assertDoesNotThrow(
+        () -> User.ban().withUserId(serverUser.getId()).withTargetUserId(userId).request());
+  }
+
+  @DisplayName("Can list banned user with no Exception")
+  @Test
+  void whenListingBannedUsers_thenNoException() {
+    String userId = RandomStringUtils.randomAlphabetic(10);
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.addUser(
+        UserRequestObject.builder().withId(userId).withName("User to ban").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+    Assertions.assertDoesNotThrow(
+        () -> User.ban().withUserId(serverUser.getId()).withTargetUserId(userId).request());
+    Assertions.assertDoesNotThrow(() -> User.queryBanned().request());
   }
 }
