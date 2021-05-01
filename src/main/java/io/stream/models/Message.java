@@ -1,16 +1,21 @@
 package io.stream.models;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.stream.models.Message.MessageSearchRequestData.MessageSearchRequest;
 import io.stream.models.Message.MessageSendRequestData.MessageSendRequest;
 import io.stream.models.Message.MessageUpdateRequestData.MessageUpdateRequest;
@@ -21,8 +26,13 @@ import io.stream.services.MessageService;
 import io.stream.services.framework.StreamServiceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.extern.java.Log;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 
+@Log
 @Data
 public class Message {
   public Message() {
@@ -274,6 +284,51 @@ public class Message {
     @NotNull
     @JsonProperty("channel")
     private Channel channel;
+  }
+
+  @Data
+  public static class ImageSize {
+    public ImageSize() {}
+
+    @Nullable
+    @JsonProperty("crop")
+    private Crop crop;
+
+    @Nullable
+    @JsonProperty("resize")
+    private Resize resize;
+
+    @Nullable
+    @JsonProperty("height")
+    private Integer height;
+
+    @Nullable
+    @JsonProperty("width")
+    private Integer width;
+  }
+
+  public enum Crop {
+    @JsonProperty("top")
+    TOP,
+    @JsonProperty("bottom")
+    BOTTOM,
+    @JsonProperty("left")
+    LEFT,
+    @JsonProperty("right")
+    RIGHT,
+    @JsonProperty("center")
+    CENTER
+  }
+
+  public enum Resize {
+    @JsonProperty("clip")
+    CLIP,
+    @JsonProperty("crop")
+    CROP,
+    @JsonProperty("scale")
+    SCALE,
+    @JsonProperty("fill")
+    FILL
   }
 
   public static class MessageRequestObject {
@@ -1090,6 +1145,79 @@ public class Message {
     }
   }
 
+  public static class ImageSizeRequestObject {
+    @Nullable
+    @JsonProperty("crop")
+    private Crop crop;
+
+    @Nullable
+    @JsonProperty("resize")
+    private Resize resize;
+
+    @Nullable
+    @JsonProperty("height")
+    private Integer height;
+
+    @Nullable
+    @JsonProperty("width")
+    private Integer width;
+
+    private ImageSizeRequestObject(Builder builder) {
+      this.crop = builder.crop;
+      this.resize = builder.resize;
+      this.height = builder.height;
+      this.width = builder.width;
+    }
+
+    /**
+     * Creates builder to build {@link ImageSizeRequestObject}.
+     *
+     * @return created builder
+     */
+    public static Builder builder() {
+      return new Builder();
+    }
+
+    /** Builder to build {@link ImageSizeRequestObject}. */
+    public static final class Builder {
+      private Crop crop;
+      private Resize resize;
+      private Integer height;
+      private Integer width;
+
+      private Builder() {}
+
+      @NotNull
+      public Builder withCrop(@NotNull Crop crop) {
+        this.crop = crop;
+        return this;
+      }
+
+      @NotNull
+      public Builder withResize(@NotNull Resize resize) {
+        this.resize = resize;
+        return this;
+      }
+
+      @NotNull
+      public Builder withHeight(@NotNull Integer height) {
+        this.height = height;
+        return this;
+      }
+
+      @NotNull
+      public Builder withWidth(@NotNull Integer width) {
+        this.width = width;
+        return this;
+      }
+
+      @NotNull
+      public ImageSizeRequestObject build() {
+        return new ImageSizeRequestObject(this);
+      }
+    }
+  }
+
   public static class MessageSendRequestData {
     @Nullable
     @JsonProperty("message")
@@ -1249,6 +1377,120 @@ public class Message {
     }
   }
 
+  public static final class MessageUploadFileRequest
+      extends StreamRequest<MessageUploadFileResponse> {
+    private String channelType;
+    private String channelId;
+    private String userId;
+    private File file;
+    private String contentType;
+
+    private MessageUploadFileRequest(
+        @NotNull String channelType, @NotNull String channelId, @NotNull String userId) {
+      this.channelType = channelType;
+      this.channelId = channelId;
+      this.userId = userId;
+    }
+
+    @NotNull
+    public MessageUploadFileRequest withFile(@NotNull File file) {
+      this.file = file;
+      return this;
+    }
+
+    @NotNull
+    public MessageUploadFileRequest withContentType(@NotNull String contentType) {
+      this.contentType = contentType;
+      return this;
+    }
+
+    @Override
+    protected Call<MessageUploadFileResponse> generateCall() {
+      try {
+        String resolvedContentType = contentType != null ? contentType : "application/octet-stream";
+        RequestBody fileRequestBody =
+            RequestBody.create(MediaType.parse(resolvedContentType), file);
+        MultipartBody.Part multipartFile =
+            MultipartBody.Part.createFormData("file", file.getName(), fileRequestBody);
+        UserRequestObject user = UserRequestObject.builder().withId(userId).build();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        new ObjectMapper().writeValue(baos, user);
+        RequestBody userRequestBody =
+            RequestBody.create(MultipartBody.FORM, baos.toString("UTF-8"));
+        return StreamServiceGenerator.createService(MessageService.class)
+            .uploadFile(channelType, channelId, userRequestBody, multipartFile);
+      } catch (IOException e) {
+        // This should not happen, can only be a development error
+        log.log(
+            Level.SEVERE,
+            "Seems there is a problem with the conversion of user request object to json",
+            e);
+        return null;
+      }
+    }
+  }
+
+  public static class MessageUploadImageRequest extends StreamRequest<MessageUploadImageResponse> {
+    private File file;
+    private String contentType;
+    private String channelType;
+    private String channelId;
+    private String userId;
+    private List<ImageSizeRequestObject> uploadSizes = Collections.emptyList();
+
+    private MessageUploadImageRequest(
+        @NotNull String channelType,
+        @NotNull String channelId,
+        @NotNull String userId,
+        @NotNull String contentType) {
+      this.channelType = channelType;
+      this.channelId = channelId;
+      this.userId = userId;
+      this.contentType = contentType;
+    }
+
+    @NotNull
+    public MessageUploadImageRequest withFile(@NotNull File file) {
+      this.file = file;
+      return this;
+    }
+
+    @NotNull
+    public MessageUploadImageRequest withUploadSizes(
+        @NotNull List<ImageSizeRequestObject> uploadSizes) {
+      this.uploadSizes = uploadSizes;
+      return this;
+    }
+
+    @Override
+    protected Call<MessageUploadImageResponse> generateCall() {
+      try {
+        RequestBody fileRequestBody = RequestBody.create(MediaType.parse(contentType), file);
+        MultipartBody.Part multipartFile =
+            MultipartBody.Part.createFormData("file", file.getName(), fileRequestBody);
+        UserRequestObject user = UserRequestObject.builder().withId(userId).build();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        new ObjectMapper().writeValue(baos, user);
+        RequestBody userRequestBody =
+            RequestBody.create(MultipartBody.FORM, baos.toString("UTF-8"));
+        baos = new ByteArrayOutputStream();
+        new ObjectMapper().writeValue(baos, uploadSizes);
+        RequestBody uploadSizesRequestBody =
+            RequestBody.create(MultipartBody.FORM, baos.toString("UTF-8"));
+        return StreamServiceGenerator.createService(MessageService.class)
+            .uploadImage(
+                channelType, channelId, userRequestBody, multipartFile, uploadSizesRequestBody);
+      } catch (IOException e) {
+        // This should not happen, can only be a development error
+        log.log(
+            Level.SEVERE,
+            "Seems there is a problem with the conversion of user request object or image size request object to json",
+            e);
+        return null;
+      }
+    }
+  }
+
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class MessageSendResponse extends StreamResponseObject {
@@ -1279,6 +1521,30 @@ public class Message {
     private List<SearchResult> results;
   }
 
+  @Data
+  @EqualsAndHashCode(callSuper = false)
+  public static class MessageUploadFileResponse extends StreamResponseObject {
+    public MessageUploadFileResponse() {}
+
+    @NotNull
+    @JsonProperty("file")
+    private String file;
+  }
+
+  @Data
+  @EqualsAndHashCode(callSuper = false)
+  public static class MessageUploadImageResponse extends StreamResponseObject {
+    public MessageUploadImageResponse() {}
+
+    @NotNull
+    @JsonProperty("file")
+    private String file;
+
+    @Nullable
+    @JsonProperty("upload_sizes")
+    private List<ImageSize> uploadSizes;
+  }
+
   /**
    * Creates send request
    *
@@ -1307,5 +1573,30 @@ public class Message {
   @NotNull
   public static MessageSearchRequest search() {
     return new MessageSearchRequest();
+  }
+
+  /**
+   * Creates a file upload request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static MessageUploadFileRequest uploadFile(
+      @NotNull String channelType, @NotNull String channelId, @NotNull String userId) {
+    return new MessageUploadFileRequest(channelType, channelId, userId);
+  }
+
+  /**
+   * Creates an image upload request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static MessageUploadImageRequest uploadImage(
+      @NotNull String channelType,
+      @NotNull String channelId,
+      @NotNull String userId,
+      @NotNull String contentType) {
+    return new MessageUploadImageRequest(channelType, channelId, userId, contentType);
   }
 }

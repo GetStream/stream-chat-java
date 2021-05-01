@@ -1,14 +1,22 @@
 package io.stream;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import io.stream.models.App;
+import io.stream.models.App.FileUploadConfigRequestObject;
 import io.stream.models.Channel;
 import io.stream.models.Message;
+import io.stream.models.Message.Crop;
+import io.stream.models.Message.ImageSizeRequestObject;
 import io.stream.models.Message.MessageRequestObject;
+import io.stream.models.Message.Resize;
 import io.stream.models.Message.SearchResult;
 
 public class MessageTest extends BasicTest {
@@ -77,5 +85,95 @@ public class MessageTest extends BasicTest {
                         .request())
             .getResults();
     Assertions.assertEquals(1, searchResults.size());
+  }
+
+  @DisplayName("Can upload txt file with no exception")
+  @Test
+  void whenUploadingTxtFile_thenNoException() {
+    Assertions.assertDoesNotThrow(
+        () ->
+            App.update()
+                .withFileUploadConfig(
+                    FileUploadConfigRequestObject.builder()
+                        .withAllowedFileExtensions(Collections.emptyList())
+                        .build())
+                .request());
+    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
+    Assertions.assertDoesNotThrow(
+        () ->
+            Message.uploadFile(channel.getType(), channel.getId(), serverUser.getId())
+                .withFile(
+                    new File(getClass().getClassLoader().getResource("upload_file.txt").getFile()))
+                .withContentType("text/plain")
+                .request());
+  }
+
+  @DisplayName("Can upload pdf file with no exception")
+  @Test
+  void whenUploadingPdfFile_thenNoException() {
+    Assertions.assertDoesNotThrow(
+        () ->
+            App.update()
+                .withFileUploadConfig(
+                    FileUploadConfigRequestObject.builder()
+                        .withAllowedFileExtensions(Collections.emptyList())
+                        .build())
+                .request());
+    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
+    Assertions.assertDoesNotThrow(
+        () ->
+            Message.uploadFile(channel.getType(), channel.getId(), serverUser.getId())
+                .withFile(
+                    new File(getClass().getClassLoader().getResource("upload_file.pdf").getFile()))
+                .request());
+  }
+
+  @DisplayName("Can upload svg image with no exception")
+  @Test
+  void whenUploadingSvgImage_thenNoException() {
+    Assertions.assertDoesNotThrow(
+        () ->
+            App.update()
+                .withImageUploadConfig(
+                    FileUploadConfigRequestObject.builder()
+                        .withAllowedFileExtensions(Collections.emptyList())
+                        .build())
+                .request());
+    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
+    Assertions.assertDoesNotThrow(
+        () ->
+            Message.uploadImage(
+                    channel.getType(), channel.getId(), serverUser.getId(), "image/svg+xml")
+                .withFile(
+                    new File(getClass().getClassLoader().getResource("upload_image.svg").getFile()))
+                .request());
+  }
+
+  @DisplayName("Can upload png image to resize with no exception")
+  @Test
+  void whenUploadingPngImage_thenNoException() {
+    Assertions.assertDoesNotThrow(
+        () ->
+            App.update()
+                .withImageUploadConfig(
+                    FileUploadConfigRequestObject.builder()
+                        .withAllowedFileExtensions(Collections.emptyList())
+                        .build())
+                .request());
+    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
+    Assertions.assertDoesNotThrow(
+        () ->
+            Message.uploadImage(channel.getType(), channel.getId(), serverUser.getId(), "image/png")
+                .withFile(
+                    new File(getClass().getClassLoader().getResource("upload_image.png").getFile()))
+                .withUploadSizes(
+                    Arrays.asList(
+                        ImageSizeRequestObject.builder()
+                            .withCrop(Crop.TOP)
+                            .withResize(Resize.SCALE)
+                            .withHeight(200)
+                            .withWidth(200)
+                            .build()))
+                .request());
   }
 }
