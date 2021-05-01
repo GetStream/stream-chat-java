@@ -20,7 +20,6 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -35,17 +34,33 @@ public class StreamServiceGenerator {
 
   private static boolean failOnUnknownProperties = false;
 
+  private static String apiKey;
+
+  private static String apiSecret;
+
+  private static void initKeys() {
+    apiKey =
+        System.getenv("STREAM_KEY") != null
+            ? System.getenv("STREAM_KEY")
+            : System.getProperty("STREAM_KEY");
+    apiSecret =
+        System.getenv("STREAM_SECRET") != null
+            ? System.getenv("STREAM_SECRET")
+            : System.getProperty("STREAM_SECRET");
+  }
+
   public static @NotNull <S> S createService(@NotNull Class<S> serviceClass) {
-    if (getApiKey() == null) {
-      StreamException.build(
-          "Missing Stream API key. Please set STREAM_KEY environment variable or System property");
-    }
-    if (getApiSecret() == null) {
-      StreamException.build(
-          "Missing Stream API secret. Please set STREAM_SECRET environment variable or System"
-              + " property");
-    }
     if (retrofit == null) {
+      initKeys();
+      if (apiKey == null) {
+        StreamException.build(
+            "Missing Stream API key. Please set STREAM_KEY environment variable or System property");
+      }
+      if (apiSecret == null) {
+        StreamException.build(
+            "Missing Stream API secret. Please set STREAM_SECRET environment variable or System"
+                + " property");
+      }
       int streamChatTimeout =
           System.getenv("STREAM_CHAT_URL") != null
               ? Integer.parseInt(System.getenv("STREAM_CHAT_TIMEOUT"))
@@ -59,8 +74,7 @@ public class StreamServiceGenerator {
       httpClient.addInterceptor(
           chain -> {
             Request original = chain.request();
-            HttpUrl url =
-                original.url().newBuilder().addQueryParameter("api_key", getApiKey()).build();
+            HttpUrl url = original.url().newBuilder().addQueryParameter("api_key", apiKey).build();
             Request request =
                 original
                     .newBuilder()
@@ -128,8 +142,7 @@ public class StreamServiceGenerator {
     Key signingKey;
     try {
       signingKey =
-          new SecretKeySpec(
-              getApiSecret().getBytes("UTF-8"), SignatureAlgorithm.HS256.getJcaName());
+          new SecretKeySpec(apiSecret.getBytes("UTF-8"), SignatureAlgorithm.HS256.getJcaName());
       return Jwts.builder()
           .setIssuedAt(new Date())
           .setIssuer("Stream Chat Java SDK")
@@ -143,17 +156,5 @@ public class StreamServiceGenerator {
       log.severe("Should not happen: UTF-8 is not supported");
       return "";
     }
-  }
-
-  private static @Nullable String getApiSecret() {
-    return System.getenv("STREAM_SECRET") != null
-        ? System.getenv("STREAM_SECRET")
-        : System.getProperty("STREAM_SECRET");
-  }
-
-  private static @Nullable String getApiKey() {
-    return System.getenv("STREAM_KEY") != null
-        ? System.getenv("STREAM_KEY")
-        : System.getProperty("STREAM_KEY");
   }
 }

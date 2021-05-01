@@ -27,8 +27,10 @@ public class BasicTest {
   }
 
   @BeforeEach
-  void resetProperties() {
-    setProperties();
+  void resetAuth()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException,
+          IllegalAccessException {
+    setAuth();
   }
 
   @BeforeAll
@@ -74,12 +76,23 @@ public class BasicTest {
   }
 
   static void setProperties() {
-    System.setProperty("STREAM_KEY", "vk73cqmmjxe6");
-    System.setProperty(
-        "STREAM_SECRET", "mxxtzdxc932n8k9dg47p49kkz6pncxkqu3z6g6s57rh9nca363kdqaxd6jbw5mtq");
     System.setProperty(
         "java.util.logging.SimpleFormatter.format",
         "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s %2$s %5$s%6$s%n");
+    System.setProperty("STREAM_KEY", "vk73cqmmjxe6");
+    System.setProperty(
+        "STREAM_SECRET", "mxxtzdxc932n8k9dg47p49kkz6pncxkqu3z6g6s57rh9nca363kdqaxd6jbw5mtq");
+  }
+
+  private void setAuth()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException,
+          IllegalAccessException {
+    Field apiKeyField = StreamServiceGenerator.class.getDeclaredField("apiKey");
+    apiKeyField.setAccessible(true);
+    apiKeyField.set(StreamServiceGenerator.class, System.getProperty("STREAM_KEY"));
+    Field apiSecretField = StreamServiceGenerator.class.getDeclaredField("apiSecret");
+    apiSecretField.setAccessible(true);
+    apiSecretField.set(StreamServiceGenerator.class, System.getProperty("STREAM_SECRET"));
   }
 
   protected List<ChannelMemberRequestObject> buildChannelMembersList() {
