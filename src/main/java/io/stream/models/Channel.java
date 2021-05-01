@@ -1175,7 +1175,7 @@ public class Channel {
       this.user = channelQueryMembersRequest.user;
     }
 
-    public static final class ChannelQueryMembersRequest
+    public static class ChannelQueryMembersRequest
         extends StreamRequest<ChannelQueryMembersResponse> {
       private String type;
       private String id;
