@@ -270,8 +270,8 @@ public class User {
       private Boolean banned;
       private String banExpires;
       private String language;
-      private List<String> teams = Collections.emptyList();
-      private Map<String, Object> additionalFields = Collections.emptyMap();
+      private List<String> teams;
+      private Map<String, Object> additionalFields;
 
       private Builder() {}
 
@@ -363,8 +363,8 @@ public class User {
     /** Builder to build {@link UserPartialUpdateRequestObject}. */
     public static final class Builder {
       private String id;
-      private Map<String, Object> setValue = Collections.emptyMap();
-      private List<String> unset = Collections.emptyList();
+      private Map<String, Object> setValue;
+      private List<String> unset;
 
       private Builder() {}
 
@@ -477,8 +477,8 @@ public class User {
     }
 
     public static class UserQueryRequest extends StreamRequest<UserListResponse> {
-      private Map<String, Object> filterConditions = Collections.emptyMap();
-      private List<Sort> sort = Collections.emptyList();
+      private Map<String, Object> filterConditions = Collections.emptyMap();;
+      private List<Sort> sort;
       private Boolean presence;
       private Integer limit;
       private Integer offset;
@@ -637,7 +637,7 @@ public class User {
 
     public static class UserQueryBannedRequest extends StreamRequest<UserQueryBannedResponse> {
       private Map<String, Object> filterConditions = Collections.emptyMap();
-      private List<Sort> sort = Collections.emptyList();
+      private List<Sort> sort;
       private Integer limit;
       private Integer offset;
       private Date createdAtAfterOrEqual;

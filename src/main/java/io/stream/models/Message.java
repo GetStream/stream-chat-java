@@ -3,7 +3,6 @@ package io.stream.models;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -444,12 +443,12 @@ public class Message {
       private String mml;
       private UserRequestObject user;
       private String parentId;
-      private List<AttachmentRequestObject> attachments = Collections.emptyList();
+      private List<AttachmentRequestObject> attachments;
       private Boolean showInChannel;
-      private List<String> mentionedUsers = Collections.emptyList();
+      private List<String> mentionedUsers;
       private String userId;
       private String html;
-      private Map<String, Integer> reactionScores = Collections.emptyMap();
+      private Map<String, Integer> reactionScores;
       private String quotedMessageId;
       private String cId;
       private Boolean silent;
@@ -457,7 +456,7 @@ public class Message {
       private Date pinExpires;
       private String pinnedBy;
       private Date pinnedAt;
-      private Map<String, Object> additionalFields = Collections.emptyMap();
+      private Map<String, Object> additionalFields;
 
       private Builder() {}
 
@@ -636,13 +635,13 @@ public class Message {
     /** Builder to build {@link MessageRequestObjectMessage}. */
     public static final class Builder {
       private String text;
-      private List<Attachment> attachments = Collections.emptyList();
+      private List<Attachment> attachments;
       private MessageRequestObjectUser user;
-      private List<String> mentionedUsers = Collections.emptyList();
+      private List<String> mentionedUsers;
       private String parentId;
       private Boolean showInChannel;
       private Boolean silent;
-      private Map<String, Object> additionalFields = Collections.emptyMap();
+      private Map<String, Object> additionalFields;
 
       private Builder() {}
 
@@ -868,11 +867,11 @@ public class Message {
       private String thumbURL;
       private String footer;
       private String footerIcon;
-      private List<ActionRequestObject> actions = Collections.emptyList();
-      private List<FieldRequestObject> fields = Collections.emptyList();
+      private List<ActionRequestObject> actions;
+      private List<FieldRequestObject> fields;
       private String assetURL;
       private String ogScrapeURL;
-      private Map<String, Object> additionalFields = Collections.emptyMap();
+      private Map<String, Object> additionalFields;
 
       private Builder() {}
 
@@ -1325,8 +1324,8 @@ public class Message {
 
     public static final class MessageSearchRequest extends StreamRequest<MessageSearchResponse> {
       private String query;
-      private Map<String, Object> filterConditions = Collections.emptyMap();
-      private Map<String, Object> messageFilterConditions = Collections.emptyMap();
+      private Map<String, Object> filterConditions;
+      private Map<String, Object> messageFilterConditions;
       private Integer limit;
       private Integer offset;
 
@@ -1436,7 +1435,7 @@ public class Message {
     private String channelType;
     private String channelId;
     private String userId;
-    private List<ImageSizeRequestObject> uploadSizes = Collections.emptyList();
+    private List<ImageSizeRequestObject> uploadSizes;
 
     private MessageUploadImageRequest(
         @NotNull String channelType,

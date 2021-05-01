@@ -235,12 +235,12 @@ public class Channel {
     /** Builder to build {@link ChannelRequestObject}. */
     public static final class Builder {
       private UserRequestObject createdBy;
-      private Map<String, Object> additionalFields = Collections.emptyMap();
+      private Map<String, Object> additionalFields;
       private String team;
       private Boolean autoTranslationEnabled;
       private String autoTranslationLanguage;
       private Boolean frozen;
-      private List<ChannelMemberRequestObject> members = Collections.emptyList();
+      private List<ChannelMemberRequestObject> members;
       private ConfigOverridesRequestObject configOverrides;
 
       private Builder() {}
@@ -787,11 +787,11 @@ public class Channel {
     public static class ChannelUpdateRequest extends StreamRequest<ChannelUpdateResponse> {
       private String channelId;
       private String channelType;
-      private List<String> addMembers = Collections.emptyList();
-      private List<String> removeMembers = Collections.emptyList();
-      private List<String> addModerators = Collections.emptyList();
-      private List<String> demoteModerators = Collections.emptyList();
-      private List<String> invites = Collections.emptyList();
+      private List<String> addMembers;
+      private List<String> removeMembers;
+      private List<String> addModerators;
+      private List<String> demoteModerators;
+      private List<String> invites;
       private Integer cooldown;
       private Boolean acceptInvite;
       private Boolean rejectInvite;
@@ -973,8 +973,8 @@ public class Channel {
     }
 
     public static class ChannelListRequest extends StreamRequest<ChannelListResponse> {
-      private Map<String, Object> filterConditions = Collections.emptyMap();
-      private List<Sort> sort = Collections.emptyList();
+      private Map<String, Object> filterConditions;
+      private List<Sort> sort;
       private Boolean watch;
       private Boolean state;
       private Boolean presence;
@@ -1181,7 +1181,7 @@ public class Channel {
       private String id;
       private ChannelMember members;
       private Map<String, Object> filterConditions = Collections.emptyMap();
-      private List<Sort> sort = Collections.emptyList();
+      private List<Sort> sort;
       private Integer limit;
       private Integer offset;
       private String userIdGte;

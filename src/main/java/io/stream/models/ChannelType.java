@@ -9,7 +9,6 @@ import io.stream.models.framework.StreamResponse;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.ChannelTypeService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -285,9 +284,9 @@ public class ChannelType {
       private AutoModBehavior automodBehavior;
       private String blocklist;
       private BlocklistBehavior blocklistBehavior;
-      private Map<String, ThresholdRequest> automodThresholds = Collections.emptyMap();
-      private List<String> commands = Collections.emptyList();
-      private List<Permission> permissions = Collections.emptyList();
+      private Map<String, ThresholdRequest> automodThresholds;
+      private List<String> commands;
+      private List<Permission> permissions;
 
       private static final boolean DEFAULT_PUSH_NOTIFICATIONS = true;
 
@@ -583,9 +582,9 @@ public class ChannelType {
       private AutoModBehavior automodBehavior;
       private String blocklist;
       private BlocklistBehavior blocklistBehavior;
-      private Map<String, ThresholdRequest> automodThresholds = Collections.emptyMap();
-      private List<String> commands = Collections.emptyList();
-      private List<Permission> permissions = Collections.emptyList();
+      private Map<String, ThresholdRequest> automodThresholds;
+      private List<String> commands;
+      private List<Permission> permissions;
 
       private ChannelTypeUpdateRequest(String name) {
         this.name = name;

@@ -8,7 +8,6 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.AppService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -295,10 +294,10 @@ public class App extends StreamResponseObject {
 
     /** Builder to build {@link FileUploadConfigRequestObject}. */
     public static final class Builder {
-      private List<String> allowedFileExtensions = Collections.emptyList();
-      private List<String> blockedFileExtensions = Collections.emptyList();
-      private List<String> allowedMimeTypes = Collections.emptyList();
-      private List<String> blockedMimeTypes = Collections.emptyList();
+      private List<String> allowedFileExtensions;
+      private List<String> blockedFileExtensions;
+      private List<String> allowedMimeTypes;
+      private List<String> blockedMimeTypes;
 
       private Builder() {}
 
@@ -686,7 +685,7 @@ public class App extends StreamResponseObject {
       private APNConfigRequestObject aPNConfig;
       private FirebaseConfigRequestObject firebaseConfig;
       private PushConfigRequestObject pushConfig;
-      private List<String> userSearchDisallowedRoles = Collections.emptyList();
+      private List<String> userSearchDisallowedRoles;
       private String customActionHandlerUrl;
       private String enforceUniqueUsernames;
       private String permissionVersion;
@@ -695,7 +694,7 @@ public class App extends StreamResponseObject {
       private String beforeMessageSendHookUrl;
       private Boolean autoTranslationEnabled;
       private Boolean imageModerationEnabled;
-      private List<String> imageModerationLabels = Collections.emptyList();
+      private List<String> imageModerationLabels;
       private String sqsUrl;
       private String sqsKey;
       private String sqsSecret;
