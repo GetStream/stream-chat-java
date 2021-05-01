@@ -1,15 +1,5 @@
 package io.stream.models;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,12 +13,22 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.MessageService;
 import io.stream.services.framework.StreamServiceGenerator;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.java.Log;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Log
@@ -1483,7 +1483,8 @@ public class Message {
         // This should not happen, can only be a development error
         log.log(
             Level.SEVERE,
-            "Seems there is a problem with the conversion of user request object or image size request object to json",
+            "Seems there is a problem with the conversion of user request object or image size"
+                + " request object to json",
             e);
         return null;
       }

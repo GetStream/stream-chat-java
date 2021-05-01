@@ -1,13 +1,5 @@
 package io.stream.models;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,9 +13,17 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.UserService;
 import io.stream.services.framework.StreamServiceGenerator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -477,7 +477,8 @@ public class User {
     }
 
     public static class UserQueryRequest extends StreamRequest<UserListResponse> {
-      private Map<String, Object> filterConditions = Collections.emptyMap();;
+      private Map<String, Object> filterConditions = Collections.emptyMap();
+      ;
       private List<Sort> sort;
       private Boolean presence;
       private Integer limit;

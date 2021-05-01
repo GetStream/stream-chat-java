@@ -54,7 +54,8 @@ public class StreamServiceGenerator {
       initKeys();
       if (apiKey == null) {
         StreamException.build(
-            "Missing Stream API key. Please set STREAM_KEY environment variable or System property");
+            "Missing Stream API key. Please set STREAM_KEY environment variable or System"
+                + " property");
       }
       if (apiSecret == null) {
         StreamException.build(
