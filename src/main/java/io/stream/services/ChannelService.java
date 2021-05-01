@@ -1,20 +1,25 @@
 package io.stream.services;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import io.stream.models.Channel.ChannelDeleteResponse;
 import io.stream.models.Channel.ChannelGetRequestData;
 import io.stream.models.Channel.ChannelGetResponse;
 import io.stream.models.Channel.ChannelListRequestData;
 import io.stream.models.Channel.ChannelListResponse;
+import io.stream.models.Channel.ChannelQueryMembersRequestData;
+import io.stream.models.Channel.ChannelQueryMembersResponse;
 import io.stream.models.Channel.ChannelTruncateResponse;
 import io.stream.models.Channel.ChannelUpdateRequestData;
 import io.stream.models.Channel.ChannelUpdateResponse;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import io.stream.services.framework.ToJson;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ChannelService {
   @POST("/channels/{type}/{id}")
@@ -44,4 +49,9 @@ public interface ChannelService {
   @POST("/channels/{type}/{id}/truncate")
   Call<ChannelTruncateResponse> truncate(
       @NotNull @Path("type") String channelType, @NotNull @Path("id") String channelId);
+
+  @GET("/members")
+  Call<ChannelQueryMembersResponse> queryMembers(
+      @NotNull @ToJson @Query("payload")
+          ChannelQueryMembersRequestData channelQueryMembersRequestData);
 }

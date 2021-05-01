@@ -1,11 +1,19 @@
 package io.stream.models;
 
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.models.Channel.ChannelGetRequestData.ChannelGetRequest;
 import io.stream.models.Channel.ChannelListRequestData.ChannelListRequest;
+import io.stream.models.Channel.ChannelQueryMembersRequestData.ChannelQueryMembersRequest;
 import io.stream.models.Channel.ChannelUpdateRequestData.ChannelUpdateRequest;
 import io.stream.models.ChannelType.BlocklistBehavior;
 import io.stream.models.ChannelType.ChannelTypeWithCommands;
@@ -15,15 +23,8 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.ChannelService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -1084,6 +1085,231 @@ public class Channel {
     }
   }
 
+  public static class ChannelQueryMembersRequestData {
+
+    @Nullable
+    @JsonProperty("type")
+    private String type;
+
+    @Nullable
+    @JsonProperty("id")
+    private String id;
+
+    @Nullable
+    @JsonProperty("members")
+    private ChannelMember members;
+
+    @Nullable
+    @JsonProperty("filter_conditions")
+    private Map<String, Object> filterConditions;
+
+    @Nullable
+    @JsonProperty("sort")
+    private List<Sort> sort;
+
+    @Nullable
+    @JsonProperty("limit")
+    private Integer limit;
+
+    @Nullable
+    @JsonProperty("offset")
+    private Integer offset;
+
+    @Nullable
+    @JsonProperty("user_id_gte")
+    private String userIdGte;
+
+    @Nullable
+    @JsonProperty("user_id_gt")
+    private String userIdGt;
+
+    @Nullable
+    @JsonProperty("user_id_lte")
+    private String userIdLte;
+
+    @Nullable
+    @JsonProperty("user_id_lt")
+    private String userIdLt;
+
+    @Nullable
+    @JsonProperty("created_at_after_or_equal")
+    private Date createdAtAfterOrEqual;
+
+    @Nullable
+    @JsonProperty("created_at_after")
+    private Date createdAtAfter;
+
+    @Nullable
+    @JsonProperty("created_at_before_or_equal")
+    private Date createdAtBeforeOrEqual;
+
+    @Nullable
+    @JsonProperty("created_at_before")
+    private Date createdAtBefore;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    private ChannelQueryMembersRequestData(ChannelQueryMembersRequest channelQueryMembersRequest) {
+      this.type = channelQueryMembersRequest.type;
+      this.id = channelQueryMembersRequest.id;
+      this.members = channelQueryMembersRequest.members;
+      this.filterConditions = channelQueryMembersRequest.filterConditions;
+      this.sort = channelQueryMembersRequest.sort;
+      this.limit = channelQueryMembersRequest.limit;
+      this.offset = channelQueryMembersRequest.offset;
+      this.userIdGte = channelQueryMembersRequest.userIdGte;
+      this.userIdGt = channelQueryMembersRequest.userIdGt;
+      this.userIdLte = channelQueryMembersRequest.userIdLte;
+      this.userIdLt = channelQueryMembersRequest.userIdLt;
+      this.createdAtAfterOrEqual = channelQueryMembersRequest.createdAtAfterOrEqual;
+      this.createdAtAfter = channelQueryMembersRequest.createdAtAfter;
+      this.createdAtBeforeOrEqual = channelQueryMembersRequest.createdAtBeforeOrEqual;
+      this.createdAtBefore = channelQueryMembersRequest.createdAtBefore;
+      this.userId = channelQueryMembersRequest.userId;
+      this.user = channelQueryMembersRequest.user;
+    }
+
+    public static final class ChannelQueryMembersRequest
+        extends StreamRequest<ChannelQueryMembersResponse> {
+      private String type;
+      private String id;
+      private ChannelMember members;
+      private Map<String, Object> filterConditions = Collections.emptyMap();
+      private List<Sort> sort = Collections.emptyList();
+      private Integer limit;
+      private Integer offset;
+      private String userIdGte;
+      private String userIdGt;
+      private String userIdLte;
+      private String userIdLt;
+      private Date createdAtAfterOrEqual;
+      private Date createdAtAfter;
+      private Date createdAtBeforeOrEqual;
+      private Date createdAtBefore;
+      private String userId;
+      private UserRequestObject user;
+
+      private ChannelQueryMembersRequest() {}
+
+      @NotNull
+      public ChannelQueryMembersRequest withType(@NotNull String type) {
+        this.type = type;
+        return this;
+      }
+
+      @NotNull
+      public ChannelQueryMembersRequest withId(@NotNull String id) {
+        this.id = id;
+        return this;
+      }
+
+      @NotNull
+      public ChannelQueryMembersRequest withMembers(@NotNull ChannelMember members) {
+        this.members = members;
+        return this;
+      }
+
+      @NotNull
+      public ChannelQueryMembersRequest withFilterConditions(
+          @NotNull Map<String, Object> filterConditions) {
+        this.filterConditions = filterConditions;
+        return this;
+      }
+
+      @NotNull
+      public ChannelQueryMembersRequest withSort(@NotNull List<Sort> sort) {
+        this.sort = sort;
+        return this;
+      }
+
+      @NotNull
+      public ChannelQueryMembersRequest withLimit(@NotNull Integer limit) {
+        this.limit = limit;
+        return this;
+      }
+
+      @NotNull
+      public ChannelQueryMembersRequest withOffset(@NotNull Integer offset) {
+        this.offset = offset;
+        return this;
+      }
+
+      @NotNull
+      public ChannelQueryMembersRequest withUserIdGte(@NotNull String userIdGte) {
+        this.userIdGte = userIdGte;
+        return this;
+      }
+
+      @NotNull
+      public ChannelQueryMembersRequest withUserIdGt(@NotNull String userIdGt) {
+        this.userIdGt = userIdGt;
+        return this;
+      }
+
+      @NotNull
+      public ChannelQueryMembersRequest withUserIdLte(@NotNull String userIdLte) {
+        this.userIdLte = userIdLte;
+        return this;
+      }
+
+      @NotNull
+      public ChannelQueryMembersRequest withUserIdLt(@NotNull String userIdLt) {
+        this.userIdLt = userIdLt;
+        return this;
+      }
+
+      @NotNull
+      public ChannelQueryMembersRequest withCreatedAtAfterOrEqual(
+          @NotNull Date createdAtAfterOrEqual) {
+        this.createdAtAfterOrEqual = createdAtAfterOrEqual;
+        return this;
+      }
+
+      @NotNull
+      public ChannelQueryMembersRequest withCreatedAtAfter(@NotNull Date createdAtAfter) {
+        this.createdAtAfter = createdAtAfter;
+        return this;
+      }
+
+      @NotNull
+      public ChannelQueryMembersRequest withCreatedAtBeforeOrEqual(
+          @NotNull Date createdAtBeforeOrEqual) {
+        this.createdAtBeforeOrEqual = createdAtBeforeOrEqual;
+        return this;
+      }
+
+      @NotNull
+      public ChannelQueryMembersRequest withCreatedAtBefore(@NotNull Date createdAtBefore) {
+        this.createdAtBefore = createdAtBefore;
+        return this;
+      }
+
+      @NotNull
+      public ChannelQueryMembersRequest withUserId(@NotNull String userId) {
+        this.userId = userId;
+        return this;
+      }
+
+      @NotNull
+      public ChannelQueryMembersRequest withUser(@NotNull UserRequestObject user) {
+        this.user = user;
+        return this;
+      }
+
+      @Override
+      protected Call<ChannelQueryMembersResponse> generateCall() {
+        return StreamServiceGenerator.createService(ChannelService.class)
+            .queryMembers(new ChannelQueryMembersRequestData(this));
+      }
+    }
+  }
+
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class ChannelGetResponse extends StreamResponseObject {
@@ -1178,6 +1404,16 @@ public class Channel {
     private Channel channel;
   }
 
+  @Data
+  @EqualsAndHashCode(callSuper = false)
+  public static class ChannelQueryMembersResponse extends StreamResponseObject {
+    public ChannelQueryMembersResponse() {}
+
+    @Nullable
+    @JsonProperty("members")
+    private List<ChannelMember> members;
+  }
+
   /**
    * Creates a get or create request
    *
@@ -1226,5 +1462,15 @@ public class Channel {
   @NotNull
   public static ChannelTruncateRequest truncate(@NotNull String type, @NotNull String id) {
     return new ChannelTruncateRequest(type, id);
+  }
+
+  /**
+   * Creates a query members request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelQueryMembersRequest queryMembers() {
+    return new ChannelQueryMembersRequest();
   }
 }

@@ -87,4 +87,20 @@ public class ChannelTest extends BasicTest {
                     channelGetResponse.getChannel().getId())
                 .request());
   }
+
+  @DisplayName("Can query channel members")
+  @Test
+  void whenQueryingChannelMembers_thenRetrieveAll() {
+    ChannelGetResponse channelGetResponse =
+        Assertions.assertDoesNotThrow(() -> createRandomChannel());
+    List<ChannelMember> channelMembers =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Channel.queryMembers()
+                        .withId(channelGetResponse.getChannel().getId())
+                        .withType(channelGetResponse.getChannel().getType())
+                        .request())
+            .getMembers();
+    Assertions.assertEquals(testUsers.size(), channelMembers.size());
+  }
 }
