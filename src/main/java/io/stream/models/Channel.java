@@ -1665,6 +1665,52 @@ public class Channel {
     }
   }
 
+  public static class ChannelShowRequestData {
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    private ChannelShowRequestData(ChannelShowRequest channelShowRequestData) {
+      this.userId = channelShowRequestData.userId;
+      this.user = channelShowRequestData.user;
+    }
+
+    public static final class ChannelShowRequest extends StreamRequest<StreamResponseObject> {
+      private String channelId;
+      private String channelType;
+      private String userId;
+      private UserRequestObject user;
+
+      private ChannelShowRequest(String channelType, String channelId) {
+        this.channelType = channelType;
+        this.channelId = channelId;
+      }
+
+      @NotNull
+      public ChannelShowRequest withUserId(@NotNull String userId) {
+        this.userId = userId;
+        return this;
+      }
+
+      @NotNull
+      public ChannelShowRequest withUser(@NotNull UserRequestObject user) {
+        this.user = user;
+        return this;
+      }
+
+      @Override
+      protected Call<StreamResponseObject> generateCall() {
+        return StreamServiceGenerator.createService(ChannelService.class)
+            .show(this.channelType, this.channelId, new ChannelShowRequestData(this));
+      }
+    }
+  }
+
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class ChannelGetResponse extends StreamResponseObject {

@@ -209,4 +209,14 @@ public class ChannelTest extends BasicTest {
             .findAny()
             .isPresent();
   }
+
+  @DisplayName("Can show a channel")
+  @Test
+  void whenShowingChannel_thenNoException() {
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.hide(testChannel.getType(), testChannel.getId())
+                .withUser(testUserRequestObject)
+                .request());
+  }
 }
