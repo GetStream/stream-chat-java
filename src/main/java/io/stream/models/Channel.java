@@ -593,20 +593,20 @@ public class Channel {
       }
     }
   }
-  
+
   public static class ChannelExportRequestObject {
     @NotNull
     @JsonProperty("type")
     private String type;
-    
+
     @NotNull
     @JsonProperty("id")
     private String id;
-    
+
     @Nullable
     @JsonProperty("messages_since")
     private Date messagesSince;
-    
+
     @Nullable
     @JsonProperty("messages_until")
     private Date messagesUntil;
@@ -620,15 +620,14 @@ public class Channel {
 
     /**
      * Creates builder to build {@link ChannelExportRequestObject}.
+     *
      * @return created builder
      */
     public static Builder builder() {
       return new Builder();
     }
 
-    /**
-     * Builder to build {@link ChannelExportRequestObject}.
-     */
+    /** Builder to build {@link ChannelExportRequestObject}. */
     public static final class Builder {
       private String type;
       private String id;
@@ -666,7 +665,6 @@ public class Channel {
         return new ChannelExportRequestObject(this);
       }
     }
-    
   }
 
   public static class ChannelGetRequestData {
@@ -1386,7 +1384,7 @@ public class Channel {
       }
     }
   }
-  
+
   public static class ChannelExportRequestData {
     @NotNull
     @JsonProperty("channels")
@@ -1406,7 +1404,7 @@ public class Channel {
         this.channels = channels;
         return this;
       }
-      
+
       @NotNull
       public ChannelExportRequest addChannel(@NotNull ChannelExportRequestObject channel) {
         this.channels.add(channel);
@@ -1524,7 +1522,7 @@ public class Channel {
     @JsonProperty("members")
     private List<ChannelMember> members;
   }
-  
+
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class ChannelExportResponse extends StreamResponseObject {
@@ -1594,7 +1592,7 @@ public class Channel {
   public static ChannelQueryMembersRequest queryMembers() {
     return new ChannelQueryMembersRequest();
   }
-  
+
   /**
    * Creates an export request
    *

@@ -56,7 +56,8 @@ public interface ChannelService {
   Call<ChannelQueryMembersResponse> queryMembers(
       @NotNull @ToJson @Query("payload")
           ChannelQueryMembersRequestData channelQueryMembersRequestData);
-  
+
   @POST("/channels")
-  Call<ChannelExportResponse> export(@Nullable @Body ChannelExportRequestData channelExportRequestData);
+  Call<ChannelExportResponse> export(
+      @Nullable @Body ChannelExportRequestData channelExportRequestData);
 }
