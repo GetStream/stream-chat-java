@@ -16,6 +16,7 @@ import io.stream.models.Channel.ChannelExportRequestData.ChannelExportRequest;
 import io.stream.models.Channel.ChannelGetRequestData.ChannelGetRequest;
 import io.stream.models.Channel.ChannelHideRequestData.ChannelHideRequest;
 import io.stream.models.Channel.ChannelListRequestData.ChannelListRequest;
+import io.stream.models.Channel.ChannelMarkAllReadRequestData.ChannelMarkAllReadRequest;
 import io.stream.models.Channel.ChannelQueryMembersRequestData.ChannelQueryMembersRequest;
 import io.stream.models.Channel.ChannelUpdateRequestData.ChannelUpdateRequest;
 import io.stream.models.ChannelType.BlocklistBehavior;
@@ -1491,6 +1492,47 @@ public class Channel {
     }
   }
 
+  public static class ChannelMarkAllReadRequestData {
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    private ChannelMarkAllReadRequestData(ChannelMarkAllReadRequest channelMarkAllReadRequest) {
+      this.userId = channelMarkAllReadRequest.userId;
+      this.user = channelMarkAllReadRequest.user;
+    }
+
+    public static final class ChannelMarkAllReadRequest
+        extends StreamRequest<StreamResponseObject> {
+      private String userId;
+      private UserRequestObject user;
+
+      private ChannelMarkAllReadRequest() {}
+
+      @NotNull
+      public ChannelMarkAllReadRequest withUserId(@NotNull String userId) {
+        this.userId = userId;
+        return this;
+      }
+
+      @NotNull
+      public ChannelMarkAllReadRequest withUser(@NotNull UserRequestObject user) {
+        this.user = user;
+        return this;
+      }
+
+      @Override
+      protected Call<StreamResponseObject> generateCall() {
+        return StreamServiceGenerator.createService(ChannelService.class)
+            .markAllRead(new ChannelMarkAllReadRequestData(this));
+      }
+    }
+  }
+
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class ChannelGetResponse extends StreamResponseObject {
@@ -1783,5 +1825,15 @@ public class Channel {
   @NotNull
   public static ChannelHideRequest hide(@NotNull String type, @NotNull String id) {
     return new ChannelHideRequest(type, id);
+  }
+
+  /**
+   * Creates a mark all read request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelMarkAllReadRequest markAllRead() {
+    return new ChannelMarkAllReadRequest();
   }
 }

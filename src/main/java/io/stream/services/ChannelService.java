@@ -11,6 +11,7 @@ import io.stream.models.Channel.ChannelGetResponse;
 import io.stream.models.Channel.ChannelHideRequestData;
 import io.stream.models.Channel.ChannelListRequestData;
 import io.stream.models.Channel.ChannelListResponse;
+import io.stream.models.Channel.ChannelMarkAllReadRequestData;
 import io.stream.models.Channel.ChannelQueryMembersRequestData;
 import io.stream.models.Channel.ChannelQueryMembersResponse;
 import io.stream.models.Channel.ChannelTruncateResponse;
@@ -72,4 +73,8 @@ public interface ChannelService {
       @NotNull @Path("type") String channelType,
       @NotNull @Path("id") String channelId,
       @NotNull @Body ChannelHideRequestData channelHideRequestData);
+
+  @POST("/channels/read")
+  Call<StreamResponseObject> markAllRead(
+      @NotNull @Body ChannelMarkAllReadRequestData channelMarkAllReadRequestData);
 }
