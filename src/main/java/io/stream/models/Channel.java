@@ -1,9 +1,18 @@
 package io.stream.models;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.stream.models.Channel.ChannelExportRequestData.ChannelExportRequest;
 import io.stream.models.Channel.ChannelGetRequestData.ChannelGetRequest;
 import io.stream.models.Channel.ChannelListRequestData.ChannelListRequest;
 import io.stream.models.Channel.ChannelQueryMembersRequestData.ChannelQueryMembersRequest;
@@ -16,15 +25,8 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.ChannelService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -590,6 +592,81 @@ public class Channel {
         return new ConfigOverridesRequestObject(this);
       }
     }
+  }
+  
+  public static class ChannelExportRequestObject {
+    @NotNull
+    @JsonProperty("type")
+    private String type;
+    
+    @NotNull
+    @JsonProperty("id")
+    private String id;
+    
+    @Nullable
+    @JsonProperty("messages_since")
+    private Date messagesSince;
+    
+    @Nullable
+    @JsonProperty("messages_until")
+    private Date messagesUntil;
+
+    private ChannelExportRequestObject(Builder builder) {
+      this.type = builder.type;
+      this.id = builder.id;
+      this.messagesSince = builder.messagesSince;
+      this.messagesUntil = builder.messagesUntil;
+    }
+
+    /**
+     * Creates builder to build {@link ChannelExportRequestObject}.
+     * @return created builder
+     */
+    public static Builder builder() {
+      return new Builder();
+    }
+
+    /**
+     * Builder to build {@link ChannelExportRequestObject}.
+     */
+    public static final class Builder {
+      private String type;
+      private String id;
+      private Date messagesSince;
+      private Date messagesUntil;
+
+      private Builder() {}
+
+      @NotNull
+      public Builder withType(@NotNull String type) {
+        this.type = type;
+        return this;
+      }
+
+      @NotNull
+      public Builder withId(@NotNull String id) {
+        this.id = id;
+        return this;
+      }
+
+      @NotNull
+      public Builder withMessagesSince(@NotNull Date messagesSince) {
+        this.messagesSince = messagesSince;
+        return this;
+      }
+
+      @NotNull
+      public Builder withMessagesUntil(@NotNull Date messagesUntil) {
+        this.messagesUntil = messagesUntil;
+        return this;
+      }
+
+      @NotNull
+      public ChannelExportRequestObject build() {
+        return new ChannelExportRequestObject(this);
+      }
+    }
+    
   }
 
   public static class ChannelGetRequestData {
@@ -1309,6 +1386,40 @@ public class Channel {
       }
     }
   }
+  
+  public static class ChannelExportRequestData {
+    @NotNull
+    @JsonProperty("channels")
+    private List<ChannelExportRequestObject> channels;
+
+    private ChannelExportRequestData(ChannelExportRequest channelExportRequest) {
+      this.channels = channelExportRequest.channels;
+    }
+
+    public static final class ChannelExportRequest extends StreamRequest<ChannelExportResponse> {
+      private List<ChannelExportRequestObject> channels = new ArrayList<>();;
+
+      private ChannelExportRequest() {}
+
+      @NotNull
+      public ChannelExportRequest withChannels(@NotNull List<ChannelExportRequestObject> channels) {
+        this.channels = channels;
+        return this;
+      }
+      
+      @NotNull
+      public ChannelExportRequest addChannel(@NotNull ChannelExportRequestObject channel) {
+        this.channels.add(channel);
+        return this;
+      }
+
+      @Override
+      protected Call<ChannelExportResponse> generateCall() {
+        return StreamServiceGenerator.createService(ChannelService.class)
+            .export(new ChannelExportRequestData(this));
+      }
+    }
+  }
 
   @Data
   @EqualsAndHashCode(callSuper = false)
@@ -1413,6 +1524,16 @@ public class Channel {
     @JsonProperty("members")
     private List<ChannelMember> members;
   }
+  
+  @Data
+  @EqualsAndHashCode(callSuper = false)
+  public static class ChannelExportResponse extends StreamResponseObject {
+    public ChannelExportResponse() {}
+
+    @NotNull
+    @JsonProperty("task_id")
+    private String taskId;
+  }
 
   /**
    * Creates a get or create request
@@ -1472,5 +1593,15 @@ public class Channel {
   @NotNull
   public static ChannelQueryMembersRequest queryMembers() {
     return new ChannelQueryMembersRequest();
+  }
+  
+  /**
+   * Creates an export request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelExportRequest export() {
+    return new ChannelExportRequest();
   }
 }

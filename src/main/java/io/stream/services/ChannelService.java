@@ -1,6 +1,8 @@
 package io.stream.services;
 
 import io.stream.models.Channel.ChannelDeleteResponse;
+import io.stream.models.Channel.ChannelExportRequestData;
+import io.stream.models.Channel.ChannelExportResponse;
 import io.stream.models.Channel.ChannelGetRequestData;
 import io.stream.models.Channel.ChannelGetResponse;
 import io.stream.models.Channel.ChannelListRequestData;
@@ -54,4 +56,7 @@ public interface ChannelService {
   Call<ChannelQueryMembersResponse> queryMembers(
       @NotNull @ToJson @Query("payload")
           ChannelQueryMembersRequestData channelQueryMembersRequestData);
+  
+  @POST("/channels")
+  Call<ChannelExportResponse> export(@Nullable @Body ChannelExportRequestData channelExportRequestData);
 }
