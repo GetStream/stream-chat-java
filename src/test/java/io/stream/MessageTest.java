@@ -2,7 +2,6 @@ package io.stream;
 
 import io.stream.models.App;
 import io.stream.models.App.FileUploadConfigRequestObject;
-import io.stream.models.Channel;
 import io.stream.models.Message;
 import io.stream.models.Message.Crop;
 import io.stream.models.Message.ImageSizeRequestObject;
