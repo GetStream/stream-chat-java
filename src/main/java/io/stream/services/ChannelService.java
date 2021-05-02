@@ -61,8 +61,7 @@ public interface ChannelService {
   @POST("/export_channels")
   Call<ChannelExportResponse> export(
       @NotNull @Body ChannelExportRequestData channelExportRequestData);
-  
+
   @GET("/export_channels/{id}")
-  Call<ChannelExportStatusResponse> exportStatus(
-      @NotNull @Path("id") String taskId);
+  Call<ChannelExportStatusResponse> exportStatus(@NotNull @Path("id") String taskId);
 }

@@ -1547,9 +1547,9 @@ public class Message {
 
   /**
    * Creates send request
+   *
    * @param channelType the channel type
    * @param channelId the channel id
-   *
    * @return the created request
    */
   @NotNull
@@ -1559,8 +1559,8 @@ public class Message {
 
   /**
    * Creates an update request
-   * @param id the message id
    *
+   * @param id the message id
    * @return the created request
    */
   @NotNull
@@ -1580,10 +1580,10 @@ public class Message {
 
   /**
    * Creates a file upload request
+   *
    * @param channelType the channel type
    * @param channelId the channel id
    * @param userId the id of the user sending this file
-   *
    * @return the created request
    */
   @NotNull
@@ -1594,11 +1594,11 @@ public class Message {
 
   /**
    * Creates an image upload request
+   *
    * @param channelType the channel type
    * @param channelId the channel id
    * @param userId the id of the user sending this image
    * @param contentType the content type of the image to send
-   *
    * @return the created request
    */
   @NotNull

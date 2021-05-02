@@ -1418,14 +1418,15 @@ public class Channel {
       }
     }
   }
-  
-  public static class ChannelExportStatusRequest extends StreamRequest<ChannelExportStatusResponse> {
+
+  public static class ChannelExportStatusRequest
+      extends StreamRequest<ChannelExportStatusResponse> {
     private String id;
-    
+
     private ChannelExportStatusRequest(String id) {
       this.id = id;
     }
-    
+
     @Override
     protected Call<ChannelExportStatusResponse> generateCall() {
       return StreamServiceGenerator.createService(ChannelService.class).exportStatus(id);
@@ -1545,40 +1546,40 @@ public class Channel {
     @JsonProperty("task_id")
     private String taskId;
   }
-  
+
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class ChannelExportStatusResponse extends StreamResponseObject {
     public ChannelExportStatusResponse() {}
-    
+
     @NotNull
     @JsonProperty("task_id")
     private String taskId;
-    
+
     @NotNull
     @JsonProperty("status")
     private Status status;
-    
+
     @NotNull
     @JsonProperty("created_at")
     private Date createdAt;
-    
+
     @NotNull
     @JsonProperty("updated_at")
     private Date updatedAt;
-    
+
     @NotNull
     @JsonProperty("duration")
     private String duration;
-    
+
     @Nullable
     @JsonProperty("result")
     private ExportChannelsResult result;
-    
+
     @Nullable
     @JsonProperty("error")
     private ErrorResult error;
-    
+
     public enum Status {
       @JsonProperty("waiting")
       WAITING,
@@ -1591,34 +1592,34 @@ public class Channel {
       @JsonProperty("failed")
       FAILED
     }
-    
+
     private static class ExportChannelsResult {
       @NotNull
       @JsonProperty("url")
       private String url;
-      
+
       @NotNull
       @JsonProperty("path")
       private String path;
-      
+
       @NotNull
       @JsonProperty("s3_bucket_name")
       private String s3BucketName;
     }
-    
+
     private static class ErrorResult {
       @Nullable
       @JsonProperty("type")
       private String type;
-      
+
       @Nullable
       @JsonProperty("description")
       private String description;
-      
+
       @Nullable
       @JsonProperty("stacktrace")
       private String stacktrace;
-      
+
       @Nullable
       @JsonProperty("version")
       private String version;
@@ -1627,9 +1628,9 @@ public class Channel {
 
   /**
    * Creates a get or create request
+   *
    * @param type the channel type
    * @param id the channel id
-   *
    * @return the created request
    */
   @NotNull
@@ -1639,9 +1640,9 @@ public class Channel {
 
   /**
    * Creates an update request
+   *
    * @param type the channel type
    * @param id the channel id
-   *
    * @return the created request
    */
   @NotNull
@@ -1651,9 +1652,9 @@ public class Channel {
 
   /**
    * Creates a delete request
+   *
    * @param type the channel type
    * @param id the channel id
-   *
    * @return the created request
    */
   @NotNull
@@ -1673,6 +1674,7 @@ public class Channel {
 
   /**
    * Creates a truncate request
+   *
    * @param type the channel type
    * @param id the channel id
    * @return the created request
@@ -1701,10 +1703,10 @@ public class Channel {
   public static ChannelExportRequest export() {
     return new ChannelExportRequest();
   }
-  
+
   /**
    * Creates an export status request
-   * 
+   *
    * @param taskId the id of the export task
    * @return the created request
    */

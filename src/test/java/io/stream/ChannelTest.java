@@ -106,30 +106,34 @@ public class ChannelTest extends BasicTest {
   @DisplayName("Can export channel")
   @Test
   void whenExportingChannel_thenNoException() {
-    String taskId = Assertions.assertDoesNotThrow(
-        () ->
-            Channel.export()
-                .addChannel(
-                    ChannelExportRequestObject.builder()
-                        .withType(testChannel.getType())
-                        .withId(testChannel.getId())
-                        .build())
-                .request()).getTaskId();
+    String taskId =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Channel.export()
+                        .addChannel(
+                            ChannelExportRequestObject.builder()
+                                .withType(testChannel.getType())
+                                .withId(testChannel.getId())
+                                .build())
+                        .request())
+            .getTaskId();
     Assertions.assertNotNull(taskId);
   }
-  
+
   @DisplayName("Can query the status of a channel export")
   @Test
   void whenQueryingExportChannelStatus_thenNoException() {
-    String taskId = Assertions.assertDoesNotThrow(
-        () ->
-            Channel.export()
-                .addChannel(
-                    ChannelExportRequestObject.builder()
-                        .withType(testChannel.getType())
-                        .withId(testChannel.getId())
-                        .build())
-                .request()).getTaskId();
+    String taskId =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Channel.export()
+                        .addChannel(
+                            ChannelExportRequestObject.builder()
+                                .withType(testChannel.getType())
+                                .withId(testChannel.getId())
+                                .build())
+                        .request())
+            .getTaskId();
     Assertions.assertDoesNotThrow(() -> Channel.exportStatus(taskId).request());
   }
 }
