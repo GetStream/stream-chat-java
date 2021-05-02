@@ -91,7 +91,7 @@ public interface ChannelService {
       @NotNull @Path("id") String channelId,
       @NotNull @Body ChannelMarkReadRequestData channelMarkReadRequestData);
 
-  @POST("/moderation/mute/channel")
+  @POST("moderation/mute/channel")
   Call<ChannelMuteResponse> mute(@NotNull @Body ChannelMuteRequestData channelMuteRequestData);
 
   @POST("channels/{type}/{id}/show")
@@ -100,7 +100,7 @@ public interface ChannelService {
       @NotNull @Path("id") String channelId,
       @NotNull @Body ChannelShowRequestData channelShowRequestData);
 
-  @POST("/moderation/unmute/channel")
+  @POST("moderation/unmute/channel")
   Call<ChannelUnMuteResponse> unmute(
       @NotNull @Body ChannelUnMuteRequestData channelUnMuteRequestData);
 }
