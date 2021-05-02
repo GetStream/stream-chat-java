@@ -143,7 +143,6 @@ public class ChannelTest extends BasicTest {
     // We should not use testChannel to not hide it
     ChannelGetResponse channelGetResponse =
         Assertions.assertDoesNotThrow(() -> createRandomChannel());
-    Assertions.assertNull(channelGetResponse.getChannel().getDeletedAt());
     Assertions.assertDoesNotThrow(
         () ->
             Channel.hide(
