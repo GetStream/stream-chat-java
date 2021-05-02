@@ -28,53 +28,53 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ChannelService {
-  @POST("/channels/{type}/{id}")
+  @POST("channels/{type}/{id}")
   Call<ChannelUpdateResponse> update(
       @NotNull @Path("type") String channelType,
       @NotNull @Path("id") String channelId,
       @NotNull @Body ChannelUpdateRequestData channelUpdateRequestData);
 
-  @POST("/channels/{type}/{id}/query")
+  @POST("channels/{type}/{id}/query")
   Call<ChannelGetResponse> getOrCreateWithId(
       @NotNull @Path("type") String channelType,
       @NotNull @Path("id") String channelId,
       @Nullable @Body ChannelGetRequestData channelGetRequestData);
 
-  @POST("/channels/{type}/query")
+  @POST("channels/{type}/query")
   Call<ChannelGetResponse> getOrCreateWithoutId(
       @NotNull @Path("type") String channelType,
       @Nullable @Body ChannelGetRequestData channelGetRequestData);
 
-  @DELETE("/channels/{type}/{id}")
+  @DELETE("channels/{type}/{id}")
   Call<ChannelDeleteResponse> delete(
       @NotNull @Path("type") String channelType, @NotNull @Path("id") String channelId);
 
-  @POST("/channels")
+  @POST("channels")
   Call<ChannelListResponse> list(@Nullable @Body ChannelListRequestData channelListRequestData);
 
-  @POST("/channels/{type}/{id}/truncate")
+  @POST("channels/{type}/{id}/truncate")
   Call<ChannelTruncateResponse> truncate(
       @NotNull @Path("type") String channelType, @NotNull @Path("id") String channelId);
 
-  @GET("/members")
+  @GET("members")
   Call<ChannelQueryMembersResponse> queryMembers(
       @NotNull @ToJson @Query("payload")
           ChannelQueryMembersRequestData channelQueryMembersRequestData);
 
-  @POST("/export_channels")
+  @POST("export_channels")
   Call<ChannelExportResponse> export(
       @NotNull @Body ChannelExportRequestData channelExportRequestData);
 
-  @GET("/export_channels/{id}")
+  @GET("export_channels/{id}")
   Call<ChannelExportStatusResponse> exportStatus(@NotNull @Path("id") String taskId);
 
-  @POST("/channels/{type}/{id}/hide")
+  @POST("channels/{type}/{id}/hide")
   Call<StreamResponseObject> hide(
       @NotNull @Path("type") String channelType,
       @NotNull @Path("id") String channelId,
       @NotNull @Body ChannelHideRequestData channelHideRequestData);
 
-  @POST("/channels/read")
+  @POST("channels/read")
   Call<StreamResponseObject> markAllRead(
       @NotNull @Body ChannelMarkAllReadRequestData channelMarkAllReadRequestData);
 }
