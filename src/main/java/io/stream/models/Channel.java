@@ -20,6 +20,7 @@ import io.stream.models.Channel.ChannelMarkAllReadRequestData.ChannelMarkAllRead
 import io.stream.models.Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest;
 import io.stream.models.Channel.ChannelMuteRequestData.ChannelMuteRequest;
 import io.stream.models.Channel.ChannelQueryMembersRequestData.ChannelQueryMembersRequest;
+import io.stream.models.Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest;
 import io.stream.models.Channel.ChannelUpdateRequestData.ChannelUpdateRequest;
 import io.stream.models.ChannelType.BlocklistBehavior;
 import io.stream.models.ChannelType.ChannelTypeWithCommands;
@@ -1711,6 +1712,82 @@ public class Channel {
     }
   }
 
+  public static class ChannelUnMuteRequestData {
+    @Nullable
+    @JsonProperty("channel_cid")
+    private String channelCid;
+
+    @Nullable
+    @JsonProperty("channel_cids")
+    private List<String> channelCids;
+
+    @Nullable
+    @JsonProperty("expiration")
+    private Integer expiration;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    private ChannelUnMuteRequestData(ChannelUnMuteRequest channelUnMuteRequest) {
+      this.channelCid = channelUnMuteRequest.channelCid;
+      this.channelCids = channelUnMuteRequest.channelCids;
+      this.expiration = channelUnMuteRequest.expiration;
+      this.userId = channelUnMuteRequest.userId;
+      this.user = channelUnMuteRequest.user;
+    }
+
+    public static final class ChannelUnMuteRequest extends StreamRequest<ChannelUnMuteResponse> {
+      private String channelCid;
+      private List<String> channelCids;
+      private Integer expiration;
+      private String userId;
+      private UserRequestObject user;
+
+      private ChannelUnMuteRequest() {}
+
+      @NotNull
+      public ChannelUnMuteRequest withChannelCid(@NotNull String channelCid) {
+        this.channelCid = channelCid;
+        return this;
+      }
+
+      @NotNull
+      public ChannelUnMuteRequest withChannelCids(@NotNull List<String> channelCids) {
+        this.channelCids = channelCids;
+        return this;
+      }
+
+      @NotNull
+      public ChannelUnMuteRequest withExpiration(@NotNull Integer expiration) {
+        this.expiration = expiration;
+        return this;
+      }
+
+      @NotNull
+      public ChannelUnMuteRequest withUserId(@NotNull String userId) {
+        this.userId = userId;
+        return this;
+      }
+
+      @NotNull
+      public ChannelUnMuteRequest withUser(@NotNull UserRequestObject user) {
+        this.user = user;
+        return this;
+      }
+
+      @Override
+      protected Call<ChannelUnMuteResponse> generateCall() {
+        return StreamServiceGenerator.createService(ChannelService.class)
+            .unmute(new ChannelUnMuteRequestData(this));
+      }
+    }
+  }
+
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class ChannelGetResponse extends StreamResponseObject {
@@ -1936,6 +2013,24 @@ public class Channel {
     public ChannelMuteResponse() {}
   }
 
+  @Data
+  @EqualsAndHashCode(callSuper = false)
+  public static class ChannelUnMuteResponse extends StreamResponseObject {
+    @Nullable
+    @JsonProperty("channel_mute")
+    private ChannelMute channelMute;
+
+    @Nullable
+    @JsonProperty("channel_mutes")
+    private List<ChannelMute> channelMutes;
+
+    @Nullable
+    @JsonProperty("own_user")
+    private OwnUser ownUser;
+
+    public ChannelUnMuteResponse() {}
+  }
+
   /**
    * Creates a get or create request
    *
@@ -2067,5 +2162,15 @@ public class Channel {
   @NotNull
   public static ChannelMuteRequest mute() {
     return new ChannelMuteRequest();
+  }
+
+  /**
+   * Creates an unmute request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelUnMuteRequest unmute() {
+    return new ChannelUnMuteRequest();
   }
 }

@@ -219,4 +219,24 @@ public class ChannelTest extends BasicTest {
                 .withUser(testUserRequestObject)
                 .request());
   }
+
+  @DisplayName("Can unmute a channel")
+  @Test
+  void whenUnMutingChannel_thenIsNotMutedAnymore() {
+    Assertions.assertFalse(isChannelMutedForTestUser(testChannel.getType(), testChannel.getId()));
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.mute()
+                .withChannelCid(testChannel.getType() + ":" + testChannel.getId())
+                .withUser(testUserRequestObject)
+                .request());
+    Assertions.assertTrue(isChannelMutedForTestUser(testChannel.getType(), testChannel.getId()));
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.unmute()
+                .withChannelCid(testChannel.getType() + ":" + testChannel.getId())
+                .withUser(testUserRequestObject)
+                .request());
+    Assertions.assertFalse(isChannelMutedForTestUser(testChannel.getType(), testChannel.getId()));
+  }
 }

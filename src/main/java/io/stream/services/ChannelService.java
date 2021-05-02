@@ -18,6 +18,8 @@ import io.stream.models.Channel.ChannelQueryMembersRequestData;
 import io.stream.models.Channel.ChannelQueryMembersResponse;
 import io.stream.models.Channel.ChannelShowRequestData;
 import io.stream.models.Channel.ChannelTruncateResponse;
+import io.stream.models.Channel.ChannelUnMuteRequestData;
+import io.stream.models.Channel.ChannelUnMuteResponse;
 import io.stream.models.Channel.ChannelUpdateRequestData;
 import io.stream.models.Channel.ChannelUpdateResponse;
 import io.stream.models.framework.StreamResponseObject;
@@ -95,4 +97,8 @@ public interface ChannelService {
   @POST("channels/{type}/{id}/show")
   Call<StreamResponseObject> show(
       String channelType, String channelId, ChannelShowRequestData channelShowRequestData);
+
+  @POST("/moderation/unmute/channel")
+  Call<ChannelUnMuteResponse> unmute(
+      @NotNull @Body ChannelUnMuteRequestData channelUnMuteRequestData);
 }
