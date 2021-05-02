@@ -1,5 +1,13 @@
 package io.stream.models;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,26 +18,21 @@ import io.stream.models.Channel.ChannelHideRequestData.ChannelHideRequest;
 import io.stream.models.Channel.ChannelListRequestData.ChannelListRequest;
 import io.stream.models.Channel.ChannelMarkAllReadRequestData.ChannelMarkAllReadRequest;
 import io.stream.models.Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest;
+import io.stream.models.Channel.ChannelMuteRequestData.ChannelMuteRequest;
 import io.stream.models.Channel.ChannelQueryMembersRequestData.ChannelQueryMembersRequest;
 import io.stream.models.Channel.ChannelUpdateRequestData.ChannelUpdateRequest;
 import io.stream.models.ChannelType.BlocklistBehavior;
 import io.stream.models.ChannelType.ChannelTypeWithCommands;
 import io.stream.models.Message.MessageRequestObject;
+import io.stream.models.User.ChannelMute;
+import io.stream.models.User.OwnUser;
 import io.stream.models.User.UserRequestObject;
 import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.ChannelService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -1398,8 +1401,7 @@ public class Channel {
     }
 
     public static final class ChannelExportRequest extends StreamRequest<ChannelExportResponse> {
-      private List<ChannelExportRequestObject> channels = new ArrayList<>();
-      ;
+      private List<ChannelExportRequestObject> channels = new ArrayList<>();;
 
       private ChannelExportRequest() {}
 
@@ -1583,6 +1585,82 @@ public class Channel {
       protected Call<ChannelMarkReadResponse> generateCall() {
         return StreamServiceGenerator.createService(ChannelService.class)
             .markRead(channelType, channelId, new ChannelMarkReadRequestData(this));
+      }
+    }
+  }
+
+  public static class ChannelMuteRequestData {
+    @Nullable
+    @JsonProperty("channel_cid")
+    private String channelCid;
+
+    @Nullable
+    @JsonProperty("channel_cids")
+    private List<String> channelCids;
+
+    @Nullable
+    @JsonProperty("expiration")
+    private Integer expiration;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    private ChannelMuteRequestData(ChannelMuteRequest channelMuteRequest) {
+      this.channelCid = channelMuteRequest.channelCid;
+      this.channelCids = channelMuteRequest.channelCids;
+      this.expiration = channelMuteRequest.expiration;
+      this.userId = channelMuteRequest.userId;
+      this.user = channelMuteRequest.user;
+    }
+
+    public static final class ChannelMuteRequest extends StreamRequest<ChannelMuteResponse> {
+      private String channelCid;
+      private List<String> channelCids;
+      private Integer expiration;
+      private String userId;
+      private UserRequestObject user;
+
+      private ChannelMuteRequest() {}
+
+      @NotNull
+      public ChannelMuteRequest withChannelCid(@NotNull String channelCid) {
+        this.channelCid = channelCid;
+        return this;
+      }
+
+      @NotNull
+      public ChannelMuteRequest withChannelCids(@NotNull List<String> channelCids) {
+        this.channelCids = channelCids;
+        return this;
+      }
+
+      @NotNull
+      public ChannelMuteRequest withExpiration(@NotNull Integer expiration) {
+        this.expiration = expiration;
+        return this;
+      }
+
+      @NotNull
+      public ChannelMuteRequest withUserId(@NotNull String userId) {
+        this.userId = userId;
+        return this;
+      }
+
+      @NotNull
+      public ChannelMuteRequest withUser(@NotNull UserRequestObject user) {
+        this.user = user;
+        return this;
+      }
+
+      @Override
+      protected Call<ChannelMuteResponse> generateCall() {
+        return StreamServiceGenerator.createService(ChannelService.class)
+            .mute(new ChannelMuteRequestData(this));
       }
     }
   }
@@ -1794,6 +1872,24 @@ public class Channel {
     public ChannelMarkReadResponse() {}
   }
 
+  @Data
+  @EqualsAndHashCode(callSuper = false)
+  public static class ChannelMuteResponse extends StreamResponseObject {
+    @Nullable
+    @JsonProperty("channel_mute")
+    private ChannelMute channelMute;
+
+    @Nullable
+    @JsonProperty("channel_mutes")
+    private List<ChannelMute> channelMutes;
+
+    @Nullable
+    @JsonProperty("own_user")
+    private OwnUser ownUser;
+
+    public ChannelMuteResponse() {}
+  }
+
   /**
    * Creates a get or create request
    *
@@ -1915,5 +2011,15 @@ public class Channel {
   @NotNull
   public static ChannelMarkReadRequest markRead(@NotNull String type, @NotNull String id) {
     return new ChannelMarkReadRequest(type, id);
+  }
+
+  /**
+   * Creates a mute request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelMuteRequest mute() {
+    return new ChannelMuteRequest();
   }
 }

@@ -12,6 +12,8 @@ import io.stream.models.Channel.ChannelListResponse;
 import io.stream.models.Channel.ChannelMarkAllReadRequestData;
 import io.stream.models.Channel.ChannelMarkReadRequestData;
 import io.stream.models.Channel.ChannelMarkReadResponse;
+import io.stream.models.Channel.ChannelMuteRequestData;
+import io.stream.models.Channel.ChannelMuteResponse;
 import io.stream.models.Channel.ChannelQueryMembersRequestData;
 import io.stream.models.Channel.ChannelQueryMembersResponse;
 import io.stream.models.Channel.ChannelTruncateResponse;
@@ -85,4 +87,7 @@ public interface ChannelService {
       @NotNull @Path("type") String channelType,
       @NotNull @Path("id") String channelId,
       @NotNull @Body ChannelMarkReadRequestData channelMarkReadRequestData);
+
+  @POST("/moderation/mute/channel")
+  Call<ChannelMuteResponse> mute(@NotNull @Body ChannelMuteRequestData channelMuteRequestData);
 }

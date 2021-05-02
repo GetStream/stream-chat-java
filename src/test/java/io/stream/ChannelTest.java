@@ -1,16 +1,20 @@
 package io.stream;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import io.stream.models.Channel;
 import io.stream.models.Channel.ChannelExportRequestObject;
 import io.stream.models.Channel.ChannelGetResponse;
 import io.stream.models.Channel.ChannelMember;
 import io.stream.models.Channel.ChannelRequestObject;
 import io.stream.models.Channel.ChannelUpdateResponse;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import io.stream.models.User;
+import io.stream.models.User.ChannelMute;
 
 public class ChannelTest extends BasicTest {
 
@@ -167,5 +171,42 @@ public class ChannelTest extends BasicTest {
             Channel.markRead(testChannel.getType(), testChannel.getId())
                 .withUser(testUserRequestObject)
                 .request());
+  }
+
+  @DisplayName("Can mute a channel")
+  @Test
+  void whenMutingChannel_thenIsMuted() {
+    // We should not use testChannel to not mute it
+    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
+    Assertions.assertFalse(isChannelMutedForTestUser(channel.getType(), channel.getId()));
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.mute()
+                .withChannelCid(channel.getType() + ":" + channel.getId())
+                .withUser(testUserRequestObject)
+                .request());
+    Assertions.assertTrue(isChannelMutedForTestUser(channel.getType(), channel.getId()));
+  }
+
+  private boolean isChannelMutedForTestUser(String channelType, String channelId) {
+    Map<String, Object> userConditions = new HashMap<>();
+    userConditions.put("id", testUserRequestObject.getId());
+    List<ChannelMute> channelMutes =
+        Assertions.assertDoesNotThrow(
+            () ->
+                User.list()
+                    .withFilterConditions(userConditions)
+                    .request()
+                    .getUsers()
+                    .get(0)
+                    .getChannelMutes());
+    return channelMutes != null
+        && channelMutes.stream()
+            .filter(
+                channelMute ->
+                    channelMute.getChannel().getId().equals(channelId)
+                        && channelMute.getChannel().getType().equals(channelType))
+            .findAny()
+            .isPresent();
   }
 }
