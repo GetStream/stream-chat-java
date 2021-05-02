@@ -366,7 +366,82 @@ public class ChannelType {
     private List<Command> commands;
   }
 
-  public static class ChannelTypeCreateRequestData extends ChannelTypeUpdateRequestData {
+  public static class ChannelTypeCreateRequestData {
+    @Nullable
+    @JsonProperty("typing_events")
+    protected Boolean typingEvents;
+
+    @Nullable
+    @JsonProperty("read_events")
+    protected Boolean readEvents;
+
+    @Nullable
+    @JsonProperty("connect_events")
+    protected Boolean connectEvents;
+
+    @Nullable
+    @JsonProperty("search")
+    protected Boolean search;
+
+    @Nullable
+    @JsonProperty("reactions")
+    protected Boolean reactions;
+
+    @Nullable
+    @JsonProperty("replies")
+    protected Boolean replies;
+
+    @Nullable
+    @JsonProperty("uploads")
+    protected Boolean uploads;
+
+    @Nullable
+    @JsonProperty("url_enrichment")
+    protected Boolean urlEnrichment;
+
+    @Nullable
+    @JsonProperty("custom_events")
+    protected Boolean customEvents;
+
+    @Nullable
+    @JsonProperty("mutes")
+    protected Boolean mutes;
+
+    @Nullable
+    @JsonProperty("push_notifications")
+    protected Boolean pushNotifications;
+
+    @Nullable
+    @JsonProperty("message_retention")
+    protected String messageRetention;
+
+    @Nullable
+    @JsonProperty("max_message_length")
+    protected Integer maxMessageLength;
+
+    @Nullable
+    @JsonProperty("automod")
+    protected AutoMod automod;
+
+    @Nullable
+    @JsonProperty("automod_behavior")
+    protected AutoModBehavior automodBehavior;
+
+    @Nullable
+    @JsonProperty("blocklist")
+    protected String blocklist;
+
+    @Nullable
+    @JsonProperty("blocklist_behavior")
+    protected BlocklistBehavior blocklistBehavior;
+
+    @Nullable
+    @JsonProperty("commands")
+    protected List<String> commands;
+
+    @Nullable
+    @JsonProperty("permissions")
+    protected List<PermissionRequestObject> permissions;
 
     @Nullable
     @JsonProperty("name")
@@ -393,7 +468,6 @@ public class ChannelType {
       this.automodBehavior = channelTypeCreateRequest.automodBehavior;
       this.blocklist = channelTypeCreateRequest.blocklist;
       this.blocklistBehavior = channelTypeCreateRequest.blocklistBehavior;
-      this.automodThresholds = channelTypeCreateRequest.automodThresholds;
       this.commands = channelTypeCreateRequest.commands;
       this.permissions = channelTypeCreateRequest.permissions;
     }
@@ -417,7 +491,6 @@ public class ChannelType {
       private AutoModBehavior automodBehavior;
       private String blocklist;
       private BlocklistBehavior blocklistBehavior;
-      private Map<String, ThresholdRequestObject> automodThresholds;
       private List<String> commands;
       private List<PermissionRequestObject> permissions;
 
@@ -550,13 +623,6 @@ public class ChannelType {
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withAutomodThresholds(
-          @NotNull Map<String, ThresholdRequestObject> automodThresholds) {
-        this.automodThresholds = automodThresholds;
-        return this;
-      }
-
-      @NotNull
       public ChannelTypeCreateRequest withCommands(@NotNull List<String> commands) {
         this.commands = commands;
         return this;
@@ -591,32 +657,6 @@ public class ChannelType {
   }
 
   public static class ChannelTypeUpdateRequestData {
-
-    private ChannelTypeUpdateRequestData() {} // This is necessary for inheritance
-
-    private ChannelTypeUpdateRequestData(ChannelTypeUpdateRequest channelTypeUpdateRequest) {
-      this.typingEvents = channelTypeUpdateRequest.typingEvents;
-      this.readEvents = channelTypeUpdateRequest.readEvents;
-      this.connectEvents = channelTypeUpdateRequest.connectEvents;
-      this.search = channelTypeUpdateRequest.search;
-      this.reactions = channelTypeUpdateRequest.reactions;
-      this.replies = channelTypeUpdateRequest.replies;
-      this.uploads = channelTypeUpdateRequest.uploads;
-      this.urlEnrichment = channelTypeUpdateRequest.urlEnrichment;
-      this.customEvents = channelTypeUpdateRequest.customEvents;
-      this.mutes = channelTypeUpdateRequest.mutes;
-      this.pushNotifications = channelTypeUpdateRequest.pushNotifications;
-      this.messageRetention = channelTypeUpdateRequest.messageRetention;
-      this.maxMessageLength = channelTypeUpdateRequest.maxMessageLength;
-      this.automod = channelTypeUpdateRequest.automod;
-      this.automodBehavior = channelTypeUpdateRequest.automodBehavior;
-      this.blocklist = channelTypeUpdateRequest.blocklist;
-      this.blocklistBehavior = channelTypeUpdateRequest.blocklistBehavior;
-      this.automodThresholds = channelTypeUpdateRequest.automodThresholds;
-      this.commands = channelTypeUpdateRequest.commands;
-      this.permissions = channelTypeUpdateRequest.permissions;
-    }
-
     @Nullable
     @JsonProperty("typing_events")
     protected Boolean typingEvents;
@@ -696,6 +736,31 @@ public class ChannelType {
     @Nullable
     @JsonProperty("permissions")
     protected List<PermissionRequestObject> permissions;
+
+    private ChannelTypeUpdateRequestData() {} // This is necessary for inheritance
+
+    private ChannelTypeUpdateRequestData(ChannelTypeUpdateRequest channelTypeUpdateRequest) {
+      this.typingEvents = channelTypeUpdateRequest.typingEvents;
+      this.readEvents = channelTypeUpdateRequest.readEvents;
+      this.connectEvents = channelTypeUpdateRequest.connectEvents;
+      this.search = channelTypeUpdateRequest.search;
+      this.reactions = channelTypeUpdateRequest.reactions;
+      this.replies = channelTypeUpdateRequest.replies;
+      this.uploads = channelTypeUpdateRequest.uploads;
+      this.urlEnrichment = channelTypeUpdateRequest.urlEnrichment;
+      this.customEvents = channelTypeUpdateRequest.customEvents;
+      this.mutes = channelTypeUpdateRequest.mutes;
+      this.pushNotifications = channelTypeUpdateRequest.pushNotifications;
+      this.messageRetention = channelTypeUpdateRequest.messageRetention;
+      this.maxMessageLength = channelTypeUpdateRequest.maxMessageLength;
+      this.automod = channelTypeUpdateRequest.automod;
+      this.automodBehavior = channelTypeUpdateRequest.automodBehavior;
+      this.blocklist = channelTypeUpdateRequest.blocklist;
+      this.blocklistBehavior = channelTypeUpdateRequest.blocklistBehavior;
+      this.automodThresholds = channelTypeUpdateRequest.automodThresholds;
+      this.commands = channelTypeUpdateRequest.commands;
+      this.permissions = channelTypeUpdateRequest.permissions;
+    }
 
     public static class ChannelTypeUpdateRequest extends StreamRequest<ChannelTypeUpdateResponse> {
       private String name;
@@ -881,7 +946,7 @@ public class ChannelType {
 
   @Data
   @EqualsAndHashCode(callSuper = false)
-  public static class ChannelTypeCreateResponse extends ChannelTypeCreateRequestData
+  public static class ChannelTypeCreateResponse extends ChannelTypeWithStringCommands
       implements StreamResponse {
     private RateLimitData rateLimitData;
 
@@ -890,13 +955,14 @@ public class ChannelType {
 
   @Data
   @EqualsAndHashCode(callSuper = false)
-  public static class ChannelTypeGetResponse extends ChannelType implements StreamResponse {
+  public static class ChannelTypeGetResponse extends ChannelTypeWithStringCommands
+      implements StreamResponse {
     private RateLimitData rateLimitData;
   }
 
   @Data
   @EqualsAndHashCode(callSuper = false)
-  public static class ChannelTypeUpdateResponse extends ChannelTypeCreateRequestData
+  public static class ChannelTypeUpdateResponse extends ChannelTypeWithStringCommands
       implements StreamResponse {
     private RateLimitData rateLimitData;
 
