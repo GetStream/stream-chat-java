@@ -104,7 +104,7 @@ public class User {
   @JsonProperty("channel_mutes")
   private List<ChannelMute> channelMutes;
 
-  @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+  @NotNull @JsonIgnore private Map<String, Object> additionalFields;
 
   @JsonAnyGetter
   public Map<String, Object> getAdditionalFields() {

@@ -211,7 +211,7 @@ public class Message {
     @JsonProperty("og_scrape_url")
     private String ogScrapeURL;
 
-    @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+    @NotNull @JsonIgnore private Map<String, Object> additionalFields;
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
