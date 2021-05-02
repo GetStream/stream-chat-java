@@ -17,6 +17,7 @@ import io.stream.models.Channel.ChannelGetRequestData.ChannelGetRequest;
 import io.stream.models.Channel.ChannelHideRequestData.ChannelHideRequest;
 import io.stream.models.Channel.ChannelListRequestData.ChannelListRequest;
 import io.stream.models.Channel.ChannelMarkAllReadRequestData.ChannelMarkAllReadRequest;
+import io.stream.models.Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest;
 import io.stream.models.Channel.ChannelQueryMembersRequestData.ChannelQueryMembersRequest;
 import io.stream.models.Channel.ChannelUpdateRequestData.ChannelUpdateRequest;
 import io.stream.models.ChannelType.BlocklistBehavior;
@@ -1533,6 +1534,58 @@ public class Channel {
     }
   }
 
+  public static class ChannelMarkReadRequestData {
+    @Nullable
+    @JsonProperty("message_id")
+    private String messageId;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    private ChannelMarkReadRequestData(ChannelMarkReadRequest channelMarkReadRequest) {
+      this.messageId = channelMarkReadRequest.messageId;
+      this.userId = channelMarkReadRequest.userId;
+      this.user = channelMarkReadRequest.user;
+    }
+
+    public static final class ChannelMarkReadRequest
+        extends StreamRequest<ChannelMarkReadResponse> {
+      private String channelId;
+      private String channelType;
+      private String messageId;
+      private String userId;
+      private UserRequestObject user;
+
+      private ChannelMarkReadRequest(String channelType, String channelId) {
+        this.channelType = channelType;
+        this.channelId = channelId;
+      }
+
+      @NotNull
+      public ChannelMarkReadRequest withUserId(@NotNull String userId) {
+        this.userId = userId;
+        return this;
+      }
+
+      @NotNull
+      public ChannelMarkReadRequest withUser(@NotNull UserRequestObject user) {
+        this.user = user;
+        return this;
+      }
+
+      @Override
+      protected Call<ChannelMarkReadResponse> generateCall() {
+        return StreamServiceGenerator.createService(ChannelService.class)
+            .markRead(channelType, channelId, new ChannelMarkReadRequestData(this));
+      }
+    }
+  }
+
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class ChannelGetResponse extends StreamResponseObject {
@@ -1726,6 +1779,16 @@ public class Channel {
     }
   }
 
+  @Data
+  @EqualsAndHashCode(callSuper = false)
+  public static class ChannelMarkReadResponse extends StreamResponseObject {
+    @Nullable
+    @JsonProperty("event")
+    private Event event;
+
+    public ChannelMarkReadResponse() {}
+  }
+
   /**
    * Creates a get or create request
    *
@@ -1835,5 +1898,17 @@ public class Channel {
   @NotNull
   public static ChannelMarkAllReadRequest markAllRead() {
     return new ChannelMarkAllReadRequest();
+  }
+
+  /**
+   * Creates a mark read request
+   *
+   * @param type the channel type
+   * @param id the channel id
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelMarkReadRequest markRead(@NotNull String type, @NotNull String id) {
+    return new ChannelMarkReadRequest(type, id);
   }
 }

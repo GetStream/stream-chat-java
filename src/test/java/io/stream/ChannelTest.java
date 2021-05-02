@@ -158,4 +158,14 @@ public class ChannelTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () -> Channel.markAllRead().withUser(testUserRequestObject).request());
   }
+
+  @DisplayName("Can mark channel read")
+  @Test
+  void whenMarkingChannelsRead_thenNoException() {
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.markRead(testChannel.getType(), testChannel.getId())
+                .withUser(testUserRequestObject)
+                .request());
+  }
 }

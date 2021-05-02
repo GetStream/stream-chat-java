@@ -330,6 +330,22 @@ public class Message {
     FILL
   }
 
+  public static class Moderation {
+    @Nullable
+    @JsonProperty("toxic")
+    private Integer toxic;
+
+    @Nullable
+    @JsonProperty("explicit")
+    private Integer explicit;
+
+    @Nullable
+    @JsonProperty("spam")
+    private Integer spam;
+
+    public Moderation() {}
+  }
+
   public static class MessageRequestObject {
 
     @Nullable

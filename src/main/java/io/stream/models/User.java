@@ -1,5 +1,13 @@
 package io.stream.models;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,17 +21,9 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.UserService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -197,6 +197,126 @@ public class User {
     @NotNull
     @JsonProperty("created_at")
     private Date createdAt;
+  }
+
+  public static class OwnUser {
+    @NotNull
+    @JsonProperty("id")
+    private String id;
+
+    @Nullable
+    @JsonProperty("role")
+    private String role;
+
+    @Nullable
+    @JsonProperty("roles")
+    private List<String> roles;
+
+    @NotNull
+    @JsonProperty("created_at")
+    private Date createdAt;
+
+    @NotNull
+    @JsonProperty("updated_at")
+    private Date updatedAt;
+
+    @NotNull
+    @JsonProperty("last_active")
+    private Date lastActive;
+
+    @Nullable
+    @JsonProperty("deleted_at")
+    private Date deletedAt;
+
+    @Nullable
+    @JsonProperty("deactivated_at")
+    private Date deactivatedAt;
+
+    @Nullable
+    @JsonProperty("banned")
+    private Boolean banned;
+
+    @Nullable
+    @JsonProperty("online")
+    private Boolean online;
+
+    @Nullable
+    @JsonProperty("invisible")
+    private Boolean invisible;
+
+    @Nullable
+    @JsonProperty("devices")
+    private List<Device> devices;
+
+    @Nullable
+    @JsonProperty("mutes")
+    private List<UserMute> mutes;
+
+    @Nullable
+    @JsonProperty("channel_mutes")
+    private List<ChannelMute> channelMutes;
+
+    @Nullable
+    @JsonProperty("unread_count")
+    private Integer unreadCount;
+
+    @Nullable
+    @JsonProperty("total_unread_count")
+    private Integer totalUnreadCount;
+
+    @Nullable
+    @JsonProperty("unread_channels")
+    private Integer unreadChannels;
+
+    @Nullable
+    @JsonProperty("language")
+    private String language;
+
+    @Nullable
+    @JsonProperty("teams")
+    private List<String> teams;
+
+    @Nullable
+    @JsonProperty("latest_hidden_channels")
+    private List<String> latestHiddenChannels;
+
+    @NotNull @JsonIgnore private Map<String, Object> additionalFields;
+
+    public OwnUser() {
+      additionalFields = new HashMap<>();
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalFields() {
+      return this.additionalFields;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalField(String name, Object value) {
+      this.additionalFields.put(name, value);
+    }
+  }
+
+  public static class UserMute {
+    @NotNull
+    @JsonProperty("user")
+    private User user;
+
+    @NotNull
+    @JsonProperty("target")
+    private User target;
+
+    @Nullable
+    @JsonProperty("expires")
+    private Date expires;
+
+    @NotNull
+    @JsonProperty("created_at")
+    private Date created_at;
+
+    @NotNull
+    @JsonProperty("updated_at")
+    private Date updated_at;
   }
 
   public static class UserRequestObject {
