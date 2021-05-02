@@ -478,7 +478,6 @@ public class User {
 
     public static class UserQueryRequest extends StreamRequest<UserListResponse> {
       private Map<String, Object> filterConditions = Collections.emptyMap();
-      ;
       private List<Sort> sort;
       private Boolean presence;
       private Integer limit;
