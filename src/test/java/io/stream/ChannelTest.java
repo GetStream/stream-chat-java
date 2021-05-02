@@ -215,7 +215,7 @@ public class ChannelTest extends BasicTest {
   void whenShowingChannel_thenNoException() {
     Assertions.assertDoesNotThrow(
         () ->
-            Channel.hide(testChannel.getType(), testChannel.getId())
+            Channel.show(testChannel.getType(), testChannel.getId())
                 .withUser(testUserRequestObject)
                 .request());
   }

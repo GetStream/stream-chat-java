@@ -96,7 +96,9 @@ public interface ChannelService {
 
   @POST("channels/{type}/{id}/show")
   Call<StreamResponseObject> show(
-      String channelType, String channelId, ChannelShowRequestData channelShowRequestData);
+      @NotNull @Path("type") String channelType,
+      @NotNull @Path("id") String channelId,
+      @NotNull @Body ChannelShowRequestData channelShowRequestData);
 
   @POST("/moderation/unmute/channel")
   Call<ChannelUnMuteResponse> unmute(

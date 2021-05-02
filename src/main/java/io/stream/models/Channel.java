@@ -20,6 +20,7 @@ import io.stream.models.Channel.ChannelMarkAllReadRequestData.ChannelMarkAllRead
 import io.stream.models.Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest;
 import io.stream.models.Channel.ChannelMuteRequestData.ChannelMuteRequest;
 import io.stream.models.Channel.ChannelQueryMembersRequestData.ChannelQueryMembersRequest;
+import io.stream.models.Channel.ChannelShowRequestData.ChannelShowRequest;
 import io.stream.models.Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest;
 import io.stream.models.Channel.ChannelUpdateRequestData.ChannelUpdateRequest;
 import io.stream.models.ChannelType.BlocklistBehavior;
@@ -2162,6 +2163,18 @@ public class Channel {
   @NotNull
   public static ChannelMuteRequest mute() {
     return new ChannelMuteRequest();
+  }
+
+  /**
+   * Creates a show request
+   *
+   * @param type the channel type
+   * @param id the channel id
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelShowRequest show(@NotNull String type, @NotNull String id) {
+    return new ChannelShowRequest(type, id);
   }
 
   /**
