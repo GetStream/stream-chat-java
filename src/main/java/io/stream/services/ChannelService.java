@@ -60,7 +60,7 @@ public interface ChannelService {
 
   @POST("/export_channels")
   Call<ChannelExportResponse> export(
-      @Nullable @Body ChannelExportRequestData channelExportRequestData);
+      @NotNull @Body ChannelExportRequestData channelExportRequestData);
   
   @GET("/export_channels/{id}")
   Call<ChannelExportStatusResponse> exportStatus(
