@@ -1535,6 +1535,8 @@ public class Channel {
 
   /**
    * Creates a get or create request
+   * @param type the channel type
+   * @param id the channel id
    *
    * @return the created request
    */
@@ -1545,6 +1547,8 @@ public class Channel {
 
   /**
    * Creates an update request
+   * @param type the channel type
+   * @param id the channel id
    *
    * @return the created request
    */
@@ -1555,6 +1559,8 @@ public class Channel {
 
   /**
    * Creates a delete request
+   * @param type the channel type
+   * @param id the channel id
    *
    * @return the created request
    */
@@ -1575,7 +1581,8 @@ public class Channel {
 
   /**
    * Creates a truncate request
-   *
+   * @param type the channel type
+   * @param id the channel id
    * @return the created request
    */
   @NotNull
