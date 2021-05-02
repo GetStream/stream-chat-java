@@ -21,40 +21,17 @@ import org.junit.jupiter.api.Test;
 
 public class MessageTest extends BasicTest {
 
-  @DisplayName("Can send a message")
-  @Test
-  void whenSendingAMessage_thenNoException() {
-    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
-    String text = "This is a message";
-    MessageRequestObject messageRequest =
-        MessageRequestObject.builder().withText(text).withUserId(serverUser.getId()).build();
-    Message message =
-        Assertions.assertDoesNotThrow(
-                () ->
-                    Message.send(channel.getType(), channel.getId())
-                        .withMessage(messageRequest)
-                        .request())
-            .getMessage();
-    Assertions.assertEquals(text, message.getText());
-  }
-
   @DisplayName("Can update a message")
   @Test
   void whenUpdatingAMessage_thenNoException() {
-    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
-    String text = "This is a message";
-    MessageRequestObject messageRequest =
-        MessageRequestObject.builder().withText(text).withUserId(serverUser.getId()).build();
-    Message message =
-        Assertions.assertDoesNotThrow(
-                () ->
-                    Message.send(channel.getType(), channel.getId())
-                        .withMessage(messageRequest)
-                        .request())
-            .getMessage();
+    // Should not use testMessage to not modify it
+    Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
     String updatedText = "This is an updated message";
     MessageRequestObject updatedMessageRequest =
-        MessageRequestObject.builder().withText(updatedText).withUserId(serverUser.getId()).build();
+        MessageRequestObject.builder()
+            .withText(updatedText)
+            .withUserId(testUserRequestObject.getId())
+            .build();
     Message updatedMessage =
         Assertions.assertDoesNotThrow(
                 () -> Message.update(message.getId()).withMessage(updatedMessageRequest).request())
@@ -65,17 +42,10 @@ public class MessageTest extends BasicTest {
   @DisplayName("Can search messages with no exception and retrieve given message")
   @Test
   void whenSearchingMessages_thenNoExceptionAndRetrievesMessage() {
-    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
-    String text = "This is a message";
-    MessageRequestObject messageRequest =
-        MessageRequestObject.builder().withText(text).withUserId(serverUser.getId()).build();
-    Assertions.assertDoesNotThrow(
-        () ->
-            Message.send(channel.getType(), channel.getId()).withMessage(messageRequest).request());
     Map<String, Object> channelConditions = new HashMap<>();
-    channelConditions.put("id", channel.getId());
+    channelConditions.put("id", testChannel.getId());
     Map<String, Object> messageConditions = new HashMap<>();
-    messageConditions.put("text", text);
+    messageConditions.put("text", testMessage.getText());
     List<SearchResult> searchResults =
         Assertions.assertDoesNotThrow(
                 () ->
@@ -98,10 +68,10 @@ public class MessageTest extends BasicTest {
                         .withAllowedFileExtensions(Collections.emptyList())
                         .build())
                 .request());
-    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
     Assertions.assertDoesNotThrow(
         () ->
-            Message.uploadFile(channel.getType(), channel.getId(), serverUser.getId())
+            Message.uploadFile(
+                    testChannel.getType(), testChannel.getId(), testUserRequestObject.getId())
                 .withFile(
                     new File(getClass().getClassLoader().getResource("upload_file.txt").getFile()))
                 .withContentType("text/plain")
@@ -119,10 +89,10 @@ public class MessageTest extends BasicTest {
                         .withAllowedFileExtensions(Collections.emptyList())
                         .build())
                 .request());
-    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
     Assertions.assertDoesNotThrow(
         () ->
-            Message.uploadFile(channel.getType(), channel.getId(), serverUser.getId())
+            Message.uploadFile(
+                    testChannel.getType(), testChannel.getId(), testUserRequestObject.getId())
                 .withFile(
                     new File(getClass().getClassLoader().getResource("upload_file.pdf").getFile()))
                 .request());
@@ -139,11 +109,13 @@ public class MessageTest extends BasicTest {
                         .withAllowedFileExtensions(Collections.emptyList())
                         .build())
                 .request());
-    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
     Assertions.assertDoesNotThrow(
         () ->
             Message.uploadImage(
-                    channel.getType(), channel.getId(), serverUser.getId(), "image/svg+xml")
+                    testChannel.getType(),
+                    testChannel.getId(),
+                    testUserRequestObject.getId(),
+                    "image/svg+xml")
                 .withFile(
                     new File(getClass().getClassLoader().getResource("upload_image.svg").getFile()))
                 .request());
@@ -160,10 +132,13 @@ public class MessageTest extends BasicTest {
                         .withAllowedFileExtensions(Collections.emptyList())
                         .build())
                 .request());
-    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
     Assertions.assertDoesNotThrow(
         () ->
-            Message.uploadImage(channel.getType(), channel.getId(), serverUser.getId(), "image/png")
+            Message.uploadImage(
+                    testChannel.getType(),
+                    testChannel.getId(),
+                    testUserRequestObject.getId(),
+                    "image/png")
                 .withFile(
                     new File(getClass().getClassLoader().getResource("upload_image.png").getFile()))
                 .withUploadSizes(

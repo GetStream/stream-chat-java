@@ -1,26 +1,32 @@
 package io.stream;
 
-import io.stream.exceptions.StreamException;
-import io.stream.models.Channel;
-import io.stream.models.Channel.ChannelGetResponse;
-import io.stream.models.Channel.ChannelMemberRequestObject;
-import io.stream.models.Channel.ChannelRequestObject;
-import io.stream.models.User;
-import io.stream.models.User.UserRequestObject;
-import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
-import io.stream.services.framework.HttpLoggingInterceptor;
-import io.stream.services.framework.StreamServiceGenerator;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import io.stream.exceptions.StreamException;
+import io.stream.models.Channel;
+import io.stream.models.Channel.ChannelGetResponse;
+import io.stream.models.Channel.ChannelMemberRequestObject;
+import io.stream.models.Channel.ChannelRequestObject;
+import io.stream.models.Message.MessageRequestObject;
+import io.stream.models.Message;
+import io.stream.models.User;
+import io.stream.models.User.UserRequestObject;
+import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
+import io.stream.services.framework.HttpLoggingInterceptor;
+import io.stream.services.framework.StreamServiceGenerator;
 
 public class BasicTest {
-  protected static UserRequestObject serverUser;
-  protected static List<UserRequestObject> testUsers = new ArrayList<>();
+  protected static UserRequestObject testUserRequestObject;
+  protected static List<UserRequestObject> testUsersRequestObjects = new ArrayList<>();
+  protected static ChannelGetResponse testChannelGetResponse;
+  protected static Channel testChannel;
+  protected static Message testMessage;
 
   static void enableLogging() {
     StreamServiceGenerator.logLevel = HttpLoggingInterceptor.Level.BODY;
@@ -34,11 +40,22 @@ public class BasicTest {
   }
 
   @BeforeAll
-  static void setup() throws Exception {
+  static void setup() throws StreamException {
     // failOnUnknownProperties();
     enableLogging();
     setProperties();
     upsertUsers();
+    createTestChannel();
+    createTestMessage();
+  }
+
+  private static void createTestMessage() throws StreamException {
+    testMessage = sendTestMessage();
+  }
+
+  private static void createTestChannel() throws StreamException {
+    testChannelGetResponse = createRandomChannel();
+    testChannel = testChannelGetResponse.getChannel();
   }
 
   static void failOnUnknownProperties() throws Exception {
@@ -49,29 +66,29 @@ public class BasicTest {
   }
 
   static void upsertUsers() throws StreamException {
-    serverUser =
+    testUserRequestObject =
         UserRequestObject.builder()
             .withId(RandomStringUtils.randomAlphabetic(10))
             .withName("Gandalf the Grey")
             .build();
-    testUsers.add(serverUser);
-    testUsers.add(
+    testUsersRequestObjects.add(testUserRequestObject);
+    testUsersRequestObjects.add(
         UserRequestObject.builder()
             .withId(RandomStringUtils.randomAlphabetic(10))
             .withName("Frodo Baggins")
             .build());
-    testUsers.add(
+    testUsersRequestObjects.add(
         UserRequestObject.builder()
             .withId(RandomStringUtils.randomAlphabetic(10))
             .withName("Frodo Baggins")
             .build());
-    testUsers.add(
+    testUsersRequestObjects.add(
         UserRequestObject.builder()
             .withId(RandomStringUtils.randomAlphabetic(10))
             .withName("Samwise Gamgee")
             .build());
     UserUpsertRequest usersUpsertRequest = User.upsert();
-    testUsers.forEach(user -> usersUpsertRequest.addUser(user));
+    testUsersRequestObjects.forEach(user -> usersUpsertRequest.addUser(user));
     usersUpsertRequest.request();
   }
 
@@ -95,29 +112,34 @@ public class BasicTest {
     apiSecretField.set(StreamServiceGenerator.class, System.getProperty("STREAM_SECRET"));
   }
 
-  protected List<ChannelMemberRequestObject> buildChannelMembersList() {
-    return testUsers.stream()
+  protected static List<ChannelMemberRequestObject> buildChannelMembersList() {
+    return testUsersRequestObjects.stream()
         .map(user -> ChannelMemberRequestObject.builder().withUser(user).build())
         .collect(Collectors.toList());
   }
 
-  protected ChannelGetResponse createRandomChannel() throws StreamException {
+  protected static ChannelGetResponse createRandomChannel() throws StreamException {
     return Channel.getOrCreate("team", RandomStringUtils.randomAlphabetic(12))
         .withData(
             ChannelRequestObject.builder()
-                .withCreatedBy(serverUser)
+                .withCreatedBy(testUserRequestObject)
                 .withMembers(buildChannelMembersList())
                 .build())
         .request();
   }
 
-  protected ChannelGetResponse getRandomChannel() throws StreamException {
-    return Channel.getOrCreate("team", null)
-        .withData(
-            ChannelRequestObject.builder()
-                .withCreatedBy(serverUser)
-                .withMembers(buildChannelMembersList())
-                .build())
-        .request();
+  protected static Message sendTestMessage() throws StreamException {
+    String text = "This is a message";
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder()
+            .withText(text)
+            .withUserId(testUserRequestObject.getId())
+            .build();
+    return Assertions.assertDoesNotThrow(
+            () ->
+                Message.send(testChannel.getType(), testChannel.getId())
+                    .withMessage(messageRequest)
+                    .request())
+        .getMessage();
   }
 }

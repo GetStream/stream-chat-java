@@ -4,6 +4,7 @@ import io.stream.models.Channel;
 import io.stream.models.Channel.ChannelExportRequestObject;
 import io.stream.models.Channel.ChannelGetResponse;
 import io.stream.models.Channel.ChannelMember;
+import io.stream.models.Channel.ChannelRequestObject;
 import io.stream.models.Channel.ChannelUpdateResponse;
 import java.util.Arrays;
 import java.util.List;
@@ -13,84 +14,106 @@ import org.junit.jupiter.api.Test;
 
 public class ChannelTest extends BasicTest {
 
-  @DisplayName("Can create channel")
-  @Test
-  void whenCreatingChannel_thenNoException() {
-    Assertions.assertDoesNotThrow(() -> createRandomChannel());
-  }
-
   @DisplayName("Can retrieve channel by type")
   @Test
   void whenRetrievingChannel_thenNoException() {
-    Assertions.assertDoesNotThrow(() -> createRandomChannel());
-    Assertions.assertDoesNotThrow(() -> getRandomChannel());
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.getOrCreate(testChannel.getType(), null)
+                .withData(
+                    ChannelRequestObject.builder()
+                        .withCreatedBy(testUserRequestObject)
+                        .withMembers(buildChannelMembersList())
+                        .build())
+                .request());
   }
 
   @DisplayName("Can add a moderator to a channel (update)")
   @Test
   void whenAddingModerator_thenHasModerator() {
-    ChannelGetResponse channelGetResponse =
-        Assertions.assertDoesNotThrow(() -> createRandomChannel());
-    Assertions.assertEquals(0, countModerators(channelGetResponse.getMembers()));
+    Assertions.assertEquals(0, countModerators(testChannelGetResponse.getMembers()));
 
-    ChannelUpdateResponse channelUpdateResponse = Assertions.assertDoesNotThrow(() -> Channel
-        .update(channelGetResponse.getChannel().getType(), channelGetResponse.getChannel().getId())
-        .withUser(serverUser).withAddModerators(Arrays.asList(serverUser.getId())).request());
+    ChannelUpdateResponse channelUpdateResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.update(testChannel.getType(), testChannel.getId())
+                    .withUser(testUserRequestObject)
+                    .withAddModerators(Arrays.asList(testUserRequestObject.getId()))
+                    .request());
     Assertions.assertEquals(1, countModerators(channelUpdateResponse.getMembers()));
   }
 
   private long countModerators(List<ChannelMember> members) {
-    return members.stream().filter(
-        channelMember -> channelMember.getIsModerator() != null && channelMember.getIsModerator())
+    return members.stream()
+        .filter(
+            channelMember ->
+                channelMember.getIsModerator() != null && channelMember.getIsModerator())
         .count();
   }
 
   @DisplayName("Can delete a channel")
   @Test
   void whenDeletingChannel_thenIsDeleted() {
+    // We should not use testChannel to not delete it
     ChannelGetResponse channelGetResponse =
         Assertions.assertDoesNotThrow(() -> createRandomChannel());
     Assertions.assertNull(channelGetResponse.getChannel().getDeletedAt());
-    Channel deletedChannel = Assertions.assertDoesNotThrow(() -> Channel
-        .delete(channelGetResponse.getChannel().getType(), channelGetResponse.getChannel().getId())
-        .request()).getChannel();
+    Channel deletedChannel =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Channel.delete(
+                            channelGetResponse.getChannel().getType(),
+                            channelGetResponse.getChannel().getId())
+                        .request())
+            .getChannel();
     Assertions.assertNotNull(deletedChannel.getDeletedAt());
   }
 
   @DisplayName("Can list channels")
   @Test
   void whenListingChannels_thenNoException() {
-    Assertions.assertDoesNotThrow(() -> Channel.list().withUser(serverUser).request());
+    Assertions.assertDoesNotThrow(() -> Channel.list().withUser(testUserRequestObject).request());
   }
 
   @DisplayName("Can truncate channel")
   @Test
   void whenTruncateChannel_thenNoException() {
+    // We should not use testChannel to not remove testMessage
     ChannelGetResponse channelGetResponse =
         Assertions.assertDoesNotThrow(() -> createRandomChannel());
-    Assertions.assertDoesNotThrow(() -> Channel.truncate(channelGetResponse.getChannel().getType(),
-        channelGetResponse.getChannel().getId()).request());
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.truncate(
+                    channelGetResponse.getChannel().getType(),
+                    channelGetResponse.getChannel().getId())
+                .request());
   }
 
   @DisplayName("Can query channel members")
   @Test
   void whenQueryingChannelMembers_thenRetrieveAll() {
-    ChannelGetResponse channelGetResponse =
-        Assertions.assertDoesNotThrow(() -> createRandomChannel());
-    List<ChannelMember> channelMembers = Assertions.assertDoesNotThrow(
-        () -> Channel.queryMembers().withId(channelGetResponse.getChannel().getId())
-            .withType(channelGetResponse.getChannel().getType()).request())
-        .getMembers();
-    Assertions.assertEquals(testUsers.size(), channelMembers.size());
+    List<ChannelMember> channelMembers =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Channel.queryMembers()
+                        .withId(testChannel.getId())
+                        .withType(testChannel.getType())
+                        .request())
+            .getMembers();
+    Assertions.assertEquals(testUsersRequestObjects.size(), channelMembers.size());
   }
 
   @DisplayName("Can export channel")
   @Test
   void whenExportingChannel_thenNoException() {
-    ChannelGetResponse channelGetResponse =
-        Assertions.assertDoesNotThrow(() -> createRandomChannel());
-    Assertions.assertDoesNotThrow(() -> Channel.export().addChannel(
-        ChannelExportRequestObject.builder().withType(channelGetResponse.getChannel().getType())
-            .withId(channelGetResponse.getChannel().getId()).build()).request());
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.export()
+                .addChannel(
+                    ChannelExportRequestObject.builder()
+                        .withType(testChannel.getType())
+                        .withId(testChannel.getId())
+                        .build())
+                .request());
   }
 }

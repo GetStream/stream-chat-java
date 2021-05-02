@@ -73,7 +73,11 @@ public class UserTest extends BasicTest {
         UserRequestObject.builder().withId(userId).withName("User to ban").build());
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     Assertions.assertDoesNotThrow(
-        () -> User.ban().withUserId(serverUser.getId()).withTargetUserId(userId).request());
+        () ->
+            User.ban()
+                .withUserId(testUserRequestObject.getId())
+                .withTargetUserId(userId)
+                .request());
   }
 
   @DisplayName("Can list banned user with no Exception")
@@ -85,7 +89,11 @@ public class UserTest extends BasicTest {
         UserRequestObject.builder().withId(userId).withName("User to ban").build());
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     Assertions.assertDoesNotThrow(
-        () -> User.ban().withUserId(serverUser.getId()).withTargetUserId(userId).request());
+        () ->
+            User.ban()
+                .withUserId(testUserRequestObject.getId())
+                .withTargetUserId(userId)
+                .request());
     Assertions.assertDoesNotThrow(() -> User.queryBanned().request());
   }
 }
