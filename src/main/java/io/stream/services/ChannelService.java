@@ -8,6 +8,7 @@ import io.stream.models.Channel.ChannelExportResponse;
 import io.stream.models.Channel.ChannelExportStatusResponse;
 import io.stream.models.Channel.ChannelGetRequestData;
 import io.stream.models.Channel.ChannelGetResponse;
+import io.stream.models.Channel.ChannelHideRequestData;
 import io.stream.models.Channel.ChannelListRequestData;
 import io.stream.models.Channel.ChannelListResponse;
 import io.stream.models.Channel.ChannelQueryMembersRequestData;
@@ -15,6 +16,7 @@ import io.stream.models.Channel.ChannelQueryMembersResponse;
 import io.stream.models.Channel.ChannelTruncateResponse;
 import io.stream.models.Channel.ChannelUpdateRequestData;
 import io.stream.models.Channel.ChannelUpdateResponse;
+import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.framework.ToJson;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -64,4 +66,10 @@ public interface ChannelService {
 
   @GET("/export_channels/{id}")
   Call<ChannelExportStatusResponse> exportStatus(@NotNull @Path("id") String taskId);
+
+  @POST("/channels/{type}/{id}/hide")
+  Call<StreamResponseObject> hide(
+      @NotNull @Path("type") String channelType,
+      @NotNull @Path("id") String channelId,
+      @NotNull @Body ChannelHideRequestData channelHideRequestData);
 }

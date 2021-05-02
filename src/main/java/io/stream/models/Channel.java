@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.models.Channel.ChannelExportRequestData.ChannelExportRequest;
 import io.stream.models.Channel.ChannelGetRequestData.ChannelGetRequest;
+import io.stream.models.Channel.ChannelHideRequestData.ChannelHideRequest;
 import io.stream.models.Channel.ChannelListRequestData.ChannelListRequest;
 import io.stream.models.Channel.ChannelQueryMembersRequestData.ChannelQueryMembersRequest;
 import io.stream.models.Channel.ChannelUpdateRequestData.ChannelUpdateRequest;
@@ -1433,6 +1434,63 @@ public class Channel {
     }
   }
 
+  public static class ChannelHideRequestData {
+    @Nullable
+    @JsonProperty("clear_history")
+    private String clearHistory;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    private ChannelHideRequestData(ChannelHideRequest channelHideRequestData) {
+      this.clearHistory = channelHideRequestData.clearHistory;
+      this.userId = channelHideRequestData.userId;
+      this.user = channelHideRequestData.user;
+    }
+
+    public static final class ChannelHideRequest extends StreamRequest<StreamResponseObject> {
+      private String channelId;
+      private String channelType;
+      private String clearHistory;
+      private String userId;
+      private UserRequestObject user;
+
+      private ChannelHideRequest(String channelType, String channelId) {
+        this.channelType = channelType;
+        this.channelId = channelId;
+      }
+
+      @NotNull
+      public ChannelHideRequest withClearHistory(@NotNull String clearHistory) {
+        this.clearHistory = clearHistory;
+        return this;
+      }
+
+      @NotNull
+      public ChannelHideRequest withUserId(@NotNull String userId) {
+        this.userId = userId;
+        return this;
+      }
+
+      @NotNull
+      public ChannelHideRequest withUser(@NotNull UserRequestObject user) {
+        this.user = user;
+        return this;
+      }
+
+      @Override
+      protected Call<StreamResponseObject> generateCall() {
+        return StreamServiceGenerator.createService(ChannelService.class)
+            .hide(this.channelType, this.channelId, new ChannelHideRequestData(this));
+      }
+    }
+  }
+
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class ChannelGetResponse extends StreamResponseObject {
@@ -1713,5 +1771,17 @@ public class Channel {
   @NotNull
   public static ChannelExportStatusRequest exportStatus(String taskId) {
     return new ChannelExportStatusRequest(taskId);
+  }
+
+  /**
+   * Creates a hide request
+   *
+   * @param type the channel type
+   * @param id the channel id
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelHideRequest hide(@NotNull String type, @NotNull String id) {
+    return new ChannelHideRequest(type, id);
   }
 }

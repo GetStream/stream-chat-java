@@ -136,4 +136,20 @@ public class ChannelTest extends BasicTest {
             .getTaskId();
     Assertions.assertDoesNotThrow(() -> Channel.exportStatus(taskId).request());
   }
+
+  @DisplayName("Can hide a channel")
+  @Test
+  void whenHidingChannel_thenNoException() {
+    // We should not use testChannel to not hide it
+    ChannelGetResponse channelGetResponse =
+        Assertions.assertDoesNotThrow(() -> createRandomChannel());
+    Assertions.assertNull(channelGetResponse.getChannel().getDeletedAt());
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.hide(
+                    channelGetResponse.getChannel().getType(),
+                    channelGetResponse.getChannel().getId())
+                .withUser(testUserRequestObject)
+                .request());
+  }
 }
