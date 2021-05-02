@@ -21,8 +21,6 @@ import retrofit2.Call;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class ChannelType {
-  public ChannelType() {}
-
   @Nullable
   @JsonProperty("name")
   private String name;
@@ -115,53 +113,19 @@ public class ChannelType {
   @JsonProperty("permissions")
   private List<Permission> permissions;
 
+  public ChannelType() {}
+
   @Data
-  static class Threshold {
+  public static class Threshold {
+    @Nullable
+    @JsonProperty("flag")
+    private Integer flag;
+
+    @Nullable
+    @JsonProperty("block")
+    private Integer block;
+
     public Threshold() {}
-
-    @Nullable
-    @JsonProperty("flag")
-    private Integer flag;
-
-    @Nullable
-    @JsonProperty("block")
-    private Integer block;
-  }
-
-  public enum AutoMod {
-    @JsonProperty("disabled")
-    DISABLED,
-    @JsonProperty("simple")
-    SIMPLE,
-    @JsonProperty("AI")
-    AI
-  }
-
-  public enum AutoModBehavior {
-    @JsonProperty("flag")
-    FLAG,
-    @JsonProperty("block")
-    BLOCK
-  }
-
-  public enum BlocklistBehavior {
-    @JsonProperty("flag")
-    FLAG,
-    @JsonProperty("block")
-    BLOCK
-  }
-
-  @Data
-  static class ThresholdRequest {
-    public ThresholdRequest() {}
-
-    @Nullable
-    @JsonProperty("flag")
-    private Integer flag;
-
-    @Nullable
-    @JsonProperty("block")
-    private Integer block;
   }
 
   @Data
@@ -213,6 +177,175 @@ public class ChannelType {
     @NotNull
     @JsonProperty("custom")
     private Boolean custom;
+  }
+
+  public enum AutoMod {
+    @JsonProperty("disabled")
+    DISABLED,
+    @JsonProperty("simple")
+    SIMPLE,
+    @JsonProperty("AI")
+    AI
+  }
+
+  public enum AutoModBehavior {
+    @JsonProperty("flag")
+    FLAG,
+    @JsonProperty("block")
+    BLOCK
+  }
+
+  public enum BlocklistBehavior {
+    @JsonProperty("flag")
+    FLAG,
+    @JsonProperty("block")
+    BLOCK
+  }
+
+  public static class ThresholdRequestObject {
+    @Nullable
+    @JsonProperty("flag")
+    private Integer flag;
+
+    @Nullable
+    @JsonProperty("block")
+    private Integer block;
+
+    private ThresholdRequestObject(Builder builder) {
+      this.flag = builder.flag;
+      this.block = builder.block;
+    }
+
+    /**
+     * Creates builder to build {@link ThresholdRequestObject}.
+     *
+     * @return created builder
+     */
+    public static Builder builder() {
+      return new Builder();
+    }
+
+    /** Builder to build {@link ThresholdRequestObject}. */
+    public static final class Builder {
+      private Integer flag;
+      private Integer block;
+
+      private Builder() {}
+
+      @NotNull
+      public Builder withFlag(@NotNull Integer flag) {
+        this.flag = flag;
+        return this;
+      }
+
+      @NotNull
+      public Builder withBlock(@NotNull Integer block) {
+        this.block = block;
+        return this;
+      }
+
+      @NotNull
+      public ThresholdRequestObject build() {
+        return new ThresholdRequestObject(this);
+      }
+    }
+  }
+
+  public static class PermissionRequestObject {
+    @NotNull
+    @JsonProperty("name")
+    private String name;
+
+    @NotNull
+    @JsonProperty("action")
+    private String action;
+
+    @NotNull
+    @JsonProperty("resources")
+    private List<String> resources;
+
+    @NotNull
+    @JsonProperty("roles")
+    private List<String> roles;
+
+    @NotNull
+    @JsonProperty("owner")
+    private Boolean owner;
+
+    @NotNull
+    @JsonProperty("priority")
+    private Integer priority;
+
+    private PermissionRequestObject(Builder builder) {
+      this.name = builder.name;
+      this.action = builder.action;
+      this.resources = builder.resources;
+      this.roles = builder.roles;
+      this.owner = builder.owner;
+      this.priority = builder.priority;
+    }
+
+    /**
+     * Creates builder to build {@link PermissionRequestObject}.
+     *
+     * @return created builder
+     */
+    public static Builder builder() {
+      return new Builder();
+    }
+
+    /** Builder to build {@link PermissionRequestObject}. */
+    public static final class Builder {
+      private String name;
+      private String action;
+      private List<String> resources;
+      private List<String> roles;
+      private Boolean owner;
+      private Integer priority;
+
+      private Builder() {}
+
+      @NotNull
+      public Builder withName(@NotNull String name) {
+        this.name = name;
+        return this;
+      }
+
+      @NotNull
+      public Builder withAction(@NotNull String action) {
+        this.action = action;
+        return this;
+      }
+
+      @NotNull
+      public Builder withResources(@NotNull List<String> resources) {
+        this.resources = resources;
+        return this;
+      }
+
+      @NotNull
+      public Builder withRoles(@NotNull List<String> roles) {
+        this.roles = roles;
+        return this;
+      }
+
+      @NotNull
+      public Builder withOwner(@NotNull Boolean owner) {
+        this.owner = owner;
+        return this;
+      }
+
+      @NotNull
+      public Builder withPriority(@NotNull Integer priority) {
+        this.priority = priority;
+        return this;
+      }
+
+      @NotNull
+      public PermissionRequestObject build() {
+        return new PermissionRequestObject(this);
+      }
+    }
   }
 
   @Data
@@ -284,9 +417,9 @@ public class ChannelType {
       private AutoModBehavior automodBehavior;
       private String blocklist;
       private BlocklistBehavior blocklistBehavior;
-      private Map<String, ThresholdRequest> automodThresholds;
+      private Map<String, ThresholdRequestObject> automodThresholds;
       private List<String> commands;
-      private List<Permission> permissions;
+      private List<PermissionRequestObject> permissions;
 
       private static final boolean DEFAULT_PUSH_NOTIFICATIONS = true;
 
@@ -418,7 +551,7 @@ public class ChannelType {
 
       @NotNull
       public ChannelTypeCreateRequest withAutomodThresholds(
-          @NotNull Map<String, ThresholdRequest> automodThresholds) {
+          @NotNull Map<String, ThresholdRequestObject> automodThresholds) {
         this.automodThresholds = automodThresholds;
         return this;
       }
@@ -430,7 +563,8 @@ public class ChannelType {
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withPermissions(@NotNull List<Permission> permissions) {
+      public ChannelTypeCreateRequest withPermissions(
+          @NotNull List<PermissionRequestObject> permissions) {
         this.permissions = permissions;
         return this;
       }
@@ -553,7 +687,7 @@ public class ChannelType {
 
     @Nullable
     @JsonProperty("automod_thresholds")
-    protected Map<String, ThresholdRequest> automodThresholds;
+    protected Map<String, ThresholdRequestObject> automodThresholds;
 
     @Nullable
     @JsonProperty("commands")
@@ -561,7 +695,7 @@ public class ChannelType {
 
     @Nullable
     @JsonProperty("permissions")
-    protected List<Permission> permissions;
+    protected List<PermissionRequestObject> permissions;
 
     public static class ChannelTypeUpdateRequest extends StreamRequest<ChannelTypeUpdateResponse> {
       private String name;
@@ -582,9 +716,9 @@ public class ChannelType {
       private AutoModBehavior automodBehavior;
       private String blocklist;
       private BlocklistBehavior blocklistBehavior;
-      private Map<String, ThresholdRequest> automodThresholds;
+      private Map<String, ThresholdRequestObject> automodThresholds;
       private List<String> commands;
-      private List<Permission> permissions;
+      private List<PermissionRequestObject> permissions;
 
       private ChannelTypeUpdateRequest(String name) {
         this.name = name;
@@ -696,7 +830,7 @@ public class ChannelType {
 
       @NotNull
       public ChannelTypeUpdateRequest withAutomodThresholds(
-          @NotNull Map<String, ThresholdRequest> automodThresholds) {
+          @NotNull Map<String, ThresholdRequestObject> automodThresholds) {
         this.automodThresholds = automodThresholds;
         return this;
       }
@@ -708,7 +842,8 @@ public class ChannelType {
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withPermissions(@NotNull List<Permission> permissions) {
+      public ChannelTypeUpdateRequest withPermissions(
+          @NotNull List<PermissionRequestObject> permissions) {
         this.permissions = permissions;
         return this;
       }
@@ -749,6 +884,8 @@ public class ChannelType {
   public static class ChannelTypeCreateResponse extends ChannelTypeCreateRequestData
       implements StreamResponse {
     private RateLimitData rateLimitData;
+
+    public ChannelTypeCreateResponse() {}
   }
 
   @Data
@@ -762,16 +899,18 @@ public class ChannelType {
   public static class ChannelTypeUpdateResponse extends ChannelTypeCreateRequestData
       implements StreamResponse {
     private RateLimitData rateLimitData;
+
+    public ChannelTypeUpdateResponse() {}
   }
 
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class ChannelTypeListResponse extends StreamResponseObject {
-    public ChannelTypeListResponse() {}
-
     @NotNull
     @JsonProperty("channel_types")
     private Map<String, ChannelTypeWithCommands> channelTypes;
+
+    public ChannelTypeListResponse() {}
   }
 
   /**

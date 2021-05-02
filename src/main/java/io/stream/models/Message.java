@@ -34,10 +34,6 @@ import retrofit2.Call;
 @Log
 @Data
 public class Message {
-  public Message() {
-    additionalFields = new HashMap<>();
-  }
-
   @NotNull
   @JsonProperty("id")
   private String id;
@@ -118,6 +114,10 @@ public class Message {
     this.additionalFields.put(name, value);
   }
 
+  public Message() {
+    additionalFields = new HashMap<>();
+  }
+
   public enum MessageType {
     @JsonProperty("regular")
     REGULAR,
@@ -135,10 +135,6 @@ public class Message {
 
   @Data
   public static class Attachment {
-    public Attachment() {
-      additionalFields = new HashMap<>();
-    }
-
     @Nullable
     @JsonProperty("type")
     private String type;
@@ -222,12 +218,14 @@ public class Message {
     public void setAdditionalField(String name, Object value) {
       this.additionalFields.put(name, value);
     }
+
+    public Attachment() {
+      additionalFields = new HashMap<>();
+    }
   }
 
   @Data
   public static class Action {
-    public Action() {}
-
     @NotNull
     @JsonProperty("name")
     private String name;
@@ -247,12 +245,12 @@ public class Message {
     @NotNull
     @JsonProperty("value")
     private String value;
+
+    public Action() {}
   }
 
   @Data
   public static class Field {
-    public Field() {}
-
     @NotNull
     @JsonProperty("type")
     private String type;
@@ -264,31 +262,31 @@ public class Message {
     @NotNull
     @JsonProperty("short")
     private Boolean shortField;
+
+    public Field() {}
   }
 
   @Data
   public static class SearchResult {
-    public SearchResult() {}
-
     @NotNull
     @JsonProperty("message")
     private SearchResultMessage message;
+
+    public SearchResult() {}
   }
 
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class SearchResultMessage extends Message {
-    public SearchResultMessage() {}
-
     @NotNull
     @JsonProperty("channel")
     private Channel channel;
+
+    public SearchResultMessage() {}
   }
 
   @Data
   public static class ImageSize {
-    public ImageSize() {}
-
     @Nullable
     @JsonProperty("crop")
     private Crop crop;
@@ -304,6 +302,8 @@ public class Message {
     @Nullable
     @JsonProperty("width")
     private Integer width;
+
+    public ImageSize() {}
   }
 
   public enum Crop {
@@ -717,8 +717,6 @@ public class Message {
   }
 
   public static class MessageRequestObjectUser {
-    public MessageRequestObjectUser() {}
-
     @NotNull
     @JsonProperty("id")
     private String id;
@@ -1242,9 +1240,9 @@ public class Message {
     @JsonProperty("skip_push")
     private Boolean skipPush;
 
-    private MessageSendRequestData(MessageSendRequest builder) {
-      this.message = builder.message;
-      this.skipPush = builder.skipPush;
+    private MessageSendRequestData(MessageSendRequest messageSendRequest) {
+      this.message = messageSendRequest.message;
+      this.skipPush = messageSendRequest.skipPush;
     }
 
     public static class MessageSendRequest extends StreamRequest<MessageSendResponse> {
@@ -1283,8 +1281,8 @@ public class Message {
     @JsonProperty("message")
     private MessageRequestObject message;
 
-    private MessageUpdateRequestData(MessageUpdateRequest builder) {
-      this.message = builder.message;
+    private MessageUpdateRequestData(MessageUpdateRequest messageUpdateRequest) {
+      this.message = messageUpdateRequest.message;
     }
 
     public static class MessageUpdateRequest extends StreamRequest<MessageUpdateResponse> {
@@ -1510,48 +1508,46 @@ public class Message {
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class MessageSendResponse extends StreamResponseObject {
-    public MessageSendResponse() {}
-
     @NotNull
     @JsonProperty("message")
     private Message message;
+
+    public MessageSendResponse() {}
   }
 
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class MessageUpdateResponse extends StreamResponseObject {
-    public MessageUpdateResponse() {}
-
     @NotNull
     @JsonProperty("message")
     private Message message;
+
+    public MessageUpdateResponse() {}
   }
 
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class MessageSearchResponse extends StreamResponseObject {
-    public MessageSearchResponse() {}
-
     @NotNull
     @JsonProperty("results")
     private List<SearchResult> results;
+
+    public MessageSearchResponse() {}
   }
 
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class MessageUploadFileResponse extends StreamResponseObject {
-    public MessageUploadFileResponse() {}
-
     @NotNull
     @JsonProperty("file")
     private String file;
+
+    public MessageUploadFileResponse() {}
   }
 
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class MessageUploadImageResponse extends StreamResponseObject {
-    public MessageUploadImageResponse() {}
-
     @NotNull
     @JsonProperty("file")
     private String file;
@@ -1559,6 +1555,8 @@ public class Message {
     @Nullable
     @JsonProperty("upload_sizes")
     private List<ImageSize> uploadSizes;
+
+    public MessageUploadImageResponse() {}
   }
 
   /**

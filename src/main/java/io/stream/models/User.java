@@ -28,10 +28,6 @@ import retrofit2.Call;
 
 @Data
 public class User {
-  public User() {
-    additionalFields = new HashMap<>();
-  }
-
   @NotNull
   @JsonProperty("id")
   private String id;
@@ -106,6 +102,10 @@ public class User {
 
   @NotNull @JsonIgnore private Map<String, Object> additionalFields;
 
+  public User() {
+    additionalFields = new HashMap<>();
+  }
+
   @JsonAnyGetter
   public Map<String, Object> getAdditionalFields() {
     return this.additionalFields;
@@ -118,8 +118,6 @@ public class User {
 
   @Data
   public static class Mute {
-    public Mute() {}
-
     @NotNull
     @JsonProperty("user")
     private User user;
@@ -139,12 +137,12 @@ public class User {
     @Nullable
     @JsonProperty("expires")
     private Date expires;
+
+    public Mute() {}
   }
 
   @Data
   public static class ChannelMute {
-    public ChannelMute() {}
-
     @NotNull
     @JsonProperty("user")
     private User user;
@@ -164,12 +162,12 @@ public class User {
     @NotNull
     @JsonProperty("updated_at")
     private Date updatedAt;
+
+    public ChannelMute() {}
   }
 
   @Data
   public static class Ban {
-    public Ban() {}
-
     @Nullable
     @JsonProperty("channel")
     private Channel channel;
@@ -197,8 +195,11 @@ public class User {
     @NotNull
     @JsonProperty("created_at")
     private Date createdAt;
+
+    public Ban() {}
   }
 
+  @Data
   public static class OwnUser {
     @NotNull
     @JsonProperty("id")
@@ -297,6 +298,7 @@ public class User {
     }
   }
 
+  @Data
   public static class UserMute {
     @NotNull
     @JsonProperty("user")
@@ -317,6 +319,8 @@ public class User {
     @NotNull
     @JsonProperty("updated_at")
     private Date updated_at;
+
+    public UserMute() {}
   }
 
   public static class UserRequestObject {
@@ -451,8 +455,6 @@ public class User {
   }
 
   public static class UserPartialUpdateRequestObject {
-    public UserPartialUpdateRequestObject() {}
-
     @NotNull
     @JsonProperty("id")
     private String id;
@@ -665,8 +667,6 @@ public class User {
   }
 
   public static class UserPartialUpdateRequestData {
-    public UserPartialUpdateRequestData() {}
-
     @NotNull
     @JsonProperty("users")
     private List<UserPartialUpdateRequestObject> users;
@@ -990,41 +990,41 @@ public class User {
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class UserUpsertResponse extends StreamResponseObject {
-    public UserUpsertResponse() {}
-
     @NotNull
     @JsonProperty("users")
     private Map<String, User> users;
+
+    public UserUpsertResponse() {}
   }
 
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class UserListResponse extends StreamResponseObject {
-    public UserListResponse() {}
-
     @NotNull
     @JsonProperty("users")
     private List<User> users;
+
+    public UserListResponse() {}
   }
 
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class UserPartialUpdateResponse extends StreamResponseObject {
-    public UserPartialUpdateResponse() {}
-
     @NotNull
     @JsonProperty("users")
     private Map<String, User> users;
+
+    public UserPartialUpdateResponse() {}
   }
 
   @Data
   @EqualsAndHashCode(callSuper = false)
   public static class UserQueryBannedResponse extends StreamResponseObject {
-    public UserQueryBannedResponse() {}
-
     @NotNull
     @JsonProperty("bans")
     private List<Ban> bans;
+
+    public UserQueryBannedResponse() {}
   }
 
   /**

@@ -6,8 +6,6 @@ import org.jetbrains.annotations.NotNull;
 
 @Data
 public class Command {
-  public Command() {}
-
   @NotNull
   @JsonProperty("name")
   private String name;
@@ -23,4 +21,6 @@ public class Command {
   @NotNull
   @JsonProperty("set")
   private String setValue;
+
+  public Command() {}
 }

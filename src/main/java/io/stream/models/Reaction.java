@@ -11,10 +11,6 @@ import org.jetbrains.annotations.NotNull;
 
 @Data
 public class Reaction {
-  public Reaction() {
-    additionalFields = new HashMap<>();
-  }
-
   @NotNull
   @JsonProperty("message_id")
   private String messageId;
@@ -28,6 +24,10 @@ public class Reaction {
   private String type;
 
   @NotNull @JsonIgnore private Map<String, Object> additionalFields;
+
+  public Reaction() {
+    additionalFields = new HashMap<>();
+  }
 
   @JsonAnyGetter
   public Map<String, Object> getAdditionalFields() {

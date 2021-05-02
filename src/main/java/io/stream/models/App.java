@@ -20,16 +20,14 @@ import retrofit2.Call;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class App extends StreamResponseObject {
-  public App() {}
-
   @Nullable
   @JsonProperty("app")
   private AppConfig app;
 
+  public App() {}
+
   @Data
   public static class APNConfig {
-    public APNConfig() {}
-
     @NotNull
     @JsonProperty("enabled")
     private Boolean enabled;
@@ -65,12 +63,12 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("key_Id")
     private String keyId;
+
+    public APNConfig() {}
   }
 
   @Data
   public static class FirebaseConfig {
-    public FirebaseConfig() {}
-
     @NotNull
     @JsonProperty("enabled")
     private Boolean enabled;
@@ -82,12 +80,12 @@ public class App extends StreamResponseObject {
     @NotNull
     @JsonProperty("data_template")
     private String dataTemplate;
+
+    public FirebaseConfig() {}
   }
 
   @Data
   public static class PushNotificationFields {
-    public PushNotificationFields() {}
-
     @NotNull private String version;
 
     @NotNull
@@ -97,12 +95,12 @@ public class App extends StreamResponseObject {
     @NotNull
     @JsonProperty("firebase")
     private FirebaseConfig firebaseConfig;
+
+    public PushNotificationFields() {}
   }
 
   @Data
   public static class Policy {
-    public Policy() {}
-
     @NotNull
     @JsonProperty("name")
     private String name;
@@ -134,12 +132,12 @@ public class App extends StreamResponseObject {
     @NotNull
     @JsonProperty("updated_at")
     private Date updatedAt;
+
+    public Policy() {}
   }
 
   @Data
   public static class AppConfig {
-    public AppConfig() {}
-
     @NotNull
     @JsonProperty("name")
     private String name;
@@ -235,12 +233,12 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("auto_translation_enabled")
     private Boolean autoTranslationEnabled;
+
+    public AppConfig() {}
   }
 
   @Data
   public static class FileUploadConfig {
-    public FileUploadConfig() {}
-
     @Nullable
     @JsonProperty("allowed_file_extensions")
     private List<String> allowedFileExtensions;
@@ -256,6 +254,8 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("blocked_mime_types")
     private List<String> blockedMimeTypes;
+
+    public FileUploadConfig() {}
   }
 
   public static class FileUploadConfigRequestObject {
@@ -574,8 +574,6 @@ public class App extends StreamResponseObject {
   }
 
   public static class AppUpdateRequestData {
-    public AppUpdateRequestData() {}
-
     @Nullable
     @JsonProperty("disable_auth_checks")
     private Boolean disableAuth;
