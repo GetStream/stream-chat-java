@@ -1,13 +1,5 @@
 package io.stream.models;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,8 +20,16 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.ChannelService;
 import io.stream.services.framework.StreamServiceGenerator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -1398,7 +1398,8 @@ public class Channel {
     }
 
     public static final class ChannelExportRequest extends StreamRequest<ChannelExportResponse> {
-      private List<ChannelExportRequestObject> channels = new ArrayList<>();;
+      private List<ChannelExportRequestObject> channels = new ArrayList<>();
+      ;
 
       private ChannelExportRequest() {}
 

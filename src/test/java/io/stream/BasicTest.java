@@ -1,5 +1,17 @@
 package io.stream;
 
+import io.stream.exceptions.StreamException;
+import io.stream.models.Channel;
+import io.stream.models.Channel.ChannelGetResponse;
+import io.stream.models.Channel.ChannelMemberRequestObject;
+import io.stream.models.Channel.ChannelRequestObject;
+import io.stream.models.Message;
+import io.stream.models.Message.MessageRequestObject;
+import io.stream.models.User;
+import io.stream.models.User.UserRequestObject;
+import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
+import io.stream.services.framework.HttpLoggingInterceptor;
+import io.stream.services.framework.StreamServiceGenerator;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,18 +20,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import io.stream.exceptions.StreamException;
-import io.stream.models.Channel;
-import io.stream.models.Channel.ChannelGetResponse;
-import io.stream.models.Channel.ChannelMemberRequestObject;
-import io.stream.models.Channel.ChannelRequestObject;
-import io.stream.models.Message.MessageRequestObject;
-import io.stream.models.Message;
-import io.stream.models.User;
-import io.stream.models.User.UserRequestObject;
-import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
-import io.stream.services.framework.HttpLoggingInterceptor;
-import io.stream.services.framework.StreamServiceGenerator;
 
 public class BasicTest {
   protected static UserRequestObject testUserRequestObject;
