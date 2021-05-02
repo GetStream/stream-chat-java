@@ -106,7 +106,7 @@ public class ChannelTest extends BasicTest {
   @DisplayName("Can export channel")
   @Test
   void whenExportingChannel_thenNoException() {
-    Assertions.assertDoesNotThrow(
+    String taskId = Assertions.assertDoesNotThrow(
         () ->
             Channel.export()
                 .addChannel(
@@ -114,6 +114,22 @@ public class ChannelTest extends BasicTest {
                         .withType(testChannel.getType())
                         .withId(testChannel.getId())
                         .build())
-                .request());
+                .request()).getTaskId();
+    Assertions.assertNotNull(taskId);
+  }
+  
+  @DisplayName("Can query the status of a channel export")
+  @Test
+  void whenQueryingExportChannelStatus_thenNoException() {
+    String taskId = Assertions.assertDoesNotThrow(
+        () ->
+            Channel.export()
+                .addChannel(
+                    ChannelExportRequestObject.builder()
+                        .withType(testChannel.getType())
+                        .withId(testChannel.getId())
+                        .build())
+                .request()).getTaskId();
+    Assertions.assertDoesNotThrow(() -> Channel.exportStatus(taskId).request());
   }
 }

@@ -1,8 +1,11 @@
 package io.stream.services;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import io.stream.models.Channel.ChannelDeleteResponse;
 import io.stream.models.Channel.ChannelExportRequestData;
 import io.stream.models.Channel.ChannelExportResponse;
+import io.stream.models.Channel.ChannelExportStatusResponse;
 import io.stream.models.Channel.ChannelGetRequestData;
 import io.stream.models.Channel.ChannelGetResponse;
 import io.stream.models.Channel.ChannelListRequestData;
@@ -13,8 +16,6 @@ import io.stream.models.Channel.ChannelTruncateResponse;
 import io.stream.models.Channel.ChannelUpdateRequestData;
 import io.stream.models.Channel.ChannelUpdateResponse;
 import io.stream.services.framework.ToJson;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -57,7 +58,11 @@ public interface ChannelService {
       @NotNull @ToJson @Query("payload")
           ChannelQueryMembersRequestData channelQueryMembersRequestData);
 
-  @POST("/channels")
+  @POST("/export_channels")
   Call<ChannelExportResponse> export(
       @Nullable @Body ChannelExportRequestData channelExportRequestData);
+  
+  @GET("/export_channels/{id}")
+  Call<ChannelExportStatusResponse> exportStatus(
+      @NotNull @Path("id") String taskId);
 }
