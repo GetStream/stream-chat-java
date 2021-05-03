@@ -1,12 +1,5 @@
 package io.stream;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import io.stream.models.Channel;
 import io.stream.models.Channel.ChannelExportRequestObject;
 import io.stream.models.Channel.ChannelGetResponse;
@@ -17,6 +10,13 @@ import io.stream.models.Sort;
 import io.stream.models.Sort.Direction;
 import io.stream.models.User;
 import io.stream.models.User.ChannelMute;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 public class ChannelTest extends BasicTest {
 

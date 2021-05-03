@@ -1,9 +1,9 @@
 package io.stream.models;
 
-import java.util.Date;
-import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Date;
 import lombok.Builder;
+import org.jetbrains.annotations.Nullable;
 
 @Builder
 public class MessagePaginationParameters {

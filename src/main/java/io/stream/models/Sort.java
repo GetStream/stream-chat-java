@@ -1,10 +1,10 @@
 package io.stream.models;
 
-import org.jetbrains.annotations.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Builder;
+import org.jetbrains.annotations.NotNull;
 
 @Builder
 public class Sort {
