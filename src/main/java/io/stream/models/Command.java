@@ -1,9 +1,5 @@
 package io.stream.models;
 
-import java.util.Date;
-import java.util.List;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.models.Command.CommandCreateRequestData.CommandCreateRequest;
 import io.stream.models.Command.CommandUpdateRequestData.CommandUpdateRequest;
@@ -12,8 +8,12 @@ import io.stream.models.framework.StreamResponse;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.CommandService;
 import io.stream.services.framework.StreamServiceGenerator;
+import java.util.Date;
+import java.util.List;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data

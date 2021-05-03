@@ -1,9 +1,9 @@
 package io.stream.services;
 
-import org.jetbrains.annotations.NotNull;
 import io.stream.models.Device.DeviceCreateRequestData;
 import io.stream.models.Device.DeviceListResponse;
 import io.stream.models.framework.StreamResponseObject;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
