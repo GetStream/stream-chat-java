@@ -654,27 +654,27 @@ public class App extends StreamResponseObject {
     @JsonProperty("multi_tenant_enabled")
     private Boolean multiTenantEnabled;
 
-    private AppUpdateRequestData(AppUpdateRequest builder) {
-      this.disableAuth = builder.disableAuth;
-      this.disablePermissions = builder.disablePermissions;
-      this.aPNConfig = builder.aPNConfig;
-      this.firebaseConfig = builder.firebaseConfig;
-      this.pushConfig = builder.pushConfig;
-      this.userSearchDisallowedRoles = builder.userSearchDisallowedRoles;
-      this.customActionHandlerUrl = builder.customActionHandlerUrl;
-      this.enforceUniqueUsernames = builder.enforceUniqueUsernames;
-      this.permissionVersion = builder.permissionVersion;
-      this.fileUploadConfig = builder.fileUploadConfig;
-      this.imageUploadConfig = builder.imageUploadConfig;
-      this.beforeMessageSendHookUrl = builder.beforeMessageSendHookUrl;
-      this.autoTranslationEnabled = builder.autoTranslationEnabled;
-      this.imageModerationEnabled = builder.imageModerationEnabled;
-      this.imageModerationLabels = builder.imageModerationLabels;
-      this.sqsUrl = builder.sqsUrl;
-      this.sqsKey = builder.sqsKey;
-      this.sqsSecret = builder.sqsSecret;
-      this.webhookURL = builder.webhookURL;
-      this.multiTenantEnabled = builder.multiTenantEnabled;
+    private AppUpdateRequestData(AppUpdateRequest appUpdateRequest) {
+      this.disableAuth = appUpdateRequest.disableAuth;
+      this.disablePermissions = appUpdateRequest.disablePermissions;
+      this.aPNConfig = appUpdateRequest.aPNConfig;
+      this.firebaseConfig = appUpdateRequest.firebaseConfig;
+      this.pushConfig = appUpdateRequest.pushConfig;
+      this.userSearchDisallowedRoles = appUpdateRequest.userSearchDisallowedRoles;
+      this.customActionHandlerUrl = appUpdateRequest.customActionHandlerUrl;
+      this.enforceUniqueUsernames = appUpdateRequest.enforceUniqueUsernames;
+      this.permissionVersion = appUpdateRequest.permissionVersion;
+      this.fileUploadConfig = appUpdateRequest.fileUploadConfig;
+      this.imageUploadConfig = appUpdateRequest.imageUploadConfig;
+      this.beforeMessageSendHookUrl = appUpdateRequest.beforeMessageSendHookUrl;
+      this.autoTranslationEnabled = appUpdateRequest.autoTranslationEnabled;
+      this.imageModerationEnabled = appUpdateRequest.imageModerationEnabled;
+      this.imageModerationLabels = appUpdateRequest.imageModerationLabels;
+      this.sqsUrl = appUpdateRequest.sqsUrl;
+      this.sqsKey = appUpdateRequest.sqsKey;
+      this.sqsSecret = appUpdateRequest.sqsSecret;
+      this.webhookURL = appUpdateRequest.webhookURL;
+      this.multiTenantEnabled = appUpdateRequest.multiTenantEnabled;
     }
 
     public static class AppUpdateRequest extends StreamRequest<StreamResponseObject> {

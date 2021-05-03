@@ -521,8 +521,8 @@ public class User {
     @JsonProperty("users")
     private Map<String, UserRequestObject> users;
 
-    private UserUpsertRequestData(UserUpsertRequest builder) {
-      this.users = builder.users;
+    private UserUpsertRequestData(UserUpsertRequest userUpsertRequest) {
+      this.users = userUpsertRequest.users;
     }
 
     public static class UserUpsertRequest extends StreamRequest<UserUpsertResponse> {
@@ -587,15 +587,15 @@ public class User {
     @JsonProperty("connection_id")
     private String connectionId;
 
-    private UserListRequestData(UserQueryRequest builder) {
-      this.filterConditions = builder.filterConditions;
-      this.sort = builder.sort;
-      this.presence = builder.presence;
-      this.limit = builder.limit;
-      this.offset = builder.offset;
-      this.userId = builder.userId;
-      this.user = builder.user;
-      this.connectionId = builder.connectionId;
+    private UserListRequestData(UserQueryRequest userQueryRequest) {
+      this.filterConditions = userQueryRequest.filterConditions;
+      this.sort = userQueryRequest.sort;
+      this.presence = userQueryRequest.presence;
+      this.limit = userQueryRequest.limit;
+      this.offset = userQueryRequest.offset;
+      this.userId = userQueryRequest.userId;
+      this.user = userQueryRequest.user;
+      this.connectionId = userQueryRequest.connectionId;
     }
 
     public static class UserQueryRequest extends StreamRequest<UserListResponse> {

@@ -709,15 +709,15 @@ public class Channel {
     @JsonProperty("watchers")
     private PaginationParameters watchers;
 
-    private ChannelGetRequestData(ChannelGetRequest builder) {
-      this.connectionId = builder.connectionId;
-      this.data = builder.data;
-      this.watch = builder.watch;
-      this.state = builder.state;
-      this.presence = builder.presence;
-      this.messages = builder.messages;
-      this.members = builder.members;
-      this.watchers = builder.watchers;
+    private ChannelGetRequestData(ChannelGetRequest channelGetRequest) {
+      this.connectionId = channelGetRequest.connectionId;
+      this.data = channelGetRequest.data;
+      this.watch = channelGetRequest.watch;
+      this.state = channelGetRequest.state;
+      this.presence = channelGetRequest.presence;
+      this.messages = channelGetRequest.messages;
+      this.members = channelGetRequest.members;
+      this.watchers = channelGetRequest.watchers;
     }
 
     public static class ChannelGetRequest extends StreamRequest<ChannelGetResponse> {
@@ -851,20 +851,20 @@ public class Channel {
     @JsonProperty("user")
     private UserRequestObject user;
 
-    private ChannelUpdateRequestData(ChannelUpdateRequest builder) {
-      this.addMembers = builder.addMembers;
-      this.removeMembers = builder.removeMembers;
-      this.addModerators = builder.addModerators;
-      this.demoteModerators = builder.demoteModerators;
-      this.invites = builder.invites;
-      this.cooldown = builder.cooldown;
-      this.acceptInvite = builder.acceptInvite;
-      this.rejectInvite = builder.rejectInvite;
-      this.message = builder.message;
-      this.skipPush = builder.skipPush;
-      this.data = builder.data;
-      this.userId = builder.userId;
-      this.user = builder.user;
+    private ChannelUpdateRequestData(ChannelUpdateRequest channelUpdateRequest) {
+      this.addMembers = channelUpdateRequest.addMembers;
+      this.removeMembers = channelUpdateRequest.removeMembers;
+      this.addModerators = channelUpdateRequest.addModerators;
+      this.demoteModerators = channelUpdateRequest.demoteModerators;
+      this.invites = channelUpdateRequest.invites;
+      this.cooldown = channelUpdateRequest.cooldown;
+      this.acceptInvite = channelUpdateRequest.acceptInvite;
+      this.rejectInvite = channelUpdateRequest.rejectInvite;
+      this.message = channelUpdateRequest.message;
+      this.skipPush = channelUpdateRequest.skipPush;
+      this.data = channelUpdateRequest.data;
+      this.userId = channelUpdateRequest.userId;
+      this.user = channelUpdateRequest.user;
     }
 
     public static class ChannelUpdateRequest extends StreamRequest<ChannelUpdateResponse> {
@@ -1040,19 +1040,19 @@ public class Channel {
     @JsonProperty("connection_id")
     private String connectionId;
 
-    private ChannelListRequestData(ChannelListRequest builder) {
-      this.filterConditions = builder.filterConditions;
-      this.sort = builder.sort;
-      this.watch = builder.watch;
-      this.state = builder.state;
-      this.presence = builder.presence;
-      this.messageLimit = builder.messageLimit;
-      this.memberLimit = builder.memberLimit;
-      this.limit = builder.limit;
-      this.offset = builder.offset;
-      this.userId = builder.userId;
-      this.user = builder.user;
-      this.connectionId = builder.connectionId;
+    private ChannelListRequestData(ChannelListRequest channelListRequest) {
+      this.filterConditions = channelListRequest.filterConditions;
+      this.sort = channelListRequest.sort;
+      this.watch = channelListRequest.watch;
+      this.state = channelListRequest.state;
+      this.presence = channelListRequest.presence;
+      this.messageLimit = channelListRequest.messageLimit;
+      this.memberLimit = channelListRequest.memberLimit;
+      this.limit = channelListRequest.limit;
+      this.offset = channelListRequest.offset;
+      this.userId = channelListRequest.userId;
+      this.user = channelListRequest.user;
+      this.connectionId = channelListRequest.connectionId;
     }
 
     public static class ChannelListRequest extends StreamRequest<ChannelListResponse> {
