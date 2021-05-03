@@ -1,5 +1,15 @@
 package io.stream.models;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,22 +23,13 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.MessageService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.java.Log;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Log
@@ -346,8 +347,8 @@ public class Message {
     public Moderation() {}
   }
 
+  @Builder
   public static class MessageRequestObject {
-
     @Nullable
     @JsonProperty("text")
     private String text;
@@ -417,182 +418,10 @@ public class Message {
     private Date pinnedAt;
 
     @Nullable @JsonIgnore private Map<String, Object> additionalFields;
-
-    private MessageRequestObject(Builder builder) {
-      this.text = builder.text;
-      this.mml = builder.mml;
-      this.user = builder.user;
-      this.parentId = builder.parentId;
-      this.attachments = builder.attachments;
-      this.showInChannel = builder.showInChannel;
-      this.mentionedUsers = builder.mentionedUsers;
-      this.userId = builder.userId;
-      this.html = builder.html;
-      this.reactionScores = builder.reactionScores;
-      this.quotedMessageId = builder.quotedMessageId;
-      this.cId = builder.cId;
-      this.silent = builder.silent;
-      this.pinned = builder.pinned;
-      this.pinExpires = builder.pinExpires;
-      this.pinnedBy = builder.pinnedBy;
-      this.pinnedAt = builder.pinnedAt;
-      this.additionalFields = builder.additionalFields;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalFields() {
-      return this.additionalFields;
-    }
-
-    /**
-     * Creates builder to build {@link MessageRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link MessageRequestObject}. */
-    public static final class Builder {
-      private String text;
-      private String mml;
-      private UserRequestObject user;
-      private String parentId;
-      private List<AttachmentRequestObject> attachments;
-      private Boolean showInChannel;
-      private List<String> mentionedUsers;
-      private String userId;
-      private String html;
-      private Map<String, Integer> reactionScores;
-      private String quotedMessageId;
-      private String cId;
-      private Boolean silent;
-      private Boolean pinned;
-      private Date pinExpires;
-      private String pinnedBy;
-      private Date pinnedAt;
-      private Map<String, Object> additionalFields;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withText(@NotNull String text) {
-        this.text = text;
-        return this;
-      }
-
-      @NotNull
-      public Builder withMml(@NotNull String mml) {
-        this.mml = mml;
-        return this;
-      }
-
-      @NotNull
-      public Builder withUser(@NotNull UserRequestObject user) {
-        this.user = user;
-        return this;
-      }
-
-      @NotNull
-      public Builder withParentId(@NotNull String parentId) {
-        this.parentId = parentId;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAttachments(@NotNull List<AttachmentRequestObject> attachments) {
-        this.attachments = attachments;
-        return this;
-      }
-
-      @NotNull
-      public Builder withShowInChannel(@NotNull Boolean showInChannel) {
-        this.showInChannel = showInChannel;
-        return this;
-      }
-
-      @NotNull
-      public Builder withMentionedUsers(@NotNull List<String> mentionedUsers) {
-        this.mentionedUsers = mentionedUsers;
-        return this;
-      }
-
-      @NotNull
-      public Builder withUserId(@NotNull String userId) {
-        this.userId = userId;
-        return this;
-      }
-
-      @NotNull
-      public Builder withHtml(@NotNull String html) {
-        this.html = html;
-        return this;
-      }
-
-      @NotNull
-      public Builder withReactionScores(@NotNull Map<String, Integer> reactionScores) {
-        this.reactionScores = reactionScores;
-        return this;
-      }
-
-      @NotNull
-      public Builder withQuotedMessageId(@NotNull String quotedMessageId) {
-        this.quotedMessageId = quotedMessageId;
-        return this;
-      }
-
-      @NotNull
-      public Builder withCId(@NotNull String cId) {
-        this.cId = cId;
-        return this;
-      }
-
-      @NotNull
-      public Builder withSilent(@NotNull Boolean silent) {
-        this.silent = silent;
-        return this;
-      }
-
-      @NotNull
-      public Builder withPinned(@NotNull Boolean pinned) {
-        this.pinned = pinned;
-        return this;
-      }
-
-      @NotNull
-      public Builder withPinExpires(@NotNull Date pinExpires) {
-        this.pinExpires = pinExpires;
-        return this;
-      }
-
-      @NotNull
-      public Builder withPinnedBy(@NotNull String pinnedBy) {
-        this.pinnedBy = pinnedBy;
-        return this;
-      }
-
-      @NotNull
-      public Builder withPinnedAt(@NotNull Date pinnedAt) {
-        this.pinnedAt = pinnedAt;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAdditionalFields(@NotNull Map<String, Object> additionalFields) {
-        this.additionalFields = additionalFields;
-        return this;
-      }
-
-      @NotNull
-      public MessageRequestObject build() {
-        return new MessageRequestObject(this);
-      }
-    }
   }
 
+  @Builder
   public static class MessageRequestObjectMessage {
-
     @Nullable
     @JsonProperty("text")
     private String text;
@@ -622,139 +451,17 @@ public class Message {
     private Boolean silent;
 
     @Nullable @JsonIgnore private Map<String, Object> additionalFields;
-
-    private MessageRequestObjectMessage(Builder builder) {
-      this.text = builder.text;
-      this.attachments = builder.attachments;
-      this.user = builder.user;
-      this.mentionedUsers = builder.mentionedUsers;
-      this.parentId = builder.parentId;
-      this.showInChannel = builder.showInChannel;
-      this.silent = builder.silent;
-      this.additionalFields = builder.additionalFields;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalFields() {
-      return this.additionalFields;
-    }
-
-    /**
-     * Creates builder to build {@link MessageRequestObjectMessage}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link MessageRequestObjectMessage}. */
-    public static final class Builder {
-      private String text;
-      private List<Attachment> attachments;
-      private MessageRequestObjectUser user;
-      private List<String> mentionedUsers;
-      private String parentId;
-      private Boolean showInChannel;
-      private Boolean silent;
-      private Map<String, Object> additionalFields;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withText(@NotNull String text) {
-        this.text = text;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAttachments(@NotNull List<Attachment> attachments) {
-        this.attachments = attachments;
-        return this;
-      }
-
-      @NotNull
-      public Builder withUser(@NotNull MessageRequestObjectUser user) {
-        this.user = user;
-        return this;
-      }
-
-      @NotNull
-      public Builder withMentionedUsers(@NotNull List<String> mentionedUsers) {
-        this.mentionedUsers = mentionedUsers;
-        return this;
-      }
-
-      @NotNull
-      public Builder withParentId(@NotNull String parentId) {
-        this.parentId = parentId;
-        return this;
-      }
-
-      @NotNull
-      public Builder withShowInChannel(@NotNull Boolean showInChannel) {
-        this.showInChannel = showInChannel;
-        return this;
-      }
-
-      @NotNull
-      public Builder withSilent(@NotNull Boolean silent) {
-        this.silent = silent;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAdditionalFields(@NotNull Map<String, Object> additionalFields) {
-        this.additionalFields = additionalFields;
-        return this;
-      }
-
-      @NotNull
-      public MessageRequestObjectMessage build() {
-        return new MessageRequestObjectMessage(this);
-      }
-    }
   }
 
+  @Builder
   public static class MessageRequestObjectUser {
     @NotNull
     @JsonProperty("id")
     private String id;
-
-    private MessageRequestObjectUser(Builder builder) {
-      this.id = builder.id;
-    }
-
-    /**
-     * Creates builder to build {@link MessageRequestObjectUser}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link MessageRequestObjectUser}. */
-    public static final class Builder {
-      private String id;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withId(@NotNull String id) {
-        this.id = id;
-        return this;
-      }
-
-      @NotNull
-      public MessageRequestObjectUser build() {
-        return new MessageRequestObjectUser(this);
-      }
-    }
   }
 
+  @Builder
   public static class AttachmentRequestObject {
-
     @Nullable
     @JsonProperty("type")
     private String type;
@@ -828,190 +535,10 @@ public class Message {
     private String ogScrapeURL;
 
     @Nullable @JsonIgnore private Map<String, Object> additionalFields;
-
-    private AttachmentRequestObject(Builder builder) {
-      this.type = builder.type;
-      this.fallback = builder.fallback;
-      this.color = builder.color;
-      this.pretext = builder.pretext;
-      this.authorName = builder.authorName;
-      this.authorLink = builder.authorLink;
-      this.authorIcon = builder.authorIcon;
-      this.title = builder.title;
-      this.titleLink = builder.titleLink;
-      this.text = builder.text;
-      this.imageURL = builder.imageURL;
-      this.thumbURL = builder.thumbURL;
-      this.footer = builder.footer;
-      this.footerIcon = builder.footerIcon;
-      this.actions = builder.actions;
-      this.fields = builder.fields;
-      this.assetURL = builder.assetURL;
-      this.ogScrapeURL = builder.ogScrapeURL;
-      this.additionalFields = builder.additionalFields;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalFields() {
-      return this.additionalFields;
-    }
-
-    /**
-     * Creates builder to build {@link AttachmentRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link AttachmentRequestObject}. */
-    public static final class Builder {
-      private String type;
-      private String fallback;
-      private String color;
-      private String pretext;
-      private String authorName;
-      private String authorLink;
-      private String authorIcon;
-      private String title;
-      private String titleLink;
-      private String text;
-      private String imageURL;
-      private String thumbURL;
-      private String footer;
-      private String footerIcon;
-      private List<ActionRequestObject> actions;
-      private List<FieldRequestObject> fields;
-      private String assetURL;
-      private String ogScrapeURL;
-      private Map<String, Object> additionalFields;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withType(@NotNull String type) {
-        this.type = type;
-        return this;
-      }
-
-      @NotNull
-      public Builder withFallback(@NotNull String fallback) {
-        this.fallback = fallback;
-        return this;
-      }
-
-      @NotNull
-      public Builder withColor(@NotNull String color) {
-        this.color = color;
-        return this;
-      }
-
-      @NotNull
-      public Builder withPretext(@NotNull String pretext) {
-        this.pretext = pretext;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAuthorName(@NotNull String authorName) {
-        this.authorName = authorName;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAuthorLink(@NotNull String authorLink) {
-        this.authorLink = authorLink;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAuthorIcon(@NotNull String authorIcon) {
-        this.authorIcon = authorIcon;
-        return this;
-      }
-
-      @NotNull
-      public Builder withTitle(@NotNull String title) {
-        this.title = title;
-        return this;
-      }
-
-      @NotNull
-      public Builder withTitleLink(@NotNull String titleLink) {
-        this.titleLink = titleLink;
-        return this;
-      }
-
-      @NotNull
-      public Builder withText(@NotNull String text) {
-        this.text = text;
-        return this;
-      }
-
-      @NotNull
-      public Builder withImageURL(@NotNull String imageURL) {
-        this.imageURL = imageURL;
-        return this;
-      }
-
-      @NotNull
-      public Builder withThumbURL(@NotNull String thumbURL) {
-        this.thumbURL = thumbURL;
-        return this;
-      }
-
-      @NotNull
-      public Builder withFooter(@NotNull String footer) {
-        this.footer = footer;
-        return this;
-      }
-
-      @NotNull
-      public Builder withFooterIcon(@NotNull String footerIcon) {
-        this.footerIcon = footerIcon;
-        return this;
-      }
-
-      @NotNull
-      public Builder withActions(@NotNull List<ActionRequestObject> actions) {
-        this.actions = actions;
-        return this;
-      }
-
-      @NotNull
-      public Builder withFields(@NotNull List<FieldRequestObject> fields) {
-        this.fields = fields;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAssetURL(@NotNull String assetURL) {
-        this.assetURL = assetURL;
-        return this;
-      }
-
-      @NotNull
-      public Builder withOgScrapeURL(@NotNull String ogScrapeURL) {
-        this.ogScrapeURL = ogScrapeURL;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAdditionalFields(@NotNull Map<String, Object> additionalFields) {
-        this.additionalFields = additionalFields;
-        return this;
-      }
-
-      @NotNull
-      public AttachmentRequestObject build() {
-        return new AttachmentRequestObject(this);
-      }
-    }
   }
 
+  @Builder
   public static class ActionRequestObject {
-
     @NotNull
     @JsonProperty("name")
     private String name;
@@ -1031,73 +558,10 @@ public class Message {
     @NotNull
     @JsonProperty("value")
     private String value;
-
-    private ActionRequestObject(Builder builder) {
-      this.name = builder.name;
-      this.text = builder.text;
-      this.style = builder.style;
-      this.type = builder.type;
-      this.value = builder.value;
-    }
-
-    /**
-     * Creates builder to build {@link ActionRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link ActionRequestObject}. */
-    public static final class Builder {
-      private String name;
-      private String text;
-      private String style;
-      private String type;
-      private String value;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withName(@NotNull String name) {
-        this.name = name;
-        return this;
-      }
-
-      @NotNull
-      public Builder withText(@NotNull String text) {
-        this.text = text;
-        return this;
-      }
-
-      @NotNull
-      public Builder withStyle(@NotNull String style) {
-        this.style = style;
-        return this;
-      }
-
-      @NotNull
-      public Builder withType(@NotNull String type) {
-        this.type = type;
-        return this;
-      }
-
-      @NotNull
-      public Builder withValue(@NotNull String value) {
-        this.value = value;
-        return this;
-      }
-
-      @NotNull
-      public ActionRequestObject build() {
-        return new ActionRequestObject(this);
-      }
-    }
   }
 
+  @Builder
   public static class FieldRequestObject {
-
     @NotNull
     @JsonProperty("type")
     private String type;
@@ -1109,55 +573,9 @@ public class Message {
     @NotNull
     @JsonProperty("short")
     private Boolean shortField;
-
-    private FieldRequestObject(Builder builder) {
-      this.type = builder.type;
-      this.value = builder.value;
-      this.shortField = builder.shortField;
-    }
-
-    /**
-     * Creates builder to build {@link FieldRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link FieldRequestObject}. */
-    public static final class Builder {
-      private String type;
-      private String value;
-      private Boolean shortField;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withType(@NotNull String type) {
-        this.type = type;
-        return this;
-      }
-
-      @NotNull
-      public Builder withValue(@NotNull String value) {
-        this.value = value;
-        return this;
-      }
-
-      @NotNull
-      public Builder withShortField(@NotNull Boolean shortField) {
-        this.shortField = shortField;
-        return this;
-      }
-
-      @NotNull
-      public FieldRequestObject build() {
-        return new FieldRequestObject(this);
-      }
-    }
   }
 
+  @Builder
   public static class ImageSizeRequestObject {
     @Nullable
     @JsonProperty("crop")
@@ -1174,61 +592,6 @@ public class Message {
     @Nullable
     @JsonProperty("width")
     private Integer width;
-
-    private ImageSizeRequestObject(Builder builder) {
-      this.crop = builder.crop;
-      this.resize = builder.resize;
-      this.height = builder.height;
-      this.width = builder.width;
-    }
-
-    /**
-     * Creates builder to build {@link ImageSizeRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link ImageSizeRequestObject}. */
-    public static final class Builder {
-      private Crop crop;
-      private Resize resize;
-      private Integer height;
-      private Integer width;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withCrop(@NotNull Crop crop) {
-        this.crop = crop;
-        return this;
-      }
-
-      @NotNull
-      public Builder withResize(@NotNull Resize resize) {
-        this.resize = resize;
-        return this;
-      }
-
-      @NotNull
-      public Builder withHeight(@NotNull Integer height) {
-        this.height = height;
-        return this;
-      }
-
-      @NotNull
-      public Builder withWidth(@NotNull Integer width) {
-        this.width = width;
-        return this;
-      }
-
-      @NotNull
-      public ImageSizeRequestObject build() {
-        return new ImageSizeRequestObject(this);
-      }
-    }
   }
 
   public static class MessageSendRequestData {
@@ -1425,7 +788,7 @@ public class Message {
             RequestBody.create(MediaType.parse(resolvedContentType), file);
         MultipartBody.Part multipartFile =
             MultipartBody.Part.createFormData("file", file.getName(), fileRequestBody);
-        UserRequestObject user = UserRequestObject.builder().withId(userId).build();
+        UserRequestObject user = UserRequestObject.builder().id(userId).build();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         new ObjectMapper().writeValue(baos, user);
         RequestBody userRequestBody =
@@ -1481,7 +844,7 @@ public class Message {
         RequestBody fileRequestBody = RequestBody.create(MediaType.parse(contentType), file);
         MultipartBody.Part multipartFile =
             MultipartBody.Part.createFormData("file", file.getName(), fileRequestBody);
-        UserRequestObject user = UserRequestObject.builder().withId(userId).build();
+        UserRequestObject user = UserRequestObject.builder().id(userId).build();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         new ObjectMapper().writeValue(baos, user);
         RequestBody userRequestBody =

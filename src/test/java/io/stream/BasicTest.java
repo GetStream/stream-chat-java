@@ -68,24 +68,24 @@ public class BasicTest {
   static void upsertUsers() throws StreamException {
     testUserRequestObject =
         UserRequestObject.builder()
-            .withId(RandomStringUtils.randomAlphabetic(10))
-            .withName("Gandalf the Grey")
+            .id(RandomStringUtils.randomAlphabetic(10))
+            .name("Gandalf the Grey")
             .build();
     testUsersRequestObjects.add(testUserRequestObject);
     testUsersRequestObjects.add(
         UserRequestObject.builder()
-            .withId(RandomStringUtils.randomAlphabetic(10))
-            .withName("Frodo Baggins")
+            .id(RandomStringUtils.randomAlphabetic(10))
+            .name("Frodo Baggins")
             .build());
     testUsersRequestObjects.add(
         UserRequestObject.builder()
-            .withId(RandomStringUtils.randomAlphabetic(10))
-            .withName("Frodo Baggins")
+            .id(RandomStringUtils.randomAlphabetic(10))
+            .name("Frodo Baggins")
             .build());
     testUsersRequestObjects.add(
         UserRequestObject.builder()
-            .withId(RandomStringUtils.randomAlphabetic(10))
-            .withName("Samwise Gamgee")
+            .id(RandomStringUtils.randomAlphabetic(10))
+            .name("Samwise Gamgee")
             .build());
     UserUpsertRequest usersUpsertRequest = User.upsert();
     testUsersRequestObjects.forEach(user -> usersUpsertRequest.addUser(user));
@@ -114,7 +114,7 @@ public class BasicTest {
 
   protected static List<ChannelMemberRequestObject> buildChannelMembersList() {
     return testUsersRequestObjects.stream()
-        .map(user -> ChannelMemberRequestObject.builder().withUser(user).build())
+        .map(user -> ChannelMemberRequestObject.builder().user(user).build())
         .collect(Collectors.toList());
   }
 
@@ -122,8 +122,8 @@ public class BasicTest {
     return Channel.getOrCreate("team", RandomStringUtils.randomAlphabetic(12))
         .withData(
             ChannelRequestObject.builder()
-                .withCreatedBy(testUserRequestObject)
-                .withMembers(buildChannelMembersList())
+                .createdBy(testUserRequestObject)
+                .members(buildChannelMembersList())
                 .build())
         .request();
   }
@@ -131,10 +131,7 @@ public class BasicTest {
   protected static Message sendTestMessage() throws StreamException {
     String text = "This is a message";
     MessageRequestObject messageRequest =
-        MessageRequestObject.builder()
-            .withText(text)
-            .withUserId(testUserRequestObject.getId())
-            .build();
+        MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
     return Assertions.assertDoesNotThrow(
             () ->
                 Message.send(testChannel.getType(), testChannel.getId())

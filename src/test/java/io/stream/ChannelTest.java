@@ -26,8 +26,8 @@ public class ChannelTest extends BasicTest {
             Channel.getOrCreate(testChannel.getType(), null)
                 .withData(
                     ChannelRequestObject.builder()
-                        .withCreatedBy(testUserRequestObject)
-                        .withMembers(buildChannelMembersList())
+                        .createdBy(testUserRequestObject)
+                        .members(buildChannelMembersList())
                         .build())
                 .request());
   }
@@ -116,8 +116,8 @@ public class ChannelTest extends BasicTest {
                     Channel.export()
                         .addChannel(
                             ChannelExportRequestObject.builder()
-                                .withType(testChannel.getType())
-                                .withId(testChannel.getId())
+                                .type(testChannel.getType())
+                                .id(testChannel.getId())
                                 .build())
                         .request())
             .getTaskId();
@@ -133,8 +133,8 @@ public class ChannelTest extends BasicTest {
                     Channel.export()
                         .addChannel(
                             ChannelExportRequestObject.builder()
-                                .withType(testChannel.getType())
-                                .withId(testChannel.getId())
+                                .type(testChannel.getType())
+                                .id(testChannel.getId())
                                 .build())
                         .request())
             .getTaskId();

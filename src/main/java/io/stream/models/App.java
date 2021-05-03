@@ -1,5 +1,10 @@
 package io.stream.models;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.exceptions.StreamException;
 import io.stream.models.App.AppUpdateRequestData.AppUpdateRequest;
@@ -8,13 +13,9 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.AppService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -258,6 +259,7 @@ public class App extends StreamResponseObject {
     public FileUploadConfig() {}
   }
 
+  @Builder
   public static class FileUploadConfigRequestObject {
 
     @Nullable
@@ -275,63 +277,9 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("blocked_mime_types")
     private List<String> blockedMimeTypes;
-
-    private FileUploadConfigRequestObject(Builder builder) {
-      this.allowedFileExtensions = builder.allowedFileExtensions;
-      this.blockedFileExtensions = builder.blockedFileExtensions;
-      this.allowedMimeTypes = builder.allowedMimeTypes;
-      this.blockedMimeTypes = builder.blockedMimeTypes;
-    }
-
-    /**
-     * Creates builder to build {@link FileUploadConfigRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link FileUploadConfigRequestObject}. */
-    public static final class Builder {
-      private List<String> allowedFileExtensions;
-      private List<String> blockedFileExtensions;
-      private List<String> allowedMimeTypes;
-      private List<String> blockedMimeTypes;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withAllowedFileExtensions(@NotNull List<String> allowedFileExtensions) {
-        this.allowedFileExtensions = allowedFileExtensions;
-        return this;
-      }
-
-      @NotNull
-      public Builder withBlockedFileExtensions(@NotNull List<String> blockedFileExtensions) {
-        this.blockedFileExtensions = blockedFileExtensions;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAllowedMimeTypes(@NotNull List<String> allowedMimeTypes) {
-        this.allowedMimeTypes = allowedMimeTypes;
-        return this;
-      }
-
-      @NotNull
-      public Builder withBlockedMimeTypes(@NotNull List<String> blockedMimeTypes) {
-        this.blockedMimeTypes = blockedMimeTypes;
-        return this;
-      }
-
-      @NotNull
-      public FileUploadConfigRequestObject build() {
-        return new FileUploadConfigRequestObject(this);
-      }
-    }
   }
 
+  @Builder
   public static class APNConfigRequestObject {
     @NotNull
     @JsonProperty("enabled")
@@ -368,103 +316,9 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("key_Id")
     private String keyId;
-
-    private APNConfigRequestObject(Builder builder) {
-      this.enabled = builder.enabled;
-      this.development = builder.development;
-      this.authType = builder.authType;
-      this.authKey = builder.authKey;
-      this.notificationTemplate = builder.notificationTemplate;
-      this.host = builder.host;
-      this.bundleId = builder.bundleId;
-      this.teamId = builder.teamId;
-      this.keyId = builder.keyId;
-    }
-
-    /**
-     * Creates builder to build {@link APNConfigRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link APNConfigRequestObject}. */
-    public static final class Builder {
-      private Boolean enabled;
-      private Boolean development;
-      private String authType;
-      private byte[] authKey;
-      private String notificationTemplate;
-      private String host;
-      private String bundleId;
-      private String teamId;
-      private String keyId;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withEnabled(@NotNull Boolean enabled) {
-        this.enabled = enabled;
-        return this;
-      }
-
-      @NotNull
-      public Builder withDevelopment(@NotNull Boolean development) {
-        this.development = development;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAuthType(@NotNull String authType) {
-        this.authType = authType;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAuthKey(@NotNull byte[] authKey) {
-        this.authKey = authKey;
-        return this;
-      }
-
-      @NotNull
-      public Builder withNotificationTemplate(@NotNull String notificationTemplate) {
-        this.notificationTemplate = notificationTemplate;
-        return this;
-      }
-
-      @NotNull
-      public Builder withHost(@NotNull String host) {
-        this.host = host;
-        return this;
-      }
-
-      @NotNull
-      public Builder withBundleId(@NotNull String bundleId) {
-        this.bundleId = bundleId;
-        return this;
-      }
-
-      @NotNull
-      public Builder withTeamId(@NotNull String teamId) {
-        this.teamId = teamId;
-        return this;
-      }
-
-      @NotNull
-      public Builder withKeyId(@NotNull String keyId) {
-        this.keyId = keyId;
-        return this;
-      }
-
-      @NotNull
-      public APNConfigRequestObject build() {
-        return new APNConfigRequestObject(this);
-      }
-    }
   }
 
+  @Builder
   public static class FirebaseConfigRequestObject {
 
     @NotNull
@@ -478,95 +332,16 @@ public class App extends StreamResponseObject {
     @NotNull
     @JsonProperty("data_template")
     private String dataTemplate;
-
-    private FirebaseConfigRequestObject(Builder builder) {
-      this.enabled = builder.enabled;
-      this.notificationTemplate = builder.notificationTemplate;
-      this.dataTemplate = builder.dataTemplate;
-    }
-
-    /**
-     * Creates builder to build {@link FirebaseConfigRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link FirebaseConfigRequestObject}. */
-    public static final class Builder {
-      private Boolean enabled;
-      private String notificationTemplate;
-      private String dataTemplate;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withEnabled(@NotNull Boolean enabled) {
-        this.enabled = enabled;
-        return this;
-      }
-
-      @NotNull
-      public Builder withNotificationTemplate(@NotNull String notificationTemplate) {
-        this.notificationTemplate = notificationTemplate;
-        return this;
-      }
-
-      @NotNull
-      public Builder withDataTemplate(@NotNull String dataTemplate) {
-        this.dataTemplate = dataTemplate;
-        return this;
-      }
-
-      @NotNull
-      public FirebaseConfigRequestObject build() {
-        return new FirebaseConfigRequestObject(this);
-      }
-    }
   }
 
+  @Builder
   public static class PushConfigRequestObject {
-
     @Nullable
     @JsonProperty("version")
     private String version;
-
-    private PushConfigRequestObject(Builder builder) {
-      this.version = builder.version;
-    }
-
-    /**
-     * Creates builder to build {@link PushConfigRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link PushConfigRequestObject}. */
-    public static final class Builder {
-      private String version;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withVersion(@NotNull String version) {
-        this.version = version;
-        return this;
-      }
-
-      @NotNull
-      public PushConfigRequestObject build() {
-        return new PushConfigRequestObject(this);
-      }
-    }
   }
 
   public static class AppGetRequest extends StreamRequest<App> {
-
     @Override
     protected Call<App> generateCall() {
       return StreamServiceGenerator.createService(AppService.class).get();

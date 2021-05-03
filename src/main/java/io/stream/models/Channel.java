@@ -33,6 +33,7 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.ChannelService;
 import io.stream.services.framework.StreamServiceGenerator;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import retrofit2.Call;
@@ -185,8 +186,8 @@ public class Channel {
     public ChannelMember() {}
   }
 
+  @Builder
   public static class ChannelRequestObject {
-
     @Nullable
     @JsonProperty("created_by")
     private UserRequestObject createdBy;
@@ -216,102 +217,10 @@ public class Channel {
     @Nullable
     @JsonProperty("config_overrides")
     private ConfigOverridesRequestObject configOverrides;
-
-    private ChannelRequestObject(Builder builder) {
-      this.createdBy = builder.createdBy;
-      this.additionalFields = builder.additionalFields;
-      this.team = builder.team;
-      this.autoTranslationEnabled = builder.autoTranslationEnabled;
-      this.autoTranslationLanguage = builder.autoTranslationLanguage;
-      this.frozen = builder.frozen;
-      this.members = builder.members;
-      this.configOverrides = builder.configOverrides;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalFields() {
-      return this.additionalFields;
-    }
-
-    /**
-     * Creates builder to build {@link ChannelRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link ChannelRequestObject}. */
-    public static final class Builder {
-      private UserRequestObject createdBy;
-      private Map<String, Object> additionalFields;
-      private String team;
-      private Boolean autoTranslationEnabled;
-      private String autoTranslationLanguage;
-      private Boolean frozen;
-      private List<ChannelMemberRequestObject> members;
-      private ConfigOverridesRequestObject configOverrides;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withCreatedBy(@NotNull UserRequestObject createdBy) {
-        this.createdBy = createdBy;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAdditionalFields(@NotNull Map<String, Object> additionalFields) {
-        this.additionalFields = additionalFields;
-        return this;
-      }
-
-      @NotNull
-      public Builder withTeam(@NotNull String team) {
-        this.team = team;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAutoTranslationEnabled(@NotNull Boolean autoTranslationEnabled) {
-        this.autoTranslationEnabled = autoTranslationEnabled;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAutoTranslationLanguage(@NotNull String autoTranslationLanguage) {
-        this.autoTranslationLanguage = autoTranslationLanguage;
-        return this;
-      }
-
-      @NotNull
-      public Builder withFrozen(@NotNull Boolean frozen) {
-        this.frozen = frozen;
-        return this;
-      }
-
-      @NotNull
-      public Builder withMembers(@NotNull List<ChannelMemberRequestObject> members) {
-        this.members = members;
-        return this;
-      }
-
-      @NotNull
-      public Builder withConfigOverrides(@NotNull ConfigOverridesRequestObject configOverrides) {
-        this.configOverrides = configOverrides;
-        return this;
-      }
-
-      @NotNull
-      public ChannelRequestObject build() {
-        return new ChannelRequestObject(this);
-      }
-    }
   }
 
+  @Builder
   public static class ChannelMemberRequestObject {
-
     @Nullable
     @JsonProperty("user_id")
     private String userId;
@@ -359,129 +268,10 @@ public class Channel {
     @Nullable
     @JsonProperty("shadow_banned")
     private Boolean shadowBanned;
-
-    private ChannelMemberRequestObject(Builder builder) {
-      this.userId = builder.userId;
-      this.user = builder.user;
-      this.isModerator = builder.isModerator;
-      this.invited = builder.invited;
-      this.inviteAcceptedAt = builder.inviteAcceptedAt;
-      this.inviteRejectedAt = builder.inviteRejectedAt;
-      this.role = builder.role;
-      this.createdAt = builder.createdAt;
-      this.updatedAt = builder.updatedAt;
-      this.banned = builder.banned;
-      this.banExpires = builder.banExpires;
-      this.shadowBanned = builder.shadowBanned;
-    }
-
-    /**
-     * Creates builder to build {@link ChannelMemberRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link ChannelMemberRequestObject}. */
-    public static final class Builder {
-      private String userId;
-      private UserRequestObject user;
-      private Boolean isModerator;
-      private Boolean invited;
-      private Date inviteAcceptedAt;
-      private Date inviteRejectedAt;
-      private String role;
-      private Date createdAt;
-      private Date updatedAt;
-      private Boolean banned;
-      private String banExpires;
-      private Boolean shadowBanned;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withUserId(@NotNull String userId) {
-        this.userId = userId;
-        return this;
-      }
-
-      @NotNull
-      public Builder withUser(@NotNull UserRequestObject user) {
-        this.user = user;
-        return this;
-      }
-
-      @NotNull
-      public Builder withIsModerator(@NotNull Boolean isModerator) {
-        this.isModerator = isModerator;
-        return this;
-      }
-
-      @NotNull
-      public Builder withInvited(@NotNull Boolean invited) {
-        this.invited = invited;
-        return this;
-      }
-
-      @NotNull
-      public Builder withInviteAcceptedAt(@NotNull Date inviteAcceptedAt) {
-        this.inviteAcceptedAt = inviteAcceptedAt;
-        return this;
-      }
-
-      @NotNull
-      public Builder withInviteRejectedAt(@NotNull Date inviteRejectedAt) {
-        this.inviteRejectedAt = inviteRejectedAt;
-        return this;
-      }
-
-      @NotNull
-      public Builder withRole(@NotNull String role) {
-        this.role = role;
-        return this;
-      }
-
-      @NotNull
-      public Builder withCreatedAt(@NotNull Date createdAt) {
-        this.createdAt = createdAt;
-        return this;
-      }
-
-      @NotNull
-      public Builder withUpdatedAt(@NotNull Date updatedAt) {
-        this.updatedAt = updatedAt;
-        return this;
-      }
-
-      @NotNull
-      public Builder withBanned(@NotNull Boolean banned) {
-        this.banned = banned;
-        return this;
-      }
-
-      @NotNull
-      public Builder withBanExpires(@NotNull String banExpires) {
-        this.banExpires = banExpires;
-        return this;
-      }
-
-      @NotNull
-      public Builder withShadowBanned(@NotNull Boolean shadowBanned) {
-        this.shadowBanned = shadowBanned;
-        return this;
-      }
-
-      @NotNull
-      public ChannelMemberRequestObject build() {
-        return new ChannelMemberRequestObject(this);
-      }
-    }
   }
 
+  @Builder
   public static class ConfigOverridesRequestObject {
-
     @Nullable
     @JsonProperty("typing_events")
     private Boolean typingEvents;
@@ -513,95 +303,9 @@ public class Channel {
     @Nullable
     @JsonProperty("blocklist_behavior")
     private BlocklistBehavior blocklistBehavior;
-
-    private ConfigOverridesRequestObject(Builder builder) {
-      this.typingEvents = builder.typingEvents;
-      this.reactions = builder.reactions;
-      this.replies = builder.replies;
-      this.uploads = builder.uploads;
-      this.urlEnrichment = builder.urlEnrichment;
-      this.maxMessageLength = builder.maxMessageLength;
-      this.blocklist = builder.blocklist;
-      this.blocklistBehavior = builder.blocklistBehavior;
-    }
-
-    /**
-     * Creates builder to build {@link ConfigOverridesRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link ConfigOverridesRequestObject}. */
-    public static final class Builder {
-      private Boolean typingEvents;
-      private Boolean reactions;
-      private Boolean replies;
-      private Boolean uploads;
-      private Boolean urlEnrichment;
-      private Integer maxMessageLength;
-      private String blocklist;
-      private BlocklistBehavior blocklistBehavior;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withTypingEvents(@NotNull Boolean typingEvents) {
-        this.typingEvents = typingEvents;
-        return this;
-      }
-
-      @NotNull
-      public Builder withReactions(@NotNull Boolean reactions) {
-        this.reactions = reactions;
-        return this;
-      }
-
-      @NotNull
-      public Builder withReplies(@NotNull Boolean replies) {
-        this.replies = replies;
-        return this;
-      }
-
-      @NotNull
-      public Builder withUploads(@NotNull Boolean uploads) {
-        this.uploads = uploads;
-        return this;
-      }
-
-      @NotNull
-      public Builder withUrlEnrichment(@NotNull Boolean urlEnrichment) {
-        this.urlEnrichment = urlEnrichment;
-        return this;
-      }
-
-      @NotNull
-      public Builder withMaxMessageLength(@NotNull Integer maxMessageLength) {
-        this.maxMessageLength = maxMessageLength;
-        return this;
-      }
-
-      @NotNull
-      public Builder withBlocklist(@NotNull String blocklist) {
-        this.blocklist = blocklist;
-        return this;
-      }
-
-      @NotNull
-      public Builder withBlocklistBehavior(@NotNull BlocklistBehavior blocklistBehavior) {
-        this.blocklistBehavior = blocklistBehavior;
-        return this;
-      }
-
-      @NotNull
-      public ConfigOverridesRequestObject build() {
-        return new ConfigOverridesRequestObject(this);
-      }
-    }
   }
 
+  @Builder
   public static class ChannelExportRequestObject {
     @NotNull
     @JsonProperty("type")
@@ -618,65 +322,9 @@ public class Channel {
     @Nullable
     @JsonProperty("messages_until")
     private Date messagesUntil;
-
-    private ChannelExportRequestObject(Builder builder) {
-      this.type = builder.type;
-      this.id = builder.id;
-      this.messagesSince = builder.messagesSince;
-      this.messagesUntil = builder.messagesUntil;
-    }
-
-    /**
-     * Creates builder to build {@link ChannelExportRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link ChannelExportRequestObject}. */
-    public static final class Builder {
-      private String type;
-      private String id;
-      private Date messagesSince;
-      private Date messagesUntil;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withType(@NotNull String type) {
-        this.type = type;
-        return this;
-      }
-
-      @NotNull
-      public Builder withId(@NotNull String id) {
-        this.id = id;
-        return this;
-      }
-
-      @NotNull
-      public Builder withMessagesSince(@NotNull Date messagesSince) {
-        this.messagesSince = messagesSince;
-        return this;
-      }
-
-      @NotNull
-      public Builder withMessagesUntil(@NotNull Date messagesUntil) {
-        this.messagesUntil = messagesUntil;
-        return this;
-      }
-
-      @NotNull
-      public ChannelExportRequestObject build() {
-        return new ChannelExportRequestObject(this);
-      }
-    }
   }
 
   public static class ChannelGetRequestData {
-
     @Nullable
     @JsonProperty("connection_id")
     private String connectionId;

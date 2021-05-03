@@ -1,5 +1,10 @@
 package io.stream.models;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.exceptions.StreamException;
 import io.stream.models.ChannelType.ChannelTypeCreateRequestData.ChannelTypeCreateRequest;
@@ -9,13 +14,9 @@ import io.stream.models.framework.StreamResponse;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.ChannelTypeService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -201,6 +202,7 @@ public class ChannelType {
     BLOCK
   }
 
+  @Builder
   public static class ThresholdRequestObject {
     @Nullable
     @JsonProperty("flag")
@@ -209,47 +211,9 @@ public class ChannelType {
     @Nullable
     @JsonProperty("block")
     private Integer block;
-
-    private ThresholdRequestObject(Builder builder) {
-      this.flag = builder.flag;
-      this.block = builder.block;
-    }
-
-    /**
-     * Creates builder to build {@link ThresholdRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link ThresholdRequestObject}. */
-    public static final class Builder {
-      private Integer flag;
-      private Integer block;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withFlag(@NotNull Integer flag) {
-        this.flag = flag;
-        return this;
-      }
-
-      @NotNull
-      public Builder withBlock(@NotNull Integer block) {
-        this.block = block;
-        return this;
-      }
-
-      @NotNull
-      public ThresholdRequestObject build() {
-        return new ThresholdRequestObject(this);
-      }
-    }
   }
 
+  @Builder
   public static class PermissionRequestObject {
     @NotNull
     @JsonProperty("name")
@@ -274,77 +238,6 @@ public class ChannelType {
     @NotNull
     @JsonProperty("priority")
     private Integer priority;
-
-    private PermissionRequestObject(Builder builder) {
-      this.name = builder.name;
-      this.action = builder.action;
-      this.resources = builder.resources;
-      this.roles = builder.roles;
-      this.owner = builder.owner;
-      this.priority = builder.priority;
-    }
-
-    /**
-     * Creates builder to build {@link PermissionRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link PermissionRequestObject}. */
-    public static final class Builder {
-      private String name;
-      private String action;
-      private List<String> resources;
-      private List<String> roles;
-      private Boolean owner;
-      private Integer priority;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withName(@NotNull String name) {
-        this.name = name;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAction(@NotNull String action) {
-        this.action = action;
-        return this;
-      }
-
-      @NotNull
-      public Builder withResources(@NotNull List<String> resources) {
-        this.resources = resources;
-        return this;
-      }
-
-      @NotNull
-      public Builder withRoles(@NotNull List<String> roles) {
-        this.roles = roles;
-        return this;
-      }
-
-      @NotNull
-      public Builder withOwner(@NotNull Boolean owner) {
-        this.owner = owner;
-        return this;
-      }
-
-      @NotNull
-      public Builder withPriority(@NotNull Integer priority) {
-        this.priority = priority;
-        return this;
-      }
-
-      @NotNull
-      public PermissionRequestObject build() {
-        return new PermissionRequestObject(this);
-      }
-    }
   }
 
   @Data

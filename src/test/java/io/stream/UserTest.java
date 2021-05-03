@@ -34,8 +34,8 @@ public class UserTest extends BasicTest {
                     usersUpsertRequest
                         .addUser(
                             UserRequestObject.builder()
-                                .withId(RandomStringUtils.randomAlphabetic(10))
-                                .withName("Samwise Gamgee")
+                                .id(RandomStringUtils.randomAlphabetic(10))
+                                .name("Samwise Gamgee")
                                 .build())
                         .request())
             .getUsers()
@@ -48,9 +48,9 @@ public class UserTest extends BasicTest {
     addedValues.put(addedKey, addedValue);
     UserPartialUpdateRequestObject userPartialUpdateRequestObject =
         UserPartialUpdateRequestObject.builder()
-            .withId(user.getId())
-            .withUnset(Arrays.asList("name"))
-            .withSetValue(addedValues)
+            .id(user.getId())
+            .unset(Arrays.asList("name"))
+            .setValue(addedValues)
             .build();
     User updatedUser =
         Assertions.assertDoesNotThrow(
@@ -69,8 +69,7 @@ public class UserTest extends BasicTest {
   void whenBanUser_thenNoException() {
     String userId = RandomStringUtils.randomAlphabetic(10);
     UserUpsertRequest usersUpsertRequest = User.upsert();
-    usersUpsertRequest.addUser(
-        UserRequestObject.builder().withId(userId).withName("User to ban").build());
+    usersUpsertRequest.addUser(UserRequestObject.builder().id(userId).name("User to ban").build());
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     Assertions.assertDoesNotThrow(
         () ->
@@ -85,8 +84,7 @@ public class UserTest extends BasicTest {
   void whenListingBannedUsers_thenNoException() {
     String userId = RandomStringUtils.randomAlphabetic(10);
     UserUpsertRequest usersUpsertRequest = User.upsert();
-    usersUpsertRequest.addUser(
-        UserRequestObject.builder().withId(userId).withName("User to ban").build());
+    usersUpsertRequest.addUser(UserRequestObject.builder().id(userId).name("User to ban").build());
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     Assertions.assertDoesNotThrow(
         () ->

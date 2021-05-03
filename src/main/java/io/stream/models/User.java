@@ -1,5 +1,13 @@
 package io.stream.models;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,17 +21,10 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.UserService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -323,8 +324,8 @@ public class User {
     public UserMute() {}
   }
 
+  @Builder
   public static class UserRequestObject {
-
     @NotNull
     @JsonProperty("id")
     @Getter
@@ -355,105 +356,9 @@ public class User {
     private List<String> teams;
 
     @Nullable @JsonIgnore private Map<String, Object> additionalFields;
-
-    private UserRequestObject(Builder builder) {
-      this.id = builder.id;
-      this.name = builder.name;
-      this.role = builder.role;
-      this.banned = builder.banned;
-      this.banExpires = builder.banExpires;
-      this.language = builder.language;
-      this.teams = builder.teams;
-      this.additionalFields = builder.additionalFields;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalFields() {
-      return this.additionalFields;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalField(String name, Object value) {
-      this.additionalFields.put(name, value);
-    }
-
-    /**
-     * Creates builder to build {@link UserRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link UserRequestObject}. */
-    public static final class Builder {
-      private String id;
-      private String name;
-      private String role;
-      private Boolean banned;
-      private String banExpires;
-      private String language;
-      private List<String> teams;
-      private Map<String, Object> additionalFields;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withId(@NotNull String id) {
-        this.id = id;
-        return this;
-      }
-
-      @NotNull
-      public Builder withName(@NotNull String name) {
-        this.name = name;
-        return this;
-      }
-
-      @NotNull
-      public Builder withRole(@NotNull String role) {
-        this.role = role;
-        return this;
-      }
-
-      @NotNull
-      public Builder withBanned(@NotNull Boolean banned) {
-        this.banned = banned;
-        return this;
-      }
-
-      @NotNull
-      public Builder withBanExpires(@NotNull String banExpires) {
-        this.banExpires = banExpires;
-        return this;
-      }
-
-      @NotNull
-      public Builder withLanguage(@NotNull String language) {
-        this.language = language;
-        return this;
-      }
-
-      @NotNull
-      public Builder withTeams(@NotNull List<String> teams) {
-        this.teams = teams;
-        return this;
-      }
-
-      @NotNull
-      public Builder withAdditionalFields(@NotNull Map<String, Object> additionalFields) {
-        this.additionalFields = additionalFields;
-        return this;
-      }
-
-      @NotNull
-      public UserRequestObject build() {
-        return new UserRequestObject(this);
-      }
-    }
   }
 
+  @Builder
   public static class UserPartialUpdateRequestObject {
     @NotNull
     @JsonProperty("id")
@@ -466,57 +371,9 @@ public class User {
     @NotNull
     @JsonProperty("unset")
     private List<String> unset;
-
-    private UserPartialUpdateRequestObject(Builder builder) {
-      this.id = builder.id;
-      this.setValue = builder.setValue;
-      this.unset = builder.unset;
-    }
-
-    /**
-     * Creates builder to build {@link UserPartialUpdateRequestObject}.
-     *
-     * @return created builder
-     */
-    public static Builder builder() {
-      return new Builder();
-    }
-
-    /** Builder to build {@link UserPartialUpdateRequestObject}. */
-    public static final class Builder {
-      private String id;
-      private Map<String, Object> setValue;
-      private List<String> unset;
-
-      private Builder() {}
-
-      @NotNull
-      public Builder withId(@NotNull String id) {
-        this.id = id;
-        return this;
-      }
-
-      @NotNull
-      public Builder withSetValue(@NotNull Map<String, Object> setValue) {
-        this.setValue = setValue;
-        return this;
-      }
-
-      @NotNull
-      public Builder withUnset(@NotNull List<String> unset) {
-        this.unset = unset;
-        return this;
-      }
-
-      @NotNull
-      public UserPartialUpdateRequestObject build() {
-        return new UserPartialUpdateRequestObject(this);
-      }
-    }
   }
 
   public static class UserUpsertRequestData {
-
     @NotNull
     @JsonProperty("users")
     private Map<String, UserRequestObject> users;

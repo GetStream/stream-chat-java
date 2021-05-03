@@ -28,8 +28,8 @@ public class MessageTest extends BasicTest {
     String updatedText = "This is an updated message";
     MessageRequestObject updatedMessageRequest =
         MessageRequestObject.builder()
-            .withText(updatedText)
-            .withUserId(testUserRequestObject.getId())
+            .text(updatedText)
+            .userId(testUserRequestObject.getId())
             .build();
     Message updatedMessage =
         Assertions.assertDoesNotThrow(
@@ -64,7 +64,7 @@ public class MessageTest extends BasicTest {
             App.update()
                 .withFileUploadConfig(
                     FileUploadConfigRequestObject.builder()
-                        .withAllowedFileExtensions(Collections.emptyList())
+                        .allowedFileExtensions(Collections.emptyList())
                         .build())
                 .request());
     Assertions.assertDoesNotThrow(
@@ -85,7 +85,7 @@ public class MessageTest extends BasicTest {
             App.update()
                 .withFileUploadConfig(
                     FileUploadConfigRequestObject.builder()
-                        .withAllowedFileExtensions(Collections.emptyList())
+                        .allowedFileExtensions(Collections.emptyList())
                         .build())
                 .request());
     Assertions.assertDoesNotThrow(
@@ -105,7 +105,7 @@ public class MessageTest extends BasicTest {
             App.update()
                 .withImageUploadConfig(
                     FileUploadConfigRequestObject.builder()
-                        .withAllowedFileExtensions(Collections.emptyList())
+                        .allowedFileExtensions(Collections.emptyList())
                         .build())
                 .request());
     Assertions.assertDoesNotThrow(
@@ -128,7 +128,7 @@ public class MessageTest extends BasicTest {
             App.update()
                 .withImageUploadConfig(
                     FileUploadConfigRequestObject.builder()
-                        .withAllowedFileExtensions(Collections.emptyList())
+                        .allowedFileExtensions(Collections.emptyList())
                         .build())
                 .request());
     Assertions.assertDoesNotThrow(
@@ -143,10 +143,10 @@ public class MessageTest extends BasicTest {
                 .withUploadSizes(
                     Arrays.asList(
                         ImageSizeRequestObject.builder()
-                            .withCrop(Crop.TOP)
-                            .withResize(Resize.SCALE)
-                            .withHeight(200)
-                            .withWidth(200)
+                            .crop(Crop.TOP)
+                            .resize(Resize.SCALE)
+                            .height(200)
+                            .width(200)
                             .build()))
                 .request());
   }
