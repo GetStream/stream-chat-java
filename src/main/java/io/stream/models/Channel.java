@@ -1049,7 +1049,8 @@ public class Channel {
     }
 
     public static final class ChannelExportRequest extends StreamRequest<ChannelExportResponse> {
-      private List<ChannelExportRequestObject> channels = new ArrayList<>();;
+      private List<ChannelExportRequestObject> channels = new ArrayList<>();
+      ;
 
       private ChannelExportRequest() {}
 
