@@ -1,5 +1,9 @@
 package io.stream.models;
 
+import java.util.Date;
+import java.util.List;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.models.Device.DeviceCreateRequestData.DeviceCreateRequest;
 import io.stream.models.User.UserRequestObject;
@@ -7,12 +11,9 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.DeviceService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.Date;
-import java.util.List;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -48,6 +49,33 @@ public class Device {
     FIREBASE,
     @JsonProperty("apn")
     APN
+  }
+
+  @Builder
+  public static class DeviceRequestObject {
+    @Nullable
+    @JsonProperty("push_provider")
+    private PushProvider pushProvider;
+
+    @NotNull
+    @JsonProperty("id")
+    private String id;
+
+    @Nullable
+    @JsonProperty("created_at")
+    private Date createdAt;
+
+    @Nullable
+    @JsonProperty("disabled")
+    private Boolean disabled;
+
+    @Nullable
+    @JsonProperty("disabled_reason")
+    private String disabledReason;
+
+    @NotNull
+    @JsonProperty("user_id")
+    private String userId;
   }
 
   public static class DeviceCreateRequestData {

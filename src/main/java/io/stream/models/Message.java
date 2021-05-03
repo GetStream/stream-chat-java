@@ -594,6 +594,21 @@ public class Message {
     private Integer width;
   }
 
+  @Builder
+  public static class ModerationRequestObject {
+    @Nullable
+    @JsonProperty("toxic")
+    private Integer toxic;
+
+    @Nullable
+    @JsonProperty("explicit")
+    private Integer explicit;
+
+    @Nullable
+    @JsonProperty("spam")
+    private Integer spam;
+  }
+
   public static class MessageSendRequestData {
     @Nullable
     @JsonProperty("message")
@@ -761,7 +776,10 @@ public class Message {
     private String contentType;
 
     private MessageUploadFileRequest(
-        @NotNull String channelType, @NotNull String channelId, @NotNull String userId, @Nullable String contentType) {
+        @NotNull String channelType,
+        @NotNull String channelId,
+        @NotNull String userId,
+        @Nullable String contentType) {
       this.channelType = channelType;
       this.channelId = channelId;
       this.userId = userId;
@@ -960,7 +978,9 @@ public class Message {
    */
   @NotNull
   public static MessageUploadFileRequest uploadFile(
-      @NotNull String channelType, @NotNull String channelId, @NotNull String userId,
+      @NotNull String channelType,
+      @NotNull String channelId,
+      @NotNull String userId,
       @Nullable String contentType) {
     return new MessageUploadFileRequest(channelType, channelId, userId, contentType);
   }

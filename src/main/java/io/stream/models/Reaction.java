@@ -1,13 +1,17 @@
 package io.stream.models;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.HashMap;
-import java.util.Map;
+import io.stream.models.User.UserRequestObject;
+import lombok.Builder;
 import lombok.Data;
-import org.jetbrains.annotations.NotNull;
 
 @Data
 public class Reaction {
@@ -23,6 +27,18 @@ public class Reaction {
   @JsonProperty("type")
   private String type;
 
+  @Nullable
+  @JsonProperty("score")
+  private Integer score;
+
+  @NotNull
+  @JsonProperty("created_at")
+  private Date createdAt;
+
+  @NotNull
+  @JsonProperty("updated_at")
+  private Date updatedAt;
+
   @NotNull @JsonIgnore private Map<String, Object> additionalFields;
 
   public Reaction() {
@@ -37,5 +53,40 @@ public class Reaction {
   @JsonAnySetter
   public void setAdditionalField(String name, Object value) {
     this.additionalFields.put(name, value);
+  }
+
+  @Builder
+  public static class ReactionRequestObject {
+    @NotNull
+    @JsonProperty("message_id")
+    private String messageId;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    @NotNull
+    @JsonProperty("type")
+    private String type;
+
+    @Nullable
+    @JsonProperty("score")
+    private Integer score;
+
+    @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalFields() {
+      return this.additionalFields;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalField(String name, Object value) {
+      this.additionalFields.put(name, value);
+    }
   }
 }

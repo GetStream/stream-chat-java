@@ -1,9 +1,18 @@
 package io.stream.models;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.stream.models.Device.DeviceRequestObject;
 import io.stream.models.User.UserBanRequestData.UserBanRequest;
 import io.stream.models.User.UserListRequestData.UserQueryRequest;
 import io.stream.models.User.UserPartialUpdateRequestData.UserPartialUpdateRequest;
@@ -13,18 +22,10 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.UserService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -371,6 +372,147 @@ public class User {
     @NotNull
     @JsonProperty("unset")
     private List<String> unset;
+  }
+
+  @Builder
+  public static class OwnUserRequestObject {
+    @NotNull
+    @JsonProperty("id")
+    private String id;
+
+    @Nullable
+    @JsonProperty("role")
+    private String role;
+
+    @Nullable
+    @JsonProperty("roles")
+    private List<String> roles;
+
+    @Nullable
+    @JsonProperty("created_at")
+    private Date createdAt;
+
+    @Nullable
+    @JsonProperty("updated_at")
+    private Date updatedAt;
+
+    @Nullable
+    @JsonProperty("last_active")
+    private Date lastActive;
+
+    @Nullable
+    @JsonProperty("deleted_at")
+    private Date deletedAt;
+
+    @Nullable
+    @JsonProperty("deactivated_at")
+    private Date deactivatedAt;
+
+    @Nullable
+    @JsonProperty("banned")
+    private Boolean banned;
+
+    @Nullable
+    @JsonProperty("online")
+    private Boolean online;
+
+    @Nullable
+    @JsonProperty("invisible")
+    private Boolean invisible;
+
+    @Nullable
+    @JsonProperty("devices")
+    private List<DeviceRequestObject> devices;
+
+    @Nullable
+    @JsonProperty("mutes")
+    private List<UserMuteRequestObject> mutes;
+
+    @Nullable
+    @JsonProperty("channel_mutes")
+    private List<ChannelMuteRequestObject> channelMutes;
+
+    @Nullable
+    @JsonProperty("unread_count")
+    private Integer unreadCount;
+
+    @Nullable
+    @JsonProperty("total_unread_count")
+    private Integer totalUnreadCount;
+
+    @Nullable
+    @JsonProperty("unread_channels")
+    private Integer unreadChannels;
+
+    @Nullable
+    @JsonProperty("language")
+    private String language;
+
+    @Nullable
+    @JsonProperty("teams")
+    private List<String> teams;
+
+    @Nullable
+    @JsonProperty("latest_hidden_channels")
+    private List<String> latestHiddenChannels;
+
+    @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalFields() {
+      return this.additionalFields;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalField(String name, Object value) {
+      this.additionalFields.put(name, value);
+    }
+  }
+
+  @Builder
+  public static class UserMuteRequestObject {
+    @NotNull
+    @JsonProperty("user")
+    private User user;
+
+    @NotNull
+    @JsonProperty("target")
+    private User target;
+
+    @Nullable
+    @JsonProperty("expires")
+    private Date expires;
+
+    @Nullable
+    @JsonProperty("created_at")
+    private Date created_at;
+
+    @Nullable
+    @JsonProperty("updated_at")
+    private Date updated_at;
+  }
+
+  @Builder
+  public static class ChannelMuteRequestObject {
+    @NotNull
+    @JsonProperty("user")
+    private User user;
+
+    @NotNull
+    @JsonProperty("channel")
+    private Channel channel;
+
+    @Nullable
+    @JsonProperty("expires")
+    private Date expires;
+
+    @Nullable
+    @JsonProperty("created_at")
+    private Date createdAt;
+
+    @Nullable
+    @JsonProperty("updated_at")
+    private Date updatedAt;
   }
 
   public static class UserUpsertRequestData {
