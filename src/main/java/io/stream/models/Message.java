@@ -761,21 +761,16 @@ public class Message {
     private String contentType;
 
     private MessageUploadFileRequest(
-        @NotNull String channelType, @NotNull String channelId, @NotNull String userId) {
+        @NotNull String channelType, @NotNull String channelId, @NotNull String userId, @Nullable String contentType) {
       this.channelType = channelType;
       this.channelId = channelId;
       this.userId = userId;
+      this.contentType = contentType;
     }
 
     @NotNull
     public MessageUploadFileRequest file(@NotNull File file) {
       this.file = file;
-      return this;
-    }
-
-    @NotNull
-    public MessageUploadFileRequest contentType(@NotNull String contentType) {
-      this.contentType = contentType;
       return this;
     }
 
@@ -960,12 +955,14 @@ public class Message {
    * @param channelType the channel type
    * @param channelId the channel id
    * @param userId the id of the user sending this file
+   * @param contentType the content type of the file to send
    * @return the created request
    */
   @NotNull
   public static MessageUploadFileRequest uploadFile(
-      @NotNull String channelType, @NotNull String channelId, @NotNull String userId) {
-    return new MessageUploadFileRequest(channelType, channelId, userId);
+      @NotNull String channelType, @NotNull String channelId, @NotNull String userId,
+      @Nullable String contentType) {
+    return new MessageUploadFileRequest(channelType, channelId, userId, contentType);
   }
 
   /**

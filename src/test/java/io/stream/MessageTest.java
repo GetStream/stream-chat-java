@@ -70,10 +70,9 @@ public class MessageTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             Message.uploadFile(
-                    testChannel.getType(), testChannel.getId(), testUserRequestObject.getId())
+                    testChannel.getType(), testChannel.getId(), testUserRequestObject.getId(), "text/plain")
                 .file(
                     new File(getClass().getClassLoader().getResource("upload_file.txt").getFile()))
-                .contentType("text/plain")
                 .request());
   }
 
@@ -91,7 +90,7 @@ public class MessageTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             Message.uploadFile(
-                    testChannel.getType(), testChannel.getId(), testUserRequestObject.getId())
+                    testChannel.getType(), testChannel.getId(), testUserRequestObject.getId(), null)
                 .file(
                     new File(getClass().getClassLoader().getResource("upload_file.pdf").getFile()))
                 .request());
