@@ -1,31 +1,33 @@
 package io.stream.models;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.stream.models.Device.DeviceRequestObject;
-import io.stream.models.User.UserBanRequestData.UserBanRequest;
-import io.stream.models.User.UserListRequestData.UserQueryRequest;
-import io.stream.models.User.UserPartialUpdateRequestData.UserPartialUpdateRequest;
-import io.stream.models.User.UserQueryBannedRequestData.UserQueryBannedRequest;
-import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
-import io.stream.models.framework.StreamRequest;
-import io.stream.models.framework.StreamResponseObject;
-import io.stream.services.UserService;
-import io.stream.services.framework.StreamServiceGenerator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.stream.models.Device.DeviceRequestObject;
+import io.stream.models.User.UserBanRequestData.UserBanRequest;
+import io.stream.models.User.UserDeactivateRequestData.UserDeactivateRequest;
+import io.stream.models.User.UserListRequestData.UserQueryRequest;
+import io.stream.models.User.UserPartialUpdateRequestData.UserPartialUpdateRequest;
+import io.stream.models.User.UserQueryBannedRequestData.UserQueryBannedRequest;
+import io.stream.models.User.UserReactivateRequestData.UserReactivateRequest;
+import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
+import io.stream.models.framework.StreamRequest;
+import io.stream.models.framework.StreamResponseObject;
+import io.stream.services.UserService;
+import io.stream.services.framework.StreamServiceGenerator;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -984,6 +986,150 @@ public class User {
     }
   }
 
+  public static class UserDeactivateRequestData {
+    @NotNull
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("mark_messages_deleted")
+    private Boolean markMessagesDeleted;
+
+    @Nullable
+    @JsonProperty("created_by_id")
+    private String createdById;
+
+    private UserDeactivateRequestData(UserDeactivateRequest userDeactivateRequest) {
+      this.userId = userDeactivateRequest.userId;
+      this.markMessagesDeleted = userDeactivateRequest.markMessagesDeleted;
+      this.createdById = userDeactivateRequest.createdById;
+    }
+
+    public static final class UserDeactivateRequest extends StreamRequest<UserDeactivateResponse> {
+      private String userId;
+      private Boolean markMessagesDeleted;
+      private String createdById;
+
+      private UserDeactivateRequest(@NotNull String userId) {
+        this.userId = userId;
+      }
+
+      @NotNull
+      public UserDeactivateRequest markMessagesDeleted(@NotNull Boolean markMessagesDeleted) {
+        this.markMessagesDeleted = markMessagesDeleted;
+        return this;
+      }
+
+      @NotNull
+      public UserDeactivateRequest createdById(@NotNull String createdById) {
+        this.createdById = createdById;
+        return this;
+      }
+
+      @Override
+      protected Call<UserDeactivateResponse> generateCall() {
+        return StreamServiceGenerator.createService(UserService.class)
+            .deactivate(userId, new UserDeactivateRequestData(this));
+      }
+    }
+  }
+
+  public static final class UserDeleteRequest extends StreamRequest<UserDeleteResponse> {
+    private String userId;
+    private Boolean markMessagesDeleted;
+    private Boolean hardDelete;
+    private Boolean deleteConversationChannels;
+
+    private UserDeleteRequest(@NotNull String userId) {
+      this.userId = userId;
+    }
+
+    @NotNull
+    public UserDeleteRequest markMessagesDeleted(@NotNull Boolean markMessagesDeleted) {
+      this.markMessagesDeleted = markMessagesDeleted;
+      return this;
+    }
+
+    @NotNull
+    public UserDeleteRequest hardDelete(@NotNull Boolean hardDelete) {
+      this.hardDelete = hardDelete;
+      return this;
+    }
+
+    @NotNull
+    public UserDeleteRequest deleteConversationChannels(
+        @NotNull Boolean deleteConversationChannels) {
+      this.deleteConversationChannels = deleteConversationChannels;
+      return this;
+    }
+
+    @Override
+    protected Call<UserDeleteResponse> generateCall() {
+      return StreamServiceGenerator.createService(UserService.class)
+          .delete(userId, markMessagesDeleted, hardDelete, deleteConversationChannels);
+    }
+  }
+
+  public static class UserReactivateRequestData {
+    @NotNull
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("restore_messages")
+    private Boolean restoreMessages;
+
+    @Nullable
+    @JsonProperty("name")
+    private String name;
+
+    @Nullable
+    @JsonProperty("created_by_id")
+    private String createdById;
+
+    private UserReactivateRequestData(UserReactivateRequest userReactivateRequest) {
+      this.userId = userReactivateRequest.userId;
+      this.restoreMessages = userReactivateRequest.restoreMessages;
+      this.name = userReactivateRequest.name;
+      this.createdById = userReactivateRequest.createdById;
+    }
+
+    public static final class UserReactivateRequest extends StreamRequest<UserReactivateResponse> {
+      private String userId;
+      private Boolean restoreMessages;
+      private String name;
+      private String createdById;
+
+      private UserReactivateRequest(@NotNull String userId) {
+        this.userId = userId;
+      }
+
+      @NotNull
+      public UserReactivateRequest restoreMessages(@NotNull Boolean restoreMessages) {
+        this.restoreMessages = restoreMessages;
+        return this;
+      }
+
+      @NotNull
+      public UserReactivateRequest name(@NotNull String name) {
+        this.name = name;
+        return this;
+      }
+
+      @NotNull
+      public UserReactivateRequest createdById(@NotNull String createdById) {
+        this.createdById = createdById;
+        return this;
+      }
+
+      @Override
+      protected Call<UserReactivateResponse> generateCall() {
+        return StreamServiceGenerator.createService(UserService.class)
+            .reactivate(userId, new UserReactivateRequestData(this));
+      }
+    }
+  }
+
   @Data
   @EqualsAndHashCode(callSuper = true)
   public static class UserUpsertResponse extends StreamResponseObject {
@@ -1022,6 +1168,36 @@ public class User {
     private List<Ban> bans;
 
     public UserQueryBannedResponse() {}
+  }
+
+  @Data
+  @EqualsAndHashCode(callSuper = true)
+  public static class UserDeactivateResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("user")
+    private User user;
+
+    public UserDeactivateResponse() {}
+  }
+
+  @Data
+  @EqualsAndHashCode(callSuper = true)
+  public static class UserDeleteResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("user")
+    private User user;
+
+    public UserDeleteResponse() {}
+  }
+
+  @Data
+  @EqualsAndHashCode(callSuper = true)
+  public static class UserReactivateResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("user")
+    private User user;
+
+    public UserReactivateResponse() {}
   }
 
   /**
@@ -1072,5 +1248,38 @@ public class User {
   @NotNull
   public static UserQueryBannedRequest queryBanned() {
     return new UserQueryBannedRequest();
+  }
+
+  /**
+   * Creates a deactivate request
+   *
+   * @param userId the user id to deactivate
+   * @return the created request
+   */
+  @NotNull
+  public static UserDeactivateRequest deactivate(@NotNull String userId) {
+    return new UserDeactivateRequest(userId);
+  }
+
+  /**
+   * Creates a delete request
+   *
+   * @param userId the user id to deactivate
+   * @return the created request
+   */
+  @NotNull
+  public static UserDeleteRequest delete(@NotNull String userId) {
+    return new UserDeleteRequest(userId);
+  }
+
+  /**
+   * Creates a reactivate request
+   *
+   * @param userId the user id to reactivate
+   * @return the created request
+   */
+  @NotNull
+  public static UserReactivateRequest reactivate(@NotNull String userId) {
+    return new UserReactivateRequest(userId);
   }
 }

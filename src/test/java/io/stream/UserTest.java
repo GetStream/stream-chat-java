@@ -86,4 +86,46 @@ public class UserTest extends BasicTest {
         () -> User.ban().userId(testUserRequestObject.getId()).targetUserId(userId).request());
     Assertions.assertDoesNotThrow(() -> User.queryBanned().request());
   }
+
+  @DisplayName("Can deactivate user")
+  @Test
+  void whenDeactivateUser_thenIsDeactivated() {
+    String userId = RandomStringUtils.randomAlphabetic(10);
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.addUser(UserRequestObject.builder().id(userId).name("User to ban").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+    User deactivatedUser =
+        Assertions.assertDoesNotThrow(
+                () -> User.deactivate(userId).createdById(testUserRequestObject.getId()).request())
+            .getUser();
+    Assertions.assertNotNull(deactivatedUser.getDeactivatedAt());
+  }
+
+  @DisplayName("Can reactivate user")
+  @Test
+  void whenReactivateUser_thenIsReactivated() {
+    String userId = RandomStringUtils.randomAlphabetic(10);
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.addUser(UserRequestObject.builder().id(userId).name("User to ban").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+    Assertions.assertDoesNotThrow(
+            () -> User.deactivate(userId).createdById(testUserRequestObject.getId()).request())
+        .getUser();
+    User reactivatedUser =
+        Assertions.assertDoesNotThrow(
+                () -> User.reactivate(userId).createdById(testUserRequestObject.getId()).request())
+            .getUser();
+    Assertions.assertNull(reactivatedUser.getDeactivatedAt());
+  }
+
+  @DisplayName("Can delete user")
+  @Test
+  void whenDeleteUser_thenIsDeleted() {
+    String userId = RandomStringUtils.randomAlphabetic(10);
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.addUser(UserRequestObject.builder().id(userId).name("User to ban").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+    User deletedUser = Assertions.assertDoesNotThrow(() -> User.delete(userId).request()).getUser();
+    Assertions.assertNotNull(deletedUser.getDeletedAt());
+  }
 }
