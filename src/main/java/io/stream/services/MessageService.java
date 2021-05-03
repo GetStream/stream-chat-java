@@ -44,20 +44,20 @@ public interface MessageService {
   @Headers("X-Stream-LogRequestBody: false")
   @POST("channels/{type}/{id}/file")
   Call<MessageUploadFileResponse> uploadFile(
-      @Path("type") String channelType,
-      @Path("id") String channelId,
-      @Part("user") RequestBody userRequestBody,
-      @Part MultipartBody.Part multipartFile);
+      @NotNull @Path("type") String channelType,
+      @NotNull @Path("id") String channelId,
+      @NotNull @Part("user") RequestBody userRequestBody,
+      @NotNull @Part MultipartBody.Part multipartFile);
 
   @Multipart
   @Headers("X-Stream-LogRequestBody: false")
   @POST("channels/{type}/{id}/image")
   Call<MessageUploadImageResponse> uploadImage(
-      @Path("type") String channelType,
-      @Path("id") String channelId,
-      @Part("user") RequestBody userRequestBody,
-      @Part MultipartBody.Part multipartFile,
-      @Part("upload_sizes") RequestBody uploadSizesRequestBody);
+      @NotNull @Path("type") String channelType,
+      @NotNull @Path("id") String channelId,
+      @NotNull @Part("user") RequestBody userRequestBody,
+      @NotNull @Part MultipartBody.Part multipartFile,
+      @NotNull @Part("upload_sizes") RequestBody uploadSizesRequestBody);
 
   @DELETE("channels/{type}/{id}/file")
   Call<StreamResponseObject> deleteFile(
