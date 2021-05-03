@@ -200,7 +200,7 @@ public class Command {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class CommandCreateResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("command")
@@ -210,7 +210,7 @@ public class Command {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class CommandGetResponse extends Command implements StreamResponse {
     private RateLimitData rateLimitData;
 
@@ -218,7 +218,7 @@ public class Command {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class CommandUpdateResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("command")
@@ -228,7 +228,7 @@ public class Command {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class CommandDeleteResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("name")
@@ -238,7 +238,7 @@ public class Command {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class CommandListResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("commands")

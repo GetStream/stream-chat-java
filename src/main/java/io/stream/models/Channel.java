@@ -1790,7 +1790,7 @@ public class Channel {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelGetResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("channel")
@@ -1836,7 +1836,7 @@ public class Channel {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelUpdateResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("channel")
@@ -1854,7 +1854,7 @@ public class Channel {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelDeleteResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("channel")
@@ -1864,7 +1864,7 @@ public class Channel {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelListResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("channels")
@@ -1874,7 +1874,7 @@ public class Channel {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelTruncateResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("channel")
@@ -1884,7 +1884,7 @@ public class Channel {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelQueryMembersResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("members")
@@ -1894,7 +1894,7 @@ public class Channel {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelExportResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("task_id")
@@ -1904,7 +1904,7 @@ public class Channel {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelExportStatusResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("task_id")
@@ -1987,7 +1987,7 @@ public class Channel {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelMarkReadResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("event")
@@ -1997,7 +1997,7 @@ public class Channel {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelMuteResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("channel_mute")
@@ -2015,7 +2015,7 @@ public class Channel {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelUnMuteResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("channel_mute")

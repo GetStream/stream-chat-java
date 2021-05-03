@@ -988,7 +988,7 @@ public class User {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class UserUpsertResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("users")
@@ -998,7 +998,7 @@ public class User {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class UserListResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("users")
@@ -1008,7 +1008,7 @@ public class User {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class UserPartialUpdateResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("users")
@@ -1018,7 +1018,7 @@ public class User {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class UserQueryBannedResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("bans")

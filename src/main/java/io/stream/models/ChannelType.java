@@ -19,7 +19,6 @@ import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
 public class ChannelType {
   @Nullable
   @JsonProperty("name")
@@ -349,7 +348,7 @@ public class ChannelType {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelTypeWithStringCommands extends ChannelType {
 
     @Nullable
@@ -358,7 +357,7 @@ public class ChannelType {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelTypeWithCommands extends ChannelType {
 
     @Nullable
@@ -945,7 +944,7 @@ public class ChannelType {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelTypeCreateResponse extends ChannelTypeWithStringCommands
       implements StreamResponse {
     private RateLimitData rateLimitData;
@@ -954,14 +953,14 @@ public class ChannelType {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelTypeGetResponse extends ChannelTypeWithStringCommands
       implements StreamResponse {
     private RateLimitData rateLimitData;
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelTypeUpdateResponse extends ChannelTypeWithStringCommands
       implements StreamResponse {
     private RateLimitData rateLimitData;
@@ -970,7 +969,7 @@ public class ChannelType {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelTypeListResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("channel_types")

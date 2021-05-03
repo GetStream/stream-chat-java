@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class App extends StreamResponseObject {
   @Nullable
   @JsonProperty("app")

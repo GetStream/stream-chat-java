@@ -155,7 +155,7 @@ public class Device {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class DeviceListResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("devices")

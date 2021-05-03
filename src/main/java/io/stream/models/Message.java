@@ -276,7 +276,7 @@ public class Message {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class SearchResultMessage extends Message {
     @NotNull
     @JsonProperty("channel")
@@ -1506,7 +1506,7 @@ public class Message {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class MessageSendResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("message")
@@ -1516,7 +1516,7 @@ public class Message {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class MessageUpdateResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("message")
@@ -1526,7 +1526,7 @@ public class Message {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class MessageSearchResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("results")
@@ -1536,7 +1536,7 @@ public class Message {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class MessageUploadFileResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("file")
@@ -1546,7 +1546,7 @@ public class Message {
   }
 
   @Data
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode(callSuper = true)
   public static class MessageUploadImageResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("file")
