@@ -1,5 +1,6 @@
 package io.stream.services;
 
+import org.jetbrains.annotations.NotNull;
 import io.stream.models.Message.MessageSearchRequestData;
 import io.stream.models.Message.MessageSearchResponse;
 import io.stream.models.Message.MessageSendRequestData;
@@ -8,12 +9,13 @@ import io.stream.models.Message.MessageUpdateRequestData;
 import io.stream.models.Message.MessageUpdateResponse;
 import io.stream.models.Message.MessageUploadFileResponse;
 import io.stream.models.Message.MessageUploadImageResponse;
+import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.framework.ToJson;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -56,4 +58,16 @@ public interface MessageService {
       @Part("user") RequestBody userRequestBody,
       @Part MultipartBody.Part multipartFile,
       @Part("upload_sizes") RequestBody uploadSizesRequestBody);
+
+  @DELETE("channels/{type}/{id}/file")
+  Call<StreamResponseObject> deleteFile(
+      @NotNull @Path("type") String channelType,
+      @NotNull @Path("id") String channelId,
+      @NotNull @Query("url") String url);
+
+  @DELETE("channels/{type}/{id}/image")
+  Call<StreamResponseObject> deleteImage(
+      @NotNull @Path("type") String channelType,
+      @NotNull @Path("id") String channelId,
+      @NotNull @Query("url") String url);
 }

@@ -880,6 +880,44 @@ public class Message {
     }
   }
 
+  public static class MessageDeleteFileRequest extends StreamRequest<StreamResponseObject> {
+    private String channelType;
+    private String channelId;
+    private String url;
+
+    private MessageDeleteFileRequest(
+        @NotNull String channelType, @NotNull String channelId, @NotNull String url) {
+      this.channelType = channelType;
+      this.channelId = channelId;
+      this.url = url;
+    }
+
+    @Override
+    protected Call<StreamResponseObject> generateCall() {
+      return StreamServiceGenerator.createService(MessageService.class)
+          .deleteFile(channelType, channelId, url);
+    }
+  }
+
+  public static class MessageDeleteImageRequest extends StreamRequest<StreamResponseObject> {
+    private String channelType;
+    private String channelId;
+    private String url;
+
+    private MessageDeleteImageRequest(
+        @NotNull String channelType, @NotNull String channelId, @NotNull String url) {
+      this.channelType = channelType;
+      this.channelId = channelId;
+      this.url = url;
+    }
+
+    @Override
+    protected Call<StreamResponseObject> generateCall() {
+      return StreamServiceGenerator.createService(MessageService.class)
+          .deleteImage(channelType, channelId, url);
+    }
+  }
+
   @Data
   @EqualsAndHashCode(callSuper = true)
   public static class MessageSendResponse extends StreamResponseObject {
@@ -1001,5 +1039,33 @@ public class Message {
       @NotNull String userId,
       @NotNull String contentType) {
     return new MessageUploadImageRequest(channelType, channelId, userId, contentType);
+  }
+
+  /**
+   * Creates a delete file request
+   *
+   * @param channelType the channel type
+   * @param channelId the channel id
+   * @param url the file url
+   * @return the created request
+   */
+  @NotNull
+  public static MessageDeleteFileRequest deleteFile(
+      @NotNull String channelType, @NotNull String channelId, @NotNull String url) {
+    return new MessageDeleteFileRequest(channelType, channelId, url);
+  }
+
+  /**
+   * Creates a delete image request
+   *
+   * @param channelType the channel type
+   * @param channelId the channel id
+   * @param url the image url
+   * @return the created request
+   */
+  @NotNull
+  public static MessageDeleteImageRequest deleteImage(
+      @NotNull String channelType, @NotNull String channelId, @NotNull String url) {
+    return new MessageDeleteImageRequest(channelType, channelId, url);
   }
 }

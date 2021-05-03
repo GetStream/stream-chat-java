@@ -152,4 +152,66 @@ public class MessageTest extends BasicTest {
                             .build()))
                 .request());
   }
+
+  @DisplayName("Can delete file with no exception")
+  @Test
+  void whenDeletingFile_thenNoException() {
+    Assertions.assertDoesNotThrow(
+        () ->
+            App.update()
+                .fileUploadConfig(
+                    FileUploadConfigRequestObject.builder()
+                        .allowedFileExtensions(Collections.emptyList())
+                        .build())
+                .request());
+    String url =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.uploadFile(
+                            testChannel.getType(),
+                            testChannel.getId(),
+                            testUserRequestObject.getId(),
+                            null)
+                        .file(
+                            new File(
+                                getClass()
+                                    .getClassLoader()
+                                    .getResource("upload_file.pdf")
+                                    .getFile()))
+                        .request())
+            .getFile();
+    Assertions.assertDoesNotThrow(
+        () -> Message.deleteFile(testChannel.getType(), testChannel.getId(), url));
+  }
+
+  @DisplayName("Can delete image with no exception")
+  @Test
+  void whenDeletingSvgImage_thenNoException() {
+    Assertions.assertDoesNotThrow(
+        () ->
+            App.update()
+                .imageUploadConfig(
+                    FileUploadConfigRequestObject.builder()
+                        .allowedFileExtensions(Collections.emptyList())
+                        .build())
+                .request());
+    String url =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.uploadImage(
+                            testChannel.getType(),
+                            testChannel.getId(),
+                            testUserRequestObject.getId(),
+                            "image/svg+xml")
+                        .file(
+                            new File(
+                                getClass()
+                                    .getClassLoader()
+                                    .getResource("upload_image.svg")
+                                    .getFile()))
+                        .request())
+            .getFile();
+    Assertions.assertDoesNotThrow(
+        () -> Message.deleteImage(testChannel.getType(), testChannel.getId(), url));
+  }
 }
