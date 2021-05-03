@@ -68,7 +68,7 @@ public class Command {
       this.setValue = commandCreateRequest.setValue;
     }
 
-    public static final class CommandCreateRequest extends StreamRequest<CommandCreateResponse> {
+    public static class CommandCreateRequest extends StreamRequest<CommandCreateResponse> {
       private String name;
       private String description;
       private String args;
@@ -140,7 +140,7 @@ public class Command {
       this.setValue = commandUpdateRequest.setValue;
     }
 
-    public static final class CommandUpdateRequest extends StreamRequest<CommandUpdateResponse> {
+    public static class CommandUpdateRequest extends StreamRequest<CommandUpdateResponse> {
       private String name;
       private String description;
       private String args;

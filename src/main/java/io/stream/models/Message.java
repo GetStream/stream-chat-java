@@ -714,7 +714,7 @@ public class Message {
       this.offset = messageSearchRequest.offset;
     }
 
-    public static final class MessageSearchRequest extends StreamRequest<MessageSearchResponse> {
+    public static class MessageSearchRequest extends StreamRequest<MessageSearchResponse> {
       private String query;
       private Map<String, Object> filterConditions;
       private Map<String, Object> messageFilterConditions;
@@ -762,8 +762,7 @@ public class Message {
     }
   }
 
-  public static final class MessageUploadFileRequest
-      extends StreamRequest<MessageUploadFileResponse> {
+  public static class MessageUploadFileRequest extends StreamRequest<MessageUploadFileResponse> {
     private String channelType;
     private String channelId;
     private String userId;

@@ -1005,7 +1005,7 @@ public class User {
       this.createdById = userDeactivateRequest.createdById;
     }
 
-    public static final class UserDeactivateRequest extends StreamRequest<UserDeactivateResponse> {
+    public static class UserDeactivateRequest extends StreamRequest<UserDeactivateResponse> {
       private String userId;
       private Boolean markMessagesDeleted;
       private String createdById;
@@ -1034,7 +1034,7 @@ public class User {
     }
   }
 
-  public static final class UserDeleteRequest extends StreamRequest<UserDeleteResponse> {
+  public static class UserDeleteRequest extends StreamRequest<UserDeleteResponse> {
     private String userId;
     private Boolean markMessagesDeleted;
     private Boolean hardDelete;
@@ -1094,7 +1094,7 @@ public class User {
       this.createdById = userReactivateRequest.createdById;
     }
 
-    public static final class UserReactivateRequest extends StreamRequest<UserReactivateResponse> {
+    public static class UserReactivateRequest extends StreamRequest<UserReactivateResponse> {
       private String userId;
       private Boolean restoreMessages;
       private String name;

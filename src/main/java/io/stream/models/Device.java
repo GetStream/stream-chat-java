@@ -102,7 +102,7 @@ public class Device {
       this.user = deviceCreateRequest.user;
     }
 
-    public static final class DeviceCreateRequest extends StreamRequest<StreamResponseObject> {
+    public static class DeviceCreateRequest extends StreamRequest<StreamResponseObject> {
       private PushProvider pushProvider;
       private String id;
       private String userId;
@@ -142,7 +142,7 @@ public class Device {
     }
   }
 
-  public static final class DeviceDeleteRequest extends StreamRequest<StreamResponseObject> {
+  public static class DeviceDeleteRequest extends StreamRequest<StreamResponseObject> {
     private String id;
     private String userId;
 

@@ -1048,7 +1048,7 @@ public class Channel {
       this.channels = channelExportRequest.channels;
     }
 
-    public static final class ChannelExportRequest extends StreamRequest<ChannelExportResponse> {
+    public static class ChannelExportRequest extends StreamRequest<ChannelExportResponse> {
       private List<ChannelExportRequestObject> channels = new ArrayList<>();
 
       private ChannelExportRequest() {}
@@ -1106,7 +1106,7 @@ public class Channel {
       this.user = channelHideRequestData.user;
     }
 
-    public static final class ChannelHideRequest extends StreamRequest<StreamResponseObject> {
+    public static class ChannelHideRequest extends StreamRequest<StreamResponseObject> {
       private String channelId;
       private String channelType;
       private String clearHistory;
@@ -1158,8 +1158,7 @@ public class Channel {
       this.user = channelMarkAllReadRequest.user;
     }
 
-    public static final class ChannelMarkAllReadRequest
-        extends StreamRequest<StreamResponseObject> {
+    public static class ChannelMarkAllReadRequest extends StreamRequest<StreamResponseObject> {
       private String userId;
       private UserRequestObject user;
 
@@ -1204,8 +1203,7 @@ public class Channel {
       this.user = channelMarkReadRequest.user;
     }
 
-    public static final class ChannelMarkReadRequest
-        extends StreamRequest<ChannelMarkReadResponse> {
+    public static class ChannelMarkReadRequest extends StreamRequest<ChannelMarkReadResponse> {
       private String channelId;
       private String channelType;
       private String messageId;
@@ -1266,7 +1264,7 @@ public class Channel {
       this.user = channelMuteRequest.user;
     }
 
-    public static final class ChannelMuteRequest extends StreamRequest<ChannelMuteResponse> {
+    public static class ChannelMuteRequest extends StreamRequest<ChannelMuteResponse> {
       private String channelCid;
       private List<String> channelCids;
       private Integer expiration;
@@ -1328,7 +1326,7 @@ public class Channel {
       this.user = channelShowRequestData.user;
     }
 
-    public static final class ChannelShowRequest extends StreamRequest<StreamResponseObject> {
+    public static class ChannelShowRequest extends StreamRequest<StreamResponseObject> {
       private String channelId;
       private String channelType;
       private String userId;
@@ -1388,7 +1386,7 @@ public class Channel {
       this.user = channelUnMuteRequest.user;
     }
 
-    public static final class ChannelUnMuteRequest extends StreamRequest<ChannelUnMuteResponse> {
+    public static class ChannelUnMuteRequest extends StreamRequest<ChannelUnMuteResponse> {
       private String channelCid;
       private List<String> channelCids;
       private Integer expiration;
