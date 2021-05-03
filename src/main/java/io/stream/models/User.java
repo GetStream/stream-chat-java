@@ -388,7 +388,7 @@ public class User {
       private UserUpsertRequest() {}
 
       @NotNull
-      public UserUpsertRequest withUsers(@NotNull Map<String, UserRequestObject> users) {
+      public UserUpsertRequest users(@NotNull Map<String, UserRequestObject> users) {
         this.users = users;
         return this;
       }
@@ -468,49 +468,49 @@ public class User {
       private UserQueryRequest() {}
 
       @NotNull
-      public UserQueryRequest withFilterConditions(@NotNull Map<String, Object> filterConditions) {
+      public UserQueryRequest filterConditions(@NotNull Map<String, Object> filterConditions) {
         this.filterConditions = filterConditions;
         return this;
       }
 
       @NotNull
-      public UserQueryRequest withSort(@NotNull List<Sort> sort) {
+      public UserQueryRequest sort(@NotNull List<Sort> sort) {
         this.sort = sort;
         return this;
       }
 
       @NotNull
-      public UserQueryRequest withPresence(@NotNull Boolean presence) {
+      public UserQueryRequest presence(@NotNull Boolean presence) {
         this.presence = presence;
         return this;
       }
 
       @NotNull
-      public UserQueryRequest withLimit(@NotNull Integer limit) {
+      public UserQueryRequest limit(@NotNull Integer limit) {
         this.limit = limit;
         return this;
       }
 
       @NotNull
-      public UserQueryRequest withOffset(@NotNull Integer offset) {
+      public UserQueryRequest offset(@NotNull Integer offset) {
         this.offset = offset;
         return this;
       }
 
       @NotNull
-      public UserQueryRequest withUserId(@NotNull String userId) {
+      public UserQueryRequest userId(@NotNull String userId) {
         this.userId = userId;
         return this;
       }
 
       @NotNull
-      public UserQueryRequest withUser(@NotNull User user) {
+      public UserQueryRequest user(@NotNull User user) {
         this.user = user;
         return this;
       }
 
       @NotNull
-      public UserQueryRequest withConnectionId(@NotNull String connectionId) {
+      public UserQueryRequest connectionId(@NotNull String connectionId) {
         this.connectionId = connectionId;
         return this;
       }
@@ -538,8 +538,7 @@ public class User {
       private UserPartialUpdateRequest() {}
 
       @NotNull
-      public UserPartialUpdateRequest withUsers(
-          @NotNull List<UserPartialUpdateRequestObject> users) {
+      public UserPartialUpdateRequest users(@NotNull List<UserPartialUpdateRequestObject> users) {
         this.users = users;
         return this;
       }
@@ -627,63 +626,62 @@ public class User {
       private UserQueryBannedRequest() {}
 
       @NotNull
-      public UserQueryBannedRequest withFilterConditions(
+      public UserQueryBannedRequest filterConditions(
           @NotNull Map<String, Object> filterConditions) {
         this.filterConditions = filterConditions;
         return this;
       }
 
       @NotNull
-      public UserQueryBannedRequest withSort(@NotNull List<Sort> sort) {
+      public UserQueryBannedRequest sort(@NotNull List<Sort> sort) {
         this.sort = sort;
         return this;
       }
 
       @NotNull
-      public UserQueryBannedRequest withLimit(@NotNull Integer limit) {
+      public UserQueryBannedRequest limit(@NotNull Integer limit) {
         this.limit = limit;
         return this;
       }
 
       @NotNull
-      public UserQueryBannedRequest withOffset(@NotNull Integer offset) {
+      public UserQueryBannedRequest offset(@NotNull Integer offset) {
         this.offset = offset;
         return this;
       }
 
       @NotNull
-      public UserQueryBannedRequest withCreatedAtAfterOrEqual(@NotNull Date createdAtAfterOrEqual) {
+      public UserQueryBannedRequest createdAtAfterOrEqual(@NotNull Date createdAtAfterOrEqual) {
         this.createdAtAfterOrEqual = createdAtAfterOrEqual;
         return this;
       }
 
       @NotNull
-      public UserQueryBannedRequest withCreatedAtAfter(@NotNull Date createdAtAfter) {
+      public UserQueryBannedRequest createdAtAfter(@NotNull Date createdAtAfter) {
         this.createdAtAfter = createdAtAfter;
         return this;
       }
 
       @NotNull
-      public UserQueryBannedRequest withCreatedAtBeforeOrEqual(
-          @NotNull Date createdAtBeforeOrEqual) {
+      public UserQueryBannedRequest createdAtBeforeOrEqual(@NotNull Date createdAtBeforeOrEqual) {
         this.createdAtBeforeOrEqual = createdAtBeforeOrEqual;
         return this;
       }
 
       @NotNull
-      public UserQueryBannedRequest withCreatedAtBefore(@NotNull Date createdAtBefore) {
+      public UserQueryBannedRequest createdAtBefore(@NotNull Date createdAtBefore) {
         this.createdAtBefore = createdAtBefore;
         return this;
       }
 
       @NotNull
-      public UserQueryBannedRequest withUserId(@NotNull String userId) {
+      public UserQueryBannedRequest userId(@NotNull String userId) {
         this.userId = userId;
         return this;
       }
 
       @NotNull
-      public UserQueryBannedRequest withUser(@NotNull UserRequestObject user) {
+      public UserQueryBannedRequest user(@NotNull UserRequestObject user) {
         this.user = user;
         return this;
       }
@@ -771,67 +769,67 @@ public class User {
       private UserBanRequest() {}
 
       @NotNull
-      public UserBanRequest withTargetUserId(@NotNull String targetUserId) {
+      public UserBanRequest targetUserId(@NotNull String targetUserId) {
         this.targetUserId = targetUserId;
         return this;
       }
 
       @NotNull
-      public UserBanRequest withTimeout(@NotNull Integer timeout) {
+      public UserBanRequest timeout(@NotNull Integer timeout) {
         this.timeout = timeout;
         return this;
       }
 
       @NotNull
-      public UserBanRequest withReason(@NotNull String reason) {
+      public UserBanRequest reason(@NotNull String reason) {
         this.reason = reason;
         return this;
       }
 
       @NotNull
-      public UserBanRequest withType(@NotNull String type) {
+      public UserBanRequest type(@NotNull String type) {
         this.type = type;
         return this;
       }
 
       @NotNull
-      public UserBanRequest withId(@NotNull String id) {
+      public UserBanRequest id(@NotNull String id) {
         this.id = id;
         return this;
       }
 
       @NotNull
-      public UserBanRequest withShadow(@NotNull Boolean shadow) {
+      public UserBanRequest shadow(@NotNull Boolean shadow) {
         this.shadow = shadow;
         return this;
       }
 
       @NotNull
-      public UserBanRequest withIpBan(@NotNull Boolean ipBan) {
+      public UserBanRequest ipBan(@NotNull Boolean ipBan) {
         this.ipBan = ipBan;
         return this;
       }
 
       @NotNull
-      public UserBanRequest withBannedById(@NotNull String bannedById) {
+      public UserBanRequest bannedById(@NotNull String bannedById) {
         this.bannedById = bannedById;
         return this;
       }
 
       @NotNull
-      public UserBanRequest withBannedBy(@NotNull UserRequestObject bannedBy) {
+      public UserBanRequest bannedBy(@NotNull UserRequestObject bannedBy) {
         this.bannedBy = bannedBy;
         return this;
       }
 
       @NotNull
-      public UserBanRequest withUserId(@NotNull String userId) {
+      public UserBanRequest userId(@NotNull String userId) {
         this.userId = userId;
         return this;
       }
 
       @NotNull
-      public UserBanRequest withUser(@NotNull UserRequestObject user) {
+      public UserBanRequest user(@NotNull UserRequestObject user) {
         this.user = user;
         return this;
       }

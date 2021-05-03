@@ -17,7 +17,7 @@ public class ChannelTypeTest extends BasicTest {
   void whenCreatingDefaultChannelType_thenCanFetchWithNoExceptionAndCorrectName() {
     String channelName = RandomStringUtils.randomAlphabetic(10);
     Assertions.assertDoesNotThrow(
-        () -> ChannelType.create().withDefaultConfig().withName(channelName).request());
+        () -> ChannelType.create().withDefaultConfig().name(channelName).request());
     ChannelType channelType =
         Assertions.assertDoesNotThrow(() -> ChannelType.get(channelName).request());
     assertEquals(channelType.getName(), channelName);
@@ -29,7 +29,7 @@ public class ChannelTypeTest extends BasicTest {
   void whenCreatingDefaultChannelType_thenCanDeleteWithNoException() {
     String channelName = RandomStringUtils.randomAlphabetic(10);
     Assertions.assertDoesNotThrow(
-        () -> ChannelType.create().withDefaultConfig().withName(channelName).request());
+        () -> ChannelType.create().withDefaultConfig().name(channelName).request());
     Assertions.assertDoesNotThrow(() -> ChannelType.delete(channelName).request());
   }
 
@@ -38,7 +38,7 @@ public class ChannelTypeTest extends BasicTest {
   void whenCreatingDefaultChannelType_thenCanListAndRetrieveItWithNoException() {
     String channelName = RandomStringUtils.randomAlphabetic(10);
     Assertions.assertDoesNotThrow(
-        () -> ChannelType.create().withDefaultConfig().withName(channelName).request());
+        () -> ChannelType.create().withDefaultConfig().name(channelName).request());
     ChannelTypeListResponse listChannelTypeResponse =
         Assertions.assertDoesNotThrow(() -> ChannelType.list().request());
     Assertions.assertTrue(listChannelTypeResponse.getChannelTypes().containsKey(channelName));
@@ -50,9 +50,9 @@ public class ChannelTypeTest extends BasicTest {
   void whenCreatingDefaultChannelType_thenCanUpdateWithNoException() {
     String channelName = RandomStringUtils.randomAlphabetic(10);
     Assertions.assertDoesNotThrow(
-        () -> ChannelType.create().withDefaultConfig().withName(channelName).request());
+        () -> ChannelType.create().withDefaultConfig().name(channelName).request());
     Assertions.assertDoesNotThrow(
-        () -> ChannelType.update(channelName).withAutomod(AutoMod.SIMPLE).request());
+        () -> ChannelType.update(channelName).automod(AutoMod.SIMPLE).request());
     Assertions.assertDoesNotThrow(() -> ChannelType.delete(channelName));
   }
 }

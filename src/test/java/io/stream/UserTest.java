@@ -21,7 +21,7 @@ public class UserTest extends BasicTest {
   @DisplayName("Can list users with no Exception")
   @Test
   void whenListingUsers_thenNoException() {
-    Assertions.assertDoesNotThrow(() -> User.list().withUserId("u1").request());
+    Assertions.assertDoesNotThrow(() -> User.list().userId("u1").request());
   }
 
   @DisplayName("Can partial update a user")
@@ -56,7 +56,7 @@ public class UserTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     User.partialUpdate()
-                        .withUsers(Arrays.asList(userPartialUpdateRequestObject))
+                        .users(Arrays.asList(userPartialUpdateRequestObject))
                         .request())
             .getUsers()
             .get(user.getId());
@@ -72,11 +72,7 @@ public class UserTest extends BasicTest {
     usersUpsertRequest.addUser(UserRequestObject.builder().id(userId).name("User to ban").build());
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     Assertions.assertDoesNotThrow(
-        () ->
-            User.ban()
-                .withUserId(testUserRequestObject.getId())
-                .withTargetUserId(userId)
-                .request());
+        () -> User.ban().userId(testUserRequestObject.getId()).targetUserId(userId).request());
   }
 
   @DisplayName("Can list banned user with no Exception")
@@ -87,11 +83,7 @@ public class UserTest extends BasicTest {
     usersUpsertRequest.addUser(UserRequestObject.builder().id(userId).name("User to ban").build());
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     Assertions.assertDoesNotThrow(
-        () ->
-            User.ban()
-                .withUserId(testUserRequestObject.getId())
-                .withTargetUserId(userId)
-                .request());
+        () -> User.ban().userId(testUserRequestObject.getId()).targetUserId(userId).request());
     Assertions.assertDoesNotThrow(() -> User.queryBanned().request());
   }
 }

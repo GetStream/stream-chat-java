@@ -34,13 +34,13 @@ public class Sort {
     private Builder() {}
 
     @NotNull
-    public Builder withField(@NotNull String field) {
+    public Builder field(@NotNull String field) {
       this.field = field;
       return this;
     }
 
     @NotNull
-    public Builder withDirection(@NotNull Integer direction) {
+    public Builder direction(@NotNull Integer direction) {
       this.direction = direction;
       return this;
     }

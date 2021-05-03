@@ -397,131 +397,130 @@ public class ChannelType {
       private static final int DEFAULT_MAX_MESSAGE_LENGTH = 5000;
 
       public ChannelTypeCreateRequest withDefaultConfig() {
-        return this.withAutomod(DEFAULT_AUTOMOD)
-            .withAutomodBehavior(DEFAULT_MOD_BEHAVIOR)
-            .withMaxMessageLength(DEFAULT_MAX_MESSAGE_LENGTH)
-            .withMessageRetention(DEFAULT_MESSAGE_RETENTION)
-            .withPushNotifications(DEFAULT_PUSH_NOTIFICATIONS);
+        return this.automod(DEFAULT_AUTOMOD)
+            .automodBehavior(DEFAULT_MOD_BEHAVIOR)
+            .maxMessageLength(DEFAULT_MAX_MESSAGE_LENGTH)
+            .messageRetention(DEFAULT_MESSAGE_RETENTION)
+            .pushNotifications(DEFAULT_PUSH_NOTIFICATIONS);
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withName(@NotNull String name) {
+      public ChannelTypeCreateRequest name(@NotNull String name) {
         this.name = name;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withTypingEvents(@NotNull Boolean typingEvents) {
+      public ChannelTypeCreateRequest typingEvents(@NotNull Boolean typingEvents) {
         this.typingEvents = typingEvents;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withReadEvents(@NotNull Boolean readEvents) {
+      public ChannelTypeCreateRequest readEvents(@NotNull Boolean readEvents) {
         this.readEvents = readEvents;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withConnectEvents(@NotNull Boolean connectEvents) {
+      public ChannelTypeCreateRequest connectEvents(@NotNull Boolean connectEvents) {
         this.connectEvents = connectEvents;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withSearch(@NotNull Boolean search) {
+      public ChannelTypeCreateRequest search(@NotNull Boolean search) {
         this.search = search;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withReactions(@NotNull Boolean reactions) {
+      public ChannelTypeCreateRequest reactions(@NotNull Boolean reactions) {
         this.reactions = reactions;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withReplies(@NotNull Boolean replies) {
+      public ChannelTypeCreateRequest replies(@NotNull Boolean replies) {
         this.replies = replies;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withUploads(@NotNull Boolean uploads) {
+      public ChannelTypeCreateRequest uploads(@NotNull Boolean uploads) {
         this.uploads = uploads;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withUrlEnrichment(@NotNull Boolean urlEnrichment) {
+      public ChannelTypeCreateRequest urlEnrichment(@NotNull Boolean urlEnrichment) {
         this.urlEnrichment = urlEnrichment;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withCustomEvents(@NotNull Boolean customEvents) {
+      public ChannelTypeCreateRequest customEvents(@NotNull Boolean customEvents) {
         this.customEvents = customEvents;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withMutes(@NotNull Boolean mutes) {
+      public ChannelTypeCreateRequest mutes(@NotNull Boolean mutes) {
         this.mutes = mutes;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withPushNotifications(@NotNull Boolean pushNotifications) {
+      public ChannelTypeCreateRequest pushNotifications(@NotNull Boolean pushNotifications) {
         this.pushNotifications = pushNotifications;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withMessageRetention(@NotNull String messageRetention) {
+      public ChannelTypeCreateRequest messageRetention(@NotNull String messageRetention) {
         this.messageRetention = messageRetention;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withMaxMessageLength(@NotNull Integer maxMessageLength) {
+      public ChannelTypeCreateRequest maxMessageLength(@NotNull Integer maxMessageLength) {
         this.maxMessageLength = maxMessageLength;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withAutomod(@NotNull AutoMod automod) {
+      public ChannelTypeCreateRequest automod(@NotNull AutoMod automod) {
         this.automod = automod;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withAutomodBehavior(
-          @NotNull AutoModBehavior automodBehavior) {
+      public ChannelTypeCreateRequest automodBehavior(@NotNull AutoModBehavior automodBehavior) {
         this.automodBehavior = automodBehavior;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withBlocklist(@NotNull String blocklist) {
+      public ChannelTypeCreateRequest blocklist(@NotNull String blocklist) {
         this.blocklist = blocklist;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withBlocklistBehavior(
+      public ChannelTypeCreateRequest blocklistBehavior(
           @NotNull BlocklistBehavior blocklistBehavior) {
         this.blocklistBehavior = blocklistBehavior;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withCommands(@NotNull List<String> commands) {
+      public ChannelTypeCreateRequest commands(@NotNull List<String> commands) {
         this.commands = commands;
         return this;
       }
 
       @NotNull
-      public ChannelTypeCreateRequest withPermissions(
+      public ChannelTypeCreateRequest permissions(
           @NotNull List<PermissionRequestObject> permissions) {
         this.permissions = permissions;
         return this;
@@ -682,124 +681,123 @@ public class ChannelType {
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withTypingEvents(@NotNull Boolean typingEvents) {
+      public ChannelTypeUpdateRequest typingEvents(@NotNull Boolean typingEvents) {
         this.typingEvents = typingEvents;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withReadEvents(@NotNull Boolean readEvents) {
+      public ChannelTypeUpdateRequest readEvents(@NotNull Boolean readEvents) {
         this.readEvents = readEvents;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withConnectEvents(@NotNull Boolean connectEvents) {
+      public ChannelTypeUpdateRequest connectEvents(@NotNull Boolean connectEvents) {
         this.connectEvents = connectEvents;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withSearch(@NotNull Boolean search) {
+      public ChannelTypeUpdateRequest search(@NotNull Boolean search) {
         this.search = search;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withReactions(@NotNull Boolean reactions) {
+      public ChannelTypeUpdateRequest reactions(@NotNull Boolean reactions) {
         this.reactions = reactions;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withReplies(@NotNull Boolean replies) {
+      public ChannelTypeUpdateRequest replies(@NotNull Boolean replies) {
         this.replies = replies;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withUploads(@NotNull Boolean uploads) {
+      public ChannelTypeUpdateRequest uploads(@NotNull Boolean uploads) {
         this.uploads = uploads;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withUrlEnrichment(@NotNull Boolean urlEnrichment) {
+      public ChannelTypeUpdateRequest urlEnrichment(@NotNull Boolean urlEnrichment) {
         this.urlEnrichment = urlEnrichment;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withCustomEvents(@NotNull Boolean customEvents) {
+      public ChannelTypeUpdateRequest customEvents(@NotNull Boolean customEvents) {
         this.customEvents = customEvents;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withMutes(@NotNull Boolean mutes) {
+      public ChannelTypeUpdateRequest mutes(@NotNull Boolean mutes) {
         this.mutes = mutes;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withPushNotifications(@NotNull Boolean pushNotifications) {
+      public ChannelTypeUpdateRequest pushNotifications(@NotNull Boolean pushNotifications) {
         this.pushNotifications = pushNotifications;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withMessageRetention(@NotNull String messageRetention) {
+      public ChannelTypeUpdateRequest messageRetention(@NotNull String messageRetention) {
         this.messageRetention = messageRetention;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withMaxMessageLength(@NotNull Integer maxMessageLength) {
+      public ChannelTypeUpdateRequest maxMessageLength(@NotNull Integer maxMessageLength) {
         this.maxMessageLength = maxMessageLength;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withAutomod(@NotNull AutoMod automod) {
+      public ChannelTypeUpdateRequest automod(@NotNull AutoMod automod) {
         this.automod = automod;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withAutomodBehavior(
-          @NotNull AutoModBehavior automodBehavior) {
+      public ChannelTypeUpdateRequest automodBehavior(@NotNull AutoModBehavior automodBehavior) {
         this.automodBehavior = automodBehavior;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withBlocklist(@NotNull String blocklist) {
+      public ChannelTypeUpdateRequest blocklist(@NotNull String blocklist) {
         this.blocklist = blocklist;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withBlocklistBehavior(
+      public ChannelTypeUpdateRequest blocklistBehavior(
           @NotNull BlocklistBehavior blocklistBehavior) {
         this.blocklistBehavior = blocklistBehavior;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withAutomodThresholds(
+      public ChannelTypeUpdateRequest automodThresholds(
           @NotNull Map<String, ThresholdRequestObject> automodThresholds) {
         this.automodThresholds = automodThresholds;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withCommands(@NotNull List<String> commands) {
+      public ChannelTypeUpdateRequest commands(@NotNull List<String> commands) {
         this.commands = commands;
         return this;
       }
 
       @NotNull
-      public ChannelTypeUpdateRequest withPermissions(
+      public ChannelTypeUpdateRequest permissions(
           @NotNull List<PermissionRequestObject> permissions) {
         this.permissions = permissions;
         return this;

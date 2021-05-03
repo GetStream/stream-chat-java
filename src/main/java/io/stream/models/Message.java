@@ -620,13 +620,13 @@ public class Message {
       }
 
       @NotNull
-      public MessageSendRequest withMessage(@NotNull MessageRequestObject message) {
+      public MessageSendRequest message(@NotNull MessageRequestObject message) {
         this.message = message;
         return this;
       }
 
       @NotNull
-      public MessageSendRequest withSkipPush(@NotNull Boolean skipPush) {
+      public MessageSendRequest skipPush(@NotNull Boolean skipPush) {
         this.skipPush = skipPush;
         return this;
       }
@@ -657,7 +657,7 @@ public class Message {
       }
 
       @NotNull
-      public MessageUpdateRequest withMessage(@NotNull MessageRequestObject message) {
+      public MessageUpdateRequest message(@NotNull MessageRequestObject message) {
         this.message = message;
         return this;
       }
@@ -709,33 +709,32 @@ public class Message {
       private MessageSearchRequest() {}
 
       @NotNull
-      public MessageSearchRequest withQuery(@NotNull String query) {
+      public MessageSearchRequest query(@NotNull String query) {
         this.query = query;
         return this;
       }
 
       @NotNull
-      public MessageSearchRequest withFilterConditions(
-          @NotNull Map<String, Object> filterConditions) {
+      public MessageSearchRequest filterConditions(@NotNull Map<String, Object> filterConditions) {
         this.filterConditions = filterConditions;
         return this;
       }
 
       @NotNull
-      public MessageSearchRequest withMessageFilterConditions(
+      public MessageSearchRequest messageFilterConditions(
           @NotNull Map<String, Object> messageFilterConditions) {
         this.messageFilterConditions = messageFilterConditions;
         return this;
       }
 
       @NotNull
-      public MessageSearchRequest withLimit(@NotNull Integer limit) {
+      public MessageSearchRequest limit(@NotNull Integer limit) {
         this.limit = limit;
         return this;
       }
 
       @NotNull
-      public MessageSearchRequest withOffset(@NotNull Integer offset) {
+      public MessageSearchRequest offset(@NotNull Integer offset) {
         this.offset = offset;
         return this;
       }
@@ -769,13 +768,13 @@ public class Message {
     }
 
     @NotNull
-    public MessageUploadFileRequest withFile(@NotNull File file) {
+    public MessageUploadFileRequest file(@NotNull File file) {
       this.file = file;
       return this;
     }
 
     @NotNull
-    public MessageUploadFileRequest withContentType(@NotNull String contentType) {
+    public MessageUploadFileRequest contentType(@NotNull String contentType) {
       this.contentType = contentType;
       return this;
     }
@@ -826,13 +825,13 @@ public class Message {
     }
 
     @NotNull
-    public MessageUploadImageRequest withFile(@NotNull File file) {
+    public MessageUploadImageRequest file(@NotNull File file) {
       this.file = file;
       return this;
     }
 
     @NotNull
-    public MessageUploadImageRequest withUploadSizes(
+    public MessageUploadImageRequest uploadSizes(
         @NotNull List<ImageSizeRequestObject> uploadSizes) {
       this.uploadSizes = uploadSizes;
       return this;

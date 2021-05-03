@@ -83,25 +83,25 @@ public class Device {
       private DeviceCreateRequest() {}
 
       @NotNull
-      public DeviceCreateRequest withPushProvider(@NotNull PushProvider pushProvider) {
+      public DeviceCreateRequest pushProvider(@NotNull PushProvider pushProvider) {
         this.pushProvider = pushProvider;
         return this;
       }
 
       @NotNull
-      public DeviceCreateRequest withId(@NotNull String id) {
+      public DeviceCreateRequest id(@NotNull String id) {
         this.id = id;
         return this;
       }
 
       @NotNull
-      public DeviceCreateRequest withUserId(@NotNull String userId) {
+      public DeviceCreateRequest userId(@NotNull String userId) {
         this.userId = userId;
         return this;
       }
 
       @NotNull
-      public DeviceCreateRequest withUser(@NotNull UserRequestObject user) {
+      public DeviceCreateRequest user(@NotNull UserRequestObject user) {
         this.user = user;
         return this;
       }
@@ -124,13 +124,13 @@ public class Device {
     }
 
     @NotNull
-    public DeviceDeleteRequest withId(@NotNull String id) {
+    public DeviceDeleteRequest id(@NotNull String id) {
       this.id = id;
       return this;
     }
 
     @NotNull
-    public DeviceDeleteRequest withUserId(@NotNull String userId) {
+    public DeviceDeleteRequest userId(@NotNull String userId) {
       this.userId = userId;
       return this;
     }

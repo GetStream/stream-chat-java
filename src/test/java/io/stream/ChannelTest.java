@@ -24,7 +24,7 @@ public class ChannelTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             Channel.getOrCreate(testChannel.getType(), null)
-                .withData(
+                .data(
                     ChannelRequestObject.builder()
                         .createdBy(testUserRequestObject)
                         .members(buildChannelMembersList())
@@ -41,8 +41,8 @@ public class ChannelTest extends BasicTest {
         Assertions.assertDoesNotThrow(
             () ->
                 Channel.update(testChannel.getType(), testChannel.getId())
-                    .withUser(testUserRequestObject)
-                    .withAddModerators(Arrays.asList(testUserRequestObject.getId()))
+                    .user(testUserRequestObject)
+                    .addModerators(Arrays.asList(testUserRequestObject.getId()))
                     .request());
     Assertions.assertEquals(1, countModerators(channelUpdateResponse.getMembers()));
   }
@@ -76,7 +76,7 @@ public class ChannelTest extends BasicTest {
   @DisplayName("Can list channels")
   @Test
   void whenListingChannels_thenNoException() {
-    Assertions.assertDoesNotThrow(() -> Channel.list().withUser(testUserRequestObject).request());
+    Assertions.assertDoesNotThrow(() -> Channel.list().user(testUserRequestObject).request());
   }
 
   @DisplayName("Can truncate channel")
@@ -100,8 +100,8 @@ public class ChannelTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Channel.queryMembers()
-                        .withId(testChannel.getId())
-                        .withType(testChannel.getType())
+                        .id(testChannel.getId())
+                        .type(testChannel.getType())
                         .request())
             .getMembers();
     Assertions.assertEquals(testUsersRequestObjects.size(), channelMembers.size());
@@ -152,7 +152,7 @@ public class ChannelTest extends BasicTest {
             Channel.hide(
                     channelGetResponse.getChannel().getType(),
                     channelGetResponse.getChannel().getId())
-                .withUser(testUserRequestObject)
+                .user(testUserRequestObject)
                 .request());
   }
 
@@ -160,7 +160,7 @@ public class ChannelTest extends BasicTest {
   @Test
   void whenMarkingAllChannelsRead_thenNoException() {
     Assertions.assertDoesNotThrow(
-        () -> Channel.markAllRead().withUser(testUserRequestObject).request());
+        () -> Channel.markAllRead().user(testUserRequestObject).request());
   }
 
   @DisplayName("Can mark channel read")
@@ -169,7 +169,7 @@ public class ChannelTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             Channel.markRead(testChannel.getType(), testChannel.getId())
-                .withUser(testUserRequestObject)
+                .user(testUserRequestObject)
                 .request());
   }
 
@@ -182,8 +182,8 @@ public class ChannelTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             Channel.mute()
-                .withChannelCid(channel.getType() + ":" + channel.getId())
-                .withUser(testUserRequestObject)
+                .channelCid(channel.getType() + ":" + channel.getId())
+                .user(testUserRequestObject)
                 .request());
     Assertions.assertTrue(isChannelMutedForTestUser(channel.getType(), channel.getId()));
   }
@@ -195,7 +195,7 @@ public class ChannelTest extends BasicTest {
         Assertions.assertDoesNotThrow(
             () ->
                 User.list()
-                    .withFilterConditions(userConditions)
+                    .filterConditions(userConditions)
                     .request()
                     .getUsers()
                     .get(0)
@@ -216,7 +216,7 @@ public class ChannelTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             Channel.show(testChannel.getType(), testChannel.getId())
-                .withUser(testUserRequestObject)
+                .user(testUserRequestObject)
                 .request());
   }
 
@@ -227,15 +227,15 @@ public class ChannelTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             Channel.mute()
-                .withChannelCid(testChannel.getType() + ":" + testChannel.getId())
-                .withUser(testUserRequestObject)
+                .channelCid(testChannel.getType() + ":" + testChannel.getId())
+                .user(testUserRequestObject)
                 .request());
     Assertions.assertTrue(isChannelMutedForTestUser(testChannel.getType(), testChannel.getId()));
     Assertions.assertDoesNotThrow(
         () ->
             Channel.unmute()
-                .withChannelCid(testChannel.getType() + ":" + testChannel.getId())
-                .withUser(testUserRequestObject)
+                .channelCid(testChannel.getType() + ":" + testChannel.getId())
+                .user(testUserRequestObject)
                 .request());
     Assertions.assertFalse(isChannelMutedForTestUser(testChannel.getType(), testChannel.getId()));
   }

@@ -17,8 +17,8 @@ public class CommandTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Command.create()
-                        .withName(RandomStringUtils.randomAlphabetic(5))
-                        .withDescription(description)
+                        .name(RandomStringUtils.randomAlphabetic(5))
+                        .description(description)
                         .request())
             .getCommand();
     Assertions.assertEquals(description, command.getDescription());
@@ -32,15 +32,14 @@ public class CommandTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Command.create()
-                        .withName(RandomStringUtils.randomAlphabetic(5))
-                        .withDescription(description)
+                        .name(RandomStringUtils.randomAlphabetic(5))
+                        .description(description)
                         .request())
             .getCommand();
     String updatedDescription = "updated description";
     Command updatedCommand =
         Assertions.assertDoesNotThrow(
-                () ->
-                    Command.update(command.getName()).withDescription(updatedDescription).request())
+                () -> Command.update(command.getName()).description(updatedDescription).request())
             .getCommand();
     Assertions.assertEquals(updatedDescription, updatedCommand.getDescription());
   }
@@ -53,8 +52,8 @@ public class CommandTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Command.create()
-                        .withName(RandomStringUtils.randomAlphabetic(5))
-                        .withDescription(description)
+                        .name(RandomStringUtils.randomAlphabetic(5))
+                        .description(description)
                         .request())
             .getCommand();
     Command retrievedCommand =
@@ -70,8 +69,8 @@ public class CommandTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Command.create()
-                        .withName(RandomStringUtils.randomAlphabetic(5))
-                        .withDescription(description)
+                        .name(RandomStringUtils.randomAlphabetic(5))
+                        .description(description)
                         .request())
             .getCommand();
     Assertions.assertDoesNotThrow(() -> Command.delete(command.getName()).request());
@@ -90,8 +89,8 @@ public class CommandTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Command.create()
-                        .withName(RandomStringUtils.randomAlphabetic(5))
-                        .withDescription(description)
+                        .name(RandomStringUtils.randomAlphabetic(5))
+                        .description(description)
                         .request())
             .getCommand();
     List<Command> commands =

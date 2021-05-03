@@ -33,7 +33,7 @@ public class MessageTest extends BasicTest {
             .build();
     Message updatedMessage =
         Assertions.assertDoesNotThrow(
-                () -> Message.update(message.getId()).withMessage(updatedMessageRequest).request())
+                () -> Message.update(message.getId()).message(updatedMessageRequest).request())
             .getMessage();
     Assertions.assertEquals(updatedText, updatedMessage.getText());
   }
@@ -49,8 +49,8 @@ public class MessageTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Message.search()
-                        .withFilterConditions(channelConditions)
-                        .withMessageFilterConditions(messageConditions)
+                        .filterConditions(channelConditions)
+                        .messageFilterConditions(messageConditions)
                         .request())
             .getResults();
     Assertions.assertEquals(1, searchResults.size());
@@ -62,7 +62,7 @@ public class MessageTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             App.update()
-                .withFileUploadConfig(
+                .fileUploadConfig(
                     FileUploadConfigRequestObject.builder()
                         .allowedFileExtensions(Collections.emptyList())
                         .build())
@@ -71,9 +71,9 @@ public class MessageTest extends BasicTest {
         () ->
             Message.uploadFile(
                     testChannel.getType(), testChannel.getId(), testUserRequestObject.getId())
-                .withFile(
+                .file(
                     new File(getClass().getClassLoader().getResource("upload_file.txt").getFile()))
-                .withContentType("text/plain")
+                .contentType("text/plain")
                 .request());
   }
 
@@ -83,7 +83,7 @@ public class MessageTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             App.update()
-                .withFileUploadConfig(
+                .fileUploadConfig(
                     FileUploadConfigRequestObject.builder()
                         .allowedFileExtensions(Collections.emptyList())
                         .build())
@@ -92,7 +92,7 @@ public class MessageTest extends BasicTest {
         () ->
             Message.uploadFile(
                     testChannel.getType(), testChannel.getId(), testUserRequestObject.getId())
-                .withFile(
+                .file(
                     new File(getClass().getClassLoader().getResource("upload_file.pdf").getFile()))
                 .request());
   }
@@ -103,7 +103,7 @@ public class MessageTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             App.update()
-                .withImageUploadConfig(
+                .imageUploadConfig(
                     FileUploadConfigRequestObject.builder()
                         .allowedFileExtensions(Collections.emptyList())
                         .build())
@@ -115,7 +115,7 @@ public class MessageTest extends BasicTest {
                     testChannel.getId(),
                     testUserRequestObject.getId(),
                     "image/svg+xml")
-                .withFile(
+                .file(
                     new File(getClass().getClassLoader().getResource("upload_image.svg").getFile()))
                 .request());
   }
@@ -126,7 +126,7 @@ public class MessageTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             App.update()
-                .withImageUploadConfig(
+                .imageUploadConfig(
                     FileUploadConfigRequestObject.builder()
                         .allowedFileExtensions(Collections.emptyList())
                         .build())
@@ -138,9 +138,9 @@ public class MessageTest extends BasicTest {
                     testChannel.getId(),
                     testUserRequestObject.getId(),
                     "image/png")
-                .withFile(
+                .file(
                     new File(getClass().getClassLoader().getResource("upload_image.png").getFile()))
-                .withUploadSizes(
+                .uploadSizes(
                     Arrays.asList(
                         ImageSizeRequestObject.builder()
                             .crop(Crop.TOP)

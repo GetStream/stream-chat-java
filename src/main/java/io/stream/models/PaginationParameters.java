@@ -59,37 +59,37 @@ public class PaginationParameters {
     private Builder() {}
 
     @NotNull
-    public Builder withLimit(@NotNull Integer limit) {
+    public Builder limit(@NotNull Integer limit) {
       this.limit = limit;
       return this;
     }
 
     @NotNull
-    public Builder withOffset(@NotNull Integer offset) {
+    public Builder offset(@NotNull Integer offset) {
       this.offset = offset;
       return this;
     }
 
     @NotNull
-    public Builder withIdGte(@NotNull String idGte) {
+    public Builder idGte(@NotNull String idGte) {
       this.idGte = idGte;
       return this;
     }
 
     @NotNull
-    public Builder withIdGt(@NotNull String idGt) {
+    public Builder idGt(@NotNull String idGt) {
       this.idGt = idGt;
       return this;
     }
 
     @NotNull
-    public Builder withIdLte(@NotNull String idLte) {
+    public Builder idLte(@NotNull String idLte) {
       this.idLte = idLte;
       return this;
     }
 
     @NotNull
-    public Builder withIdLt(@NotNull String idLt) {
+    public Builder idLt(@NotNull String idLt) {
       this.idLt = idLt;
       return this;
     }

@@ -16,9 +16,9 @@ public class DeviceTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             Device.create()
-                .withId(RandomStringUtils.randomAlphabetic(10))
-                .withUser(testUserRequestObject)
-                .withPushProvider(PushProvider.APN)
+                .id(RandomStringUtils.randomAlphabetic(10))
+                .user(testUserRequestObject)
+                .pushProvider(PushProvider.APN)
                 .request());
   }
 
@@ -29,9 +29,9 @@ public class DeviceTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             Device.create()
-                .withId(deviceId)
-                .withUser(testUserRequestObject)
-                .withPushProvider(PushProvider.APN)
+                .id(deviceId)
+                .user(testUserRequestObject)
+                .pushProvider(PushProvider.APN)
                 .request());
     Assertions.assertDoesNotThrow(
         () -> Device.delete(deviceId, testUserRequestObject.getId()).request());
@@ -49,9 +49,9 @@ public class DeviceTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             Device.create()
-                .withId(deviceId)
-                .withUser(testUserRequestObject)
-                .withPushProvider(PushProvider.APN)
+                .id(deviceId)
+                .user(testUserRequestObject)
+                .pushProvider(PushProvider.APN)
                 .request());
     List<Device> devices =
         Assertions.assertDoesNotThrow(() -> Device.list(testUserRequestObject.getId()).request())

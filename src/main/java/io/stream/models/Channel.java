@@ -386,49 +386,49 @@ public class Channel {
       }
 
       @NotNull
-      public ChannelGetRequest withConnectionId(@NotNull String connectionId) {
+      public ChannelGetRequest connectionId(@NotNull String connectionId) {
         this.connectionId = connectionId;
         return this;
       }
 
       @NotNull
-      public ChannelGetRequest withData(@NotNull ChannelRequestObject data) {
+      public ChannelGetRequest data(@NotNull ChannelRequestObject data) {
         this.data = data;
         return this;
       }
 
       @NotNull
-      public ChannelGetRequest withWatch(@NotNull Boolean watch) {
+      public ChannelGetRequest watch(@NotNull Boolean watch) {
         this.watch = watch;
         return this;
       }
 
       @NotNull
-      public ChannelGetRequest withState(@NotNull Boolean state) {
+      public ChannelGetRequest state(@NotNull Boolean state) {
         this.state = state;
         return this;
       }
 
       @NotNull
-      public ChannelGetRequest withPresence(@NotNull Boolean presence) {
+      public ChannelGetRequest presence(@NotNull Boolean presence) {
         this.presence = presence;
         return this;
       }
 
       @NotNull
-      public ChannelGetRequest withMessages(@NotNull MessagePaginationParameters messages) {
+      public ChannelGetRequest messages(@NotNull MessagePaginationParameters messages) {
         this.messages = messages;
         return this;
       }
 
       @NotNull
-      public ChannelGetRequest withMembers(@NotNull PaginationParameters members) {
+      public ChannelGetRequest members(@NotNull PaginationParameters members) {
         this.members = members;
         return this;
       }
 
       @NotNull
-      public ChannelGetRequest withWatchers(@NotNull PaginationParameters watchers) {
+      public ChannelGetRequest watchers(@NotNull PaginationParameters watchers) {
         this.watchers = watchers;
         return this;
       }
@@ -538,79 +538,79 @@ public class Channel {
       }
 
       @NotNull
-      public ChannelUpdateRequest withAddMembers(@NotNull List<String> addMembers) {
+      public ChannelUpdateRequest addMembers(@NotNull List<String> addMembers) {
         this.addMembers = addMembers;
         return this;
       }
 
       @NotNull
-      public ChannelUpdateRequest withRemoveMembers(@NotNull List<String> removeMembers) {
+      public ChannelUpdateRequest removeMembers(@NotNull List<String> removeMembers) {
         this.removeMembers = removeMembers;
         return this;
       }
 
       @NotNull
-      public ChannelUpdateRequest withAddModerators(@NotNull List<String> addModerators) {
+      public ChannelUpdateRequest addModerators(@NotNull List<String> addModerators) {
         this.addModerators = addModerators;
         return this;
       }
 
       @NotNull
-      public ChannelUpdateRequest withDemoteModerators(@NotNull List<String> demoteModerators) {
+      public ChannelUpdateRequest demoteModerators(@NotNull List<String> demoteModerators) {
         this.demoteModerators = demoteModerators;
         return this;
       }
 
       @NotNull
-      public ChannelUpdateRequest withInvites(@NotNull List<String> invites) {
+      public ChannelUpdateRequest invites(@NotNull List<String> invites) {
         this.invites = invites;
         return this;
       }
 
       @NotNull
-      public ChannelUpdateRequest withCooldown(@NotNull Integer cooldown) {
+      public ChannelUpdateRequest cooldown(@NotNull Integer cooldown) {
         this.cooldown = cooldown;
         return this;
       }
 
       @NotNull
-      public ChannelUpdateRequest withAcceptInvite(@NotNull Boolean acceptInvite) {
+      public ChannelUpdateRequest acceptInvite(@NotNull Boolean acceptInvite) {
         this.acceptInvite = acceptInvite;
         return this;
       }
 
       @NotNull
-      public ChannelUpdateRequest withRejectInvite(@NotNull Boolean rejectInvite) {
+      public ChannelUpdateRequest rejectInvite(@NotNull Boolean rejectInvite) {
         this.rejectInvite = rejectInvite;
         return this;
       }
 
       @NotNull
-      public ChannelUpdateRequest withMessage(@NotNull MessageRequestObject message) {
+      public ChannelUpdateRequest message(@NotNull MessageRequestObject message) {
         this.message = message;
         return this;
       }
 
       @NotNull
-      public ChannelUpdateRequest withSkipPush(@NotNull Boolean skipPush) {
+      public ChannelUpdateRequest skipPush(@NotNull Boolean skipPush) {
         this.skipPush = skipPush;
         return this;
       }
 
       @NotNull
-      public ChannelUpdateRequest withData(@NotNull ChannelRequestObject data) {
+      public ChannelUpdateRequest data(@NotNull ChannelRequestObject data) {
         this.data = data;
         return this;
       }
 
       @NotNull
-      public ChannelUpdateRequest withUserId(@NotNull String userId) {
+      public ChannelUpdateRequest userId(@NotNull String userId) {
         this.userId = userId;
         return this;
       }
 
       @NotNull
-      public ChannelUpdateRequest withUser(@NotNull UserRequestObject user) {
+      public ChannelUpdateRequest user(@NotNull UserRequestObject user) {
         this.user = user;
         return this;
       }
@@ -720,74 +720,73 @@ public class Channel {
       private ChannelListRequest() {}
 
       @NotNull
-      public ChannelListRequest withFilterConditions(
-          @NotNull Map<String, Object> filterConditions) {
+      public ChannelListRequest flterConditions(@NotNull Map<String, Object> filterConditions) {
         this.filterConditions = filterConditions;
         return this;
       }
 
       @NotNull
-      public ChannelListRequest withSort(@NotNull List<Sort> sort) {
+      public ChannelListRequest sort(@NotNull List<Sort> sort) {
         this.sort = sort;
         return this;
       }
 
       @NotNull
-      public ChannelListRequest withWatch(@NotNull Boolean watch) {
+      public ChannelListRequest watch(@NotNull Boolean watch) {
         this.watch = watch;
         return this;
       }
 
       @NotNull
-      public ChannelListRequest withState(@NotNull Boolean state) {
+      public ChannelListRequest state(@NotNull Boolean state) {
         this.state = state;
         return this;
       }
 
       @NotNull
-      public ChannelListRequest withPresence(@NotNull Boolean presence) {
+      public ChannelListRequest presence(@NotNull Boolean presence) {
         this.presence = presence;
         return this;
       }
 
       @NotNull
-      public ChannelListRequest withMessageLimit(@NotNull Integer messageLimit) {
+      public ChannelListRequest messageLimit(@NotNull Integer messageLimit) {
         this.messageLimit = messageLimit;
         return this;
       }
 
       @NotNull
-      public ChannelListRequest withMemberLimit(@NotNull Integer memberLimit) {
+      public ChannelListRequest memberLimit(@NotNull Integer memberLimit) {
         this.memberLimit = memberLimit;
         return this;
       }
 
       @NotNull
-      public ChannelListRequest withLimit(@NotNull Integer limit) {
+      public ChannelListRequest limit(@NotNull Integer limit) {
         this.limit = limit;
         return this;
       }
 
       @NotNull
-      public ChannelListRequest withOffset(@NotNull Integer offset) {
+      public ChannelListRequest offset(@NotNull Integer offset) {
         this.offset = offset;
         return this;
       }
 
       @NotNull
-      public ChannelListRequest withUserId(@NotNull String userId) {
+      public ChannelListRequest userId(@NotNull String userId) {
         this.userId = userId;
         return this;
       }
 
       @NotNull
-      public ChannelListRequest withUser(@NotNull UserRequestObject user) {
+      public ChannelListRequest user(@NotNull UserRequestObject user) {
         this.user = user;
         return this;
       }
 
       @NotNull
-      public ChannelListRequest withConnectionId(@NotNull String connectionId) {
+      public ChannelListRequest connectionId(@NotNull String connectionId) {
         this.connectionId = connectionId;
         return this;
       }
@@ -929,106 +928,105 @@ public class Channel {
       private ChannelQueryMembersRequest() {}
 
       @NotNull
-      public ChannelQueryMembersRequest withType(@NotNull String type) {
+      public ChannelQueryMembersRequest type(@NotNull String type) {
         this.type = type;
         return this;
       }
 
       @NotNull
-      public ChannelQueryMembersRequest withId(@NotNull String id) {
+      public ChannelQueryMembersRequest id(@NotNull String id) {
         this.id = id;
         return this;
       }
 
       @NotNull
-      public ChannelQueryMembersRequest withMembers(@NotNull ChannelMember members) {
+      public ChannelQueryMembersRequest members(@NotNull ChannelMember members) {
         this.members = members;
         return this;
       }
 
       @NotNull
-      public ChannelQueryMembersRequest withFilterConditions(
+      public ChannelQueryMembersRequest filterConditions(
           @NotNull Map<String, Object> filterConditions) {
         this.filterConditions = filterConditions;
         return this;
       }
 
       @NotNull
-      public ChannelQueryMembersRequest withSort(@NotNull List<Sort> sort) {
+      public ChannelQueryMembersRequest sort(@NotNull List<Sort> sort) {
         this.sort = sort;
         return this;
       }
 
       @NotNull
-      public ChannelQueryMembersRequest withLimit(@NotNull Integer limit) {
+      public ChannelQueryMembersRequest limit(@NotNull Integer limit) {
         this.limit = limit;
         return this;
       }
 
       @NotNull
-      public ChannelQueryMembersRequest withOffset(@NotNull Integer offset) {
+      public ChannelQueryMembersRequest offset(@NotNull Integer offset) {
         this.offset = offset;
         return this;
       }
 
       @NotNull
-      public ChannelQueryMembersRequest withUserIdGte(@NotNull String userIdGte) {
+      public ChannelQueryMembersRequest userIdGte(@NotNull String userIdGte) {
         this.userIdGte = userIdGte;
         return this;
       }
 
       @NotNull
-      public ChannelQueryMembersRequest withUserIdGt(@NotNull String userIdGt) {
+      public ChannelQueryMembersRequest userIdGt(@NotNull String userIdGt) {
         this.userIdGt = userIdGt;
         return this;
       }
 
       @NotNull
-      public ChannelQueryMembersRequest withUserIdLte(@NotNull String userIdLte) {
+      public ChannelQueryMembersRequest userIdLte(@NotNull String userIdLte) {
         this.userIdLte = userIdLte;
         return this;
       }
 
       @NotNull
-      public ChannelQueryMembersRequest withUserIdLt(@NotNull String userIdLt) {
+      public ChannelQueryMembersRequest userIdLt(@NotNull String userIdLt) {
         this.userIdLt = userIdLt;
         return this;
       }
 
       @NotNull
-      public ChannelQueryMembersRequest withCreatedAtAfterOrEqual(
-          @NotNull Date createdAtAfterOrEqual) {
+      public ChannelQueryMembersRequest createdAtAfterOrEqual(@NotNull Date createdAtAfterOrEqual) {
         this.createdAtAfterOrEqual = createdAtAfterOrEqual;
         return this;
       }
 
       @NotNull
-      public ChannelQueryMembersRequest withCreatedAtAfter(@NotNull Date createdAtAfter) {
+      public ChannelQueryMembersRequest createdAtAfter(@NotNull Date createdAtAfter) {
         this.createdAtAfter = createdAtAfter;
         return this;
       }
 
       @NotNull
-      public ChannelQueryMembersRequest withCreatedAtBeforeOrEqual(
+      public ChannelQueryMembersRequest createdAtBeforeOrEqual(
           @NotNull Date createdAtBeforeOrEqual) {
         this.createdAtBeforeOrEqual = createdAtBeforeOrEqual;
         return this;
       }
 
       @NotNull
-      public ChannelQueryMembersRequest withCreatedAtBefore(@NotNull Date createdAtBefore) {
+      public ChannelQueryMembersRequest createdAtBefore(@NotNull Date createdAtBefore) {
         this.createdAtBefore = createdAtBefore;
         return this;
       }
 
       @NotNull
-      public ChannelQueryMembersRequest withUserId(@NotNull String userId) {
+      public ChannelQueryMembersRequest userId(@NotNull String userId) {
         this.userId = userId;
         return this;
       }
 
       @NotNull
-      public ChannelQueryMembersRequest withUser(@NotNull UserRequestObject user) {
+      public ChannelQueryMembersRequest user(@NotNull UserRequestObject user) {
         this.user = user;
         return this;
       }
@@ -1056,7 +1054,7 @@ public class Channel {
       private ChannelExportRequest() {}
 
       @NotNull
-      public ChannelExportRequest withChannels(@NotNull List<ChannelExportRequestObject> channels) {
+      public ChannelExportRequest channels(@NotNull List<ChannelExportRequestObject> channels) {
         this.channels = channels;
         return this;
       }
@@ -1121,19 +1119,19 @@ public class Channel {
       }
 
       @NotNull
-      public ChannelHideRequest withClearHistory(@NotNull String clearHistory) {
+      public ChannelHideRequest clearHistory(@NotNull String clearHistory) {
         this.clearHistory = clearHistory;
         return this;
       }
 
       @NotNull
-      public ChannelHideRequest withUserId(@NotNull String userId) {
+      public ChannelHideRequest userId(@NotNull String userId) {
         this.userId = userId;
         return this;
       }
 
       @NotNull
-      public ChannelHideRequest withUser(@NotNull UserRequestObject user) {
+      public ChannelHideRequest user(@NotNull UserRequestObject user) {
         this.user = user;
         return this;
       }
@@ -1168,13 +1166,13 @@ public class Channel {
       private ChannelMarkAllReadRequest() {}
 
       @NotNull
-      public ChannelMarkAllReadRequest withUserId(@NotNull String userId) {
+      public ChannelMarkAllReadRequest userId(@NotNull String userId) {
         this.userId = userId;
         return this;
       }
 
       @NotNull
-      public ChannelMarkAllReadRequest withUser(@NotNull UserRequestObject user) {
+      public ChannelMarkAllReadRequest user(@NotNull UserRequestObject user) {
         this.user = user;
         return this;
       }
@@ -1220,13 +1218,13 @@ public class Channel {
       }
 
       @NotNull
-      public ChannelMarkReadRequest withUserId(@NotNull String userId) {
+      public ChannelMarkReadRequest userId(@NotNull String userId) {
         this.userId = userId;
         return this;
       }
 
       @NotNull
-      public ChannelMarkReadRequest withUser(@NotNull UserRequestObject user) {
+      public ChannelMarkReadRequest user(@NotNull UserRequestObject user) {
         this.user = user;
         return this;
       }
@@ -1278,31 +1276,31 @@ public class Channel {
       private ChannelMuteRequest() {}
 
       @NotNull
-      public ChannelMuteRequest withChannelCid(@NotNull String channelCid) {
+      public ChannelMuteRequest channelCid(@NotNull String channelCid) {
         this.channelCid = channelCid;
         return this;
       }
 
       @NotNull
-      public ChannelMuteRequest withChannelCids(@NotNull List<String> channelCids) {
+      public ChannelMuteRequest channelCids(@NotNull List<String> channelCids) {
         this.channelCids = channelCids;
         return this;
       }
 
       @NotNull
-      public ChannelMuteRequest withExpiration(@NotNull Integer expiration) {
+      public ChannelMuteRequest expiration(@NotNull Integer expiration) {
         this.expiration = expiration;
         return this;
       }
 
       @NotNull
-      public ChannelMuteRequest withUserId(@NotNull String userId) {
+      public ChannelMuteRequest userId(@NotNull String userId) {
         this.userId = userId;
         return this;
       }
 
       @NotNull
-      public ChannelMuteRequest withUser(@NotNull UserRequestObject user) {
+      public ChannelMuteRequest user(@NotNull UserRequestObject user) {
         this.user = user;
         return this;
       }
@@ -1342,13 +1340,13 @@ public class Channel {
       }
 
       @NotNull
-      public ChannelShowRequest withUserId(@NotNull String userId) {
+      public ChannelShowRequest userId(@NotNull String userId) {
         this.userId = userId;
         return this;
       }
 
       @NotNull
-      public ChannelShowRequest withUser(@NotNull UserRequestObject user) {
+      public ChannelShowRequest user(@NotNull UserRequestObject user) {
         this.user = user;
         return this;
       }
@@ -1400,31 +1398,31 @@ public class Channel {
       private ChannelUnMuteRequest() {}
 
       @NotNull
-      public ChannelUnMuteRequest withChannelCid(@NotNull String channelCid) {
+      public ChannelUnMuteRequest channelCid(@NotNull String channelCid) {
         this.channelCid = channelCid;
         return this;
       }
 
       @NotNull
-      public ChannelUnMuteRequest withChannelCids(@NotNull List<String> channelCids) {
+      public ChannelUnMuteRequest channelCids(@NotNull List<String> channelCids) {
         this.channelCids = channelCids;
         return this;
       }
 
       @NotNull
-      public ChannelUnMuteRequest withExpiration(@NotNull Integer expiration) {
+      public ChannelUnMuteRequest expiration(@NotNull Integer expiration) {
         this.expiration = expiration;
         return this;
       }
 
       @NotNull
-      public ChannelUnMuteRequest withUserId(@NotNull String userId) {
+      public ChannelUnMuteRequest userId(@NotNull String userId) {
         this.userId = userId;
         return this;
       }
 
       @NotNull
-      public ChannelUnMuteRequest withUser(@NotNull UserRequestObject user) {
+      public ChannelUnMuteRequest user(@NotNull UserRequestObject user) {
         this.user = user;
         return this;
       }

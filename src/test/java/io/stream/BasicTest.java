@@ -120,7 +120,7 @@ public class BasicTest {
 
   protected static ChannelGetResponse createRandomChannel() throws StreamException {
     return Channel.getOrCreate("team", RandomStringUtils.randomAlphabetic(12))
-        .withData(
+        .data(
             ChannelRequestObject.builder()
                 .createdBy(testUserRequestObject)
                 .members(buildChannelMembersList())
@@ -135,7 +135,7 @@ public class BasicTest {
     return Assertions.assertDoesNotThrow(
             () ->
                 Message.send(testChannel.getType(), testChannel.getId())
-                    .withMessage(messageRequest)
+                    .message(messageRequest)
                     .request())
         .getMessage();
   }

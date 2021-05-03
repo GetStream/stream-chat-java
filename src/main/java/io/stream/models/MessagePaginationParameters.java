@@ -84,61 +84,61 @@ public class MessagePaginationParameters {
     private Builder() {}
 
     @NotNull
-    public Builder withLimit(@NotNull Integer limit) {
+    public Builder limit(@NotNull Integer limit) {
       this.limit = limit;
       return this;
     }
 
     @NotNull
-    public Builder withOffset(@NotNull Integer offset) {
+    public Builder offset(@NotNull Integer offset) {
       this.offset = offset;
       return this;
     }
 
     @NotNull
-    public Builder withIdGte(@NotNull String idGte) {
+    public Builder idGte(@NotNull String idGte) {
       this.idGte = idGte;
       return this;
     }
 
     @NotNull
-    public Builder withIdGt(@NotNull String idGt) {
+    public Builder idGt(@NotNull String idGt) {
       this.idGt = idGt;
       return this;
     }
 
     @NotNull
-    public Builder withIdLte(@NotNull String idLte) {
+    public Builder idLte(@NotNull String idLte) {
       this.idLte = idLte;
       return this;
     }
 
     @NotNull
-    public Builder withIdLt(@NotNull String idLt) {
+    public Builder idLt(@NotNull String idLt) {
       this.idLt = idLt;
       return this;
     }
 
     @NotNull
-    public Builder withCreatedAtAfterOrEqual(@NotNull Date createdAtAfterOrEqual) {
+    public Builder createdAtAfterOrEqual(@NotNull Date createdAtAfterOrEqual) {
       this.createdAtAfterOrEqual = createdAtAfterOrEqual;
       return this;
     }
 
     @NotNull
-    public Builder withCreatedAtAfter(@NotNull Date createdAtAfter) {
+    public Builder createdAtAfter(@NotNull Date createdAtAfter) {
       this.createdAtAfter = createdAtAfter;
       return this;
     }
 
     @NotNull
-    public Builder withCreatedAtBeforeOrEqual(@NotNull Date createdAtBeforeOrEqual) {
+    public Builder createdAtBeforeOrEqual(@NotNull Date createdAtBeforeOrEqual) {
       this.createdAtBeforeOrEqual = createdAtBeforeOrEqual;
       return this;
     }
 
     @NotNull
-    public Builder withCreatedAtBefore(@NotNull Date createdAtBefore) {
+    public Builder createdAtBefore(@NotNull Date createdAtBefore) {
       this.createdAtBefore = createdAtBefore;
       return this;
     }

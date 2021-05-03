@@ -77,25 +77,25 @@ public class Command {
       private CommandCreateRequest() {}
 
       @NotNull
-      public CommandCreateRequest withName(@NotNull String name) {
+      public CommandCreateRequest name(@NotNull String name) {
         this.name = name;
         return this;
       }
 
       @NotNull
-      public CommandCreateRequest withDescription(@NotNull String description) {
+      public CommandCreateRequest description(@NotNull String description) {
         this.description = description;
         return this;
       }
 
       @NotNull
-      public CommandCreateRequest withArgs(@NotNull String args) {
+      public CommandCreateRequest args(@NotNull String args) {
         this.args = args;
         return this;
       }
 
       @NotNull
-      public CommandCreateRequest withSetValue(@NotNull String setValue) {
+      public CommandCreateRequest setValue(@NotNull String setValue) {
         this.setValue = setValue;
         return this;
       }
@@ -151,19 +151,19 @@ public class Command {
       }
 
       @NotNull
-      public CommandUpdateRequest withDescription(@NotNull String description) {
+      public CommandUpdateRequest description(@NotNull String description) {
         this.description = description;
         return this;
       }
 
       @NotNull
-      public CommandUpdateRequest withArgs(@NotNull String args) {
+      public CommandUpdateRequest args(@NotNull String args) {
         this.args = args;
         return this;
       }
 
       @NotNull
-      public CommandUpdateRequest withSetValue(@NotNull String setValue) {
+      public CommandUpdateRequest setValue(@NotNull String setValue) {
         this.setValue = setValue;
         return this;
       }
