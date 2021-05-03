@@ -1,6 +1,7 @@
 package io.stream.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -20,6 +21,10 @@ public class StreamException extends Exception {
     this.responseData = responseData;
   }
 
+  private StreamException(String message, Throwable t) {
+    super(message, t);
+  }
+
   private StreamException(Throwable t) {
     super(t);
   }
@@ -31,7 +36,7 @@ public class StreamException extends Exception {
    * @return the StreamException
    */
   public static StreamException build(String configurationErrorMessage) {
-    return new StreamException(configurationErrorMessage, null);
+    return new StreamException(configurationErrorMessage, (Throwable) null);
   }
 
   /**
@@ -44,8 +49,13 @@ public class StreamException extends Exception {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     try {
-      ResponseData responseData = objectMapper.readValue(responseBody.string(), ResponseData.class);
-      return new StreamException(responseData.getMessage(), responseData);
+      try {
+        ResponseData responseData =
+            objectMapper.readValue(responseBody.string(), ResponseData.class);
+        return new StreamException(responseData.getMessage(), responseData);
+      } catch (JsonProcessingException e) {
+        return new StreamException(responseBody.string(), e);
+      }
     } catch (IOException e) {
       return new StreamException(e);
     }
