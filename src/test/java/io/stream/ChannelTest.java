@@ -1,13 +1,5 @@
 package io.stream;
 
-import io.stream.models.Channel;
-import io.stream.models.Channel.ChannelExportRequestObject;
-import io.stream.models.Channel.ChannelGetResponse;
-import io.stream.models.Channel.ChannelMember;
-import io.stream.models.Channel.ChannelRequestObject;
-import io.stream.models.Channel.ChannelUpdateResponse;
-import io.stream.models.User;
-import io.stream.models.User.ChannelMute;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +7,16 @@ import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import io.stream.models.Channel;
+import io.stream.models.Channel.ChannelExportRequestObject;
+import io.stream.models.Channel.ChannelGetResponse;
+import io.stream.models.Channel.ChannelMember;
+import io.stream.models.Channel.ChannelRequestObject;
+import io.stream.models.Channel.ChannelUpdateResponse;
+import io.stream.models.Sort;
+import io.stream.models.Sort.Direction;
+import io.stream.models.User;
+import io.stream.models.User.ChannelMute;
 
 public class ChannelTest extends BasicTest {
 
@@ -76,7 +78,12 @@ public class ChannelTest extends BasicTest {
   @DisplayName("Can list channels")
   @Test
   void whenListingChannels_thenNoException() {
-    Assertions.assertDoesNotThrow(() -> Channel.list().user(testUserRequestObject).request());
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.list()
+                .user(testUserRequestObject)
+                .sort(Arrays.asList(Sort.builder().field("id").direction(Direction.DESC).build()))
+                .request());
   }
 
   @DisplayName("Can truncate channel")

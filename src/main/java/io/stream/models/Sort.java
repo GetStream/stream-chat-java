@@ -1,7 +1,9 @@
 package io.stream.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 public class Sort {
   @NotNull
@@ -10,7 +12,7 @@ public class Sort {
 
   @NotNull
   @JsonProperty("direction")
-  private Integer direction;
+  private Direction direction;
 
   private Sort(Builder builder) {
     this.field = builder.field;
@@ -29,7 +31,7 @@ public class Sort {
   /** Builder to build {@link Sort}. */
   public static final class Builder {
     private String field;
-    private Integer direction;
+    private Direction direction;
 
     private Builder() {}
 
@@ -40,7 +42,7 @@ public class Sort {
     }
 
     @NotNull
-    public Builder direction(@NotNull Integer direction) {
+    public Builder direction(@NotNull Direction direction) {
       this.direction = direction;
       return this;
     }
@@ -48,6 +50,17 @@ public class Sort {
     @NotNull
     public Sort build() {
       return new Sort(this);
+    }
+  }
+
+  @JsonFormat(shape = JsonFormat.Shape.NUMBER)
+  public enum Direction {
+    ASC,
+    DESC;
+
+    @JsonValue
+    public int toValue() {
+      return this == ASC ? 1 : -1;
     }
   }
 }
