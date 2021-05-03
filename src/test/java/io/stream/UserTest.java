@@ -14,10 +14,6 @@ import org.junit.jupiter.api.Test;
 
 public class UserTest extends BasicTest {
 
-  @DisplayName("Can fetch user with no Exception")
-  @Test
-  void whenFechingServerUser_thenNoException() {}
-
   @DisplayName("Can list users with no Exception")
   @Test
   void whenListingUsers_thenNoException() {
