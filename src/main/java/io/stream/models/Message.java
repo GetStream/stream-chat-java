@@ -754,11 +754,6 @@ public class Message {
         return this;
       }
 
-      @NotNull
-      public MessageSearchRequestData build() {
-        return new MessageSearchRequestData(this);
-      }
-
       @Override
       protected Call<MessageSearchResponse> generateCall() {
         return StreamServiceGenerator.createService(MessageService.class)
