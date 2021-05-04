@@ -25,6 +25,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Singular;
 import lombok.extern.java.Log;
 import okhttp3.MediaType;
@@ -690,14 +691,11 @@ public class Message {
     }
   }
 
+  @RequiredArgsConstructor
   public static class MessageDeleteRequest extends StreamRequest<MessageDeleteResponse> {
     @NotNull private String id;
 
     @Nullable private Boolean hard;
-
-    private MessageDeleteRequest(@NotNull String id) {
-      this.id = id;
-    }
 
     @NotNull
     MessageDeleteRequest hard(@NotNull Boolean hard) {
@@ -747,6 +745,7 @@ public class Message {
     }
   }
 
+  // We do not use @RequiredArgsConstructor here for uniformity with MessageUploadImageRequest
   public static class MessageUploadFileRequest extends StreamRequest<MessageUploadFileResponse> {
     @NotNull private String channelType;
 
@@ -801,6 +800,7 @@ public class Message {
     }
   }
 
+  @RequiredArgsConstructor
   public static class MessageUploadImageRequest extends StreamRequest<MessageUploadImageResponse> {
     @Nullable private File file;
 
@@ -813,17 +813,6 @@ public class Message {
     @NotNull private String userId;
 
     @Nullable private List<ImageSizeRequestObject> uploadSizes;
-
-    private MessageUploadImageRequest(
-        @NotNull String channelType,
-        @NotNull String channelId,
-        @NotNull String userId,
-        @NotNull String contentType) {
-      this.channelType = channelType;
-      this.channelId = channelId;
-      this.userId = userId;
-      this.contentType = contentType;
-    }
 
     @NotNull
     public MessageUploadImageRequest file(@NotNull File file) {
@@ -868,19 +857,13 @@ public class Message {
     }
   }
 
+  @RequiredArgsConstructor
   public static class MessageDeleteFileRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String channelType;
 
     @NotNull private String channelId;
 
     @NotNull private String url;
-
-    private MessageDeleteFileRequest(
-        @NotNull String channelType, @NotNull String channelId, @NotNull String url) {
-      this.channelType = channelType;
-      this.channelId = channelId;
-      this.url = url;
-    }
 
     @Override
     protected Call<StreamResponseObject> generateCall() {
@@ -889,19 +872,13 @@ public class Message {
     }
   }
 
+  @RequiredArgsConstructor
   public static class MessageDeleteImageRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String channelType;
 
     @NotNull private String channelId;
 
     @NotNull private String url;
-
-    private MessageDeleteImageRequest(
-        @NotNull String channelType, @NotNull String channelId, @NotNull String url) {
-      this.channelType = channelType;
-      this.channelId = channelId;
-      this.url = url;
-    }
 
     @Override
     protected Call<StreamResponseObject> generateCall() {

@@ -16,6 +16,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Singular;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -373,12 +374,9 @@ public class ChannelType {
     }
   }
 
+  @RequiredArgsConstructor
   public static class ChannelTypeGetRequest extends StreamRequest<ChannelTypeGetResponse> {
     @NotNull private String name;
-
-    private ChannelTypeGetRequest(@NotNull String name) {
-      this.name = name;
-    }
 
     @Override
     protected Call<ChannelTypeGetResponse> generateCall() {
@@ -488,12 +486,9 @@ public class ChannelType {
     }
   }
 
+  @RequiredArgsConstructor
   public static class ChannelTypeDeleteRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String name;
-
-    private ChannelTypeDeleteRequest(@NotNull String name) {
-      this.name = name;
-    }
 
     @Override
     protected Call<StreamResponseObject> generateCall() {

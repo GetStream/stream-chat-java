@@ -33,6 +33,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Singular;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -472,15 +473,11 @@ public class Channel {
     }
   }
 
+  @RequiredArgsConstructor
   public static class ChannelDeleteRequest extends StreamRequest<ChannelDeleteResponse> {
     @NotNull private String channelId;
 
     @NotNull private String channelType;
-
-    private ChannelDeleteRequest(@NotNull String channelType, @NotNull String channelId) {
-      this.channelType = channelType;
-      this.channelId = channelId;
-    }
 
     @Override
     protected Call<ChannelDeleteResponse> generateCall() {
@@ -553,15 +550,11 @@ public class Channel {
     }
   }
 
+  @RequiredArgsConstructor
   public static class ChannelTruncateRequest extends StreamRequest<ChannelTruncateResponse> {
     @NotNull private String channelId;
 
     @NotNull private String channelType;
-
-    private ChannelTruncateRequest(@NotNull String channelType, @NotNull String channelId) {
-      this.channelType = channelType;
-      this.channelId = channelId;
-    }
 
     @Override
     protected Call<ChannelTruncateResponse> generateCall() {

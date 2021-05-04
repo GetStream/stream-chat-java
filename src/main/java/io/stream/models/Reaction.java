@@ -20,6 +20,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Singular;
 import retrofit2.Call;
 
@@ -129,17 +130,13 @@ public class Reaction {
     }
   }
 
+  @RequiredArgsConstructor
   public static class ReactionDeleteRequest extends StreamRequest<ReactionDeleteResponse> {
     @NotNull private String messageId;
 
     @NotNull private String type;
 
     @Nullable private String userId;
-
-    private ReactionDeleteRequest(@NotNull String messageId, @NotNull String type) {
-      this.messageId = messageId;
-      this.type = type;
-    }
 
     public ReactionDeleteRequest userId(@NotNull String userId) {
       this.userId = userId;
@@ -153,12 +150,9 @@ public class Reaction {
     }
   }
 
+  @RequiredArgsConstructor
   public static class ReactionListRequest extends StreamRequest<ReactionListResponse> {
     @NotNull private String messageId;
-
-    private ReactionListRequest(@NotNull String messageId) {
-      this.messageId = messageId;
-    }
 
     @Override
     protected Call<ReactionListResponse> generateCall() {

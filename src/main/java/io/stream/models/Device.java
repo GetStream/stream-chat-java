@@ -13,6 +13,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -108,15 +109,11 @@ public class Device {
     }
   }
 
+  @RequiredArgsConstructor
   public static class DeviceDeleteRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String id;
 
     @NotNull private String userId;
-
-    private DeviceDeleteRequest(@NotNull String id, @NotNull String userId) {
-      this.id = id;
-      this.userId = userId;
-    }
 
     @NotNull
     public DeviceDeleteRequest id(@NotNull String id) {
@@ -136,12 +133,9 @@ public class Device {
     }
   }
 
+  @RequiredArgsConstructor
   public static class DeviceListRequest extends StreamRequest<DeviceListResponse> {
     @NotNull private String userId;
-
-    private DeviceListRequest(@NotNull String userId) {
-      this.userId = userId;
-    }
 
     @Override
     protected Call<DeviceListResponse> generateCall() {

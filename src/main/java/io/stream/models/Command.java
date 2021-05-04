@@ -14,6 +14,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -75,12 +76,9 @@ public class Command {
     }
   }
 
+  @RequiredArgsConstructor
   public static class CommandGetRequest extends StreamRequest<CommandGetResponse> {
     @NotNull private String name;
-
-    private CommandGetRequest(@NotNull String name) {
-      this.name = name;
-    }
 
     @Override
     protected Call<CommandGetResponse> generateCall() {
@@ -120,12 +118,9 @@ public class Command {
     }
   }
 
+  @RequiredArgsConstructor
   public static class CommandDeleteRequest extends StreamRequest<CommandDeleteResponse> {
     @NotNull private String name;
-
-    private CommandDeleteRequest(@NotNull String name) {
-      this.name = name;
-    }
 
     @Override
     protected Call<CommandDeleteResponse> generateCall() {
