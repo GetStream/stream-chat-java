@@ -205,7 +205,7 @@ public class App extends StreamResponseObject {
 
     @Nullable
     @JsonProperty("enforce_unique_usernames")
-    private String enforceUniqueUsernames;
+    private EnforceUniqueUsernames enforceUniqueUsernames;
 
     @Nullable
     @JsonProperty("sqs_url")
@@ -236,6 +236,22 @@ public class App extends StreamResponseObject {
     private Boolean autoTranslationEnabled;
 
     public AppConfig() {}
+  }
+  
+  public enum PermissionVersion {
+    @JsonProperty("v1")
+    V1,
+    @JsonProperty("v2")
+    V2
+  }
+  
+  public enum EnforceUniqueUsernames {
+    @JsonProperty("no")
+    NO,
+    @JsonProperty("app")
+    APP,
+    @JsonProperty("team")
+    TEAM
   }
 
   @Data
@@ -387,7 +403,7 @@ public class App extends StreamResponseObject {
 
     @Nullable
     @JsonProperty("permission_version")
-    private String permissionVersion;
+    private PermissionVersion permissionVersion;
 
     @Nullable
     @JsonProperty("file_upload_config")
