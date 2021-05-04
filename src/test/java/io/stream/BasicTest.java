@@ -2,6 +2,7 @@ package io.stream;
 
 import io.stream.exceptions.StreamException;
 import io.stream.models.Channel;
+import io.stream.models.ChannelType;
 import io.stream.models.Channel.ChannelGetResponse;
 import io.stream.models.Channel.ChannelMemberRequestObject;
 import io.stream.models.Channel.ChannelRequestObject;
@@ -44,9 +45,20 @@ public class BasicTest {
     // failOnUnknownProperties();
     enableLogging();
     setProperties();
+    cleanChannelTypes();
     upsertUsers();
     createTestChannel();
     createTestMessage();
+  }
+
+  private static void cleanChannelTypes() throws StreamException {
+    ChannelType.list().request().getChannelTypes().values().forEach(channelType -> {
+      try {
+          ChannelType.delete(channelType.getName()).request();
+        } catch (StreamException e) {
+          // Do nothing. Happens when there are channels of that type
+        }
+    });
   }
 
   private static void createTestMessage() throws StreamException {
