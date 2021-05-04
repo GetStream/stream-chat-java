@@ -25,7 +25,7 @@ import retrofit2.Call;
 @Data
 @NoArgsConstructor
 public class ChannelType {
-  @Nullable
+  @NotNull
   @JsonProperty("name")
   private String name;
 
