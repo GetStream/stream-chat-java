@@ -105,6 +105,10 @@ public class Message {
   private Date deletedAt;
 
   @NotNull @JsonIgnore private Map<String, Object> additionalFields;
+  
+  public Message() {
+    additionalFields = new HashMap<>();
+  }
 
   @JsonAnyGetter
   public Map<String, Object> getAdditionalFields() {
@@ -114,10 +118,6 @@ public class Message {
   @JsonAnySetter
   public void setAdditionalField(String name, Object value) {
     this.additionalFields.put(name, value);
-  }
-
-  public Message() {
-    additionalFields = new HashMap<>();
   }
 
   public enum MessageType {
@@ -211,6 +211,10 @@ public class Message {
 
     @NotNull @JsonIgnore private Map<String, Object> additionalFields;
 
+    public Attachment() {
+      additionalFields = new HashMap<>();
+    }
+
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
       return this.additionalFields;
@@ -219,10 +223,6 @@ public class Message {
     @JsonAnySetter
     public void setAdditionalField(String name, Object value) {
       this.additionalFields.put(name, value);
-    }
-
-    public Attachment() {
-      additionalFields = new HashMap<>();
     }
   }
 
@@ -421,6 +421,16 @@ public class Message {
     private Date pinnedAt;
 
     @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+    
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalFields() {
+      return this.additionalFields;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalField(String name, Object value) {
+      this.additionalFields.put(name, value);
+    }
   }
 
   @Builder
@@ -455,6 +465,16 @@ public class Message {
     private Boolean silent;
 
     @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+    
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalFields() {
+      return this.additionalFields;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalField(String name, Object value) {
+      this.additionalFields.put(name, value);
+    }
   }
 
   @Builder
@@ -541,6 +561,16 @@ public class Message {
     private String ogScrapeURL;
 
     @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+    
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalFields() {
+      return this.additionalFields;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalField(String name, Object value) {
+      this.additionalFields.put(name, value);
+    }
   }
 
   @Builder

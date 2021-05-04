@@ -358,6 +358,16 @@ public class User {
     private List<String> teams;
 
     @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+    
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalFields() {
+      return this.additionalFields;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalField(String name, Object value) {
+      this.additionalFields.put(name, value);
+    }
   }
 
   @Builder

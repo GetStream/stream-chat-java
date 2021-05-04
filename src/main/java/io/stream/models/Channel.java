@@ -191,8 +191,6 @@ public class Channel {
     @JsonProperty("created_by")
     private UserRequestObject createdBy;
 
-    @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
-
     @Nullable
     @JsonProperty("team")
     private String team;
@@ -217,6 +215,18 @@ public class Channel {
     @Nullable
     @JsonProperty("config_overrides")
     private ConfigOverridesRequestObject configOverrides;
+    
+    @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalFields() {
+      return this.additionalFields;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalField(String name, Object value) {
+      this.additionalFields.put(name, value);
+    }
   }
 
   @Builder
