@@ -429,9 +429,10 @@ public class Message {
     @JsonProperty("text")
     private String text;
 
+    @Singular
     @Nullable
     @JsonProperty("attachments")
-    private List<Attachment> attachments;
+    private List<AttachmentRequestObject> attachments;
 
     @Nullable
     @JsonProperty("user")
