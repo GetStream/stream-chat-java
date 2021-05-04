@@ -257,8 +257,9 @@ public class Event {
     private EventRequestObject event;
 
     public static class EventSendRequest extends StreamRequest<EventSendResponse> {
-      private String channelType;
-      private String channelId;
+      @NotNull private String channelType;
+
+      @NotNull private String channelId;
 
       private EventSendRequest(@NotNull String channelType, @NotNull String channelId) {
         this.channelType = channelType;
@@ -287,7 +288,6 @@ public class Event {
     private String targetUserId;
 
     public static class EventSendUserCustomRequest extends StreamRequest<StreamResponseObject> {
-      private String targetUserId;
 
       private EventSendUserCustomRequest(@NotNull String userId) {
         this.targetUserId = userId;

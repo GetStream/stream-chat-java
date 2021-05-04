@@ -374,9 +374,9 @@ public class ChannelType {
   }
 
   public static class ChannelTypeGetRequest extends StreamRequest<ChannelTypeGetResponse> {
-    private String name;
+    @NotNull private String name;
 
-    private ChannelTypeGetRequest(String name) {
+    private ChannelTypeGetRequest(@NotNull String name) {
       this.name = name;
     }
 
@@ -474,9 +474,9 @@ public class ChannelType {
     protected List<PermissionRequestObject> permissions;
 
     public static class ChannelTypeUpdateRequest extends StreamRequest<ChannelTypeUpdateResponse> {
-      private String name;
+      @NotNull private String name;
 
-      private ChannelTypeUpdateRequest(String name) {
+      private ChannelTypeUpdateRequest(@NotNull String name) {
         this.name = name;
       }
 
@@ -489,9 +489,9 @@ public class ChannelType {
   }
 
   public static class ChannelTypeDeleteRequest extends StreamRequest<StreamResponseObject> {
-    private String name;
+    @NotNull private String name;
 
-    private ChannelTypeDeleteRequest(String name) {
+    private ChannelTypeDeleteRequest(@NotNull String name) {
       this.name = name;
     }
 
@@ -502,9 +502,6 @@ public class ChannelType {
   }
 
   public static class ChannelTypeListRequest extends StreamRequest<ChannelTypeListResponse> {
-
-    private ChannelTypeListRequest() {}
-
     @Override
     protected Call<ChannelTypeListResponse> generateCall() {
       return StreamServiceGenerator.createService(ChannelTypeService.class).list();

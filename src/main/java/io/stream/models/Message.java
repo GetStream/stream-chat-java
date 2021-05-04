@@ -105,7 +105,7 @@ public class Message {
   private Date deletedAt;
 
   @NotNull @JsonIgnore private Map<String, Object> additionalFields;
-  
+
   public Message() {
     additionalFields = new HashMap<>();
   }
@@ -421,7 +421,7 @@ public class Message {
     private Date pinnedAt;
 
     @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
-    
+
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
       return this.additionalFields;
@@ -465,7 +465,7 @@ public class Message {
     private Boolean silent;
 
     @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
-    
+
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
       return this.additionalFields;
@@ -561,7 +561,7 @@ public class Message {
     private String ogScrapeURL;
 
     @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
-    
+
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
       return this.additionalFields;
@@ -659,8 +659,9 @@ public class Message {
     private Boolean skipPush;
 
     public static class MessageSendRequest extends StreamRequest<MessageSendResponse> {
-      private String channelId;
-      private String channelType;
+      @NotNull private String channelId;
+
+      @NotNull private String channelType;
 
       private MessageSendRequest(@NotNull String channelType, @NotNull String channelId) {
         this.channelType = channelType;
@@ -685,9 +686,9 @@ public class Message {
     private MessageRequestObject message;
 
     public static class MessageUpdateRequest extends StreamRequest<MessageUpdateResponse> {
-      private String id;
+      @NotNull private String id;
 
-      private MessageUpdateRequest(String id) {
+      private MessageUpdateRequest(@NotNull String id) {
         this.id = id;
       }
 
@@ -736,11 +737,15 @@ public class Message {
   }
 
   public static class MessageUploadFileRequest extends StreamRequest<MessageUploadFileResponse> {
-    private String channelType;
-    private String channelId;
-    private String userId;
-    private File file;
-    private String contentType;
+    @NotNull private String channelType;
+
+    @NotNull private String channelId;
+
+    @NotNull private String userId;
+
+    @Nullable private File file;
+
+    @Nullable private String contentType;
 
     private MessageUploadFileRequest(
         @NotNull String channelType,
@@ -786,12 +791,17 @@ public class Message {
   }
 
   public static class MessageUploadImageRequest extends StreamRequest<MessageUploadImageResponse> {
-    private File file;
-    private String contentType;
-    private String channelType;
-    private String channelId;
-    private String userId;
-    private List<ImageSizeRequestObject> uploadSizes;
+    @Nullable private File file;
+
+    @NotNull private String contentType;
+
+    @NotNull private String channelType;
+
+    @NotNull private String channelId;
+
+    @NotNull private String userId;
+
+    @Nullable private List<ImageSizeRequestObject> uploadSizes;
 
     private MessageUploadImageRequest(
         @NotNull String channelType,
@@ -848,9 +858,11 @@ public class Message {
   }
 
   public static class MessageDeleteFileRequest extends StreamRequest<StreamResponseObject> {
-    private String channelType;
-    private String channelId;
-    private String url;
+    @NotNull private String channelType;
+
+    @NotNull private String channelId;
+
+    @NotNull private String url;
 
     private MessageDeleteFileRequest(
         @NotNull String channelType, @NotNull String channelId, @NotNull String url) {
@@ -867,9 +879,11 @@ public class Message {
   }
 
   public static class MessageDeleteImageRequest extends StreamRequest<StreamResponseObject> {
-    private String channelType;
-    private String channelId;
-    private String url;
+    @NotNull private String channelType;
+
+    @NotNull private String channelId;
+
+    @NotNull private String url;
 
     private MessageDeleteImageRequest(
         @NotNull String channelType, @NotNull String channelId, @NotNull String url) {

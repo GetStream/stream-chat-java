@@ -237,14 +237,14 @@ public class App extends StreamResponseObject {
 
     public AppConfig() {}
   }
-  
+
   public enum PermissionVersion {
     @JsonProperty("v1")
     V1,
     @JsonProperty("v2")
     V2
   }
-  
+
   public enum EnforceUniqueUsernames {
     @JsonProperty("no")
     NO,

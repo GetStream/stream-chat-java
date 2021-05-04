@@ -106,7 +106,7 @@ public class Command {
     private String setValue;
 
     public static class CommandUpdateRequest extends StreamRequest<CommandUpdateResponse> {
-      private String name;
+      @NotNull private String name;
 
       private CommandUpdateRequest(@NotNull String name) {
         this.name = name;
@@ -134,9 +134,6 @@ public class Command {
   }
 
   public static class CommandListRequest extends StreamRequest<CommandListResponse> {
-
-    private CommandListRequest() {}
-
     @Override
     protected Call<CommandListResponse> generateCall() {
       return StreamServiceGenerator.createService(CommandService.class).list();

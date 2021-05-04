@@ -215,7 +215,7 @@ public class Channel {
     @Nullable
     @JsonProperty("config_overrides")
     private ConfigOverridesRequestObject configOverrides;
-    
+
     @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
 
     @JsonAnyGetter
@@ -477,10 +477,11 @@ public class Channel {
   }
 
   public static class ChannelDeleteRequest extends StreamRequest<ChannelDeleteResponse> {
-    private String channelId;
-    private String channelType;
+    @NotNull private String channelId;
 
-    private ChannelDeleteRequest(String channelType, String channelId) {
+    @NotNull private String channelType;
+
+    private ChannelDeleteRequest(@NotNull String channelType, @NotNull String channelId) {
       this.channelType = channelType;
       this.channelId = channelId;
     }
@@ -557,10 +558,11 @@ public class Channel {
   }
 
   public static class ChannelTruncateRequest extends StreamRequest<ChannelTruncateResponse> {
-    private String channelId;
-    private String channelType;
+    @NotNull private String channelId;
 
-    private ChannelTruncateRequest(String channelType, String channelId) {
+    @NotNull private String channelType;
+
+    private ChannelTruncateRequest(@NotNull String channelType, @NotNull String channelId) {
       this.channelType = channelType;
       this.channelId = channelId;
     }
@@ -680,9 +682,9 @@ public class Channel {
 
   public static class ChannelExportStatusRequest
       extends StreamRequest<ChannelExportStatusResponse> {
-    private String id;
+    @NotNull private String id;
 
-    private ChannelExportStatusRequest(String id) {
+    private ChannelExportStatusRequest(@NotNull String id) {
       this.id = id;
     }
 
@@ -710,10 +712,11 @@ public class Channel {
     private UserRequestObject user;
 
     public static class ChannelHideRequest extends StreamRequest<StreamResponseObject> {
-      private String channelId;
-      private String channelType;
+      @NotNull private String channelId;
 
-      private ChannelHideRequest(String channelType, String channelId) {
+      @NotNull private String channelType;
+
+      private ChannelHideRequest(@NotNull String channelType, @NotNull String channelId) {
         this.channelType = channelType;
         this.channelId = channelId;
       }
@@ -766,8 +769,9 @@ public class Channel {
     private UserRequestObject user;
 
     public static class ChannelMarkReadRequest extends StreamRequest<ChannelMarkReadResponse> {
-      private String channelId;
-      private String channelType;
+      @NotNull private String channelId;
+
+      @NotNull private String channelType;
 
       private ChannelMarkReadRequest(@NotNull String channelType, @NotNull String channelId) {
         this.channelType = channelType;
@@ -832,8 +836,9 @@ public class Channel {
     private UserRequestObject user;
 
     public static class ChannelShowRequest extends StreamRequest<StreamResponseObject> {
-      private String channelId;
-      private String channelType;
+      @NotNull private String channelId;
+
+      @NotNull private String channelType;
 
       private ChannelShowRequest(@NotNull String channelType, @NotNull String channelId) {
         this.channelType = channelType;

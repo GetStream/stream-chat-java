@@ -358,7 +358,7 @@ public class User {
     private List<String> teams;
 
     @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
-    
+
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
       return this.additionalFields;
@@ -758,7 +758,6 @@ public class User {
     private String createdById;
 
     public static class UserDeactivateRequest extends StreamRequest<UserDeactivateResponse> {
-      private String userId;
 
       private UserDeactivateRequest(@NotNull String userId) {
         this.userId = userId;
@@ -773,10 +772,13 @@ public class User {
   }
 
   public static class UserDeleteRequest extends StreamRequest<UserDeleteResponse> {
-    private String userId;
-    private Boolean markMessagesDeleted;
-    private Boolean hardDelete;
-    private Boolean deleteConversationChannels;
+    @NotNull private String userId;
+
+    @Nullable private Boolean markMessagesDeleted;
+
+    @Nullable private Boolean hardDelete;
+
+    @Nullable private Boolean deleteConversationChannels;
 
     private UserDeleteRequest(@NotNull String userId) {
       this.userId = userId;
@@ -830,7 +832,6 @@ public class User {
     private String createdById;
 
     public static class UserReactivateRequest extends StreamRequest<UserReactivateResponse> {
-      private String userId;
 
       private UserReactivateRequest(@NotNull String userId) {
         this.userId = userId;

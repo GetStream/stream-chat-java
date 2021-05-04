@@ -109,8 +109,9 @@ public class Device {
   }
 
   public static class DeviceDeleteRequest extends StreamRequest<StreamResponseObject> {
-    private String id;
-    private String userId;
+    @NotNull private String id;
+
+    @NotNull private String userId;
 
     private DeviceDeleteRequest(@NotNull String id, @NotNull String userId) {
       this.id = id;
@@ -136,7 +137,7 @@ public class Device {
   }
 
   public static class DeviceListRequest extends StreamRequest<DeviceListResponse> {
-    private String userId;
+    @NotNull private String userId;
 
     private DeviceListRequest(@NotNull String userId) {
       this.userId = userId;
