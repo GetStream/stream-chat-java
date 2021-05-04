@@ -41,7 +41,7 @@ public class UserTest extends BasicTest {
     UserPartialUpdateRequestObject userPartialUpdateRequestObject =
         UserPartialUpdateRequestObject.builder()
             .id(user.getId())
-            .unset(Arrays.asList("name"))
+            .unsetValue("name")
             .setValue(addedKey, addedValue)
             .build();
     User updatedUser =
