@@ -700,6 +700,27 @@ public class Message {
     }
   }
 
+  public static class MessageDeleteRequest extends StreamRequest<MessageDeleteResponse> {
+    @NotNull private String id;
+
+    @Nullable private Boolean hard;
+
+    private MessageDeleteRequest(@NotNull String id) {
+      this.id = id;
+    }
+
+    @NotNull
+    MessageDeleteRequest hard(@NotNull Boolean hard) {
+      this.hard = hard;
+      return this;
+    }
+
+    @Override
+    protected Call<MessageDeleteResponse> generateCall() {
+      return StreamServiceGenerator.createService(MessageService.class).delete(this.id, this.hard);
+    }
+  }
+
   @Builder(
       builderClassName = "MessageSearchRequest",
       builderMethodName = "",
@@ -921,6 +942,16 @@ public class Message {
 
   @Data
   @EqualsAndHashCode(callSuper = true)
+  public static class MessageDeleteResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("message")
+    private Message message;
+
+    public MessageDeleteResponse() {}
+  }
+
+  @Data
+  @EqualsAndHashCode(callSuper = true)
   public static class MessageSearchResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("results")
@@ -974,6 +1005,17 @@ public class Message {
   @NotNull
   public static MessageUpdateRequest update(@NotNull String id) {
     return new MessageUpdateRequest(id);
+  }
+
+  /**
+   * Creates an delete request
+   *
+   * @param id the message id
+   * @return the created request
+   */
+  @NotNull
+  public static MessageDeleteRequest delete(@NotNull String id) {
+    return new MessageDeleteRequest(id);
   }
 
   /**

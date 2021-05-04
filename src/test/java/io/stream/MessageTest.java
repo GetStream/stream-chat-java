@@ -208,4 +208,23 @@ public class MessageTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () -> Message.deleteImage(testChannel.getType(), testChannel.getId(), url));
   }
+
+  @DisplayName("Can delete a message")
+  @Test
+  void whenDeletingMessage_thenIsDeleted() {
+    String text = "This is a message";
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
+    Message message =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .message(messageRequest)
+                        .request())
+            .getMessage();
+    Assertions.assertNull(message.getDeletedAt());
+    Message deletedMessage =
+        Assertions.assertDoesNotThrow(() -> Message.delete(message.getId()).request()).getMessage();
+    Assertions.assertNotNull(deletedMessage.getDeletedAt());
+  }
 }

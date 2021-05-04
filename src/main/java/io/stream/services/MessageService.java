@@ -1,5 +1,8 @@
 package io.stream.services;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import io.stream.models.Message.MessageDeleteResponse;
 import io.stream.models.Message.MessageSearchRequestData;
 import io.stream.models.Message.MessageSearchResponse;
 import io.stream.models.Message.MessageSendRequestData;
@@ -12,7 +15,6 @@ import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.framework.ToJson;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -70,4 +72,8 @@ public interface MessageService {
       @NotNull @Path("type") String channelType,
       @NotNull @Path("id") String channelId,
       @NotNull @Query("url") String url);
+
+  @DELETE("messages/{id}")
+  Call<MessageDeleteResponse> delete(
+      @NotNull @Path("id") String id, @Nullable @Query("hard") Boolean hard);
 }
