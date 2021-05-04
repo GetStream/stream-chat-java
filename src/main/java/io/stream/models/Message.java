@@ -804,13 +804,13 @@ public class Message {
   public static class MessageUploadImageRequest extends StreamRequest<MessageUploadImageResponse> {
     @Nullable private File file;
 
-    @NotNull private String contentType;
-
     @NotNull private String channelType;
 
     @NotNull private String channelId;
 
     @NotNull private String userId;
+
+    @NotNull private String contentType;
 
     @Nullable private List<ImageSizeRequestObject> uploadSizes;
 
