@@ -372,9 +372,10 @@ public class User {
     @JsonProperty("set")
     private Map<String, Object> setValues;
 
+    @Singular
     @NotNull
     @JsonProperty("unset")
-    private List<String> unset;
+    private List<String> unsetValues;
   }
 
   @Builder
