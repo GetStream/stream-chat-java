@@ -3,8 +3,6 @@ package io.stream;
 import io.stream.models.Event;
 import io.stream.models.Event.EventRequestObject;
 import io.stream.models.Event.EventUserCustomRequestObject;
-import java.util.HashMap;
-import java.util.Map;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
