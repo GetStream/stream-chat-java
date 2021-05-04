@@ -1,5 +1,11 @@
 package io.stream.models;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,6 +17,7 @@ import io.stream.models.Channel.ChannelListRequestData.ChannelListRequest;
 import io.stream.models.Channel.ChannelMarkAllReadRequestData.ChannelMarkAllReadRequest;
 import io.stream.models.Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest;
 import io.stream.models.Channel.ChannelMuteRequestData.ChannelMuteRequest;
+import io.stream.models.Channel.ChannelPartialUpdateRequestData.ChannelPartialUpdateRequest;
 import io.stream.models.Channel.ChannelQueryMembersRequestData.ChannelQueryMembersRequest;
 import io.stream.models.Channel.ChannelShowRequestData.ChannelShowRequest;
 import io.stream.models.Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest;
@@ -25,18 +32,12 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.ChannelService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Singular;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -876,6 +877,48 @@ public class Channel {
     }
   }
 
+  @Builder(
+      builderClassName = "ChannelPartialUpdateRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class ChannelPartialUpdateRequestData {
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    @Singular
+    @NotNull
+    @JsonProperty("set")
+    private Map<String, Object> setValues;
+
+    @Singular
+    @NotNull
+    @JsonProperty("unset")
+    private List<String> unsetValues;
+
+    public static class ChannelPartialUpdateRequest
+        extends StreamRequest<ChannelPartialUpdateResponse> {
+      @NotNull private String channelType;
+
+      @NotNull private String channelId;
+
+      private ChannelPartialUpdateRequest(@NotNull String channelType, @NotNull String channelId) {
+        this.channelType = channelType;
+        this.channelId = channelId;
+      }
+
+      @Override
+      protected Call<ChannelPartialUpdateResponse> generateCall() {
+        return StreamServiceGenerator.createService(ChannelService.class)
+            .partialUpdate(channelType, channelId, this.internalBuild());
+      }
+    }
+  }
+
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
@@ -1108,6 +1151,19 @@ public class Channel {
     private OwnUser ownUser;
   }
 
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class ChannelPartialUpdateResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("channel")
+    private Channel channel;
+
+    @NotNull
+    @JsonProperty("members")
+    private List<ChannelMember> members;
+  }
+
   /**
    * Creates a get or create request
    *
@@ -1261,5 +1317,18 @@ public class Channel {
   @NotNull
   public static ChannelUnMuteRequest unmute() {
     return new ChannelUnMuteRequest();
+  }
+
+  /**
+   * Creates a partial update request
+   *
+   * @param type the channel type
+   * @param id the channel id
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelPartialUpdateRequest partialUpdate(
+      @NotNull String type, @NotNull String id) {
+    return new ChannelPartialUpdateRequest(type, id);
   }
 }

@@ -14,6 +14,8 @@ import io.stream.models.Channel.ChannelMarkReadRequestData;
 import io.stream.models.Channel.ChannelMarkReadResponse;
 import io.stream.models.Channel.ChannelMuteRequestData;
 import io.stream.models.Channel.ChannelMuteResponse;
+import io.stream.models.Channel.ChannelPartialUpdateRequestData;
+import io.stream.models.Channel.ChannelPartialUpdateResponse;
 import io.stream.models.Channel.ChannelQueryMembersRequestData;
 import io.stream.models.Channel.ChannelQueryMembersResponse;
 import io.stream.models.Channel.ChannelShowRequestData;
@@ -30,6 +32,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -103,4 +106,10 @@ public interface ChannelService {
   @POST("moderation/unmute/channel")
   Call<ChannelUnMuteResponse> unmute(
       @NotNull @Body ChannelUnMuteRequestData channelUnMuteRequestData);
+
+  @PATCH("channels/{type}/{id}")
+  Call<ChannelPartialUpdateResponse> partialUpdate(
+      @NotNull @Path("type") String channelType,
+      @NotNull @Path("id") String channelId,
+      @NotNull @Body ChannelPartialUpdateRequestData channelPartialUpdateRequestData);
 }

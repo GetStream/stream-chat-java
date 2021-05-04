@@ -12,6 +12,7 @@ import io.stream.models.User;
 import io.stream.models.User.ChannelMute;
 import java.util.Arrays;
 import java.util.List;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,12 +36,17 @@ public class ChannelTest extends BasicTest {
   @DisplayName("Can add a moderator to a channel (update)")
   @Test
   void whenAddingModerator_thenHasModerator() {
-    Assertions.assertEquals(0, countModerators(testChannelGetResponse.getMembers()));
+    // We should not use testChannel to not mute it
+    ChannelGetResponse channelGetResponse =
+        Assertions.assertDoesNotThrow(() -> createRandomChannel());
+    Assertions.assertEquals(0, countModerators(channelGetResponse.getMembers()));
 
     ChannelUpdateResponse channelUpdateResponse =
         Assertions.assertDoesNotThrow(
             () ->
-                Channel.update(testChannel.getType(), testChannel.getId())
+                Channel.update(
+                        channelGetResponse.getChannel().getType(),
+                        channelGetResponse.getChannel().getId())
                     .user(testUserRequestObject)
                     .addModerators(Arrays.asList(testUserRequestObject.getId()))
                     .request());
@@ -226,20 +232,40 @@ public class ChannelTest extends BasicTest {
   @DisplayName("Can unmute a channel")
   @Test
   void whenUnMutingChannel_thenIsNotMutedAnymore() {
-    Assertions.assertFalse(isChannelMutedForTestUser(testChannel.getType(), testChannel.getId()));
+    // We should not use testChannel to not mute it
+    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
+    Assertions.assertFalse(isChannelMutedForTestUser(channel.getType(), channel.getId()));
+    Assertions.assertFalse(isChannelMutedForTestUser(channel.getType(), channel.getId()));
     Assertions.assertDoesNotThrow(
         () ->
             Channel.mute()
                 .channelCid(testChannel.getType() + ":" + testChannel.getId())
                 .user(testUserRequestObject)
                 .request());
-    Assertions.assertTrue(isChannelMutedForTestUser(testChannel.getType(), testChannel.getId()));
+    Assertions.assertTrue(isChannelMutedForTestUser(channel.getType(), channel.getId()));
     Assertions.assertDoesNotThrow(
         () ->
             Channel.unmute()
                 .channelCid(testChannel.getType() + ":" + testChannel.getId())
                 .user(testUserRequestObject)
                 .request());
-    Assertions.assertFalse(isChannelMutedForTestUser(testChannel.getType(), testChannel.getId()));
+    Assertions.assertFalse(isChannelMutedForTestUser(channel.getType(), channel.getId()));
+  }
+
+  @DisplayName("Can update a channel (partial update)")
+  @Test
+  void whenUpdatingTeamWithPartialUpdate_thenIsUpdated() {
+    // We should not use testChannel to not modify it
+    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
+    String updatedTeam = RandomStringUtils.randomAlphabetic(10);
+    Channel updateChannel =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.partialUpdate(channel.getType(), channel.getId())
+                    .setValue("team", updatedTeam)
+                    .user(testUserRequestObject)
+                    .request()
+                    .getChannel());
+    Assertions.assertEquals(updatedTeam, updateChannel.getTeam());
   }
 }
