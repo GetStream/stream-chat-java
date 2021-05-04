@@ -357,7 +357,7 @@ public class User {
     @JsonProperty("teams")
     private List<String> teams;
 
-    @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+    @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
   }
 
   @Builder
@@ -366,9 +366,10 @@ public class User {
     @JsonProperty("id")
     private String id;
 
+    @Singular
     @NotNull
     @JsonProperty("set")
-    private Map<String, Object> setValue;
+    private Map<String, Object> setValues;
 
     @NotNull
     @JsonProperty("unset")
@@ -421,14 +422,17 @@ public class User {
     @JsonProperty("invisible")
     private Boolean invisible;
 
+    @Singular
     @Nullable
     @JsonProperty("devices")
     private List<DeviceRequestObject> devices;
 
+    @Singular
     @Nullable
     @JsonProperty("mutes")
     private List<UserMuteRequestObject> mutes;
 
+    @Singular
     @Nullable
     @JsonProperty("channel_mutes")
     private List<ChannelMuteRequestObject> channelMutes;
@@ -457,7 +461,7 @@ public class User {
     @JsonProperty("latest_hidden_channels")
     private List<String> latestHiddenChannels;
 
-    @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+    @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
@@ -556,9 +560,10 @@ public class User {
     @JsonProperty("filter_conditions")
     private Map<String, Object> filterConditions;
 
+    @Singular
     @Nullable
     @JsonProperty("sort")
-    private List<Sort> sort;
+    private List<Sort> sorts;
 
     @Nullable
     @JsonProperty("presence")
@@ -622,9 +627,10 @@ public class User {
     @JsonProperty("filter_conditions")
     private Map<String, Object> filterConditions;
 
+    @Singular
     @Nullable
     @JsonProperty("sort")
-    private List<Sort> sort;
+    private List<Sort> sorts;
 
     @Nullable
     @JsonProperty("limit")

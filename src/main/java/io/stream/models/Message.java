@@ -1,5 +1,15 @@
 package io.stream.models;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,23 +23,14 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.MessageService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Singular;
 import lombok.extern.java.Log;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Log
@@ -365,6 +366,7 @@ public class Message {
     @JsonProperty("parent_id")
     private String parentId;
 
+    @Singular
     @Nullable
     @JsonProperty("attachments")
     private List<AttachmentRequestObject> attachments;
@@ -385,6 +387,7 @@ public class Message {
     @JsonProperty("html")
     private String html;
 
+    @Singular
     @Nullable
     @JsonProperty("reaction_scores")
     private Map<String, Integer> reactionScores;
@@ -417,7 +420,7 @@ public class Message {
     @JsonProperty("pinned_at")
     private Date pinnedAt;
 
-    @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+    @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
   }
 
   @Builder
@@ -450,7 +453,7 @@ public class Message {
     @JsonProperty("silent")
     private Boolean silent;
 
-    @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+    @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
   }
 
   @Builder
@@ -518,10 +521,12 @@ public class Message {
     @JsonProperty("footer_icon")
     private String footerIcon;
 
+    @Singular
     @Nullable
     @JsonProperty("actions")
     private List<ActionRequestObject> actions;
 
+    @Singular
     @Nullable
     @JsonProperty("fields")
     private List<FieldRequestObject> fields;
@@ -534,7 +539,7 @@ public class Message {
     @JsonProperty("og_scrape_url")
     private String ogScrapeURL;
 
-    @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+    @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
   }
 
   @Builder
@@ -672,10 +677,12 @@ public class Message {
     @JsonProperty("query")
     private String query;
 
+    @Singular
     @NotNull
     @JsonProperty("filter_conditions")
     private Map<String, Object> filterConditions;
 
+    @Singular
     @Nullable
     @JsonProperty("message_filter_conditions")
     private Map<String, Object> messageFilterConditions;

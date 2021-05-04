@@ -191,7 +191,7 @@ public class Channel {
     @JsonProperty("created_by")
     private UserRequestObject createdBy;
 
-    @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+    @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
 
     @Nullable
     @JsonProperty("team")
@@ -209,6 +209,7 @@ public class Channel {
     @JsonProperty("frozen")
     private Boolean frozen;
 
+    @Singular
     @Nullable
     @JsonProperty("members")
     private List<ChannelMemberRequestObject> members;
@@ -486,13 +487,15 @@ public class Channel {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class ChannelListRequestData {
+    @Singular
     @Nullable
     @JsonProperty("filter_conditions")
     private Map<String, Object> filterConditions;
 
+    @Singular
     @Nullable
     @JsonProperty("sort")
-    private List<Sort> sort;
+    private List<Sort> sorts;
 
     @Nullable
     @JsonProperty("watch")
@@ -583,9 +586,10 @@ public class Channel {
     @JsonProperty("filter_conditions")
     private Map<String, Object> filterConditions;
 
+    @Singular
     @Nullable
     @JsonProperty("sort")
-    private List<Sort> sort;
+    private List<Sort> sorts;
 
     @Nullable
     @JsonProperty("limit")

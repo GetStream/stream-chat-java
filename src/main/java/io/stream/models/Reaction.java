@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Singular;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -77,7 +78,7 @@ public class Reaction {
     @JsonProperty("score")
     private Integer score;
 
-    @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+    @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {

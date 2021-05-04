@@ -80,7 +80,7 @@ public class ChannelTest extends BasicTest {
         () ->
             Channel.list()
                 .user(testUserRequestObject)
-                .sort(Arrays.asList(Sort.builder().field("id").direction(Direction.DESC).build()))
+                .sort(Sort.builder().field("id").direction(Direction.DESC).build())
                 .request());
   }
 

@@ -33,15 +33,13 @@ public class EventTest extends BasicTest {
   @DisplayName("Can send user custom event")
   @Test
   void whenSendingCustomEvent_thenNoException() {
-    Map<String, Object> eventData = new HashMap<>();
-    eventData.put("customField", "customValue");
     Assertions.assertDoesNotThrow(
         () ->
             Event.sendUserCustom(testUserRequestObject.getId())
                 .event(
                     EventUserCustomRequestObject.builder()
                         .type(RandomStringUtils.randomAlphabetic(10))
-                        .additionalFields(eventData)
+                        .additionalField("customField", "customValue")
                         .build())
                 .request());
   }

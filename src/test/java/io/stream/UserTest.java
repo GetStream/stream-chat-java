@@ -5,8 +5,6 @@ import io.stream.models.User.UserPartialUpdateRequestObject;
 import io.stream.models.User.UserRequestObject;
 import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -38,15 +36,13 @@ public class UserTest extends BasicTest {
             .values()
             .iterator()
             .next();
-    Map<String, Object> addedValues = new HashMap<>();
     String addedKey = "extrafield";
     String addedValue = "extra value";
-    addedValues.put(addedKey, addedValue);
     UserPartialUpdateRequestObject userPartialUpdateRequestObject =
         UserPartialUpdateRequestObject.builder()
             .id(user.getId())
             .unset(Arrays.asList("name"))
-            .setValue(addedValues)
+            .setValue(addedKey, addedValue)
             .build();
     User updatedUser =
         Assertions.assertDoesNotThrow(

@@ -17,6 +17,7 @@ import io.stream.services.framework.StreamServiceGenerator;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Singular;
 import retrofit2.Call;
 
 @Data
@@ -335,6 +336,7 @@ public class ChannelType {
     @JsonProperty("commands")
     protected List<String> commands;
 
+    @Singular
     @Nullable
     @JsonProperty("permissions")
     protected List<PermissionRequestObject> permissions;
@@ -457,6 +459,7 @@ public class ChannelType {
     @JsonProperty("blocklist_behavior")
     protected BlocklistBehavior blocklistBehavior;
 
+    @Singular
     @Nullable
     @JsonProperty("automod_thresholds")
     protected Map<String, ThresholdRequestObject> automodThresholds;
@@ -465,6 +468,7 @@ public class ChannelType {
     @JsonProperty("commands")
     protected List<String> commands;
 
+    @Singular
     @Nullable
     @JsonProperty("permissions")
     protected List<PermissionRequestObject> permissions;

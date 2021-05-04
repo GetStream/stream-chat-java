@@ -11,9 +11,7 @@ import io.stream.models.Message.SearchResult;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,16 +39,12 @@ public class MessageTest extends BasicTest {
   @DisplayName("Can search messages with no exception and retrieve given message")
   @Test
   void whenSearchingMessages_thenNoExceptionAndRetrievesMessage() {
-    Map<String, Object> channelConditions = new HashMap<>();
-    channelConditions.put("id", testChannel.getId());
-    Map<String, Object> messageConditions = new HashMap<>();
-    messageConditions.put("text", testMessage.getText());
     List<SearchResult> searchResults =
         Assertions.assertDoesNotThrow(
                 () ->
                     Message.search()
-                        .filterConditions(channelConditions)
-                        .messageFilterConditions(messageConditions)
+                        .filterCondition("id", testChannel.getId())
+                        .messageFilterCondition("text", testMessage.getText())
                         .request())
             .getResults();
     Assertions.assertEquals(1, searchResults.size());
