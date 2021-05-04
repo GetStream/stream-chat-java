@@ -590,7 +590,7 @@ public class Channel {
 
     @Nullable
     @JsonProperty("members")
-    private ChannelMember members;
+    private ChannelMemberRequestObject members;
 
     // Singular is required because cannot be empty
     @Singular
