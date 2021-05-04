@@ -172,4 +172,16 @@ public class BasicTest {
                     .request())
         .getMessage();
   }
+  
+  /**
+   * This is used to pause after creation, as there can be a small delay before we can act upon the resource
+   * @param milliseconds
+   */
+  protected void pause() {
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      //Do nothing
+    }
+  }
 }

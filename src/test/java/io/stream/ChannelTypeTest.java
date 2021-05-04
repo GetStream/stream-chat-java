@@ -18,6 +18,7 @@ public class ChannelTypeTest extends BasicTest {
     String channelName = RandomStringUtils.randomAlphabetic(10);
     Assertions.assertDoesNotThrow(
         () -> ChannelType.create().withDefaultConfig().name(channelName).request());
+    pause();
     ChannelType channelType =
         Assertions.assertDoesNotThrow(() -> ChannelType.get(channelName).request());
     assertEquals(channelType.getName(), channelName);
@@ -30,6 +31,7 @@ public class ChannelTypeTest extends BasicTest {
     String channelName = RandomStringUtils.randomAlphabetic(10);
     Assertions.assertDoesNotThrow(
         () -> ChannelType.create().withDefaultConfig().name(channelName).request());
+    pause();
     Assertions.assertDoesNotThrow(() -> ChannelType.delete(channelName).request());
   }
 
@@ -39,6 +41,7 @@ public class ChannelTypeTest extends BasicTest {
     String channelName = RandomStringUtils.randomAlphabetic(10);
     Assertions.assertDoesNotThrow(
         () -> ChannelType.create().withDefaultConfig().name(channelName).request());
+    pause();
     ChannelTypeListResponse listChannelTypeResponse =
         Assertions.assertDoesNotThrow(() -> ChannelType.list().request());
     Assertions.assertTrue(listChannelTypeResponse.getChannelTypes().containsKey(channelName));
@@ -51,8 +54,8 @@ public class ChannelTypeTest extends BasicTest {
     String channelName = RandomStringUtils.randomAlphabetic(10);
     Assertions.assertDoesNotThrow(
         () -> ChannelType.create().withDefaultConfig().name(channelName).request());
+    pause();
     Assertions.assertDoesNotThrow(
         () -> ChannelType.update(channelName).automod(AutoMod.SIMPLE).request());
-    Assertions.assertDoesNotThrow(() -> ChannelType.delete(channelName));
   }
 }

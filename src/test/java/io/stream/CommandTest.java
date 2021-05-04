@@ -36,6 +36,7 @@ public class CommandTest extends BasicTest {
                         .description(description)
                         .request())
             .getCommand();
+    pause();
     String updatedDescription = "updated description";
     Command updatedCommand =
         Assertions.assertDoesNotThrow(
@@ -56,6 +57,7 @@ public class CommandTest extends BasicTest {
                         .description(description)
                         .request())
             .getCommand();
+    pause();
     Command retrievedCommand =
         Assertions.assertDoesNotThrow(() -> Command.get(command.getName()).request());
     Assertions.assertEquals(command.getName(), retrievedCommand.getName());
@@ -73,7 +75,9 @@ public class CommandTest extends BasicTest {
                         .description(description)
                         .request())
             .getCommand();
+    pause();
     Assertions.assertDoesNotThrow(() -> Command.delete(command.getName()).request());
+    pause();
     List<Command> commands =
         Assertions.assertDoesNotThrow(() -> Command.list().request()).getCommands();
     Assertions.assertFalse(
@@ -93,6 +97,7 @@ public class CommandTest extends BasicTest {
                         .description(description)
                         .request())
             .getCommand();
+    pause();
     List<Command> commands =
         Assertions.assertDoesNotThrow(() -> Command.list().request()).getCommands();
     Assertions.assertTrue(
