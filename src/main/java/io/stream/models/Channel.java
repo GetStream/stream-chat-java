@@ -387,31 +387,31 @@ public class Channel {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class ChannelUpdateRequestData {
-    // Singular because cannot be empty
+    // Singular is required because cannot be empty
     @Singular
     @NotNull
     @JsonProperty("add_members")
     private List<String> addMembers;
 
-    // Singular because cannot be empty
+    // Singular is required because cannot be empty
     @Singular
     @NotNull
     @JsonProperty("remove_members")
     private List<String> removeMembers;
 
-    // Singular because cannot be empty
+    // Singular is required because cannot be empty
     @Singular
     @NotNull
     @JsonProperty("add_moderators")
     private List<String> addModerators;
 
-    // Singular because cannot be empty
+    // Singular is required because cannot be empty
     @Singular
     @NotNull
     @JsonProperty("demote_moderators")
     private List<String> demoteModerators;
 
-    // Singular because cannot be empty
+    // Singular is required because cannot be empty
     @Singular
     @NotNull
     @JsonProperty("invites")
@@ -580,7 +580,7 @@ public class Channel {
     @JsonProperty("members")
     private ChannelMember members;
 
-    // Singular because cannot be empty
+    // Singular is required because cannot be empty
     @Singular
     @Nullable
     @JsonProperty("filter_conditions")
