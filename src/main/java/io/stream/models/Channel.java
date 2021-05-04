@@ -371,7 +371,7 @@ public class Channel {
 
     public static class ChannelGetRequest extends StreamRequest<ChannelGetResponse> {
       @NotNull private String channelType;
-      
+
       @NotNull private String channelId;
 
       private ChannelGetRequest(@NotNull String channelType, @NotNull String channelId) {
@@ -460,7 +460,7 @@ public class Channel {
 
     public static class ChannelUpdateRequest extends StreamRequest<ChannelUpdateResponse> {
       @NotNull private String channelType;
-      
+
       @NotNull private String channelId;
 
       private ChannelUpdateRequest(@NotNull String channelType, @NotNull String channelId) {
@@ -479,7 +479,7 @@ public class Channel {
   @RequiredArgsConstructor
   public static class ChannelDeleteRequest extends StreamRequest<ChannelDeleteResponse> {
     @NotNull private String channelType;
-    
+
     @NotNull private String channelId;
 
     @Override
@@ -556,7 +556,7 @@ public class Channel {
   @RequiredArgsConstructor
   public static class ChannelTruncateRequest extends StreamRequest<ChannelTruncateResponse> {
     @NotNull private String channelType;
-    
+
     @NotNull private String channelId;
 
     @Override
@@ -705,7 +705,7 @@ public class Channel {
 
     public static class ChannelHideRequest extends StreamRequest<StreamResponseObject> {
       @NotNull private String channelType;
-      
+
       @NotNull private String channelId;
 
       private ChannelHideRequest(@NotNull String channelType, @NotNull String channelId) {
@@ -762,7 +762,7 @@ public class Channel {
 
     public static class ChannelMarkReadRequest extends StreamRequest<ChannelMarkReadResponse> {
       @NotNull private String channelType;
-      
+
       @NotNull private String channelId;
 
       private ChannelMarkReadRequest(@NotNull String channelType, @NotNull String channelId) {
@@ -828,7 +828,7 @@ public class Channel {
 
     public static class ChannelShowRequest extends StreamRequest<StreamResponseObject> {
       @NotNull private String channelType;
-      
+
       @NotNull private String channelId;
 
       private ChannelShowRequest(@NotNull String channelType, @NotNull String channelId) {
