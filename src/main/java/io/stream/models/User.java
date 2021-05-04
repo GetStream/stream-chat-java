@@ -1,5 +1,11 @@
 package io.stream.models;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -7,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.models.Device.DeviceRequestObject;
 import io.stream.models.User.UserBanRequestData.UserBanRequest;
 import io.stream.models.User.UserDeactivateRequestData.UserDeactivateRequest;
-import io.stream.models.User.UserListRequestData.UserQueryRequest;
+import io.stream.models.User.UserListRequestData.UserListRequest;
 import io.stream.models.User.UserPartialUpdateRequestData.UserPartialUpdateRequest;
 import io.stream.models.User.UserQueryBannedRequestData.UserQueryBannedRequest;
 import io.stream.models.User.UserReactivateRequestData.UserReactivateRequest;
@@ -16,18 +22,11 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.UserService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import lombok.Singular;
 import retrofit2.Call;
 
 @Data
@@ -517,45 +516,42 @@ public class User {
     private Date updatedAt;
   }
 
+  @Builder(
+      builderClassName = "UserUpsertRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class UserUpsertRequestData {
     @NotNull
     @JsonProperty("users")
     private Map<String, UserRequestObject> users;
 
-    private UserUpsertRequestData(UserUpsertRequest userUpsertRequest) {
-      this.users = userUpsertRequest.users;
-    }
-
     public static class UserUpsertRequest extends StreamRequest<UserUpsertResponse> {
-      private Map<String, UserRequestObject> users = new HashMap<>();
-
-      private UserUpsertRequest() {}
-
       @NotNull
-      public UserUpsertRequest users(@NotNull Map<String, UserRequestObject> users) {
-        this.users = users;
-        return this;
-      }
-
-      @NotNull
-      public UserUpsertRequest addUser(@NotNull UserRequestObject user) {
+      public UserUpsertRequest user(@NotNull UserRequestObject user) {
         if (user.getId() == null) {
           throw new IllegalArgumentException("user id cannot be null");
         }
-        this.users.put(user.getId(), user);
+        if (this.users == null) {
+          this.users = new HashMap<>();
+        }
+        users.put(user.getId(), user);
         return this;
       }
 
       @Override
       protected Call<UserUpsertResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class)
-            .upsert(new UserUpsertRequestData(this));
+        return StreamServiceGenerator.createService(UserService.class).upsert(this.internalBuild());
       }
     }
   }
 
+  @Builder(
+      builderClassName = "UserListRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class UserListRequestData {
-
+    // Singular because cannot be empty
+    @Singular
     @NotNull
     @JsonProperty("filter_conditions")
     private Map<String, Object> filterConditions;
@@ -588,120 +584,40 @@ public class User {
     @JsonProperty("connection_id")
     private String connectionId;
 
-    private UserListRequestData(UserQueryRequest userQueryRequest) {
-      this.filterConditions = userQueryRequest.filterConditions;
-      this.sort = userQueryRequest.sort;
-      this.presence = userQueryRequest.presence;
-      this.limit = userQueryRequest.limit;
-      this.offset = userQueryRequest.offset;
-      this.userId = userQueryRequest.userId;
-      this.user = userQueryRequest.user;
-      this.connectionId = userQueryRequest.connectionId;
-    }
-
-    public static class UserQueryRequest extends StreamRequest<UserListResponse> {
-      private Map<String, Object> filterConditions = Collections.emptyMap();
-      private List<Sort> sort;
-      private Boolean presence;
-      private Integer limit;
-      private Integer offset;
-      private String userId;
-      private User user;
-      private String connectionId;
-
-      private UserQueryRequest() {}
-
-      @NotNull
-      public UserQueryRequest filterConditions(@NotNull Map<String, Object> filterConditions) {
-        this.filterConditions = filterConditions;
-        return this;
-      }
-
-      @NotNull
-      public UserQueryRequest sort(@NotNull List<Sort> sort) {
-        this.sort = sort;
-        return this;
-      }
-
-      @NotNull
-      public UserQueryRequest presence(@NotNull Boolean presence) {
-        this.presence = presence;
-        return this;
-      }
-
-      @NotNull
-      public UserQueryRequest limit(@NotNull Integer limit) {
-        this.limit = limit;
-        return this;
-      }
-
-      @NotNull
-      public UserQueryRequest offset(@NotNull Integer offset) {
-        this.offset = offset;
-        return this;
-      }
-
-      @NotNull
-      public UserQueryRequest userId(@NotNull String userId) {
-        this.userId = userId;
-        return this;
-      }
-
-      @NotNull
-      public UserQueryRequest user(@NotNull User user) {
-        this.user = user;
-        return this;
-      }
-
-      @NotNull
-      public UserQueryRequest connectionId(@NotNull String connectionId) {
-        this.connectionId = connectionId;
-        return this;
-      }
-
+    public static class UserListRequest extends StreamRequest<UserListResponse> {
       @Override
       protected Call<UserListResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class)
-            .list(new UserListRequestData(this));
+        return StreamServiceGenerator.createService(UserService.class).list(this.internalBuild());
       }
     }
   }
 
+  @Builder(
+      builderClassName = "UserPartialUpdateRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class UserPartialUpdateRequestData {
+    @Singular
     @NotNull
     @JsonProperty("users")
     private List<UserPartialUpdateRequestObject> users;
 
-    private UserPartialUpdateRequestData(UserPartialUpdateRequest userPartialUpdateRequest) {
-      this.users = userPartialUpdateRequest.users;
-    }
-
     public static class UserPartialUpdateRequest extends StreamRequest<UserPartialUpdateResponse> {
-      private List<UserPartialUpdateRequestObject> users = new ArrayList<>();
-
-      private UserPartialUpdateRequest() {}
-
-      @NotNull
-      public UserPartialUpdateRequest users(@NotNull List<UserPartialUpdateRequestObject> users) {
-        this.users = users;
-        return this;
-      }
-
-      @NotNull
-      public UserPartialUpdateRequest addUser(@NotNull UserPartialUpdateRequestObject user) {
-        this.users.add(user);
-        return this;
-      }
-
       @Override
       protected Call<UserPartialUpdateResponse> generateCall() {
         return StreamServiceGenerator.createService(UserService.class)
-            .partialUpdate(new UserPartialUpdateRequestData(this));
+            .partialUpdate(this.internalBuild());
       }
     }
   }
 
+  @Builder(
+      builderClassName = "UserQueryBannedRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class UserQueryBannedRequestData {
+    // Singular because cannot be empty
+    @Singular
     @Nullable
     @JsonProperty("filter_conditions")
     private Map<String, Object> filterConditions;
@@ -742,102 +658,19 @@ public class User {
     @JsonProperty("user")
     private UserRequestObject user;
 
-    private UserQueryBannedRequestData(UserQueryBannedRequest userQueryBannedRequest) {
-      this.filterConditions = userQueryBannedRequest.filterConditions;
-      this.sort = userQueryBannedRequest.sort;
-      this.limit = userQueryBannedRequest.limit;
-      this.offset = userQueryBannedRequest.offset;
-      this.createdAtAfterOrEqual = userQueryBannedRequest.createdAtAfterOrEqual;
-      this.createdAtAfter = userQueryBannedRequest.createdAtAfter;
-      this.createdAtBeforeOrEqual = userQueryBannedRequest.createdAtBeforeOrEqual;
-      this.createdAtBefore = userQueryBannedRequest.createdAtBefore;
-      this.userId = userQueryBannedRequest.userId;
-      this.user = userQueryBannedRequest.user;
-    }
-
     public static class UserQueryBannedRequest extends StreamRequest<UserQueryBannedResponse> {
-      private Map<String, Object> filterConditions = Collections.emptyMap();
-      private List<Sort> sort;
-      private Integer limit;
-      private Integer offset;
-      private Date createdAtAfterOrEqual;
-      private Date createdAtAfter;
-      private Date createdAtBeforeOrEqual;
-      private Date createdAtBefore;
-      private String userId;
-      private UserRequestObject user;
-
-      private UserQueryBannedRequest() {}
-
-      @NotNull
-      public UserQueryBannedRequest filterConditions(
-          @NotNull Map<String, Object> filterConditions) {
-        this.filterConditions = filterConditions;
-        return this;
-      }
-
-      @NotNull
-      public UserQueryBannedRequest sort(@NotNull List<Sort> sort) {
-        this.sort = sort;
-        return this;
-      }
-
-      @NotNull
-      public UserQueryBannedRequest limit(@NotNull Integer limit) {
-        this.limit = limit;
-        return this;
-      }
-
-      @NotNull
-      public UserQueryBannedRequest offset(@NotNull Integer offset) {
-        this.offset = offset;
-        return this;
-      }
-
-      @NotNull
-      public UserQueryBannedRequest createdAtAfterOrEqual(@NotNull Date createdAtAfterOrEqual) {
-        this.createdAtAfterOrEqual = createdAtAfterOrEqual;
-        return this;
-      }
-
-      @NotNull
-      public UserQueryBannedRequest createdAtAfter(@NotNull Date createdAtAfter) {
-        this.createdAtAfter = createdAtAfter;
-        return this;
-      }
-
-      @NotNull
-      public UserQueryBannedRequest createdAtBeforeOrEqual(@NotNull Date createdAtBeforeOrEqual) {
-        this.createdAtBeforeOrEqual = createdAtBeforeOrEqual;
-        return this;
-      }
-
-      @NotNull
-      public UserQueryBannedRequest createdAtBefore(@NotNull Date createdAtBefore) {
-        this.createdAtBefore = createdAtBefore;
-        return this;
-      }
-
-      @NotNull
-      public UserQueryBannedRequest userId(@NotNull String userId) {
-        this.userId = userId;
-        return this;
-      }
-
-      @NotNull
-      public UserQueryBannedRequest user(@NotNull UserRequestObject user) {
-        this.user = user;
-        return this;
-      }
-
       @Override
       protected Call<UserQueryBannedResponse> generateCall() {
         return StreamServiceGenerator.createService(UserService.class)
-            .queryBanned(new UserQueryBannedRequestData(this));
+            .queryBanned(this.internalBuild());
       }
     }
   }
 
+  @Builder(
+      builderClassName = "UserBanRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class UserBanRequestData {
     @NotNull
     @JsonProperty("target_user_id")
@@ -883,109 +716,18 @@ public class User {
     @JsonProperty("user")
     private UserRequestObject user;
 
-    private UserBanRequestData(UserBanRequest userBanRequest) {
-      this.targetUserId = userBanRequest.targetUserId;
-      this.timeout = userBanRequest.timeout;
-      this.reason = userBanRequest.reason;
-      this.type = userBanRequest.type;
-      this.id = userBanRequest.id;
-      this.shadow = userBanRequest.shadow;
-      this.ipBan = userBanRequest.ipBan;
-      this.bannedById = userBanRequest.bannedById;
-      this.bannedBy = userBanRequest.bannedBy;
-      this.userId = userBanRequest.userId;
-      this.user = userBanRequest.user;
-    }
-
     public static class UserBanRequest extends StreamRequest<StreamResponseObject> {
-      private String targetUserId;
-      private Integer timeout;
-      private String reason;
-      private String type;
-      private String id;
-      private Boolean shadow;
-      private Boolean ipBan;
-      private String bannedById;
-      private UserRequestObject bannedBy;
-      private String userId;
-      private UserRequestObject user;
-
-      private UserBanRequest() {}
-
-      @NotNull
-      public UserBanRequest targetUserId(@NotNull String targetUserId) {
-        this.targetUserId = targetUserId;
-        return this;
-      }
-
-      @NotNull
-      public UserBanRequest timeout(@NotNull Integer timeout) {
-        this.timeout = timeout;
-        return this;
-      }
-
-      @NotNull
-      public UserBanRequest reason(@NotNull String reason) {
-        this.reason = reason;
-        return this;
-      }
-
-      @NotNull
-      public UserBanRequest type(@NotNull String type) {
-        this.type = type;
-        return this;
-      }
-
-      @NotNull
-      public UserBanRequest id(@NotNull String id) {
-        this.id = id;
-        return this;
-      }
-
-      @NotNull
-      public UserBanRequest shadow(@NotNull Boolean shadow) {
-        this.shadow = shadow;
-        return this;
-      }
-
-      @NotNull
-      public UserBanRequest ipBan(@NotNull Boolean ipBan) {
-        this.ipBan = ipBan;
-        return this;
-      }
-
-      @NotNull
-      public UserBanRequest bannedById(@NotNull String bannedById) {
-        this.bannedById = bannedById;
-        return this;
-      }
-
-      @NotNull
-      public UserBanRequest bannedBy(@NotNull UserRequestObject bannedBy) {
-        this.bannedBy = bannedBy;
-        return this;
-      }
-
-      @NotNull
-      public UserBanRequest userId(@NotNull String userId) {
-        this.userId = userId;
-        return this;
-      }
-
-      @NotNull
-      public UserBanRequest user(@NotNull UserRequestObject user) {
-        this.user = user;
-        return this;
-      }
-
       @Override
       protected Call<StreamResponseObject> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class)
-            .ban(new UserBanRequestData(this));
+        return StreamServiceGenerator.createService(UserService.class).ban(this.internalBuild());
       }
     }
   }
 
+  @Builder(
+      builderClassName = "UserDeactivateRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class UserDeactivateRequestData {
     @NotNull
     @JsonProperty("user_id")
@@ -999,37 +741,17 @@ public class User {
     @JsonProperty("created_by_id")
     private String createdById;
 
-    private UserDeactivateRequestData(UserDeactivateRequest userDeactivateRequest) {
-      this.userId = userDeactivateRequest.userId;
-      this.markMessagesDeleted = userDeactivateRequest.markMessagesDeleted;
-      this.createdById = userDeactivateRequest.createdById;
-    }
-
     public static class UserDeactivateRequest extends StreamRequest<UserDeactivateResponse> {
       private String userId;
-      private Boolean markMessagesDeleted;
-      private String createdById;
 
       private UserDeactivateRequest(@NotNull String userId) {
         this.userId = userId;
       }
 
-      @NotNull
-      public UserDeactivateRequest markMessagesDeleted(@NotNull Boolean markMessagesDeleted) {
-        this.markMessagesDeleted = markMessagesDeleted;
-        return this;
-      }
-
-      @NotNull
-      public UserDeactivateRequest createdById(@NotNull String createdById) {
-        this.createdById = createdById;
-        return this;
-      }
-
       @Override
       protected Call<UserDeactivateResponse> generateCall() {
         return StreamServiceGenerator.createService(UserService.class)
-            .deactivate(userId, new UserDeactivateRequestData(this));
+            .deactivate(userId, this.internalBuild());
       }
     }
   }
@@ -1070,6 +792,10 @@ public class User {
     }
   }
 
+  @Builder(
+      builderClassName = "UserReactivateRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class UserReactivateRequestData {
     @NotNull
     @JsonProperty("user_id")
@@ -1087,45 +813,17 @@ public class User {
     @JsonProperty("created_by_id")
     private String createdById;
 
-    private UserReactivateRequestData(UserReactivateRequest userReactivateRequest) {
-      this.userId = userReactivateRequest.userId;
-      this.restoreMessages = userReactivateRequest.restoreMessages;
-      this.name = userReactivateRequest.name;
-      this.createdById = userReactivateRequest.createdById;
-    }
-
     public static class UserReactivateRequest extends StreamRequest<UserReactivateResponse> {
       private String userId;
-      private Boolean restoreMessages;
-      private String name;
-      private String createdById;
 
       private UserReactivateRequest(@NotNull String userId) {
         this.userId = userId;
       }
 
-      @NotNull
-      public UserReactivateRequest restoreMessages(@NotNull Boolean restoreMessages) {
-        this.restoreMessages = restoreMessages;
-        return this;
-      }
-
-      @NotNull
-      public UserReactivateRequest name(@NotNull String name) {
-        this.name = name;
-        return this;
-      }
-
-      @NotNull
-      public UserReactivateRequest createdById(@NotNull String createdById) {
-        this.createdById = createdById;
-        return this;
-      }
-
       @Override
       protected Call<UserReactivateResponse> generateCall() {
         return StreamServiceGenerator.createService(UserService.class)
-            .reactivate(userId, new UserReactivateRequestData(this));
+            .reactivate(userId, this.internalBuild());
       }
     }
   }
@@ -1206,8 +904,8 @@ public class User {
    * @return the created request
    */
   @NotNull
-  public static UserQueryRequest list() {
-    return new UserQueryRequest();
+  public static UserListRequest list() {
+    return new UserListRequest();
   }
 
   /**

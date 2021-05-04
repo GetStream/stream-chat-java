@@ -78,6 +78,10 @@ public class Device {
     private String userId;
   }
 
+  @Builder(
+      builderClassName = "DeviceCreateRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class DeviceCreateRequestData {
     @NotNull
     @JsonProperty("push_provider")
@@ -95,49 +99,11 @@ public class Device {
     @JsonProperty("user")
     private UserRequestObject user;
 
-    private DeviceCreateRequestData(DeviceCreateRequest deviceCreateRequest) {
-      this.pushProvider = deviceCreateRequest.pushProvider;
-      this.id = deviceCreateRequest.id;
-      this.userId = deviceCreateRequest.userId;
-      this.user = deviceCreateRequest.user;
-    }
-
     public static class DeviceCreateRequest extends StreamRequest<StreamResponseObject> {
-      private PushProvider pushProvider;
-      private String id;
-      private String userId;
-      private UserRequestObject user;
-
-      private DeviceCreateRequest() {}
-
-      @NotNull
-      public DeviceCreateRequest pushProvider(@NotNull PushProvider pushProvider) {
-        this.pushProvider = pushProvider;
-        return this;
-      }
-
-      @NotNull
-      public DeviceCreateRequest id(@NotNull String id) {
-        this.id = id;
-        return this;
-      }
-
-      @NotNull
-      public DeviceCreateRequest userId(@NotNull String userId) {
-        this.userId = userId;
-        return this;
-      }
-
-      @NotNull
-      public DeviceCreateRequest user(@NotNull UserRequestObject user) {
-        this.user = user;
-        return this;
-      }
-
       @Override
       protected Call<StreamResponseObject> generateCall() {
         return StreamServiceGenerator.createService(DeviceService.class)
-            .create(new DeviceCreateRequestData(this));
+            .create(this.internalBuild());
       }
     }
   }

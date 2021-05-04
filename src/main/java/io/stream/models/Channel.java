@@ -1,5 +1,11 @@
 package io.stream.models;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,17 +31,10 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.ChannelService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import lombok.Singular;
 import retrofit2.Call;
 
 @Data
@@ -324,6 +323,10 @@ public class Channel {
     private Date messagesUntil;
   }
 
+  @Builder(
+      builderClassName = "ChannelGetRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class ChannelGetRequestData {
     @Nullable
     @JsonProperty("connection_id")
@@ -357,112 +360,58 @@ public class Channel {
     @JsonProperty("watchers")
     private PaginationParameters watchers;
 
-    private ChannelGetRequestData(ChannelGetRequest channelGetRequest) {
-      this.connectionId = channelGetRequest.connectionId;
-      this.data = channelGetRequest.data;
-      this.watch = channelGetRequest.watch;
-      this.state = channelGetRequest.state;
-      this.presence = channelGetRequest.presence;
-      this.messages = channelGetRequest.messages;
-      this.members = channelGetRequest.members;
-      this.watchers = channelGetRequest.watchers;
-    }
-
     public static class ChannelGetRequest extends StreamRequest<ChannelGetResponse> {
       private String channelId;
       private String channelType;
-      private String connectionId;
-      private ChannelRequestObject data;
-      private Boolean watch;
-      private Boolean state;
-      private Boolean presence;
-      private MessagePaginationParameters messages;
-      private PaginationParameters members;
-      private PaginationParameters watchers;
 
       private ChannelGetRequest(String channelType, String channelId) {
         this.channelId = channelId;
         this.channelType = channelType;
       }
 
-      @NotNull
-      public ChannelGetRequest connectionId(@NotNull String connectionId) {
-        this.connectionId = connectionId;
-        return this;
-      }
-
-      @NotNull
-      public ChannelGetRequest data(@NotNull ChannelRequestObject data) {
-        this.data = data;
-        return this;
-      }
-
-      @NotNull
-      public ChannelGetRequest watch(@NotNull Boolean watch) {
-        this.watch = watch;
-        return this;
-      }
-
-      @NotNull
-      public ChannelGetRequest state(@NotNull Boolean state) {
-        this.state = state;
-        return this;
-      }
-
-      @NotNull
-      public ChannelGetRequest presence(@NotNull Boolean presence) {
-        this.presence = presence;
-        return this;
-      }
-
-      @NotNull
-      public ChannelGetRequest messages(@NotNull MessagePaginationParameters messages) {
-        this.messages = messages;
-        return this;
-      }
-
-      @NotNull
-      public ChannelGetRequest members(@NotNull PaginationParameters members) {
-        this.members = members;
-        return this;
-      }
-
-      @NotNull
-      public ChannelGetRequest watchers(@NotNull PaginationParameters watchers) {
-        this.watchers = watchers;
-        return this;
-      }
-
       @Override
       protected Call<ChannelGetResponse> generateCall() {
         if (this.channelId != null) {
           return StreamServiceGenerator.createService(ChannelService.class)
-              .getOrCreateWithId(this.channelType, this.channelId, new ChannelGetRequestData(this));
+              .getOrCreateWithId(this.channelType, this.channelId, this.internalBuild());
         }
         return StreamServiceGenerator.createService(ChannelService.class)
-            .getOrCreateWithoutId(this.channelType, new ChannelGetRequestData(this));
+            .getOrCreateWithoutId(this.channelType, this.internalBuild());
       }
     }
   }
 
+  @Builder(
+      builderClassName = "ChannelUpdateRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class ChannelUpdateRequestData {
-
+    // Singular because cannot be empty
+    @Singular
     @NotNull
     @JsonProperty("add_members")
     private List<String> addMembers;
 
+    // Singular because cannot be empty
+    @Singular
     @NotNull
     @JsonProperty("remove_members")
     private List<String> removeMembers;
 
+    // Singular because cannot be empty
+    @Singular
     @NotNull
     @JsonProperty("add_moderators")
     private List<String> addModerators;
 
+    // Singular because cannot be empty
+    @Singular
     @NotNull
     @JsonProperty("demote_moderators")
     private List<String> demoteModerators;
 
+    // Singular because cannot be empty
+    @Singular
     @NotNull
     @JsonProperty("invites")
     private List<String> invites;
@@ -499,126 +448,19 @@ public class Channel {
     @JsonProperty("user")
     private UserRequestObject user;
 
-    private ChannelUpdateRequestData(ChannelUpdateRequest channelUpdateRequest) {
-      this.addMembers = channelUpdateRequest.addMembers;
-      this.removeMembers = channelUpdateRequest.removeMembers;
-      this.addModerators = channelUpdateRequest.addModerators;
-      this.demoteModerators = channelUpdateRequest.demoteModerators;
-      this.invites = channelUpdateRequest.invites;
-      this.cooldown = channelUpdateRequest.cooldown;
-      this.acceptInvite = channelUpdateRequest.acceptInvite;
-      this.rejectInvite = channelUpdateRequest.rejectInvite;
-      this.message = channelUpdateRequest.message;
-      this.skipPush = channelUpdateRequest.skipPush;
-      this.data = channelUpdateRequest.data;
-      this.userId = channelUpdateRequest.userId;
-      this.user = channelUpdateRequest.user;
-    }
-
     public static class ChannelUpdateRequest extends StreamRequest<ChannelUpdateResponse> {
       private String channelId;
       private String channelType;
-      private List<String> addMembers;
-      private List<String> removeMembers;
-      private List<String> addModerators;
-      private List<String> demoteModerators;
-      private List<String> invites;
-      private Integer cooldown;
-      private Boolean acceptInvite;
-      private Boolean rejectInvite;
-      private MessageRequestObject message;
-      private Boolean skipPush;
-      private ChannelRequestObject data;
-      private String userId;
-      private UserRequestObject user;
 
-      private ChannelUpdateRequest(String channelType, String channelId) {
+      private ChannelUpdateRequest(@NotNull String channelType, @NotNull String channelId) {
         this.channelId = channelId;
         this.channelType = channelType;
-      }
-
-      @NotNull
-      public ChannelUpdateRequest addMembers(@NotNull List<String> addMembers) {
-        this.addMembers = addMembers;
-        return this;
-      }
-
-      @NotNull
-      public ChannelUpdateRequest removeMembers(@NotNull List<String> removeMembers) {
-        this.removeMembers = removeMembers;
-        return this;
-      }
-
-      @NotNull
-      public ChannelUpdateRequest addModerators(@NotNull List<String> addModerators) {
-        this.addModerators = addModerators;
-        return this;
-      }
-
-      @NotNull
-      public ChannelUpdateRequest demoteModerators(@NotNull List<String> demoteModerators) {
-        this.demoteModerators = demoteModerators;
-        return this;
-      }
-
-      @NotNull
-      public ChannelUpdateRequest invites(@NotNull List<String> invites) {
-        this.invites = invites;
-        return this;
-      }
-
-      @NotNull
-      public ChannelUpdateRequest cooldown(@NotNull Integer cooldown) {
-        this.cooldown = cooldown;
-        return this;
-      }
-
-      @NotNull
-      public ChannelUpdateRequest acceptInvite(@NotNull Boolean acceptInvite) {
-        this.acceptInvite = acceptInvite;
-        return this;
-      }
-
-      @NotNull
-      public ChannelUpdateRequest rejectInvite(@NotNull Boolean rejectInvite) {
-        this.rejectInvite = rejectInvite;
-        return this;
-      }
-
-      @NotNull
-      public ChannelUpdateRequest message(@NotNull MessageRequestObject message) {
-        this.message = message;
-        return this;
-      }
-
-      @NotNull
-      public ChannelUpdateRequest skipPush(@NotNull Boolean skipPush) {
-        this.skipPush = skipPush;
-        return this;
-      }
-
-      @NotNull
-      public ChannelUpdateRequest data(@NotNull ChannelRequestObject data) {
-        this.data = data;
-        return this;
-      }
-
-      @NotNull
-      public ChannelUpdateRequest userId(@NotNull String userId) {
-        this.userId = userId;
-        return this;
-      }
-
-      @NotNull
-      public ChannelUpdateRequest user(@NotNull UserRequestObject user) {
-        this.user = user;
-        return this;
       }
 
       @Override
       protected Call<ChannelUpdateResponse> generateCall() {
         return StreamServiceGenerator.createService(ChannelService.class)
-            .update(this.channelType, this.channelId, new ChannelUpdateRequestData(this));
+            .update(this.channelType, this.channelId, this.internalBuild());
       }
     }
   }
@@ -639,6 +481,10 @@ public class Channel {
     }
   }
 
+  @Builder(
+      builderClassName = "ChannelListRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class ChannelListRequestData {
     @Nullable
     @JsonProperty("filter_conditions")
@@ -688,113 +534,11 @@ public class Channel {
     @JsonProperty("connection_id")
     private String connectionId;
 
-    private ChannelListRequestData(ChannelListRequest channelListRequest) {
-      this.filterConditions = channelListRequest.filterConditions;
-      this.sort = channelListRequest.sort;
-      this.watch = channelListRequest.watch;
-      this.state = channelListRequest.state;
-      this.presence = channelListRequest.presence;
-      this.messageLimit = channelListRequest.messageLimit;
-      this.memberLimit = channelListRequest.memberLimit;
-      this.limit = channelListRequest.limit;
-      this.offset = channelListRequest.offset;
-      this.userId = channelListRequest.userId;
-      this.user = channelListRequest.user;
-      this.connectionId = channelListRequest.connectionId;
-    }
-
     public static class ChannelListRequest extends StreamRequest<ChannelListResponse> {
-      private Map<String, Object> filterConditions;
-      private List<Sort> sort;
-      private Boolean watch;
-      private Boolean state;
-      private Boolean presence;
-      private Integer messageLimit;
-      private Integer memberLimit;
-      private Integer limit;
-      private Integer offset;
-      private String userId;
-      private UserRequestObject user;
-      private String connectionId;
-
-      private ChannelListRequest() {}
-
-      @NotNull
-      public ChannelListRequest flterConditions(@NotNull Map<String, Object> filterConditions) {
-        this.filterConditions = filterConditions;
-        return this;
-      }
-
-      @NotNull
-      public ChannelListRequest sort(@NotNull List<Sort> sort) {
-        this.sort = sort;
-        return this;
-      }
-
-      @NotNull
-      public ChannelListRequest watch(@NotNull Boolean watch) {
-        this.watch = watch;
-        return this;
-      }
-
-      @NotNull
-      public ChannelListRequest state(@NotNull Boolean state) {
-        this.state = state;
-        return this;
-      }
-
-      @NotNull
-      public ChannelListRequest presence(@NotNull Boolean presence) {
-        this.presence = presence;
-        return this;
-      }
-
-      @NotNull
-      public ChannelListRequest messageLimit(@NotNull Integer messageLimit) {
-        this.messageLimit = messageLimit;
-        return this;
-      }
-
-      @NotNull
-      public ChannelListRequest memberLimit(@NotNull Integer memberLimit) {
-        this.memberLimit = memberLimit;
-        return this;
-      }
-
-      @NotNull
-      public ChannelListRequest limit(@NotNull Integer limit) {
-        this.limit = limit;
-        return this;
-      }
-
-      @NotNull
-      public ChannelListRequest offset(@NotNull Integer offset) {
-        this.offset = offset;
-        return this;
-      }
-
-      @NotNull
-      public ChannelListRequest userId(@NotNull String userId) {
-        this.userId = userId;
-        return this;
-      }
-
-      @NotNull
-      public ChannelListRequest user(@NotNull UserRequestObject user) {
-        this.user = user;
-        return this;
-      }
-
-      @NotNull
-      public ChannelListRequest connectionId(@NotNull String connectionId) {
-        this.connectionId = connectionId;
-        return this;
-      }
-
       @Override
       protected Call<ChannelListResponse> generateCall() {
         return StreamServiceGenerator.createService(ChannelService.class)
-            .list(new ChannelListRequestData(this));
+            .list(this.internalBuild());
       }
     }
   }
@@ -815,6 +559,10 @@ public class Channel {
     }
   }
 
+  @Builder(
+      builderClassName = "ChannelQueryMembersRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class ChannelQueryMembersRequestData {
 
     @Nullable
@@ -829,6 +577,8 @@ public class Channel {
     @JsonProperty("members")
     private ChannelMember members;
 
+    // Singular because cannot be empty
+    @Singular
     @Nullable
     @JsonProperty("filter_conditions")
     private Map<String, Object> filterConditions;
@@ -885,190 +635,31 @@ public class Channel {
     @JsonProperty("user")
     private UserRequestObject user;
 
-    private ChannelQueryMembersRequestData(ChannelQueryMembersRequest channelQueryMembersRequest) {
-      this.type = channelQueryMembersRequest.type;
-      this.id = channelQueryMembersRequest.id;
-      this.members = channelQueryMembersRequest.members;
-      this.filterConditions = channelQueryMembersRequest.filterConditions;
-      this.sort = channelQueryMembersRequest.sort;
-      this.limit = channelQueryMembersRequest.limit;
-      this.offset = channelQueryMembersRequest.offset;
-      this.userIdGte = channelQueryMembersRequest.userIdGte;
-      this.userIdGt = channelQueryMembersRequest.userIdGt;
-      this.userIdLte = channelQueryMembersRequest.userIdLte;
-      this.userIdLt = channelQueryMembersRequest.userIdLt;
-      this.createdAtAfterOrEqual = channelQueryMembersRequest.createdAtAfterOrEqual;
-      this.createdAtAfter = channelQueryMembersRequest.createdAtAfter;
-      this.createdAtBeforeOrEqual = channelQueryMembersRequest.createdAtBeforeOrEqual;
-      this.createdAtBefore = channelQueryMembersRequest.createdAtBefore;
-      this.userId = channelQueryMembersRequest.userId;
-      this.user = channelQueryMembersRequest.user;
-    }
-
     public static class ChannelQueryMembersRequest
         extends StreamRequest<ChannelQueryMembersResponse> {
-      private String type;
-      private String id;
-      private ChannelMember members;
-      private Map<String, Object> filterConditions = Collections.emptyMap();
-      private List<Sort> sort;
-      private Integer limit;
-      private Integer offset;
-      private String userIdGte;
-      private String userIdGt;
-      private String userIdLte;
-      private String userIdLt;
-      private Date createdAtAfterOrEqual;
-      private Date createdAtAfter;
-      private Date createdAtBeforeOrEqual;
-      private Date createdAtBefore;
-      private String userId;
-      private UserRequestObject user;
-
-      private ChannelQueryMembersRequest() {}
-
-      @NotNull
-      public ChannelQueryMembersRequest type(@NotNull String type) {
-        this.type = type;
-        return this;
-      }
-
-      @NotNull
-      public ChannelQueryMembersRequest id(@NotNull String id) {
-        this.id = id;
-        return this;
-      }
-
-      @NotNull
-      public ChannelQueryMembersRequest members(@NotNull ChannelMember members) {
-        this.members = members;
-        return this;
-      }
-
-      @NotNull
-      public ChannelQueryMembersRequest filterConditions(
-          @NotNull Map<String, Object> filterConditions) {
-        this.filterConditions = filterConditions;
-        return this;
-      }
-
-      @NotNull
-      public ChannelQueryMembersRequest sort(@NotNull List<Sort> sort) {
-        this.sort = sort;
-        return this;
-      }
-
-      @NotNull
-      public ChannelQueryMembersRequest limit(@NotNull Integer limit) {
-        this.limit = limit;
-        return this;
-      }
-
-      @NotNull
-      public ChannelQueryMembersRequest offset(@NotNull Integer offset) {
-        this.offset = offset;
-        return this;
-      }
-
-      @NotNull
-      public ChannelQueryMembersRequest userIdGte(@NotNull String userIdGte) {
-        this.userIdGte = userIdGte;
-        return this;
-      }
-
-      @NotNull
-      public ChannelQueryMembersRequest userIdGt(@NotNull String userIdGt) {
-        this.userIdGt = userIdGt;
-        return this;
-      }
-
-      @NotNull
-      public ChannelQueryMembersRequest userIdLte(@NotNull String userIdLte) {
-        this.userIdLte = userIdLte;
-        return this;
-      }
-
-      @NotNull
-      public ChannelQueryMembersRequest userIdLt(@NotNull String userIdLt) {
-        this.userIdLt = userIdLt;
-        return this;
-      }
-
-      @NotNull
-      public ChannelQueryMembersRequest createdAtAfterOrEqual(@NotNull Date createdAtAfterOrEqual) {
-        this.createdAtAfterOrEqual = createdAtAfterOrEqual;
-        return this;
-      }
-
-      @NotNull
-      public ChannelQueryMembersRequest createdAtAfter(@NotNull Date createdAtAfter) {
-        this.createdAtAfter = createdAtAfter;
-        return this;
-      }
-
-      @NotNull
-      public ChannelQueryMembersRequest createdAtBeforeOrEqual(
-          @NotNull Date createdAtBeforeOrEqual) {
-        this.createdAtBeforeOrEqual = createdAtBeforeOrEqual;
-        return this;
-      }
-
-      @NotNull
-      public ChannelQueryMembersRequest createdAtBefore(@NotNull Date createdAtBefore) {
-        this.createdAtBefore = createdAtBefore;
-        return this;
-      }
-
-      @NotNull
-      public ChannelQueryMembersRequest userId(@NotNull String userId) {
-        this.userId = userId;
-        return this;
-      }
-
-      @NotNull
-      public ChannelQueryMembersRequest user(@NotNull UserRequestObject user) {
-        this.user = user;
-        return this;
-      }
-
       @Override
       protected Call<ChannelQueryMembersResponse> generateCall() {
         return StreamServiceGenerator.createService(ChannelService.class)
-            .queryMembers(new ChannelQueryMembersRequestData(this));
+            .queryMembers(this.internalBuild());
       }
     }
   }
 
+  @Builder(
+      builderClassName = "ChannelExportRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class ChannelExportRequestData {
+    @Singular
     @NotNull
     @JsonProperty("channels")
     private List<ChannelExportRequestObject> channels;
 
-    private ChannelExportRequestData(ChannelExportRequest channelExportRequest) {
-      this.channels = channelExportRequest.channels;
-    }
-
     public static class ChannelExportRequest extends StreamRequest<ChannelExportResponse> {
-      private List<ChannelExportRequestObject> channels = new ArrayList<>();
-
-      private ChannelExportRequest() {}
-
-      @NotNull
-      public ChannelExportRequest channels(@NotNull List<ChannelExportRequestObject> channels) {
-        this.channels = channels;
-        return this;
-      }
-
-      @NotNull
-      public ChannelExportRequest addChannel(@NotNull ChannelExportRequestObject channel) {
-        this.channels.add(channel);
-        return this;
-      }
-
       @Override
       protected Call<ChannelExportResponse> generateCall() {
         return StreamServiceGenerator.createService(ChannelService.class)
-            .export(new ChannelExportRequestData(this));
+            .export(this.internalBuild());
       }
     }
   }
@@ -1087,6 +678,10 @@ public class Channel {
     }
   }
 
+  @Builder(
+      builderClassName = "ChannelHideRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class ChannelHideRequestData {
     @Nullable
     @JsonProperty("clear_history")
@@ -1100,50 +695,27 @@ public class Channel {
     @JsonProperty("user")
     private UserRequestObject user;
 
-    private ChannelHideRequestData(ChannelHideRequest channelHideRequestData) {
-      this.clearHistory = channelHideRequestData.clearHistory;
-      this.userId = channelHideRequestData.userId;
-      this.user = channelHideRequestData.user;
-    }
-
     public static class ChannelHideRequest extends StreamRequest<StreamResponseObject> {
       private String channelId;
       private String channelType;
-      private String clearHistory;
-      private String userId;
-      private UserRequestObject user;
 
       private ChannelHideRequest(String channelType, String channelId) {
         this.channelType = channelType;
         this.channelId = channelId;
       }
 
-      @NotNull
-      public ChannelHideRequest clearHistory(@NotNull String clearHistory) {
-        this.clearHistory = clearHistory;
-        return this;
-      }
-
-      @NotNull
-      public ChannelHideRequest userId(@NotNull String userId) {
-        this.userId = userId;
-        return this;
-      }
-
-      @NotNull
-      public ChannelHideRequest user(@NotNull UserRequestObject user) {
-        this.user = user;
-        return this;
-      }
-
       @Override
       protected Call<StreamResponseObject> generateCall() {
         return StreamServiceGenerator.createService(ChannelService.class)
-            .hide(this.channelType, this.channelId, new ChannelHideRequestData(this));
+            .hide(this.channelType, this.channelId, this.internalBuild());
       }
     }
   }
 
+  @Builder(
+      builderClassName = "ChannelMarkAllReadRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class ChannelMarkAllReadRequestData {
     @Nullable
     @JsonProperty("user_id")
@@ -1153,37 +725,19 @@ public class Channel {
     @JsonProperty("user")
     private UserRequestObject user;
 
-    private ChannelMarkAllReadRequestData(ChannelMarkAllReadRequest channelMarkAllReadRequest) {
-      this.userId = channelMarkAllReadRequest.userId;
-      this.user = channelMarkAllReadRequest.user;
-    }
-
     public static class ChannelMarkAllReadRequest extends StreamRequest<StreamResponseObject> {
-      private String userId;
-      private UserRequestObject user;
-
-      private ChannelMarkAllReadRequest() {}
-
-      @NotNull
-      public ChannelMarkAllReadRequest userId(@NotNull String userId) {
-        this.userId = userId;
-        return this;
-      }
-
-      @NotNull
-      public ChannelMarkAllReadRequest user(@NotNull UserRequestObject user) {
-        this.user = user;
-        return this;
-      }
-
       @Override
       protected Call<StreamResponseObject> generateCall() {
         return StreamServiceGenerator.createService(ChannelService.class)
-            .markAllRead(new ChannelMarkAllReadRequestData(this));
+            .markAllRead(this.internalBuild());
       }
     }
   }
 
+  @Builder(
+      builderClassName = "ChannelMarkReadRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class ChannelMarkReadRequestData {
     @Nullable
     @JsonProperty("message_id")
@@ -1197,44 +751,27 @@ public class Channel {
     @JsonProperty("user")
     private UserRequestObject user;
 
-    private ChannelMarkReadRequestData(ChannelMarkReadRequest channelMarkReadRequest) {
-      this.messageId = channelMarkReadRequest.messageId;
-      this.userId = channelMarkReadRequest.userId;
-      this.user = channelMarkReadRequest.user;
-    }
-
     public static class ChannelMarkReadRequest extends StreamRequest<ChannelMarkReadResponse> {
       private String channelId;
       private String channelType;
-      private String messageId;
-      private String userId;
-      private UserRequestObject user;
 
-      private ChannelMarkReadRequest(String channelType, String channelId) {
+      private ChannelMarkReadRequest(@NotNull String channelType, @NotNull String channelId) {
         this.channelType = channelType;
         this.channelId = channelId;
-      }
-
-      @NotNull
-      public ChannelMarkReadRequest userId(@NotNull String userId) {
-        this.userId = userId;
-        return this;
-      }
-
-      @NotNull
-      public ChannelMarkReadRequest user(@NotNull UserRequestObject user) {
-        this.user = user;
-        return this;
       }
 
       @Override
       protected Call<ChannelMarkReadResponse> generateCall() {
         return StreamServiceGenerator.createService(ChannelService.class)
-            .markRead(channelType, channelId, new ChannelMarkReadRequestData(this));
+            .markRead(channelType, channelId, this.internalBuild());
       }
     }
   }
 
+  @Builder(
+      builderClassName = "ChannelMuteRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class ChannelMuteRequestData {
     @Nullable
     @JsonProperty("channel_cid")
@@ -1256,61 +793,20 @@ public class Channel {
     @JsonProperty("user")
     private UserRequestObject user;
 
-    private ChannelMuteRequestData(ChannelMuteRequest channelMuteRequest) {
-      this.channelCid = channelMuteRequest.channelCid;
-      this.channelCids = channelMuteRequest.channelCids;
-      this.expiration = channelMuteRequest.expiration;
-      this.userId = channelMuteRequest.userId;
-      this.user = channelMuteRequest.user;
-    }
-
     public static class ChannelMuteRequest extends StreamRequest<ChannelMuteResponse> {
-      private String channelCid;
-      private List<String> channelCids;
-      private Integer expiration;
-      private String userId;
-      private UserRequestObject user;
-
-      private ChannelMuteRequest() {}
-
-      @NotNull
-      public ChannelMuteRequest channelCid(@NotNull String channelCid) {
-        this.channelCid = channelCid;
-        return this;
-      }
-
-      @NotNull
-      public ChannelMuteRequest channelCids(@NotNull List<String> channelCids) {
-        this.channelCids = channelCids;
-        return this;
-      }
-
-      @NotNull
-      public ChannelMuteRequest expiration(@NotNull Integer expiration) {
-        this.expiration = expiration;
-        return this;
-      }
-
-      @NotNull
-      public ChannelMuteRequest userId(@NotNull String userId) {
-        this.userId = userId;
-        return this;
-      }
-
-      @NotNull
-      public ChannelMuteRequest user(@NotNull UserRequestObject user) {
-        this.user = user;
-        return this;
-      }
 
       @Override
       protected Call<ChannelMuteResponse> generateCall() {
         return StreamServiceGenerator.createService(ChannelService.class)
-            .mute(new ChannelMuteRequestData(this));
+            .mute(this.internalBuild());
       }
     }
   }
 
+  @Builder(
+      builderClassName = "ChannelShowRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class ChannelShowRequestData {
 
     @Nullable
@@ -1321,42 +817,27 @@ public class Channel {
     @JsonProperty("user")
     private UserRequestObject user;
 
-    private ChannelShowRequestData(ChannelShowRequest channelShowRequestData) {
-      this.userId = channelShowRequestData.userId;
-      this.user = channelShowRequestData.user;
-    }
-
     public static class ChannelShowRequest extends StreamRequest<StreamResponseObject> {
       private String channelId;
       private String channelType;
-      private String userId;
-      private UserRequestObject user;
 
-      private ChannelShowRequest(String channelType, String channelId) {
+      private ChannelShowRequest(@NotNull String channelType, @NotNull String channelId) {
         this.channelType = channelType;
         this.channelId = channelId;
-      }
-
-      @NotNull
-      public ChannelShowRequest userId(@NotNull String userId) {
-        this.userId = userId;
-        return this;
-      }
-
-      @NotNull
-      public ChannelShowRequest user(@NotNull UserRequestObject user) {
-        this.user = user;
-        return this;
       }
 
       @Override
       protected Call<StreamResponseObject> generateCall() {
         return StreamServiceGenerator.createService(ChannelService.class)
-            .show(this.channelType, this.channelId, new ChannelShowRequestData(this));
+            .show(this.channelType, this.channelId, this.internalBuild());
       }
     }
   }
 
+  @Builder(
+      builderClassName = "ChannelUnMuteRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class ChannelUnMuteRequestData {
     @Nullable
     @JsonProperty("channel_cid")
@@ -1378,57 +859,11 @@ public class Channel {
     @JsonProperty("user")
     private UserRequestObject user;
 
-    private ChannelUnMuteRequestData(ChannelUnMuteRequest channelUnMuteRequest) {
-      this.channelCid = channelUnMuteRequest.channelCid;
-      this.channelCids = channelUnMuteRequest.channelCids;
-      this.expiration = channelUnMuteRequest.expiration;
-      this.userId = channelUnMuteRequest.userId;
-      this.user = channelUnMuteRequest.user;
-    }
-
     public static class ChannelUnMuteRequest extends StreamRequest<ChannelUnMuteResponse> {
-      private String channelCid;
-      private List<String> channelCids;
-      private Integer expiration;
-      private String userId;
-      private UserRequestObject user;
-
-      private ChannelUnMuteRequest() {}
-
-      @NotNull
-      public ChannelUnMuteRequest channelCid(@NotNull String channelCid) {
-        this.channelCid = channelCid;
-        return this;
-      }
-
-      @NotNull
-      public ChannelUnMuteRequest channelCids(@NotNull List<String> channelCids) {
-        this.channelCids = channelCids;
-        return this;
-      }
-
-      @NotNull
-      public ChannelUnMuteRequest expiration(@NotNull Integer expiration) {
-        this.expiration = expiration;
-        return this;
-      }
-
-      @NotNull
-      public ChannelUnMuteRequest userId(@NotNull String userId) {
-        this.userId = userId;
-        return this;
-      }
-
-      @NotNull
-      public ChannelUnMuteRequest user(@NotNull UserRequestObject user) {
-        this.user = user;
-        return this;
-      }
-
       @Override
       protected Call<ChannelUnMuteResponse> generateCall() {
         return StreamServiceGenerator.createService(ChannelService.class)
-            .unmute(new ChannelUnMuteRequestData(this));
+            .unmute(this.internalBuild());
       }
     }
   }

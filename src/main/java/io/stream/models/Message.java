@@ -609,6 +609,10 @@ public class Message {
     private Integer spam;
   }
 
+  @Builder(
+      builderClassName = "MessageSendRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class MessageSendRequestData {
     @Nullable
     @JsonProperty("message")
@@ -618,73 +622,51 @@ public class Message {
     @JsonProperty("skip_push")
     private Boolean skipPush;
 
-    private MessageSendRequestData(MessageSendRequest messageSendRequest) {
-      this.message = messageSendRequest.message;
-      this.skipPush = messageSendRequest.skipPush;
-    }
-
     public static class MessageSendRequest extends StreamRequest<MessageSendResponse> {
       private String channelId;
       private String channelType;
-      private MessageRequestObject message;
-      private Boolean skipPush;
 
-      private MessageSendRequest(String channelType, String channelId) {
+      private MessageSendRequest(@NotNull String channelType, @NotNull String channelId) {
         this.channelType = channelType;
         this.channelId = channelId;
-      }
-
-      @NotNull
-      public MessageSendRequest message(@NotNull MessageRequestObject message) {
-        this.message = message;
-        return this;
-      }
-
-      @NotNull
-      public MessageSendRequest skipPush(@NotNull Boolean skipPush) {
-        this.skipPush = skipPush;
-        return this;
       }
 
       @Override
       protected Call<MessageSendResponse> generateCall() {
         return StreamServiceGenerator.createService(MessageService.class)
-            .send(this.channelType, this.channelId, new MessageSendRequestData(this));
+            .send(this.channelType, this.channelId, this.internalBuild());
       }
     }
   }
 
+  @Builder(
+      builderClassName = "MessageUpdateRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class MessageUpdateRequestData {
     @Nullable
     @JsonProperty("message")
     private MessageRequestObject message;
 
-    private MessageUpdateRequestData(MessageUpdateRequest messageUpdateRequest) {
-      this.message = messageUpdateRequest.message;
-    }
-
     public static class MessageUpdateRequest extends StreamRequest<MessageUpdateResponse> {
       private String id;
-      private MessageRequestObject message;
 
       private MessageUpdateRequest(String id) {
         this.id = id;
       }
 
-      @NotNull
-      public MessageUpdateRequest message(@NotNull MessageRequestObject message) {
-        this.message = message;
-        return this;
-      }
-
       @Override
       protected Call<MessageUpdateResponse> generateCall() {
         return StreamServiceGenerator.createService(MessageService.class)
-            .update(this.id, new MessageUpdateRequestData(this));
+            .update(this.id, this.internalBuild());
       }
     }
   }
 
+  @Builder(
+      builderClassName = "MessageSearchRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class MessageSearchRequestData {
     @Nullable
     @JsonProperty("query")
@@ -706,58 +688,11 @@ public class Message {
     @JsonProperty("offset")
     private Integer offset;
 
-    private MessageSearchRequestData(MessageSearchRequest messageSearchRequest) {
-      this.query = messageSearchRequest.query;
-      this.filterConditions = messageSearchRequest.filterConditions;
-      this.messageFilterConditions = messageSearchRequest.messageFilterConditions;
-      this.limit = messageSearchRequest.limit;
-      this.offset = messageSearchRequest.offset;
-    }
-
     public static class MessageSearchRequest extends StreamRequest<MessageSearchResponse> {
-      private String query;
-      private Map<String, Object> filterConditions;
-      private Map<String, Object> messageFilterConditions;
-      private Integer limit;
-      private Integer offset;
-
-      private MessageSearchRequest() {}
-
-      @NotNull
-      public MessageSearchRequest query(@NotNull String query) {
-        this.query = query;
-        return this;
-      }
-
-      @NotNull
-      public MessageSearchRequest filterConditions(@NotNull Map<String, Object> filterConditions) {
-        this.filterConditions = filterConditions;
-        return this;
-      }
-
-      @NotNull
-      public MessageSearchRequest messageFilterConditions(
-          @NotNull Map<String, Object> messageFilterConditions) {
-        this.messageFilterConditions = messageFilterConditions;
-        return this;
-      }
-
-      @NotNull
-      public MessageSearchRequest limit(@NotNull Integer limit) {
-        this.limit = limit;
-        return this;
-      }
-
-      @NotNull
-      public MessageSearchRequest offset(@NotNull Integer offset) {
-        this.offset = offset;
-        return this;
-      }
-
       @Override
       protected Call<MessageSearchResponse> generateCall() {
         return StreamServiceGenerator.createService(MessageService.class)
-            .search(new MessageSearchRequestData(this));
+            .search(this.internalBuild());
       }
     }
   }

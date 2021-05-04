@@ -246,39 +246,36 @@ public class Event {
     }
   }
 
+  @Builder(
+      builderClassName = "EventSendRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class EventSendRequestData {
     @NotNull
     @JsonProperty("event")
     private EventRequestObject event;
 
-    private EventSendRequestData(EventSendRequest eventSendRequest) {
-      this.event = eventSendRequest.event;
-    }
-
     public static class EventSendRequest extends StreamRequest<EventSendResponse> {
       private String channelType;
       private String channelId;
-      private EventRequestObject event;
 
       private EventSendRequest(@NotNull String channelType, @NotNull String channelId) {
         this.channelType = channelType;
         this.channelId = channelId;
       }
 
-      @NotNull
-      public EventSendRequest event(@NotNull EventRequestObject event) {
-        this.event = event;
-        return this;
-      }
-
       @Override
       protected Call<EventSendResponse> generateCall() {
         return StreamServiceGenerator.createService(EventService.class)
-            .send(channelType, channelId, new EventSendRequestData(this));
+            .send(channelType, channelId, this.internalBuild());
       }
     }
   }
 
+  @Builder(
+      builderClassName = "EventSendUserCustomRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class EventSendUserCustomRequestData {
     @NotNull
     @JsonProperty("event")
@@ -288,29 +285,17 @@ public class Event {
     @JsonProperty("target_user_id")
     private String targetUserId;
 
-    private EventSendUserCustomRequestData(EventSendUserCustomRequest eventSendUserCustomRequest) {
-      this.event = eventSendUserCustomRequest.event;
-      this.targetUserId = eventSendUserCustomRequest.targetUserId;
-    }
-
     public static class EventSendUserCustomRequest extends StreamRequest<StreamResponseObject> {
-      private EventUserCustomRequestObject event;
       private String targetUserId;
 
       private EventSendUserCustomRequest(@NotNull String userId) {
         this.targetUserId = userId;
       }
 
-      @NotNull
-      public EventSendUserCustomRequest event(@NotNull EventUserCustomRequestObject event) {
-        this.event = event;
-        return this;
-      }
-
       @Override
       protected Call<StreamResponseObject> generateCall() {
         return StreamServiceGenerator.createService(EventService.class)
-            .sendUserCustom(targetUserId, new EventSendUserCustomRequestData(this));
+            .sendUserCustom(targetUserId, this.internalBuild());
       }
     }
   }

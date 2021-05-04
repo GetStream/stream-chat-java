@@ -10,6 +10,7 @@ import io.stream.services.CommandService;
 import io.stream.services.framework.StreamServiceGenerator;
 import java.util.Date;
 import java.util.List;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.jetbrains.annotations.NotNull;
@@ -44,6 +45,10 @@ public class Command {
 
   public Command() {}
 
+  @Builder(
+      builderClassName = "CommandCreateRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class CommandCreateRequestData {
     @NotNull
     @JsonProperty("name")
@@ -61,49 +66,11 @@ public class Command {
     @JsonProperty("set")
     private String setValue;
 
-    private CommandCreateRequestData(CommandCreateRequest commandCreateRequest) {
-      this.name = commandCreateRequest.name;
-      this.description = commandCreateRequest.description;
-      this.args = commandCreateRequest.args;
-      this.setValue = commandCreateRequest.setValue;
-    }
-
     public static class CommandCreateRequest extends StreamRequest<CommandCreateResponse> {
-      private String name;
-      private String description;
-      private String args;
-      private String setValue;
-
-      private CommandCreateRequest() {}
-
-      @NotNull
-      public CommandCreateRequest name(@NotNull String name) {
-        this.name = name;
-        return this;
-      }
-
-      @NotNull
-      public CommandCreateRequest description(@NotNull String description) {
-        this.description = description;
-        return this;
-      }
-
-      @NotNull
-      public CommandCreateRequest args(@NotNull String args) {
-        this.args = args;
-        return this;
-      }
-
-      @NotNull
-      public CommandCreateRequest setValue(@NotNull String setValue) {
-        this.setValue = setValue;
-        return this;
-      }
-
       @Override
       protected Call<CommandCreateResponse> generateCall() {
         return StreamServiceGenerator.createService(CommandService.class)
-            .create(new CommandCreateRequestData(this));
+            .create(this.internalBuild());
       }
     }
   }
@@ -121,6 +88,10 @@ public class Command {
     }
   }
 
+  @Builder(
+      builderClassName = "CommandUpdateRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class CommandUpdateRequestData {
     @NotNull
     @JsonProperty("description")
@@ -134,44 +105,17 @@ public class Command {
     @JsonProperty("set")
     private String setValue;
 
-    private CommandUpdateRequestData(CommandUpdateRequest commandUpdateRequest) {
-      this.description = commandUpdateRequest.description;
-      this.args = commandUpdateRequest.args;
-      this.setValue = commandUpdateRequest.setValue;
-    }
-
     public static class CommandUpdateRequest extends StreamRequest<CommandUpdateResponse> {
       private String name;
-      private String description;
-      private String args;
-      private String setValue;
 
       private CommandUpdateRequest(@NotNull String name) {
         this.name = name;
       }
 
-      @NotNull
-      public CommandUpdateRequest description(@NotNull String description) {
-        this.description = description;
-        return this;
-      }
-
-      @NotNull
-      public CommandUpdateRequest args(@NotNull String args) {
-        this.args = args;
-        return this;
-      }
-
-      @NotNull
-      public CommandUpdateRequest setValue(@NotNull String setValue) {
-        this.setValue = setValue;
-        return this;
-      }
-
       @Override
       protected Call<CommandUpdateResponse> generateCall() {
         return StreamServiceGenerator.createService(CommandService.class)
-            .update(name, new CommandUpdateRequestData(this));
+            .update(name, this.internalBuild());
       }
     }
   }

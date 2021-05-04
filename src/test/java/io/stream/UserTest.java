@@ -28,7 +28,7 @@ public class UserTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     usersUpsertRequest
-                        .addUser(
+                        .user(
                             UserRequestObject.builder()
                                 .id(RandomStringUtils.randomAlphabetic(10))
                                 .name("Samwise Gamgee")
@@ -65,7 +65,7 @@ public class UserTest extends BasicTest {
   void whenBanUser_thenNoException() {
     String userId = RandomStringUtils.randomAlphabetic(10);
     UserUpsertRequest usersUpsertRequest = User.upsert();
-    usersUpsertRequest.addUser(UserRequestObject.builder().id(userId).name("User to ban").build());
+    usersUpsertRequest.user(UserRequestObject.builder().id(userId).name("User to ban").build());
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     Assertions.assertDoesNotThrow(
         () -> User.ban().userId(testUserRequestObject.getId()).targetUserId(userId).request());
@@ -76,7 +76,7 @@ public class UserTest extends BasicTest {
   void whenListingBannedUsers_thenNoException() {
     String userId = RandomStringUtils.randomAlphabetic(10);
     UserUpsertRequest usersUpsertRequest = User.upsert();
-    usersUpsertRequest.addUser(UserRequestObject.builder().id(userId).name("User to ban").build());
+    usersUpsertRequest.user(UserRequestObject.builder().id(userId).name("User to ban").build());
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     Assertions.assertDoesNotThrow(
         () -> User.ban().userId(testUserRequestObject.getId()).targetUserId(userId).request());
@@ -88,7 +88,7 @@ public class UserTest extends BasicTest {
   void whenDeactivateUser_thenIsDeactivated() {
     String userId = RandomStringUtils.randomAlphabetic(10);
     UserUpsertRequest usersUpsertRequest = User.upsert();
-    usersUpsertRequest.addUser(UserRequestObject.builder().id(userId).name("User to ban").build());
+    usersUpsertRequest.user(UserRequestObject.builder().id(userId).name("User to ban").build());
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     User deactivatedUser =
         Assertions.assertDoesNotThrow(
@@ -102,7 +102,7 @@ public class UserTest extends BasicTest {
   void whenReactivateUser_thenIsReactivated() {
     String userId = RandomStringUtils.randomAlphabetic(10);
     UserUpsertRequest usersUpsertRequest = User.upsert();
-    usersUpsertRequest.addUser(UserRequestObject.builder().id(userId).name("User to ban").build());
+    usersUpsertRequest.user(UserRequestObject.builder().id(userId).name("User to ban").build());
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     Assertions.assertDoesNotThrow(
             () -> User.deactivate(userId).createdById(testUserRequestObject.getId()).request())
@@ -119,7 +119,7 @@ public class UserTest extends BasicTest {
   void whenDeleteUser_thenIsDeleted() {
     String userId = RandomStringUtils.randomAlphabetic(10);
     UserUpsertRequest usersUpsertRequest = User.upsert();
-    usersUpsertRequest.addUser(UserRequestObject.builder().id(userId).name("User to ban").build());
+    usersUpsertRequest.user(UserRequestObject.builder().id(userId).name("User to ban").build());
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     User deletedUser = Assertions.assertDoesNotThrow(() -> User.delete(userId).request()).getUser();
     Assertions.assertNotNull(deletedUser.getDeletedAt());

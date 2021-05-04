@@ -348,6 +348,10 @@ public class App extends StreamResponseObject {
     }
   }
 
+  @Builder(
+      builderClassName = "AppUpdateRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class AppUpdateRequestData {
     @Nullable
     @JsonProperty("disable_auth_checks")
@@ -381,7 +385,7 @@ public class App extends StreamResponseObject {
     @JsonProperty("enforce_unique_usernames")
     private String enforceUniqueUsernames;
 
-    @NotNull
+    @Nullable
     @JsonProperty("permission_version")
     private String permissionVersion;
 
@@ -401,7 +405,7 @@ public class App extends StreamResponseObject {
     @JsonProperty("auto_translation_enabled")
     private Boolean autoTranslationEnabled;
 
-    @NotNull
+    @Nullable
     @JsonProperty("image_moderation_enabled")
     private Boolean imageModerationEnabled;
 
@@ -429,180 +433,10 @@ public class App extends StreamResponseObject {
     @JsonProperty("multi_tenant_enabled")
     private Boolean multiTenantEnabled;
 
-    private AppUpdateRequestData(AppUpdateRequest appUpdateRequest) {
-      this.disableAuth = appUpdateRequest.disableAuth;
-      this.disablePermissions = appUpdateRequest.disablePermissions;
-      this.aPNConfig = appUpdateRequest.aPNConfig;
-      this.firebaseConfig = appUpdateRequest.firebaseConfig;
-      this.pushConfig = appUpdateRequest.pushConfig;
-      this.userSearchDisallowedRoles = appUpdateRequest.userSearchDisallowedRoles;
-      this.customActionHandlerUrl = appUpdateRequest.customActionHandlerUrl;
-      this.enforceUniqueUsernames = appUpdateRequest.enforceUniqueUsernames;
-      this.permissionVersion = appUpdateRequest.permissionVersion;
-      this.fileUploadConfig = appUpdateRequest.fileUploadConfig;
-      this.imageUploadConfig = appUpdateRequest.imageUploadConfig;
-      this.beforeMessageSendHookUrl = appUpdateRequest.beforeMessageSendHookUrl;
-      this.autoTranslationEnabled = appUpdateRequest.autoTranslationEnabled;
-      this.imageModerationEnabled = appUpdateRequest.imageModerationEnabled;
-      this.imageModerationLabels = appUpdateRequest.imageModerationLabels;
-      this.sqsUrl = appUpdateRequest.sqsUrl;
-      this.sqsKey = appUpdateRequest.sqsKey;
-      this.sqsSecret = appUpdateRequest.sqsSecret;
-      this.webhookURL = appUpdateRequest.webhookURL;
-      this.multiTenantEnabled = appUpdateRequest.multiTenantEnabled;
-    }
-
     public static class AppUpdateRequest extends StreamRequest<StreamResponseObject> {
-      private Boolean disableAuth;
-      private Boolean disablePermissions;
-      private APNConfigRequestObject aPNConfig;
-      private FirebaseConfigRequestObject firebaseConfig;
-      private PushConfigRequestObject pushConfig;
-      private List<String> userSearchDisallowedRoles;
-      private String customActionHandlerUrl;
-      private String enforceUniqueUsernames;
-      private String permissionVersion;
-      private FileUploadConfigRequestObject fileUploadConfig;
-      private FileUploadConfigRequestObject imageUploadConfig;
-      private String beforeMessageSendHookUrl;
-      private Boolean autoTranslationEnabled;
-      private Boolean imageModerationEnabled;
-      private List<String> imageModerationLabels;
-      private String sqsUrl;
-      private String sqsKey;
-      private String sqsSecret;
-      private String webhookURL;
-      private Boolean multiTenantEnabled;
-
-      private AppUpdateRequest() {}
-
-      @NotNull
-      public AppUpdateRequest disableAuth(@NotNull Boolean disableAuth) {
-        this.disableAuth = disableAuth;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest disablePermissions(@NotNull Boolean disablePermissions) {
-        this.disablePermissions = disablePermissions;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest aPNConfig(@NotNull APNConfigRequestObject aPNConfig) {
-        this.aPNConfig = aPNConfig;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest firebaseConfig(@NotNull FirebaseConfigRequestObject firebaseConfig) {
-        this.firebaseConfig = firebaseConfig;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest pushConfig(@NotNull PushConfigRequestObject pushConfig) {
-        this.pushConfig = pushConfig;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest userSearchDisallowedRoles(
-          @NotNull List<String> userSearchDisallowedRoles) {
-        this.userSearchDisallowedRoles = userSearchDisallowedRoles;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest customActionHandlerUrl(@NotNull String customActionHandlerUrl) {
-        this.customActionHandlerUrl = customActionHandlerUrl;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest enforceUniqueUsernames(@NotNull String enforceUniqueUsernames) {
-        this.enforceUniqueUsernames = enforceUniqueUsernames;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest permissionVersion(@NotNull String permissionVersion) {
-        this.permissionVersion = permissionVersion;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest fileUploadConfig(
-          @NotNull FileUploadConfigRequestObject fileUploadConfig) {
-        this.fileUploadConfig = fileUploadConfig;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest imageUploadConfig(
-          @NotNull FileUploadConfigRequestObject imageUploadConfig) {
-        this.imageUploadConfig = imageUploadConfig;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest beforeMessageSendHookUrl(@NotNull String beforeMessageSendHookUrl) {
-        this.beforeMessageSendHookUrl = beforeMessageSendHookUrl;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest autoTranslationEnabled(@NotNull Boolean autoTranslationEnabled) {
-        this.autoTranslationEnabled = autoTranslationEnabled;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest imageModerationEnabled(@NotNull Boolean imageModerationEnabled) {
-        this.imageModerationEnabled = imageModerationEnabled;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest imageModerationLabels(@NotNull List<String> imageModerationLabels) {
-        this.imageModerationLabels = imageModerationLabels;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest sqsUrl(@NotNull String sqsUrl) {
-        this.sqsUrl = sqsUrl;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest sqsKey(@NotNull String sqsKey) {
-        this.sqsKey = sqsKey;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest sqsSecret(@NotNull String sqsSecret) {
-        this.sqsSecret = sqsSecret;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest webhookURL(@NotNull String webhookURL) {
-        this.webhookURL = webhookURL;
-        return this;
-      }
-
-      @NotNull
-      public AppUpdateRequest multiTenantEnabled(@NotNull Boolean multiTenantEnabled) {
-        this.multiTenantEnabled = multiTenantEnabled;
-        return this;
-      }
-
       @Override
       protected Call<StreamResponseObject> generateCall() {
-        return StreamServiceGenerator.createService(AppService.class)
-            .update(new AppUpdateRequestData(this));
+        return StreamServiceGenerator.createService(AppService.class).update(this.internalBuild());
       }
     }
   }

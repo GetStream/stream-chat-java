@@ -11,9 +11,7 @@ import io.stream.models.Sort.Direction;
 import io.stream.models.User;
 import io.stream.models.User.ChannelMute;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -121,7 +119,7 @@ public class ChannelTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Channel.export()
-                        .addChannel(
+                        .channel(
                             ChannelExportRequestObject.builder()
                                 .type(testChannel.getType())
                                 .id(testChannel.getId())
@@ -138,7 +136,7 @@ public class ChannelTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Channel.export()
-                        .addChannel(
+                        .channel(
                             ChannelExportRequestObject.builder()
                                 .type(testChannel.getType())
                                 .id(testChannel.getId())
@@ -196,13 +194,11 @@ public class ChannelTest extends BasicTest {
   }
 
   private boolean isChannelMutedForTestUser(String channelType, String channelId) {
-    Map<String, Object> userConditions = new HashMap<>();
-    userConditions.put("id", testUserRequestObject.getId());
     List<ChannelMute> channelMutes =
         Assertions.assertDoesNotThrow(
             () ->
                 User.list()
-                    .filterConditions(userConditions)
+                    .filterCondition("id", testUserRequestObject.getId())
                     .request()
                     .getUsers()
                     .get(0)
