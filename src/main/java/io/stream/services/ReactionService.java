@@ -17,7 +17,8 @@ public interface ReactionService {
 
   @POST("messages/{id}/reaction")
   Call<ReactionSendResponse> send(
-      @NotNull @Path("id") String messageId, @NotNull @Body ReactionSendRequestData internalBuild);
+      @NotNull @Path("id") String messageId,
+      @NotNull @Body ReactionSendRequestData reactionSendRequestData);
 
   @DELETE("messages/{id}/reaction/{type}")
   Call<ReactionDeleteResponse> delete(
