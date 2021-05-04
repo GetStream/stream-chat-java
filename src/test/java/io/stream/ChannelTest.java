@@ -239,14 +239,14 @@ public class ChannelTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             Channel.mute()
-                .channelCid(testChannel.getType() + ":" + testChannel.getId())
+                .channelCid(channel.getType() + ":" + channel.getId())
                 .user(testUserRequestObject)
                 .request());
     Assertions.assertTrue(isChannelMutedForTestUser(channel.getType(), channel.getId()));
     Assertions.assertDoesNotThrow(
         () ->
             Channel.unmute()
-                .channelCid(testChannel.getType() + ":" + testChannel.getId())
+                .channelCid(channel.getType() + ":" + channel.getId())
                 .user(testUserRequestObject)
                 .request());
     Assertions.assertFalse(isChannelMutedForTestUser(channel.getType(), channel.getId()));
