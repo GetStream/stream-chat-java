@@ -1,7 +1,7 @@
 package io.stream;
 
-import io.stream.models.Reaction.ReactionRequestObject;
 import io.stream.models.Reaction;
+import io.stream.models.Reaction.ReactionRequestObject;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;

@@ -1,10 +1,10 @@
 package io.stream.services;
 
-import org.jetbrains.annotations.NotNull;
 import io.stream.models.Reaction.ReactionDeleteResponse;
 import io.stream.models.Reaction.ReactionListResponse;
 import io.stream.models.Reaction.ReactionSendRequestData;
 import io.stream.models.Reaction.ReactionSendResponse;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
