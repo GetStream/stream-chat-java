@@ -67,7 +67,7 @@ public class BasicTest {
               }
             });
   }
-  
+
   private static void cleanCommands() throws StreamException {
     Command.list()
         .request()
