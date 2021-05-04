@@ -20,20 +20,21 @@ import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class App extends StreamResponseObject {
   @Nullable
   @JsonProperty("app")
   private AppConfig app;
 
-  public App() {}
-
   @Data
+  @NoArgsConstructor
   public static class APNConfig {
     @NotNull
     @JsonProperty("enabled")
@@ -70,11 +71,10 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("key_Id")
     private String keyId;
-
-    public APNConfig() {}
   }
 
   @Data
+  @NoArgsConstructor
   public static class FirebaseConfig {
     @NotNull
     @JsonProperty("enabled")
@@ -87,11 +87,10 @@ public class App extends StreamResponseObject {
     @NotNull
     @JsonProperty("data_template")
     private String dataTemplate;
-
-    public FirebaseConfig() {}
   }
 
   @Data
+  @NoArgsConstructor
   public static class PushNotificationFields {
     @NotNull private String version;
 
@@ -102,11 +101,10 @@ public class App extends StreamResponseObject {
     @NotNull
     @JsonProperty("firebase")
     private FirebaseConfig firebaseConfig;
-
-    public PushNotificationFields() {}
   }
 
   @Data
+  @NoArgsConstructor
   public static class Policy {
     @NotNull
     @JsonProperty("name")
@@ -139,11 +137,10 @@ public class App extends StreamResponseObject {
     @NotNull
     @JsonProperty("updated_at")
     private Date updatedAt;
-
-    public Policy() {}
   }
 
   @Data
+  @NoArgsConstructor
   public static class AppConfig {
     @NotNull
     @JsonProperty("name")
@@ -241,8 +238,6 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("auto_translation_enabled")
     private Boolean autoTranslationEnabled;
-
-    public AppConfig() {}
   }
 
   public enum PermissionVersion {
@@ -292,6 +287,7 @@ public class App extends StreamResponseObject {
   }
 
   @Data
+  @NoArgsConstructor
   public static class FileUploadConfig {
     @Nullable
     @JsonProperty("allowed_file_extensions")
@@ -308,8 +304,6 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("blocked_mime_types")
     private List<String> blockedMimeTypes;
-
-    public FileUploadConfig() {}
   }
 
   @Builder

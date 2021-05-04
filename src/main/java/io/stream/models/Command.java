@@ -13,11 +13,13 @@ import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
+@NoArgsConstructor
 public class Command {
   @NotNull
   @JsonProperty("created_at")
@@ -42,8 +44,6 @@ public class Command {
   @Nullable
   @JsonProperty("set")
   private String setValue;
-
-  public Command() {}
 
   @Builder(
       builderClassName = "CommandCreateRequest",
@@ -141,51 +141,46 @@ public class Command {
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class CommandCreateResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("command")
     private Command command;
-
-    public CommandCreateResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class CommandGetResponse extends Command implements StreamResponse {
     private RateLimitData rateLimitData;
-
-    public CommandGetResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class CommandUpdateResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("command")
     private Command command;
-
-    public CommandUpdateResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class CommandDeleteResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("name")
     private String name;
-
-    public CommandDeleteResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class CommandListResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("commands")
     private List<Command> commands;
-
-    public CommandListResponse() {}
   }
 
   /**

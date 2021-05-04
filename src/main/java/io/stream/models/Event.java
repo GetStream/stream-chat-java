@@ -26,12 +26,14 @@ import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.Singular;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
+@NoArgsConstructor
 public class Event {
   @Nullable
   @JsonProperty("type")
@@ -113,11 +115,7 @@ public class Event {
   @JsonProperty("created_at")
   private Date createdAt;
 
-  @NotNull @JsonIgnore private Map<String, Object> additionalFields;
-
-  public Event() {
-    additionalFields = new HashMap<>();
-  }
+  @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();;
 
   @JsonAnyGetter
   public Map<String, Object> getAdditionalFields() {
@@ -302,13 +300,12 @@ public class Event {
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class EventSendResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("event")
     private Event event;
-
-    public EventSendResponse() {}
   }
 
   /**

@@ -19,10 +19,12 @@ import io.stream.services.framework.StreamServiceGenerator;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.Singular;
 import retrofit2.Call;
 
 @Data
+@NoArgsConstructor
 public class Reaction {
   @NotNull
   @JsonProperty("message_id")
@@ -48,11 +50,7 @@ public class Reaction {
   @JsonProperty("updated_at")
   private Date updatedAt;
 
-  @NotNull @JsonIgnore private Map<String, Object> additionalFields;
-
-  public Reaction() {
-    additionalFields = new HashMap<>();
-  }
+  @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
 
   @JsonAnyGetter
   public Map<String, Object> getAdditionalFields() {
@@ -169,6 +167,7 @@ public class Reaction {
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ReactionSendResponse extends StreamResponseObject {
     @NotNull
@@ -178,11 +177,10 @@ public class Reaction {
     @NotNull
     @JsonProperty("reaction")
     private Reaction reaction;
-
-    public ReactionSendResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ReactionDeleteResponse extends StreamResponseObject {
     @NotNull
@@ -192,18 +190,15 @@ public class Reaction {
     @NotNull
     @JsonProperty("reaction")
     private Reaction reaction;
-
-    public ReactionDeleteResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ReactionListResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("reactions")
     private List<Reaction> reactions;
-
-    public ReactionListResponse() {}
   }
 
   /**

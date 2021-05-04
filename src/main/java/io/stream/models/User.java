@@ -24,12 +24,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Singular;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
+@NoArgsConstructor
 public class User {
   @NotNull
   @JsonProperty("id")
@@ -103,11 +105,7 @@ public class User {
   @JsonProperty("channel_mutes")
   private List<ChannelMute> channelMutes;
 
-  @NotNull @JsonIgnore private Map<String, Object> additionalFields;
-
-  public User() {
-    additionalFields = new HashMap<>();
-  }
+  @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
 
   @JsonAnyGetter
   public Map<String, Object> getAdditionalFields() {
@@ -120,6 +118,7 @@ public class User {
   }
 
   @Data
+  @NoArgsConstructor
   public static class Mute {
     @NotNull
     @JsonProperty("user")
@@ -140,11 +139,10 @@ public class User {
     @Nullable
     @JsonProperty("expires")
     private Date expires;
-
-    public Mute() {}
   }
 
   @Data
+  @NoArgsConstructor
   public static class ChannelMute {
     @NotNull
     @JsonProperty("user")
@@ -165,11 +163,10 @@ public class User {
     @NotNull
     @JsonProperty("updated_at")
     private Date updatedAt;
-
-    public ChannelMute() {}
   }
 
   @Data
+  @NoArgsConstructor
   public static class Ban {
     @Nullable
     @JsonProperty("channel")
@@ -198,11 +195,10 @@ public class User {
     @NotNull
     @JsonProperty("created_at")
     private Date createdAt;
-
-    public Ban() {}
   }
 
   @Data
+  @NoArgsConstructor
   public static class OwnUser {
     @NotNull
     @JsonProperty("id")
@@ -284,11 +280,7 @@ public class User {
     @JsonProperty("latest_hidden_channels")
     private List<String> latestHiddenChannels;
 
-    @NotNull @JsonIgnore private Map<String, Object> additionalFields;
-
-    public OwnUser() {
-      additionalFields = new HashMap<>();
-    }
+    @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
@@ -302,6 +294,7 @@ public class User {
   }
 
   @Data
+  @NoArgsConstructor
   public static class UserMute {
     @NotNull
     @JsonProperty("user")
@@ -322,8 +315,6 @@ public class User {
     @NotNull
     @JsonProperty("updated_at")
     private Date updated_at;
-
-    public UserMute() {}
   }
 
   @Builder
@@ -846,73 +837,66 @@ public class User {
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class UserUpsertResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("users")
     private Map<String, User> users;
-
-    public UserUpsertResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class UserListResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("users")
     private List<User> users;
-
-    public UserListResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class UserPartialUpdateResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("users")
     private Map<String, User> users;
-
-    public UserPartialUpdateResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class UserQueryBannedResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("bans")
     private List<Ban> bans;
-
-    public UserQueryBannedResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class UserDeactivateResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("user")
     private User user;
-
-    public UserDeactivateResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class UserDeleteResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("user")
     private User user;
-
-    public UserDeleteResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class UserReactivateResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("user")
     private User user;
-
-    public UserReactivateResponse() {}
   }
 
   /**

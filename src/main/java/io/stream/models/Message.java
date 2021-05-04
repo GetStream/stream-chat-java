@@ -24,6 +24,7 @@ import java.util.logging.Level;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.Singular;
 import lombok.extern.java.Log;
 import okhttp3.MediaType;
@@ -35,6 +36,7 @@ import retrofit2.Call;
 
 @Log
 @Data
+@NoArgsConstructor
 public class Message {
   @NotNull
   @JsonProperty("id")
@@ -104,11 +106,7 @@ public class Message {
   @JsonProperty("deleted_at")
   private Date deletedAt;
 
-  @NotNull @JsonIgnore private Map<String, Object> additionalFields;
-
-  public Message() {
-    additionalFields = new HashMap<>();
-  }
+  @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
 
   @JsonAnyGetter
   public Map<String, Object> getAdditionalFields() {
@@ -136,6 +134,7 @@ public class Message {
   }
 
   @Data
+  @NoArgsConstructor
   public static class Attachment {
     @Nullable
     @JsonProperty("type")
@@ -209,11 +208,7 @@ public class Message {
     @JsonProperty("og_scrape_url")
     private String ogScrapeURL;
 
-    @NotNull @JsonIgnore private Map<String, Object> additionalFields;
-
-    public Attachment() {
-      additionalFields = new HashMap<>();
-    }
+    @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
@@ -227,6 +222,7 @@ public class Message {
   }
 
   @Data
+  @NoArgsConstructor
   public static class Action {
     @NotNull
     @JsonProperty("name")
@@ -247,11 +243,10 @@ public class Message {
     @NotNull
     @JsonProperty("value")
     private String value;
-
-    public Action() {}
   }
 
   @Data
+  @NoArgsConstructor
   public static class Field {
     @NotNull
     @JsonProperty("type")
@@ -264,30 +259,27 @@ public class Message {
     @NotNull
     @JsonProperty("short")
     private Boolean shortField;
-
-    public Field() {}
   }
 
   @Data
+  @NoArgsConstructor
   public static class SearchResult {
     @NotNull
     @JsonProperty("message")
     private SearchResultMessage message;
-
-    public SearchResult() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class SearchResultMessage extends Message {
     @NotNull
     @JsonProperty("channel")
     private Channel channel;
-
-    public SearchResultMessage() {}
   }
 
   @Data
+  @NoArgsConstructor
   public static class ImageSize {
     @Nullable
     @JsonProperty("crop")
@@ -304,8 +296,6 @@ public class Message {
     @Nullable
     @JsonProperty("width")
     private Integer width;
-
-    public ImageSize() {}
   }
 
   public enum Crop {
@@ -332,6 +322,8 @@ public class Message {
     FILL
   }
 
+  @Data
+  @NoArgsConstructor
   public static class Moderation {
     @Nullable
     @JsonProperty("toxic")
@@ -344,8 +336,6 @@ public class Message {
     @Nullable
     @JsonProperty("spam")
     private Integer spam;
-
-    public Moderation() {}
   }
 
   @Builder
@@ -921,56 +911,52 @@ public class Message {
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class MessageSendResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("message")
     private Message message;
-
-    public MessageSendResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class MessageUpdateResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("message")
     private Message message;
-
-    public MessageUpdateResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class MessageDeleteResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("message")
     private Message message;
-
-    public MessageDeleteResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class MessageSearchResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("results")
     private List<SearchResult> results;
-
-    public MessageSearchResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class MessageUploadFileResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("file")
     private String file;
-
-    public MessageUploadFileResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class MessageUploadImageResponse extends StreamResponseObject {
     @NotNull
@@ -980,8 +966,6 @@ public class Message {
     @Nullable
     @JsonProperty("upload_sizes")
     private List<ImageSize> uploadSizes;
-
-    public MessageUploadImageResponse() {}
   }
 
   /**

@@ -12,11 +12,13 @@ import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
+@NoArgsConstructor
 public class Device {
   @Nullable
   @JsonProperty("push_provider")
@@ -41,8 +43,6 @@ public class Device {
   @NotNull
   @JsonProperty("user_id")
   private String userId;
-
-  public Device() {}
 
   public enum PushProvider {
     @JsonProperty("firebase")
@@ -150,13 +150,12 @@ public class Device {
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class DeviceListResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("devices")
     private List<Device> devices;
-
-    public DeviceListResponse() {}
   }
 
   /**

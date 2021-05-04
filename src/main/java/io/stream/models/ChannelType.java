@@ -15,12 +15,14 @@ import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.Singular;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
+@NoArgsConstructor
 public class ChannelType {
   @Nullable
   @JsonProperty("name")
@@ -114,9 +116,8 @@ public class ChannelType {
   @JsonProperty("permissions")
   private List<Permission> permissions;
 
-  public ChannelType() {}
-
   @Data
+  @NoArgsConstructor
   public static class Threshold {
     @Nullable
     @JsonProperty("flag")
@@ -125,14 +126,11 @@ public class ChannelType {
     @Nullable
     @JsonProperty("block")
     private Integer block;
-
-    public Threshold() {}
   }
 
   @Data
+  @NoArgsConstructor
   public static class Permission {
-    public Permission() {}
-
     @NotNull
     @JsonProperty("name")
     private String name;
@@ -158,6 +156,8 @@ public class ChannelType {
     private Integer priority;
   }
 
+  @Data
+  @NoArgsConstructor
   public static class Right {
     @NotNull
     @JsonProperty("name")
@@ -509,15 +509,15 @@ public class ChannelType {
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelTypeCreateResponse extends ChannelTypeWithStringCommands
       implements StreamResponse {
     private RateLimitData rateLimitData;
-
-    public ChannelTypeCreateResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelTypeGetResponse extends ChannelTypeWithStringCommands
       implements StreamResponse {
@@ -525,22 +525,20 @@ public class ChannelType {
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelTypeUpdateResponse extends ChannelTypeWithStringCommands
       implements StreamResponse {
     private RateLimitData rateLimitData;
-
-    public ChannelTypeUpdateResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelTypeListResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("channel_types")
     private Map<String, ChannelTypeWithCommands> channelTypes;
-
-    public ChannelTypeListResponse() {}
   }
 
   /**

@@ -32,12 +32,14 @@ import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.Singular;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
+@NoArgsConstructor
 public class Channel {
   @NotNull
   @JsonProperty("id")
@@ -99,11 +101,7 @@ public class Channel {
   @JsonProperty("last_message_at")
   private Date lastMessageAt;
 
-  @NotNull @JsonIgnore private Map<String, Object> additionalFields;
-
-  public Channel() {
-    additionalFields = new HashMap<>();
-  }
+  @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
 
   @JsonAnyGetter
   public Map<String, Object> getAdditionalFields() {
@@ -116,6 +114,7 @@ public class Channel {
   }
 
   @Data
+  @NoArgsConstructor
   public static class ChannelRead {
     @Nullable
     @JsonProperty("user")
@@ -128,11 +127,10 @@ public class Channel {
     @Nullable
     @JsonProperty("unread_messages")
     private Integer unreadMessages;
-
-    public ChannelRead() {}
   }
 
   @Data
+  @NoArgsConstructor
   public static class ChannelMember {
     @Nullable
     @JsonProperty("user_id")
@@ -181,8 +179,6 @@ public class Channel {
     @Nullable
     @JsonProperty("shadow_banned")
     private Boolean shadowBanned;
-
-    public ChannelMember() {}
   }
 
   @Builder
@@ -888,6 +884,7 @@ public class Channel {
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelGetResponse extends StreamResponseObject {
     @Nullable
@@ -929,11 +926,10 @@ public class Channel {
     @Nullable
     @JsonProperty("hide_messages_before")
     private Date hideMessagesBefore;
-
-    public ChannelGetResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelUpdateResponse extends StreamResponseObject {
     @Nullable
@@ -947,61 +943,55 @@ public class Channel {
     @Nullable
     @JsonProperty("members")
     private List<ChannelMember> members;
-
-    public ChannelUpdateResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelDeleteResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("channel")
     private Channel channel;
-
-    public ChannelDeleteResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelListResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("channels")
     private List<ChannelGetResponse> channels;
-
-    public ChannelListResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelTruncateResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("channel")
     private Channel channel;
-
-    public ChannelTruncateResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelQueryMembersResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("members")
     private List<ChannelMember> members;
-
-    public ChannelQueryMembersResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelExportResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("task_id")
     private String taskId;
-
-    public ChannelExportResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelExportStatusResponse extends StreamResponseObject {
     @NotNull
@@ -1032,8 +1022,6 @@ public class Channel {
     @JsonProperty("error")
     private ErrorResult error;
 
-    public ChannelExportStatusResponse() {}
-
     public enum Status {
       @JsonProperty("waiting")
       WAITING,
@@ -1047,6 +1035,8 @@ public class Channel {
       FAILED
     }
 
+    @Data
+    @NoArgsConstructor
     public static class ExportChannelsResult {
       @NotNull
       @JsonProperty("url")
@@ -1059,10 +1049,10 @@ public class Channel {
       @NotNull
       @JsonProperty("s3_bucket_name")
       private String s3BucketName;
-
-      public ExportChannelsResult() {}
     }
 
+    @Data
+    @NoArgsConstructor
     public static class ErrorResult {
       @Nullable
       @JsonProperty("type")
@@ -1079,22 +1069,20 @@ public class Channel {
       @Nullable
       @JsonProperty("version")
       private String version;
-
-      public ErrorResult() {}
     }
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelMarkReadResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("event")
     private Event event;
-
-    public ChannelMarkReadResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelMuteResponse extends StreamResponseObject {
     @Nullable
@@ -1108,11 +1096,10 @@ public class Channel {
     @Nullable
     @JsonProperty("own_user")
     private OwnUser ownUser;
-
-    public ChannelMuteResponse() {}
   }
 
   @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelUnMuteResponse extends StreamResponseObject {
     @Nullable
@@ -1126,8 +1113,6 @@ public class Channel {
     @Nullable
     @JsonProperty("own_user")
     private OwnUser ownUser;
-
-    public ChannelUnMuteResponse() {}
   }
 
   /**
