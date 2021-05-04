@@ -1,6 +1,17 @@
 package io.stream.models;
 
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.stream.exceptions.StreamException;
 import io.stream.models.App.AppUpdateRequestData.AppUpdateRequest;
 import io.stream.models.ChannelType.ChannelTypeWithStringCommands;
@@ -8,14 +19,9 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.AppService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -205,6 +211,7 @@ public class App extends StreamResponseObject {
 
     @Nullable
     @JsonProperty("enforce_unique_usernames")
+    @JsonDeserialize(using = EnforceUniqueUsernamesDeserializer.class)
     private EnforceUniqueUsernames enforceUniqueUsernames;
 
     @Nullable
@@ -252,6 +259,36 @@ public class App extends StreamResponseObject {
     APP,
     @JsonProperty("team")
     TEAM
+  }
+
+  public static class EnforceUniqueUsernamesDeserializer
+      extends JsonDeserializer<EnforceUniqueUsernames> {
+    @Override
+    public EnforceUniqueUsernames deserialize(
+        JsonParser jsonParser, DeserializationContext deserializationContext)
+        throws IOException, JsonProcessingException {
+      String jsonString = jsonParser.readValueAs(String.class);
+      if (jsonString == null || jsonString.equals("")) {
+        return null;
+      }
+      for (EnforceUniqueUsernames enumValue : EnforceUniqueUsernames.values()) {
+        try {
+          if (jsonString.equals(
+              EnforceUniqueUsernames.class
+                  .getField(enumValue.name())
+                  .getAnnotation(JsonProperty.class)
+                  .value())) {
+            return enumValue;
+          }
+        } catch (NoSuchFieldException | SecurityException e) {
+          throw deserializationContext.instantiationException(
+              EnforceUniqueUsernames.class, "Should not happen");
+        }
+      }
+      throw deserializationContext.instantiationException(
+          EnforceUniqueUsernames.class,
+          "Unparseable value for EnforceUniqueUsernames: " + jsonString);
+    }
   }
 
   @Data
