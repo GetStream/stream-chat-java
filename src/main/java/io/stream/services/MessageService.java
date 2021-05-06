@@ -7,6 +7,8 @@ import io.stream.models.Message.MessageDeleteResponse;
 import io.stream.models.Message.MessageGetManyResponse;
 import io.stream.models.Message.MessageGetRepliesResponse;
 import io.stream.models.Message.MessageGetResponse;
+import io.stream.models.Message.MessageRunCommandActionRequestData;
+import io.stream.models.Message.MessageRunCommandActionResponse;
 import io.stream.models.Message.MessageSearchRequestData;
 import io.stream.models.Message.MessageSearchResponse;
 import io.stream.models.Message.MessageSendRequestData;
@@ -101,4 +103,9 @@ public interface MessageService {
       @Nullable @Query("created_at_after") Date createdAtAfter,
       @Nullable @Query("created_at_before_or_equal") Date createdAtBeforeOrEqual,
       @Nullable @Query("created_at_before") Date createdAtBefore);
+
+  @POST("messages/{id}/action")
+  Call<MessageRunCommandActionResponse> runCommandAction(
+      @NotNull @Path("id") String messageId,
+      @NotNull @Body MessageRunCommandActionRequestData internalBuild);
 }

@@ -1,18 +1,5 @@
 package io.stream.models;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.stream.models.Message.MessageSearchRequestData.MessageSearchRequest;
-import io.stream.models.Message.MessageSendRequestData.MessageSendRequest;
-import io.stream.models.Message.MessageUpdateRequestData.MessageUpdateRequest;
-import io.stream.models.User.UserRequestObject;
-import io.stream.models.framework.StreamRequest;
-import io.stream.models.framework.StreamResponseObject;
-import io.stream.services.MessageService;
-import io.stream.services.framework.StreamServiceGenerator;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +8,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.stream.models.Message.MessageRunCommandActionRequestData.MessageRunCommandActionRequest;
+import io.stream.models.Message.MessageSearchRequestData.MessageSearchRequest;
+import io.stream.models.Message.MessageSendRequestData.MessageSendRequest;
+import io.stream.models.Message.MessageUpdateRequestData.MessageUpdateRequest;
+import io.stream.models.User.UserRequestObject;
+import io.stream.models.framework.StreamRequest;
+import io.stream.models.framework.StreamResponseObject;
+import io.stream.services.MessageService;
+import io.stream.services.framework.StreamServiceGenerator;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,8 +34,6 @@ import lombok.extern.java.Log;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Log
@@ -997,6 +998,39 @@ public class Message {
     }
   }
 
+  @Builder(
+      builderClassName = "MessageRunCommandActionRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class MessageRunCommandActionRequestData {
+    @Nullable
+    @JsonProperty("form_data")
+    private Map<String, String> formData;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    public static class MessageRunCommandActionRequest
+        extends StreamRequest<MessageRunCommandActionResponse> {
+      @NotNull private String messageId;
+
+      public MessageRunCommandActionRequest(@NotNull String messageId) {
+        this.messageId = messageId;
+      }
+
+      @Override
+      protected Call<MessageRunCommandActionResponse> generateCall() {
+        return StreamServiceGenerator.createService(MessageService.class)
+            .runCommandAction(messageId, this.internalBuild());
+      }
+    }
+  }
+
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
@@ -1080,6 +1114,15 @@ public class Message {
     @NotNull
     @JsonProperty("messages")
     private List<Message> messages;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class MessageRunCommandActionResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("message")
+    private Message message;
   }
 
   /**
@@ -1224,5 +1267,16 @@ public class Message {
   @NotNull
   public static MessageGetRepliesRequest getReplies(@NotNull String parentMessageId) {
     return new MessageGetRepliesRequest(parentMessageId);
+  }
+
+  /**
+   * Creates a run command action request
+   *
+   * @param messageId the message id
+   * @return the created request
+   */
+  @NotNull
+  public static MessageRunCommandActionRequest runCommandAction(@NotNull String messageId) {
+    return new MessageRunCommandActionRequest(messageId);
   }
 }

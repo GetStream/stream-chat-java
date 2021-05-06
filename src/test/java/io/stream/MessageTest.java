@@ -279,4 +279,10 @@ public class MessageTest extends BasicTest {
             .getMessages();
     Assertions.assertEquals(2, replies.size());
   }
+
+  @DisplayName("Can execute command action")
+  @Test
+  void whenExecutingCommandAction_thenNoException() {
+    Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
+  }
 }
