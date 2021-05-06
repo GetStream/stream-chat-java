@@ -1,22 +1,24 @@
 package io.stream.services.framework;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.Key;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+import javax.crypto.spec.SecretKeySpec;
+import org.jetbrains.annotations.NotNull;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.stream.exceptions.StreamException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.Key;
-import java.util.Date;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
-import javax.crypto.spec.SecretKeySpec;
 import lombok.extern.java.Log;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -116,13 +118,16 @@ public class StreamServiceGenerator {
     try {
       signingKey =
           new SecretKeySpec(apiSecret.getBytes("UTF-8"), SignatureAlgorithm.HS256.getJcaName());
+      // We set issued at 1 hour ago to avoid problems like JWTAuth error: token used before issue at (iat) 
+      GregorianCalendar calendar = new GregorianCalendar();
+      calendar.add(Calendar.HOUR, -1);
       return Jwts.builder()
           .setIssuedAt(new Date())
           .setIssuer("Stream Chat Java SDK")
           .setSubject("Stream Chat Java SDK")
           .claim("server", true)
           .claim("scope", "admins")
-          .setIssuedAt(new Date())
+          .setIssuedAt(calendar.getTime())
           .signWith(signingKey, SignatureAlgorithm.HS256)
           .compact();
     } catch (UnsupportedEncodingException e) {
