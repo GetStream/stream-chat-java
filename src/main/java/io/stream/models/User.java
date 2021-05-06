@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.stream.models.Device.DeviceRequestObject;
+import io.stream.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.stream.models.User.UserBanRequestData.UserBanRequest;
 import io.stream.models.User.UserDeactivateRequestData.UserDeactivateRequest;
 import io.stream.models.User.UserListRequestData.UserListRequest;
@@ -984,5 +985,16 @@ public class User {
   @NotNull
   public static UserReactivateRequest reactivate(@NotNull String userId) {
     return new UserReactivateRequest(userId);
+  }
+  
+  /**
+   * Creates a flag request
+   *
+   * @param userId the user id to flag
+   * @return the created request
+   */
+  @NotNull
+  public static FlagCreateRequest flag(@NotNull String userId) {
+    return new FlagCreateRequest().targetUserId(userId);
   }
 }

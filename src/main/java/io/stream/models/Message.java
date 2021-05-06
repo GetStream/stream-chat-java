@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.stream.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.stream.models.Message.MessageRunCommandActionRequestData.MessageRunCommandActionRequest;
 import io.stream.models.Message.MessageSearchRequestData.MessageSearchRequest;
 import io.stream.models.Message.MessageSendRequestData.MessageSendRequest;
@@ -1380,5 +1381,16 @@ public class Message {
   @NotNull
   public static MessageTranslateRequest translate(@NotNull String messageId) {
     return new MessageTranslateRequest(messageId);
+  }
+  
+  /**
+   * Creates a flag request
+   *
+   * @param messageId the message id to flag
+   * @return the created request
+   */
+  @NotNull
+  public static FlagCreateRequest flag(@NotNull String messageId) {
+    return new FlagCreateRequest().targetMessageId(messageId);
   }
 }
