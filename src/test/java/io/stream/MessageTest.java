@@ -17,6 +17,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class MessageTest extends BasicTest {
+  @DisplayName("Can retrieve a message")
+  @Test
+  void whenRetrievingAMessage_thenIsRetrieved() {
+    Message retrievedMessage =
+        Assertions.assertDoesNotThrow(() -> Message.get(testMessage.getId()).request())
+            .getMessage();
+    Assertions.assertTrue(retrievedMessage.getId().equals(testMessage.getId()));
+  }
 
   @DisplayName("Can update a message")
   @Test
@@ -226,5 +234,22 @@ public class MessageTest extends BasicTest {
     Message deletedMessage =
         Assertions.assertDoesNotThrow(() -> Message.delete(message.getId()).request()).getMessage();
     Assertions.assertNotNull(deletedMessage.getDeletedAt());
+  }
+
+  @DisplayName("Can retrieve many messages")
+  @Test
+  void whenRetrievingManyMessage_thenAreRetrieved() {
+    Message message1 = Assertions.assertDoesNotThrow(() -> sendTestMessage());
+    Message message2 = Assertions.assertDoesNotThrow(() -> sendTestMessage());
+    List<Message> retrievedMessages =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.getMany(
+                            testChannel.getType(),
+                            testChannel.getId(),
+                            Arrays.asList(message1.getId(), message2.getId()))
+                        .request())
+            .getMessages();
+    Assertions.assertEquals(2, retrievedMessages.size());
   }
 }

@@ -1,6 +1,11 @@
 package io.stream.services;
 
+import java.util.List;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import io.stream.models.Message.MessageDeleteResponse;
+import io.stream.models.Message.MessageGetManyResponse;
+import io.stream.models.Message.MessageGetResponse;
 import io.stream.models.Message.MessageSearchRequestData;
 import io.stream.models.Message.MessageSearchResponse;
 import io.stream.models.Message.MessageSendRequestData;
@@ -13,8 +18,6 @@ import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.framework.ToJson;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -76,4 +79,13 @@ public interface MessageService {
   @DELETE("messages/{id}")
   Call<MessageDeleteResponse> delete(
       @NotNull @Path("id") String id, @Nullable @Query("hard") Boolean hard);
+
+  @GET("messages/{id}")
+  Call<MessageGetResponse> get(@NotNull @Path("id") String id);
+
+  @GET("channels/{type}/{id}/messages")
+  Call<MessageGetManyResponse> getMany(
+      @NotNull @Path("type") String channelType,
+      @NotNull @Path("id") String channelId,
+      @NotNull @Query("ids") String messageIds);
 }

@@ -667,6 +667,16 @@ public class Message {
     }
   }
 
+  @RequiredArgsConstructor
+  public static class MessageGetRequest extends StreamRequest<MessageGetResponse> {
+    @NotNull private String id;
+
+    @Override
+    protected Call<MessageGetResponse> generateCall() {
+      return StreamServiceGenerator.createService(MessageService.class).get(this.id);
+    }
+  }
+
   @Builder(
       builderClassName = "MessageUpdateRequest",
       builderMethodName = "",
@@ -887,10 +897,34 @@ public class Message {
     }
   }
 
+  @RequiredArgsConstructor
+  public static class MessageGetManyRequest extends StreamRequest<MessageGetManyResponse> {
+    @NotNull private String channelType;
+
+    @NotNull private String channelId;
+
+    @NotNull private List<String> messageIds;
+
+    @Override
+    protected Call<MessageGetManyResponse> generateCall() {
+      return StreamServiceGenerator.createService(MessageService.class)
+          .getMany(this.channelType, this.channelId, String.join(",", this.messageIds));
+    }
+  }
+
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class MessageSendResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("message")
+    private Message message;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class MessageGetResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("message")
     private Message message;
@@ -945,6 +979,15 @@ public class Message {
     private List<ImageSize> uploadSizes;
   }
 
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class MessageGetManyResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("messages")
+    private List<Message> messages;
+  }
+
   /**
    * Creates send request
    *
@@ -955,6 +998,17 @@ public class Message {
   @NotNull
   public static MessageSendRequest send(@NotNull String channelType, @NotNull String channelId) {
     return new MessageSendRequest(channelType, channelId);
+  }
+
+  /**
+   * Creates a get request
+   *
+   * @param id the message id
+   * @return the created request
+   */
+  @NotNull
+  public static MessageGetRequest get(@NotNull String id) {
+    return new MessageGetRequest(id);
   }
 
   /**
@@ -1051,5 +1105,19 @@ public class Message {
   public static MessageDeleteImageRequest deleteImage(
       @NotNull String channelType, @NotNull String channelId, @NotNull String url) {
     return new MessageDeleteImageRequest(channelType, channelId, url);
+  }
+
+  /**
+   * Creates a get many request
+   *
+   * @param channelType the channel type
+   * @param channelId the channel id
+   * @param messageIds the message ids
+   * @return the created request
+   */
+  @NotNull
+  public static MessageGetManyRequest getMany(
+      @NotNull String channelType, @NotNull String channelId, @NotNull List<String> messageIds) {
+    return new MessageGetManyRequest(channelType, channelId, messageIds);
   }
 }
