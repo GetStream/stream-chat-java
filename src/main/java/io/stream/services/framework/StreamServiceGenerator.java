@@ -67,8 +67,7 @@ public class StreamServiceGenerator {
       OkHttpClient.Builder httpClient =
           new OkHttpClient.Builder().connectTimeout(streamChatTimeout, TimeUnit.MILLISECONDS);
       httpClient.interceptors().clear();
-      HttpLoggingInterceptor loggingInterceptor =
-          new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+      HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor().setLevel(logLevel);
       httpClient.addInterceptor(loggingInterceptor);
       httpClient.addInterceptor(
           chain -> {
@@ -118,7 +117,8 @@ public class StreamServiceGenerator {
     try {
       signingKey =
           new SecretKeySpec(apiSecret.getBytes("UTF-8"), SignatureAlgorithm.HS256.getJcaName());
-      // We set issued at 1 hour ago to avoid problems like JWTAuth error: token used before issue at (iat) 
+      // We set issued at 1 hour ago to avoid problems like JWTAuth error: token used before issue
+      // at (iat)
       GregorianCalendar calendar = new GregorianCalendar();
       calendar.add(Calendar.HOUR, -1);
       return Jwts.builder()
