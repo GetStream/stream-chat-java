@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.stream.models.Device.DeviceRequestObject;
 import io.stream.models.User.UserBanRequestData.UserBanRequest;
 import io.stream.models.User.UserDeactivateRequestData.UserDeactivateRequest;
@@ -95,6 +96,7 @@ public class User {
 
   @Nullable
   @JsonProperty("language")
+  @JsonDeserialize(using = LanguageDeserializer.class)
   private Language language;
 
   @Nullable
@@ -270,6 +272,7 @@ public class User {
 
     @Nullable
     @JsonProperty("language")
+    @JsonDeserialize(using = LanguageDeserializer.class)
     private Language language;
 
     @Nullable
