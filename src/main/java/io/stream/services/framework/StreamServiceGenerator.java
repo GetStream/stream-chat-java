@@ -1,5 +1,10 @@
 package io.stream.services.framework;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.stream.exceptions.StreamException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Key;
@@ -9,16 +14,11 @@ import java.util.GregorianCalendar;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import javax.crypto.spec.SecretKeySpec;
-import org.jetbrains.annotations.NotNull;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.stream.exceptions.StreamException;
 import lombok.extern.java.Log;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -89,7 +89,8 @@ public class StreamServiceGenerator {
       String baseUrl =
           System.getenv("STREAM_CHAT_URL") != null
               ? System.getenv("STREAM_CHAT_URL")
-              : System.getProperty("STREAM_CHAT_URL", "https://chat-proxy-us-east.stream-io-api.com");
+              : System.getProperty(
+                  "STREAM_CHAT_URL", "https://chat-proxy-us-east.stream-io-api.com");
       Retrofit.Builder builder =
           new Retrofit.Builder()
               .baseUrl(baseUrl)

@@ -1,8 +1,5 @@
 package io.stream.services;
 
-import java.util.Date;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import io.stream.models.Message.MessageDeleteResponse;
 import io.stream.models.Message.MessageGetManyResponse;
 import io.stream.models.Message.MessageGetRepliesResponse;
@@ -21,8 +18,11 @@ import io.stream.models.Message.MessageUploadFileResponse;
 import io.stream.models.Message.MessageUploadImageResponse;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.framework.ToJson;
+import java.util.Date;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

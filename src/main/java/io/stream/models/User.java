@@ -986,7 +986,7 @@ public class User {
   public static UserReactivateRequest reactivate(@NotNull String userId) {
     return new UserReactivateRequest(userId);
   }
-  
+
   /**
    * Creates a flag request
    *

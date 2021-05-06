@@ -1,11 +1,11 @@
 package io.stream.services.framework;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.ByteArrayOutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 

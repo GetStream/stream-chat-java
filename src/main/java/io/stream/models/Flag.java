@@ -1,8 +1,5 @@
 package io.stream.models;
 
-import java.util.Date;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.stream.models.Flag.FlagDeleteRequestData.FlagDeleteRequest;
@@ -11,10 +8,13 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.FlagService;
 import io.stream.services.framework.StreamServiceGenerator;
+import java.util.Date;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data

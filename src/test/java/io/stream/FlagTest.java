@@ -1,13 +1,13 @@
 package io.stream;
 
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import io.stream.models.Flag;
 import io.stream.models.Message;
 import io.stream.models.User;
 import io.stream.models.User.UserRequestObject;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 public class FlagTest extends BasicTest {
 
