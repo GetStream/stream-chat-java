@@ -115,7 +115,7 @@ public class ChannelType {
 
   @Nullable
   @JsonProperty("permissions")
-  private List<Permission> permissions;
+  private List<Policy> permissions;
 
   @Data
   @NoArgsConstructor
@@ -131,7 +131,7 @@ public class ChannelType {
 
   @Data
   @NoArgsConstructor
-  public static class Permission {
+  public static class Policy {
     @NotNull
     @JsonProperty("name")
     private String name;
