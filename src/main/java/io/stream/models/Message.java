@@ -970,8 +970,7 @@ public class Message {
     }
 
     @NotNull
-    public MessageGetRepliesRequest createdAtBeforeOrEqual(
-        @Nullable Date createdAtBeforeOrEqual) {
+    public MessageGetRepliesRequest createdAtBeforeOrEqual(@Nullable Date createdAtBeforeOrEqual) {
       this.createdAtBeforeOrEqual = createdAtBeforeOrEqual;
       return this;
     }
