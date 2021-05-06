@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import io.stream.models.App;
+import io.stream.models.Language;
 import io.stream.models.App.FileUploadConfigRequestObject;
 import io.stream.models.Message;
 import io.stream.models.Message.Crop;
@@ -265,11 +266,13 @@ public class MessageTest extends BasicTest {
             .userId(testUserRequestObject.getId())
             .parentId(parentMessage.getId())
             .build();
-    Message firstReply = Assertions.assertDoesNotThrow(
-        () ->
-            Message.send(testChannel.getType(), testChannel.getId())
-                .message(messageRequest)
-                .request()).getMessage();
+    Message firstReply =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .message(messageRequest)
+                        .request())
+            .getMessage();
     Assertions.assertDoesNotThrow(
         () ->
             Message.send(testChannel.getType(), testChannel.getId())
@@ -293,5 +296,14 @@ public class MessageTest extends BasicTest {
   @Test
   void whenExecutingCommandAction_thenNoException() {
     Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
+  }
+
+  @DisplayName("Can translate a message")
+  @Test
+  void whenTranslatingMessage_thenNoException() {
+    Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
+    Assertions.assertDoesNotThrow(
+            () -> Message.translate(message.getId()).language(Language.FR).request())
+        .getMessage();
   }
 }

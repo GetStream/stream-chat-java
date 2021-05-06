@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.stream.models.Message.MessageRunCommandActionRequestData.MessageRunCommandActionRequest;
 import io.stream.models.Message.MessageSearchRequestData.MessageSearchRequest;
 import io.stream.models.Message.MessageSendRequestData.MessageSendRequest;
+import io.stream.models.Message.MessageTranslateRequestData.MessageTranslateRequest;
 import io.stream.models.Message.MessageUpdateRequestData.MessageUpdateRequest;
 import io.stream.models.User.UserRequestObject;
 import io.stream.models.framework.StreamRequest;
@@ -1030,6 +1031,30 @@ public class Message {
     }
   }
 
+  @Builder(
+      builderClassName = "MessageTranslateRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class MessageTranslateRequestData {
+    @NotNull
+    @JsonProperty("language")
+    private Language language;
+
+    public static class MessageTranslateRequest extends StreamRequest<MessageTranslateResponse> {
+      @NotNull private String messageId;
+
+      public MessageTranslateRequest(@NotNull String messageId) {
+        this.messageId = messageId;
+      }
+
+      @Override
+      protected Call<MessageTranslateResponse> generateCall() {
+        return StreamServiceGenerator.createService(MessageService.class)
+            .translate(messageId, this.internalBuild());
+      }
+    }
+  }
+
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
@@ -1119,6 +1144,15 @@ public class Message {
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class MessageRunCommandActionResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("message")
+    private Message message;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class MessageTranslateResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("message")
     private Message message;
@@ -1277,5 +1311,16 @@ public class Message {
   @NotNull
   public static MessageRunCommandActionRequest runCommandAction(@NotNull String messageId) {
     return new MessageRunCommandActionRequest(messageId);
+  }
+
+  /**
+   * Creates a translate request
+   *
+   * @param messageId the message id
+   * @return the created request
+   */
+  @NotNull
+  public static MessageTranslateRequest translate(@NotNull String messageId) {
+    return new MessageTranslateRequest(messageId);
   }
 }

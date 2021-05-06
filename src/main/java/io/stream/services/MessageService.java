@@ -13,6 +13,8 @@ import io.stream.models.Message.MessageSearchRequestData;
 import io.stream.models.Message.MessageSearchResponse;
 import io.stream.models.Message.MessageSendRequestData;
 import io.stream.models.Message.MessageSendResponse;
+import io.stream.models.Message.MessageTranslateRequestData;
+import io.stream.models.Message.MessageTranslateResponse;
 import io.stream.models.Message.MessageUpdateRequestData;
 import io.stream.models.Message.MessageUpdateResponse;
 import io.stream.models.Message.MessageUploadFileResponse;
@@ -108,4 +110,9 @@ public interface MessageService {
   Call<MessageRunCommandActionResponse> runCommandAction(
       @NotNull @Path("id") String messageId,
       @NotNull @Body MessageRunCommandActionRequestData internalBuild);
+
+  @POST("messages/{id}/translate")
+  Call<MessageTranslateResponse> translate(
+      @NotNull @Path("id") String messageId,
+      @NotNull @Body MessageTranslateRequestData internalBuild);
 }
