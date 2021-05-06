@@ -25,7 +25,7 @@ public class LanguageDeserializer extends JsonDeserializer<Language> {
         throw deserializationContext.instantiationException(Language.class, "Should not happen");
       }
     }
-    throw deserializationContext.instantiationException(Language.class,
-        "Unparseable value for Language: " + jsonString);
+    throw deserializationContext.instantiationException(
+        Language.class, "Unparseable value for Language: " + jsonString);
   }
 }
