@@ -50,6 +50,14 @@ public class Message {
   private String text;
 
   @Nullable
+  @JsonProperty("mml")
+  private String mml;
+
+  @Nullable
+  @JsonProperty("command")
+  private String command;
+
+  @Nullable
   @JsonProperty("html")
   private String html;
 
@@ -82,6 +90,10 @@ public class Message {
   private Map<String, Integer> reactionCounts;
 
   @Nullable
+  @JsonProperty("reaction_scores")
+  private Map<String, Integer> reactionScores;
+
+  @Nullable
   @JsonProperty("parent_id")
   private String parentId;
 
@@ -92,6 +104,22 @@ public class Message {
   @Nullable
   @JsonProperty("reply_count")
   private Integer replyCount;
+
+  @Nullable
+  @JsonProperty("quoted_message_id")
+  private String quotedMessageId;
+
+  @Nullable
+  @JsonProperty("quoted_message")
+  private Message quoted_message;
+
+  @Nullable
+  @JsonProperty("thread_participants")
+  private List<User> threadParticipants;
+
+  @NotNull
+  @JsonProperty("cid")
+  private String cid;
 
   @Nullable
   @JsonProperty("mentioned_users")
@@ -108,6 +136,36 @@ public class Message {
   @Nullable
   @JsonProperty("deleted_at")
   private Date deletedAt;
+
+  @Nullable
+  @JsonProperty("shadowed")
+  private Boolean shadowed;
+
+  @Nullable
+  @JsonProperty("image_labels")
+  private Map<String, Object> imageLabels;
+
+  @Nullable
+  @JsonProperty("i18n")
+  private Map<String, String> i18n;
+
+  private Boolean before_message_send_failed;
+
+  @Nullable
+  @JsonProperty("pinned")
+  private Boolean pinned;
+
+  @Nullable
+  @JsonProperty("pin_expires")
+  private Date pinExpires;
+
+  @Nullable
+  @JsonProperty("pinned_by")
+  private User pinnedBy;
+
+  @Nullable
+  @JsonProperty("pinned_at")
+  private Date pinnedAt;
 
   @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
 
