@@ -89,7 +89,7 @@ public class StreamServiceGenerator {
       String baseUrl =
           System.getenv("STREAM_CHAT_URL") != null
               ? System.getenv("STREAM_CHAT_URL")
-              : System.getProperty("STREAM_CHAT_URL", "https://chat-us-east-1.stream-io-api.com/");
+              : System.getProperty("STREAM_CHAT_URL", "https://chat-proxy-us-east.stream-io-api.com");
       Retrofit.Builder builder =
           new Retrofit.Builder()
               .baseUrl(baseUrl)
