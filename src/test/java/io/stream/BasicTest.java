@@ -181,7 +181,7 @@ public class BasicTest {
    */
   protected void pause() {
     try {
-      Thread.sleep(1000);
+      Thread.sleep(2000);
     } catch (InterruptedException e) {
       // Do nothing
     }
