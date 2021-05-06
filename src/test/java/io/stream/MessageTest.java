@@ -252,4 +252,31 @@ public class MessageTest extends BasicTest {
             .getMessages();
     Assertions.assertEquals(2, retrievedMessages.size());
   }
+
+  @DisplayName("Can retrieve replies")
+  @Test
+  void whenRetrievingReplies_thenAreRetrieved() {
+    Message parentMessage = Assertions.assertDoesNotThrow(() -> sendTestMessage());
+    String text = "This is a reply";
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder()
+            .text(text)
+            .userId(testUserRequestObject.getId())
+            .parentId(parentMessage.getId())
+            .build();
+    Assertions.assertDoesNotThrow(
+        () ->
+            Message.send(testChannel.getType(), testChannel.getId())
+                .message(messageRequest)
+                .request());
+    Assertions.assertDoesNotThrow(
+        () ->
+            Message.send(testChannel.getType(), testChannel.getId())
+                .message(messageRequest)
+                .request());
+    List<Message> replies =
+        Assertions.assertDoesNotThrow(() -> Message.getReplies(parentMessage.getId()).request())
+            .getMessages();
+    Assertions.assertEquals(2, replies.size());
+  }
 }

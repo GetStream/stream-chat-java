@@ -912,6 +912,91 @@ public class Message {
     }
   }
 
+  @RequiredArgsConstructor
+  public static class MessageGetRepliesRequest extends StreamRequest<MessageGetRepliesResponse> {
+    @NotNull private String parentId;
+
+    @Nullable private String idGte;
+
+    @Nullable private String idGt;
+
+    @Nullable private String idLte;
+
+    @Nullable private String idLt;
+
+    @Nullable private Date createdAtAfterOrEqual;
+
+    @Nullable private Date createdAtAfter;
+
+    @Nullable private Date createdAtBeforeOrEqual;
+
+    @Nullable private Date createdAtBefore;
+
+    @NotNull
+    public MessageGetRepliesRequest setIdGte(@Nullable String idGte) {
+      this.idGte = idGte;
+      return this;
+    }
+
+    @NotNull
+    public MessageGetRepliesRequest setIdGt(@Nullable String idGt) {
+      this.idGt = idGt;
+      return this;
+    }
+
+    @NotNull
+    public MessageGetRepliesRequest setIdLte(@Nullable String idLte) {
+      this.idLte = idLte;
+      return this;
+    }
+
+    @NotNull
+    public MessageGetRepliesRequest setIdLt(@Nullable String idLt) {
+      this.idLt = idLt;
+      return this;
+    }
+
+    @NotNull
+    public MessageGetRepliesRequest setCreatedAtAfterOrEqual(@Nullable Date createdAtAfterOrEqual) {
+      this.createdAtAfterOrEqual = createdAtAfterOrEqual;
+      return this;
+    }
+
+    @NotNull
+    public MessageGetRepliesRequest setCreatedAtAfter(@Nullable Date createdAtAfter) {
+      this.createdAtAfter = createdAtAfter;
+      return this;
+    }
+
+    @NotNull
+    public MessageGetRepliesRequest setCreatedAtBeforeOrEqual(
+        @Nullable Date createdAtBeforeOrEqual) {
+      this.createdAtBeforeOrEqual = createdAtBeforeOrEqual;
+      return this;
+    }
+
+    @NotNull
+    public MessageGetRepliesRequest setCreatedAtBefore(@Nullable Date createdAtBefore) {
+      this.createdAtBefore = createdAtBefore;
+      return this;
+    }
+
+    @Override
+    protected Call<MessageGetRepliesResponse> generateCall() {
+      return StreamServiceGenerator.createService(MessageService.class)
+          .getReplies(
+              parentId,
+              idGte,
+              idGt,
+              idLte,
+              idLt,
+              createdAtAfterOrEqual,
+              createdAtAfter,
+              createdAtBeforeOrEqual,
+              createdAtBefore);
+    }
+  }
+
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
@@ -983,6 +1068,15 @@ public class Message {
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class MessageGetManyResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("messages")
+    private List<Message> messages;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class MessageGetRepliesResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("messages")
     private List<Message> messages;
@@ -1119,5 +1213,16 @@ public class Message {
   public static MessageGetManyRequest getMany(
       @NotNull String channelType, @NotNull String channelId, @NotNull List<String> messageIds) {
     return new MessageGetManyRequest(channelType, channelId, messageIds);
+  }
+
+  /**
+   * Creates a get replies request
+   *
+   * @param parentMessageId the parent message id
+   * @return the created request
+   */
+  @NotNull
+  public static MessageGetRepliesRequest getReplies(@NotNull String parentMessageId) {
+    return new MessageGetRepliesRequest(parentMessageId);
   }
 }

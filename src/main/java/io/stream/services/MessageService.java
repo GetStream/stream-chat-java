@@ -1,10 +1,11 @@
 package io.stream.services;
 
-import java.util.List;
+import java.util.Date;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import io.stream.models.Message.MessageDeleteResponse;
 import io.stream.models.Message.MessageGetManyResponse;
+import io.stream.models.Message.MessageGetRepliesResponse;
 import io.stream.models.Message.MessageGetResponse;
 import io.stream.models.Message.MessageSearchRequestData;
 import io.stream.models.Message.MessageSearchResponse;
@@ -88,4 +89,16 @@ public interface MessageService {
       @NotNull @Path("type") String channelType,
       @NotNull @Path("id") String channelId,
       @NotNull @Query("ids") String messageIds);
+
+  @GET("messages/{parent_id}/replies")
+  Call<MessageGetRepliesResponse> getReplies(
+      @NotNull @Path("parent_id") String parentId,
+      @Nullable @Query("id_gte") String idGte,
+      @Nullable @Query("id_gt") String idGt,
+      @Nullable @Query("id_lte") String idLte,
+      @Nullable @Query("id_lt") String idLt,
+      @Nullable @Query("created_at_after_or_equal") Date createdAtAfterOrEqual,
+      @Nullable @Query("created_at_after") Date createdAtAfter,
+      @Nullable @Query("created_at_before_or_equal") Date createdAtBeforeOrEqual,
+      @Nullable @Query("created_at_before") Date createdAtBefore);
 }
