@@ -302,8 +302,11 @@ public class MessageTest extends BasicTest {
   @Test
   void whenTranslatingMessage_thenNoException() {
     Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
-    Assertions.assertDoesNotThrow(
-            () -> Message.translate(message.getId()).language(Language.FR).request())
-        .getMessage();
+    Message translatedMessage =
+        Assertions.assertDoesNotThrow(
+                () -> Message.translate(message.getId()).language(Language.FR).request())
+            .getMessage();
+    Assertions.assertNotNull(translatedMessage.getI18n());
+    Assertions.assertNotNull(translatedMessage.getI18n().get("fr_text"));
   }
 }
