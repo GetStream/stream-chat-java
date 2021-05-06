@@ -407,7 +407,7 @@ public class Message {
 
     @Nullable
     @JsonProperty("pinned_by")
-    private String pinnedBy;
+    private UserRequestObject pinnedBy;
 
     @Nullable
     @JsonProperty("pinned_at")
