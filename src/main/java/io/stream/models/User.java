@@ -95,7 +95,7 @@ public class User {
 
   @Nullable
   @JsonProperty("language")
-  private String language;
+  private Language language;
 
   @Nullable
   @JsonProperty("mutes")
@@ -270,7 +270,7 @@ public class User {
 
     @Nullable
     @JsonProperty("language")
-    private String language;
+    private Language language;
 
     @Nullable
     @JsonProperty("teams")
