@@ -1,5 +1,13 @@
 package io.stream;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import io.stream.models.App;
 import io.stream.models.App.FileUploadConfigRequestObject;
 import io.stream.models.Message;
@@ -8,13 +16,6 @@ import io.stream.models.Message.ImageSizeRequestObject;
 import io.stream.models.Message.MessageRequestObject;
 import io.stream.models.Message.Resize;
 import io.stream.models.Message.SearchResult;
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 public class MessageTest extends BasicTest {
   @DisplayName("Can retrieve a message")
@@ -264,11 +265,11 @@ public class MessageTest extends BasicTest {
             .userId(testUserRequestObject.getId())
             .parentId(parentMessage.getId())
             .build();
-    Assertions.assertDoesNotThrow(
+    Message firstReply = Assertions.assertDoesNotThrow(
         () ->
             Message.send(testChannel.getType(), testChannel.getId())
                 .message(messageRequest)
-                .request());
+                .request()).getMessage();
     Assertions.assertDoesNotThrow(
         () ->
             Message.send(testChannel.getType(), testChannel.getId())
@@ -278,6 +279,14 @@ public class MessageTest extends BasicTest {
         Assertions.assertDoesNotThrow(() -> Message.getReplies(parentMessage.getId()).request())
             .getMessages();
     Assertions.assertEquals(2, replies.size());
+    List<Message> repliesAfterFirstMessage =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.getReplies(parentMessage.getId())
+                        .createdAtAfter(firstReply.getCreatedAt())
+                        .request())
+            .getMessages();
+    Assertions.assertEquals(1, repliesAfterFirstMessage.size());
   }
 
   @DisplayName("Can execute command action")
