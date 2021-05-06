@@ -934,50 +934,50 @@ public class Message {
     @Nullable private Date createdAtBefore;
 
     @NotNull
-    public MessageGetRepliesRequest setIdGte(@Nullable String idGte) {
+    public MessageGetRepliesRequest idGte(@Nullable String idGte) {
       this.idGte = idGte;
       return this;
     }
 
     @NotNull
-    public MessageGetRepliesRequest setIdGt(@Nullable String idGt) {
+    public MessageGetRepliesRequest idGt(@Nullable String idGt) {
       this.idGt = idGt;
       return this;
     }
 
     @NotNull
-    public MessageGetRepliesRequest setIdLte(@Nullable String idLte) {
+    public MessageGetRepliesRequest idLte(@Nullable String idLte) {
       this.idLte = idLte;
       return this;
     }
 
     @NotNull
-    public MessageGetRepliesRequest setIdLt(@Nullable String idLt) {
+    public MessageGetRepliesRequest idLt(@Nullable String idLt) {
       this.idLt = idLt;
       return this;
     }
 
     @NotNull
-    public MessageGetRepliesRequest setCreatedAtAfterOrEqual(@Nullable Date createdAtAfterOrEqual) {
+    public MessageGetRepliesRequest createdAtAfterOrEqual(@Nullable Date createdAtAfterOrEqual) {
       this.createdAtAfterOrEqual = createdAtAfterOrEqual;
       return this;
     }
 
     @NotNull
-    public MessageGetRepliesRequest setCreatedAtAfter(@Nullable Date createdAtAfter) {
+    public MessageGetRepliesRequest createdAtAfter(@Nullable Date createdAtAfter) {
       this.createdAtAfter = createdAtAfter;
       return this;
     }
 
     @NotNull
-    public MessageGetRepliesRequest setCreatedAtBeforeOrEqual(
+    public MessageGetRepliesRequest createdAtBeforeOrEqual(
         @Nullable Date createdAtBeforeOrEqual) {
       this.createdAtBeforeOrEqual = createdAtBeforeOrEqual;
       return this;
     }
 
     @NotNull
-    public MessageGetRepliesRequest setCreatedAtBefore(@Nullable Date createdAtBefore) {
+    public MessageGetRepliesRequest createdAtBefore(@Nullable Date createdAtBefore) {
       this.createdAtBefore = createdAtBefore;
       return this;
     }
