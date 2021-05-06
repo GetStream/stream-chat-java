@@ -116,7 +116,6 @@ public class Event {
   private Date createdAt;
 
   @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
-  ;
 
   @JsonAnyGetter
   public Map<String, Object> getAdditionalFields() {
