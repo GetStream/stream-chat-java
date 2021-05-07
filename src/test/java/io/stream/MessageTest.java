@@ -1,5 +1,14 @@
 package io.stream;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import io.stream.models.App;
 import io.stream.models.App.FileUploadConfigRequestObject;
 import io.stream.models.Language;
@@ -7,15 +16,9 @@ import io.stream.models.Message;
 import io.stream.models.Message.Crop;
 import io.stream.models.Message.ImageSizeRequestObject;
 import io.stream.models.Message.MessageRequestObject;
+import io.stream.models.Message.MessageType;
 import io.stream.models.Message.Resize;
 import io.stream.models.Message.SearchResult;
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 public class MessageTest extends BasicTest {
   @DisplayName("Can retrieve a message")
@@ -294,7 +297,28 @@ public class MessageTest extends BasicTest {
   @DisplayName("Can execute command action")
   @Test
   void whenExecutingCommandAction_thenNoException() {
-    Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
+    String text = "/giphy boom";
+    MessageRequestObject messageCreateRequest =
+        MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
+    Message message =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .message(messageCreateRequest)
+                        .request())
+            .getMessage();
+    Assertions.assertEquals(MessageType.EPHEMERAL, message.getType());
+    Map<String, String> args = new HashMap<>();
+    args.put("image_action", "send");
+    Message afterActionMessage =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.runCommandAction(message.getId())
+                        .formData(args)
+                        .user(testUserRequestObject)
+                        .request())
+            .getMessage();
+    Assertions.assertEquals(MessageType.REGULAR, afterActionMessage.getType());
   }
 
   @DisplayName("Can translate a message")
