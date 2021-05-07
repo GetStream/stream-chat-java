@@ -51,8 +51,7 @@ public class StreamException extends Exception {
     try {
       String responseBodyString = responseBody.string();
       try {
-        ResponseData responseData =
-            objectMapper.readValue(responseBodyString, ResponseData.class);
+        ResponseData responseData = objectMapper.readValue(responseBodyString, ResponseData.class);
         return new StreamException(responseData.getMessage(), responseData);
       } catch (JsonProcessingException e) {
         return new StreamException(responseBodyString, e);
