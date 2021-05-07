@@ -200,7 +200,6 @@ public class Channel {
 
     @Nullable
     @JsonProperty("auto_translation_language")
-    @JsonDeserialize(using = LanguageDeserializer.class)
     private Language autoTranslationLanguage;
 
     @Nullable

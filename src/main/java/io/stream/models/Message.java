@@ -1098,7 +1098,6 @@ public class Message {
   public static class MessageTranslateRequestData {
     @NotNull
     @JsonProperty("language")
-    @JsonDeserialize(using = LanguageDeserializer.class)
     private Language language;
 
     public static class MessageTranslateRequest extends StreamRequest<MessageTranslateResponse> {

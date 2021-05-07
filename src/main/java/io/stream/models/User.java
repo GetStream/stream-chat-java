@@ -349,7 +349,6 @@ public class User {
 
     @Nullable
     @JsonProperty("language")
-    @JsonDeserialize(using = LanguageDeserializer.class)
     private Language language;
 
     @Nullable
@@ -461,7 +460,6 @@ public class User {
 
     @Nullable
     @JsonProperty("language")
-    @JsonDeserialize(using = LanguageDeserializer.class)
     private Language language;
 
     @Nullable
