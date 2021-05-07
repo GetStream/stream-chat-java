@@ -1,5 +1,11 @@
 package io.stream.models;
 
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -9,20 +15,16 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.stream.exceptions.StreamException;
 import io.stream.models.App.AppUpdateRequestData.AppUpdateRequest;
 import io.stream.models.ChannelType.ChannelTypeWithStringCommands;
+import io.stream.models.framework.RateLimit;
 import io.stream.models.framework.StreamRequest;
+import io.stream.models.framework.StreamResponse;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.AppService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -488,6 +490,53 @@ public class App extends StreamResponseObject {
     }
   }
 
+  public static class AppGetRateLimitsRequest extends StreamRequest<AppGetRateLimitsResponse> {
+    @Nullable private Boolean serverSide;
+
+    @Nullable private Boolean android;
+
+    @Nullable private Boolean ios;
+
+    @Nullable private Boolean web;
+
+    @Nullable private List<String> endpoints;
+
+    @Override
+    protected Call<AppGetRateLimitsResponse> generateCall() {
+      return StreamServiceGenerator.createService(AppService.class)
+          .getRateLimits(
+              serverSide,
+              android,
+              ios,
+              web,
+              endpoints == null ? null : String.join(",", endpoints));
+    }
+  }
+
+  @Data
+  @NoArgsConstructor
+  public static class AppGetRateLimitsResponse implements StreamResponse {
+    @NotNull
+    @JsonProperty("server_side")
+    private Map<String, RateLimit> serverSide;
+
+    @NotNull
+    @JsonProperty("android")
+    private Map<String, RateLimit> android;
+
+    @NotNull
+    @JsonProperty("ios")
+    private Map<String, RateLimit> ios;
+
+    @NotNull
+    @JsonProperty("web")
+    private Map<String, RateLimit> web;
+
+    @NotNull
+    @JsonProperty("duration")
+    private String duration;
+  }
+
   /**
    * Creates a get request.
    *
@@ -506,5 +555,15 @@ public class App extends StreamResponseObject {
   @NotNull
   public static AppUpdateRequest update() {
     return new AppUpdateRequest();
+  }
+
+  /**
+   * Creates a get rate limits request.
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static AppGetRateLimitsRequest getRateLimits() throws StreamException {
+    return new AppGetRateLimitsRequest();
   }
 }

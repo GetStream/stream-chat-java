@@ -1,25 +1,26 @@
 package io.stream.models;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.exceptions.StreamException;
 import io.stream.models.ChannelType.ChannelTypeCreateRequestData.ChannelTypeCreateRequest;
 import io.stream.models.ChannelType.ChannelTypeUpdateRequestData.ChannelTypeUpdateRequest;
+import io.stream.models.framework.RateLimit;
 import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponse;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.ChannelTypeService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Singular;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -508,7 +509,11 @@ public class ChannelType {
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelTypeCreateResponse extends ChannelTypeWithStringCommands
       implements StreamResponse {
-    private RateLimitData rateLimitData;
+    private RateLimit rateLimit;
+
+    @NotNull
+    @JsonProperty("duration")
+    private String duration;
   }
 
   @Data
@@ -516,7 +521,11 @@ public class ChannelType {
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelTypeGetResponse extends ChannelTypeWithStringCommands
       implements StreamResponse {
-    private RateLimitData rateLimitData;
+    private RateLimit rateLimit;
+
+    @NotNull
+    @JsonProperty("duration")
+    private String duration;
   }
 
   @Data
@@ -524,7 +533,11 @@ public class ChannelType {
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelTypeUpdateResponse extends ChannelTypeWithStringCommands
       implements StreamResponse {
-    private RateLimitData rateLimitData;
+    private RateLimit rateLimit;
+
+    @NotNull
+    @JsonProperty("duration")
+    private String duration;
   }
 
   @Data

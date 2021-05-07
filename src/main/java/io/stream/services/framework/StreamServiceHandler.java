@@ -1,11 +1,12 @@
 package io.stream.services.framework;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.function.Consumer;
 import io.stream.exceptions.StreamException;
-import io.stream.models.App.AppGetRateLimitsResponse;
+import io.stream.models.framework.RateLimit;
 import io.stream.models.framework.StreamResponse;
-import io.stream.models.framework.StreamResponse.RateLimitData;
+import io.stream.models.framework.StreamResponseWithRateLimit;
 import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,15 +47,14 @@ public class StreamServiceHandler {
 
   private <T extends StreamResponse> T enrichResponse(Response<T> response) {
     T result = response.body();
-    if (result instanceof AppGetRateLimitsResponse) {
-      return result;
+    if (result instanceof StreamResponseWithRateLimit) {
+      Headers headers = response.headers();
+      RateLimit rateLimit = new RateLimit();
+      rateLimit.setLimit(Integer.parseInt(headers.get("X-Ratelimit-Limit")));
+      rateLimit.setRemaining(Integer.parseInt(headers.get("X-Ratelimit-Remaining")));
+      rateLimit.setReset(new Date(Long.parseLong(headers.get("X-Ratelimit-Reset"))));
+      ((StreamResponseWithRateLimit) result).setRateLimit(rateLimit);
     }
-    Headers headers = response.headers();
-    RateLimitData rateLimitData = new RateLimitData();
-    rateLimitData.setRatelimitLimit(Integer.parseInt(headers.get("X-Ratelimit-Limit")));
-    rateLimitData.setRatelimitRemaining(Integer.parseInt(headers.get("X-Ratelimit-Remaining")));
-    rateLimitData.setRatelimitReset(Integer.parseInt(headers.get("X-Ratelimit-Reset")));
-    result.setRateLimitData(rateLimitData);
     return result;
   }
 }

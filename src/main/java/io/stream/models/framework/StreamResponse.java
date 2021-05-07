@@ -1,19 +1,10 @@
 package io.stream.models.framework;
 
-import lombok.Data;
+import org.jetbrains.annotations.NotNull;
 
 public interface StreamResponse {
 
-  RateLimitData getRateLimitData();
+  String getDuration();
 
-  void setRateLimitData(RateLimitData rateLimitData);
-
-  @Data
-  public static class RateLimitData {
-    private int ratelimitLimit;
-
-    private int ratelimitRemaining;
-
-    private int ratelimitReset;
-  }
+  void setDuration(@NotNull String duration);
 }
