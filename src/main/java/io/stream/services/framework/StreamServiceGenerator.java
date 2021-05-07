@@ -121,7 +121,7 @@ public class StreamServiceGenerator {
       // We set issued at 1 hour ago to avoid problems like JWTAuth error: token used before issue
       // at (iat)
       GregorianCalendar calendar = new GregorianCalendar();
-      calendar.add(Calendar.HOUR, -1);
+      calendar.add(Calendar.SECOND, -5);
       return Jwts.builder()
           .setIssuedAt(new Date())
           .setIssuer("Stream Chat Java SDK")
