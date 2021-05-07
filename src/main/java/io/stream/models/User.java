@@ -31,6 +31,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Singular;
 import retrofit2.Call;
 
@@ -911,6 +912,16 @@ public class User {
     }
   }
 
+  @RequiredArgsConstructor
+  public static class UserExportRequest extends StreamRequest<UserExportResponse> {
+    @NotNull private String userId;
+
+    @Override
+    protected Call<UserExportResponse> generateCall() {
+      return StreamServiceGenerator.createService(UserService.class).export(userId);
+    }
+  }
+
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
@@ -989,6 +1000,23 @@ public class User {
     @NotNull
     @JsonProperty("own_user")
     private OwnUser ownUser;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class UserExportResponse extends StreamResponseObject {
+    @Nullable
+    @JsonProperty("user")
+    private User user;
+
+    @Nullable
+    @JsonProperty("messages")
+    private List<Message> messages;
+
+    @Nullable
+    @JsonProperty("reactions")
+    private List<Reaction> reactions;
   }
 
   /**
@@ -1103,5 +1131,16 @@ public class User {
   @NotNull
   public static UserUnmuteRequest unmute() {
     return new UserUnmuteRequest();
+  }
+
+  /**
+   * Creates an export request
+   *
+   * @param userId the user id to export
+   * @return the created request
+   */
+  @NotNull
+  public static UserExportRequest export(@NotNull String userId) {
+    return new UserExportRequest(userId);
   }
 }

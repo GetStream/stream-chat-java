@@ -150,4 +150,10 @@ public class UserTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () -> User.unmute().singleTargetId(userId).user(testUserRequestObject).request());
   }
+
+  @DisplayName("Can export user")
+  @Test
+  void whenExportingUser_thenNoException() {
+    Assertions.assertDoesNotThrow(() -> User.export(testUserRequestObject.getId()).request());
+  }
 }

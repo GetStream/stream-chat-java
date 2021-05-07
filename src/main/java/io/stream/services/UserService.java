@@ -4,6 +4,7 @@ import io.stream.models.User.UserBanRequestData;
 import io.stream.models.User.UserDeactivateRequestData;
 import io.stream.models.User.UserDeactivateResponse;
 import io.stream.models.User.UserDeleteResponse;
+import io.stream.models.User.UserExportResponse;
 import io.stream.models.User.UserListRequestData;
 import io.stream.models.User.UserListResponse;
 import io.stream.models.User.UserMuteRequestData;
@@ -71,4 +72,7 @@ public interface UserService {
 
   @POST("moderation/unmute")
   Call<StreamResponseObject> unmute(@NotNull @Body UserUnmuteRequestData userUnmuteRequestData);
+
+  @GET("users/{user_id}/export")
+  Call<UserExportResponse> export(@NotNull @Path("user_id") String userId);
 }
