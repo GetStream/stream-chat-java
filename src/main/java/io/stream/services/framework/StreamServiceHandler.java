@@ -52,7 +52,7 @@ public class StreamServiceHandler {
       RateLimit rateLimit = new RateLimit();
       rateLimit.setLimit(Integer.parseInt(headers.get("X-Ratelimit-Limit")));
       rateLimit.setRemaining(Integer.parseInt(headers.get("X-Ratelimit-Remaining")));
-      rateLimit.setReset(new Date(Long.parseLong(headers.get("X-Ratelimit-Reset"))));
+      rateLimit.setReset(new Date(Long.parseLong(headers.get("X-Ratelimit-Reset")) * 1000));
       ((StreamResponseWithRateLimit) result).setRateLimit(rateLimit);
     }
     return result;
