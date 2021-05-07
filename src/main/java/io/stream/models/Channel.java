@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.stream.models.Channel.ChannelExportRequestData.ChannelExportRequest;
 import io.stream.models.Channel.ChannelGetRequestData.ChannelGetRequest;
 import io.stream.models.Channel.ChannelHideRequestData.ChannelHideRequest;
@@ -199,7 +200,8 @@ public class Channel {
 
     @Nullable
     @JsonProperty("auto_translation_language")
-    private String autoTranslationLanguage;
+    @JsonDeserialize(using = LanguageDeserializer.class)
+    private Language autoTranslationLanguage;
 
     @Nullable
     @JsonProperty("frozen")
