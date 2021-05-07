@@ -144,7 +144,7 @@ public class Message {
 
   @Nullable
   @JsonProperty("image_labels")
-  private Map<String, Object> imageLabels;
+  private Map<String, List<String>> imageLabels;
 
   @Nullable
   @JsonProperty("i18n")
