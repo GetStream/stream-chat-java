@@ -109,10 +109,10 @@ public interface MessageService {
   @POST("messages/{id}/action")
   Call<MessageRunCommandActionResponse> runCommandAction(
       @NotNull @Path("id") String messageId,
-      @NotNull @Body MessageRunCommandActionRequestData internalBuild);
+      @NotNull @Body MessageRunCommandActionRequestData messageRunCommandActionRequestData);
 
   @POST("messages/{id}/translate")
   Call<MessageTranslateResponse> translate(
       @NotNull @Path("id") String messageId,
-      @NotNull @Body MessageTranslateRequestData internalBuild);
+      @NotNull @Body MessageTranslateRequestData messageTranslateRequestData);
 }

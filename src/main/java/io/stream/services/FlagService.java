@@ -12,8 +12,8 @@ import retrofit2.http.POST;
 public interface FlagService {
 
   @POST("moderation/flag")
-  Call<FlagCreateResponse> create(@NotNull @Body FlagCreateRequestData internalBuild);
+  Call<FlagCreateResponse> create(@NotNull @Body FlagCreateRequestData flagCreateRequestData);
 
   @POST("moderation/unflag")
-  Call<FlagDeleteResponse> delete(@NotNull @Body FlagDeleteRequestData internalBuild);
+  Call<FlagDeleteResponse> delete(@NotNull @Body FlagDeleteRequestData flagDeleteRequestData);
 }
