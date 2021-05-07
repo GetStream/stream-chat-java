@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.stream.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.stream.models.Message.MessageRunCommandActionRequestData.MessageRunCommandActionRequest;
 import io.stream.models.Message.MessageSearchRequestData.MessageSearchRequest;
