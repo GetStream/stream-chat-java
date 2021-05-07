@@ -1,12 +1,14 @@
 package io.stream;
 
-import io.stream.exceptions.StreamException;
-import io.stream.models.App;
-import io.stream.services.framework.StreamServiceGenerator;
 import java.lang.reflect.Field;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import io.stream.exceptions.StreamException;
+import io.stream.models.App;
+import io.stream.models.App.AppCheckSqsResponse;
+import io.stream.models.App.AppCheckSqsResponse.Status;
+import io.stream.services.framework.StreamServiceGenerator;
 
 public class AppTest extends BasicTest {
 
@@ -55,5 +57,19 @@ public class AppTest extends BasicTest {
   @Test
   void whenCallingGetRateLimits_thenNoException() {
     Assertions.assertDoesNotThrow(() -> App.getRateLimits().request());
+  }
+
+  @DisplayName("Can check sqs")
+  @Test
+  void whenCheckingBasSqs_thenError() {
+    AppCheckSqsResponse response =
+        Assertions.assertDoesNotThrow(
+            () ->
+                App.checkSqs()
+                    .sqsKey("key")
+                    .sqsSecret("secret")
+                    .sqsUrl("https://foo.com/bar")
+                    .request());
+    Assertions.assertEquals(Status.ERROR, response.getStatus());
   }
 }

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.stream.exceptions.StreamException;
+import io.stream.models.App.AppCheckSqsRequestData.AppCheckSqsRequest;
 import io.stream.models.App.AppUpdateRequestData.AppUpdateRequest;
 import io.stream.models.ChannelType.ChannelTypeWithStringCommands;
 import io.stream.models.framework.RateLimit;
@@ -513,6 +514,32 @@ public class App extends StreamResponseObject {
     }
   }
 
+  @Builder(
+      builderClassName = "AppCheckSqsRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class AppCheckSqsRequestData {
+    @NotNull
+    @JsonProperty("sqs_url")
+    private String sqsUrl;
+
+    @NotNull
+    @JsonProperty("sqs_key")
+    private String sqsKey;
+
+    @NotNull
+    @JsonProperty("sqs_secret")
+    private String sqsSecret;
+
+    public static class AppCheckSqsRequest extends StreamRequest<AppCheckSqsResponse> {
+      @Override
+      protected Call<AppCheckSqsResponse> generateCall() {
+        return StreamServiceGenerator.createService(AppService.class)
+            .checkSqs(this.internalBuild());
+      }
+    }
+  }
+
   @Data
   @NoArgsConstructor
   public static class AppGetRateLimitsResponse implements StreamResponse {
@@ -535,6 +562,30 @@ public class App extends StreamResponseObject {
     @NotNull
     @JsonProperty("duration")
     private String duration;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class AppCheckSqsResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("status")
+    private Status status;
+
+    @Nullable
+    @JsonProperty("error")
+    private String error;
+
+    @Nullable
+    @JsonProperty("data")
+    private Map<String, Object> data;
+
+    public enum Status {
+      @JsonProperty("ok")
+      OK,
+      @JsonProperty("error")
+      ERROR
+    }
   }
 
   /**
@@ -565,5 +616,15 @@ public class App extends StreamResponseObject {
   @NotNull
   public static AppGetRateLimitsRequest getRateLimits() throws StreamException {
     return new AppGetRateLimitsRequest();
+  }
+
+  /**
+   * Creates a check SQS request.
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static AppCheckSqsRequest checkSqs() throws StreamException {
+    return new AppCheckSqsRequest();
   }
 }
