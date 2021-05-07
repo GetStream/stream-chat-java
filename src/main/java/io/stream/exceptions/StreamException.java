@@ -49,12 +49,13 @@ public class StreamException extends Exception {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     try {
+      String responseBodyString = responseBody.string();
       try {
         ResponseData responseData =
-            objectMapper.readValue(responseBody.string(), ResponseData.class);
+            objectMapper.readValue(responseBodyString, ResponseData.class);
         return new StreamException(responseData.getMessage(), responseData);
       } catch (JsonProcessingException e) {
-        return new StreamException(responseBody.string(), e);
+        return new StreamException(responseBodyString, e);
       }
     } catch (IOException e) {
       return new StreamException(e);
