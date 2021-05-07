@@ -5,56 +5,52 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public enum Language {
   @JsonProperty("af")
   AF,
-  @JsonProperty("sq")
-  SQ,
   @JsonProperty("am")
   AM,
   @JsonProperty("ar")
   AR,
   @JsonProperty("az")
   AZ,
+  @JsonProperty("bg")
+  BG,
   @JsonProperty("bn")
   BN,
   @JsonProperty("bs")
   BS,
-  @JsonProperty("bg")
-  BG,
-  @JsonProperty("zh")
-  ZH,
-  @JsonProperty("zh-TW")
-  ZH_TW,
-  @JsonProperty("hr")
-  HR,
   @JsonProperty("cs")
   CS,
   @JsonProperty("da")
   DA,
-  @JsonProperty("fa-AF")
-  FA_AF,
-  @JsonProperty("nl")
-  NL,
+  @JsonProperty("de")
+  DE,
+  @JsonProperty("el")
+  EL,
   @JsonProperty("en")
   EN,
+  @JsonProperty("es")
+  ES,
+  @JsonProperty("es-MX")
+  ES_MX,
   @JsonProperty("et")
   ET,
+  @JsonProperty("fa")
+  FA,
+  @JsonProperty("fa-AF")
+  FA_AF,
   @JsonProperty("fi")
   FI,
   @JsonProperty("fr")
   FR,
   @JsonProperty("fr-CA")
   FR_CA,
-  @JsonProperty("ka")
-  KA,
-  @JsonProperty("de")
-  DE,
-  @JsonProperty("el")
-  EL,
   @JsonProperty("ha")
   HA,
   @JsonProperty("he")
   HE,
   @JsonProperty("hi")
   HI,
+  @JsonProperty("hr")
+  HR,
   @JsonProperty("hu")
   HU,
   @JsonProperty("id")
@@ -63,48 +59,48 @@ public enum Language {
   IT,
   @JsonProperty("ja")
   JA,
+  @JsonProperty("ka")
+  KA,
   @JsonProperty("ko")
   KO,
   @JsonProperty("lv")
   LV,
   @JsonProperty("ms")
   MS,
+  @JsonProperty("nl")
+  NL,
   @JsonProperty("no")
   NO,
-  @JsonProperty("fa")
-  FA,
-  @JsonProperty("ps")
-  PS,
   @JsonProperty("pl")
   PL,
+  @JsonProperty("ps")
+  PS,
   @JsonProperty("pt")
   PT,
   @JsonProperty("ro")
   RO,
   @JsonProperty("ru")
   RU,
-  @JsonProperty("sr")
-  SR,
   @JsonProperty("sk")
   SK,
   @JsonProperty("sl")
   SL,
   @JsonProperty("so")
   SO,
-  @JsonProperty("es")
-  ES,
-  @JsonProperty("es-MX")
-  ES_MX,
-  @JsonProperty("sw")
-  SW,
+  @JsonProperty("sq")
+  SQ,
+  @JsonProperty("sr")
+  SR,
   @JsonProperty("sv")
   SV,
-  @JsonProperty("tl")
-  TL,
+  @JsonProperty("sw")
+  SW,
   @JsonProperty("ta")
   TA,
   @JsonProperty("th")
   TH,
+  @JsonProperty("tl")
+  TL,
   @JsonProperty("tr")
   TR,
   @JsonProperty("uk")
@@ -112,5 +108,9 @@ public enum Language {
   @JsonProperty("ur")
   UR,
   @JsonProperty("vi")
-  VI
+  VI,
+  @JsonProperty("zh")
+  ZH,
+  @JsonProperty("zh-TW")
+  ZH_TW
 }
