@@ -21,7 +21,9 @@ public class LanguageDeserializer extends JsonDeserializer<Language> {
             Language.class.getField(enumValue.name()).getAnnotation(JsonProperty.class).value())) {
           return enumValue;
         }
-      } catch (NoSuchFieldException | SecurityException e) {
+      } catch (NoSuchFieldException e) {
+        return null;
+      }  catch (SecurityException e) {
         throw deserializationContext.instantiationException(Language.class, "Should not happen");
       }
     }
