@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -165,11 +164,9 @@ public class BasicTest {
     String text = "This is a message";
     MessageRequestObject messageRequest =
         MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
-    return Assertions.assertDoesNotThrow(
-            () ->
-                Message.send(testChannel.getType(), testChannel.getId())
-                    .message(messageRequest)
-                    .request())
+    return Message.send(testChannel.getType(), testChannel.getId())
+        .message(messageRequest)
+        .request()
         .getMessage();
   }
 
