@@ -6,12 +6,15 @@ import io.stream.models.User.UserDeactivateResponse;
 import io.stream.models.User.UserDeleteResponse;
 import io.stream.models.User.UserListRequestData;
 import io.stream.models.User.UserListResponse;
+import io.stream.models.User.UserMuteRequestData;
+import io.stream.models.User.UserMuteResponse;
 import io.stream.models.User.UserPartialUpdateRequestData;
 import io.stream.models.User.UserPartialUpdateResponse;
 import io.stream.models.User.UserQueryBannedRequestData;
 import io.stream.models.User.UserQueryBannedResponse;
 import io.stream.models.User.UserReactivateRequestData;
 import io.stream.models.User.UserReactivateResponse;
+import io.stream.models.User.UserUnmuteRequestData;
 import io.stream.models.User.UserUpsertRequestData;
 import io.stream.models.User.UserUpsertResponse;
 import io.stream.models.framework.StreamResponseObject;
@@ -62,4 +65,10 @@ public interface UserService {
   Call<UserReactivateResponse> reactivate(
       @NotNull @Path("user_id") String userId,
       @NotNull @Body UserReactivateRequestData userReactivateRequestData);
+
+  @POST("moderation/mute")
+  Call<UserMuteResponse> mute(@NotNull @Body UserMuteRequestData userMuteRequestData);
+
+  @POST("moderation/unmute")
+  Call<StreamResponseObject> unmute(@NotNull @Body UserUnmuteRequestData userUnmuteRequestData);
 }

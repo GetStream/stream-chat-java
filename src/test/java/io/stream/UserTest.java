@@ -1,14 +1,15 @@
 package io.stream;
 
-import io.stream.models.User;
-import io.stream.models.User.UserPartialUpdateRequestObject;
-import io.stream.models.User.UserRequestObject;
-import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
 import java.util.Arrays;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import io.stream.models.User;
+import io.stream.models.User.UserMute;
+import io.stream.models.User.UserPartialUpdateRequestObject;
+import io.stream.models.User.UserRequestObject;
+import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
 
 public class UserTest extends BasicTest {
 
@@ -84,7 +85,8 @@ public class UserTest extends BasicTest {
   void whenDeactivateUser_thenIsDeactivated() {
     String userId = RandomStringUtils.randomAlphabetic(10);
     UserUpsertRequest usersUpsertRequest = User.upsert();
-    usersUpsertRequest.user(UserRequestObject.builder().id(userId).name("User to ban").build());
+    usersUpsertRequest.user(
+        UserRequestObject.builder().id(userId).name("User to deactivate").build());
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     User deactivatedUser =
         Assertions.assertDoesNotThrow(
@@ -98,7 +100,8 @@ public class UserTest extends BasicTest {
   void whenReactivateUser_thenIsReactivated() {
     String userId = RandomStringUtils.randomAlphabetic(10);
     UserUpsertRequest usersUpsertRequest = User.upsert();
-    usersUpsertRequest.user(UserRequestObject.builder().id(userId).name("User to ban").build());
+    usersUpsertRequest.user(
+        UserRequestObject.builder().id(userId).name("User to deactivate").build());
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     Assertions.assertDoesNotThrow(
             () -> User.deactivate(userId).createdById(testUserRequestObject.getId()).request())
@@ -115,9 +118,36 @@ public class UserTest extends BasicTest {
   void whenDeleteUser_thenIsDeleted() {
     String userId = RandomStringUtils.randomAlphabetic(10);
     UserUpsertRequest usersUpsertRequest = User.upsert();
-    usersUpsertRequest.user(UserRequestObject.builder().id(userId).name("User to ban").build());
+    usersUpsertRequest.user(UserRequestObject.builder().id(userId).name("User to delete").build());
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     User deletedUser = Assertions.assertDoesNotThrow(() -> User.delete(userId).request()).getUser();
     Assertions.assertNotNull(deletedUser.getDeletedAt());
+  }
+
+  @DisplayName("Can mute user")
+  @Test
+  void whenMutingUser_thenIsMuted() {
+    String userId = RandomStringUtils.randomAlphabetic(10);
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.user(UserRequestObject.builder().id(userId).name("User to mute").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+    UserMute userMute =
+        Assertions.assertDoesNotThrow(
+                () -> User.mute().singleTargetId(userId).user(testUserRequestObject).request())
+            .getMute();
+    Assertions.assertEquals(userId, userMute.getTarget().getId());
+  }
+
+  @DisplayName("Can mute user")
+  @Test
+  void whenUnmutingUser_thenNoException() {
+    String userId = RandomStringUtils.randomAlphabetic(10);
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.user(UserRequestObject.builder().id(userId).name("User to mute").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+    Assertions.assertDoesNotThrow(
+        () -> User.mute().singleTargetId(userId).user(testUserRequestObject).request());
+    Assertions.assertDoesNotThrow(
+        () -> User.unmute().singleTargetId(userId).user(testUserRequestObject).request());
   }
 }

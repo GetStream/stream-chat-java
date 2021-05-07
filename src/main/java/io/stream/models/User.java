@@ -1,5 +1,11 @@
 package io.stream.models;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,26 +16,22 @@ import io.stream.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.stream.models.User.UserBanRequestData.UserBanRequest;
 import io.stream.models.User.UserDeactivateRequestData.UserDeactivateRequest;
 import io.stream.models.User.UserListRequestData.UserListRequest;
+import io.stream.models.User.UserMuteRequestData.UserMuteRequest;
 import io.stream.models.User.UserPartialUpdateRequestData.UserPartialUpdateRequest;
 import io.stream.models.User.UserQueryBannedRequestData.UserQueryBannedRequest;
 import io.stream.models.User.UserReactivateRequestData.UserReactivateRequest;
+import io.stream.models.User.UserUnmuteRequestData.UserUnmuteRequest;
 import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
 import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.UserService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -841,6 +843,74 @@ public class User {
     }
   }
 
+  @Builder(
+      builderClassName = "UserMuteRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class UserMuteRequestData {
+    @Nullable
+    @JsonProperty("target_id")
+    private String singleTargetId;
+
+    @Singular
+    @Nullable
+    @JsonProperty("target_ids")
+    private List<String> targetIds;
+
+    @Nullable
+    @JsonProperty("timeout")
+    private Integer timeout;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    public static class UserMuteRequest extends StreamRequest<UserMuteResponse> {
+      @Override
+      protected Call<UserMuteResponse> generateCall() {
+        return StreamServiceGenerator.createService(UserService.class).mute(this.internalBuild());
+      }
+    }
+  }
+
+  @Builder(
+      builderClassName = "UserUnmuteRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class UserUnmuteRequestData {
+    @Nullable
+    @JsonProperty("target_id")
+    private String singleTargetId;
+
+    @Singular
+    @Nullable
+    @JsonProperty("target_ids")
+    private List<String> targetIds;
+
+    @Nullable
+    @JsonProperty("timeout")
+    private Integer timeout;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    public static class UserUnmuteRequest extends StreamRequest<StreamResponseObject> {
+      @Override
+      protected Call<StreamResponseObject> generateCall() {
+        return StreamServiceGenerator.createService(UserService.class).unmute(this.internalBuild());
+      }
+    }
+  }
+
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
@@ -902,6 +972,23 @@ public class User {
     @NotNull
     @JsonProperty("user")
     private User user;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class UserMuteResponse extends StreamResponseObject {
+    @Nullable
+    @JsonProperty("mute")
+    private UserMute mute;
+
+    @Nullable
+    @JsonProperty("mutes")
+    private List<UserMute> mutes;
+
+    @NotNull
+    @JsonProperty("own_user")
+    private OwnUser ownUser;
   }
 
   /**
@@ -996,5 +1083,25 @@ public class User {
   @NotNull
   public static FlagCreateRequest flag(@NotNull String userId) {
     return new FlagCreateRequest().targetUserId(userId);
+  }
+
+  /**
+   * Creates a mute request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static UserMuteRequest mute() {
+    return new UserMuteRequest();
+  }
+
+  /**
+   * Creates an unmute request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static UserUnmuteRequest unmute() {
+    return new UserUnmuteRequest();
   }
 }
