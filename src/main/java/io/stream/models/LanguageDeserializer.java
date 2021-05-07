@@ -23,7 +23,7 @@ public class LanguageDeserializer extends JsonDeserializer<Language> {
         }
       } catch (NoSuchFieldException e) {
         return null;
-      }  catch (SecurityException e) {
+      } catch (SecurityException e) {
         throw deserializationContext.instantiationException(Language.class, "Should not happen");
       }
     }
