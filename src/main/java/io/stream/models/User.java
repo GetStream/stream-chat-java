@@ -770,6 +770,7 @@ public class User {
     }
   }
 
+  @RequiredArgsConstructor
   public static class UserDeleteRequest extends StreamRequest<UserDeleteResponse> {
     @NotNull private String userId;
 
@@ -778,10 +779,6 @@ public class User {
     @Nullable private Boolean hardDelete;
 
     @Nullable private Boolean deleteConversationChannels;
-
-    private UserDeleteRequest(@NotNull String userId) {
-      this.userId = userId;
-    }
 
     @NotNull
     public UserDeleteRequest markMessagesDeleted(@NotNull Boolean markMessagesDeleted) {

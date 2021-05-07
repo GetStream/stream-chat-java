@@ -672,13 +672,10 @@ public class Channel {
     }
   }
 
+  @RequiredArgsConstructor
   public static class ChannelExportStatusRequest
       extends StreamRequest<ChannelExportStatusResponse> {
     @NotNull private String id;
-
-    private ChannelExportStatusRequest(@NotNull String id) {
-      this.id = id;
-    }
 
     @Override
     protected Call<ChannelExportStatusResponse> generateCall() {
