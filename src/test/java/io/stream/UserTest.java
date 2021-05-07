@@ -1,15 +1,15 @@
 package io.stream;
 
-import java.util.Arrays;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import io.stream.models.User;
 import io.stream.models.User.UserMute;
 import io.stream.models.User.UserPartialUpdateRequestObject;
 import io.stream.models.User.UserRequestObject;
 import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
+import java.util.Arrays;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 public class UserTest extends BasicTest {
 

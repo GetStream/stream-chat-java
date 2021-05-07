@@ -1,11 +1,11 @@
 package io.stream.services;
 
-import org.jetbrains.annotations.NotNull;
 import io.stream.models.Permission.PermissionCreateRequestData;
 import io.stream.models.Permission.PermissionGetResponse;
 import io.stream.models.Permission.PermissionListResponse;
 import io.stream.models.Permission.PermissionUpdateRequestData;
 import io.stream.models.framework.StreamResponseObject;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

@@ -1,12 +1,12 @@
 package io.stream.services.framework;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.function.Consumer;
 import io.stream.exceptions.StreamException;
 import io.stream.models.framework.RateLimit;
 import io.stream.models.framework.StreamResponse;
 import io.stream.models.framework.StreamResponseWithRateLimit;
+import java.io.IOException;
+import java.util.Date;
+import java.util.function.Consumer;
 import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.Callback;
