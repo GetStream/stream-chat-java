@@ -50,4 +50,10 @@ public class AppTest extends BasicTest {
         Assertions.assertThrows(StreamException.class, () -> App.get().request());
     Assertions.assertEquals(401, exception.getResponseData().getStatusCode());
   }
+
+  @DisplayName("Get rate limits does not throw Exception")
+  @Test
+  void whenCallingGetRateLimits_thenNoException() {
+    Assertions.assertDoesNotThrow(() -> App.getRateLimits().request());
+  }
 }

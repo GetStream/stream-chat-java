@@ -1,10 +1,11 @@
 package io.stream.services.framework;
 
-import io.stream.exceptions.StreamException;
-import io.stream.models.framework.StreamResponse;
-import io.stream.models.framework.StreamResponse.RateLimitData;
 import java.io.IOException;
 import java.util.function.Consumer;
+import io.stream.exceptions.StreamException;
+import io.stream.models.App.AppGetRateLimitsResponse;
+import io.stream.models.framework.StreamResponse;
+import io.stream.models.framework.StreamResponse.RateLimitData;
 import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +46,9 @@ public class StreamServiceHandler {
 
   private <T extends StreamResponse> T enrichResponse(Response<T> response) {
     T result = response.body();
+    if (result instanceof AppGetRateLimitsResponse) {
+      return result;
+    }
     Headers headers = response.headers();
     RateLimitData rateLimitData = new RateLimitData();
     rateLimitData.setRatelimitLimit(Integer.parseInt(headers.get("X-Ratelimit-Limit")));
