@@ -13,10 +13,10 @@ public class UnixTimestampDeserializer extends JsonDeserializer<Date> {
       throws IOException, JsonProcessingException {
     String jsonString = jsonParser.readValueAs(String.class);
     try {
-    return new Date(Long.parseLong(jsonString) * 1000);
-    } catch(NumberFormatException e) {
+      return new Date(Long.parseLong(jsonString) * 1000);
+    } catch (NumberFormatException e) {
       throw deserializationContext.instantiationException(
-          Date.class, "Unparseable date for unix timestamp: " + jsonString); 
+          Date.class, "Unparseable date for unix timestamp: " + jsonString);
     }
   }
 }
