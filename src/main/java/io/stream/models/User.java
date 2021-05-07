@@ -1080,7 +1080,7 @@ public class User {
   /**
    * Creates a delete request
    *
-   * @param userId the user id to deactivate
+   * @param userId the user id to delete
    * @return the created request
    */
   @NotNull
