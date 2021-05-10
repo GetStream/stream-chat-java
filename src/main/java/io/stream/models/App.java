@@ -252,6 +252,13 @@ public class App extends StreamResponseObject {
     V2
   }
 
+  public enum PushVersion {
+    @JsonProperty("v1")
+    V1,
+    @JsonProperty("v2")
+    V2
+  }
+
   public enum EnforceUniqueUsernames {
     @JsonProperty("no")
     NO,
@@ -402,7 +409,7 @@ public class App extends StreamResponseObject {
   public static class PushConfigRequestObject {
     @Nullable
     @JsonProperty("version")
-    private String version;
+    private PushVersion version;
   }
 
   public static class AppGetRequest extends StreamRequest<App> {
