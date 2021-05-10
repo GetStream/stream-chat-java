@@ -1,6 +1,8 @@
 package io.stream.services;
 
 import io.stream.models.App;
+import io.stream.models.App.AppCheckPushRequestData;
+import io.stream.models.App.AppCheckPushResponse;
 import io.stream.models.App.AppCheckSqsRequestData;
 import io.stream.models.App.AppCheckSqsResponse;
 import io.stream.models.App.AppGetRateLimitsResponse;
@@ -34,4 +36,7 @@ public interface AppService {
 
   @POST("check_sqs")
   Call<AppCheckSqsResponse> checkSqs(@NotNull @Body AppCheckSqsRequestData appCheckSqsRequestData);
+
+  @POST("check_push")
+  Call<AppCheckPushResponse> checkPush(@NotNull @Body AppCheckPushRequestData internalBuild);
 }

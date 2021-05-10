@@ -1,5 +1,11 @@
 package io.stream.models;
 
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -7,25 +13,21 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.stream.exceptions.StreamException;
+import io.stream.models.App.AppCheckPushRequestData.AppCheckPushRequest;
 import io.stream.models.App.AppCheckSqsRequestData.AppCheckSqsRequest;
 import io.stream.models.App.AppUpdateRequestData.AppUpdateRequest;
 import io.stream.models.ChannelType.ChannelTypeWithStringCommands;
+import io.stream.models.User.UserRequestObject;
 import io.stream.models.framework.RateLimit;
 import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponse;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.AppService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -309,6 +311,18 @@ public class App extends StreamResponseObject {
     private List<String> blockedMimeTypes;
   }
 
+  @Data
+  @NoArgsConstructor
+  public static class DeviceError {
+    @NotNull
+    @JsonProperty("provider")
+    private String provider;
+
+    @NotNull
+    @JsonProperty("error_message")
+    private String errorMessage;
+  }
+
   @Builder
   public static class FileUploadConfigRequestObject {
 
@@ -540,6 +554,48 @@ public class App extends StreamResponseObject {
     }
   }
 
+  @Builder(
+      builderClassName = "AppCheckPushRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class AppCheckPushRequestData {
+    @Nullable
+    @JsonProperty("message_id")
+    private String messageId;
+
+    @Nullable
+    @JsonProperty("apn_template")
+    private String apnTemplate;
+
+    @Nullable
+    @JsonProperty("firebase_template")
+    private String firebaseTemplate;
+
+    @Nullable
+    @JsonProperty("firebase_data_template")
+    private String firebaseDataTemplate;
+
+    @Nullable
+    @JsonProperty("skip_devices")
+    private Boolean skipDevices;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    public static class AppCheckPushRequest extends StreamRequest<AppCheckPushResponse> {
+      @Override
+      protected Call<AppCheckPushResponse> generateCall() {
+        return StreamServiceGenerator.createService(AppService.class)
+            .checkPush(this.internalBuild());
+      }
+    }
+  }
+
   @Data
   @NoArgsConstructor
   public static class AppGetRateLimitsResponse implements StreamResponse {
@@ -588,6 +644,35 @@ public class App extends StreamResponseObject {
     }
   }
 
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class AppCheckPushResponse extends StreamResponseObject {
+    @Nullable
+    @JsonProperty("device_errors")
+    private Map<String, DeviceError> deviceErrors;
+
+    @Nullable
+    @JsonProperty("general_errors")
+    private List<String> generalErrors;
+
+    @Nullable
+    @JsonProperty("skip_devices")
+    private Boolean skipDevices;
+
+    @NotNull
+    @JsonProperty("rendered_apn_template")
+    private String renderedApnTemplate;
+
+    @NotNull
+    @JsonProperty("rendered_firebase_template")
+    private String renderedFirebaseTemplate;
+
+    @NotNull
+    @JsonProperty("rendered_message")
+    private Map<String, String> renderedMessage;
+  }
+
   /**
    * Creates a get request.
    *
@@ -626,5 +711,15 @@ public class App extends StreamResponseObject {
   @NotNull
   public static AppCheckSqsRequest checkSqs() throws StreamException {
     return new AppCheckSqsRequest();
+  }
+
+  /**
+   * Creates a check push request.
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static AppCheckPushRequest checkPush() throws StreamException {
+    return new AppCheckPushRequest();
   }
 }
