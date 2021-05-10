@@ -627,38 +627,38 @@ public class Message {
 
   @Builder
   public static class ActionRequestObject {
-    @NotNull
+    @Nullable
     @JsonProperty("name")
     private String name;
 
-    @NotNull
+    @Nullable
     @JsonProperty("text")
     private String text;
 
-    @NotNull
+    @Nullable
     @JsonProperty("style")
     private String style;
 
-    @NotNull
+    @Nullable
     @JsonProperty("type")
     private String type;
 
-    @NotNull
+    @Nullable
     @JsonProperty("value")
     private String value;
   }
 
   @Builder
   public static class FieldRequestObject {
-    @NotNull
+    @Nullable
     @JsonProperty("type")
     private String type;
 
-    @NotNull
+    @Nullable
     @JsonProperty("value")
     private String value;
 
-    @NotNull
+    @Nullable
     @JsonProperty("short")
     private Boolean shortField;
   }

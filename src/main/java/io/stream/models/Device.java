@@ -58,7 +58,7 @@ public class Device {
     @JsonProperty("push_provider")
     private PushProvider pushProvider;
 
-    @NotNull
+    @Nullable
     @JsonProperty("id")
     private String id;
 
@@ -74,7 +74,7 @@ public class Device {
     @JsonProperty("disabled_reason")
     private String disabledReason;
 
-    @NotNull
+    @Nullable
     @JsonProperty("user_id")
     private String userId;
   }

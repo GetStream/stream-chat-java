@@ -218,27 +218,27 @@ public class ChannelType {
 
   @Builder
   public static class PermissionRequestObject {
-    @NotNull
+    @Nullable
     @JsonProperty("name")
     private String name;
 
-    @NotNull
+    @Nullable
     @JsonProperty("action")
     private String action;
 
-    @NotNull
+    @Nullable
     @JsonProperty("resources")
     private List<String> resources;
 
-    @NotNull
+    @Nullable
     @JsonProperty("roles")
     private List<String> roles;
 
-    @NotNull
+    @Nullable
     @JsonProperty("owner")
     private Boolean owner;
 
-    @NotNull
+    @Nullable
     @JsonProperty("priority")
     private Integer priority;
   }

@@ -326,7 +326,7 @@ public class User {
 
   @Builder
   public static class UserRequestObject {
-    @NotNull
+    @Nullable
     @JsonProperty("id")
     @Getter
     private String id;
@@ -370,24 +370,24 @@ public class User {
 
   @Builder
   public static class UserPartialUpdateRequestObject {
-    @NotNull
+    @Nullable
     @JsonProperty("id")
     private String id;
 
     @Singular
-    @NotNull
+    @Nullable
     @JsonProperty("set")
     private Map<String, Object> setValues;
 
     @Singular
-    @NotNull
+    @Nullable
     @JsonProperty("unset")
     private List<String> unsetValues;
   }
 
   @Builder
   public static class OwnUserRequestObject {
-    @NotNull
+    @Nullable
     @JsonProperty("id")
     private String id;
 
@@ -485,11 +485,11 @@ public class User {
 
   @Builder
   public static class UserMuteRequestObject {
-    @NotNull
+    @Nullable
     @JsonProperty("user")
     private User user;
 
-    @NotNull
+    @Nullable
     @JsonProperty("target")
     private User target;
 
@@ -508,11 +508,11 @@ public class User {
 
   @Builder
   public static class ChannelMuteRequestObject {
-    @NotNull
+    @Nullable
     @JsonProperty("user")
     private User user;
 
-    @NotNull
+    @Nullable
     @JsonProperty("channel")
     private Channel channel;
 

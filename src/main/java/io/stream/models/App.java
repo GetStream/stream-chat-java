@@ -352,11 +352,11 @@ public class App extends StreamResponseObject {
 
   @Builder
   public static class APNConfigRequestObject {
-    @NotNull
+    @Nullable
     @JsonProperty("enabled")
     private Boolean enabled;
 
-    @NotNull
+    @Nullable
     @JsonProperty("development")
     private Boolean development;
 
@@ -368,7 +368,7 @@ public class App extends StreamResponseObject {
     @JsonProperty("auth_key")
     private byte[] authKey;
 
-    @NotNull
+    @Nullable
     @JsonProperty("notification_template")
     private String notificationTemplate;
 
@@ -392,15 +392,15 @@ public class App extends StreamResponseObject {
   @Builder
   public static class FirebaseConfigRequestObject {
 
-    @NotNull
+    @Nullable
     @JsonProperty("enabled")
     private Boolean enabled;
 
-    @NotNull
+    @Nullable
     @JsonProperty("notification_template")
     private String notificationTemplate;
 
-    @NotNull
+    @Nullable
     @JsonProperty("data_template")
     private String dataTemplate;
   }

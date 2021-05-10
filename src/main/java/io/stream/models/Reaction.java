@@ -77,7 +77,7 @@ public class Reaction {
     @JsonProperty("user")
     private UserRequestObject user;
 
-    @NotNull
+    @Nullable
     @JsonProperty("type")
     private String type;
 

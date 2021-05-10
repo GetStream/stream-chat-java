@@ -129,7 +129,7 @@ public class Event {
 
   @Builder
   public static class EventRequestObject {
-    @NotNull
+    @Nullable
     @JsonProperty("type")
     private String type;
 
@@ -224,7 +224,7 @@ public class Event {
 
   @Builder
   public static class EventUserCustomRequestObject {
-    @NotNull
+    @Nullable
     @JsonProperty("type")
     private String type;
 

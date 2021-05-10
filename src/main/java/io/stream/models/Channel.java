@@ -315,11 +315,11 @@ public class Channel {
 
   @Builder
   public static class ChannelExportRequestObject {
-    @NotNull
+    @Nullable
     @JsonProperty("type")
     private String type;
 
-    @NotNull
+    @Nullable
     @JsonProperty("id")
     private String id;
 
