@@ -97,7 +97,9 @@ public class App extends StreamResponseObject {
   @Data
   @NoArgsConstructor
   public static class PushNotificationFields {
-    @NotNull private String version;
+    @NotNull
+    @JsonProperty("version")
+    private PushVersion version;
 
     @NotNull
     @JsonProperty("apn")
