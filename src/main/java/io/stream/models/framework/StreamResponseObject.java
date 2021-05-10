@@ -1,6 +1,7 @@
 package io.stream.models.framework;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.stream.models.RateLimit;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;

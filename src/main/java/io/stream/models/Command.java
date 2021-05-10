@@ -3,7 +3,6 @@ package io.stream.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.models.Command.CommandCreateRequestData.CommandCreateRequest;
 import io.stream.models.Command.CommandUpdateRequestData.CommandUpdateRequest;
-import io.stream.models.framework.RateLimit;
 import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponse;
 import io.stream.models.framework.StreamResponseObject;

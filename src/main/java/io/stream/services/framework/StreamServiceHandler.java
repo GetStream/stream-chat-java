@@ -1,7 +1,7 @@
 package io.stream.services.framework;
 
 import io.stream.exceptions.StreamException;
-import io.stream.models.framework.RateLimit;
+import io.stream.models.RateLimit;
 import io.stream.models.framework.StreamResponse;
 import io.stream.models.framework.StreamResponseWithRateLimit;
 import java.io.IOException;
