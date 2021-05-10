@@ -51,7 +51,7 @@ public class App extends StreamResponseObject {
 
     @Nullable
     @JsonProperty("auth_type")
-    private String authType;
+    private AuthenticationType authType;
 
     @Nullable
     @JsonProperty("auth_key")
@@ -259,6 +259,13 @@ public class App extends StreamResponseObject {
     V2
   }
 
+  public enum AuthenticationType {
+    @JsonProperty("certificate")
+    CERTIFICATE,
+    @JsonProperty("token")
+    TOKEN
+  }
+
   public enum EnforceUniqueUsernames {
     @JsonProperty("no")
     NO,
@@ -362,7 +369,7 @@ public class App extends StreamResponseObject {
 
     @Nullable
     @JsonProperty("auth_type")
-    private String authType;
+    private AuthenticationType authType;
 
     @Nullable
     @JsonProperty("auth_key")
