@@ -1,14 +1,5 @@
 package io.stream;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import io.stream.models.App;
 import io.stream.models.App.FileUploadConfigRequestObject;
 import io.stream.models.Language;
@@ -19,6 +10,15 @@ import io.stream.models.Message.MessageRequestObject;
 import io.stream.models.Message.MessageType;
 import io.stream.models.Message.Resize;
 import io.stream.models.Message.SearchResult;
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 public class MessageTest extends BasicTest {
   @DisplayName("Can retrieve a message")

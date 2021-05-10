@@ -1,14 +1,14 @@
 package io.stream;
 
-import java.lang.reflect.Field;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import io.stream.exceptions.StreamException;
 import io.stream.models.App;
 import io.stream.models.App.AppCheckSqsResponse;
 import io.stream.models.App.AppCheckSqsResponse.Status;
 import io.stream.services.framework.StreamServiceGenerator;
+import java.lang.reflect.Field;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 public class AppTest extends BasicTest {
 
