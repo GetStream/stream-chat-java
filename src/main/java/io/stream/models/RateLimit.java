@@ -27,7 +27,7 @@ public class RateLimit {
   @JsonProperty("reset")
   @JsonDeserialize(using = UnixTimestampDeserializer.class)
   private Date reset;
-  
+
   public static class UnixTimestampDeserializer extends JsonDeserializer<Date> {
     @Override
     public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
@@ -41,5 +41,4 @@ public class RateLimit {
       }
     }
   }
-
 }

@@ -118,7 +118,8 @@ public class StreamServiceGenerator {
     try {
       signingKey =
           new SecretKeySpec(apiSecret.getBytes("UTF-8"), SignatureAlgorithm.HS256.getJcaName());
-      // We set issued at 5 seconds ago to avoid problems like JWTAuth error: token used before issue
+      // We set issued at 5 seconds ago to avoid problems like JWTAuth error: token used before
+      // issue
       // at (iat)
       GregorianCalendar calendar = new GregorianCalendar();
       calendar.add(Calendar.SECOND, -5);
