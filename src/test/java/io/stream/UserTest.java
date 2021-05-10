@@ -156,4 +156,18 @@ public class UserTest extends BasicTest {
   void whenExportingUser_thenNoException() {
     Assertions.assertDoesNotThrow(() -> User.export(testUserRequestObject.getId()).request());
   }
+
+  @DisplayName("Can create guest user")
+  @Test
+  void whenCreatingGuestUser_thenNoException() {
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.createGuest()
+                .user(
+                    UserRequestObject.builder()
+                        .id(RandomStringUtils.randomAlphabetic(10))
+                        .name("Guest user")
+                        .build())
+                .request());
+  }
 }

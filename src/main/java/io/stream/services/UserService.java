@@ -1,6 +1,8 @@
 package io.stream.services;
 
 import io.stream.models.User.UserBanRequestData;
+import io.stream.models.User.UserCreateGuestRequestData;
+import io.stream.models.User.UserCreateGuestResponse;
 import io.stream.models.User.UserDeactivateRequestData;
 import io.stream.models.User.UserDeactivateResponse;
 import io.stream.models.User.UserDeleteResponse;
@@ -75,4 +77,8 @@ public interface UserService {
 
   @GET("users/{user_id}/export")
   Call<UserExportResponse> export(@NotNull @Path("user_id") String userId);
+
+  @POST("guest")
+  Call<UserCreateGuestResponse> createGuest(
+      @NotNull @Body UserCreateGuestRequestData userCreateGuestRequestData);
 }

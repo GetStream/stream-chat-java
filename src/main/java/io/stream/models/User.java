@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.stream.models.Device.DeviceRequestObject;
 import io.stream.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.stream.models.User.UserBanRequestData.UserBanRequest;
+import io.stream.models.User.UserCreateGuestRequestData.UserCreateGuestRequest;
 import io.stream.models.User.UserDeactivateRequestData.UserDeactivateRequest;
 import io.stream.models.User.UserListRequestData.UserListRequest;
 import io.stream.models.User.UserMuteRequestData.UserMuteRequest;
@@ -909,6 +910,24 @@ public class User {
     }
   }
 
+  @Builder(
+      builderClassName = "UserCreateGuestRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class UserCreateGuestRequestData {
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    public static class UserCreateGuestRequest extends StreamRequest<UserCreateGuestResponse> {
+      @Override
+      protected Call<UserCreateGuestResponse> generateCall() {
+        return StreamServiceGenerator.createService(UserService.class)
+            .createGuest(this.internalBuild());
+      }
+    }
+  }
+
   @RequiredArgsConstructor
   public static class UserExportRequest extends StreamRequest<UserExportResponse> {
     @NotNull private String userId;
@@ -1014,6 +1033,19 @@ public class User {
     @Nullable
     @JsonProperty("reactions")
     private List<Reaction> reactions;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class UserCreateGuestResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("user")
+    private User user;
+
+    @NotNull
+    @JsonProperty("access_token")
+    private String accessToken;
   }
 
   /**
@@ -1139,5 +1171,15 @@ public class User {
   @NotNull
   public static UserExportRequest export(@NotNull String userId) {
     return new UserExportRequest(userId);
+  }
+
+  /**
+   * Creates a create guest request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static UserCreateGuestRequest createGuest() {
+    return new UserCreateGuestRequest();
   }
 }
