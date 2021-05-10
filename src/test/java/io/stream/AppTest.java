@@ -61,7 +61,7 @@ public class AppTest extends BasicTest {
 
   @DisplayName("Can check sqs")
   @Test
-  void whenCheckingBasSqs_thenError() {
+  void whenCheckingBadSqs_thenError() {
     AppCheckSqsResponse response =
         Assertions.assertDoesNotThrow(
             () ->
