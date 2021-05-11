@@ -1,25 +1,26 @@
 package io.stream.models;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.exceptions.StreamException;
 import io.stream.models.ChannelType.ChannelTypeCreateRequestData.ChannelTypeCreateRequest;
 import io.stream.models.ChannelType.ChannelTypeUpdateRequestData.ChannelTypeUpdateRequest;
+import io.stream.models.Permission.Resource;
 import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponse;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.ChannelTypeService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Singular;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -142,7 +143,7 @@ public class ChannelType {
 
     @NotNull
     @JsonProperty("resources")
-    private List<String> resources;
+    private List<Resource> resources;
 
     @NotNull
     @JsonProperty("roles")
@@ -173,7 +174,7 @@ public class ChannelType {
 
     @NotNull
     @JsonProperty("resource")
-    private String resource;
+    private Resource resource;
 
     @NotNull
     @JsonProperty("owner")
@@ -234,7 +235,7 @@ public class ChannelType {
 
     @Nullable
     @JsonProperty("resources")
-    private List<String> resources;
+    private List<Resource> resources;
 
     @Nullable
     @JsonProperty("roles")
