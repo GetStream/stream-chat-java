@@ -372,9 +372,9 @@ public class Channel {
     public static class ChannelGetRequest extends StreamRequest<ChannelGetResponse> {
       @NotNull private String channelType;
 
-      @NotNull private String channelId;
+      @Nullable private String channelId;
 
-      private ChannelGetRequest(@NotNull String channelType, @NotNull String channelId) {
+      private ChannelGetRequest(@NotNull String channelType, @Nullable String channelId) {
         this.channelId = channelId;
         this.channelType = channelType;
       }
@@ -1172,6 +1172,17 @@ public class Channel {
   @NotNull
   public static ChannelGetRequest getOrCreate(@NotNull String type, @NotNull String id) {
     return new ChannelGetRequest(type, id);
+  }
+
+  /**
+   * Creates a get or create request
+   *
+   * @param type the channel type
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelGetRequest getOrCreate(@NotNull String type) {
+    return new ChannelGetRequest(type, null);
   }
 
   /**
