@@ -1,11 +1,22 @@
 package io.stream.models;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.stream.models.Flag.FlagCreateRequestData.FlagCreateRequest;
+import io.stream.models.Flag.FlagDeleteRequestData.FlagDeleteRequest;
 import io.stream.models.Message.MessageRunCommandActionRequestData.MessageRunCommandActionRequest;
 import io.stream.models.Message.MessageSearchRequestData.MessageSearchRequest;
 import io.stream.models.Message.MessageSendRequestData.MessageSendRequest;
@@ -16,14 +27,6 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.MessageService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,8 +37,6 @@ import lombok.extern.java.Log;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Log
@@ -1392,5 +1393,16 @@ public class Message {
   @NotNull
   public static FlagCreateRequest flag(@NotNull String messageId) {
     return new FlagCreateRequest().targetMessageId(messageId);
+  }
+  
+  /**
+   * Creates a unflag request
+   *
+   * @param messageId the message id to unflag
+   * @return the created request
+   */
+  @NotNull
+  public static FlagDeleteRequest unflag(@NotNull String messageId) {
+    return new FlagDeleteRequest().targetMessageId(messageId);
   }
 }
