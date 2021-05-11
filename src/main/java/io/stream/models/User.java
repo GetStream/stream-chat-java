@@ -1142,7 +1142,7 @@ public class User {
   public static FlagCreateRequest flag(@NotNull String userId) {
     return new FlagCreateRequest().targetUserId(userId);
   }
-  
+
   /**
    * Creates an unflag request
    *

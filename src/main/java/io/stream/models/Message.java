@@ -1394,7 +1394,7 @@ public class Message {
   public static FlagCreateRequest flag(@NotNull String messageId) {
     return new FlagCreateRequest().targetMessageId(messageId);
   }
-  
+
   /**
    * Creates a unflag request
    *

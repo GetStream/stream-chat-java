@@ -156,7 +156,7 @@ public class ChannelType {
     @JsonProperty("priority")
     private Integer priority;
   }
-  
+
   public enum Action {
     @JsonProperty("Deny")
     DENY,
