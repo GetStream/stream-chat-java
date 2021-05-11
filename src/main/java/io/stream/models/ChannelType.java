@@ -138,7 +138,7 @@ public class ChannelType {
 
     @NotNull
     @JsonProperty("action")
-    private String action;
+    private Action action;
 
     @NotNull
     @JsonProperty("resources")
@@ -155,6 +155,13 @@ public class ChannelType {
     @NotNull
     @JsonProperty("priority")
     private Integer priority;
+  }
+  
+  public enum Action {
+    @JsonProperty("Deny")
+    DENY,
+    @JsonProperty("Allow")
+    ALLOW
   }
 
   @Data
@@ -223,7 +230,7 @@ public class ChannelType {
 
     @Nullable
     @JsonProperty("action")
-    private String action;
+    private Action action;
 
     @Nullable
     @JsonProperty("resources")
