@@ -232,6 +232,8 @@ Message.send("team", "sample_channel")
 ### All examples
 **Upsert users**
 
+Single user
+
 ```java
 User.upsert()
     .user(
@@ -242,6 +244,8 @@ User.upsert()
             .build())
     .request();
 ```
+
+Batch of users
 
 ```java
 User.upsert()
@@ -266,7 +270,19 @@ User.upsert()
     .request();
 ```
 
+Set user teams
+
+```java
+// creates or updates a user from backend to be part of the "red" and "blue" teams
+User.upsert()
+    .user(UserRequestObject.builder().id(id).teams(Arrays.asList("red", "blue")).build())
+    .request();
+
+```
+
 **Partially update user**
+
+Standard
 
 ```java
 /*
@@ -302,14 +318,36 @@ User.partialUpdate()
     .request();
 ```
 
+Change a user role
+
+```java
+User.partialUpdate()
+    .user(
+        UserPartialUpdateRequestObject.builder()
+            .id("tommaso")
+            .setValue("name", "Tommy Doe")
+            .setValue("role", "admin")
+            .build())
+```
+
 **Update App Settings**
+
+Enforce unique usernames in app
 
 ```java
 App.update().enforceUniqueUsernames("app").request();
 ```
 
+Enforce unique usernames in team
+
 ```java
 App.update().enforceUniqueUsernames("team").request();
+```
+
+Enable teams
+
+```java
+App.update().multiTenantEnabled(true).request();
 ```
 
 **Query users**
@@ -330,6 +368,8 @@ UserListResponse response = User.list()
     .request();
 ```
 
+Query banned users
+
 ```java
 List<User> bannedUsers = User.list()
     .filterCondition("banned", true)
@@ -337,7 +377,24 @@ List<User> bannedUsers = User.list()
     .getUsers();
 ```
 
+Query users with teams
+
+```java
+//TODO
+
+// search for users with name Jordan that are part of the red team 
+client.queryUsers({ 
+   $and: [ 
+      { name: { $eq: "Jordan" } }, 
+      { teams: { $contains: "red" } } 
+   ], 
+}); 
+
+```
+
 **Get or create channel (type,id)**
+
+Standard
 
 ```java
 Channel.getOrCreate("messaging", "travel")
@@ -346,6 +403,24 @@ Channel.getOrCreate("messaging", "travel")
             .additionalField("name", "Awesome channel about traveling")
             .createdBy(UserRequestObject.builder().id("myuserid").build())
             .build())
+    .request();
+```
+
+Channel pagination
+
+```java
+Channel.getOrCreate(type, id)
+    .messages(MessagePaginationParameters.builder().limit(20).idLt(lastMessageId).build())
+    .members(PaginationParameters.builder().limit(20).offset(0).build())
+    .watchers(PaginationParameters.builder().limit(20).offset(0).build())
+    .request();
+```
+
+Create a channel with team
+
+```java
+Channel.getOrCreate("messaging", "red-general")
+    .data(ChannelRequestObject.builder().team("red").build())
     .request();
 ```
 
@@ -364,6 +439,8 @@ Channel.getOrCreate("messaging")
 
 **Query channels**
 
+Query channels
+
 ```java
 List<Channel> channels =
     Channel.list().filterCondition("type", "messaging")
@@ -376,6 +453,371 @@ for (Channel channel : channels) {
 }
 ```
 
+Pagination
+
+```java
+Channel.list().filterCondition("type", "messaging")
+    .sort(Sort.builder().field("last_message_at").direction(Direction.DESC).build())
+    .limit(20).offset(10).request();
+```
+
+Query accepted invites
+
+```java
+Channel.list().filterCondition("invite", "accepted").userId("u2").request();
+```
+
+Query rejected invites
+
+```java
+Channel.list().filterCondition("invite", "rejected").userId("u2").request();
+```
+
+Query muted channels
+
+```java
+// retrieve all channels excluding muted ones
+Channel.list()
+    .filterCondition("muted", false)
+    .filterCondition("members", Collections.singletonMap("$in", Arrays.asList(userId)))
+    .request();
+
+// retrieve all muted channels
+Channel.list()
+    .filterCondition("muted", true)
+    .filterCondition("members", Collections.singletonMap("$in", Arrays.asList(userId)))
+    .request();
+```
+
+With teams
+
+```java
+Channel.list().filterCondition("team", "red-team").request();
+```
+
+**Partially update channel**
+
+Standard
+
+```java
+Map<String, String> channelDetail = new HashMap<>();
+channelDetail.put("topic", "Plants and Animals");
+channelDetail.put("rating", "pg");
+// Here's a channel with some custom field data that might be useful
+Channel.getOrCreate(type, id)
+    .data(
+        ChannelRequestObject.builder()
+            .additionalField("source", "user")
+            .additionalField("source_detail", Collections.singletonMap("user_id", 123))
+            .additionalField("channel_detail", channelDetail)
+            .build())
+    .request();
+// let's change the source of this channel
+Channel.partialUpdate(type, id).setValue("source", "system").request();
+// since it's system generated we no longer need source_detail
+Channel.partialUpdate(type, id).unsetValue("source_detail").request();
+// and finally update one of the nested fields in the channel_detail
+Channel.partialUpdate(type, id).setValue("channel_detail.topic", "Nature").request();
+// and maybe we decide we no longer need a rating
+Channel.partialUpdate(type, id).unsetValue("channel_detail.rating").request();
+```
+
+Use a different blocklist
+
+```java
+Map<String, Object> configOverrides = new HashMap<>();
+configOverrides.put("blocklist", "medical_blocklist");
+configOverrides.put("blocklist_behavior", "block");
+Channel.partialUpdate(type, id).setValue("config_overrides", configOverrides).request();
+```
+
+Disable replies
+
+```java
+Channel.partialUpdate(type, id)
+    .setValue("config_overrides", Collections.singletonMap("replies", false))
+    .request();
+```
+
+Remove overrides and go back to default settings
+
+```java
+Channel.partialUpdate(type, id).setValue("config_overrides", Collections.EMPTY_MAP).request();
+```
+
+**Update channel**
+Full update (overwrite)
+
+```java
+Channel.update(type, id)
+    .data(
+        ChannelRequestObject.builder()
+            .additionalField("name", "myspecialchannel")
+            .additionalField("color", "green")
+            .build())
+    .message(
+        MessageRequestObject.builder()
+            .text("Thierry changed the channel color to green")
+            .userId("Thierry")
+            .build())
+    .request();
+```
+
+Add/remove members
+
+```java
+Channel.update(type, id).addMember("thierry").addMember("josh").request();
+Channel.update(type, id).removeMember("tommaso").request();
+```
+
+```java
+Channel.update(type, id)
+    .addMember("tommaso")
+    .message(
+        MessageRequestObject.builder()
+            .text("Tommaso joined the channel")
+            .userId("tommaso")
+            .build())
+    .request();
+```
+
+Leaving a channel
+
+```java
+Channel.update(type, id).removeMember(myUserId).request();
+```
+
+Add/remove moderators
+
+```java
+Channel.update(type, id).addModerator("thierry").addModerator("josh").request();
+Channel.update(type, id).demoteModerator("tommaso").request();
+```
+
+Inviting users
+
+```java
+Channel.update("messaging", "awesome-chat").invite("nick").request();
+```
+
+Accepting an invite
+
+```java
+Channel.update("messaging", "awesome-chat")
+    .acceptInvite(true)
+    .userId("nick")
+    .message(MessageRequestObject.builder().text("Nick joined the channel").build())
+    .request();
+```
+
+Rejecting an invite
+
+```java
+Channel.update("messaging", "awesome-chat")
+    .acceptInvite(false)
+    .userId("nick")
+    .request();
+```
+
+Freeze a channel
+
+```java
+//TODO after requestobject helper
+const update = await channel.update( 
+	{ frozen: true },  
+	{ text: 'Thierry has frozen the channel', user_id: "Thierry" } 
+)
+```
+
+Unfreeze a channel
+
+```java
+//TODO after requestobject helper
+const update = await channel.update( 
+	{ frozen: false },  
+	{ text: 'Thierry has unfrozen the channel', user_id: "Thierry" } 
+) 
+
+```
+
+Add moderators to a channel
+
+```java
+Channel.update("livestream", "fortnite").addModerator("thierry").addModerator("tommaso").request();
+```
+
+Remove moderators from a channel
+
+```java
+Channel.update(type, id).demoteModerator("thierry").request();
+```
+
+**Delete channel**
+
+```java
+Channel.delete(type, id).request();
+```
+
+**Hide channel**
+
+```java
+// hides the channel until a new message is added there
+Channel.hide(type, id).userId(userId).request();
+
+// hides the channel until a new message is added there. This also clears the history for the user
+Channel.hide(type, id).clearHistory(true).userId(userId).request();
+```
+
+**Show channel**
+
+```java
+Channel.show(type, id).userId(userId).request();
+```
+
+**Truncate channel**
+
+```java
+Channel.truncate(type, id).request();
+```
+
+**Mute channel**
+
+```java
+// mute channel for a user
+Channel.mute().channelCid(cid).userId(userId).request();
+// mute a channel for 2 weeks
+Channel.mute()
+    .channelCid(cid)
+    .userId(userId)
+    .expiration(TimeUnit.MILLISECONDS.convert(14, TimeUnit.DAYS))
+    .request();
+// mute a channel for 10 seconds
+Channel.mute().channelCid(cid).userId(userId).expiration(10000L).request();
+// check if a channel is muted for the user
+user.getChannelMutes().stream()
+    .anyMatch(channelMute -> channelMute.getChannel().getCId().equals(channel.getCId()));
+```
+
+**Unmute channel**
+
+```java
+Channel.unmute().channelCid(cid).userId(userId).request();
+```
+
+**Query members**
+
+Pagination and ordering
+
+```java
+// returns up to 100 members ordered by created_at ascending
+Channel.queryMembers().type(type).id(id).request();
+// returns up to 100 members ordered by created_at descending
+Channel.queryMembers()
+    .type(type)
+    .id(id)
+    .sort(Sort.builder().field("created_at").direction(Direction.DESC).build())
+    .request();
+// returns up to 100 members ordered by user_id descending
+Channel.queryMembers()
+    .type(type)
+    .id(id)
+    .sort(Sort.builder().field("user_id").direction(Direction.DESC).build())
+    .request();
+// paginate by user_id in descending order
+Channel.queryMembers()
+    .type(type)
+    .id(id)
+    .sort(Sort.builder().field("user_id").direction(Direction.DESC).build())
+    .userIdLt(lastMember.getUserId())
+    .request();
+// paginate by created at in ascending order
+Channel.queryMembers()
+    .type(type)
+    .id(id)
+    .sort(Sort.builder().field("created_at").direction(Direction.ASC).build())
+    .createdAtAfter(lastMember.getCreatedAt())
+    .request();
+// paginate using offset
+Channel.queryMembers().type(type).id(id).offset(20);
+```
+
+Few examples
+
+```java
+// query members by user.name
+Channel.queryMembers().filterCondition("name", "tommaso").request();
+
+// autocomplete members by user name
+Channel.queryMembers()
+    .filterCondition("name", Collections.singletonMap("$autocomplete", "tomm"))
+    .request();
+
+// query member by id
+Channel.queryMembers().filterCondition("user_id", "tommaso").request();
+
+// query multiple members by id
+Channel.queryMembers()
+    .filterCondition(
+        "user_id", Collections.singletonMap("$in", Arrays.asList("tommaso", "thierry")))
+    .request();
+
+// query channel moderators
+Channel.queryMembers().filterCondition("is_moderator", true).request();
+
+// query for banned members in channel
+Channel.queryMembers().filterCondition("banned", true).request();
+
+// query members with pending invites
+Channel.queryMembers().filterCondition("invite", "pending").request();
+
+// query members who joined the channel directly or accepted an invite
+Channel.queryMembers().filterCondition("joined", true).request();
+
+// query members who have rejected invite or have pending invite
+Channel.queryMembers().filterCondition("joined", false).request();
+
+// query all the members
+Channel.queryMembers().request();
+
+// order results by member created at descending
+Channel.queryMembers()
+    .sort(Sort.builder().field("created_at").direction(Direction.DESC).build())
+    .request();
+
+// query for user.email (currently the only supported custom field)
+Channel.queryMembers().filterCondition("user.email", "awesome@getstream.io").request();
+```
+
+**Export channels**
+
+```java
+String taskId =
+    Channel.export()
+        .channel(
+            ChannelExportRequestObject.builder()
+                .type("livestream")
+                .id("white_room")
+                .messagesSince(
+                    new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+                        .parse("2020-11-10T09:30:00.000Z"))
+                .messagesSince(
+                    new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+                        .parse("2020-11-10T11:30:00.000Z"))
+                .build())
+        .request()
+        .getTaskId();
+```
+
+**Export channels status**
+
+```java
+ChannelExportStatusResponse response = Channel.exportStatus(taskId).request();
+System.out.println(response.getStatus()); // the status for this task 
+System.out.println(response.getResult()); // the result object, only present if the task is completed 
+System.out.println(response.getResult().getUrl()); // the link to the JSON export 
+System.out.println(response.getError()); // if not null the description of the task error
+```
+
 **Create channel type**
 
 ```java
@@ -385,14 +827,14 @@ ChannelType.create()
         PermissionRequestObject.builder()
             .name("Allow reads for all")
             .priority(999)
-            .resources(Arrays.asList("ReadChannel", "CreateMessage"))
+            .resources(Arrays.asList(Resource.READ_CHANNEL, Resource.CREATE_MESSAGE))
             .action(Action.ALLOW)
             .build())
     .permission(
         PermissionRequestObject.builder()
             .name("Deny all")
             .priority(1)
-            .resources(Arrays.asList("*"))
+            .resources(Arrays.asList(Resource.ALL))
             .action(Action.DENY)
             .build())
     .mutes(false)
@@ -414,13 +856,15 @@ ChannelType.get("public").request();
 
 **Update channel type**
 
+Update a few elements in channel type
+
 ```java
 ChannelType.update("public")
     .permission(
         PermissionRequestObject.builder()
             .name("Allow reads for all")
             .priority(999)
-            .resources(Arrays.asList("ReadChannel", "CreateMessage"))
+            .resources(Arrays.asList(Resource.READ_CHANNEL, Resource.CREATE_MESSAGE))
             .roles(Arrays.asList("*"))
             .action(Action.ALLOW)
             .build())
@@ -428,7 +872,7 @@ ChannelType.update("public")
         PermissionRequestObject.builder()
             .name("Deny all")
             .priority(1)
-            .resources(Arrays.asList("*"))
+            .resources(Arrays.asList(Resource.ALL))
             .roles(Arrays.asList("*"))
             .action(Action.DENY)
             .build())
@@ -436,6 +880,8 @@ ChannelType.update("public")
     .commands(Arrays.asList("all"))
     .request();
 ```
+
+Update channel type features
 
 ```java
 ChannelType.update("public")
@@ -449,6 +895,8 @@ ChannelType.update("public")
     .request();
 ```
 
+Update channel type settings
+
 ```java
 ChannelType.update("public")
     .automod(AutoMod.DISABLED)
@@ -458,34 +906,83 @@ ChannelType.update("public")
     .request();
 ```
 
+Grant the UseFrozenChannel permission
+
+```java
+TODO after PermissionRequestObject helper from permission
+
+const useFrozenChannel = new Permission("Admin users can use frozen channels", 600, ["UseFrozenChannel"], ["admin"], false, Allow);  
+const { permissions } = await client.getChannelType("messaging"); 
+permissions.push(useFrozenChannel); 
+await client.updateChannelType("messaging", { permissions }); 
+
+```
+
+Set permissions
+
+```java
+ChannelType.update("messaging")
+    .permission(
+        PermissionRequestObject.builder()
+            .name("Admin users can perform any action")
+            .priority(600)
+            .resources(Arrays.asList(Resource.ALL))
+            .roles(Arrays.asList("admin"))
+            .owner(false)
+            .action(Action.ALLOW)
+            .build())
+    .permission(
+        PermissionRequestObject.builder()
+            .name("Anonymous users are not allowed")
+            .priority(500)
+            .resources(Arrays.asList(Resource.ALL))
+            .roles(Arrays.asList("anonymous"))
+            .owner(false)
+            .action(Action.DENY)
+            .build())
+    .permission(
+        PermissionRequestObject.builder()
+            .name("Users can modify their own messages")
+            .priority(400)
+            .resources(Arrays.asList(Resource.UPDATE_MESSAGE))
+            .roles(Arrays.asList("user"))
+            .owner(true)
+            .action(Action.ALLOW)
+            .build())
+    .permission(
+        PermissionRequestObject.builder()
+            .name("Users can create channels")
+            .priority(300)
+            .resources(Arrays.asList(Resource.CREATE_CHANNEL))
+            .roles(Arrays.asList("user"))
+            .owner(false)
+            .action(Action.ALLOW)
+            .build())
+    .permission(
+        PermissionRequestObject.builder()
+            .name("Members of a channel can read and send messages")
+            .priority(200)
+            .resources(Arrays.asList(Resource.READ_CHANNEL, Resource.CREATE_MESSAGE))
+            .roles(Arrays.asList("channel_member"))
+            .owner(false)
+            .action(Action.ALLOW)
+            .build())
+    .permission(
+        PermissionRequestObject.builder()
+            .name("Anything not matching the previous list should not be allowed")
+            .priority(100)
+            .resources(Arrays.asList(Resource.ALL))
+            .roles(Arrays.asList("*"))
+            .owner(false)
+            .action(Action.DENY)
+            .build())
+    .request();
+```
+
 **Delete channel type**
 
 ```java
 ChannelType.delete("public").request();
-```
-
-**Delete channel**
-
-```java
-
-```
-
-**Export channels**
-
-```java
-
-```
-
-**Export channels status**
-
-```java
-
-```
-
-**Hide channel**
-
-```java
-
 ```
 
 **Mark all read**
@@ -495,48 +992,6 @@ ChannelType.delete("public").request();
 ```
 
 **Mark read**
-
-```java
-
-```
-
-**Mute channel**
-
-```java
-
-```
-
-**Partially update channel**
-
-```java
-
-```
-
-**Query members**
-
-```java
-
-```
-
-**Show channel**
-
-```java
-
-```
-
-**Truncate channel**
-
-```java
-
-```
-
-**Unmute channel**
-
-```java
-
-```
-
-**Update channel**
 
 ```java
 
