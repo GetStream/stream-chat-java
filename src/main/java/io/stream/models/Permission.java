@@ -96,7 +96,9 @@ public class Permission {
     @JsonProperty("SendCustomEvent")
     SEND_CUSTOM_EVENT,
     @JsonProperty("SkipMessageModeration")
-    SKIP_MESSAGE_MODERATION
+    SKIP_MESSAGE_MODERATION,
+    @JsonProperty("*")
+    ALL
   }
 
   @Builder(
