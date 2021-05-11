@@ -790,7 +790,7 @@ public class Channel {
 
     @Nullable
     @JsonProperty("expiration")
-    private Integer expiration;
+    private Long expiration;
 
     @Nullable
     @JsonProperty("user_id")
