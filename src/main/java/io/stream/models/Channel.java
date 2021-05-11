@@ -690,7 +690,7 @@ public class Channel {
   public static class ChannelHideRequestData {
     @Nullable
     @JsonProperty("clear_history")
-    private String clearHistory;
+    private Boolean clearHistory;
 
     @Nullable
     @JsonProperty("user_id")
