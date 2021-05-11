@@ -82,6 +82,8 @@ StreamServiceGenerator.logLevel = HttpLoggingInterceptor.Level.BODY;
 #### Make the xxxRequest extend StreamRequest<xxxResponse>
 You need to implement the `generateCall` method, calling the service using the `StreamServiceGenerator`
 
+#### Update README.md (features and examples)
+
 ### Add a new endpoint without request body schema or json query parameter
 #### Create the Model and Service
 - If they already exist, skip this section
@@ -110,6 +112,8 @@ You need to implement the `generateCall` method, calling the service using the `
 
 #### Make the xxxRequest extend StreamRequest<xxxResponse>
 You need to implement the `generateCall` method, calling the service using the `StreamServiceGenerator`
+
+#### Update README.md (features and examples)
 
 ### Add new fields to requests or responses
 If you want to add new fields, just add the corresponding attributes in the Request, RequestData or Response class. That's all :)
