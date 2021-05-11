@@ -36,7 +36,7 @@ public class ChannelTest extends BasicTest {
   @DisplayName("Can add a moderator to a channel (update)")
   @Test
   void whenAddingModerator_thenHasModerator() {
-    // We should not use testChannel to not mute it
+    // We should not use testChannel to not modify it
     ChannelGetResponse channelGetResponse =
         Assertions.assertDoesNotThrow(() -> createRandomChannel());
     Assertions.assertEquals(0, countModerators(channelGetResponse.getMembers()));
