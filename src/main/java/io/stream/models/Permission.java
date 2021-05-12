@@ -110,11 +110,11 @@ public class Permission {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class PermissionCreateRequestData {
-    @NotNull
+    @Nullable
     @JsonProperty("name")
     private String name;
 
-    @NotNull
+    @Nullable
     @JsonProperty("resource")
     private Resource resource;
 

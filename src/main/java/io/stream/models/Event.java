@@ -250,7 +250,7 @@ public class Event {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class EventSendRequestData {
-    @NotNull
+    @Nullable
     @JsonProperty("event")
     private EventRequestObject event;
 
@@ -277,11 +277,11 @@ public class Event {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class EventSendUserCustomRequestData {
-    @NotNull
+    @Nullable
     @JsonProperty("event")
     private EventUserCustomRequestObject event;
 
-    @NotNull
+    @Nullable
     @JsonProperty("target_user_id")
     private String targetUserId;
 

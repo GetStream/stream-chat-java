@@ -536,7 +536,7 @@ public class User {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class UserUpsertRequestData {
-    @NotNull
+    @Nullable
     @JsonProperty("users")
     private Map<String, UserRequestObject> users;
 
@@ -567,7 +567,7 @@ public class User {
   public static class UserListRequestData {
     // Singular is required because cannot be empty
     @Singular
-    @NotNull
+    @Nullable
     @JsonProperty("filter_conditions")
     private Map<String, Object> filterConditions;
 
@@ -614,7 +614,7 @@ public class User {
       buildMethodName = "internalBuild")
   public static class UserPartialUpdateRequestData {
     @Singular
-    @NotNull
+    @Nullable
     @JsonProperty("users")
     private List<UserPartialUpdateRequestObject> users;
 
@@ -689,7 +689,7 @@ public class User {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class UserBanRequestData {
-    @NotNull
+    @Nullable
     @JsonProperty("target_user_id")
     private String targetUserId;
 
@@ -746,7 +746,7 @@ public class User {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class UserDeactivateRequestData {
-    @NotNull
+    @Nullable
     @JsonProperty("user_id")
     private String userId;
 
@@ -813,7 +813,7 @@ public class User {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class UserReactivateRequestData {
-    @NotNull
+    @Nullable
     @JsonProperty("user_id")
     private String userId;
 

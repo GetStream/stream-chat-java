@@ -398,31 +398,31 @@ public class Channel {
   public static class ChannelUpdateRequestData {
     // Singular is required because cannot be empty
     @Singular
-    @NotNull
+    @Nullable
     @JsonProperty("add_members")
     private List<String> addMembers;
 
     // Singular is required because cannot be empty
     @Singular
-    @NotNull
+    @Nullable
     @JsonProperty("remove_members")
     private List<String> removeMembers;
 
     // Singular is required because cannot be empty
     @Singular
-    @NotNull
+    @Nullable
     @JsonProperty("add_moderators")
     private List<String> addModerators;
 
     // Singular is required because cannot be empty
     @Singular
-    @NotNull
+    @Nullable
     @JsonProperty("demote_moderators")
     private List<String> demoteModerators;
 
     // Singular is required because cannot be empty
     @Singular
-    @NotNull
+    @Nullable
     @JsonProperty("invites")
     private List<String> invites;
 
@@ -571,7 +571,6 @@ public class Channel {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class ChannelQueryMembersRequestData {
-
     @Nullable
     @JsonProperty("type")
     private String type;
@@ -659,7 +658,7 @@ public class Channel {
       buildMethodName = "internalBuild")
   public static class ChannelExportRequestData {
     @Singular
-    @NotNull
+    @Nullable
     @JsonProperty("channels")
     private List<ChannelExportRequestObject> channels;
 
@@ -889,12 +888,12 @@ public class Channel {
     private UserRequestObject user;
 
     @Singular
-    @NotNull
+    @Nullable
     @JsonProperty("set")
     private Map<String, Object> setValues;
 
     @Singular
-    @NotNull
+    @Nullable
     @JsonProperty("unset")
     private List<String> unsetValues;
 

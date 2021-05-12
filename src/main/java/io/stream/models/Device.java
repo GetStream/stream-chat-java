@@ -84,11 +84,11 @@ public class Device {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class DeviceCreateRequestData {
-    @NotNull
+    @Nullable
     @JsonProperty("push_provider")
     private PushProvider pushProvider;
 
-    @NotNull
+    @Nullable
     @JsonProperty("id")
     private String id;
 

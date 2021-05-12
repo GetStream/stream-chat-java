@@ -51,11 +51,11 @@ public class Command {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class CommandCreateRequestData {
-    @NotNull
+    @Nullable
     @JsonProperty("name")
     private String name;
 
-    @NotNull
+    @Nullable
     @JsonProperty("description")
     private String description;
 
@@ -91,7 +91,7 @@ public class Command {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class CommandUpdateRequestData {
-    @NotNull
+    @Nullable
     @JsonProperty("description")
     private String description;
 

@@ -791,7 +791,7 @@ public class Message {
     private String query;
 
     @Singular
-    @NotNull
+    @Nullable
     @JsonProperty("filter_conditions")
     private Map<String, Object> filterConditions;
 
@@ -1096,7 +1096,7 @@ public class Message {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class MessageTranslateRequestData {
-    @NotNull
+    @Nullable
     @JsonProperty("language")
     private Language language;
 

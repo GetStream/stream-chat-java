@@ -103,7 +103,7 @@ public class Reaction {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class ReactionSendRequestData {
-    @NotNull
+    @Nullable
     @JsonProperty("reaction")
     private ReactionRequestObject reaction;
 

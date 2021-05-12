@@ -13,6 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 public class Role {
@@ -22,7 +23,7 @@ public class Role {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class RoleCreateRequestData {
-    @NotNull
+    @Nullable
     @JsonProperty("name")
     private String name;
 
