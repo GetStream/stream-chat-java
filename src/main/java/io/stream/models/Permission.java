@@ -97,6 +97,10 @@ public class Permission {
     SEND_CUSTOM_EVENT,
     @JsonProperty("SkipMessageModeration")
     SKIP_MESSAGE_MODERATION,
+    @JsonProperty("UseCommands")
+    USE_COMMANDS,
+    @JsonProperty("EditUser")
+    EDIT_USER,
     @JsonProperty("*")
     ALL
   }
