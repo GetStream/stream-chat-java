@@ -332,6 +332,26 @@ User.partialUpdate()
 
 **Update App Settings**
 
+Standard
+
+```java
+// disable auth checks, allows dev token usage
+App.update().disableAuthChecks(true).request();
+// re-enable auth checks
+App.update().disableAuthChecks(false).request();
+// Disallow guests from using queryUsers
+App.update().userSearchDisallowedRoles(Arrays.asList("guest")).request();
+```
+
+Disable permissions checks
+
+```java
+// disable permission checks
+App.update().disablePermissionsChecks(true).request();
+// re-enable permission checks
+App.update().disablePermissionsChecks(false).request();
+```
+
 Enforce unique usernames in app
 
 ```java
@@ -348,6 +368,78 @@ Enable teams
 
 ```java
 App.update().multiTenantEnabled(true).request();
+```
+
+Enable image moderation
+
+```java
+App.update().imageModerationEnabled(true).request();
+```
+
+Configure webhooks
+
+```java
+// update webhook URLs
+App.update()
+    .webhookURL("https://example.com/webhooks/stream/push") // sets Push webhook address
+    .beforeMessageSendHookUrl(
+        "https://example.com/webhooks/stream/before-message-send") // sets Before Message Send
+                                                                   // webhook address
+    .customActionHandlerUrl(
+        "https://example.com/webhooks/stream/custom-commands?type={type}") // sets Custom
+                                                                           // Commands webhook
+                                                                           // address
+    .request();
+```
+
+Configure APN
+
+```java
+    App.update()
+        .aPNConfig(
+            APNConfigRequestObject.builder()
+                .authKey(Files.readAllBytes(Paths.get("./auth-key.p8")))
+                .authType(AuthenticationType.TOKEN)
+                .keyId("key_id")
+                .bundleId("com.apple.test")
+                .teamId("team_id")
+                .notificationTemplate(
+                    "{\"aps\" :{\"alert\":{\"title\":\"{{ sender.name }}\",\"subtitle\":\"New direct message from {{ sender.name }}\",\"body\":\"{{ message.text }}\"},\"badge\":\"{{ unread_count }}\",\"category\":\"NEW_MESSAGE\"}}")
+                .build())
+        .request();
+```
+
+Configure APN for development
+
+```java
+App.update()
+    .aPNConfig(
+        APNConfigRequestObject.builder()
+            .authKey(Files.readAllBytes(Paths.get("./auth-key.p8")))
+            .authType(AuthenticationType.TOKEN)
+            .development(true)
+            .keyId("key_id")
+            .bundleId("com.apple.test")
+            .teamId("team_id")
+            .notificationTemplate(
+                "{\"aps\" :{\"alert\":{\"title\":\"{{ sender.name }}\",\"subtitle\":\"New direct message from {{ sender.name }}\",\"body\":\"{{ message.text }}\"},\"badge\":\"{{ unread_count }}\",\"category\":\"NEW_MESSAGE\"}}")
+            .build())
+    .request();
+```
+
+Configure Firebase
+
+```java
+App.update()
+    .firebaseConfig(
+        FirebaseConfigRequestObject.builder()
+            .serverKey("server_key")
+            .notificationTemplate(
+                "{\"message\":{\"notification\":{\"title\":\"New messages\",\"body\":\"You have {{ unread_count }} new message(s) from {{ sender.name }}\"},\"android\":{\"ttl\":\"86400s\",\"notification\":{\"click_action\":\"OPEN_ACTIVITY_1\"}}}}")
+            .dataTemplate(
+                "{\"sender\":\"{{ sender.id }}\",\"channel\":{\"type\": \"{{ channel.type }}\",\"id\":\"{{ channel.id }}\"},\"message\":\"{{ message.id }}\"}")
+            .build())
+    .request();
 ```
 
 **Query users**
@@ -820,6 +912,8 @@ System.out.println(response.getError()); // if not null the description of the t
 
 **Create channel type**
 
+Standard
+
 ```java
 ChannelType.create()
     .name("public")
@@ -840,6 +934,12 @@ ChannelType.create()
     .mutes(false)
     .reactions(false)
     .request();
+```
+
+With command
+
+```java
+ChannelType.create().name("support-channel-type").commands(Arrays.asList("ticket")).request();
 ```
 
 **List channel types**
@@ -985,6 +1085,517 @@ ChannelType.update("messaging")
 ChannelType.delete("public").request();
 ```
 
+**Send new message**
+
+Simple example
+
+```java
+Message.send(type, id)
+    .message(
+        MessageRequestObject.builder()
+            .text(
+                "@Josh I told them I was pesca-pescatarian. Which is one who eats solely fish who eat other fish.")
+            .userId(userId)
+            .build())
+    .request();
+```
+
+Complex example
+
+```java
+Message.send(type, id)
+    .message(
+        MessageRequestObject.builder()
+            .text(
+                "@Josh I told them I was pesca-pescatarian. Which is one who eats solely fish who eat other fish.")
+            .attachment(
+                AttachmentRequestObject.builder()
+                    .type("image")
+                    .assetURL("https://bit.ly/2K74TaG")
+                    .thumbURL("https://bit.ly/2Uumxti")
+                    .additionalField("myCustomField", 123)
+                    .build())
+            .mentionedUsers(Arrays.asList(josh.getId()))
+            .additionalField("anotherCustomField", 234)
+            .userId(userId)
+            .build())
+    .skipPush(true)
+    .request();
+```
+
+With url enrichment
+
+```java
+Message.send(type, id)
+    .message(
+        MessageRequestObject.builder()
+            .text(
+                "Check this bear out https://imgur.com/r/bears/4zmGbMN")
+            .userId(userId)
+            .build())
+    .request();
+```
+
+Create a thread
+
+```java
+Message.send(type, id)
+    .message(
+        MessageRequestObject.builder()
+            .text("Hey, I am replying to a message!")
+            .parentId(parentId)
+            .showInChannel(false)
+            .userId(userId)
+            .build())
+    .request();
+```
+
+Quote a message
+
+```java
+// Create the initial message
+String initialMessageId =
+    Message.send(type, id)
+        .message(
+            MessageRequestObject.builder().text("The initial message").userId(userId).build())
+        .request()
+        .getMessage()
+        .getId();
+
+// Quote the initial message
+Message.send(type, id)
+    .message(
+        MessageRequestObject.builder()
+            .text("This is the first message that quotes another message")
+            .quotedMessageId(initialMessageId)
+            .userId(userId)
+            .build())
+    .request();
+```
+
+Silent message
+
+```java
+Message.send(type, id)
+    .message(
+        MessageRequestObject.builder()
+            .text("You completed your trip")
+            .userId(systemUserId)
+            .silent(true)
+            .attachment(
+                AttachmentRequestObject.builder()
+                    .type("trip")
+                    .additionalField("tripData", tripData)
+                    .build())
+            .build())
+    .request();
+```
+
+**Get message**
+
+```java
+Message.get(messageId).request();
+```
+
+**Update message**
+
+Standard
+
+```java
+// TODO after creating request object helper
+```
+
+Pin message
+
+```java
+// TODO after creating request object helper
+```
+
+Unpin message
+
+```java
+// TODO after creating request object helper
+```
+
+**Delete message**
+
+```java
+Message.delete(messageId).request();
+
+// hard delete the message (works only server-side) 
+Message.delete(messageId).hard(true).request();
+```
+
+**Upload file or image**
+
+```java
+String pdfFileUrl =
+    Message.uploadFile("messaging", "general", userId, "application/pdf")
+        .file(new File("./helloworld.pdf"))
+        .request()
+        .getFile();
+String pngFileUrl =
+    Message.uploadImage("messaging", "general", userId, "image/png")
+        .file(new File("./helloworld.png"))
+        .request()
+        .getFile();
+Message.send("messaging", "general")
+    .message(
+        MessageRequestObject.builder()
+            .text("Check out what I have uploaded in parallel")
+            .attachment(
+                AttachmentRequestObject.builder()
+                    .type("image")
+                    .assetURL(pngFileUrl)
+                    .thumbURL(pngFileUrl)
+                    .build())
+            .attachment(
+                AttachmentRequestObject.builder().type("url").assetURL(pdfFileUrl).build())
+            .userId(userId)
+            .build())
+    .request();
+```
+
+**Send reaction**
+
+Standard
+
+```java
+// Add reaction 'love' with custom field
+Reaction.send(messageId)
+    .enforceUnique(false)
+    .reaction(
+        ReactionRequestObject.builder()
+            .type("love")
+            .additionalField("myCustomField", 123)
+            .userId(userId)
+            .build())
+    .request();
+
+// Add reaction 'like' and replace all other reactions of this user by it
+Reaction.send(messageId)
+    .enforceUnique(true)
+    .reaction(ReactionRequestObject.builder().type("like").userId(userId).build())
+    .request();
+```
+
+Clap reaction
+
+```java
+// user claps 5 times on a message
+Reaction.send(messageId)
+    .enforceUnique(false)
+    .reaction(ReactionRequestObject.builder().type("clap").score(5).userId(userId).build())
+    .request();
+// same user claps 20 times more
+Reaction.send(messageId)
+    .enforceUnique(false)
+    .reaction(ReactionRequestObject.builder().type("clap").score(25).userId(userId).build())
+    .request();
+```
+
+**Delete reaction**
+
+```java
+Reaction.delete(messageId, "love").request();
+```
+
+**Get reactions**
+
+```java
+//TODO when know about pagination
+
+// get the first 10 reactions 
+const response = await channel.getReactions(messageID, { limit: 10 }); 
+ 
+// get 3 reactions past the first 10 
+const response = await channel.getReactions(messageID, { limit: 3, offset: 10 }); 
+
+```
+
+**Get replies**
+
+```java
+// TODO after solving pagination question
+// retrieve the first 20 messages inside the thread 
+await channel.getReplies(parentMessageId, {limit: 20}); 
+ 
+// retrieve the 20 more messages before the message with id "42" 
+await channel.getReplies(parentMessageId, {limit: 20, id_lte: "42"}); 
+
+```
+
+**Search messages**
+
+Search by user and text
+
+```java
+Message.search()
+    .filterCondition("members", Collections.singletonMap("$in", Arrays.asList("john")))
+    .messageFilterCondition(
+        "text", Collections.singletonMap("$autocomplete", "supercalifragilisticexpialidocious"))
+    .limit(2)
+    .offset(0)
+    .request();
+```
+
+Search messages with attachment
+
+```java
+// Search by Attachment
+Message.search()
+    .messageFilterCondition("attachments", Collections.singletonMap("$exists", true))
+    .request();
+```
+
+**Flag message**
+
+```java
+Message.flag(messageId).userId(userId).request();
+```
+
+**Mute user**
+
+```java
+// mute
+User.mute().targetId(targetUserId).userId(userId).request();
+
+// mute for 60 minutes
+User.mute().targetId(targetUserId).timeout(60).userId(userId).request();
+```
+
+**Ban/unban user**
+
+Standard
+
+```java
+// ban a user for 60 minutes from all channel
+User.ban()
+    .targetUserId("eviluser")
+    .timeout(60)
+    .reason("Banned for one hour")
+    .bannedById(userId)
+    .request();
+// ban a user and their IP address for 24 hours
+User.ban()
+    .targetUserId("eviluser")
+    .timeout(24 * 60)
+    .ipBan(true)
+    .reason("Please come back tomorrow")
+    .bannedById(userId)
+    .request();
+
+// ban a user from the livestream:fortnite channel
+User.ban()
+    .targetUserId("eviluser")
+    .id("livestream:fortnite")
+    .reason("Profanity is not allowed here")
+    .bannedById(userId)
+    .request();
+
+// remove ban from channel
+User.unban("eviluser").type("livestream").id("fortnite").request();
+
+// remove global ban
+User.unban("eviluser").request();
+```
+
+Shadow ban
+
+```java
+// shadow ban a user from all channels
+User.ban().targetUserId("eviluser").shadow(true).bannedById(userId).request();
+
+// shadow ban a user from a channel
+User.ban().targetUserId("eviluser").type(type).id(id).shadow(true).bannedById(userId).request();
+
+// remove shadow ban from channel
+User.unban("eviluser").type(type).id(id).request();
+
+// remove global shadow ban
+User.unban("eviluser").request();
+```
+
+**Query Banned Users**
+
+Standard
+
+```java
+// retrieve the list of banned users
+User.list().filterCondition("banned", true).limit(10).offset(0).request();
+
+// query for banned members from one channel
+User.queryBanned().filterCondition("channel_cid", "livestream:123").request();
+```
+
+With pagination
+
+```java
+// get the bans for channel livestream:123 in descending order
+List<Ban> bans =
+    User.queryBanned()
+        .filterCondition("channel_cid", "livestream:123")
+        .sort(Sort.builder().field("created_at").direction(Direction.DESC).build())
+        .request()
+        .getBans();
+
+// get the next page of bans for the same channel
+List<Ban> nextPageBans =
+    User.queryBanned()
+        .filterCondition("channel_cid", "livestream:123")
+        .createdAtBefore(bans.get(bans.size() - 1).getCreatedAt())
+        .sort(Sort.builder().field("created_at").direction(Direction.DESC).build())
+        .request()
+        .getBans();
+```
+
+**Create block list**
+
+```java
+// add a new block list for this app
+Blocklist.create().name("no-cakes").words(Arrays.asList("fudge", "cream", "sugar")).request();
+
+// use the block list for all channels of type messaging
+ChannelType.update("messaging")
+    .blocklist("no-cakes")
+    .blocklistBehavior(BlocklistBehavior.BLOCK)
+    .request();
+```
+
+**List block lists**
+
+```java
+Blocklist.list().request();
+```
+
+**Get block list**
+
+```java
+Blocklist.get("no-cakes").request();
+```
+
+**Update block list**
+
+```java
+Blocklist.update("no-cakes").words(Arrays.asList("fudge", "cream", "sugar", "vanilla")).request();
+```
+
+**Delete block list**
+
+```java
+Blocklist.delete("no-cakes").request();
+```
+
+**Send event**
+
+```java
+// sends an event to all connected clients on the channel
+Event.send(channelType, channelId)
+    .event(
+        EventRequestObject.builder()
+            .type("friendship_request")
+            .additionalField("text", "Hey there, long time no see!")
+            .userId(userId)
+            .build())
+    .request();
+```
+
+**Send user event**
+
+```java
+Event.sendUserCustom(targetUserId)
+    .event(
+        EventUserCustomRequestObject.builder()
+            .type("friendship_request")
+            .additionalField("text", "Hey there, long time no see!")
+            .build())
+    .request();
+```
+
+**Create command**
+
+```java
+Command.create()
+    .name("ticket")
+    .description("Create a support ticket")
+    .args("[description]")
+    .setValue("support_commands_set")
+    .request();
+```
+
+**List commands**
+
+```java
+Command.list().request();  
+```
+
+**Get command**
+
+```java
+Command.get("ticket").request();
+```
+
+**Update command**
+
+```java
+Command.update("ticket").description("Create customer support tickets").request();
+```
+
+**Delete command**
+
+```java
+Command.delete("ticket").request();
+```
+
+**Check SQS**
+
+```java
+// set your SQS queue details
+App.update()
+    .sqsKey("yourkey")
+    .sqsKey("yoursecret")
+    .sqsUrl("https://sqs.us-east-1.amazonaws.com/123456789012/MyQueue")
+    .request();
+
+// send a test message
+App.checkSqs().request();
+```
+
+**Create device**
+
+```java
+Device.create().id("firebase-token").userId(userId).request();
+```
+
+**Delete device**
+
+```java
+Device.delete("firebase-token", userId).request();
+```
+
+**List devices**
+
+```java
+Device.list(targetUserId).request();
+```
+
+**Check push**
+
+```java
+App.checkPush().messageId(messageId).request();
+```
+
+**Get rate limits**
+
+```java
+// 1. Get Rate limits
+App.getRateLimits().request();
+// 2. Get Rate limits, iOS and Android
+App.getRateLimits().ios(true).android(true).request();
+// 3. Get Rate limits for specific endpoints
+App.getRateLimits().endpoint("QueryChannels").endpoint("SendMessage").request();
+```
+
 **Mark all read**
 
 ```java
@@ -992,66 +1603,6 @@ ChannelType.delete("public").request();
 ```
 
 **Mark read**
-
-```java
-
-```
-
-**Create command**
-
-```java
-
-```
-
-**Delete command**
-
-```java
-
-```
-
-**Get command**
-
-```java
-
-```
-
-**List commands**
-
-```java
-
-```
-
-**Update command**
-
-```java
-
-```
-
-**Create device**
-
-```java
-
-```
-
-**Delete device**
-
-```java
-
-```
-
-**List devices**
-
-```java
-
-```
-
-**Send event**
-
-```java
-
-```
-
-**Send user event**
 
 ```java
 
@@ -1069,36 +1620,6 @@ ChannelType.delete("public").request();
 
 ```
 
-**Upload file**
-
-```java
-
-```
-
-**Upload image**
-
-```java
-
-```
-
-**Delete message**
-
-```java
-
-```
-
-**Delete reaction**
-
-```java
-
-```
-
-**Flag message**
-
-```java
-
-```
-
 **Flag user**
 
 ```java
@@ -1111,43 +1632,7 @@ ChannelType.delete("public").request();
 
 ```
 
-**Get message**
-
-```java
-
-```
-
-**Get reactions**
-
-```java
-
-```
-
-**Get replies**
-
-```java
-
-```
-
 **Run message command action**
-
-```java
-
-```
-
-**Search messages**
-
-```java
-
-```
-
-**Send new message**
-
-```java
-
-```
-
-**Send reaction**
 
 ```java
 
@@ -1166,12 +1651,6 @@ ChannelType.delete("public").request();
 ```
 
 **Unflag user**
-
-```java
-
-```
-
-**Update message**
 
 ```java
 
@@ -1225,61 +1704,7 @@ ChannelType.delete("public").request();
 
 ```
 
-**Check push**
-
-```java
-
-```
-
-**Check SQS**
-
-```java
-
-```
-
-**Create block list**
-
-```java
-
-```
-
-**Delete block list**
-
-```java
-
-```
-
 **Get App Settings**
-
-```java
-
-```
-
-**Get block list**
-
-```java
-
-```
-
-**Get rate limits**
-
-```java
-
-```
-
-**List block lists**
-
-```java
-
-```
-
-**Update block list**
-
-```java
-
-```
-
-**Ban user**
 
 ```java
 
@@ -1309,25 +1734,7 @@ ChannelType.delete("public").request();
 
 ```
 
-**Mute user**
-
-```java
-
-```
-
-**Query Banned Users**
-
-```java
-
-```
-
 **Reactivate user**
-
-```java
-
-```
-
-**Unban user**
 
 ```java
 
