@@ -81,4 +81,10 @@ public interface UserService {
   @POST("guest")
   Call<UserCreateGuestResponse> createGuest(
       @NotNull @Body UserCreateGuestRequestData userCreateGuestRequestData);
+
+  @DELETE("moderation/ban")
+  Call<StreamResponseObject> unban(
+      @NotNull @Query("target_user_id") String targetUserId,
+      @Nullable @Query("type") String channelType,
+      @Nullable @Query("id") String channelId);
 }

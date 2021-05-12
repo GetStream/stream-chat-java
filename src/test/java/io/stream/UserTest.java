@@ -1,15 +1,17 @@
 package io.stream;
 
-import io.stream.models.User;
-import io.stream.models.User.UserMute;
-import io.stream.models.User.UserPartialUpdateRequestObject;
-import io.stream.models.User.UserRequestObject;
-import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
 import java.util.Arrays;
+import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import io.stream.models.User;
+import io.stream.models.User.Ban;
+import io.stream.models.User.UserMute;
+import io.stream.models.User.UserPartialUpdateRequestObject;
+import io.stream.models.User.UserRequestObject;
+import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
 
 public class UserTest extends BasicTest {
 
@@ -57,27 +59,30 @@ public class UserTest extends BasicTest {
     Assertions.assertEquals(addedValue, updatedUser.getAdditionalFields().get(addedKey));
   }
 
-  @DisplayName("Can ban user with no Exception")
+  @DisplayName("Can ban user")
   @Test
-  void whenBanUser_thenNoException() {
+  void whenBanUser_thenIsBanned() {
     String userId = RandomStringUtils.randomAlphabetic(10);
     UserUpsertRequest usersUpsertRequest = User.upsert();
     usersUpsertRequest.user(UserRequestObject.builder().id(userId).name("User to ban").build());
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     Assertions.assertDoesNotThrow(
         () -> User.ban().userId(testUserRequestObject.getId()).targetUserId(userId).request());
+    List<Ban> bans = Assertions.assertDoesNotThrow(() -> User.queryBanned().request()).getBans();
+    Assertions.assertTrue(bans.stream().anyMatch(ban -> ban.getUser().getId().equals(userId)));
   }
 
-  @DisplayName("Can list banned user with no Exception")
+  @DisplayName("Can list banned user")
   @Test
-  void whenListingBannedUsers_thenNoException() {
+  void whenListingBannedUsers_thenContainsBanned() {
     String userId = RandomStringUtils.randomAlphabetic(10);
     UserUpsertRequest usersUpsertRequest = User.upsert();
     usersUpsertRequest.user(UserRequestObject.builder().id(userId).name("User to ban").build());
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     Assertions.assertDoesNotThrow(
         () -> User.ban().userId(testUserRequestObject.getId()).targetUserId(userId).request());
-    Assertions.assertDoesNotThrow(() -> User.queryBanned().request());
+    List<Ban> bans = Assertions.assertDoesNotThrow(() -> User.queryBanned().request()).getBans();
+    Assertions.assertTrue(bans.stream().anyMatch(ban -> ban.getUser().getId().equals(userId)));
   }
 
   @DisplayName("Can deactivate user")
@@ -169,5 +174,21 @@ public class UserTest extends BasicTest {
                         .name("Guest user")
                         .build())
                 .request());
+  }
+
+  @DisplayName("Can unban user")
+  @Test
+  void whenUnbanUser_thenIsNotBannedAnymore() {
+    String userId = RandomStringUtils.randomAlphabetic(10);
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.user(UserRequestObject.builder().id(userId).name("User to ban").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+    Assertions.assertDoesNotThrow(
+        () -> User.ban().userId(testUserRequestObject.getId()).targetUserId(userId).request());
+    List<Ban> bans = Assertions.assertDoesNotThrow(() -> User.queryBanned().request()).getBans();
+    Assertions.assertTrue(bans.stream().anyMatch(ban -> ban.getUser().getId().equals(userId)));
+    Assertions.assertDoesNotThrow(() -> User.unban(userId).request());
+    bans = Assertions.assertDoesNotThrow(() -> User.queryBanned().request()).getBans();
+    Assertions.assertFalse(bans.stream().anyMatch(ban -> ban.getUser().getId().equals(userId)));
   }
 }

@@ -1,5 +1,11 @@
 package io.stream.models;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,10 +28,6 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.UserService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,8 +35,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Singular;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -939,6 +939,32 @@ public class User {
     }
   }
 
+  @RequiredArgsConstructor
+  public static class UserUnbanRequest extends StreamRequest<StreamResponseObject> {
+    @NotNull private String targetUserId;
+
+    @Nullable private String type;
+
+    @Nullable private String id;
+
+    @NotNull
+    public UserUnbanRequest type(@NotNull String type) {
+      this.type = type;
+      return this;
+    }
+
+    @NotNull
+    public UserUnbanRequest id(@NotNull String id) {
+      this.id = id;
+      return this;
+    }
+
+    @Override
+    protected Call<StreamResponseObject> generateCall() {
+      return StreamServiceGenerator.createService(UserService.class).unban(targetUserId, type, id);
+    }
+  }
+
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
@@ -1193,5 +1219,16 @@ public class User {
   @NotNull
   public static UserCreateGuestRequest createGuest() {
     return new UserCreateGuestRequest();
+  }
+
+  /**
+   * Creates an unban request
+   *
+   * @param targetUserId the user id to unban
+   * @return the created request
+   */
+  @NotNull
+  public static UserUnbanRequest unban(@NotNull String targetUserId) {
+    return new UserUnbanRequest(targetUserId);
   }
 }
