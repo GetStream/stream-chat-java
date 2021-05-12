@@ -770,7 +770,7 @@ public class Message {
     @Nullable private Boolean hard;
 
     @NotNull
-    MessageDeleteRequest hard(@NotNull Boolean hard) {
+    public MessageDeleteRequest hard(@NotNull Boolean hard) {
       this.hard = hard;
       return this;
     }
