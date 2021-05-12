@@ -565,7 +565,7 @@ public class User {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class UserListRequestData {
-    // Singular is required because cannot be empty
+    // Singular is required because cannot be null
     @Singular
     @Nullable
     @JsonProperty("filter_conditions")
@@ -632,7 +632,7 @@ public class User {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class UserQueryBannedRequestData {
-    // Singular is required because cannot be empty
+    // Singular is required because cannot be null
     @Singular
     @Nullable
     @JsonProperty("filter_conditions")
