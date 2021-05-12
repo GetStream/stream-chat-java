@@ -98,6 +98,7 @@ You need to implement the `generateCall` method, calling the service using the `
 - It should be created in the model, after other RequestData/Request classes
 - Define the parameters as private attributes
 - The class should be annotated with `@RequiredArgsConstructor`
+- The class should have helper style methods for non required args
 
 #### Add the request creation method
 - It should be added at the end of the model
