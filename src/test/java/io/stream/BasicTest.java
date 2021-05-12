@@ -1,6 +1,14 @@
 package io.stream;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import io.stream.exceptions.StreamException;
+import io.stream.models.Blocklist;
 import io.stream.models.Channel;
 import io.stream.models.Channel.ChannelGetResponse;
 import io.stream.models.Channel.ChannelMemberRequestObject;
@@ -14,13 +22,6 @@ import io.stream.models.User.UserRequestObject;
 import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
 import io.stream.services.framework.HttpLoggingInterceptor;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 
 public class BasicTest {
   protected static UserRequestObject testUserRequestObject;
@@ -46,6 +47,7 @@ public class BasicTest {
     enableLogging();
     setProperties();
     cleanChannelTypes();
+    cleanBlocklists();
     cleanCommands();
     upsertUsers();
     createTestChannel();
@@ -63,6 +65,20 @@ public class BasicTest {
                 ChannelType.delete(channelType.getName()).request();
               } catch (StreamException e) {
                 // Do nothing. Happens when there are channels of that type
+              }
+            });
+  }
+  
+  private static void cleanBlocklists() throws StreamException {
+    Blocklist.list()
+        .request()
+        .getBlocklists()
+        .forEach(
+            blocklist -> {
+              try {
+                Blocklist.delete(blocklist.getName()).request();
+              } catch (StreamException e) {
+                // Do nothing this happens for built in
               }
             });
   }
