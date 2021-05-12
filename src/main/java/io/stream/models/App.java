@@ -435,11 +435,11 @@ public class App extends StreamResponseObject {
   public static class AppUpdateRequestData {
     @Nullable
     @JsonProperty("disable_auth_checks")
-    private Boolean disableAuth;
+    private Boolean disableAuthChecks;
 
     @Nullable
     @JsonProperty("disable_permissions_checks")
-    private Boolean disablePermissions;
+    private Boolean disablePermissionsChecks;
 
     @Nullable
     @JsonProperty("apn_config")

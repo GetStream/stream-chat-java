@@ -22,9 +22,9 @@ public class AppTest extends BasicTest {
   @Test
   void whenUpdatingAppSettings_thenNoException() {
     Assertions.assertDoesNotThrow(
-        () -> App.update().disableAuth(true).disablePermissions(true).request());
+        () -> App.update().disableAuthChecks(true).disablePermissionsChecks(true).request());
     Assertions.assertDoesNotThrow(
-        () -> App.update().disableAuth(false).disablePermissions(false).request());
+        () -> App.update().disableAuthChecks(false).disablePermissionsChecks(false).request());
   }
 
   @DisplayName("App Get fails with bad key")
@@ -43,7 +43,7 @@ public class AppTest extends BasicTest {
   @Test
   void givenBadSecret_whenEnableAuthAndGettingApp_thenException()
       throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-    Assertions.assertDoesNotThrow(() -> App.update().disableAuth(false).request());
+    Assertions.assertDoesNotThrow(() -> App.update().disableAuthChecks(false).request());
     Field apiSecretField = StreamServiceGenerator.class.getDeclaredField("apiSecret");
     apiSecretField.setAccessible(true);
     apiSecretField.set(
