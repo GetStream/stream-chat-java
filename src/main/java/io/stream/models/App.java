@@ -549,15 +549,15 @@ public class App extends StreamResponseObject {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class AppCheckSqsRequestData {
-    @NotNull
+    @Nullable
     @JsonProperty("sqs_url")
     private String sqsUrl;
 
-    @NotNull
+    @Nullable
     @JsonProperty("sqs_key")
     private String sqsKey;
 
-    @NotNull
+    @Nullable
     @JsonProperty("sqs_secret")
     private String sqsSecret;
 
