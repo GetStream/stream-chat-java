@@ -68,7 +68,7 @@ public class BasicTest {
               }
             });
   }
-  
+
   private static void cleanBlocklists() throws StreamException {
     Blocklist.list()
         .request()
