@@ -1,9 +1,5 @@
 package io.stream.models;
 
-import java.util.Date;
-import java.util.List;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.models.Blocklist.BlocklistCreateRequestData.BlocklistCreateRequest;
 import io.stream.models.Blocklist.BlocklistUpdateRequestData.BlocklistUpdateRequest;
@@ -11,11 +7,15 @@ import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.BlocklistService;
 import io.stream.services.framework.StreamServiceGenerator;
+import java.util.Date;
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data

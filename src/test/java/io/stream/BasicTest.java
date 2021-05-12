@@ -1,12 +1,5 @@
 package io.stream;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import io.stream.exceptions.StreamException;
 import io.stream.models.Blocklist;
 import io.stream.models.Channel;
@@ -22,6 +15,13 @@ import io.stream.models.User.UserRequestObject;
 import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
 import io.stream.services.framework.HttpLoggingInterceptor;
 import io.stream.services.framework.StreamServiceGenerator;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
 public class BasicTest {
   protected static UserRequestObject testUserRequestObject;
