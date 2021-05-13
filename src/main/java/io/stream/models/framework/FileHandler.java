@@ -1,14 +1,14 @@
 package io.stream.models.framework;
 
+import io.stream.exceptions.StreamException;
+import io.stream.models.Message.ImageSizeRequestObject;
+import io.stream.models.Message.MessageUploadFileResponse;
+import io.stream.models.Message.MessageUploadImageResponse;
 import java.io.File;
 import java.util.List;
 import java.util.function.Consumer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import io.stream.exceptions.StreamException;
-import io.stream.models.Message.ImageSizeRequestObject;
-import io.stream.models.Message.MessageUploadFileResponse;
-import io.stream.models.Message.MessageUploadImageResponse;
 
 public interface FileHandler {
 

@@ -2,10 +2,10 @@ package io.stream;
 
 import io.stream.exceptions.StreamException;
 import io.stream.models.App;
-import io.stream.models.Message;
 import io.stream.models.App.AppCheckPushResponse;
 import io.stream.models.App.AppCheckSqsResponse;
 import io.stream.models.App.AppCheckSqsResponse.Status;
+import io.stream.models.Message;
 import io.stream.models.Message.MessageRequestObject;
 import io.stream.services.framework.StreamServiceGenerator;
 import java.lang.reflect.Field;

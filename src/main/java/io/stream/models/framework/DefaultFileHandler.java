@@ -1,13 +1,5 @@
 package io.stream.models.framework;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.logging.Level;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.stream.exceptions.StreamException;
 import io.stream.models.Message.ImageSizeRequestObject;
@@ -17,10 +9,18 @@ import io.stream.models.User.UserRequestObject;
 import io.stream.services.MessageService;
 import io.stream.services.framework.StreamServiceGenerator;
 import io.stream.services.framework.StreamServiceHandler;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.logging.Level;
 import lombok.extern.java.Log;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Log

@@ -1,10 +1,10 @@
 package io.stream.models.framework;
 
+import io.stream.exceptions.StreamException;
+import io.stream.services.framework.StreamServiceHandler;
 import java.util.function.Consumer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import io.stream.exceptions.StreamException;
-import io.stream.services.framework.StreamServiceHandler;
 import retrofit2.Call;
 
 public abstract class StreamRequest<T extends StreamResponse> {
