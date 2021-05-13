@@ -406,7 +406,7 @@ public class Message {
     @Nullable
     @JsonProperty("id")
     private String id;
-    
+
     @Nullable
     @JsonProperty("text")
     private String text;
