@@ -404,6 +404,10 @@ public class Message {
   @Builder
   public static class MessageRequestObject {
     @Nullable
+    @JsonProperty("id")
+    private String id;
+    
+    @Nullable
     @JsonProperty("text")
     private String text;
 
