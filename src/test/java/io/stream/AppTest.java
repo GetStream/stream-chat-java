@@ -2,8 +2,11 @@ package io.stream;
 
 import io.stream.exceptions.StreamException;
 import io.stream.models.App;
+import io.stream.models.Message;
+import io.stream.models.App.AppCheckPushResponse;
 import io.stream.models.App.AppCheckSqsResponse;
 import io.stream.models.App.AppCheckSqsResponse.Status;
+import io.stream.models.Message.MessageRequestObject;
 import io.stream.services.framework.StreamServiceGenerator;
 import java.lang.reflect.Field;
 import org.junit.jupiter.api.Assertions;
@@ -71,5 +74,60 @@ public class AppTest extends BasicTest {
                     .sqsUrl("https://foo.com/bar")
                     .request());
     Assertions.assertEquals(Status.ERROR, response.getStatus());
+  }
+
+  @DisplayName("Can check push templates")
+  @Test
+  void whenCheckingPushTemplates_thenOk() {
+    String firstUserId = testUserRequestObject.getId();
+    String secondUserId = testUsersRequestObjects.get(1).getId();
+    String text = "Hello @" + secondUserId;
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder().text(text).userId(firstUserId).build();
+    Message message =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .message(messageRequest)
+                        .request())
+            .getMessage();
+    AppCheckPushResponse response =
+        Assertions.assertDoesNotThrow(
+            () ->
+                App.checkPush()
+                    .messageId(message.getId())
+                    .apnTemplate(
+                        "{ \n"
+                            + "    \"aps\" : { \n"
+                            + "        \"alert\" : { \n"
+                            + "            \"title\" : \"{{ sender.id }} @ {{ channel.id }}\", \n"
+                            + "            \"body\" : \"{{ message.text }}\" \n"
+                            + "        }, \n"
+                            + "        \"badge\": {{ unread_count }}, \n"
+                            + "        \"category\" : \"NEW_MESSAGE\" \n"
+                            + "    } \n"
+                            + "}")
+                    .firebaseTemplate(
+                        "{ \n"
+                            + "    \"sender\": \"{{ sender.id }}\", \n"
+                            + "    \"channel\": { \n"
+                            + "        \"type\": \"{{ channel.type }}\", \n"
+                            + "        \"id\": \"{{ channel.id }}\" \n"
+                            + "    }, \n"
+                            + "    \"message\": \"{{ message.id }}\" \n"
+                            + "}")
+                    .firebaseDataTemplate(
+                        "{ \n"
+                            + "    \"title\": \"{{ sender.id }} @ {{ channel.id }}\", \n"
+                            + "    \"body\": \"{{ message.text }}\", \n"
+                            + "    \"click_action\": \"OPEN_ACTIVITY_1\", \n"
+                            + "    \"sound\": \"default\" \n"
+                            + "}")
+                    .skipDevices(true)
+                    .userId(secondUserId)
+                    .request());
+    Assertions.assertEquals("", response.getRenderedApnTemplate());
+    Assertions.assertEquals("", response.getRenderedFirebaseTemplate());
+    Assertions.assertEquals("", response.getRenderedMessage());
   }
 }
