@@ -187,7 +187,7 @@ public class MessageTest extends BasicTest {
                         .request())
             .getFile();
     Assertions.assertDoesNotThrow(
-        () -> Message.deleteFile(testChannel.getType(), testChannel.getId(), url));
+        () -> Message.deleteFile(testChannel.getType(), testChannel.getId(), url).request());
   }
 
   @DisplayName("Can delete image with no exception")
@@ -218,7 +218,7 @@ public class MessageTest extends BasicTest {
                         .request())
             .getFile();
     Assertions.assertDoesNotThrow(
-        () -> Message.deleteImage(testChannel.getType(), testChannel.getId(), url));
+        () -> Message.deleteImage(testChannel.getType(), testChannel.getId(), url).request());
   }
 
   @DisplayName("Can delete a message")
