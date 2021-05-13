@@ -1,10 +1,19 @@
 package io.stream.models;
 
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import io.stream.exceptions.StreamException;
 import io.stream.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.stream.models.Flag.FlagDeleteRequestData.FlagDeleteRequest;
 import io.stream.models.Message.MessageRunCommandActionRequestData.MessageRunCommandActionRequest;
@@ -13,36 +22,25 @@ import io.stream.models.Message.MessageSendRequestData.MessageSendRequest;
 import io.stream.models.Message.MessageTranslateRequestData.MessageTranslateRequest;
 import io.stream.models.Message.MessageUpdateRequestData.MessageUpdateRequest;
 import io.stream.models.User.UserRequestObject;
+import io.stream.models.framework.DefaultFileHandler;
+import io.stream.models.framework.FileHandler;
 import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.MessageService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Singular;
-import lombok.extern.java.Log;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
-@Log
 @Data
 @NoArgsConstructor
 public class Message {
+  public static Class<? extends FileHandler> fileHandlerClass = DefaultFileHandler.class;
+
   @NotNull
   @JsonProperty("id")
   private String id;
@@ -822,7 +820,7 @@ public class Message {
   }
 
   // We do not use @RequiredArgsConstructor here for uniformity with MessageUploadImageRequest
-  public static class MessageUploadFileRequest extends StreamRequest<MessageUploadFileResponse> {
+  public static class MessageUploadFileRequest {
     @NotNull private String channelType;
 
     @NotNull private String channelId;
@@ -850,34 +848,48 @@ public class Message {
       return this;
     }
 
-    @Override
-    protected Call<MessageUploadFileResponse> generateCall() {
+    @NotNull
+    public MessageUploadFileResponse request() throws StreamException {
       try {
-        String resolvedContentType = contentType != null ? contentType : "application/octet-stream";
-        RequestBody fileRequestBody =
-            RequestBody.create(MediaType.parse(resolvedContentType), file);
-        MultipartBody.Part multipartFile =
-            MultipartBody.Part.createFormData("file", file.getName(), fileRequestBody);
-        UserRequestObject user = UserRequestObject.builder().id(userId).build();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        new ObjectMapper().writeValue(baos, user);
-        RequestBody userRequestBody =
-            RequestBody.create(MultipartBody.FORM, baos.toString("UTF-8"));
-        return StreamServiceGenerator.createService(MessageService.class)
-            .uploadFile(channelType, channelId, userRequestBody, multipartFile);
-      } catch (IOException e) {
-        // This should not happen, can only be a development error
-        log.log(
-            Level.SEVERE,
-            "Seems there is a problem with the conversion of user request object to json",
-            e);
-        return null;
+        return fileHandlerClass
+            .getDeclaredConstructor()
+            .newInstance()
+            .uploadFile(channelType, channelId, userId, file, contentType);
+      } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
+        throw StreamException.build(
+            "Your file handler should have a public constructor with no argument");
+      } catch (InvocationTargetException e) {
+        throw StreamException.build(e);
+      }
+    }
+
+    @NotNull
+    public void requestAsync(
+        @Nullable Consumer<MessageUploadFileResponse> onSuccess,
+        @Nullable Consumer<StreamException> onError) {
+      try {
+        try {
+          fileHandlerClass
+              .getDeclaredConstructor()
+              .newInstance()
+              .uploadFileAsync(
+                  channelType, channelId, userId, file, contentType, onSuccess, onError);
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
+          throw StreamException.build(
+              "Your file handler should have a public constructor with no argument");
+        } catch (InvocationTargetException e) {
+          throw StreamException.build(e);
+        }
+      } catch (StreamException e) {
+        if (onError != null) {
+          onError.accept(e);
+        }
       }
     }
   }
 
   @RequiredArgsConstructor
-  public static class MessageUploadImageRequest extends StreamRequest<MessageUploadImageResponse> {
+  public static class MessageUploadImageRequest {
     @Nullable private File file;
 
     @NotNull private String channelType;
@@ -903,63 +915,144 @@ public class Message {
       return this;
     }
 
-    @Override
-    protected Call<MessageUploadImageResponse> generateCall() {
+    @NotNull
+    public MessageUploadImageResponse request() throws StreamException {
       try {
-        RequestBody fileRequestBody = RequestBody.create(MediaType.parse(contentType), file);
-        MultipartBody.Part multipartFile =
-            MultipartBody.Part.createFormData("file", file.getName(), fileRequestBody);
-        UserRequestObject user = UserRequestObject.builder().id(userId).build();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        new ObjectMapper().writeValue(baos, user);
-        RequestBody userRequestBody =
-            RequestBody.create(MultipartBody.FORM, baos.toString("UTF-8"));
-        baos = new ByteArrayOutputStream();
-        new ObjectMapper().writeValue(baos, uploadSizes);
-        RequestBody uploadSizesRequestBody =
-            RequestBody.create(MultipartBody.FORM, baos.toString("UTF-8"));
-        return StreamServiceGenerator.createService(MessageService.class)
-            .uploadImage(
-                channelType, channelId, userRequestBody, multipartFile, uploadSizesRequestBody);
-      } catch (IOException e) {
-        // This should not happen, can only be a development error
-        log.log(
-            Level.SEVERE,
-            "Seems there is a problem with the conversion of user request object or image size"
-                + " request object to json",
-            e);
-        return null;
+        return fileHandlerClass
+            .getDeclaredConstructor()
+            .newInstance()
+            .uploadImage(channelType, channelId, userId, file, contentType, uploadSizes);
+      } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
+        throw StreamException.build(
+            "Your file handler should have a public constructor with no argument");
+      } catch (InvocationTargetException e) {
+        throw StreamException.build(e);
+      }
+    }
+
+    @NotNull
+    public void requestAsync(
+        @Nullable Consumer<MessageUploadImageResponse> onSuccess,
+        @Nullable Consumer<StreamException> onError) {
+      try {
+        try {
+          fileHandlerClass
+              .getDeclaredConstructor()
+              .newInstance()
+              .uploadImageAsync(
+                  channelType,
+                  channelId,
+                  userId,
+                  file,
+                  contentType,
+                  uploadSizes,
+                  onSuccess,
+                  onError);
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
+          throw StreamException.build(
+              "Your file handler should have a public constructor with no argument");
+        } catch (InvocationTargetException e) {
+          throw StreamException.build(e);
+        }
+      } catch (StreamException e) {
+        if (onError != null) {
+          onError.accept(e);
+        }
       }
     }
   }
 
   @RequiredArgsConstructor
-  public static class MessageDeleteFileRequest extends StreamRequest<StreamResponseObject> {
+  public static class MessageDeleteFileRequest {
     @NotNull private String channelType;
 
     @NotNull private String channelId;
 
     @NotNull private String url;
 
-    @Override
-    protected Call<StreamResponseObject> generateCall() {
-      return StreamServiceGenerator.createService(MessageService.class)
-          .deleteFile(channelType, channelId, url);
+    @NotNull
+    public StreamResponseObject request() throws StreamException {
+      try {
+        return fileHandlerClass
+            .getDeclaredConstructor()
+            .newInstance()
+            .deleteFile(channelType, channelId, url);
+      } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
+        throw StreamException.build(
+            "Your file handler should have a public constructor with no argument");
+      } catch (InvocationTargetException e) {
+        throw StreamException.build(e);
+      }
+    }
+
+    @NotNull
+    public void requestAsync(
+        @Nullable Consumer<StreamResponseObject> onSuccess,
+        @Nullable Consumer<StreamException> onError) {
+      try {
+        try {
+          fileHandlerClass
+              .getDeclaredConstructor()
+              .newInstance()
+              .deleteFileAsync(channelType, channelId, url, onSuccess, onError);
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
+          throw StreamException.build(
+              "Your file handler should have a public constructor with no argument");
+        } catch (InvocationTargetException e) {
+          throw StreamException.build(e);
+        }
+      } catch (StreamException e) {
+        if (onError != null) {
+          onError.accept(e);
+        }
+      }
     }
   }
 
   @RequiredArgsConstructor
-  public static class MessageDeleteImageRequest extends StreamRequest<StreamResponseObject> {
+  public static class MessageDeleteImageRequest {
     @NotNull private String channelType;
 
     @NotNull private String channelId;
 
     @NotNull private String url;
 
-    @Override
-    protected Call<StreamResponseObject> generateCall() {
-      return StreamServiceGenerator.createService(MessageService.class)
-          .deleteImage(channelType, channelId, url);
+    @NotNull
+    public StreamResponseObject request() throws StreamException {
+      try {
+        return fileHandlerClass
+            .getDeclaredConstructor()
+            .newInstance()
+            .deleteImage(channelType, channelId, url);
+      } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
+        throw StreamException.build(
+            "Your file handler should have a public constructor with no argument");
+      } catch (InvocationTargetException e) {
+        throw StreamException.build(e);
+      }
+    }
+
+    @NotNull
+    public void requestAsync(
+        @Nullable Consumer<StreamResponseObject> onSuccess,
+        @Nullable Consumer<StreamException> onError) {
+      try {
+        try {
+          fileHandlerClass
+              .getDeclaredConstructor()
+              .newInstance()
+              .deleteImageAsync(channelType, channelId, url, onSuccess, onError);
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
+          throw StreamException.build(
+              "Your file handler should have a public constructor with no argument");
+        } catch (InvocationTargetException e) {
+          throw StreamException.build(e);
+        }
+      } catch (StreamException e) {
+        if (onError != null) {
+          onError.accept(e);
+        }
+      }
     }
   }
 

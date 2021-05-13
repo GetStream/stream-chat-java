@@ -30,13 +30,13 @@ public class StreamException extends Exception {
   }
 
   /**
-   * Builds a StreamException to signal a configuration problem
+   * Builds a StreamException to signal an issue
    *
-   * @param configurationErrorMessage the configuration problem description
+   * @param issue the issue
    * @return the StreamException
    */
-  public static StreamException build(String configurationErrorMessage) {
-    return new StreamException(configurationErrorMessage, (Throwable) null);
+  public static StreamException build(String issue) {
+    return new StreamException(issue, (Throwable) null);
   }
 
   /**

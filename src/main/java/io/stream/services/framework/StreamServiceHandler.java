@@ -32,15 +32,19 @@ public class StreamServiceHandler {
           @Override
           public void onResponse(Call<T> call, Response<T> response) {
             if (response.isSuccessful()) {
-              onSuccess.accept(enrichResponse(response));
-            } else {
+              if (onSuccess != null) {
+                onSuccess.accept(enrichResponse(response));
+              }
+            } else if (onError != null) {
               onError.accept(StreamException.build(response.errorBody()));
             }
           }
 
           @Override
           public void onFailure(Call<T> call, Throwable throwable) {
-            onError.accept(StreamException.build(throwable));
+            if (onError != null) {
+              onError.accept(StreamException.build(throwable));
+            }
           }
         });
   }
