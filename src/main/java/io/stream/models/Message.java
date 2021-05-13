@@ -998,6 +998,10 @@ public class Message {
 
     @Nullable private Date createdAtBefore;
 
+    @Nullable private Integer limit;
+
+    @Nullable private Integer offset;
+
     @NotNull
     public MessageGetRepliesRequest idGte(@Nullable String idGte) {
       this.idGte = idGte;
@@ -1043,6 +1047,18 @@ public class Message {
     @NotNull
     public MessageGetRepliesRequest createdAtBefore(@Nullable Date createdAtBefore) {
       this.createdAtBefore = createdAtBefore;
+      return this;
+    }
+
+    @NotNull
+    public MessageGetRepliesRequest limit(@NotNull Integer limit) {
+      this.limit = limit;
+      return this;
+    }
+
+    @NotNull
+    public MessageGetRepliesRequest offset(@NotNull Integer offset) {
+      this.offset = offset;
       return this;
     }
 

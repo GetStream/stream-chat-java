@@ -154,6 +154,22 @@ public class Reaction {
   public static class ReactionListRequest extends StreamRequest<ReactionListResponse> {
     @NotNull private String messageId;
 
+    @Nullable private Integer limit;
+
+    @Nullable private Integer offset;
+
+    @NotNull
+    public ReactionListRequest limit(@NotNull Integer limit) {
+      this.limit = limit;
+      return this;
+    }
+
+    @NotNull
+    public ReactionListRequest offset(@NotNull Integer offset) {
+      this.offset = offset;
+      return this;
+    }
+
     @Override
     protected Call<ReactionListResponse> generateCall() {
       return StreamServiceGenerator.createService(ReactionService.class).list(messageId);
