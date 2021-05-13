@@ -13,9 +13,7 @@ import io.stream.models.Message.SearchResult;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -308,13 +306,11 @@ public class MessageTest extends BasicTest {
                         .request())
             .getMessage();
     Assertions.assertEquals(MessageType.EPHEMERAL, message.getType());
-    Map<String, String> args = new HashMap<>();
-    args.put("image_action", "send");
     Message afterActionMessage =
         Assertions.assertDoesNotThrow(
                 () ->
                     Message.runCommandAction(message.getId())
-                        .formData(args)
+                        .formData(Collections.singletonMap("image_action", "send"))
                         .user(testUserRequestObject)
                         .request())
             .getMessage();
