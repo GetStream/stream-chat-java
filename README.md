@@ -42,6 +42,11 @@ You can do so either by:
 - setting STREAM_KEY and STREAM_SECRET System properties
 - setting STREAM_KEY and STREAM_SECRET environment variables  
 You can also customize the base url and the timeout, with the STREAM_CHAT_URL and STREAM_CHAT_TIMEOUT System properties or environment variables.
+You can use your own CDN by creating an implementation of FileHandler and setting it this way
+
+```java
+Message.fileHandlerClass = MyFileHandler.class
+```
 
 ### Usage principles
 To perform a request on the Stream Chat API, you need to:
@@ -445,19 +450,16 @@ App.update()
 **Query users**
 
 ```java
-User.list()
-    .filterCondition(
-        "id", Collections.singletonMap("$in", Arrays.asList("john", "jack", "jessie")))
-    .request();
+User.list().filterCondition("id", FilterCondition.in("john", "jack", "jessie")).request();
 ```
 
 ```java
-UserListResponse response = User.list()
-    .filterCondition(
-        "id", Collections.singletonMap("$in", Arrays.asList("jessica")))
-    .filterCondition("last_active", -1)
-    .filterCondition("presence", true)
-    .request();
+UserListResponse response =
+    User.list()
+        .filterCondition("id", FilterCondition.in("jessica"))
+        .filterCondition("last_active", -1)
+        .filterCondition("presence", true)
+        .request();
 ```
 
 Query banned users
@@ -472,7 +474,7 @@ List<User> bannedUsers = User.list()
 Query users with teams
 
 ```java
-//TODO
+//TODO after filter helpers
 
 // search for users with name Jordan that are part of the red team 
 client.queryUsers({ 
@@ -571,13 +573,13 @@ Query muted channels
 // retrieve all channels excluding muted ones
 Channel.list()
     .filterCondition("muted", false)
-    .filterCondition("members", Collections.singletonMap("$in", Arrays.asList(userId)))
+    .filterCondition("members", FilterCondition.in(userId))
     .request();
 
 // retrieve all muted channels
 Channel.list()
     .filterCondition("muted", true)
-    .filterCondition("members", Collections.singletonMap("$in", Arrays.asList(userId)))
+    .filterCondition("members", FilterCondition.in(userId))
     .request();
 ```
 
@@ -744,6 +746,42 @@ Remove moderators from a channel
 Channel.update(type, id).demoteModerator("thierry").request();
 ```
 
+Enable automatic translation
+
+```java
+TODO after RequestObject helper
+// enable auto-translation only for this channel 
+await channel.update({auto_translation_enabled: true}); 
+ 
+// ensure all messages are translated in english for this channel 
+await channel.update({ 
+   auto_translation_enabled: true, 
+   auto_translation_language: "en", 
+}); 
+ 
+// auto translate messages for all channels 
+await client.updateAppSettings({auto_translation_enabled: true}); 
+
+```
+
+Enable/Disable slow mode
+
+```java
+TODO after helpers (set cooldown)
+
+final ChannelClient channelClient = client.channel("messaging", "general"); 
+ 
+// Enable slow mode and set cooldown to 1s 
+channelClient.enableSlowMode(1).enqueue(result -> { /* Result handling */ }); 
+ 
+// Increase cooldown to 30s 
+channelClient.enableSlowMode(30).enqueue(result -> { /* Result handling */ }); 
+ 
+// Disable slow mode 
+channelClient.disableSlowMode().enqueue(result -> { /* Result handling */ }); 
+
+```
+
 **Delete channel**
 
 ```java
@@ -841,7 +879,7 @@ Channel.queryMembers().filterCondition("name", "tommaso").request();
 
 // autocomplete members by user name
 Channel.queryMembers()
-    .filterCondition("name", Collections.singletonMap("$autocomplete", "tomm"))
+    .filterCondition("name", FilterCondition.autocomplete("tomm"))
     .request();
 
 // query member by id
@@ -850,7 +888,7 @@ Channel.queryMembers().filterCondition("user_id", "tommaso").request();
 // query multiple members by id
 Channel.queryMembers()
     .filterCondition(
-        "user_id", Collections.singletonMap("$in", Arrays.asList("tommaso", "thierry")))
+        "user_id", FilterCondition.in("tommaso", "thierry"))
     .request();
 
 // query channel moderators
@@ -1154,20 +1192,21 @@ Quote a message
 
 ```java
 // Create the initial message
-String initialMessageId =
-    Message.send(type, id)
-        .message(
-            MessageRequestObject.builder().text("The initial message").userId(userId).build())
-        .request()
-        .getMessage()
-        .getId();
+Message.send(type, id)
+    .message(
+        MessageRequestObject.builder()
+            .id("first_message_id")
+            .text("The initial message")
+            .userId(userId)
+            .build())
+    .request();
 
 // Quote the initial message
 Message.send(type, id)
     .message(
         MessageRequestObject.builder()
             .text("This is the first message that quotes another message")
-            .quotedMessageId(initialMessageId)
+            .quotedMessageId("first_message_id")
             .userId(userId)
             .build())
     .request();
@@ -1303,26 +1342,21 @@ Reaction.delete(messageId, "love").request();
 **Get reactions**
 
 ```java
-//TODO when know about pagination
+// get the first 10 reactions
+Reaction.list(messageId).limit(10).request();
 
-// get the first 10 reactions 
-const response = await channel.getReactions(messageID, { limit: 10 }); 
- 
-// get 3 reactions past the first 10 
-const response = await channel.getReactions(messageID, { limit: 3, offset: 10 }); 
-
+// get 3 reactions past the first 10
+Reaction.list(messageId).limit(3).offset(10).request();
 ```
 
 **Get replies**
 
 ```java
-// TODO after solving pagination question
-// retrieve the first 20 messages inside the thread 
-await channel.getReplies(parentMessageId, {limit: 20}); 
- 
-// retrieve the 20 more messages before the message with id "42" 
-await channel.getReplies(parentMessageId, {limit: 20, id_lte: "42"}); 
+// retrieve the first 20 messages inside the thread
+Message.getReplies(parentMessageId).limit(20).request();
 
+// retrieve the 20 more messages before the message with id "42"
+Message.getReplies(parentMessageId).limit(20).idLte("42").request();
 ```
 
 **Search messages**
@@ -1331,9 +1365,9 @@ Search by user and text
 
 ```java
 Message.search()
-    .filterCondition("members", Collections.singletonMap("$in", Arrays.asList("john")))
+    .filterCondition("members", FilterCondition.in("john"))
     .messageFilterCondition(
-        "text", Collections.singletonMap("$autocomplete", "supercalifragilisticexpialidocious"))
+        "text", FilterCondition.autocomplete("supercalifragilisticexpialidocious"))
     .limit(2)
     .offset(0)
     .request();
@@ -1343,9 +1377,7 @@ Search messages with attachment
 
 ```java
 // Search by Attachment
-Message.search()
-    .messageFilterCondition("attachments", Collections.singletonMap("$exists", true))
-    .request();
+Message.search().messageFilterCondition("attachments", FilterCondition.exists()).request();
 ```
 
 **Flag message**
@@ -1582,7 +1614,7 @@ Device.list(targetUserId).request();
 **Check push**
 
 ```java
-App.checkPush().messageId(messageId).request();
+App.checkPush().messageId(messageId).userId(userId).request();
 ```
 
 **Get rate limits**
@@ -1596,154 +1628,187 @@ App.getRateLimits().ios(true).android(true).request();
 App.getRateLimits().endpoint("QueryChannels").endpoint("SendMessage").request();
 ```
 
-**Mark all read**
+**Export user**
 
 ```java
-
-```
-
-**Mark read**
-
-```java
-
-```
-
-**Delete file**
-
-```java
-
-```
-
-**Delete image**
-
-```java
-
-```
-
-**Flag user**
-
-```java
-
-```
-
-**Get many messages**
-
-```java
-
-```
-
-**Run message command action**
-
-```java
-
-```
-
-**Translate message**
-
-```java
-
-```
-
-**Unflag message**
-
-```java
-
-```
-
-**Unflag user**
-
-```java
-
-```
-
-**Create custom permission**
-
-```java
-
-```
-
-**Create custom role**
-
-```java
-
-```
-
-**Delete custom permission**
-
-```java
-
-```
-
-**Delete custom role**
-
-```java
-
-```
-
-**Get custom permission**
-
-```java
-
-```
-
-**List custom permission**
-
-```java
-
-```
-
-**List custom roles**
-
-```java
-
-```
-
-**Update custom permission**
-
-```java
-
-```
-
-**Get App Settings**
-
-```java
-
-```
-
-**Create guest**
-
-```java
-
+User.export(userId).request();
 ```
 
 **Deactivate user**
 
 ```java
+User.deactivate(targetUserId).request();
 
-```
-
-**Delete user**
-
-```java
-
-```
-
-**Export user**
-
-```java
-
+User.deactivate(targetUserId).createdById(userId).markMessagesDeleted(true).request();
 ```
 
 **Reactivate user**
 
 ```java
+User.reactivate(targetUserId).request();
 
+User.reactivate(targetUserId).restoreMessages(true).name("I am back").createdById(userId).request();
+```
+
+**Delete user**
+
+Standard
+
+```java
+User.delete(targetUserId).markMessagesDeleted(false).request();
+```
+
+Hard delete
+
+```java
+User.delete(targetUserId)
+    .deleteConversationChannels(true)
+    .markMessagesDeleted(true)
+    .hardDelete(true)
+    .request();
+```
+
+**Translate message**
+
+```java
+Message.send(channelType, channelId)
+    .message(
+        MessageRequestObject.builder()
+            .id(messageId)
+            .text("Hello, I would like to have more information about your product.")
+            .userId(userId)
+            .build())
+    .request();
+// returns the message.text translated into French
+MessageTranslateResponse response =
+    Message.translate(messageId).language(Language.FR).request();
+System.out.println(response.getMessage().getI18n().get("fr_text"));
+// "Bonjour, J'aimerais avoir plus d'informations sur votre produit."
+```
+
+**Mark all read**
+
+```java
+Channel.markAllRead().userId(userId).request();
+```
+
+**Mark read**
+
+```java
+Channel.markRead(channelType, channelId).request();
+```
+
+**Delete file**
+
+```java
+Message.deleteFile(channelType, channelId, url).request();
+```
+
+**Delete image**
+
+```java
+Message.deleteImage(channelType, channelId, url).request();
+```
+
+**Flag user**
+
+```java
+User.flag(targetUserId).userId(userId).request();
+```
+
+**Get many messages**
+
+```java
+Message.getMany(channelType, channelId, Arrays.asList(messageId1, messageId2)).request();
+```
+
+**Run message command action**
+
+```java
+Message.runCommandAction(messageId)
+    .formData(Collections.singletonMap("image_action", "send"))
+    .userId(userId)
+    .request();
+```
+
+**Unflag message**
+
+```java
+Message.unflag(messageId).userId(userId).request();
+```
+
+**Unflag user**
+
+```java
+User.unflag(targetUserId).userId(userId).request();
+```
+
+**Create custom permission**
+
+```java
+Permission.create().name("My custom permission").resource(Resource.ALL).owner(false).request();
+```
+
+**Create custom role**
+
+```java
+Role.create().name("My custom role").request();
+```
+
+**Delete custom permission**
+
+```java
+Permission.delete("My custom permission").request();
+```
+
+**Delete custom role**
+
+```java
+Role.delete("My custom role").request();
+```
+
+**Get custom permission**
+
+```java
+Permission.get("My custom permission").request();
+```
+
+**List custom permission**
+
+```java
+Permission.list().request();
+```
+
+**List custom roles**
+
+```java
+Role.list().request();
+```
+
+**Update custom permission**
+
+```java
+Permission.update("My custom permission").resource(Resource.CREATE_CHANNEL).request();
+```
+
+**Get App Settings**
+
+```java
+App.get().request();
+```
+
+**Create guest**
+
+```java
+User.createGuest()
+    .user(UserRequestObject.builder().id(guestId).name("Guest user").build())
+    .request();
 ```
 
 **Unmute user**
 
 ```java
-
+User.unmute().singleTargetId(targetUserId).userId(userId).request();
 ```
 
 ## Contribute
