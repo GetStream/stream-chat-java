@@ -1,17 +1,21 @@
 package io.stream;
 
-import io.stream.exceptions.StreamException;
-import io.stream.models.App;
-import io.stream.models.App.AppCheckPushResponse;
-import io.stream.models.App.AppCheckSqsResponse;
-import io.stream.models.App.AppCheckSqsResponse.Status;
-import io.stream.models.Message;
-import io.stream.models.Message.MessageRequestObject;
-import io.stream.services.framework.StreamServiceGenerator;
 import java.lang.reflect.Field;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import io.stream.exceptions.StreamException;
+import io.stream.models.App;
+import io.stream.models.App.APNConfigRequestObject;
+import io.stream.models.App.AppCheckPushResponse;
+import io.stream.models.App.AppCheckSqsResponse;
+import io.stream.models.App.FirebaseConfigRequestObject;
+import io.stream.models.App.AppCheckSqsResponse.Status;
+import io.stream.models.App.PushConfigRequestObject;
+import io.stream.models.App.PushVersion;
+import io.stream.models.Message;
+import io.stream.models.Message.MessageRequestObject;
+import io.stream.services.framework.StreamServiceGenerator;
 
 public class AppTest extends BasicTest {
 
@@ -78,7 +82,7 @@ public class AppTest extends BasicTest {
 
   @DisplayName("Can check push templates")
   @Test
-  void whenCheckingPushTemplates_thenOk() {
+  void whenCheckingPushTemplates_thenNoException() {
     String firstUserId = testUserRequestObject.getId();
     String secondUserId = testUsersRequestObjects.get(1).getId();
     String text = "Hello @" + secondUserId;
@@ -91,43 +95,17 @@ public class AppTest extends BasicTest {
                         .message(messageRequest)
                         .request())
             .getMessage();
-    AppCheckPushResponse response =
-        Assertions.assertDoesNotThrow(
-            () ->
-                App.checkPush()
-                    .messageId(message.getId())
-                    .apnTemplate(
-                        "{ \n"
-                            + "    \"aps\" : { \n"
-                            + "        \"alert\" : { \n"
-                            + "            \"title\" : \"{{ sender.id }} @ {{ channel.id }}\", \n"
-                            + "            \"body\" : \"{{ message.text }}\" \n"
-                            + "        }, \n"
-                            + "        \"badge\": {{ unread_count }}, \n"
-                            + "        \"category\" : \"NEW_MESSAGE\" \n"
-                            + "    } \n"
-                            + "}")
-                    .firebaseTemplate(
-                        "{ \n"
-                            + "    \"sender\": \"{{ sender.id }}\", \n"
-                            + "    \"channel\": { \n"
-                            + "        \"type\": \"{{ channel.type }}\", \n"
-                            + "        \"id\": \"{{ channel.id }}\" \n"
-                            + "    }, \n"
-                            + "    \"message\": \"{{ message.id }}\" \n"
-                            + "}")
-                    .firebaseDataTemplate(
-                        "{ \n"
-                            + "    \"title\": \"{{ sender.id }} @ {{ channel.id }}\", \n"
-                            + "    \"body\": \"{{ message.text }}\", \n"
-                            + "    \"click_action\": \"OPEN_ACTIVITY_1\", \n"
-                            + "    \"sound\": \"default\" \n"
-                            + "}")
-                    .skipDevices(true)
-                    .userId(secondUserId)
-                    .request());
-    Assertions.assertEquals("", response.getRenderedApnTemplate());
-    Assertions.assertEquals("", response.getRenderedFirebaseTemplate());
-    Assertions.assertEquals("", response.getRenderedMessage());
+    Assertions.assertDoesNotThrow(
+        () ->
+            App.update()
+                .pushConfig(PushConfigRequestObject.builder().version(PushVersion.V2).build())
+                .request());
+    Assertions.assertDoesNotThrow(
+        () ->
+            App.checkPush()
+                .messageId(message.getId())
+                .skipDevices(true)
+                .userId(secondUserId)
+                .request());
   }
 }
