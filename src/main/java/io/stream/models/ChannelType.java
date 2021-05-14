@@ -573,7 +573,7 @@ public class ChannelType {
    * @return the created request
    */
   @NotNull
-  public static ChannelTypeGetRequest get(String name) throws StreamException {
+  public static ChannelTypeGetRequest get(String name) {
     return new ChannelTypeGetRequest(name);
   }
 
@@ -595,7 +595,7 @@ public class ChannelType {
    * @return the created request
    */
   @NotNull
-  public static ChannelTypeDeleteRequest delete(String name) throws StreamException {
+  public static ChannelTypeDeleteRequest delete(String name) {
     return new ChannelTypeDeleteRequest(name);
   }
 
