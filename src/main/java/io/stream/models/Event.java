@@ -311,8 +311,8 @@ public class Event {
   /**
    * Creates a send request
    *
-   * @param type the channel type
-   * @param id the channel id
+   * @param channelType the channel type
+   * @param channelId the channel id
    * @return the created request
    */
   @NotNull

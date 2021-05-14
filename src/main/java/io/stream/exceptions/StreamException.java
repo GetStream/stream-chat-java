@@ -64,7 +64,7 @@ public class StreamException extends Exception {
   /**
    * Builds a StreamException when an exception occurs calling the API
    *
-   * @param e the underlying exception
+   * @param t the underlying exception
    * @return the StreamException
    */
   public static StreamException build(Throwable t) {

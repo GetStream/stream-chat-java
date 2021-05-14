@@ -150,6 +150,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
   private volatile Level level = Level.NONE;
 
   /** Change the level at which this interceptor logs. */
+  @SuppressWarnings("javadoc")
   public HttpLoggingInterceptor setLevel(Level level) {
     if (level == null) throw new NullPointerException("level == null. Use Level.NONE instead.");
     this.level = level;

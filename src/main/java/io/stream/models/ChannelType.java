@@ -580,7 +580,7 @@ public class ChannelType {
   /**
    * Creates an update request
    *
-   * @param the name of the channel type to update
+   * @param name the name of the channel type to update
    * @return the created request
    */
   @NotNull

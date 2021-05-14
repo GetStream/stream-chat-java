@@ -226,7 +226,7 @@ public class Reaction {
    * Creates a delete request
    *
    * @param messageId the message id
-   * @param messageId the reaction type
+   * @param type the reaction type
    * @return the created request
    */
   @NotNull

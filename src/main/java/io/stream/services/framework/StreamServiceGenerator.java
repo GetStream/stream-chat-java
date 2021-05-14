@@ -106,9 +106,9 @@ public class StreamServiceGenerator {
     final Properties properties = new Properties();
     try {
       properties.load(
-          StreamServiceGenerator.class.getClassLoader().getResourceAsStream("stream.properties"));
+          StreamServiceGenerator.class.getClassLoader().getResourceAsStream("version.properties"));
     } catch (IOException e) {
-      log.severe("Missing stream.properties, should not happen");
+      log.severe("Missing version.properties, should not happen");
     }
     return properties.getProperty("version");
   }
