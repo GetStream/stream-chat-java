@@ -1,0 +1,84 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+// Create variables with empty default values
+ext["ossrhUsername"] = ''
+ext["ossrhPassword"] = ''
+ext["signing.keyId"] = ''
+ext["signing.password"] = ''
+ext["signing.secretKeyRingFile"] = ''
+
+File secretPropsFile = project.rootProject.file('local.properties')
+if (secretPropsFile.exists()) {
+    // Read local.properties file first if it exists
+    Properties p = new Properties()
+    new FileInputStream(secretPropsFile).withCloseable { is -> p.load(is) }
+    p.each { name, value -> ext[name] = value }
+} else {
+    // Use system environment variables
+    ext["ossrhUsername"] = System.getenv('OSSRH_USERNAME')
+    ext["ossrhPassword"] = System.getenv('OSSRH_PASSWORD')
+    ext["signing.keyId"] = System.getenv('SIGNING_KEY_ID')
+    ext["signing.password"] = System.getenv('SIGNING_PASSWORD')
+    ext["signing.secretKeyRingFile"] = System.getenv('SIGNING_SECRET_KEY_RING_FILE')
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+group = 'io.getstream'
+version = '0.0.1-BETA'
+description = 'Stream Chat official Java SDK'
+
+afterEvaluate {
+    publishing {
+        publications {
+        	release(MavenPublication) {
+        		from components.java
+            	artifactId 'stream-chat-java'
+
+                artifact sourcesJar
+                artifact javadocJar
+
+                pom {
+                    name = "${description}"
+                    description = "${description}"
+                    url = 'https://github.com/getstream/stream-chat-java'
+                    licenses {
+                        license {
+                            name = 'Stream License'
+                            url = 'https://github.com/GetStream/stream-chat-java/blob/main/LICENSE'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'cedricmelfatum'
+                            name = 'Cédric Laruelle'
+                            email = 'cedric@melfatum.com'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:github.com/getstream/stream-chat-java.git'
+                        developerConnection = 'scm:git:ssh://github.com/getstream/stream-chat-java.git'
+                        url = 'https://github.com/getstream/stream-chat-java/tree/main'
+                    }
+                }
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications
+}
