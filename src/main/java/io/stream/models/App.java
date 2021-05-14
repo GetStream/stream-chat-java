@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import io.stream.exceptions.StreamException;
 import io.stream.models.App.AppCheckPushRequestData.AppCheckPushRequest;
 import io.stream.models.App.AppCheckSqsRequestData.AppCheckSqsRequest;
 import io.stream.models.App.AppUpdateRequestData.AppUpdateRequest;
@@ -736,7 +735,7 @@ public class App extends StreamResponseObject {
    * @return the created request
    */
   @NotNull
-  public static AppGetRequest get() throws StreamException {
+  public static AppGetRequest get() {
     return new AppGetRequest();
   }
 
@@ -756,7 +755,7 @@ public class App extends StreamResponseObject {
    * @return the created request
    */
   @NotNull
-  public static AppGetRateLimitsRequest getRateLimits() throws StreamException {
+  public static AppGetRateLimitsRequest getRateLimits() {
     return new AppGetRateLimitsRequest();
   }
 
@@ -766,7 +765,7 @@ public class App extends StreamResponseObject {
    * @return the created request
    */
   @NotNull
-  public static AppCheckSqsRequest checkSqs() throws StreamException {
+  public static AppCheckSqsRequest checkSqs() {
     return new AppCheckSqsRequest();
   }
 
@@ -776,7 +775,7 @@ public class App extends StreamResponseObject {
    * @return the created request
    */
   @NotNull
-  public static AppCheckPushRequest checkPush() throws StreamException {
+  public static AppCheckPushRequest checkPush() {
     return new AppCheckPushRequest();
   }
 }
