@@ -1,6 +1,7 @@
 # Guide to contribute to the Stream Chat Java SDK
 ## Requirements
 To contribute to this project, you need to have [Lombok](https://projectlombok.org/) installed in your IDE.
+You also need to use javac >= 11 to compile (ensure that your JAVA_HOME points to such a location), even if the produced library is compatible with Java 8 (for some reasons, jdk 8 compiler fails on some Lombok annotations).
 
 ## Setup the project
 The project is a Maven project. For convenience, Eclipse files are provided in the repository, but it should be straightfoward to install in any other Java IDE.
