@@ -489,57 +489,6 @@ public class Message {
   }
 
   @Builder
-  public static class MessageRequestObjectMessage {
-    @Nullable
-    @JsonProperty("text")
-    private String text;
-
-    @Singular
-    @Nullable
-    @JsonProperty("attachments")
-    private List<AttachmentRequestObject> attachments;
-
-    @Nullable
-    @JsonProperty("user")
-    private MessageRequestObjectUser user;
-
-    @Nullable
-    @JsonProperty("mentioned_users")
-    private List<String> mentionedUsers;
-
-    @Nullable
-    @JsonProperty("parent_id")
-    private String parentId;
-
-    @Nullable
-    @JsonProperty("show_in_channel")
-    private Boolean showInChannel;
-
-    @Nullable
-    @JsonProperty("silent")
-    private Boolean silent;
-
-    @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalFields() {
-      return this.additionalFields;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalField(String name, Object value) {
-      this.additionalFields.put(name, value);
-    }
-  }
-
-  @Builder
-  public static class MessageRequestObjectUser {
-    @NotNull
-    @JsonProperty("id")
-    private String id;
-  }
-
-  @Builder
   public static class AttachmentRequestObject {
     @Nullable
     @JsonProperty("type")
