@@ -80,7 +80,7 @@ public class Device {
     @Nullable
     @JsonProperty("user_id")
     private String userId;
-    
+
     @Nullable
     public static DeviceRequestObject buildFrom(@Nullable Device device) {
       return RequestObjectBuilder.build(DeviceRequestObject.class, device);

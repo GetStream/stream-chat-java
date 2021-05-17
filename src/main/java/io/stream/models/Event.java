@@ -223,7 +223,7 @@ public class Event {
     public void setAdditionalField(String name, Object value) {
       this.additionalFields.put(name, value);
     }
-    
+
     @Nullable
     public static EventRequestObject buildFrom(@Nullable Event event) {
       return RequestObjectBuilder.build(EventRequestObject.class, event);

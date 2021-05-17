@@ -242,7 +242,7 @@ public class ChannelType {
     @Nullable
     @JsonProperty("block")
     private Integer block;
-    
+
     @Nullable
     public static ThresholdRequestObject buildFrom(@Nullable Threshold threshold) {
       return RequestObjectBuilder.build(ThresholdRequestObject.class, threshold);
@@ -275,7 +275,7 @@ public class ChannelType {
     @Nullable
     @JsonProperty("priority")
     private Integer priority;
-    
+
     @Nullable
     public static PermissionRequestObject buildFrom(@Nullable Policy policy) {
       return RequestObjectBuilder.build(PermissionRequestObject.class, policy);

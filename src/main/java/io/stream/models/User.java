@@ -371,7 +371,7 @@ public class User {
     public void setAdditionalField(String name, Object value) {
       this.additionalFields.put(name, value);
     }
-    
+
     @Nullable
     public static UserRequestObject buildFrom(@Nullable User user) {
       return RequestObjectBuilder.build(UserRequestObject.class, user);
@@ -492,7 +492,7 @@ public class User {
     public void setAdditionalField(String name, Object value) {
       this.additionalFields.put(name, value);
     }
-    
+
     @Nullable
     public static OwnUserRequestObject buildFrom(@Nullable OwnUser ownUser) {
       return RequestObjectBuilder.build(OwnUserRequestObject.class, ownUser);
@@ -521,7 +521,7 @@ public class User {
     @Nullable
     @JsonProperty("updated_at")
     private Date updated_at;
-    
+
     @Nullable
     public static UserMuteRequestObject buildFrom(@Nullable UserMute userMute) {
       return RequestObjectBuilder.build(UserMuteRequestObject.class, userMute);
@@ -550,7 +550,7 @@ public class User {
     @Nullable
     @JsonProperty("updated_at")
     private Date updatedAt;
-    
+
     @Nullable
     public static ChannelMuteRequestObject buildFrom(@Nullable ChannelMute channelMute) {
       return RequestObjectBuilder.build(ChannelMuteRequestObject.class, channelMute);

@@ -228,7 +228,7 @@ public class Channel {
     public void setAdditionalField(String name, Object value) {
       this.additionalFields.put(name, value);
     }
-    
+
     @Nullable
     public static ChannelRequestObject buildFrom(@Nullable Channel channel) {
       return RequestObjectBuilder.build(ChannelRequestObject.class, channel);
@@ -285,7 +285,7 @@ public class Channel {
     @Nullable
     @JsonProperty("shadow_banned")
     private Boolean shadowBanned;
-    
+
     @Nullable
     public static ChannelMemberRequestObject buildFrom(@Nullable ChannelMember channelMember) {
       return RequestObjectBuilder.build(ChannelMemberRequestObject.class, channelMember);

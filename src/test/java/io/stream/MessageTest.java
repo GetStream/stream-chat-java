@@ -336,7 +336,7 @@ public class MessageTest extends BasicTest {
     Assertions.assertNotNull(translatedMessage.getI18n());
     Assertions.assertNotNull(translatedMessage.getI18n().get("fr_text"));
   }
-  
+
   @SuppressWarnings("unchecked")
   @DisplayName("Can create a OwnUserRequestObject from OwnUser")
   @Test
@@ -345,38 +345,47 @@ public class MessageTest extends BasicTest {
     parent.setLevel(Level.FINE);
     MessageRequestObject messageRequest =
         MessageRequestObject.builder()
-        .text("Sample text")
-        .attachment(AttachmentRequestObject
-            .builder()
-            .action(ActionRequestObject
-                .builder()
-                .name("actionName")
-                .build())
-            .field(FieldRequestObject
-                .builder()
-                .type("string")
-                .build())
-            .build())
-        .userId(testUserRequestObject.getId())
-        .build();
-    Message message = Assertions.assertDoesNotThrow(() -> Message.send(testChannel.getType(), testChannel.getId()).message(messageRequest)
-        .request()).getMessage();
+            .text("Sample text")
+            .attachment(
+                AttachmentRequestObject.builder()
+                    .action(ActionRequestObject.builder().name("actionName").build())
+                    .field(FieldRequestObject.builder().type("string").build())
+                    .build())
+            .userId(testUserRequestObject.getId())
+            .build();
+    Message message =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .message(messageRequest)
+                        .request())
+            .getMessage();
     Assertions.assertEquals(1, message.getAttachments().size());
     Assertions.assertEquals(1, message.getAttachments().get(0).getActions().size());
     Assertions.assertEquals(1, message.getAttachments().get(0).getFields().size());
-    
-    MessageRequestObject messageRequestObject = Assertions.assertDoesNotThrow(() -> MessageRequestObject.buildFrom(message));
-    Assertions.assertDoesNotThrow(() -> {
-      List<AttachmentRequestObject> attachments = (List<AttachmentRequestObject>) getRequestObjectFieldValue("attachments", messageRequestObject);
-      List<ActionRequestObject> actions = (List<ActionRequestObject>) getRequestObjectFieldValue("actions", attachments.get(0));
-      List<FieldRequestObject> fields = (List<FieldRequestObject>) getRequestObjectFieldValue("fields", attachments.get(0));
-      Assertions.assertEquals(message.getAttachments().size(), attachments.size());
-      Assertions.assertEquals(message.getAttachments().get(0).getActions().size(), actions.size());
-      Assertions.assertEquals(message.getAttachments().get(0).getFields().size(), fields.size());
-    });
+
+    MessageRequestObject messageRequestObject =
+        Assertions.assertDoesNotThrow(() -> MessageRequestObject.buildFrom(message));
+    Assertions.assertDoesNotThrow(
+        () -> {
+          List<AttachmentRequestObject> attachments =
+              (List<AttachmentRequestObject>)
+                  getRequestObjectFieldValue("attachments", messageRequestObject);
+          List<ActionRequestObject> actions =
+              (List<ActionRequestObject>) getRequestObjectFieldValue("actions", attachments.get(0));
+          List<FieldRequestObject> fields =
+              (List<FieldRequestObject>) getRequestObjectFieldValue("fields", attachments.get(0));
+          Assertions.assertEquals(message.getAttachments().size(), attachments.size());
+          Assertions.assertEquals(
+              message.getAttachments().get(0).getActions().size(), actions.size());
+          Assertions.assertEquals(
+              message.getAttachments().get(0).getFields().size(), fields.size());
+        });
   }
-  
-  private Object getRequestObjectFieldValue(String fieldName, Object requestObject) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+
+  private Object getRequestObjectFieldValue(String fieldName, Object requestObject)
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException,
+          IllegalAccessException {
     Field field = requestObject.getClass().getDeclaredField(fieldName);
     field.setAccessible(true);
     return field.get(requestObject);

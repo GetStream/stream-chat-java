@@ -99,7 +99,7 @@ public class Reaction {
     public void setAdditionalField(String name, Object value) {
       this.additionalFields.put(name, value);
     }
-    
+
     @Nullable
     public static ReactionRequestObject buildFrom(@Nullable Reaction reaction) {
       return RequestObjectBuilder.build(ReactionRequestObject.class, reaction);

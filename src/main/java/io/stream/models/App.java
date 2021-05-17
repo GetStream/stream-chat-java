@@ -360,9 +360,10 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("blocked_mime_types")
     private List<String> blockedMimeTypes;
-    
+
     @Nullable
-    public static FileUploadConfigRequestObject buildFrom(@Nullable FileUploadConfig fileUploadConfig) {
+    public static FileUploadConfigRequestObject buildFrom(
+        @Nullable FileUploadConfig fileUploadConfig) {
       return RequestObjectBuilder.build(FileUploadConfigRequestObject.class, fileUploadConfig);
     }
   }
@@ -405,7 +406,7 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("p12_cert")
     private String p12Cert;
-    
+
     @Nullable
     public static APNConfigRequestObject buildFrom(@Nullable APNConfig aPNConfig) {
       return RequestObjectBuilder.build(APNConfigRequestObject.class, aPNConfig);
@@ -431,7 +432,7 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("data_template")
     private String dataTemplate;
-    
+
     @Nullable
     public static FirebaseConfigRequestObject buildFrom(@Nullable FirebaseConfig firebaseConfig) {
       return RequestObjectBuilder.build(FirebaseConfigRequestObject.class, firebaseConfig);
@@ -444,7 +445,7 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("version")
     private PushVersion version;
-    
+
     @Nullable
     public static PushConfigRequestObject buildFrom(@Nullable PushVersion pushVersion) {
       return builder().version(pushVersion).build();
