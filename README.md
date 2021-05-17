@@ -55,7 +55,7 @@ To perform a request on the Stream Chat API, you need to:
 You do so by calling static methods on Stream Model classes.
 
 #### Set all information you want in the StreamRequest
-StreamRequest objects have builder style methods. Some methods require xxxRequestObject instances. All xxxRequestObject classes have builder included.
+StreamRequest objects have builder style methods. Some methods require xxxRequestObject instances. All xxxRequestObject classes have builder included, and when there is a corresponding model they have a `buildFrom` method.
 
 #### Perform the request 
 This can be done either synchronously, calling the `request()` method and handling the StreamException exceptions, or asynchronously, calling the `requestAsync(Consumer<Response> onSuccess, Consumer<StreamException> onError)`
@@ -474,16 +474,11 @@ List<User> bannedUsers = User.list()
 Query users with teams
 
 ```java
-//TODO after filter helpers
-
-// search for users with name Jordan that are part of the red team 
-client.queryUsers({ 
-   $and: [ 
-      { name: { $eq: "Jordan" } }, 
-      { teams: { $contains: "red" } } 
-   ], 
-}); 
-
+User.list()
+    .filterConditions(
+        FilterCondition.and(
+            Collections.singletonMap("name", FilterCondition.eq("Jordan")),
+            Collections.singletonMap("teams", FilterCondition.contains("red"))));
 ```
 
 **Get or create channel (type,id)**
@@ -716,22 +711,31 @@ Channel.update("messaging", "awesome-chat")
 Freeze a channel
 
 ```java
-//TODO after requestobject helper
-const update = await channel.update( 
-	{ frozen: true },  
-	{ text: 'Thierry has frozen the channel', user_id: "Thierry" } 
-)
+ChannelRequestObject channelRequestObject = ChannelRequestObject.buildFrom(channel);
+channelRequestObject.setFrozen(true);
+Channel.update(channel.getType(), channel.getId())
+    .data(channelRequestObject)
+    .message(
+        MessageRequestObject.builder()
+            .text("Thierry has frozen the channel")
+            .userId("Thierry")
+            .build())
+    .request();
 ```
 
 Unfreeze a channel
 
 ```java
-//TODO after requestobject helper
-const update = await channel.update( 
-	{ frozen: false },  
-	{ text: 'Thierry has unfrozen the channel', user_id: "Thierry" } 
-) 
-
+ChannelRequestObject channelRequestObject = ChannelRequestObject.buildFrom(channel);
+channelRequestObject.setFrozen(false);
+Channel.update(channel.getType(), channel.getId())
+    .data(channelRequestObject)
+    .message(
+        MessageRequestObject.builder()
+            .text("Thierry has unfrozen the channel")
+            .userId("Thierry")
+            .build())
+    .request();
 ```
 
 Add moderators to a channel
@@ -749,37 +753,32 @@ Channel.update(type, id).demoteModerator("thierry").request();
 Enable automatic translation
 
 ```java
-TODO after RequestObject helper
-// enable auto-translation only for this channel 
-await channel.update({auto_translation_enabled: true}); 
- 
-// ensure all messages are translated in english for this channel 
-await channel.update({ 
-   auto_translation_enabled: true, 
-   auto_translation_language: "en", 
-}); 
- 
-// auto translate messages for all channels 
-await client.updateAppSettings({auto_translation_enabled: true}); 
+// enable auto-translation only for this channel
+ChannelRequestObject channelRequestObject = ChannelRequestObject.buildFrom(channel);
+channelRequestObject.setAutoTranslationEnabled(true);
+Channel.update(channel.getType(), channel.getId()).data(channelRequestObject).request();
 
+// ensure all messages are translated in english for this channel
+ChannelRequestObject channelRequestObject2 = ChannelRequestObject.buildFrom(channel);
+channelRequestObject2.setAutoTranslationEnabled(true);
+channelRequestObject2.setAutoTranslationLanguage(Language.EN);
+Channel.update(channel.getType(), channel.getId()).data(channelRequestObject2).request();
+
+// auto translate messages for all channels
+App.update().autoTranslationEnabled(true).request();
 ```
 
 Enable/Disable slow mode
 
 ```java
-TODO after helpers (set cooldown)
+// Enable slow mode and set cooldown to 1s
+Channel.update("messaging", "general").cooldown(1).request();
 
-final ChannelClient channelClient = client.channel("messaging", "general"); 
- 
-// Enable slow mode and set cooldown to 1s 
-channelClient.enableSlowMode(1).enqueue(result -> { /* Result handling */ }); 
- 
-// Increase cooldown to 30s 
-channelClient.enableSlowMode(30).enqueue(result -> { /* Result handling */ }); 
- 
-// Disable slow mode 
-channelClient.disableSlowMode().enqueue(result -> { /* Result handling */ }); 
+// Increase cooldown to 30s
+Channel.update("messaging", "general").cooldown(30).request();
 
+// Disable slow mode
+Channel.update("messaging", "general").cooldown(0).request();
 ```
 
 **Delete channel**
@@ -1047,13 +1046,20 @@ ChannelType.update("public")
 Grant the UseFrozenChannel permission
 
 ```java
-TODO after PermissionRequestObject helper from permission
-
-const useFrozenChannel = new Permission("Admin users can use frozen channels", 600, ["UseFrozenChannel"], ["admin"], false, Allow);  
-const { permissions } = await client.getChannelType("messaging"); 
-permissions.push(useFrozenChannel); 
-await client.updateChannelType("messaging", { permissions }); 
-
+List<PermissionRequestObject> permissions =
+    ChannelType.get("messaging").request().getPermissions().stream()
+        .map(policy -> PermissionRequestObject.buildFrom(policy))
+        .collect(Collectors.toList());
+permissions.add(
+    PermissionRequestObject.builder()
+        .name("Admin users can use frozen channels")
+        .priority(600)
+        .resources(Arrays.asList(Resource.USE_FROZEN_CHANNEL))
+        .roles(Arrays.asList("admin"))
+        .owner(false)
+        .action(Action.ALLOW)
+        .build());
+ChannelType.update("messaging").permissions(permissions).request();
 ```
 
 Set permissions
@@ -1241,19 +1247,56 @@ Message.get(messageId).request();
 Standard
 
 ```java
-// TODO after creating request object helper
+Message message = Message.get("123").request().getMessage();
+MessageRequestObject messageRequestObject = MessageRequestObject.buildFrom(message);
+messageRequestObject.setText("the edited version of my text");
+Message.update(message.getId()).message(messageRequestObject).request();
 ```
 
-Pin message
+Pin and unpin message
 
 ```java
-// TODO after creating request object helper
-```
+// create pinned message
+Message message =
+    Message.send(channelType, channelId)
+        .message(
+            MessageRequestObject.builder()
+                .text("my message")
+                .pinned(true)
+                .pinExpires(
+                    new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+                        .parse("2077-01-01T00:00:00Z"))
+                .userId(userId)
+                .build())
+        .request()
+        .getMessage();
 
-Unpin message
+// unpin message
+MessageRequestObject messageRequestObject = MessageRequestObject.buildFrom(message);
+messageRequestObject.setPinned(false);
+Message message2 =
+    Message.update(message.getId()).message(messageRequestObject).request().getMessage();
 
-```java
-// TODO after creating request object helper
+// pin message for 120 seconds
+MessageRequestObject messageRequestObject2 = MessageRequestObject.buildFrom(message2);
+messageRequestObject2.setPinned(true);
+Calendar calendar = Calendar.getInstance();
+calendar.add(Calendar.SECOND, 120);
+messageRequestObject2.setPinExpires(calendar.getTime());
+Message message3 =
+    Message.update(message2.getId()).message(messageRequestObject2).request().getMessage();
+
+// change message expiration to 2077
+MessageRequestObject messageRequestObject3 = MessageRequestObject.buildFrom(message3);
+messageRequestObject3.setPinExpires(
+    new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").parse("2077-01-01T00:00:00Z"));
+Message message4 =
+    Message.update(message3.getId()).message(messageRequestObject3).request().getMessage();
+
+// remove expiration date from pinned message
+MessageRequestObject messageRequestObject4 = MessageRequestObject.buildFrom(message4);
+messageRequestObject4.setPinExpires(null);
+Message.update(message4.getId()).message(messageRequestObject4).request();
 ```
 
 **Delete message**
