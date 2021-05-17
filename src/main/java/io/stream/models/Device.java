@@ -3,6 +3,7 @@ package io.stream.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.models.Device.DeviceCreateRequestData.DeviceCreateRequest;
 import io.stream.models.User.UserRequestObject;
+import io.stream.models.framework.RequestObjectBuilder;
 import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.DeviceService;
@@ -14,6 +15,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -53,6 +55,7 @@ public class Device {
   }
 
   @Builder
+  @Setter
   public static class DeviceRequestObject {
     @Nullable
     @JsonProperty("push_provider")
@@ -77,6 +80,11 @@ public class Device {
     @Nullable
     @JsonProperty("user_id")
     private String userId;
+    
+    @Nullable
+    public static DeviceRequestObject buildFrom(@Nullable Device device) {
+      return RequestObjectBuilder.build(DeviceRequestObject.class, device);
+    }
   }
 
   @Builder(

@@ -5,6 +5,7 @@ import io.stream.exceptions.StreamException;
 import io.stream.models.ChannelType.ChannelTypeCreateRequestData.ChannelTypeCreateRequest;
 import io.stream.models.ChannelType.ChannelTypeUpdateRequestData.ChannelTypeUpdateRequest;
 import io.stream.models.Permission.Resource;
+import io.stream.models.framework.RequestObjectBuilder;
 import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponse;
 import io.stream.models.framework.StreamResponseObject;
@@ -18,6 +19,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.Singular;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -212,7 +214,26 @@ public class ChannelType {
     BLOCK
   }
 
+  @Data
+  @EqualsAndHashCode(callSuper = true)
+  public static class ChannelTypeWithStringCommands extends ChannelType {
+
+    @Nullable
+    @JsonProperty("commands")
+    private List<String> commands;
+  }
+
+  @Data
+  @EqualsAndHashCode(callSuper = true)
+  public static class ChannelTypeWithCommands extends ChannelType {
+
+    @Nullable
+    @JsonProperty("commands")
+    private List<Command> commands;
+  }
+
   @Builder
+  @Setter
   public static class ThresholdRequestObject {
     @Nullable
     @JsonProperty("flag")
@@ -221,9 +242,15 @@ public class ChannelType {
     @Nullable
     @JsonProperty("block")
     private Integer block;
+    
+    @Nullable
+    public static ThresholdRequestObject buildFrom(@Nullable Threshold threshold) {
+      return RequestObjectBuilder.build(ThresholdRequestObject.class, threshold);
+    }
   }
 
   @Builder
+  @Setter
   public static class PermissionRequestObject {
     @Nullable
     @JsonProperty("name")
@@ -248,24 +275,11 @@ public class ChannelType {
     @Nullable
     @JsonProperty("priority")
     private Integer priority;
-  }
-
-  @Data
-  @EqualsAndHashCode(callSuper = true)
-  public static class ChannelTypeWithStringCommands extends ChannelType {
-
+    
     @Nullable
-    @JsonProperty("commands")
-    private List<String> commands;
-  }
-
-  @Data
-  @EqualsAndHashCode(callSuper = true)
-  public static class ChannelTypeWithCommands extends ChannelType {
-
-    @Nullable
-    @JsonProperty("commands")
-    private List<Command> commands;
+    public static PermissionRequestObject buildFrom(@Nullable Policy policy) {
+      return RequestObjectBuilder.build(PermissionRequestObject.class, policy);
+    }
   }
 
   @Builder(

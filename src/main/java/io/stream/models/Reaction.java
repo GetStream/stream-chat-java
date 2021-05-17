@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.stream.models.Reaction.ReactionSendRequestData.ReactionSendRequest;
 import io.stream.models.User.UserRequestObject;
+import io.stream.models.framework.RequestObjectBuilder;
 import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.ReactionService;
@@ -19,6 +20,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.Singular;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -64,6 +66,7 @@ public class Reaction {
   }
 
   @Builder
+  @Setter
   public static class ReactionRequestObject {
     @Nullable
     @JsonProperty("message_id")
@@ -95,6 +98,11 @@ public class Reaction {
     @JsonAnySetter
     public void setAdditionalField(String name, Object value) {
       this.additionalFields.put(name, value);
+    }
+    
+    @Nullable
+    public static ReactionRequestObject buildFrom(@Nullable Reaction reaction) {
+      return RequestObjectBuilder.build(ReactionRequestObject.class, reaction);
     }
   }
 

@@ -33,6 +33,7 @@ They are organized by model. Each endpoint has at least one test related.
 - The code should be formatted using Google formatter.
 - All attributes, parameters and return values should be annotated with either `@Nullable` or `@NotNull`
 - New implementations should follow the same principles as the existing ones (see how to section below)
+- In Models, collections of submodel should be List (other collections and arrays are not supported by RequestObjectBuilder)
 
 ## How to
 ### Enable logging
@@ -51,6 +52,7 @@ StreamServiceGenerator.logLevel = HttpLoggingInterceptor.Level.BODY;
 - All fields should be `@Nullable`
 - Collection fields should be `@Singular`
 - These classes should have a `@Builder`
+- If there is a corresponding Model object, they should have a `buildFrom` method and `@Setter`
 
 #### Create the xxxResponse class
 - It should be created in the model, after other Response classes

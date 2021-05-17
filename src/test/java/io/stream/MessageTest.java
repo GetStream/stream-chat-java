@@ -4,16 +4,22 @@ import io.stream.models.App;
 import io.stream.models.App.FileUploadConfigRequestObject;
 import io.stream.models.Language;
 import io.stream.models.Message;
+import io.stream.models.Message.ActionRequestObject;
+import io.stream.models.Message.AttachmentRequestObject;
 import io.stream.models.Message.Crop;
+import io.stream.models.Message.FieldRequestObject;
 import io.stream.models.Message.ImageSizeRequestObject;
 import io.stream.models.Message.MessageRequestObject;
 import io.stream.models.Message.MessageType;
 import io.stream.models.Message.Resize;
 import io.stream.models.Message.SearchResult;
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -329,5 +335,50 @@ public class MessageTest extends BasicTest {
             .getMessage();
     Assertions.assertNotNull(translatedMessage.getI18n());
     Assertions.assertNotNull(translatedMessage.getI18n().get("fr_text"));
+  }
+  
+  @SuppressWarnings("unchecked")
+  @DisplayName("Can create a OwnUserRequestObject from OwnUser")
+  @Test
+  void whenCreatingAMessageRequestObject_thenIsCorrect() {
+    Logger parent = Logger.getLogger("io.stream");
+    parent.setLevel(Level.FINE);
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder()
+        .text("Sample text")
+        .attachment(AttachmentRequestObject
+            .builder()
+            .action(ActionRequestObject
+                .builder()
+                .name("actionName")
+                .build())
+            .field(FieldRequestObject
+                .builder()
+                .type("string")
+                .build())
+            .build())
+        .userId(testUserRequestObject.getId())
+        .build();
+    Message message = Assertions.assertDoesNotThrow(() -> Message.send(testChannel.getType(), testChannel.getId()).message(messageRequest)
+        .request()).getMessage();
+    Assertions.assertEquals(1, message.getAttachments().size());
+    Assertions.assertEquals(1, message.getAttachments().get(0).getActions().size());
+    Assertions.assertEquals(1, message.getAttachments().get(0).getFields().size());
+    
+    MessageRequestObject messageRequestObject = Assertions.assertDoesNotThrow(() -> MessageRequestObject.buildFrom(message));
+    Assertions.assertDoesNotThrow(() -> {
+      List<AttachmentRequestObject> attachments = (List<AttachmentRequestObject>) getRequestObjectFieldValue("attachments", messageRequestObject);
+      List<ActionRequestObject> actions = (List<ActionRequestObject>) getRequestObjectFieldValue("actions", attachments.get(0));
+      List<FieldRequestObject> fields = (List<FieldRequestObject>) getRequestObjectFieldValue("fields", attachments.get(0));
+      Assertions.assertEquals(message.getAttachments().size(), attachments.size());
+      Assertions.assertEquals(message.getAttachments().get(0).getActions().size(), actions.size());
+      Assertions.assertEquals(message.getAttachments().get(0).getFields().size(), fields.size());
+    });
+  }
+  
+  private Object getRequestObjectFieldValue(String fieldName, Object requestObject) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    Field field = requestObject.getClass().getDeclaredField(fieldName);
+    field.setAccessible(true);
+    return field.get(requestObject);
   }
 }

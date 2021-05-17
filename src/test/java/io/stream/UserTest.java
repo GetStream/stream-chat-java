@@ -1,17 +1,24 @@
 package io.stream;
 
-import io.stream.models.User;
-import io.stream.models.User.Ban;
-import io.stream.models.User.UserMute;
-import io.stream.models.User.UserPartialUpdateRequestObject;
-import io.stream.models.User.UserRequestObject;
-import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import io.stream.models.Channel;
+import io.stream.models.User;
+import io.stream.models.User.Ban;
+import io.stream.models.User.ChannelMuteRequestObject;
+import io.stream.models.User.OwnUser;
+import io.stream.models.User.OwnUserRequestObject;
+import io.stream.models.User.UserMute;
+import io.stream.models.User.UserPartialUpdateRequestObject;
+import io.stream.models.User.UserRequestObject;
+import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
 
 public class UserTest extends BasicTest {
 
@@ -190,5 +197,30 @@ public class UserTest extends BasicTest {
     Assertions.assertDoesNotThrow(() -> User.unban(userId).request());
     bans = Assertions.assertDoesNotThrow(() -> User.queryBanned().request()).getBans();
     Assertions.assertFalse(bans.stream().anyMatch(ban -> ban.getUser().getId().equals(userId)));
+  }
+  
+  @SuppressWarnings("unchecked")
+  @DisplayName("Can create a OwnUserRequestObject from OwnUser")
+  @Test
+  void whenCreatingAOwnUserRequestObject_thenIsCorrect() {
+    Logger parent = Logger.getLogger("io.stream");
+    parent.setLevel(Level.FINE);
+    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
+    OwnUser ownUser = Assertions.assertDoesNotThrow(
+        () ->
+            Channel.mute()
+                .channelCid(channel.getType() + ":" + channel.getId())
+                .user(testUserRequestObject)
+                .request()).getOwnUser();
+    OwnUserRequestObject ownUserRequestObject = Assertions.assertDoesNotThrow(() -> OwnUserRequestObject.buildFrom(ownUser));
+    Assertions.assertDoesNotThrow(() -> {
+      Assertions.assertEquals(ownUser.getChannelMutes().size(), ((List<ChannelMuteRequestObject>) getRequestObjectFieldValue("channelMutes", ownUserRequestObject)).size());
+    });
+  }
+  
+  private Object getRequestObjectFieldValue(String fieldName, Object requestObject) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    Field field = requestObject.getClass().getDeclaredField(fieldName);
+    field.setAccessible(true);
+    return field.get(requestObject);
   }
 }

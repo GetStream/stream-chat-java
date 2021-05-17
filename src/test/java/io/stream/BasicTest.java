@@ -1,5 +1,15 @@
 package io.stream;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import io.stream.exceptions.StreamException;
 import io.stream.models.Blocklist;
 import io.stream.models.Channel;
@@ -15,13 +25,6 @@ import io.stream.models.User.UserRequestObject;
 import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
 import io.stream.services.framework.HttpLoggingInterceptor;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 
 public class BasicTest {
   protected static UserRequestObject testUserRequestObject;
@@ -32,12 +35,16 @@ public class BasicTest {
 
   static void enableLogging() {
     StreamServiceGenerator.logLevel = HttpLoggingInterceptor.Level.BODY;
+    Logger root = Logger.getLogger("");
+    root.setLevel(Level.FINE);
+    for (Handler handler : root.getHandlers()) {
+      handler.setLevel(Level.FINE);
+    }
   }
 
   @BeforeEach
-  void resetAuth()
-      throws NoSuchFieldException, SecurityException, IllegalArgumentException,
-          IllegalAccessException {
+  void resetAuth() throws NoSuchFieldException, SecurityException, IllegalArgumentException,
+      IllegalAccessException {
     setAuth();
   }
 
@@ -55,46 +62,33 @@ public class BasicTest {
   }
 
   private static void cleanChannelTypes() throws StreamException {
-    ChannelType.list()
-        .request()
-        .getChannelTypes()
-        .values()
-        .forEach(
-            channelType -> {
-              try {
-                ChannelType.delete(channelType.getName()).request();
-              } catch (StreamException e) {
-                // Do nothing. Happens when there are channels of that type
-              }
-            });
+    ChannelType.list().request().getChannelTypes().values().forEach(channelType -> {
+      try {
+        ChannelType.delete(channelType.getName()).request();
+      } catch (StreamException e) {
+        // Do nothing. Happens when there are channels of that type
+      }
+    });
   }
 
   private static void cleanBlocklists() throws StreamException {
-    Blocklist.list()
-        .request()
-        .getBlocklists()
-        .forEach(
-            blocklist -> {
-              try {
-                Blocklist.delete(blocklist.getName()).request();
-              } catch (StreamException e) {
-                // Do nothing this happens for built in
-              }
-            });
+    Blocklist.list().request().getBlocklists().forEach(blocklist -> {
+      try {
+        Blocklist.delete(blocklist.getName()).request();
+      } catch (StreamException e) {
+        // Do nothing this happens for built in
+      }
+    });
   }
 
   private static void cleanCommands() throws StreamException {
-    Command.list()
-        .request()
-        .getCommands()
-        .forEach(
-            command -> {
-              try {
-                Command.delete(command.getName()).request();
-              } catch (StreamException e) {
-                // Do nothing
-              }
-            });
+    Command.list().request().getCommands().forEach(command -> {
+      try {
+        Command.delete(command.getName()).request();
+      } catch (StreamException e) {
+        // Do nothing
+      }
+    });
   }
 
   private static void createTestMessage() throws StreamException {
@@ -114,44 +108,30 @@ public class BasicTest {
   }
 
   static void upsertUsers() throws StreamException {
-    testUserRequestObject =
-        UserRequestObject.builder()
-            .id(RandomStringUtils.randomAlphabetic(10))
-            .name("Gandalf the Grey")
-            .build();
+    testUserRequestObject = UserRequestObject.builder().id(RandomStringUtils.randomAlphabetic(10))
+        .name("Gandalf the Grey").build();
     testUsersRequestObjects.add(testUserRequestObject);
-    testUsersRequestObjects.add(
-        UserRequestObject.builder()
-            .id(RandomStringUtils.randomAlphabetic(10))
-            .name("Frodo Baggins")
-            .build());
-    testUsersRequestObjects.add(
-        UserRequestObject.builder()
-            .id(RandomStringUtils.randomAlphabetic(10))
-            .name("Frodo Baggins")
-            .build());
-    testUsersRequestObjects.add(
-        UserRequestObject.builder()
-            .id(RandomStringUtils.randomAlphabetic(10))
-            .name("Samwise Gamgee")
-            .build());
+    testUsersRequestObjects.add(UserRequestObject.builder()
+        .id(RandomStringUtils.randomAlphabetic(10)).name("Frodo Baggins").build());
+    testUsersRequestObjects.add(UserRequestObject.builder()
+        .id(RandomStringUtils.randomAlphabetic(10)).name("Frodo Baggins").build());
+    testUsersRequestObjects.add(UserRequestObject.builder()
+        .id(RandomStringUtils.randomAlphabetic(10)).name("Samwise Gamgee").build());
     UserUpsertRequest usersUpsertRequest = User.upsert();
     testUsersRequestObjects.forEach(user -> usersUpsertRequest.user(user));
     usersUpsertRequest.request();
   }
 
   static void setProperties() {
-    System.setProperty(
-        "java.util.logging.SimpleFormatter.format",
+    System.setProperty("java.util.logging.SimpleFormatter.format",
         "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s %2$s %5$s%6$s%n");
     System.setProperty("STREAM_KEY", "vk73cqmmjxe6");
-    System.setProperty(
-        "STREAM_SECRET", "mxxtzdxc932n8k9dg47p49kkz6pncxkqu3z6g6s57rh9nca363kdqaxd6jbw5mtq");
+    System.setProperty("STREAM_SECRET",
+        "mxxtzdxc932n8k9dg47p49kkz6pncxkqu3z6g6s57rh9nca363kdqaxd6jbw5mtq");
   }
 
-  private void setAuth()
-      throws NoSuchFieldException, SecurityException, IllegalArgumentException,
-          IllegalAccessException {
+  private void setAuth() throws NoSuchFieldException, SecurityException, IllegalArgumentException,
+      IllegalAccessException {
     Field apiKeyField = StreamServiceGenerator.class.getDeclaredField("apiKey");
     apiKeyField.setAccessible(true);
     apiKeyField.set(StreamServiceGenerator.class, System.getProperty("STREAM_KEY"));
@@ -167,12 +147,9 @@ public class BasicTest {
   }
 
   protected static ChannelGetResponse createRandomChannel() throws StreamException {
-    return Channel.getOrCreate("team", RandomStringUtils.randomAlphabetic(12))
-        .data(
-            ChannelRequestObject.builder()
-                .createdBy(testUserRequestObject)
-                .members(buildChannelMembersList())
-                .build())
+    return Channel
+        .getOrCreate("team", RandomStringUtils.randomAlphabetic(12)).data(ChannelRequestObject
+            .builder().createdBy(testUserRequestObject).members(buildChannelMembersList()).build())
         .request();
   }
 
@@ -180,10 +157,8 @@ public class BasicTest {
     String text = "This is a message";
     MessageRequestObject messageRequest =
         MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
-    return Message.send(testChannel.getType(), testChannel.getId())
-        .message(messageRequest)
-        .request()
-        .getMessage();
+    return Message.send(testChannel.getType(), testChannel.getId()).message(messageRequest)
+        .request().getMessage();
   }
 
   /**

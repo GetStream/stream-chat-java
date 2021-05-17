@@ -22,6 +22,7 @@ import io.stream.models.Message.MessageRequestObject;
 import io.stream.models.User.ChannelMute;
 import io.stream.models.User.OwnUser;
 import io.stream.models.User.UserRequestObject;
+import io.stream.models.framework.RequestObjectBuilder;
 import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.ChannelService;
@@ -35,6 +36,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.Singular;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -184,6 +186,7 @@ public class Channel {
   }
 
   @Builder
+  @Setter
   public static class ChannelRequestObject {
     @Nullable
     @JsonProperty("created_by")
@@ -225,9 +228,15 @@ public class Channel {
     public void setAdditionalField(String name, Object value) {
       this.additionalFields.put(name, value);
     }
+    
+    @Nullable
+    public static ChannelRequestObject buildFrom(@Nullable Channel channel) {
+      return RequestObjectBuilder.build(ChannelRequestObject.class, channel);
+    }
   }
 
   @Builder
+  @Setter
   public static class ChannelMemberRequestObject {
     @Nullable
     @JsonProperty("user_id")
@@ -276,6 +285,11 @@ public class Channel {
     @Nullable
     @JsonProperty("shadow_banned")
     private Boolean shadowBanned;
+    
+    @Nullable
+    public static ChannelMemberRequestObject buildFrom(@Nullable ChannelMember channelMember) {
+      return RequestObjectBuilder.build(ChannelMemberRequestObject.class, channelMember);
+    }
   }
 
   @Builder

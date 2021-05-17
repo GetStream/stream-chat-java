@@ -1,5 +1,14 @@
 package io.stream.models;
 
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,25 +24,18 @@ import io.stream.models.Message.MessageUpdateRequestData.MessageUpdateRequest;
 import io.stream.models.User.UserRequestObject;
 import io.stream.models.framework.DefaultFileHandler;
 import io.stream.models.framework.FileHandler;
+import io.stream.models.framework.RequestObjectBuilder;
 import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.MessageService;
 import io.stream.services.framework.StreamServiceGenerator;
-import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.Singular;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -400,6 +402,7 @@ public class Message {
   }
 
   @Builder
+  @Setter
   public static class MessageRequestObject {
     @Nullable
     @JsonProperty("id")
@@ -486,9 +489,15 @@ public class Message {
     public void setAdditionalField(String name, Object value) {
       this.additionalFields.put(name, value);
     }
+    
+    @Nullable
+    public static MessageRequestObject buildFrom(@Nullable Message message) {
+      return RequestObjectBuilder.build(MessageRequestObject.class, message);
+    }
   }
 
   @Builder
+  @Setter
   public static class AttachmentRequestObject {
     @Nullable
     @JsonProperty("type")
@@ -575,9 +584,15 @@ public class Message {
     public void setAdditionalField(String name, Object value) {
       this.additionalFields.put(name, value);
     }
+    
+    @Nullable
+    public static AttachmentRequestObject buildFrom(@Nullable Attachment attachment) {
+      return RequestObjectBuilder.build(AttachmentRequestObject.class, attachment);
+    }
   }
 
   @Builder
+  @Setter
   public static class ActionRequestObject {
     @Nullable
     @JsonProperty("name")
@@ -598,9 +613,15 @@ public class Message {
     @Nullable
     @JsonProperty("value")
     private String value;
+    
+    @Nullable
+    public static ActionRequestObject buildFrom(@Nullable Action action) {
+      return RequestObjectBuilder.build(ActionRequestObject.class, action);
+    }
   }
 
   @Builder
+  @Setter
   public static class FieldRequestObject {
     @Nullable
     @JsonProperty("type")
@@ -613,9 +634,15 @@ public class Message {
     @Nullable
     @JsonProperty("short")
     private Boolean shortField;
+    
+    @Nullable
+    public static FieldRequestObject buildFrom(@Nullable Field field) {
+      return RequestObjectBuilder.build(FieldRequestObject.class, field);
+    }
   }
 
   @Builder
+  @Setter
   public static class ImageSizeRequestObject {
     @Nullable
     @JsonProperty("crop")
@@ -632,9 +659,15 @@ public class Message {
     @Nullable
     @JsonProperty("width")
     private Integer width;
+    
+    @Nullable
+    public static ImageSizeRequestObject buildFrom(@Nullable ImageSize imageSize) {
+      return RequestObjectBuilder.build(ImageSizeRequestObject.class, imageSize);
+    }
   }
 
   @Builder
+  @Setter
   public static class ModerationRequestObject {
     @Nullable
     @JsonProperty("toxic")
@@ -647,6 +680,11 @@ public class Message {
     @Nullable
     @JsonProperty("spam")
     private Integer spam;
+    
+    @Nullable
+    public static ModerationRequestObject buildFrom(@Nullable Moderation moderation) {
+      return RequestObjectBuilder.build(ModerationRequestObject.class, moderation);
+    }
   }
 
   @Builder(

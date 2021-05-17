@@ -16,6 +16,7 @@ import io.stream.models.Reaction.ReactionRequestObject;
 import io.stream.models.User.OwnUser;
 import io.stream.models.User.OwnUserRequestObject;
 import io.stream.models.User.UserRequestObject;
+import io.stream.models.framework.RequestObjectBuilder;
 import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.EventService;
@@ -27,6 +28,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.Singular;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -128,6 +130,7 @@ public class Event {
   }
 
   @Builder
+  @Setter
   public static class EventRequestObject {
     @Nullable
     @JsonProperty("type")
@@ -219,6 +222,11 @@ public class Event {
     @JsonAnySetter
     public void setAdditionalField(String name, Object value) {
       this.additionalFields.put(name, value);
+    }
+    
+    @Nullable
+    public static EventRequestObject buildFrom(@Nullable Event event) {
+      return RequestObjectBuilder.build(EventRequestObject.class, event);
     }
   }
 

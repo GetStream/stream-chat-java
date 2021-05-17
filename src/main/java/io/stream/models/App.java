@@ -12,6 +12,7 @@ import io.stream.models.App.AppUpdateRequestData.AppUpdateRequest;
 import io.stream.models.ChannelType.ChannelTypeWithStringCommands;
 import io.stream.models.Permission.Resource;
 import io.stream.models.User.UserRequestObject;
+import io.stream.models.framework.RequestObjectBuilder;
 import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponse;
 import io.stream.models.framework.StreamResponseObject;
@@ -26,6 +27,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -340,6 +342,7 @@ public class App extends StreamResponseObject {
   }
 
   @Builder
+  @Setter
   public static class FileUploadConfigRequestObject {
 
     @Nullable
@@ -357,9 +360,15 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("blocked_mime_types")
     private List<String> blockedMimeTypes;
+    
+    @Nullable
+    public static FileUploadConfigRequestObject buildFrom(@Nullable FileUploadConfig fileUploadConfig) {
+      return RequestObjectBuilder.build(FileUploadConfigRequestObject.class, fileUploadConfig);
+    }
   }
 
   @Builder
+  @Setter
   public static class APNConfigRequestObject {
     @Nullable
     @JsonProperty("development")
@@ -396,9 +405,15 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("p12_cert")
     private String p12Cert;
+    
+    @Nullable
+    public static APNConfigRequestObject buildFrom(@Nullable APNConfig aPNConfig) {
+      return RequestObjectBuilder.build(APNConfigRequestObject.class, aPNConfig);
+    }
   }
 
   @Builder
+  @Setter
   public static class FirebaseConfigRequestObject {
 
     @Nullable
@@ -416,13 +431,24 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("data_template")
     private String dataTemplate;
+    
+    @Nullable
+    public static FirebaseConfigRequestObject buildFrom(@Nullable FirebaseConfig firebaseConfig) {
+      return RequestObjectBuilder.build(FirebaseConfigRequestObject.class, firebaseConfig);
+    }
   }
 
   @Builder
+  @Setter
   public static class PushConfigRequestObject {
     @Nullable
     @JsonProperty("version")
     private PushVersion version;
+    
+    @Nullable
+    public static PushConfigRequestObject buildFrom(@Nullable PushVersion pushVersion) {
+      return builder().version(pushVersion).build();
+    }
   }
 
   public static class AppGetRequest extends StreamRequest<App> {

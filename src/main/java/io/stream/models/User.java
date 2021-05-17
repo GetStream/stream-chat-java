@@ -18,6 +18,7 @@ import io.stream.models.User.UserQueryBannedRequestData.UserQueryBannedRequest;
 import io.stream.models.User.UserReactivateRequestData.UserReactivateRequest;
 import io.stream.models.User.UserUnmuteRequestData.UserUnmuteRequest;
 import io.stream.models.User.UserUpsertRequestData.UserUpsertRequest;
+import io.stream.models.framework.RequestObjectBuilder;
 import io.stream.models.framework.StreamRequest;
 import io.stream.models.framework.StreamResponseObject;
 import io.stream.services.UserService;
@@ -32,6 +33,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.Singular;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -327,6 +329,7 @@ public class User {
   }
 
   @Builder
+  @Setter
   public static class UserRequestObject {
     @Nullable
     @JsonProperty("id")
@@ -368,6 +371,11 @@ public class User {
     public void setAdditionalField(String name, Object value) {
       this.additionalFields.put(name, value);
     }
+    
+    @Nullable
+    public static UserRequestObject buildFrom(@Nullable User user) {
+      return RequestObjectBuilder.build(UserRequestObject.class, user);
+    }
   }
 
   @Builder
@@ -388,6 +396,7 @@ public class User {
   }
 
   @Builder
+  @Setter
   public static class OwnUserRequestObject {
     @Nullable
     @JsonProperty("id")
@@ -483,9 +492,15 @@ public class User {
     public void setAdditionalField(String name, Object value) {
       this.additionalFields.put(name, value);
     }
+    
+    @Nullable
+    public static OwnUserRequestObject buildFrom(@Nullable OwnUser ownUser) {
+      return RequestObjectBuilder.build(OwnUserRequestObject.class, ownUser);
+    }
   }
 
   @Builder
+  @Setter
   public static class UserMuteRequestObject {
     @Nullable
     @JsonProperty("user")
@@ -506,9 +521,15 @@ public class User {
     @Nullable
     @JsonProperty("updated_at")
     private Date updated_at;
+    
+    @Nullable
+    public static UserMuteRequestObject buildFrom(@Nullable UserMute userMute) {
+      return RequestObjectBuilder.build(UserMuteRequestObject.class, userMute);
+    }
   }
 
   @Builder
+  @Setter
   public static class ChannelMuteRequestObject {
     @Nullable
     @JsonProperty("user")
@@ -529,6 +550,11 @@ public class User {
     @Nullable
     @JsonProperty("updated_at")
     private Date updatedAt;
+    
+    @Nullable
+    public static ChannelMuteRequestObject buildFrom(@Nullable ChannelMute channelMute) {
+      return RequestObjectBuilder.build(ChannelMuteRequestObject.class, channelMute);
+    }
   }
 
   @Builder(
