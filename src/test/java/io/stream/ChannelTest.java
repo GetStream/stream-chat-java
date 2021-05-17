@@ -1,21 +1,21 @@
 package io.stream;
 
+import io.getstream.models.Channel;
+import io.getstream.models.Channel.ChannelExportRequestObject;
+import io.getstream.models.Channel.ChannelGetResponse;
+import io.getstream.models.Channel.ChannelMember;
+import io.getstream.models.Channel.ChannelRequestObject;
+import io.getstream.models.Channel.ChannelUpdateResponse;
+import io.getstream.models.Sort;
+import io.getstream.models.Sort.Direction;
+import io.getstream.models.User;
+import io.getstream.models.User.ChannelMute;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import io.getstream.models.Channel;
-import io.getstream.models.Sort;
-import io.getstream.models.User;
-import io.getstream.models.Channel.ChannelExportRequestObject;
-import io.getstream.models.Channel.ChannelGetResponse;
-import io.getstream.models.Channel.ChannelMember;
-import io.getstream.models.Channel.ChannelRequestObject;
-import io.getstream.models.Channel.ChannelUpdateResponse;
-import io.getstream.models.Sort.Direction;
-import io.getstream.models.User.ChannelMute;
 
 public class ChannelTest extends BasicTest {
 

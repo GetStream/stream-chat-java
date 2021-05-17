@@ -1,6 +1,5 @@
 package io.getstream.services;
 
-import org.jetbrains.annotations.NotNull;
 import io.getstream.models.Command.CommandCreateRequestData;
 import io.getstream.models.Command.CommandCreateResponse;
 import io.getstream.models.Command.CommandDeleteResponse;
@@ -8,6 +7,7 @@ import io.getstream.models.Command.CommandGetResponse;
 import io.getstream.models.Command.CommandListResponse;
 import io.getstream.models.Command.CommandUpdateRequestData;
 import io.getstream.models.Command.CommandUpdateResponse;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

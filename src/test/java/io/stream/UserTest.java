@@ -1,14 +1,5 @@
 package io.stream;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import io.getstream.models.Channel;
 import io.getstream.models.User;
 import io.getstream.models.User.Ban;
@@ -19,6 +10,15 @@ import io.getstream.models.User.UserMute;
 import io.getstream.models.User.UserPartialUpdateRequestObject;
 import io.getstream.models.User.UserRequestObject;
 import io.getstream.models.User.UserUpsertRequestData.UserUpsertRequest;
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 public class UserTest extends BasicTest {
 

@@ -1,6 +1,5 @@
 package io.getstream.services;
 
-import org.jetbrains.annotations.NotNull;
 import io.getstream.models.ChannelType.ChannelTypeCreateRequestData;
 import io.getstream.models.ChannelType.ChannelTypeCreateResponse;
 import io.getstream.models.ChannelType.ChannelTypeGetResponse;
@@ -8,6 +7,7 @@ import io.getstream.models.ChannelType.ChannelTypeListResponse;
 import io.getstream.models.ChannelType.ChannelTypeUpdateRequestData;
 import io.getstream.models.ChannelType.ChannelTypeUpdateResponse;
 import io.getstream.models.framework.StreamResponseObject;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

@@ -1,10 +1,10 @@
 package io.getstream.services;
 
-import org.jetbrains.annotations.NotNull;
 import io.getstream.models.Flag.FlagCreateRequestData;
 import io.getstream.models.Flag.FlagCreateResponse;
 import io.getstream.models.Flag.FlagDeleteRequestData;
 import io.getstream.models.Flag.FlagDeleteResponse;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;

@@ -1,7 +1,5 @@
 package io.getstream.services;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import io.getstream.models.App;
 import io.getstream.models.App.AppCheckPushRequestData;
 import io.getstream.models.App.AppCheckPushResponse;
@@ -10,6 +8,8 @@ import io.getstream.models.App.AppCheckSqsResponse;
 import io.getstream.models.App.AppGetRateLimitsResponse;
 import io.getstream.models.App.AppUpdateRequestData;
 import io.getstream.models.framework.StreamResponseObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

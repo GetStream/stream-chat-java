@@ -1,11 +1,11 @@
 package io.getstream.services;
 
-import org.jetbrains.annotations.NotNull;
 import io.getstream.models.Blocklist.BlocklistCreateRequestData;
 import io.getstream.models.Blocklist.BlocklistGetResponse;
 import io.getstream.models.Blocklist.BlocklistListResponse;
 import io.getstream.models.Blocklist.BlocklistUpdateRequestData;
 import io.getstream.models.framework.StreamResponseObject;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

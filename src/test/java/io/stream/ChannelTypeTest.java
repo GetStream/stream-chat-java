@@ -1,13 +1,14 @@
 package io.stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import io.getstream.models.ChannelType;
+import io.getstream.models.ChannelType.AutoMod;
+import io.getstream.models.ChannelType.ChannelTypeListResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import io.getstream.models.ChannelType;
-import io.getstream.models.ChannelType.AutoMod;
-import io.getstream.models.ChannelType.ChannelTypeListResponse;
 
 public class ChannelTypeTest extends BasicTest {
 

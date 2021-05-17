@@ -1,7 +1,5 @@
 package io.getstream.services;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import io.getstream.models.User.UserBanRequestData;
 import io.getstream.models.User.UserCreateGuestRequestData;
 import io.getstream.models.User.UserCreateGuestResponse;
@@ -24,6 +22,8 @@ import io.getstream.models.User.UserUpsertRequestData;
 import io.getstream.models.User.UserUpsertResponse;
 import io.getstream.models.framework.StreamResponseObject;
 import io.getstream.services.framework.ToJson;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
