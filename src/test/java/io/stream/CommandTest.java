@@ -1,11 +1,11 @@
 package io.stream;
 
-import io.stream.models.Command;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import io.getstream.models.Command;
 
 public class CommandTest extends BasicTest {
 

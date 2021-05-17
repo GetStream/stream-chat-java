@@ -1,12 +1,12 @@
 package io.stream;
 
-import io.stream.models.Event;
-import io.stream.models.Event.EventRequestObject;
-import io.stream.models.Event.EventUserCustomRequestObject;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import io.getstream.models.Event;
+import io.getstream.models.Event.EventRequestObject;
+import io.getstream.models.Event.EventUserCustomRequestObject;
 
 public class EventTest extends BasicTest {
 

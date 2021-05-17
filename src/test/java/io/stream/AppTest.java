@@ -1,18 +1,18 @@
 package io.stream;
 
-import io.stream.exceptions.StreamException;
-import io.stream.models.App;
-import io.stream.models.App.AppCheckSqsResponse;
-import io.stream.models.App.AppCheckSqsResponse.Status;
-import io.stream.models.App.PushConfigRequestObject;
-import io.stream.models.App.PushVersion;
-import io.stream.models.Message;
-import io.stream.models.Message.MessageRequestObject;
-import io.stream.services.framework.StreamServiceGenerator;
 import java.lang.reflect.Field;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import io.getstream.exceptions.StreamException;
+import io.getstream.models.App;
+import io.getstream.models.Message;
+import io.getstream.models.App.AppCheckSqsResponse;
+import io.getstream.models.App.PushConfigRequestObject;
+import io.getstream.models.App.PushVersion;
+import io.getstream.models.App.AppCheckSqsResponse.Status;
+import io.getstream.models.Message.MessageRequestObject;
+import io.getstream.services.framework.StreamServiceGenerator;
 
 public class AppTest extends BasicTest {
 
