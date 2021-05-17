@@ -2,6 +2,10 @@ plugins {
     id 'java'
 }
 
+group = 'io.getstream'
+version = '0.0.1-BETA'
+description = 'Stream Chat official Java SDK'
+
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 java.targetCompatibility = JavaVersion.VERSION_1_8
 

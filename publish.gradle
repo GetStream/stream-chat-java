@@ -37,10 +37,6 @@ artifacts {
     archives javadocJar, sourcesJar
 }
 
-group = 'io.getstream'
-version = '0.0.1-BETA'
-description = 'Stream Chat official Java SDK'
-
 afterEvaluate {
     publishing {
         publications {
