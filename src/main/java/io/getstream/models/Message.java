@@ -17,6 +17,7 @@ import io.getstream.exceptions.StreamException;
 import io.getstream.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.getstream.models.Flag.FlagDeleteRequestData.FlagDeleteRequest;
 import io.getstream.models.Flag.FlagMessageQueryRequestData.FlagMessageQueryRequest;
+import io.getstream.models.Message.MessagePartialUpdateRequestData.MessagePartialUpdateRequest;
 import io.getstream.models.Message.MessageRunCommandActionRequestData.MessageRunCommandActionRequest;
 import io.getstream.models.Message.MessageSearchRequestData.MessageSearchRequest;
 import io.getstream.models.Message.MessageSendRequestData.MessageSendRequest;
@@ -1215,6 +1216,45 @@ public class Message {
       }
     }
   }
+  
+  @Builder(
+      builderClassName = "MessagePartialUpdateRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class MessagePartialUpdateRequestData {
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    @Singular
+    @Nullable
+    @JsonProperty("set")
+    private Map<String, Object> setValues;
+
+    @Singular
+    @Nullable
+    @JsonProperty("unset")
+    private List<String> unsetValues;
+
+    public static class MessagePartialUpdateRequest
+        extends StreamRequest<MessagePartialUpdateResponse> {
+      @NotNull private String id;
+
+      private MessagePartialUpdateRequest(@NotNull String id) {
+        this.id = id;
+      }
+
+      @Override
+      protected Call<MessagePartialUpdateResponse> generateCall() {
+        return StreamServiceGenerator.createService(MessageService.class)
+            .partialUpdate(id, this.internalBuild());
+      }
+    }
+  }
 
   @Data
   @NoArgsConstructor
@@ -1314,6 +1354,15 @@ public class Message {
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class MessageTranslateResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("message")
+    private Message message;
+  }
+  
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class MessagePartialUpdateResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("message")
     private Message message;
@@ -1515,5 +1564,16 @@ public class Message {
   @NotNull
   public static FlagMessageQueryRequest queryFlags() {
     return new FlagMessageQueryRequest();
+  }
+  
+  /**
+   * Creates a partial update request
+   *
+   * @param id the message id
+   * @return the created request
+   */
+  @NotNull
+  public static MessagePartialUpdateRequest partialUpdate(@NotNull String id) {
+    return new MessagePartialUpdateRequest(id);
   }
 }

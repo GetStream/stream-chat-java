@@ -1378,6 +1378,46 @@ messageRequestObject4.setPinExpires(null);
 Message.update(message4.getId()).message(messageRequestObject4).request();
 ```
 
+**Partial update message**
+
+```java
+Message originalMessage =
+    Message.send(channelType, channelId)
+        .message(
+            MessageRequestObject.builder()
+                .text("this message is about to be partially updated")
+                .additionalField("color", "red")
+                .additionalField("details", Collections.singletonMap("status", "pending"))
+                .userId(userId)
+                .build())
+        .request()
+        .getMessage();
+
+// partial update message text
+Message updated =
+    Message.partialUpdate(originalMessage.getId())
+        .setValue("text", "the text was partial updated")
+        .userId(userId)
+        .request()
+        .getMessage();
+
+// unset color property
+updated =
+    Message.partialUpdate(originalMessage.getId())
+        .unsetValue("color")
+        .userId(userId)
+        .request()
+        .getMessage();
+
+// set nested property
+updated =
+    Message.partialUpdate(originalMessage.getId())
+        .setValue("details.status", "complete")
+        .userId(userId)
+        .request()
+        .getMessage();
+```
+
 **Delete message**
 
 ```java

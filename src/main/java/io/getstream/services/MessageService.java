@@ -4,6 +4,8 @@ import io.getstream.models.Message.MessageDeleteResponse;
 import io.getstream.models.Message.MessageGetManyResponse;
 import io.getstream.models.Message.MessageGetRepliesResponse;
 import io.getstream.models.Message.MessageGetResponse;
+import io.getstream.models.Message.MessagePartialUpdateRequestData;
+import io.getstream.models.Message.MessagePartialUpdateResponse;
 import io.getstream.models.Message.MessageRunCommandActionRequestData;
 import io.getstream.models.Message.MessageRunCommandActionResponse;
 import io.getstream.models.Message.MessageSearchRequestData;
@@ -30,6 +32,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -115,4 +118,8 @@ public interface MessageService {
   Call<MessageTranslateResponse> translate(
       @NotNull @Path("id") String messageId,
       @NotNull @Body MessageTranslateRequestData messageTranslateRequestData);
+
+  @PUT("messages/{id}")
+  Call<MessagePartialUpdateResponse> partialUpdate(@NotNull @Path("id") String id,
+      @NotNull @Body MessagePartialUpdateRequestData messagePartialUpdateRequestData);
 }
