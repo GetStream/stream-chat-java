@@ -1933,5 +1933,11 @@ User.createGuest()
 User.unmute().singleTargetId(targetUserId).userId(userId).request();
 ```
 
+**Query message flags**
+
+```java
+Message.queryFlags().request();
+```
+
 ## Contribute
 > See [The guide to contribute](CONTRIBUTING.md)

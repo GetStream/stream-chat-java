@@ -1,13 +1,14 @@
 package io.stream;
 
-import io.getstream.models.Flag;
-import io.getstream.models.Message;
-import io.getstream.models.User;
-import io.getstream.models.User.UserRequestObject;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import io.getstream.models.Flag;
+import io.getstream.models.Flag.FlagMessageQueryResponse;
+import io.getstream.models.Message;
+import io.getstream.models.User;
+import io.getstream.models.User.UserRequestObject;
 
 public class FlagTest extends BasicTest {
 
@@ -82,5 +83,20 @@ public class FlagTest extends BasicTest {
                 .targetUserId(userRequestObject.getId())
                 .user(testUserRequestObject)
                 .request());
+  }
+  
+  @DisplayName("Can search flagged messages")
+  @Test
+  void whenQueryingMessageFlags_thenRetrieved() {
+    Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
+    Assertions.assertDoesNotThrow(
+                () ->
+                    Flag.create()
+                        .targetMessageId(message.getId())
+                        .user(testUserRequestObject)
+                        .request())
+            .getFlag();
+    FlagMessageQueryResponse response = Assertions.assertDoesNotThrow(() -> Message.queryFlags().request());
+    Assertions.assertTrue(response.getFlags().stream().anyMatch(flag -> flag.getMessage().getId().equals(message.getId())));
   }
 }

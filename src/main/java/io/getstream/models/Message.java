@@ -1,5 +1,14 @@
 package io.getstream.models;
 
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -7,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.getstream.exceptions.StreamException;
 import io.getstream.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.getstream.models.Flag.FlagDeleteRequestData.FlagDeleteRequest;
+import io.getstream.models.Flag.FlagMessageQueryRequestData.FlagMessageQueryRequest;
 import io.getstream.models.Message.MessageRunCommandActionRequestData.MessageRunCommandActionRequest;
 import io.getstream.models.Message.MessageSearchRequestData.MessageSearchRequest;
 import io.getstream.models.Message.MessageSendRequestData.MessageSendRequest;
@@ -20,13 +30,6 @@ import io.getstream.models.framework.StreamRequest;
 import io.getstream.models.framework.StreamResponseObject;
 import io.getstream.services.MessageService;
 import io.getstream.services.framework.StreamServiceGenerator;
-import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,8 +37,6 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.Singular;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -1504,5 +1505,15 @@ public class Message {
   @NotNull
   public static FlagDeleteRequest unflag(@NotNull String messageId) {
     return new FlagDeleteRequest().targetMessageId(messageId);
+  }
+  
+  /**
+   * Creates a query flag request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static FlagMessageQueryRequest queryFlags() {
+    return new FlagMessageQueryRequest();
   }
 }
