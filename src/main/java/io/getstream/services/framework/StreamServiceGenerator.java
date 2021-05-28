@@ -2,7 +2,6 @@ package io.getstream.services.framework;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.getstream.exceptions.StreamException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;
@@ -51,12 +50,12 @@ public class StreamServiceGenerator {
     if (retrofit == null) {
       initKeys();
       if (apiKey == null) {
-        StreamException.build(
+        throw new IllegalStateException(
             "Missing Stream API key. Please set STREAM_KEY environment variable or System"
                 + " property");
       }
       if (apiSecret == null) {
-        StreamException.build(
+        throw new IllegalStateException(
             "Missing Stream API secret. Please set STREAM_SECRET environment variable or System"
                 + " property");
       }
