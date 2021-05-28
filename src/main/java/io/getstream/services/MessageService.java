@@ -120,6 +120,7 @@ public interface MessageService {
       @NotNull @Body MessageTranslateRequestData messageTranslateRequestData);
 
   @PUT("messages/{id}")
-  Call<MessagePartialUpdateResponse> partialUpdate(@NotNull @Path("id") String id,
+  Call<MessagePartialUpdateResponse> partialUpdate(
+      @NotNull @Path("id") String id,
       @NotNull @Body MessagePartialUpdateRequestData messagePartialUpdateRequestData);
 }

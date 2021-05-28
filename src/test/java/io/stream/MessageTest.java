@@ -390,8 +390,7 @@ public class MessageTest extends BasicTest {
     field.setAccessible(true);
     return field.get(requestObject);
   }
-  
-  
+
   @DisplayName("Can partially update a message")
   @Test
   void whenPartiallyUpdatingAMessage_thenIsUpdated() {
@@ -400,7 +399,12 @@ public class MessageTest extends BasicTest {
     String updatedText = "This is an updated message";
     Message updatedMessage =
         Assertions.assertDoesNotThrow(
-        () -> Message.partialUpdate(message.getId()).setValue("text", updatedText).user(testUserRequestObject).request()).getMessage();
+                () ->
+                    Message.partialUpdate(message.getId())
+                        .setValue("text", updatedText)
+                        .user(testUserRequestObject)
+                        .request())
+            .getMessage();
     Assertions.assertEquals(updatedText, updatedMessage.getText());
   }
 }

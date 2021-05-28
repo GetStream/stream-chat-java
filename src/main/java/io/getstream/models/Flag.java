@@ -1,10 +1,5 @@
 package io.getstream.models;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.getstream.models.ChannelType.Threshold;
 import io.getstream.models.Flag.FlagCreateRequestData.FlagCreateRequest;
@@ -16,10 +11,15 @@ import io.getstream.models.framework.StreamRequest;
 import io.getstream.models.framework.StreamResponseObject;
 import io.getstream.services.FlagService;
 import io.getstream.services.framework.StreamServiceGenerator;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -60,14 +60,14 @@ public class Flag {
   @Nullable
   @JsonProperty("rejected_at")
   private Date rejectedAt;
-  
+
   @Data
   @NoArgsConstructor
   public static class MessageFlag {
     @NotNull
     @JsonProperty("created_by_automod")
     private Boolean createdByAutomod;
-    
+
     @NotNull
     @JsonProperty("moderation_result")
     private MessageModerationResult moderationResult;
@@ -91,7 +91,7 @@ public class Flag {
     @Nullable
     @JsonProperty("reviewed_at")
     private Date reviewedAt;
-    
+
     @Nullable
     @JsonProperty("reviewed_by")
     private User reviewedBy;
@@ -104,62 +104,62 @@ public class Flag {
     @JsonProperty("rejected_at")
     private Date rejectedAt;
   }
-  
+
   @Data
   @NoArgsConstructor
   public static class MessageModerationResult {
     @Nullable
     @JsonProperty("message_id")
     private String message_id;
-    
+
     @Nullable
     @JsonProperty("action")
     private String action;
-    
+
     @Nullable
     @JsonProperty("moderated_by")
     private String moderatedBy;
-    
+
     @Nullable
     @JsonProperty("blocked_word")
     private String blockedWord;
-    
+
     @Nullable
     @JsonProperty("blocklist_name")
     private String blocklistName;
-    
+
     @Nullable
     @JsonProperty("moderation_thresholds")
     private Thresholds moderationThresholds;
-    
+
     @Nullable
     @JsonProperty("ai_moderation_response")
     private Moderation aiModerationResponse;
-    
+
     @Nullable
     @JsonProperty("user_karma")
     private Integer userKarma;
-    
+
     @Nullable
     @JsonProperty("user_bad_karma")
     private Boolean userBadKarma;
-    
+
     @Nullable
     @JsonProperty("created_at")
     private Date createdAt;
-    
+
     @Nullable
     @JsonProperty("updated_at")
     private Date updatedAt;
   }
-  
+
   @Data
   @NoArgsConstructor
   public static class Thresholds {
     private Threshold explicit;
-    
+
     private Threshold spam;
-    
+
     private Threshold toxic;
   }
 
@@ -220,7 +220,7 @@ public class Flag {
       }
     }
   }
-  
+
   @Builder(
       builderClassName = "FlagMessageQueryRequest",
       builderMethodName = "",
@@ -229,27 +229,28 @@ public class Flag {
     @Nullable
     @JsonProperty("filterConditions")
     private Map<String, Object> filterConditions;
-    
+
     @Nullable
     @JsonProperty("limit")
     private Integer limit;
-    
+
     @Nullable
     @JsonProperty("offset")
     private Integer offset;
-    
+
     @Nullable
     @JsonProperty("user_id")
     private String userId;
-    
+
     @Nullable
     @JsonProperty("user")
     private UserRequestObject user;
-    
+
     public static class FlagMessageQueryRequest extends StreamRequest<FlagMessageQueryResponse> {
       @Override
       protected Call<FlagMessageQueryResponse> generateCall() {
-        return StreamServiceGenerator.createService(FlagService.class).messageQuery(this.internalBuild());
+        return StreamServiceGenerator.createService(FlagService.class)
+            .messageQuery(this.internalBuild());
       }
     }
   }
@@ -271,7 +272,7 @@ public class Flag {
     @JsonProperty("flag")
     private Flag flag;
   }
-  
+
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
@@ -300,7 +301,7 @@ public class Flag {
   public static FlagDeleteRequest delete() {
     return new FlagDeleteRequest();
   }
-  
+
   /**
    * Creates a query messages request
    *
