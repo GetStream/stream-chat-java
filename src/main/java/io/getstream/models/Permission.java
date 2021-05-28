@@ -101,6 +101,8 @@ public class Permission {
     USE_COMMANDS,
     @JsonProperty("EditUser")
     EDIT_USER,
+    @JsonProperty("ReadMessageFlags")
+    READ_MESSAGE_FLAGS,
     @JsonProperty("*")
     ALL
   }
