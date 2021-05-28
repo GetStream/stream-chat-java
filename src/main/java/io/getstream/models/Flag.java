@@ -1,10 +1,5 @@
 package io.getstream.models;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.getstream.models.ChannelType.Threshold;
 import io.getstream.models.Flag.FlagCreateRequestData.FlagCreateRequest;
@@ -16,11 +11,16 @@ import io.getstream.models.framework.StreamRequest;
 import io.getstream.models.framework.StreamResponseObject;
 import io.getstream.services.FlagService;
 import io.getstream.services.framework.StreamServiceGenerator;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
