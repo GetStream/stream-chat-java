@@ -5,8 +5,8 @@ This SDK is a wrapper for Stream API
 ### Requirements
 The Stream chat Java SDK requires Java 1.8+.
 ### Compatibility
-The Stream chat Java SDK is compatible with Kotlin and Scala.
-### Installation
+The Stream chat Java SDK is compatible with Groovy, Scala, Kotlin and Clojure.
+### Installation for Java
 
 **With Gradle**: Add the library as a dependency in your *module* level `build.gradle` file:
 > See the [releases page](https://github.com/GetStream/stream-chat-java/releases) for the latest version number.
@@ -28,6 +28,48 @@ dependencies {
 </dependency>
 ```
 
+### Installation for Groovy
+
+**With Gradle**: Add the library as a dependency in your *module* level `build.gradle` file:
+> See the [releases page](https://github.com/GetStream/stream-chat-java/releases) for the latest version number.
+
+```gradle
+dependencies {
+    implementation 'io.getstream:stream-chat-java:$stream_version'
+}
+```
+
+### Installation for Scala
+
+**With Gradle**: Add the library as a dependency in your *module* level `build.gradle` file:
+> See the [releases page](https://github.com/GetStream/stream-chat-java/releases) for the latest version number.
+
+```gradle
+dependencies {
+    implementation 'io.getstream:stream-chat-java:$stream_version'
+}
+```
+
+### Installation for Kotlin
+
+**With Gradle**: Add the library as a dependency in your *module* level `build.gradle.kts` file:
+> See the [releases page](https://github.com/GetStream/stream-chat-java/releases) for the latest version number.
+
+```gradle
+dependencies {
+    implementation("io.getstream:stream-chat-java:$stream_version")
+}
+```
+
+### Installation for Clojure
+
+**With Leiningen**: Add the library as a dependency in your `project.clj` file:
+> See the [releases page](https://github.com/GetStream/stream-chat-java/releases) for the latest version number.
+
+```leiningen
+:dependencies [[io.getstream/stream-chat-java "$stream_version"]]
+```
+
 ### Dependencies
 This SDK uses the following dependencies:
 - com.squareup.retrofit2/retrofit version 2.9.0
@@ -40,13 +82,50 @@ This SDK uses the following dependencies:
 To configure the SDK, you need to setup the key and secret of your application.
 You can do so either by:
 - setting STREAM_KEY and STREAM_SECRET System properties
-- setting STREAM_KEY and STREAM_SECRET environment variables  
+- setting STREAM_KEY and STREAM_SECRET environment variables
 You can also customize the base url and the timeout, with the STREAM_CHAT_URL and STREAM_CHAT_TIMEOUT System properties or environment variables.
 You can use your own CDN by creating an implementation of FileHandler and setting it this way
 
 ```java
 Message.fileHandlerClass = MyFileHandler.class
 ```
+All setup must be done prior to any request to the API.
+
+### Simple test
+<table>
+<tbody>
+<tr><td><strong>Java</strong></td><td>
+
+```java
+System.out.println(App.get().request());
+```
+
+</td></tr><tr><td><strong>Groovy</strong><td>
+
+```groovy
+println App.get().request()
+```
+
+</td></tr><tr><td><strong>Scala</strong><td>
+
+```scala
+println(App.get.request)
+```
+
+</td></tr><tr><td><strong>Kotlin</strong><td>
+
+```kotlin
+println(App.get().request())
+```
+
+</td></tr><tr><td><strong>Clojure</strong><td>
+
+```clojure
+println (.request (App/get))
+```
+
+</td></tr>
+</tbody></table>
 
 ### Usage principles
 To perform a request on the Stream Chat API, you need to:
