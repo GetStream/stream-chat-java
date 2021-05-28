@@ -97,7 +97,7 @@ public class FlagTest extends BasicTest {
                     .request())
         .getFlag();
     FlagMessageQueryResponse response =
-        Assertions.assertDoesNotThrow(() -> Message.queryFlags().request());
+        Assertions.assertDoesNotThrow(() -> Message.queryFlags().filterCondition("user_id", testUserRequestObject.getId()).user(testUserRequestObject).request());
     Assertions.assertTrue(
         response.getFlags().stream()
             .anyMatch(flag -> flag.getMessage().getId().equals(message.getId())));
