@@ -34,6 +34,7 @@ They are organized by model. Each endpoint has at least one test related.
 - All attributes, parameters and return values should be annotated with either `@Nullable` or `@NotNull`
 - New implementations should follow the same principles as the existing ones (see how to section below)
 - In Models, collections of submodel should be List (other collections and arrays are not supported by RequestObjectBuilder)
+- String that only can take a given set of values should be represented as enums, with an `UNKNOWN` value marked `@JsonEnumDefaultValue` to avoid problem if the list of possible values changes
 
 ## How to
 ### Enable logging

@@ -1,5 +1,6 @@
 package io.getstream.models;
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.getstream.models.Permission.PermissionCreateRequestData.PermissionCreateRequest;
 import io.getstream.models.Permission.PermissionUpdateRequestData.PermissionUpdateRequest;
@@ -104,7 +105,9 @@ public class Permission {
     @JsonProperty("ReadMessageFlags")
     READ_MESSAGE_FLAGS,
     @JsonProperty("*")
-    ALL
+    ALL,
+    @JsonEnumDefaultValue
+    UNKNOWN
   }
 
   @Builder(

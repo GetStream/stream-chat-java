@@ -89,6 +89,7 @@ public class StreamServiceGenerator {
       mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, failOnUnknownProperties);
       mapper.setDateFormat(
           new StdDateFormat().withColonInTimeZone(true).withTimeZone(TimeZone.getTimeZone("UTC")));
+      mapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
       String baseUrl =
           System.getenv("STREAM_CHAT_URL") != null
               ? System.getenv("STREAM_CHAT_URL")

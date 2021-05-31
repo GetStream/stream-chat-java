@@ -2,6 +2,7 @@ package io.getstream.models;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.getstream.models.Channel.ChannelExportRequestData.ChannelExportRequest;
@@ -1079,7 +1080,9 @@ public class Channel {
       @JsonProperty("completed")
       COMPLETED,
       @JsonProperty("failed")
-      FAILED
+      FAILED,
+      @JsonEnumDefaultValue
+      UNKNOWN
     }
 
     @Data

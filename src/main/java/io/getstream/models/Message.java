@@ -2,6 +2,7 @@ package io.getstream.models;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.getstream.exceptions.StreamException;
@@ -195,7 +196,9 @@ public class Message {
     @JsonProperty("system")
     SYSTEM,
     @JsonProperty("deleted")
-    DELETED
+    DELETED,
+    @JsonEnumDefaultValue
+    UNKNOWN
   }
 
   @Data
@@ -373,7 +376,9 @@ public class Message {
     @JsonProperty("right")
     RIGHT,
     @JsonProperty("center")
-    CENTER
+    CENTER,
+    @JsonEnumDefaultValue
+    UNKNOWN
   }
 
   public enum Resize {
@@ -384,7 +389,9 @@ public class Message {
     @JsonProperty("scale")
     SCALE,
     @JsonProperty("fill")
-    FILL
+    FILL,
+    @JsonEnumDefaultValue
+    UNKNOWN
   }
 
   @Data
