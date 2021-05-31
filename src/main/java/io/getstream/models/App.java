@@ -2,13 +2,15 @@ package io.getstream.models;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
+import java.security.InvalidKeyException;
+import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -36,10 +38,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.extern.java.Log;
 import retrofit2.Call;
 
-@Log
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -857,19 +857,21 @@ public class App extends StreamResponseObject {
    * @return true if the signature is valid
    */
   public boolean verifyWebhook(String body, String signature) {
-    MessageDigest digest;
+    String apiKey =
+        System.getenv("STREAM_KEY") != null
+        ? System.getenv("STREAM_KEY")
+        : System.getProperty("STREAM_KEY");
     try {
-      digest = MessageDigest.getInstance("SHA-256");
-      byte[] encodedHash = digest.digest(
-          body.getBytes(StandardCharsets.UTF_8));
-      return bytesToHex(encodedHash).equals(signature);
-    } catch (NoSuchAlgorithmException e) {
-      log.log(
-          Level.SEVERE,
-          "Should not happen. Could not find SHA-256",
-          e);
-      return false;
-    }
+      Key sk = new SecretKeySpec(apiKey.getBytes(), "HmacSHA256");
+      Mac mac = Mac.getInstance(sk.getAlgorithm());
+      mac.init(sk);
+      final byte[] hmac = mac.doFinal(body.getBytes(StandardCharsets.UTF_8));
+      return bytesToHex(hmac).equals(signature);
+     } catch (NoSuchAlgorithmException e) {
+       throw new IllegalStateException("Should not happen. Could not find HmacSHA256",e);
+     } catch (InvalidKeyException e) {
+      throw new IllegalStateException("error building signature, invalid key", e);
+     }
   }
   
   private String bytesToHex(byte[] hash) {
