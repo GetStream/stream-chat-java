@@ -11,6 +11,7 @@ import io.getstream.models.Sort.Direction;
 import io.getstream.models.User;
 import io.getstream.models.User.ChannelMute;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
@@ -129,6 +130,7 @@ public class ChannelTest extends BasicTest {
                             ChannelExportRequestObject.builder()
                                 .type(testChannel.getType())
                                 .id(testChannel.getId())
+                                .messagesUntil(new Date())
                                 .build())
                         .request())
             .getTaskId();

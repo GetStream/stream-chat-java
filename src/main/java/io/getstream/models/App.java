@@ -20,10 +20,17 @@ import io.getstream.models.framework.StreamResponseObject;
 import io.getstream.services.AppService;
 import io.getstream.services.framework.StreamServiceGenerator;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -248,6 +255,10 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("auto_translation_enabled")
     private Boolean autoTranslationEnabled;
+
+    @Nullable
+    @JsonProperty("revoke_tokens_issued_before")
+    private Date revokeTokensIssuedBefore;
   }
 
   public enum PermissionVersion {
@@ -553,6 +564,14 @@ public class App extends StreamResponseObject {
     @JsonProperty("multi_tenant_enabled")
     private Boolean multiTenantEnabled;
 
+    @Nullable
+    @JsonProperty("revoke_tokens_issued_before")
+    private Date revokeTokensIssuedBefore;
+
+    @Nullable
+    @JsonProperty("channel_hide_members_only")
+    private Boolean channelHideMembersOnly;
+
     public static class AppUpdateRequest extends StreamRequest<StreamResponseObject> {
       @Override
       protected Call<StreamResponseObject> generateCall() {
@@ -688,6 +707,18 @@ public class App extends StreamResponseObject {
     }
   }
 
+  @AllArgsConstructor
+  public static class AppRevokeTokensRequest extends StreamRequest<StreamResponseObject> {
+    @Nullable private Date revokeTokensIssuedBefore;
+
+    @Override
+    protected Call<StreamResponseObject> generateCall() {
+      return new AppUpdateRequest()
+          .revokeTokensIssuedBefore(revokeTokensIssuedBefore)
+          .generateCall();
+    }
+  }
+
   @Data
   @NoArgsConstructor
   public static class AppGetRateLimitsResponse implements StreamResponse {
@@ -815,5 +846,53 @@ public class App extends StreamResponseObject {
   @NotNull
   public static AppCheckPushRequest checkPush() {
     return new AppCheckPushRequest();
+  }
+
+  /**
+   * Creates a revoke tokens request
+   *
+   * @param revokeTokensIssuedBefore the limit date to revoke tokens
+   * @return the created request
+   */
+  @NotNull
+  public static AppRevokeTokensRequest revokeTokens(@Nullable Date revokeTokensIssuedBefore) {
+    return new AppRevokeTokensRequest(revokeTokensIssuedBefore);
+  }
+
+  /**
+   * Validates if hmac signature is correct for message body
+   *
+   * @param body the message body
+   * @param signature the signature
+   * @return true if the signature is valid
+   */
+  public boolean verifyWebhook(String body, String signature) {
+    String apiSecret =
+        System.getenv("STREAM_SECRET") != null
+            ? System.getenv("STREAM_SECRET")
+            : System.getProperty("STREAM_SECRET");
+    try {
+      Key sk = new SecretKeySpec(apiSecret.getBytes(), "HmacSHA256");
+      Mac mac = Mac.getInstance(sk.getAlgorithm());
+      mac.init(sk);
+      final byte[] hmac = mac.doFinal(body.getBytes(StandardCharsets.UTF_8));
+      return bytesToHex(hmac).equals(signature);
+    } catch (NoSuchAlgorithmException e) {
+      throw new IllegalStateException("Should not happen. Could not find HmacSHA256", e);
+    } catch (InvalidKeyException e) {
+      throw new IllegalStateException("error building signature, invalid key", e);
+    }
+  }
+
+  private String bytesToHex(byte[] hash) {
+    StringBuilder hexString = new StringBuilder(2 * hash.length);
+    for (int i = 0; i < hash.length; i++) {
+      String hex = Integer.toHexString(0xff & hash[i]);
+      if (hex.length() == 1) {
+        hexString.append('0');
+      }
+      hexString.append(hex);
+    }
+    return hexString.toString();
   }
 }

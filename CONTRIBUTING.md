@@ -62,7 +62,7 @@ StreamServiceGenerator.logLevel = HttpLoggingInterceptor.Level.BODY;
 
 #### Create the xxxRequestData class
 - It should be created in the model, after other RequestData/Request classes
-- All fields should be `@Nullable` except collections that should be never be null which should have @Singular (which will make builder initialize them)
+- All fields should be `@Nullable` except collections that should be never be null which should have `@Singular` (which will make builder initialize them)
 
 #### Create the xxxRequest
 - It should be created inside the xxxRequestData class

@@ -1979,5 +1979,12 @@ User.unmute().singleTargetId(targetUserId).userId(userId).request();
 Message.queryFlags().request();
 ```
 
+**Verify webhook**
+
+```java
+// signature comes from the HTTP header x-signature 
+boolean valid =  App.verifyWebhook(body, signature) 
+```
+
 ## Contribute
 > See [The guide to contribute](CONTRIBUTING.md)

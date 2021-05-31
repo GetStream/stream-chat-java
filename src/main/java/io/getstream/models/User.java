@@ -23,10 +23,22 @@ import io.getstream.models.framework.StreamRequest;
 import io.getstream.models.framework.StreamResponseObject;
 import io.getstream.services.UserService;
 import io.getstream.services.framework.StreamServiceGenerator;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import java.security.Key;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
+import java.util.stream.Collectors;
+import javax.crypto.spec.SecretKeySpec;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -991,6 +1003,36 @@ public class User {
     }
   }
 
+  @AllArgsConstructor
+  public static class UserRevokeTokensRequest extends StreamRequest<UserPartialUpdateResponse> {
+    @NotNull private List<String> userIds = new ArrayList<>();
+
+    @Nullable private Date revokeTokensIssuedBefore;
+
+    @Override
+    protected Call<UserPartialUpdateResponse> generateCall() {
+      DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+      formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+      return StreamServiceGenerator.createService(UserService.class)
+          .partialUpdate(
+              new UserPartialUpdateRequest()
+                  .users(
+                      userIds.stream()
+                          .map(
+                              userId ->
+                                  UserPartialUpdateRequestObject.builder()
+                                      .id(userId)
+                                      .setValue(
+                                          "revoke_tokens_issued_before",
+                                          revokeTokensIssuedBefore == null
+                                              ? null
+                                              : formatter.format(revokeTokensIssuedBefore))
+                                      .build())
+                          .collect(Collectors.toList()))
+                  .internalBuild());
+    }
+  }
+
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
@@ -1256,5 +1298,50 @@ public class User {
   @NotNull
   public static UserUnbanRequest unban(@NotNull String targetUserId) {
     return new UserUnbanRequest(targetUserId);
+  }
+
+  /**
+   * Creates a revoke token request
+   *
+   * @param userId the user id to revoke token for
+   * @param revokeTokensIssuedBefore the limit date to revoke tokens
+   * @return the created request
+   */
+  @NotNull
+  public static UserRevokeTokensRequest revokeToken(
+      @NotNull String userId, @Nullable Date revokeTokensIssuedBefore) {
+    return new UserRevokeTokensRequest(Arrays.asList(userId), revokeTokensIssuedBefore);
+  }
+
+  /**
+   * Creates a revoke token request
+   *
+   * @param userIds the user ids to revoke token for
+   * @param revokeTokensIssuedBefore the limit date to revoke tokens
+   * @return the created request
+   */
+  @NotNull
+  public static UserRevokeTokensRequest revokeTokens(
+      @NotNull List<String> userIds, @Nullable Date revokeTokensIssuedBefore) {
+    return new UserRevokeTokensRequest(userIds, revokeTokensIssuedBefore);
+  }
+
+  @NotNull
+  public static String createToken(
+      @NotNull String userId, @Nullable Date expiresAt, @Nullable Date issuedAt) {
+    String apiKey =
+        System.getenv("STREAM_KEY") != null
+            ? System.getenv("STREAM_KEY")
+            : System.getProperty("STREAM_KEY");
+    SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+    byte[] apiKeySecretBytes = Base64.getDecoder().decode(apiKey);
+    Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+
+    return Jwts.builder()
+        .claim("user_id", userId)
+        .setExpiration(expiresAt)
+        .setIssuedAt(issuedAt)
+        .signWith(signingKey, signatureAlgorithm)
+        .compact();
   }
 }

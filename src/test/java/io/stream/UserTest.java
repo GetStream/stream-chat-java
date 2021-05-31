@@ -12,6 +12,8 @@ import io.getstream.models.User.UserRequestObject;
 import io.getstream.models.User.UserUpsertRequestData.UserUpsertRequest;
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -232,5 +234,30 @@ public class UserTest extends BasicTest {
     Field field = requestObject.getClass().getDeclaredField(fieldName);
     field.setAccessible(true);
     return field.get(requestObject);
+  }
+
+  @DisplayName("Can revoke user token")
+  @Test
+  void whenRevokingUserToken_thenNoException() {
+    Calendar calendar = new GregorianCalendar();
+    calendar.add(Calendar.DAY_OF_MONTH, -1);
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.revokeToken(testUsersRequestObjects.get(1).getId(), calendar.getTime()).request());
+  }
+
+  @DisplayName("Can revoke users tokens")
+  @Test
+  void whenRevokingUsersTokens_thenNoException() {
+    Calendar calendar = new GregorianCalendar();
+    calendar.add(Calendar.DAY_OF_MONTH, -1);
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.revokeTokens(
+                    Arrays.asList(
+                        testUsersRequestObjects.get(1).getId(),
+                        testUsersRequestObjects.get(2).getId()),
+                    calendar.getTime())
+                .request());
   }
 }
