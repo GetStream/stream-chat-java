@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,6 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -1347,7 +1347,7 @@ public class User {
         ? System.getenv("STREAM_KEY")
         : System.getProperty("STREAM_KEY");
     SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-    byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(apiKey);
+    byte[] apiKeySecretBytes = Base64.getDecoder().decode(apiKey);
     Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
     return Jwts.builder().claim("user_id", userId)
