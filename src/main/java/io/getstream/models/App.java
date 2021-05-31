@@ -1,5 +1,16 @@
 package io.getstream.models;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParser;
@@ -19,21 +30,16 @@ import io.getstream.models.framework.StreamResponse;
 import io.getstream.models.framework.StreamResponseObject;
 import io.getstream.services.AppService;
 import io.getstream.services.framework.StreamServiceGenerator;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import lombok.extern.java.Log;
 import retrofit2.Call;
 
+@Log
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -842,5 +848,39 @@ public class App extends StreamResponseObject {
   @NotNull
   public static AppRevokeTokensRequest revokeTokens(@Nullable Date revokeTokensIssuedBefore) {
     return new AppRevokeTokensRequest(revokeTokensIssuedBefore);
+  }
+  
+  /**
+   * Validates if hmac signature is correct for message body
+   * @param body the message body
+   * @param signature the signature
+   * @return true if the signature is valid
+   */
+  public boolean verifyWebhook(String body, String signature) {
+    MessageDigest digest;
+    try {
+      digest = MessageDigest.getInstance("SHA-256");
+      byte[] encodedHash = digest.digest(
+          body.getBytes(StandardCharsets.UTF_8));
+      return bytesToHex(encodedHash).equals(signature);
+    } catch (NoSuchAlgorithmException e) {
+      log.log(
+          Level.SEVERE,
+          "Should not happen. Could not find SHA-256",
+          e);
+      return false;
+    }
+  }
+  
+  private String bytesToHex(byte[] hash) {
+      StringBuilder hexString = new StringBuilder(2 * hash.length);
+      for (int i = 0; i < hash.length; i++) {
+          String hex = Integer.toHexString(0xff & hash[i]);
+          if (hex.length() == 1) {
+              hexString.append('0');
+          }
+          hexString.append(hex);
+      }
+      return hexString.toString();
   }
 }
