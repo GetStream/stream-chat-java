@@ -1,5 +1,6 @@
 package io.getstream.models;
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum Language {
@@ -112,5 +113,7 @@ public enum Language {
   @JsonProperty("zh")
   ZH,
   @JsonProperty("zh-TW")
-  ZH_TW
+  ZH_TW,
+  @JsonEnumDefaultValue
+  UNKNOWN
 }

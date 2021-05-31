@@ -1,5 +1,6 @@
 package io.getstream.models;
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.getstream.models.Device.DeviceCreateRequestData.DeviceCreateRequest;
 import io.getstream.models.User.UserRequestObject;
@@ -51,7 +52,9 @@ public class Device {
     @JsonProperty("firebase")
     FIREBASE,
     @JsonProperty("apn")
-    APN
+    APN,
+    @JsonEnumDefaultValue
+    UNKNOWN
   }
 
   @Builder
