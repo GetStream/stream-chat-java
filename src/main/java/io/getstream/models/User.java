@@ -1,5 +1,6 @@
 package io.getstream.models;
 
+import java.security.Key;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -36,6 +39,8 @@ import io.getstream.models.framework.StreamRequest;
 import io.getstream.models.framework.StreamResponseObject;
 import io.getstream.services.UserService;
 import io.getstream.services.framework.StreamServiceGenerator;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -1333,5 +1338,22 @@ public class User {
   @NotNull
   public static UserRevokeTokensRequest revokeTokens(@NotNull List<String> userIds, @Nullable Date revokeTokensIssuedBefore) {
     return new UserRevokeTokensRequest(userIds, revokeTokensIssuedBefore);
+  }
+  
+  @NotNull
+  public static String createToken(@NotNull String userId, @Nullable Date expiresAt, @Nullable Date issuedAt) {
+    String apiKey =
+        System.getenv("STREAM_KEY") != null
+        ? System.getenv("STREAM_KEY")
+        : System.getProperty("STREAM_KEY");
+    SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+    byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(apiKey);
+    Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+
+    return Jwts.builder().claim("user_id", userId)
+        .setExpiration(expiresAt)
+        .setIssuedAt(issuedAt)
+        .signWith(signingKey, signatureAlgorithm)
+        .compact();
   }
 }
