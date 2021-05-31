@@ -553,7 +553,7 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("revoke_tokens_issued_before")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date revokeTokensIssuedBefore;
     
     @Nullable

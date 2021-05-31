@@ -35,24 +35,24 @@ public class MessagePaginationParameters {
   @Nullable
   @JsonProperty("created_at_after_or_equal")
   @JsonFormat
-  (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+  (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
   private Date createdAtAfterOrEqual;
 
   @Nullable
   @JsonProperty("created_at_after")
   @JsonFormat
-  (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+  (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
   private Date createdAtAfter;
 
   @Nullable
   @JsonProperty("created_at_before_or_equal")
   @JsonFormat
-  (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+  (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
   private Date createdAtBeforeOrEqual;
 
   @Nullable
   @JsonProperty("created_at_before")
   @JsonFormat
-  (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+  (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
   private Date createdAtBefore;
 }

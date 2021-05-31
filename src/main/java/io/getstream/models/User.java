@@ -421,13 +421,13 @@ public class User {
     @Nullable
     @JsonProperty("created_at")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date createdAt;
 
     @Nullable
     @JsonProperty("updated_at")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date updatedAt;
 
     @Nullable
@@ -437,13 +437,13 @@ public class User {
     @Nullable
     @JsonProperty("deleted_at")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date deletedAt;
 
     @Nullable
     @JsonProperty("deactivated_at")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date deactivatedAt;
 
     @Nullable
@@ -529,19 +529,19 @@ public class User {
     @Nullable
     @JsonProperty("expires")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date expires;
 
     @Nullable
     @JsonProperty("created_at")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date created_at;
 
     @Nullable
     @JsonProperty("updated_at")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date updated_at;
 
     @Nullable
@@ -564,19 +564,19 @@ public class User {
     @Nullable
     @JsonProperty("expires")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date expires;
 
     @Nullable
     @JsonProperty("created_at")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date createdAt;
 
     @Nullable
     @JsonProperty("updated_at")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date updatedAt;
 
     @Nullable
@@ -708,25 +708,25 @@ public class User {
     @Nullable
     @JsonProperty("created_at_after_or_equal")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date createdAtAfterOrEqual;
 
     @Nullable
     @JsonProperty("created_at_after")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date createdAtAfter;
 
     @Nullable
     @JsonProperty("created_at_before_or_equal")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date createdAtBeforeOrEqual;
 
     @Nullable
     @JsonProperty("created_at_before")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date createdAtBefore;
 
     @Nullable
@@ -1037,7 +1037,7 @@ public class User {
     
     @Override
     protected Call<UserPartialUpdateResponse> generateCall() {
-      DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
+      DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
       formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
       return StreamServiceGenerator.createService(UserService.class)
           .partialUpdate(new UserPartialUpdateRequest().users(userIds.stream().map(userId -> UserPartialUpdateRequestObject.builder().id(userId).setValue("revoke_tokens_issued_before", revokeTokensIssuedBefore == null ? null : formatter.format(revokeTokensIssuedBefore)).build()).collect(Collectors.toList())).internalBuild());

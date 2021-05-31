@@ -472,7 +472,7 @@ public class Message {
     @Nullable
     @JsonProperty("pin_expires")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date pinExpires;
 
     @Nullable
@@ -482,7 +482,7 @@ public class Message {
     @Nullable
     @JsonProperty("pinned_at")
     @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date pinnedAt;
 
     @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
