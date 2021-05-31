@@ -1,5 +1,10 @@
 package io.getstream.services.framework;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.StdDateFormat;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Key;
@@ -10,16 +15,11 @@ import java.util.Properties;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 import javax.crypto.spec.SecretKeySpec;
-import org.jetbrains.annotations.NotNull;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.StdDateFormat;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.java.Log;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -87,7 +87,8 @@ public class StreamServiceGenerator {
           });
       final ObjectMapper mapper = new ObjectMapper();
       mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, failOnUnknownProperties);
-      mapper.setDateFormat(new StdDateFormat().withColonInTimeZone(true).withTimeZone(TimeZone.getTimeZone("UTC")));
+      mapper.setDateFormat(
+          new StdDateFormat().withColonInTimeZone(true).withTimeZone(TimeZone.getTimeZone("UTC")));
       String baseUrl =
           System.getenv("STREAM_CHAT_URL") != null
               ? System.getenv("STREAM_CHAT_URL")
