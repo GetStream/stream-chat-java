@@ -1,14 +1,14 @@
 package io.getstream.chat.java.models.framework;
 
+import io.getstream.chat.java.exceptions.StreamException;
+import io.getstream.chat.java.models.Message.ImageSizeRequestObject;
+import io.getstream.chat.java.models.Message.MessageUploadFileResponse;
+import io.getstream.chat.java.models.Message.MessageUploadImageResponse;
 import java.io.File;
 import java.util.List;
 import java.util.function.Consumer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import io.getstream.chat.java.exceptions.StreamException;
-import io.getstream.chat.java.models.Message.ImageSizeRequestObject;
-import io.getstream.chat.java.models.Message.MessageUploadFileResponse;
-import io.getstream.chat.java.models.Message.MessageUploadImageResponse;
 
 public interface FileHandler {
 

@@ -1,6 +1,5 @@
 package io.getstream.chat.java.services;
 
-import org.jetbrains.annotations.NotNull;
 import io.getstream.chat.java.models.Flag.FlagCreateRequestData;
 import io.getstream.chat.java.models.Flag.FlagCreateResponse;
 import io.getstream.chat.java.models.Flag.FlagDeleteRequestData;
@@ -8,6 +7,7 @@ import io.getstream.chat.java.models.Flag.FlagDeleteResponse;
 import io.getstream.chat.java.models.Flag.FlagMessageQueryRequestData;
 import io.getstream.chat.java.models.Flag.FlagMessageQueryResponse;
 import io.getstream.chat.java.services.framework.ToJson;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

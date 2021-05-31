@@ -1,10 +1,10 @@
 package io.getstream.chat.java.services;
 
-import org.jetbrains.annotations.NotNull;
 import io.getstream.chat.java.models.Reaction.ReactionDeleteResponse;
 import io.getstream.chat.java.models.Reaction.ReactionListResponse;
 import io.getstream.chat.java.models.Reaction.ReactionSendRequestData;
 import io.getstream.chat.java.models.Reaction.ReactionSendResponse;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

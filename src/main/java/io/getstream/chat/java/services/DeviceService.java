@@ -1,9 +1,9 @@
 package io.getstream.chat.java.services;
 
-import org.jetbrains.annotations.NotNull;
 import io.getstream.chat.java.models.Device.DeviceCreateRequestData;
 import io.getstream.chat.java.models.Device.DeviceListResponse;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

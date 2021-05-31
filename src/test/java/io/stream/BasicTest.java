@@ -1,5 +1,20 @@
 package io.stream;
 
+import io.getstream.chat.java.exceptions.StreamException;
+import io.getstream.chat.java.models.Blocklist;
+import io.getstream.chat.java.models.Channel;
+import io.getstream.chat.java.models.Channel.ChannelGetResponse;
+import io.getstream.chat.java.models.Channel.ChannelMemberRequestObject;
+import io.getstream.chat.java.models.Channel.ChannelRequestObject;
+import io.getstream.chat.java.models.ChannelType;
+import io.getstream.chat.java.models.Command;
+import io.getstream.chat.java.models.Message;
+import io.getstream.chat.java.models.Message.MessageRequestObject;
+import io.getstream.chat.java.models.User;
+import io.getstream.chat.java.models.User.UserRequestObject;
+import io.getstream.chat.java.models.User.UserUpsertRequestData.UserUpsertRequest;
+import io.getstream.chat.java.services.framework.HttpLoggingInterceptor;
+import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,21 +25,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import io.getstream.chat.java.exceptions.StreamException;
-import io.getstream.chat.java.models.Blocklist;
-import io.getstream.chat.java.models.Channel;
-import io.getstream.chat.java.models.ChannelType;
-import io.getstream.chat.java.models.Command;
-import io.getstream.chat.java.models.Message;
-import io.getstream.chat.java.models.User;
-import io.getstream.chat.java.models.Channel.ChannelGetResponse;
-import io.getstream.chat.java.models.Channel.ChannelMemberRequestObject;
-import io.getstream.chat.java.models.Channel.ChannelRequestObject;
-import io.getstream.chat.java.models.Message.MessageRequestObject;
-import io.getstream.chat.java.models.User.UserRequestObject;
-import io.getstream.chat.java.models.User.UserUpsertRequestData.UserUpsertRequest;
-import io.getstream.chat.java.services.framework.HttpLoggingInterceptor;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 
 public class BasicTest {
   protected static UserRequestObject testUserRequestObject;

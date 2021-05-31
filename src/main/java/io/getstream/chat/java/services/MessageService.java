@@ -1,10 +1,5 @@
 package io.getstream.chat.java.services;
 
-import java.util.Date;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import io.getstream.chat.java.models.Message.MessageDeleteResponse;
 import io.getstream.chat.java.models.Message.MessageGetManyResponse;
 import io.getstream.chat.java.models.Message.MessageGetRepliesResponse;
@@ -25,6 +20,11 @@ import io.getstream.chat.java.models.Message.MessageUploadFileResponse;
 import io.getstream.chat.java.models.Message.MessageUploadImageResponse;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.framework.ToJson;
+import java.util.Date;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

@@ -1,12 +1,12 @@
 package io.getstream.chat.java.services.framework;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.function.Consumer;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.RateLimit;
 import io.getstream.chat.java.models.framework.StreamResponse;
 import io.getstream.chat.java.models.framework.StreamResponseWithRateLimit;
+import java.io.IOException;
+import java.util.Date;
+import java.util.function.Consumer;
 import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.Callback;

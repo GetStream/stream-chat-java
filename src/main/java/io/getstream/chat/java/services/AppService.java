@@ -1,7 +1,5 @@
 package io.getstream.chat.java.services;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import io.getstream.chat.java.models.App;
 import io.getstream.chat.java.models.App.AppCheckPushRequestData;
 import io.getstream.chat.java.models.App.AppCheckPushResponse;
@@ -10,6 +8,8 @@ import io.getstream.chat.java.models.App.AppCheckSqsResponse;
 import io.getstream.chat.java.models.App.AppGetRateLimitsResponse;
 import io.getstream.chat.java.models.App.AppUpdateRequestData;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

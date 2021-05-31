@@ -1,12 +1,12 @@
 package io.stream;
 
+import io.getstream.chat.java.models.Event;
+import io.getstream.chat.java.models.Event.EventRequestObject;
+import io.getstream.chat.java.models.Event.EventUserCustomRequestObject;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import io.getstream.chat.java.models.Event;
-import io.getstream.chat.java.models.Event.EventRequestObject;
-import io.getstream.chat.java.models.Event.EventUserCustomRequestObject;
 
 public class EventTest extends BasicTest {
 

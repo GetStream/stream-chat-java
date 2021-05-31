@@ -1,6 +1,5 @@
 package io.getstream.chat.java.services;
 
-import org.jetbrains.annotations.NotNull;
 import io.getstream.chat.java.models.Command.CommandCreateRequestData;
 import io.getstream.chat.java.models.Command.CommandCreateResponse;
 import io.getstream.chat.java.models.Command.CommandDeleteResponse;
@@ -8,6 +7,7 @@ import io.getstream.chat.java.models.Command.CommandGetResponse;
 import io.getstream.chat.java.models.Command.CommandListResponse;
 import io.getstream.chat.java.models.Command.CommandUpdateRequestData;
 import io.getstream.chat.java.models.Command.CommandUpdateResponse;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

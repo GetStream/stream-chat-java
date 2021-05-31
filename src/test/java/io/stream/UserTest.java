@@ -1,5 +1,15 @@
 package io.stream;
 
+import io.getstream.chat.java.models.Channel;
+import io.getstream.chat.java.models.User;
+import io.getstream.chat.java.models.User.Ban;
+import io.getstream.chat.java.models.User.ChannelMuteRequestObject;
+import io.getstream.chat.java.models.User.OwnUser;
+import io.getstream.chat.java.models.User.OwnUserRequestObject;
+import io.getstream.chat.java.models.User.UserMute;
+import io.getstream.chat.java.models.User.UserPartialUpdateRequestObject;
+import io.getstream.chat.java.models.User.UserRequestObject;
+import io.getstream.chat.java.models.User.UserUpsertRequestData.UserUpsertRequest;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -11,16 +21,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import io.getstream.chat.java.models.Channel;
-import io.getstream.chat.java.models.User;
-import io.getstream.chat.java.models.User.Ban;
-import io.getstream.chat.java.models.User.ChannelMuteRequestObject;
-import io.getstream.chat.java.models.User.OwnUser;
-import io.getstream.chat.java.models.User.OwnUserRequestObject;
-import io.getstream.chat.java.models.User.UserMute;
-import io.getstream.chat.java.models.User.UserPartialUpdateRequestObject;
-import io.getstream.chat.java.models.User.UserRequestObject;
-import io.getstream.chat.java.models.User.UserUpsertRequestData.UserUpsertRequest;
 
 public class UserTest extends BasicTest {
 

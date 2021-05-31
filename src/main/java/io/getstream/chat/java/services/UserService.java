@@ -1,7 +1,5 @@
 package io.getstream.chat.java.services;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import io.getstream.chat.java.models.User.UserBanRequestData;
 import io.getstream.chat.java.models.User.UserCreateGuestRequestData;
 import io.getstream.chat.java.models.User.UserCreateGuestResponse;
@@ -24,6 +22,8 @@ import io.getstream.chat.java.models.User.UserUpsertRequestData;
 import io.getstream.chat.java.models.User.UserUpsertResponse;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.framework.ToJson;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

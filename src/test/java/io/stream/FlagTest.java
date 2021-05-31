@@ -1,14 +1,14 @@
 package io.stream;
 
+import io.getstream.chat.java.models.Flag;
+import io.getstream.chat.java.models.Flag.FlagMessageQueryResponse;
+import io.getstream.chat.java.models.Message;
+import io.getstream.chat.java.models.User;
+import io.getstream.chat.java.models.User.UserRequestObject;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import io.getstream.chat.java.models.Flag;
-import io.getstream.chat.java.models.Message;
-import io.getstream.chat.java.models.User;
-import io.getstream.chat.java.models.Flag.FlagMessageQueryResponse;
-import io.getstream.chat.java.models.User.UserRequestObject;
 
 public class FlagTest extends BasicTest {
 

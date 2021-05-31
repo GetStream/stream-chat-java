@@ -1,7 +1,5 @@
 package io.getstream.chat.java.services;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import io.getstream.chat.java.models.Channel.ChannelDeleteResponse;
 import io.getstream.chat.java.models.Channel.ChannelExportRequestData;
 import io.getstream.chat.java.models.Channel.ChannelExportResponse;
@@ -28,6 +26,8 @@ import io.getstream.chat.java.models.Channel.ChannelUpdateRequestData;
 import io.getstream.chat.java.models.Channel.ChannelUpdateResponse;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.framework.ToJson;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

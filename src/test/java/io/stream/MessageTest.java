@@ -1,5 +1,18 @@
 package io.stream;
 
+import io.getstream.chat.java.models.App;
+import io.getstream.chat.java.models.App.FileUploadConfigRequestObject;
+import io.getstream.chat.java.models.Language;
+import io.getstream.chat.java.models.Message;
+import io.getstream.chat.java.models.Message.ActionRequestObject;
+import io.getstream.chat.java.models.Message.AttachmentRequestObject;
+import io.getstream.chat.java.models.Message.Crop;
+import io.getstream.chat.java.models.Message.FieldRequestObject;
+import io.getstream.chat.java.models.Message.ImageSizeRequestObject;
+import io.getstream.chat.java.models.Message.MessageRequestObject;
+import io.getstream.chat.java.models.Message.MessageType;
+import io.getstream.chat.java.models.Message.Resize;
+import io.getstream.chat.java.models.Message.SearchResult;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -10,19 +23,6 @@ import java.util.logging.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import io.getstream.chat.java.models.App;
-import io.getstream.chat.java.models.Language;
-import io.getstream.chat.java.models.Message;
-import io.getstream.chat.java.models.App.FileUploadConfigRequestObject;
-import io.getstream.chat.java.models.Message.ActionRequestObject;
-import io.getstream.chat.java.models.Message.AttachmentRequestObject;
-import io.getstream.chat.java.models.Message.Crop;
-import io.getstream.chat.java.models.Message.FieldRequestObject;
-import io.getstream.chat.java.models.Message.ImageSizeRequestObject;
-import io.getstream.chat.java.models.Message.MessageRequestObject;
-import io.getstream.chat.java.models.Message.MessageType;
-import io.getstream.chat.java.models.Message.Resize;
-import io.getstream.chat.java.models.Message.SearchResult;
 
 public class MessageTest extends BasicTest {
   @DisplayName("Can retrieve a message")

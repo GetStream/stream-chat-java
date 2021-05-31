@@ -1,11 +1,11 @@
 package io.getstream.chat.java.services;
 
-import org.jetbrains.annotations.NotNull;
 import io.getstream.chat.java.models.Blocklist.BlocklistCreateRequestData;
 import io.getstream.chat.java.models.Blocklist.BlocklistGetResponse;
 import io.getstream.chat.java.models.Blocklist.BlocklistListResponse;
 import io.getstream.chat.java.models.Blocklist.BlocklistUpdateRequestData;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
