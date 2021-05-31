@@ -235,22 +235,29 @@ public class UserTest extends BasicTest {
     field.setAccessible(true);
     return field.get(requestObject);
   }
-  
+
   @DisplayName("Can revoke user token")
   @Test
   void whenRevokingUserToken_thenNoException() {
     Calendar calendar = new GregorianCalendar();
     calendar.add(Calendar.DAY_OF_MONTH, -1);
     Assertions.assertDoesNotThrow(
-        () -> User.revokeToken(testUsersRequestObjects.get(1).getId(), calendar.getTime()).request());
+        () ->
+            User.revokeToken(testUsersRequestObjects.get(1).getId(), calendar.getTime()).request());
   }
-  
+
   @DisplayName("Can revoke users tokens")
   @Test
   void whenRevokingUsersTokens_thenNoException() {
     Calendar calendar = new GregorianCalendar();
     calendar.add(Calendar.DAY_OF_MONTH, -1);
     Assertions.assertDoesNotThrow(
-        () -> User.revokeTokens(Arrays.asList(testUsersRequestObjects.get(1).getId(),testUsersRequestObjects.get(2).getId()), calendar.getTime()).request());
+        () ->
+            User.revokeTokens(
+                    Arrays.asList(
+                        testUsersRequestObjects.get(1).getId(),
+                        testUsersRequestObjects.get(2).getId()),
+                    calendar.getTime())
+                .request());
   }
 }

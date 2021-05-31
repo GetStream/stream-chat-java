@@ -1,11 +1,5 @@
 package io.stream;
 
-import java.lang.reflect.Field;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import io.getstream.exceptions.StreamException;
 import io.getstream.models.App;
 import io.getstream.models.App.AppCheckSqsResponse;
@@ -15,6 +9,12 @@ import io.getstream.models.App.PushVersion;
 import io.getstream.models.Message;
 import io.getstream.models.Message.MessageRequestObject;
 import io.getstream.services.framework.StreamServiceGenerator;
+import java.lang.reflect.Field;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 public class AppTest extends BasicTest {
 
@@ -107,13 +107,12 @@ public class AppTest extends BasicTest {
                 .userId(secondUserId)
                 .request());
   }
-  
+
   @DisplayName("Can revoke tokens")
   @Test
   void whenRevokingTokens_thenNoException() {
     Calendar calendar = new GregorianCalendar();
     calendar.add(Calendar.DAY_OF_MONTH, -1);
-    Assertions.assertDoesNotThrow(
-        () -> App.revokeTokens(calendar.getTime()).request());
+    Assertions.assertDoesNotThrow(() -> App.revokeTokens(calendar.getTime()).request());
   }
 }

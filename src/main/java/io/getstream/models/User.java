@@ -1,20 +1,5 @@
 package io.getstream.models;
 
-import java.security.Key;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
-import java.util.stream.Collectors;
-import javax.crypto.spec.SecretKeySpec;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -41,6 +26,19 @@ import io.getstream.services.UserService;
 import io.getstream.services.framework.StreamServiceGenerator;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import java.security.Key;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
+import java.util.stream.Collectors;
+import javax.crypto.spec.SecretKeySpec;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -50,6 +48,8 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.Singular;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -425,14 +425,12 @@ public class User {
 
     @Nullable
     @JsonProperty("created_at")
-    @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date createdAt;
 
     @Nullable
     @JsonProperty("updated_at")
-    @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date updatedAt;
 
     @Nullable
@@ -441,14 +439,12 @@ public class User {
 
     @Nullable
     @JsonProperty("deleted_at")
-    @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date deletedAt;
 
     @Nullable
     @JsonProperty("deactivated_at")
-    @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date deactivatedAt;
 
     @Nullable
@@ -533,20 +529,17 @@ public class User {
 
     @Nullable
     @JsonProperty("expires")
-    @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date expires;
 
     @Nullable
     @JsonProperty("created_at")
-    @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date created_at;
 
     @Nullable
     @JsonProperty("updated_at")
-    @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date updated_at;
 
     @Nullable
@@ -568,20 +561,17 @@ public class User {
 
     @Nullable
     @JsonProperty("expires")
-    @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date expires;
 
     @Nullable
     @JsonProperty("created_at")
-    @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date createdAt;
 
     @Nullable
     @JsonProperty("updated_at")
-    @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date updatedAt;
 
     @Nullable
@@ -712,26 +702,22 @@ public class User {
 
     @Nullable
     @JsonProperty("created_at_after_or_equal")
-    @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date createdAtAfterOrEqual;
 
     @Nullable
     @JsonProperty("created_at_after")
-    @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date createdAtAfter;
 
     @Nullable
     @JsonProperty("created_at_before_or_equal")
-    @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date createdAtBeforeOrEqual;
 
     @Nullable
     @JsonProperty("created_at_before")
-    @JsonFormat
-    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date createdAtBefore;
 
     @Nullable
@@ -1031,21 +1017,34 @@ public class User {
       return StreamServiceGenerator.createService(UserService.class).unban(targetUserId, type, id);
     }
   }
-  
+
   @AllArgsConstructor
   public static class UserRevokeTokensRequest extends StreamRequest<UserPartialUpdateResponse> {
-    @NotNull
-    private List<String> userIds = new ArrayList<>();
-    
-    @Nullable
-    private Date revokeTokensIssuedBefore;
-    
+    @NotNull private List<String> userIds = new ArrayList<>();
+
+    @Nullable private Date revokeTokensIssuedBefore;
+
     @Override
     protected Call<UserPartialUpdateResponse> generateCall() {
       DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
       formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
       return StreamServiceGenerator.createService(UserService.class)
-          .partialUpdate(new UserPartialUpdateRequest().users(userIds.stream().map(userId -> UserPartialUpdateRequestObject.builder().id(userId).setValue("revoke_tokens_issued_before", revokeTokensIssuedBefore == null ? null : formatter.format(revokeTokensIssuedBefore)).build()).collect(Collectors.toList())).internalBuild());
+          .partialUpdate(
+              new UserPartialUpdateRequest()
+                  .users(
+                      userIds.stream()
+                          .map(
+                              userId ->
+                                  UserPartialUpdateRequestObject.builder()
+                                      .id(userId)
+                                      .setValue(
+                                          "revoke_tokens_issued_before",
+                                          revokeTokensIssuedBefore == null
+                                              ? null
+                                              : formatter.format(revokeTokensIssuedBefore))
+                                      .build())
+                          .collect(Collectors.toList()))
+                  .internalBuild());
     }
   }
 
@@ -1315,7 +1314,7 @@ public class User {
   public static UserUnbanRequest unban(@NotNull String targetUserId) {
     return new UserUnbanRequest(targetUserId);
   }
-  
+
   /**
    * Creates a revoke token request
    *
@@ -1324,10 +1323,11 @@ public class User {
    * @return the created request
    */
   @NotNull
-  public static UserRevokeTokensRequest revokeToken(@NotNull String userId, @Nullable Date revokeTokensIssuedBefore) {
+  public static UserRevokeTokensRequest revokeToken(
+      @NotNull String userId, @Nullable Date revokeTokensIssuedBefore) {
     return new UserRevokeTokensRequest(Arrays.asList(userId), revokeTokensIssuedBefore);
   }
-  
+
   /**
    * Creates a revoke token request
    *
@@ -1336,21 +1336,24 @@ public class User {
    * @return the created request
    */
   @NotNull
-  public static UserRevokeTokensRequest revokeTokens(@NotNull List<String> userIds, @Nullable Date revokeTokensIssuedBefore) {
+  public static UserRevokeTokensRequest revokeTokens(
+      @NotNull List<String> userIds, @Nullable Date revokeTokensIssuedBefore) {
     return new UserRevokeTokensRequest(userIds, revokeTokensIssuedBefore);
   }
-  
+
   @NotNull
-  public static String createToken(@NotNull String userId, @Nullable Date expiresAt, @Nullable Date issuedAt) {
+  public static String createToken(
+      @NotNull String userId, @Nullable Date expiresAt, @Nullable Date issuedAt) {
     String apiKey =
         System.getenv("STREAM_KEY") != null
-        ? System.getenv("STREAM_KEY")
-        : System.getProperty("STREAM_KEY");
+            ? System.getenv("STREAM_KEY")
+            : System.getProperty("STREAM_KEY");
     SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
     byte[] apiKeySecretBytes = Base64.getDecoder().decode(apiKey);
     Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
-    return Jwts.builder().claim("user_id", userId)
+    return Jwts.builder()
+        .claim("user_id", userId)
         .setExpiration(expiresAt)
         .setIssuedAt(issuedAt)
         .signWith(signingKey, signatureAlgorithm)
