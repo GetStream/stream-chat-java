@@ -856,12 +856,12 @@ public class App extends StreamResponseObject {
    * @return true if the signature is valid
    */
   public boolean verifyWebhook(String body, String signature) {
-    String apiKey =
-        System.getenv("STREAM_KEY") != null
-            ? System.getenv("STREAM_KEY")
-            : System.getProperty("STREAM_KEY");
+    String apiSecret =
+        System.getenv("STREAM_SECRET") != null
+            ? System.getenv("STREAM_SECRET")
+            : System.getProperty("STREAM_SECRET");
     try {
-      Key sk = new SecretKeySpec(apiKey.getBytes(), "HmacSHA256");
+      Key sk = new SecretKeySpec(apiSecret.getBytes(), "HmacSHA256");
       Mac mac = Mac.getInstance(sk.getAlgorithm());
       mac.init(sk);
       final byte[] hmac = mac.doFinal(body.getBytes(StandardCharsets.UTF_8));
