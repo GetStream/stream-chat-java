@@ -247,6 +247,10 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("auto_translation_enabled")
     private Boolean autoTranslationEnabled;
+    
+    @Nullable
+    @JsonProperty("revoke_tokens_issued_before")
+    private Date revokeTokensIssuedBefore;
   }
 
   public enum PermissionVersion {
@@ -543,6 +547,14 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("multi_tenant_enabled")
     private Boolean multiTenantEnabled;
+    
+    @Nullable
+    @JsonProperty("revoke_tokens_issued_before")
+    private Date revokeTokensIssuedBefore;
+    
+    @Nullable
+    @JsonProperty("channel_hide_members_only")
+    private Boolean channelHideMembersOnly;
 
     public static class AppUpdateRequest extends StreamRequest<StreamResponseObject> {
       @Override
