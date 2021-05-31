@@ -1,10 +1,10 @@
 package io.stream;
 
-import io.getstream.models.Flag;
-import io.getstream.models.Flag.FlagMessageQueryResponse;
-import io.getstream.models.Message;
-import io.getstream.models.User;
-import io.getstream.models.User.UserRequestObject;
+import io.getstream.chat.java.models.Flag;
+import io.getstream.chat.java.models.Flag.FlagMessageQueryResponse;
+import io.getstream.chat.java.models.Message;
+import io.getstream.chat.java.models.User;
+import io.getstream.chat.java.models.User.UserRequestObject;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

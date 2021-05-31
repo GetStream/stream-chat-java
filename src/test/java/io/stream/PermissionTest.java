@@ -1,7 +1,7 @@
 package io.stream;
 
-import io.getstream.models.Permission;
-import io.getstream.models.Permission.Resource;
+import io.getstream.chat.java.models.Permission;
+import io.getstream.chat.java.models.Permission.Resource;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;

@@ -1,6 +1,6 @@
 package io.stream;
 
-import io.getstream.models.Command;
+import io.getstream.chat.java.models.Command;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;

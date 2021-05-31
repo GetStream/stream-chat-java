@@ -1,6 +1,6 @@
 package io.stream;
 
-import io.getstream.models.Role;
+import io.getstream.chat.java.models.Role;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;

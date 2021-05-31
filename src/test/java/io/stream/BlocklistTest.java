@@ -1,6 +1,6 @@
 package io.stream;
 
-import io.getstream.models.Blocklist;
+import io.getstream.chat.java.models.Blocklist;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;

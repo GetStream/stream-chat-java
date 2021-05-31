@@ -1,15 +1,15 @@
 package io.stream;
 
-import io.getstream.models.Channel;
-import io.getstream.models.User;
-import io.getstream.models.User.Ban;
-import io.getstream.models.User.ChannelMuteRequestObject;
-import io.getstream.models.User.OwnUser;
-import io.getstream.models.User.OwnUserRequestObject;
-import io.getstream.models.User.UserMute;
-import io.getstream.models.User.UserPartialUpdateRequestObject;
-import io.getstream.models.User.UserRequestObject;
-import io.getstream.models.User.UserUpsertRequestData.UserUpsertRequest;
+import io.getstream.chat.java.models.Channel;
+import io.getstream.chat.java.models.User;
+import io.getstream.chat.java.models.User.Ban;
+import io.getstream.chat.java.models.User.ChannelMuteRequestObject;
+import io.getstream.chat.java.models.User.OwnUser;
+import io.getstream.chat.java.models.User.OwnUserRequestObject;
+import io.getstream.chat.java.models.User.UserMute;
+import io.getstream.chat.java.models.User.UserPartialUpdateRequestObject;
+import io.getstream.chat.java.models.User.UserRequestObject;
+import io.getstream.chat.java.models.User.UserUpsertRequestData.UserUpsertRequest;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Calendar;

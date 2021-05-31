@@ -1,8 +1,8 @@
 package io.stream;
 
-import io.getstream.models.Event;
-import io.getstream.models.Event.EventRequestObject;
-import io.getstream.models.Event.EventUserCustomRequestObject;
+import io.getstream.chat.java.models.Event;
+import io.getstream.chat.java.models.Event.EventRequestObject;
+import io.getstream.chat.java.models.Event.EventUserCustomRequestObject;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
