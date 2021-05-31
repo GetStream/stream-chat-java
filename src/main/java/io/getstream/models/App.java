@@ -1,5 +1,6 @@
 package io.getstream.models;
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -253,21 +254,27 @@ public class App extends StreamResponseObject {
     @JsonProperty("v1")
     V1,
     @JsonProperty("v2")
-    V2
+    V2,
+    @JsonEnumDefaultValue
+    UNKNOWN
   }
 
   public enum PushVersion {
     @JsonProperty("v1")
     V1,
     @JsonProperty("v2")
-    V2
+    V2,
+    @JsonEnumDefaultValue
+    UNKNOWN
   }
 
   public enum AuthenticationType {
     @JsonProperty("certificate")
     CERTIFICATE,
     @JsonProperty("token")
-    TOKEN
+    TOKEN,
+    @JsonEnumDefaultValue
+    UNKNOWN
   }
 
   public enum EnforceUniqueUsernames {
@@ -276,7 +283,9 @@ public class App extends StreamResponseObject {
     @JsonProperty("app")
     APP,
     @JsonProperty("team")
-    TEAM
+    TEAM,
+    @JsonEnumDefaultValue
+    UNKNOWN
   }
 
   public static class EnforceUniqueUsernamesDeserializer
@@ -723,7 +732,9 @@ public class App extends StreamResponseObject {
       @JsonProperty("ok")
       OK,
       @JsonProperty("error")
-      ERROR
+      ERROR,
+      @JsonEnumDefaultValue
+      UNKNOWN
     }
   }
 

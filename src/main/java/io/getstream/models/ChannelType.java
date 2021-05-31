@@ -1,5 +1,6 @@
 package io.getstream.models;
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.getstream.exceptions.StreamException;
 import io.getstream.models.ChannelType.ChannelTypeCreateRequestData.ChannelTypeCreateRequest;
@@ -164,7 +165,9 @@ public class ChannelType {
     @JsonProperty("Deny")
     DENY,
     @JsonProperty("Allow")
-    ALLOW
+    ALLOW,
+    @JsonEnumDefaultValue
+    UNKNOWN
   }
 
   @Data
@@ -197,21 +200,27 @@ public class ChannelType {
     @JsonProperty("simple")
     SIMPLE,
     @JsonProperty("AI")
-    AI
+    AI,
+    @JsonEnumDefaultValue
+    UNKNOWN
   }
 
   public enum AutoModBehavior {
     @JsonProperty("flag")
     FLAG,
     @JsonProperty("block")
-    BLOCK
+    BLOCK,
+    @JsonEnumDefaultValue
+    UNKNOWN
   }
 
   public enum BlocklistBehavior {
     @JsonProperty("flag")
     FLAG,
     @JsonProperty("block")
-    BLOCK
+    BLOCK,
+    @JsonEnumDefaultValue
+    UNKNOWN
   }
 
   @Data
