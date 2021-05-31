@@ -529,13 +529,13 @@ App.update()
 **Query users**
 
 ```java
-User.list().filterCondition("id", FilterCondition.in("john", "jack", "jessie")).request();
+User.list().filterCondition(FilterCondition.in("id", "john", "jack", "jessie")).request();
 ```
 
 ```java
 UserListResponse response =
     User.list()
-        .filterCondition("id", FilterCondition.in("jessica"))
+        .filterCondition(FilterCondition.in("id", "jessica"))
         .filterCondition("last_active", -1)
         .filterCondition("presence", true)
         .request();
@@ -556,8 +556,8 @@ Query users with teams
 User.list()
     .filterConditions(
         FilterCondition.and(
-            Collections.singletonMap("name", FilterCondition.eq("Jordan")),
-            Collections.singletonMap("teams", FilterCondition.contains("red"))));
+            FilterCondition.eq("name", "Jordan")),
+            FilterCondition.contains("teams", "red"))));
 ```
 
 **Get or create channel (type,id)**
@@ -647,13 +647,13 @@ Query muted channels
 // retrieve all channels excluding muted ones
 Channel.list()
     .filterCondition("muted", false)
-    .filterCondition("members", FilterCondition.in(userId))
+    .filterCondition(FilterCondition.in("members", userId))
     .request();
 
 // retrieve all muted channels
 Channel.list()
     .filterCondition("muted", true)
-    .filterCondition("members", FilterCondition.in(userId))
+    .filterCondition(FilterCondition.in("members", userId))
     .request();
 ```
 
@@ -957,7 +957,7 @@ Channel.queryMembers().filterCondition("name", "tommaso").request();
 
 // autocomplete members by user name
 Channel.queryMembers()
-    .filterCondition("name", FilterCondition.autocomplete("tomm"))
+    .filterCondition(FilterCondition.autocomplete("name", "tomm"))
     .request();
 
 // query member by id
@@ -966,7 +966,7 @@ Channel.queryMembers().filterCondition("user_id", "tommaso").request();
 // query multiple members by id
 Channel.queryMembers()
     .filterCondition(
-        "user_id", FilterCondition.in("tommaso", "thierry"))
+        FilterCondition.in("user_id", "tommaso", "thierry"))
     .request();
 
 // query channel moderators
@@ -1527,9 +1527,9 @@ Search by user and text
 
 ```java
 Message.search()
-    .filterCondition("members", FilterCondition.in("john"))
+    .filterCondition(FilterCondition.in("members", "john"))
     .messageFilterCondition(
-        "text", FilterCondition.autocomplete("supercalifragilisticexpialidocious"))
+        FilterCondition.autocomplete("text", "supercalifragilisticexpialidocious"))
     .limit(2)
     .offset(0)
     .request();
@@ -1539,7 +1539,7 @@ Search messages with attachment
 
 ```java
 // Search by Attachment
-Message.search().messageFilterCondition("attachments", FilterCondition.exists()).request();
+Message.search().messageFilterCondition(FilterCondition.exists("attachments")).request();
 ```
 
 **Flag message**
