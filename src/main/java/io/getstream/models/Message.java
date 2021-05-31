@@ -2,6 +2,7 @@ package io.getstream.models;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.getstream.exceptions.StreamException;
@@ -470,6 +471,8 @@ public class Message {
 
     @Nullable
     @JsonProperty("pin_expires")
+    @JsonFormat
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
     private Date pinExpires;
 
     @Nullable
@@ -478,6 +481,8 @@ public class Message {
 
     @Nullable
     @JsonProperty("pinned_at")
+    @JsonFormat
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
     private Date pinnedAt;
 
     @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;

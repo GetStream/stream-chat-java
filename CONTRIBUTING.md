@@ -53,6 +53,7 @@ StreamServiceGenerator.logLevel = HttpLoggingInterceptor.Level.BODY;
 - Collection fields should be `@Singular`
 - These classes should have a `@Builder`
 - If there is a corresponding Model object, they should have a `buildFrom` method and `@Setter`
+- Date fields should have `@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")`
 
 #### Create the xxxResponse class
 - It should be created in the model, after other Response classes
@@ -61,7 +62,8 @@ StreamServiceGenerator.logLevel = HttpLoggingInterceptor.Level.BODY;
 
 #### Create the xxxRequestData class
 - It should be created in the model, after other RequestData/Request classes
-- All fields should be `@Nullable` except collections that should be never be null which should have @Singular (which will make builder initialize them)
+- All fields should be `@Nullable` except collections that should be never be null which should have `@Singular` (which will make builder initialize them)
+- Date fields should have `@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")`
 
 #### Create the xxxRequest
 - It should be created inside the xxxRequestData class
