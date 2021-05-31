@@ -1,5 +1,17 @@
 package io.getstream.models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
+import java.util.stream.Collectors;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -24,10 +36,7 @@ import io.getstream.models.framework.StreamRequest;
 import io.getstream.models.framework.StreamResponseObject;
 import io.getstream.services.UserService;
 import io.getstream.services.framework.StreamServiceGenerator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,8 +45,6 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.Singular;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
 @Data
@@ -1019,6 +1026,23 @@ public class User {
       return StreamServiceGenerator.createService(UserService.class).unban(targetUserId, type, id);
     }
   }
+  
+  @AllArgsConstructor
+  public static class UserRevokeTokensRequest extends StreamRequest<UserPartialUpdateResponse> {
+    @NotNull
+    private List<String> userIds = new ArrayList<>();
+    
+    @Nullable
+    private Date revokeTokensIssuedBefore;
+    
+    @Override
+    protected Call<UserPartialUpdateResponse> generateCall() {
+      DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
+      formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+      return StreamServiceGenerator.createService(UserService.class)
+          .partialUpdate(new UserPartialUpdateRequest().users(userIds.stream().map(userId -> UserPartialUpdateRequestObject.builder().id(userId).setValue("revoke_tokens_issued_before", revokeTokensIssuedBefore == null ? null : formatter.format(revokeTokensIssuedBefore)).build()).collect(Collectors.toList())).internalBuild());
+    }
+  }
 
   @Data
   @NoArgsConstructor
@@ -1285,5 +1309,29 @@ public class User {
   @NotNull
   public static UserUnbanRequest unban(@NotNull String targetUserId) {
     return new UserUnbanRequest(targetUserId);
+  }
+  
+  /**
+   * Creates a revoke token request
+   *
+   * @param userId the user id to revoke token for
+   * @param revokeTokensIssuedBefore the limit date to revoke tokens
+   * @return the created request
+   */
+  @NotNull
+  public static UserRevokeTokensRequest revokeToken(@NotNull String userId, @Nullable Date revokeTokensIssuedBefore) {
+    return new UserRevokeTokensRequest(Arrays.asList(userId), revokeTokensIssuedBefore);
+  }
+  
+  /**
+   * Creates a revoke token request
+   *
+   * @param userIds the user ids to revoke token for
+   * @param revokeTokensIssuedBefore the limit date to revoke tokens
+   * @return the created request
+   */
+  @NotNull
+  public static UserRevokeTokensRequest revokeTokens(@NotNull List<String> userIds, @Nullable Date revokeTokensIssuedBefore) {
+    return new UserRevokeTokensRequest(userIds, revokeTokensIssuedBefore);
   }
 }
