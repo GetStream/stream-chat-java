@@ -1,5 +1,6 @@
 package io.getstream.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -550,6 +552,8 @@ public class App extends StreamResponseObject {
     
     @Nullable
     @JsonProperty("revoke_tokens_issued_before")
+    @JsonFormat
+    (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
     private Date revokeTokensIssuedBefore;
     
     @Nullable
@@ -690,6 +694,17 @@ public class App extends StreamResponseObject {
       }
     }
   }
+  
+  @AllArgsConstructor
+  public static class AppRevokeTokensRequest extends StreamRequest<StreamResponseObject> {
+    @Nullable
+    private Date revokeTokensIssuedBefore;
+    
+    @Override
+    protected Call<StreamResponseObject> generateCall() {
+      return new AppUpdateRequest().revokeTokensIssuedBefore(revokeTokensIssuedBefore).generateCall();
+    }
+  }
 
   @Data
   @NoArgsConstructor
@@ -816,5 +831,16 @@ public class App extends StreamResponseObject {
   @NotNull
   public static AppCheckPushRequest checkPush() {
     return new AppCheckPushRequest();
+  }
+  
+  /**
+   * Creates a revoke tokens request
+   * @param revokeTokensIssuedBefore the limit date to revoke tokens
+   * 
+   * @return the created request
+   */
+  @NotNull
+  public static AppRevokeTokensRequest revokeTokens(@Nullable Date revokeTokensIssuedBefore) {
+    return new AppRevokeTokensRequest(revokeTokensIssuedBefore);
   }
 }
