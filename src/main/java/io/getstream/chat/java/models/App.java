@@ -1,6 +1,8 @@
 package io.getstream.chat.java.models;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -486,90 +488,112 @@ public class App extends StreamResponseObject {
   public static class AppUpdateRequestData {
     @Nullable
     @JsonProperty("disable_auth_checks")
+    @JsonInclude(Include.NON_NULL)
     private Boolean disableAuthChecks;
 
     @Nullable
     @JsonProperty("disable_permissions_checks")
+    @JsonInclude(Include.NON_NULL)
     private Boolean disablePermissionsChecks;
 
     @Nullable
     @JsonProperty("apn_config")
+    @JsonInclude(Include.NON_NULL)
     private APNConfigRequestObject aPNConfig;
 
     @Nullable
     @JsonProperty("firebase_config")
+    @JsonInclude(Include.NON_NULL)
     private FirebaseConfigRequestObject firebaseConfig;
 
     @Nullable
     @JsonProperty("push_config")
+    @JsonInclude(Include.NON_NULL)
     private PushConfigRequestObject pushConfig;
 
     @Nullable
     @JsonProperty("user_search_disallowed_roles")
+    @JsonInclude(Include.NON_NULL)
     private List<String> userSearchDisallowedRoles;
 
     @Nullable
     @JsonProperty("custom_action_handler_url")
+    @JsonInclude(Include.NON_NULL)
     private String customActionHandlerUrl;
 
     @Nullable
     @JsonProperty("enforce_unique_usernames")
+    @JsonInclude(Include.NON_NULL)
     private String enforceUniqueUsernames;
 
     @Nullable
     @JsonProperty("permission_version")
+    @JsonInclude(Include.NON_NULL)
     private PermissionVersion permissionVersion;
 
     @Nullable
     @JsonProperty("file_upload_config")
+    @JsonInclude(Include.NON_NULL)
     private FileUploadConfigRequestObject fileUploadConfig;
 
     @Nullable
     @JsonProperty("image_upload_config")
+    @JsonInclude(Include.NON_NULL)
     private FileUploadConfigRequestObject imageUploadConfig;
 
     @Nullable
     @JsonProperty("before_message_send_hook_url")
+    @JsonInclude(Include.NON_NULL)
     private String beforeMessageSendHookUrl;
 
     @Nullable
     @JsonProperty("auto_translation_enabled")
+    @JsonInclude(Include.NON_NULL)
     private Boolean autoTranslationEnabled;
 
     @Nullable
     @JsonProperty("image_moderation_enabled")
+    @JsonInclude(Include.NON_NULL)
     private Boolean imageModerationEnabled;
 
     @Nullable
     @JsonProperty("image_moderation_labels")
+    @JsonInclude(Include.NON_NULL)
     private List<String> imageModerationLabels;
 
     @Nullable
     @JsonProperty("sqs_url")
+    @JsonInclude(Include.NON_NULL)
     private String sqsUrl;
 
     @Nullable
     @JsonProperty("sqs_key")
+    @JsonInclude(Include.NON_NULL)
     private String sqsKey;
 
     @Nullable
     @JsonProperty("sqs_secret")
+    @JsonInclude(Include.NON_NULL)
     private String sqsSecret;
 
     @Nullable
     @JsonProperty("webhook_url")
+    @JsonInclude(Include.NON_NULL)
     private String webhookURL;
 
     @Nullable
     @JsonProperty("multi_tenant_enabled")
+    @JsonInclude(Include.NON_NULL)
     private Boolean multiTenantEnabled;
 
     @Nullable
     @JsonProperty("revoke_tokens_issued_before")
+    // This field can be sent as null
     private Date revokeTokensIssuedBefore;
 
     @Nullable
     @JsonProperty("channel_hide_members_only")
+    @JsonInclude(Include.NON_NULL)
     private Boolean channelHideMembersOnly;
 
     public static class AppUpdateRequest extends StreamRequest<StreamResponseObject> {
