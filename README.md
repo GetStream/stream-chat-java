@@ -1,6 +1,11 @@
 # Official Java SDK for [Stream Chat](https://getstream.io/chat/sdk/java/)
-This SDK is a wrapper for Stream API
-> See the [full API documentation](https://getstream.io/chat/docs/rest)
+
+the official Java API client for [Stream chat](https://getstream.io/chat/) a service for building chat applications.
+
+You can sign up for a Stream account at https://getstream.io/chat/get_started/.
+
+You can use this library to access chat API endpoints server-side, for the client-side integrations (web and mobile) have a look at the Javascript, iOS and Android SDK libraries (https://getstream.io/chat/).
+
 ## Use the Java SDK
 ### Requirements
 The Stream chat Java SDK requires Java 1.8+.
