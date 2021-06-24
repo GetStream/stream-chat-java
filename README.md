@@ -21,6 +21,8 @@ You can use this library to access chat API endpoints server-side, for the clien
   - [Configuration](#configuration)
   - [Simple test](#simple-test)
   - [Usage Principles](#usage-principles)
+    - [Create a StreamRequest](#create-a-streamrequest)
+    - [Set all information you want in the StreamRequest](#set-all-information-you-want-in-the-streamrequest)
     - [Perform the request](#perform-the-request)
   - [Simple Example](#simple-example)
   - [Supported Features](#supported-features)
@@ -32,7 +34,9 @@ You can use this library to access chat API endpoints server-side, for the clien
 
 ## Usage
 ### Requirements
-The Stream chat Java SDK requires Java 1.8+.
+The Stream chat Java SDK requires Java 11+.
+
+> It supports latest LTS. If you need support an older Java, please contact at [support](https://getstream.io/contact/support/).
 ### Compatibility
 The Stream chat Java SDK is compatible with Groovy, Scala, Kotlin and Clojure.
 ### Installation for Java

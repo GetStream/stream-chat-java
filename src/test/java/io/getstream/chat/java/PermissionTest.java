@@ -1,4 +1,4 @@
-package io.stream;
+package io.getstream.chat.java;
 
 import io.getstream.chat.java.models.Permission;
 import io.getstream.chat.java.models.Permission.Resource;
