@@ -118,11 +118,13 @@ This SDK uses lombok (code generation), retrofit (http client), jackson (json) a
 
 ### Configuration
 To configure the SDK, you need to setup the key and secret of your application.
-You can do so either by:
-- setting STREAM_KEY and STREAM_SECRET System properties
-- setting STREAM_KEY and STREAM_SECRET environment variables
-You can also customize the base url and the timeout, with the STREAM_CHAT_URL and STREAM_CHAT_TIMEOUT System properties or environment variables.
-You can use your own CDN by creating an implementation of FileHandler and setting it this way
+You can do so either by where enrironment variables have precedence:
+- setting `STREAM_KEY` and `STREAM_SECRET` environment variables
+- setting `STREAM_KEY` and `STREAM_SECRET` System properties
+
+You can also customize the base url and the timeout, with the STREAM_CHAT_URL and STREAM_CHAT_TIMEOUT respectively as System properties or environment variables.
+
+You can also use your own CDN by creating an implementation of FileHandler and setting it this way
 
 ```java
 Message.fileHandlerClass = MyFileHandler.class
