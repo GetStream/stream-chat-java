@@ -1,6 +1,6 @@
 # Official Java SDK for [Stream Chat](https://getstream.io/chat/docs/)
 
-the official Java API client for [Stream chat](https://getstream.io/chat/) a service for building chat applications.
+The official Java API client for [Stream chat](https://getstream.io/chat/) a service for building chat applications.
 
 You can sign up for a Stream account at https://getstream.io/chat/get_started/.
 
