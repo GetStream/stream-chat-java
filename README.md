@@ -6,7 +6,31 @@ You can sign up for a Stream account at https://getstream.io/chat/get_started/.
 
 You can use this library to access chat API endpoints server-side, for the client-side integrations (web and mobile) have a look at the Javascript, iOS and Android SDK libraries (https://getstream.io/chat/).
 
-## Use the Java SDK
+<details>
+<summary>Table of Contents</summary>
+
+- [Usage](#usage)
+  - [Requirements](#requirements)
+  - [Compatibility](#compatibility)
+  - [Installation for Java](#installation-for-java)
+  - [Installation for Groovy](#installation-for-groovy)
+  - [Installation for Scala](#installation-for-scala)
+  - [Installation for Kotlin](#installation-for-kotlin)
+  - [Installation for Clojure](#installation-for-clojure)
+  - [Dependencies](#dependencies)
+  - [Configuration](#configuration)
+  - [Simple test](#simple-test)
+  - [Usage Principles](#usage-principles)
+    - [Perform the request](#perform-the-request)
+  - [Simple Example](#simple-example)
+  - [Supported Features](#supported-features)
+  - [All Examples](#all-examples)
+- [Contribute](#contribute)
+- [License](#license)
+- [We are hiring](#we-are-hiring)
+</details>
+
+## Usage
 ### Requirements
 The Stream chat Java SDK requires Java 1.8+.
 ### Compatibility
@@ -44,6 +68,8 @@ dependencies {
 }
 ```
 
+> You can see an example project at [GetStream/stream-chat-groovy-example](https://github.com/GetStream/stream-chat-groovy-example).
+
 ### Installation for Scala
 
 **With Gradle**: Add the library as a dependency in your *module* level `build.gradle` file:
@@ -54,6 +80,8 @@ dependencies {
     implementation 'io.getstream:stream-chat-java:$stream_version'
 }
 ```
+
+> You can see an example project at [GetStream/stream-chat-scala-example](https://github.com/GetStream/stream-chat-scala-example).
 
 ### Installation for Kotlin
 
@@ -66,6 +94,8 @@ dependencies {
 }
 ```
 
+> You can see an example project at [GetStream/stream-chat-kotlin-example](https://github.com/GetStream/stream-chat-kotlin-example).
+
 ### Installation for Clojure
 
 **With Leiningen**: Add the library as a dependency in your `project.clj` file:
@@ -74,6 +104,8 @@ dependencies {
 ```leiningen
 :dependencies [[io.getstream/stream-chat-java "$stream_version"]]
 ```
+
+> You can see an example project at [GetStream/stream-chat-clojure-example](https://github.com/GetStream/stream-chat-clojure-example).
 
 ### Dependencies
 This SDK uses the following dependencies:
@@ -141,10 +173,10 @@ You do so by calling static methods on Stream Model classes.
 #### Set all information you want in the StreamRequest
 StreamRequest objects have builder style methods. Some methods require xxxRequestObject instances. All xxxRequestObject classes have builder included, and when there is a corresponding model they have a `buildFrom` method.
 
-#### Perform the request 
+#### Perform the request
 This can be done either synchronously, calling the `request()` method and handling the StreamException exceptions, or asynchronously, calling the `requestAsync(Consumer<Response> onSuccess, Consumer<StreamException> onError)`
 
-### Examples
+### Simple Example
 **Synchronous:**
 
 ```java
@@ -155,7 +187,7 @@ try {
           .request().getMessage();
     } catch (StreamException e) {
       // Handle the exception
-    }  
+    }
 ```
 
 **Asynchronous:**
@@ -1025,9 +1057,9 @@ String taskId =
 
 ```java
 ChannelExportStatusResponse response = Channel.exportStatus(taskId).request();
-System.out.println(response.getStatus()); // the status for this task 
-System.out.println(response.getResult()); // the result object, only present if the task is completed 
-System.out.println(response.getResult().getUrl()); // the link to the JSON export 
+System.out.println(response.getStatus()); // the status for this task
+System.out.println(response.getResult()); // the result object, only present if the task is completed
+System.out.println(response.getResult().getUrl()); // the link to the JSON export
 System.out.println(response.getError()); // if not null the description of the task error
 ```
 
@@ -1428,7 +1460,7 @@ updated =
 ```java
 Message.delete(messageId).request();
 
-// hard delete the message (works only server-side) 
+// hard delete the message (works only server-side)
 Message.delete(messageId).hard(true).request();
 ```
 
@@ -1725,7 +1757,7 @@ Command.create()
 **List commands**
 
 ```java
-Command.list().request();  
+Command.list().request();
 ```
 
 **Get command**
@@ -1987,9 +2019,20 @@ Message.queryFlags().request();
 **Verify webhook**
 
 ```java
-// signature comes from the HTTP header x-signature 
-boolean valid =  App.verifyWebhook(body, signature) 
+// signature comes from the HTTP header x-signature
+boolean valid =  App.verifyWebhook(body, signature)
 ```
 
 ## Contribute
 > See [The guide to contribute](CONTRIBUTING.md)
+
+## License
+
+Project is licensed under the [Stream License](LICENSE).
+
+## We are hiring!
+
+We've recently closed a [$38 million Series B funding round](https://techcrunch.com/2021/03/04/stream-raises-38m-as-its-chat-and-activity-feed-apis-power-communications-for-1b-users/) and we keep actively growing.
+Our APIs are used by more than a billion end-users, and you'll have a chance to make a huge impact on the product within a team of the strongest engineers all over the world.
+
+Check out our current openings and apply via [Stream's website](https://getstream.io/team/#jobs).
