@@ -90,3 +90,7 @@ afterEvaluate {
 signing {
     sign publishing.publications
 }
+
+javadoc {
+    options.addBooleanOption('html5', true)
+}
