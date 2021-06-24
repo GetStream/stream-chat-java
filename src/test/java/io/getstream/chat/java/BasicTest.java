@@ -15,7 +15,6 @@ import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.User.UserUpsertRequestData.UserUpsertRequest;
 import io.getstream.chat.java.services.framework.HttpLoggingInterceptor;
 import io.getstream.chat.java.services.framework.StreamServiceGenerator;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,13 +51,15 @@ public class BasicTest {
 
   @BeforeEach
   void resetAuth()
-    throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-      setAuth();
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException,
+          IllegalAccessException {
+    setAuth();
   }
 
   @BeforeAll
-  static void setup() throws StreamException, NoSuchFieldException, SecurityException,
-    IllegalArgumentException, IllegalAccessException {
+  static void setup()
+      throws StreamException, NoSuchFieldException, SecurityException, IllegalArgumentException,
+          IllegalAccessException {
     // failOnUnknownProperties();
     setAuth();
     enableLogging();
