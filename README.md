@@ -6,8 +6,8 @@ You can sign up for a Stream account at https://getstream.io/chat/get_started/.
 
 You can use this library to access chat API endpoints server-side, for the client-side integrations (web and mobile) have a look at the Javascript, iOS and Android SDK libraries (https://getstream.io/chat/).
 
-<details>
-<summary>Table of Contents</summary>
+<details open>
+<summary><b>Table of Contents</b></summary>
 
 - [Usage](#usage)
   - [Requirements](#requirements)
