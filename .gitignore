@@ -26,3 +26,5 @@ hs_err_pid*
 .gradle/
 /local.properties
 /bin/
+
+.envrc
