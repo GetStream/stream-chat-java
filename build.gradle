@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'io.getstream'
-version = '0.0.1-rc.1'
+version = '0.0.1-rc.2'
 description = 'Stream Chat official Java SDK'
 
 java {

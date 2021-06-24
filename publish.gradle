@@ -71,9 +71,9 @@ afterEvaluate {
                     }
                     developers {
                         developer {
-                            id = 'cedricmelfatum'
-                            name = 'Cédric Laruelle'
-                            email = 'cedric@melfatum.com'
+                            id = 'getstream-support'
+                            name = 'Stream Support'
+                            email = 'support@getstream.io'
                         }
                     }
                     scm {
