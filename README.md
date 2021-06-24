@@ -28,6 +28,7 @@ You can use this library to access chat API endpoints server-side, for the clien
   - [Simple Example](#simple-example)
   - [Supported Features](#supported-features)
   - [All Examples](#all-examples)
+- [Changelog](#changelog)
 - [Contribute](#contribute)
 - [License](#license)
 - [We are hiring](#we-are-hiring)
@@ -2030,8 +2031,11 @@ Message.queryFlags().request();
 boolean valid =  App.verifyWebhook(body, signature)
 ```
 
+## Changelog
+See [the detailed changes](CHANGELOG.md).
+
 ## Contribute
-> See [The guide to contribute](CONTRIBUTING.md)
+See [the guide to contribute](CONTRIBUTING.md).
 
 ## License
 
