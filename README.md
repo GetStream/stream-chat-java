@@ -19,6 +19,7 @@ You can use this library to access chat API endpoints server-side, for the clien
   - [Installation for Clojure](#installation-for-clojure)
   - [Dependencies](#dependencies)
   - [Configuration](#configuration)
+  - [JavaDoc](#javadoc)
   - [Simple test](#simple-test)
   - [Usage Principles](#usage-principles)
     - [Create a StreamRequest](#create-a-streamrequest)
@@ -130,6 +131,10 @@ You can also use your own CDN by creating an implementation of FileHandler and s
 Message.fileHandlerClass = MyFileHandler.class
 ```
 All setup must be done prior to any request to the API.
+
+### JavaDoc
+
+It's automatically built and published at https://getstream.github.io/stream-chat-java/
 
 ### Simple test
 <table>
