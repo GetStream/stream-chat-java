@@ -1,4 +1,4 @@
-package io.stream;
+package io.getstream.chat.java;
 
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Blocklist;
@@ -15,6 +15,7 @@ import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.User.UserUpsertRequestData.UserUpsertRequest;
 import io.getstream.chat.java.services.framework.HttpLoggingInterceptor;
 import io.getstream.chat.java.services.framework.StreamServiceGenerator;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,13 @@ public class BasicTest {
   protected static Message testMessage;
 
   static void enableLogging() {
+    String enable =
+        System.getenv("ENABLE_LOGGING") != null
+            ? System.getenv("ENABLE_LOGGING")
+            : System.getProperty("ENABLE_LOGGING");
+    if (enable == null || enable.equals("false")) {
+      return;
+    }
     StreamServiceGenerator.logLevel = HttpLoggingInterceptor.Level.BODY;
     Logger root = Logger.getLogger("");
     root.setLevel(Level.FINE);
@@ -44,14 +52,15 @@ public class BasicTest {
 
   @BeforeEach
   void resetAuth()
-      throws NoSuchFieldException, SecurityException, IllegalArgumentException,
-          IllegalAccessException {
-    setAuth();
+    throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+      setAuth();
   }
 
   @BeforeAll
-  static void setup() throws StreamException {
+  static void setup() throws StreamException, NoSuchFieldException, SecurityException,
+    IllegalArgumentException, IllegalAccessException {
     // failOnUnknownProperties();
+    setAuth();
     enableLogging();
     setProperties();
     cleanChannelTypes();
@@ -152,20 +161,25 @@ public class BasicTest {
     System.setProperty(
         "java.util.logging.SimpleFormatter.format",
         "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s %2$s %5$s%6$s%n");
-    System.setProperty("STREAM_KEY", "vk73cqmmjxe6");
-    System.setProperty(
-        "STREAM_SECRET", "mxxtzdxc932n8k9dg47p49kkz6pncxkqu3z6g6s57rh9nca363kdqaxd6jbw5mtq");
   }
 
-  private void setAuth()
+  private static void setAuth()
       throws NoSuchFieldException, SecurityException, IllegalArgumentException,
           IllegalAccessException {
+    String apiKey =
+        System.getenv("STREAM_KEY") != null
+            ? System.getenv("STREAM_KEY")
+            : System.getProperty("STREAM_KEY");
+    String apiSecret =
+        System.getenv("STREAM_SECRET") != null
+            ? System.getenv("STREAM_SECRET")
+            : System.getProperty("STREAM_SECRET");
     Field apiKeyField = StreamServiceGenerator.class.getDeclaredField("apiKey");
     apiKeyField.setAccessible(true);
-    apiKeyField.set(StreamServiceGenerator.class, System.getProperty("STREAM_KEY"));
+    apiKeyField.set(StreamServiceGenerator.class, apiKey);
     Field apiSecretField = StreamServiceGenerator.class.getDeclaredField("apiSecret");
     apiSecretField.setAccessible(true);
-    apiSecretField.set(StreamServiceGenerator.class, System.getProperty("STREAM_SECRET"));
+    apiSecretField.set(StreamServiceGenerator.class, apiSecret);
   }
 
   protected static List<ChannelMemberRequestObject> buildChannelMembersList() {
@@ -202,7 +216,7 @@ public class BasicTest {
    */
   protected void pause() {
     try {
-      Thread.sleep(4000);
+      Thread.sleep(6000);
     } catch (InterruptedException e) {
       // Do nothing
     }

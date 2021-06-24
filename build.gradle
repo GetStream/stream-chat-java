@@ -36,6 +36,15 @@ dependencies {
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 }
 
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        exceptionFormat = 'full'
+        events 'standard_out', 'standard_error', "passed", "skipped", "failed"
+    }
+}
+
 def generatedVersionDir = "${buildDir}/generated-version"
 
 sourceSets {

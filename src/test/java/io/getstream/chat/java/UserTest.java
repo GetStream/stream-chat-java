@@ -1,4 +1,4 @@
-package io.stream;
+package io.getstream.chat.java;
 
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.User;
@@ -27,7 +27,7 @@ public class UserTest extends BasicTest {
   @DisplayName("Can list users with no Exception")
   @Test
   void whenListingUsers_thenNoException() {
-    Assertions.assertDoesNotThrow(() -> User.list().userId("u1").request());
+    Assertions.assertDoesNotThrow(() -> User.list().request());
   }
 
   @DisplayName("Can partial update a user")
