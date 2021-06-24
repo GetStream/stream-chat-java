@@ -12,6 +12,7 @@
 
 # Package Files #
 *.jar
+!gradle/wrapper/gradle-wrapper.jar
 *.war
 *.nar
 *.ear
@@ -28,3 +29,4 @@ hs_err_pid*
 /bin/
 
 .envrc
+secring.gpg
