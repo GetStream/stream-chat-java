@@ -108,12 +108,9 @@ dependencies {
 > You can see an example project at [GetStream/stream-chat-clojure-example](https://github.com/GetStream/stream-chat-clojure-example).
 
 ### Dependencies
-This SDK uses the following dependencies:
-- com.squareup.retrofit2/retrofit version 2.9.0
-- com.squareup.retrofit2/converter-jackson version 2.9.0
-- io.jsonwebtoken/jjwt-api version 0.11.2
-- io.jsonwebtoken/jjwt-impl version 0.11.2
-- io.jsonwebtoken/jjwt-jackson version 0.11.2
+This SDK uses lombok (code generation), retrofit (http client), jackson (json) and jjwt (jwt).
+
+> You can find the exact versions in [build.gradle](./build.gradle).
 
 ### Configuration
 To configure the SDK, you need to setup the key and secret of your application.
