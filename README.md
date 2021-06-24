@@ -1,4 +1,4 @@
-# Official Java SDK for [Stream Chat](https://getstream.io/chat/sdk/java/)
+# Official Java SDK for [Stream Chat](https://getstream.io/chat/docs/)
 
 the official Java API client for [Stream chat](https://getstream.io/chat/) a service for building chat applications.
 
