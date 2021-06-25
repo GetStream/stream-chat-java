@@ -13,14 +13,17 @@ import io.getstream.chat.java.models.Message.MessageRequestObject;
 import io.getstream.chat.java.models.Message.MessageType;
 import io.getstream.chat.java.models.Message.Resize;
 import io.getstream.chat.java.models.Message.SearchResult;
+import io.getstream.chat.java.models.Sort;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -52,9 +55,72 @@ public class MessageTest extends BasicTest {
     Assertions.assertEquals(updatedText, updatedMessage.getText());
   }
 
+  @DisplayName("Searching with query and message filter conditions throws an exception")
+  @Test
+  void givenQueryAndMessageFilterConditions_whenSearchingMessages_thenThrowException() {
+    Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            Message.search()
+                .filterCondition("id", testChannel.getId())
+                .query(testMessage.getText())
+                .messageFilterCondition("text", testMessage.getText())
+                .request());
+  }
+
+  @DisplayName("Searching without query or message filter conditions throws an exception")
+  @Test
+  void givenNothing_whenSearchingMessages_thenThrowException() {
+    Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> Message.search().filterCondition("id", testChannel.getId()).request());
+  }
+
+  @DisplayName("Searching with offset and next throws an exception")
+  @Test
+  void givenOffsetAndNext_whenSearchingMessages_thenThrowException() {
+    Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            Message.search()
+                .filterCondition("id", testChannel.getId())
+                .query(testMessage.getText())
+                .offset(1)
+                .next("next")
+                .request());
+  }
+
+  @DisplayName("Searching with offset and sort throws an exception")
+  @Test
+  void givenOffsetAndSort_whenSearchingMessages_thenThrowException() {
+    Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            Message.search()
+                .filterCondition("id", testChannel.getId())
+                .query(testMessage.getText())
+                .offset(1)
+                .sort(Sort.builder().field("created_at").direction(Sort.Direction.ASC).build())
+                .request());
+  }
+
+  @DisplayName("Can search messages using query with no exception and retrieve given message")
+  @Test
+  void givenQuery_whenSearchingMessage_thenNoExceptionAndRetrievesMessage() {
+    List<SearchResult> searchResults =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.search()
+                        .filterCondition("id", testChannel.getId())
+                        .query(testMessage.getText())
+                        .request())
+            .getResults();
+    Assertions.assertEquals(1, searchResults.size());
+  }
+
   @DisplayName("Can search messages with no exception and retrieve given message")
   @Test
-  void whenSearchingMessages_thenNoExceptionAndRetrievesMessage() {
+  void givenMessageFilterConditions_whenSearchingMessages_thenNoExceptionAndRetrievesMessage() {
     List<SearchResult> searchResults =
         Assertions.assertDoesNotThrow(
                 () ->
@@ -64,6 +130,56 @@ public class MessageTest extends BasicTest {
                         .request())
             .getResults();
     Assertions.assertEquals(1, searchResults.size());
+  }
+
+  @DisplayName("Can search using next pagination and sorting")
+  @Test
+  @Disabled
+  void givenNextSort_whenSearchingMessages_thenNoExceptionAndRetrievesMessages() {
+    String text = UUID.randomUUID().toString();
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
+    Message msg1 =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Message.send(testChannel.getType(), testChannel.getId())
+                    .message(messageRequest)
+                    .request()
+                    .getMessage());
+
+    Message msg2 =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Message.send(testChannel.getType(), testChannel.getId())
+                    .message(messageRequest)
+                    .request()
+                    .getMessage());
+
+    Message.MessageSearchResponse responsePage1 =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Message.search()
+                    .filterCondition("id", testChannel.getId())
+                    .query(text)
+                    .sort(Sort.builder().field("created_at").direction(Sort.Direction.ASC).build())
+                    .limit(1)
+                    .request());
+    Assertions.assertEquals(1, responsePage1.getResults().size());
+    Assertions.assertEquals(msg1.getId(), responsePage1.getResults().get(0).getMessage().getId());
+    Assertions.assertNotNull(responsePage1.getNext());
+
+    Message.MessageSearchResponse responsePage2 =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Message.search()
+                    .filterCondition("id", testChannel.getId())
+                    .query(text)
+                    .next(responsePage1.getNext())
+                    .limit(1)
+                    .request());
+    Assertions.assertEquals(1, responsePage2.getResults().size());
+    Assertions.assertEquals(msg2.getId(), responsePage2.getResults().get(0).getMessage().getId());
+    Assertions.assertNotNull(responsePage2.getPrevious());
   }
 
   @DisplayName("Can upload txt file with no exception")

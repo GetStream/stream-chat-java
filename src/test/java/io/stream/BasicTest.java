@@ -18,6 +18,7 @@ import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -185,7 +186,7 @@ public class BasicTest {
   }
 
   protected static Message sendTestMessage() throws StreamException {
-    String text = "This is a message";
+    String text = UUID.randomUUID().toString();
     MessageRequestObject messageRequest =
         MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
     return Message.send(testChannel.getType(), testChannel.getId())
