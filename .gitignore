@@ -30,3 +30,7 @@ hs_err_pid*
 
 .envrc
 secring.gpg
+
+.classpath
+.project
+.settings/
