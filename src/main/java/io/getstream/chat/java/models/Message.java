@@ -806,6 +806,50 @@ public class Message {
     @JsonProperty("offset")
     private Integer offset;
 
+    @Nullable
+    @JsonProperty("next")
+    private String next;
+
+    @Singular
+    @Nullable
+    @JsonProperty("sort")
+    private List<Sort> sorts;
+
+    private MessageSearchRequestData(
+        @Nullable String query,
+        @Nullable Map<String, Object> filterConditions,
+        @Nullable Map<String, Object> messageFilterConditions,
+        @Nullable Integer limit,
+        @Nullable Integer offset,
+        @Nullable String next,
+        @Nullable List<Sort> sorts) {
+      if ((query == null || query.isEmpty())
+          && (messageFilterConditions == null || messageFilterConditions.isEmpty())) {
+        throw new IllegalArgumentException(
+            "Must specify one of query and message filter conditions");
+      }
+      if (query != null
+          && !query.isEmpty()
+          && messageFilterConditions != null
+          && !messageFilterConditions.isEmpty()) {
+        throw new IllegalArgumentException(
+            "Can only specify one of query and message filter conditions");
+      }
+      if (offset != null && offset > 0 && next != null && !next.isEmpty()) {
+        throw new IllegalArgumentException("Cannot use offset with next value");
+      }
+      if (offset != null && offset > 0 && sorts != null && !sorts.isEmpty()) {
+        throw new IllegalArgumentException("Cannot use offset with sort value");
+      }
+      this.query = query;
+      this.filterConditions = filterConditions;
+      this.messageFilterConditions = messageFilterConditions;
+      this.limit = limit;
+      this.offset = offset;
+      this.next = next;
+      this.sorts = sorts;
+    }
+
     public static class MessageSearchRequest extends StreamRequest<MessageSearchResponse> {
       @Override
       protected Call<MessageSearchResponse> generateCall() {
@@ -1306,6 +1350,14 @@ public class Message {
     @NotNull
     @JsonProperty("results")
     private List<SearchResult> results;
+
+    @Nullable
+    @JsonProperty("next")
+    private String next;
+
+    @Nullable
+    @JsonProperty("previous")
+    private String previous;
   }
 
   @Data
