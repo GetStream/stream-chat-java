@@ -1,4 +1,4 @@
-package io.stream;
+package io.getstream.chat.java;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

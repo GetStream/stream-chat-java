@@ -1,4 +1,4 @@
-# Official Java SDK for [Stream Chat](https://getstream.io/chat/docs/)
+# Official Java SDK for [Stream Chat](https://getstream.io/chat/docs/) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.getstream/stream-chat-java/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/io.getstream/stream-chat-java) [![build](https://github.com/GetStream/stream-chat-java/workflows/Build/badge.svg)](https://github.com/GetStream/stream-chat-java/actions)
 
 The official Java API client for [Stream chat](https://getstream.io/chat/) a service for building chat applications.
 
@@ -6,8 +6,8 @@ You can sign up for a Stream account at https://getstream.io/chat/get_started/.
 
 You can use this library to access chat API endpoints server-side, for the client-side integrations (web and mobile) have a look at the Javascript, iOS and Android SDK libraries (https://getstream.io/chat/).
 
-<details>
-<summary>Table of Contents</summary>
+<details open>
+<summary><b>Table of Contents</b></summary>
 
 - [Usage](#usage)
   - [Requirements](#requirements)
@@ -19,12 +19,16 @@ You can use this library to access chat API endpoints server-side, for the clien
   - [Installation for Clojure](#installation-for-clojure)
   - [Dependencies](#dependencies)
   - [Configuration](#configuration)
+  - [JavaDoc](#javadoc)
   - [Simple test](#simple-test)
   - [Usage Principles](#usage-principles)
+    - [Create a StreamRequest](#create-a-streamrequest)
+    - [Set all information you want in the StreamRequest](#set-all-information-you-want-in-the-streamrequest)
     - [Perform the request](#perform-the-request)
   - [Simple Example](#simple-example)
   - [Supported Features](#supported-features)
   - [All Examples](#all-examples)
+- [Changelog](#changelog)
 - [Contribute](#contribute)
 - [License](#license)
 - [We are hiring](#we-are-hiring)
@@ -32,7 +36,9 @@ You can use this library to access chat API endpoints server-side, for the clien
 
 ## Usage
 ### Requirements
-The Stream chat Java SDK requires Java 1.8+.
+The Stream chat Java SDK requires Java 11+.
+
+> It supports latest LTS. If you need support an older Java, please contact at [support](https://getstream.io/contact/support/).
 ### Compatibility
 The Stream chat Java SDK is compatible with Groovy, Scala, Kotlin and Clojure.
 ### Installation for Java
@@ -114,16 +120,22 @@ This SDK uses lombok (code generation), retrofit (http client), jackson (json) a
 
 ### Configuration
 To configure the SDK, you need to setup the key and secret of your application.
-You can do so either by:
-- setting STREAM_KEY and STREAM_SECRET System properties
-- setting STREAM_KEY and STREAM_SECRET environment variables
-You can also customize the base url and the timeout, with the STREAM_CHAT_URL and STREAM_CHAT_TIMEOUT System properties or environment variables.
-You can use your own CDN by creating an implementation of FileHandler and setting it this way
+You can do so either by where enrironment variables have precedence:
+- setting `STREAM_KEY` and `STREAM_SECRET` environment variables
+- setting `STREAM_KEY` and `STREAM_SECRET` System properties
+
+You can also customize the base url and the timeout, with the STREAM_CHAT_URL and STREAM_CHAT_TIMEOUT respectively as System properties or environment variables.
+
+You can also use your own CDN by creating an implementation of FileHandler and setting it this way
 
 ```java
 Message.fileHandlerClass = MyFileHandler.class
 ```
 All setup must be done prior to any request to the API.
+
+### JavaDoc
+
+It's automatically built and published at https://getstream.github.io/stream-chat-java/
 
 ### Simple test
 <table>
@@ -2019,8 +2031,11 @@ Message.queryFlags().request();
 boolean valid =  App.verifyWebhook(body, signature)
 ```
 
+## Changelog
+See [the detailed changes](CHANGELOG.md).
+
 ## Contribute
-> See [The guide to contribute](CONTRIBUTING.md)
+See [the guide to contribute](CONTRIBUTING.md).
 
 ## License
 

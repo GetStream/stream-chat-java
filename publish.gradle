@@ -60,8 +60,8 @@ afterEvaluate {
                 artifact javadocJar
 
                 pom {
-                    name = "${description}"
-                    description = "${description}"
+                    name = "Stream Chat official Java API Client"
+                    description = "Stream Chat Java Client for backend integrations"
                     url = 'https://github.com/getstream/stream-chat-java'
                     licenses {
                         license {
@@ -89,4 +89,8 @@ afterEvaluate {
 
 signing {
     sign publishing.publications
+}
+
+javadoc {
+    options.addBooleanOption('html5', true)
 }

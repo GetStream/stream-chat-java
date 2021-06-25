@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'io.getstream'
-version = '0.0.1-rc.2'
+version = '1.0.1'
 description = 'Stream Chat official Java SDK'
 
 java {
@@ -35,6 +35,15 @@ dependencies {
 
 	testCompileOnly 'org.projectlombok:lombok:1.18.20'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        exceptionFormat = 'full'
+        events 'standard_out', 'standard_error', "passed", "skipped", "failed"
+    }
 }
 
 def generatedVersionDir = "${buildDir}/generated-version"

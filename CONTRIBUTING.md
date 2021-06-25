@@ -19,12 +19,12 @@ They are data objects. They correspond to the formats of the API responses.
 ### Service interfaces
 They are Retrofit service interfaces, that describe the API endpoints.
 ### The StreamServiceGenerator class
-This class is responsible to make the Service interfaces usable to call the API. It is used by all Request classes to define the `generateCall` method.  
+This class is responsible to make the Service interfaces usable to call the API. It is used by all Request classes to define the `generateCall` method.
 It also handles authentication and logging.
 ### The StreamResponse interface and related classes
 StreamResponse is the interface that correspond to an API response. Most APIs responses are StreamResponseObject (mean they contain duration and rate limit data).
 ### The StreamRequest and StreamServiceHandler classes
-StreamRequest is the generic Request class, that defines the `request` and `requestAsync` methods, which call the `StreamServiceHandler`.  
+StreamRequest is the generic Request class, that defines the `request` and `requestAsync` methods, which call the `StreamServiceHandler`.
 The `StreamServiceHandler` class defines the synchronous and asynchronous processing. It also enriched the Response object with rate limit data when available.
 ### Test classes
 They are organized by model. Each endpoint has at least one test related.
