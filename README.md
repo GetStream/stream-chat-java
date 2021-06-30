@@ -191,7 +191,7 @@ This can be done either synchronously, calling the `request()` method and handli
 ```java
 try {
     Message message = Message.send("team", "sample_channel")
-        .message(MessageRequestObject.builder().text("Sample message").userId("fakeUserId")build())
+        .message(MessageRequestObject.builder().text("Sample message").userId("fakeUserId").build())
         .request().getMessage();
 } catch (StreamException e) {
     // Handle the exception
