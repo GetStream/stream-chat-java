@@ -62,7 +62,7 @@ public class User {
   @JsonProperty("name")
   private String name;
 
-  @NotNull
+  @Nullable
   @JsonProperty("image")
   private String image;
 
