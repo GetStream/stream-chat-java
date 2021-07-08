@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.ChannelType.ChannelTypeCreateRequestData.ChannelTypeCreateRequest;
 import io.getstream.chat.java.models.ChannelType.ChannelTypeUpdateRequestData.ChannelTypeUpdateRequest;
-import io.getstream.chat.java.models.Permission.Resource;
 import io.getstream.chat.java.models.framework.RequestObjectBuilder;
 import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponse;
@@ -145,10 +144,6 @@ public class ChannelType {
     private Action action;
 
     @NotNull
-    @JsonProperty("resources")
-    private List<Resource> resources;
-
-    @NotNull
     @JsonProperty("roles")
     private List<String> roles;
 
@@ -176,10 +171,6 @@ public class ChannelType {
     @NotNull
     @JsonProperty("name")
     private String name;
-
-    @NotNull
-    @JsonProperty("resource")
-    private Resource resource;
 
     @NotNull
     @JsonProperty("owner")
@@ -268,10 +259,6 @@ public class ChannelType {
     @Nullable
     @JsonProperty("action")
     private Action action;
-
-    @Nullable
-    @JsonProperty("resources")
-    private List<Resource> resources;
 
     @Nullable
     @JsonProperty("roles")

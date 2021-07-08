@@ -24,8 +24,8 @@ public class RoleTest extends BasicTest {
     pause();
     Assertions.assertDoesNotThrow(() -> Role.delete(name).request());
     pause();
-    List<String> roles = Assertions.assertDoesNotThrow(() -> Role.list().request()).getRoles();
-    Assertions.assertFalse(roles.contains(name));
+    List<Role> roles = Assertions.assertDoesNotThrow(() -> Role.list().request()).getRoles();
+    Assertions.assertFalse(roles.stream().anyMatch(role -> role.getName().equals(name)));
   }
 
   @DisplayName("Can list roles")
@@ -34,7 +34,7 @@ public class RoleTest extends BasicTest {
     String name = RandomStringUtils.randomAlphabetic(5);
     Assertions.assertDoesNotThrow(() -> Role.create().name(name).request());
     pause();
-    List<String> roles = Assertions.assertDoesNotThrow(() -> Role.list().request()).getRoles();
-    Assertions.assertTrue(roles.contains(name));
+    List<Role> roles = Assertions.assertDoesNotThrow(() -> Role.list().request()).getRoles();
+    Assertions.assertTrue(roles.stream().anyMatch(role -> role.getName().equals(name)));
   }
 }

@@ -13,15 +13,15 @@ import retrofit2.http.Path;
 
 public interface RoleService {
 
-  @POST("custom_role")
+  @POST("roles")
   @NotNull
   Call<StreamResponseObject> create(@NotNull @Body RoleCreateRequestData roleCreateRequestData);
 
-  @DELETE("custom_role/{name}")
+  @DELETE("roles/{name}")
   @NotNull
   Call<StreamResponseObject> delete(@NotNull @Path("name") String name);
 
-  @GET("custom_role")
+  @GET("roles")
   @NotNull
   Call<RoleListResponse> list();
 }

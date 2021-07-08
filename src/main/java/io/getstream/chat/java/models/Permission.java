@@ -1,6 +1,5 @@
 package io.getstream.chat.java.models;
 
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.getstream.chat.java.models.Permission.PermissionCreateRequestData.PermissionCreateRequest;
 import io.getstream.chat.java.models.Permission.PermissionUpdateRequestData.PermissionUpdateRequest;
@@ -22,12 +21,16 @@ import retrofit2.Call;
 @NoArgsConstructor
 public class Permission {
   @NotNull
+  @JsonProperty("id")
+  private String id;
+
+  @NotNull
   @JsonProperty("name")
   private String name;
 
   @NotNull
-  @JsonProperty("resource")
-  private Resource resource;
+  @JsonProperty("action")
+  private String action;
 
   @Nullable
   @JsonProperty("owner")
@@ -51,77 +54,22 @@ public class Permission {
     @NotNull private String expression;
   }
 
-  public enum Resource {
-    @JsonProperty("CreateChannel")
-    CREATE_CHANNEL,
-    @JsonProperty("CreateDistinctChannelForOthers")
-    CREATE_DISTINCT_CHANNEL_FOR_OTHERS,
-    @JsonProperty("ReadChannel")
-    READ_CHANNEL,
-    @JsonProperty("UpdateChannelMembers")
-    UPDATE_CHANNEL_MEMBERS,
-    @JsonProperty("RemoveOwnChannelMembership")
-    REMOVE_OWN_CHANNEL_MEMBERSHIP,
-    @JsonProperty("UpdateChannel")
-    UPDATE_CHANNEL,
-    @JsonProperty("UseFrozenChannel")
-    USE_FROZEN_CHANNEL,
-    @JsonProperty("UpdateUserRole")
-    UPDATE_USER_ROLE,
-    @JsonProperty("DeleteChannel")
-    DELETE_CHANNEL,
-    @JsonProperty("CreateMessage")
-    CREATE_MESSAGE,
-    @JsonProperty("UpdateMessage")
-    UPDATE_MESSAGE,
-    @JsonProperty("PinMessage")
-    PIN_MESSAGE,
-    @JsonProperty("DeleteMessage")
-    DELETE_MESSAGE,
-    @JsonProperty("RunMessageAction")
-    RUN_MESSAGE_ACTION,
-    @JsonProperty("MuteUser")
-    MUTE_USER,
-    @JsonProperty("BanUser")
-    BAN_USER,
-    @JsonProperty("UploadAttachment")
-    UPLOAD_ATTACHMENT,
-    @JsonProperty("DeleteAttachment")
-    DELETE_ATTACHMENT,
-    @JsonProperty("AddLinks")
-    ADD_LINKS,
-    @JsonProperty("CreateReaction")
-    CREATE_REACTION,
-    @JsonProperty("DeleteReaction")
-    DELETE_REACTION,
-    @JsonProperty("SendCustomEvent")
-    SEND_CUSTOM_EVENT,
-    @JsonProperty("SkipMessageModeration")
-    SKIP_MESSAGE_MODERATION,
-    @JsonProperty("UseCommands")
-    USE_COMMANDS,
-    @JsonProperty("EditUser")
-    EDIT_USER,
-    @JsonProperty("ReadMessageFlags")
-    READ_MESSAGE_FLAGS,
-    @JsonProperty("*")
-    ALL,
-    @JsonEnumDefaultValue
-    UNKNOWN
-  }
-
   @Builder(
       builderClassName = "PermissionCreateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class PermissionCreateRequestData {
+    @NotNull
+    @JsonProperty("id")
+    private String id;
+
     @Nullable
     @JsonProperty("name")
     private String name;
 
-    @Nullable
-    @JsonProperty("resource")
-    private Resource resource;
+    @NotNull
+    @JsonProperty("action")
+    private String action;
 
     @Nullable
     @JsonProperty("owner")
@@ -146,11 +94,11 @@ public class Permission {
 
   @RequiredArgsConstructor
   public static class PermissionGetRequest extends StreamRequest<PermissionGetResponse> {
-    @NotNull private String name;
+    @NotNull private String id;
 
     @Override
     protected Call<PermissionGetResponse> generateCall() {
-      return StreamServiceGenerator.createService(PermissionService.class).get(name);
+      return StreamServiceGenerator.createService(PermissionService.class).get(id);
     }
   }
 
@@ -160,12 +108,16 @@ public class Permission {
       buildMethodName = "internalBuild")
   public static class PermissionUpdateRequestData {
     @Nullable
+    @JsonProperty("id")
+    private String id;
+
+    @Nullable
     @JsonProperty("name")
     private String name;
 
     @Nullable
-    @JsonProperty("resource")
-    private Resource resource;
+    @JsonProperty("action")
+    private String action;
 
     @Nullable
     @JsonProperty("owner")
@@ -180,7 +132,8 @@ public class Permission {
     private String condition;
 
     public static class PermissionUpdateRequest extends StreamRequest<StreamResponseObject> {
-      private PermissionUpdateRequest(@NotNull String name) {
+      private PermissionUpdateRequest(@NotNull String id, @NotNull String name) {
+        this.id = id;
         this.name = name;
       }
 
@@ -192,18 +145,18 @@ public class Permission {
       @Override
       protected Call<StreamResponseObject> generateCall() {
         return StreamServiceGenerator.createService(PermissionService.class)
-            .update(name, this.internalBuild());
+            .update(id, this.internalBuild());
       }
     }
   }
 
   @RequiredArgsConstructor
   public static class PermissionDeleteRequest extends StreamRequest<StreamResponseObject> {
-    @NotNull private String name;
+    @NotNull private String id;
 
     @Override
     protected Call<StreamResponseObject> generateCall() {
-      return StreamServiceGenerator.createService(PermissionService.class).delete(name);
+      return StreamServiceGenerator.createService(PermissionService.class).delete(id);
     }
   }
 
@@ -245,34 +198,35 @@ public class Permission {
   /**
    * Creates a get request
    *
-   * @param name the permission name
+   * @param id the permission id
    * @return the created request
    */
   @NotNull
-  public static PermissionGetRequest get(@NotNull String name) {
-    return new PermissionGetRequest(name);
+  public static PermissionGetRequest get(@NotNull String id) {
+    return new PermissionGetRequest(id);
   }
 
   /**
    * Creates an update request
    *
+   * @param id the permission id
    * @param name the permission name
    * @return the created request
    */
   @NotNull
-  public static PermissionUpdateRequest update(@NotNull String name) {
-    return new PermissionUpdateRequest(name);
+  public static PermissionUpdateRequest update(@NotNull String id, @NotNull String name) {
+    return new PermissionUpdateRequest(id, name);
   }
 
   /**
    * Creates a delete request
    *
-   * @param name the permission name
+   * @param id the permission id
    * @return the created request
    */
   @NotNull
-  public static PermissionDeleteRequest delete(@NotNull String name) {
-    return new PermissionDeleteRequest(name);
+  public static PermissionDeleteRequest delete(@NotNull String id) {
+    return new PermissionDeleteRequest(id);
   }
 
   /**
