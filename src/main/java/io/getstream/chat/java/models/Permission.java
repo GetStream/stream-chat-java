@@ -63,7 +63,7 @@ public class Permission {
     @JsonProperty("id")
     private String id;
 
-    @Nullable
+    @NotNull
     @JsonProperty("name")
     private String name;
 
