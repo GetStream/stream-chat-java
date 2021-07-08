@@ -16,11 +16,7 @@ import io.getstream.chat.java.models.Message.MessageSendRequestData.MessageSendR
 import io.getstream.chat.java.models.Message.MessageTranslateRequestData.MessageTranslateRequest;
 import io.getstream.chat.java.models.Message.MessageUpdateRequestData.MessageUpdateRequest;
 import io.getstream.chat.java.models.User.UserRequestObject;
-import io.getstream.chat.java.models.framework.DefaultFileHandler;
-import io.getstream.chat.java.models.framework.FileHandler;
-import io.getstream.chat.java.models.framework.RequestObjectBuilder;
-import io.getstream.chat.java.models.framework.StreamRequest;
-import io.getstream.chat.java.models.framework.StreamResponseObject;
+import io.getstream.chat.java.models.framework.*;
 import io.getstream.chat.java.services.MessageService;
 import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.io.File;
@@ -1362,20 +1358,26 @@ public class Message {
 
   @Data
   @NoArgsConstructor
-  @EqualsAndHashCode(callSuper = true)
-  public static class MessageUploadFileResponse extends StreamResponseObject {
+  public static class MessageUploadFileResponse implements StreamResponse {
     @NotNull
     @JsonProperty("file")
     private String file;
+
+    @NotNull
+    @JsonProperty("duration")
+    private String duration;
   }
 
   @Data
   @NoArgsConstructor
-  @EqualsAndHashCode(callSuper = true)
-  public static class MessageUploadImageResponse extends StreamResponseObject {
+  public static class MessageUploadImageResponse implements StreamResponse {
     @NotNull
     @JsonProperty("file")
     private String file;
+
+    @NotNull
+    @JsonProperty("duration")
+    private String duration;
 
     @Nullable
     @JsonProperty("upload_sizes")
