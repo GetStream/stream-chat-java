@@ -13,7 +13,6 @@ import io.getstream.chat.java.models.App.AppCheckPushRequestData.AppCheckPushReq
 import io.getstream.chat.java.models.App.AppCheckSqsRequestData.AppCheckSqsRequest;
 import io.getstream.chat.java.models.App.AppUpdateRequestData.AppUpdateRequest;
 import io.getstream.chat.java.models.ChannelType.ChannelTypeWithStringCommands;
-import io.getstream.chat.java.models.Permission.Resource;
 import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.framework.RequestObjectBuilder;
 import io.getstream.chat.java.models.framework.StreamRequest;
@@ -128,10 +127,6 @@ public class App extends StreamResponseObject {
     @NotNull
     @JsonProperty("name")
     private String name;
-
-    @NotNull
-    @JsonProperty("resources")
-    private List<Resource> resources;
 
     @NotNull
     @JsonProperty("roles")

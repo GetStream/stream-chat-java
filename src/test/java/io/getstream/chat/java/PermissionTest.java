@@ -1,7 +1,6 @@
 package io.getstream.chat.java;
 
 import io.getstream.chat.java.models.Permission;
-import io.getstream.chat.java.models.Permission.Resource;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
@@ -13,11 +12,13 @@ public class PermissionTest extends BasicTest {
   @DisplayName("Can create permission")
   @Test
   void whenCreatingPermission_thenNoException() {
+    String name = RandomStringUtils.randomAlphabetic(10);
     Assertions.assertDoesNotThrow(
         () ->
             Permission.create()
-                .name(RandomStringUtils.randomAlphabetic(10))
-                .resource(Resource.ADD_LINKS)
+                .id(RandomStringUtils.randomAlphabetic(10))
+                .name(name)
+                .action("DeleteChannel")
                 .request());
   }
 
@@ -25,52 +26,56 @@ public class PermissionTest extends BasicTest {
   @Test
   void whenUpdatingPermission_thenNoException() {
     String name = RandomStringUtils.randomAlphabetic(10);
+    String id = RandomStringUtils.randomAlphabetic(10);
     Assertions.assertDoesNotThrow(
-        () -> Permission.create().name(name).resource(Resource.ADD_LINKS).request());
+        () -> Permission.create().id(id).name(name).action("DeleteChannel").request());
     pause();
     Assertions.assertDoesNotThrow(
-        () -> Permission.update(name).resource(Resource.ADD_LINKS).owner(true).request());
+        () -> Permission.update(id, name).action("DeleteChannel").owner(true).request());
   }
 
   @DisplayName("Can retrieve permission")
   @Test
   void whenRetrievingPermission_thenCorrectName() {
     String name = RandomStringUtils.randomAlphabetic(10);
+    String id = RandomStringUtils.randomAlphabetic(10);
     Assertions.assertDoesNotThrow(
-        () -> Permission.create().name(name).resource(Resource.ADD_LINKS).request());
+        () -> Permission.create().id(id).name(name).action("DeleteChannel").request());
     pause();
     Permission retrievedPermission =
-        Assertions.assertDoesNotThrow(() -> Permission.get(name).request()).getPermission();
-    Assertions.assertEquals(name, retrievedPermission.getName());
+        Assertions.assertDoesNotThrow(() -> Permission.get(id).request()).getPermission();
+    Assertions.assertEquals(id, retrievedPermission.getId());
   }
 
   @DisplayName("Can delete permission")
   @Test
   void whenDeletingPermission_thenDeleted() {
     String name = RandomStringUtils.randomAlphabetic(10);
+    String id = RandomStringUtils.randomAlphabetic(10);
     Assertions.assertDoesNotThrow(
-        () -> Permission.create().name(name).resource(Resource.ADD_LINKS).request());
+        () -> Permission.create().id(id).name(name).action("DeleteChannel").request());
     pause();
-    Assertions.assertDoesNotThrow(() -> Permission.delete(name).request());
+    Assertions.assertDoesNotThrow(() -> Permission.delete(id).request());
     pause();
     List<Permission> permissions =
         Assertions.assertDoesNotThrow(() -> Permission.list().request()).getPermissions();
     Assertions.assertFalse(
         permissions.stream()
-            .anyMatch(consideredPermission -> consideredPermission.getName().equals(name)));
+            .anyMatch(consideredPermission -> consideredPermission.getId().equals(id)));
   }
 
   @DisplayName("Can list permissions")
   @Test
   void whenListingPermission_thenCanRetrieve() {
     String name = RandomStringUtils.randomAlphabetic(10);
+    String id = RandomStringUtils.randomAlphabetic(10);
     Assertions.assertDoesNotThrow(
-        () -> Permission.create().name(name).resource(Resource.ADD_LINKS).request());
+        () -> Permission.create().id(id).name(name).action("DeleteChannel").request());
     pause();
     List<Permission> permissions =
         Assertions.assertDoesNotThrow(() -> Permission.list().request()).getPermissions();
     Assertions.assertTrue(
         permissions.stream()
-            .anyMatch(consideredPermission -> consideredPermission.getName().equals(name)));
+            .anyMatch(consideredPermission -> consideredPermission.getId().equals(id)));
   }
 }

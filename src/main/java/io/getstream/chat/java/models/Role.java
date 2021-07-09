@@ -6,6 +6,8 @@ import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.RoleService;
 import io.getstream.chat.java.services.framework.StreamServiceGenerator;
+
+import java.util.Date;
 import java.util.List;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +18,24 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 
+@Data
+@NoArgsConstructor
 public class Role {
+  @NotNull
+  @JsonProperty("name")
+  private String name;
+
+  @NotNull
+  @JsonProperty("custom")
+  private Boolean custom;
+
+  @NotNull
+  @JsonProperty("created_at")
+  private Date createdAt;
+
+  @NotNull
+  @JsonProperty("updated_at")
+  private Date updatedAt;
 
   @Builder(
       builderClassName = "RoleCreateRequest",
@@ -58,7 +77,7 @@ public class Role {
   public static class RoleListResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("roles")
-    private List<String> roles;
+    private List<Role> roles;
   }
 
   /**
