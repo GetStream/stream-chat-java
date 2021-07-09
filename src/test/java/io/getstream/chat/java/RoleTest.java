@@ -28,5 +28,11 @@ public class RoleTest extends BasicTest {
     pause();
     List<Role> roles = Assertions.assertDoesNotThrow(() -> Role.list().request()).getRoles();
     Assertions.assertTrue(roles.stream().anyMatch(role -> role.getName().equals(name)));
+    for (int i = 0; i < roles.size(); i++) {
+      Role role = roles.get(i);
+      if (role.getCustom()) {
+        Assertions.assertDoesNotThrow(() -> Role.delete(role.getName()).request());
+      }
+    }
   }
 }
