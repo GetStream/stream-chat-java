@@ -25,17 +25,12 @@ import io.getstream.chat.java.services.UserService;
 import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.stream.Collectors;
 import javax.crypto.spec.SecretKeySpec;
 import lombok.AllArgsConstructor;
@@ -1329,19 +1324,26 @@ public class User {
   @NotNull
   public static String createToken(
       @NotNull String userId, @Nullable Date expiresAt, @Nullable Date issuedAt) {
-    String apiKey =
-        System.getenv("STREAM_KEY") != null
-            ? System.getenv("STREAM_KEY")
-            : System.getProperty("STREAM_KEY");
-    SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-    byte[] apiKeySecretBytes = Base64.getDecoder().decode(apiKey);
-    Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+    String apiSecret =
+        System.getenv("STREAM_SECRET") != null
+            ? System.getenv("STREAM_SECRET")
+            : System.getProperty("STREAM_SECRET");
+    Key signingKey =
+            new SecretKeySpec(apiSecret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
+
+    if (issuedAt == null) {
+      GregorianCalendar calendar = new GregorianCalendar();
+      calendar.add(Calendar.SECOND, -5);
+      issuedAt = calendar.getTime();
+    }
 
     return Jwts.builder()
         .claim("user_id", userId)
         .setExpiration(expiresAt)
         .setIssuedAt(issuedAt)
-        .signWith(signingKey, signatureAlgorithm)
+        .setIssuer("Stream Chat Java SDK")
+        .setSubject("Stream Chat Java SDK")
+        .signWith(signingKey, SignatureAlgorithm.HS256)
         .compact();
   }
 }
