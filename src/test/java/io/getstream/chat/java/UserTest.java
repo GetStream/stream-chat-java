@@ -1,5 +1,7 @@
 package io.getstream.chat.java;
 
+import static io.getstream.chat.java.models.User.createToken;
+
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.User;
 import io.getstream.chat.java.models.User.Ban;
@@ -21,8 +23,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static io.getstream.chat.java.models.User.createToken;
 
 public class UserTest extends BasicTest {
 

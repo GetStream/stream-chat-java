@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.util.StdDateFormat;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Calendar;
@@ -120,20 +119,21 @@ public class StreamServiceGenerator {
 
   private static @NotNull String jwtToken() {
     Key signingKey =
-          new SecretKeySpec(apiSecret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
-      // We set issued at 5 seconds ago to avoid problems like JWTAuth error: token used before
-      // issue
-      // at (iat)
-      GregorianCalendar calendar = new GregorianCalendar();
-      calendar.add(Calendar.SECOND, -5);
-      return Jwts.builder()
-          .setIssuedAt(new Date())
-          .setIssuer("Stream Chat Java SDK")
-          .setSubject("Stream Chat Java SDK")
-          .claim("server", true)
-          .claim("scope", "admins")
-          .setIssuedAt(calendar.getTime())
-          .signWith(signingKey, SignatureAlgorithm.HS256)
-          .compact();
+        new SecretKeySpec(
+            apiSecret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
+    // We set issued at 5 seconds ago to avoid problems like JWTAuth error: token used before
+    // issue
+    // at (iat)
+    GregorianCalendar calendar = new GregorianCalendar();
+    calendar.add(Calendar.SECOND, -5);
+    return Jwts.builder()
+        .setIssuedAt(new Date())
+        .setIssuer("Stream Chat Java SDK")
+        .setSubject("Stream Chat Java SDK")
+        .claim("server", true)
+        .claim("scope", "admins")
+        .setIssuedAt(calendar.getTime())
+        .signWith(signingKey, SignatureAlgorithm.HS256)
+        .compact();
   }
 }

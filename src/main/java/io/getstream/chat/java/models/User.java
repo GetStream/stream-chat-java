@@ -25,7 +25,6 @@ import io.getstream.chat.java.services.UserService;
 import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.text.DateFormat;
@@ -1329,7 +1328,8 @@ public class User {
             ? System.getenv("STREAM_SECRET")
             : System.getProperty("STREAM_SECRET");
     Key signingKey =
-            new SecretKeySpec(apiSecret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
+        new SecretKeySpec(
+            apiSecret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
 
     if (issuedAt == null) {
       GregorianCalendar calendar = new GregorianCalendar();

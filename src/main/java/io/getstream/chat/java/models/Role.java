@@ -6,7 +6,6 @@ import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.RoleService;
 import io.getstream.chat.java.services.framework.StreamServiceGenerator;
-
 import java.util.Date;
 import java.util.List;
 import lombok.Builder;
