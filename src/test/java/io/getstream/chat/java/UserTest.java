@@ -22,6 +22,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static io.getstream.chat.java.models.User.createToken;
+
 public class UserTest extends BasicTest {
 
   @DisplayName("Can list users with no Exception")
@@ -259,5 +261,15 @@ public class UserTest extends BasicTest {
                         testUsersRequestObjects.get(2).getId()),
                     calendar.getTime())
                 .request());
+  }
+
+  @DisplayName("Can generate a user token")
+  @Test
+  void whenGeneratingUserToken_thenNoException() {
+    String userId = RandomStringUtils.randomAlphabetic(10);
+
+    String token = createToken(userId, null, null);
+
+    Assertions.assertEquals(197, token.length());
   }
 }

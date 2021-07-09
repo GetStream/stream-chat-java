@@ -7,6 +7,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
@@ -118,10 +119,8 @@ public class StreamServiceGenerator {
   }
 
   private static @NotNull String jwtToken() {
-    Key signingKey;
-    try {
-      signingKey =
-          new SecretKeySpec(apiSecret.getBytes("UTF-8"), SignatureAlgorithm.HS256.getJcaName());
+    Key signingKey =
+          new SecretKeySpec(apiSecret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
       // We set issued at 5 seconds ago to avoid problems like JWTAuth error: token used before
       // issue
       // at (iat)
@@ -136,9 +135,5 @@ public class StreamServiceGenerator {
           .setIssuedAt(calendar.getTime())
           .signWith(signingKey, SignatureAlgorithm.HS256)
           .compact();
-    } catch (UnsupportedEncodingException e) {
-      log.severe("Should not happen: UTF-8 is not supported");
-      return "";
-    }
   }
 }
