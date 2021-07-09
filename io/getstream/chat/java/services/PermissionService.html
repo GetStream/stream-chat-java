@@ -155,7 +155,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Permission.PermissionGetResponse.html" title="class in io.getstream.chat.java.models">Permission.PermissionGetResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get(java.lang.String)">get</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get(java.lang.String)">get</a></span>&#8203;(java.lang.String&nbsp;id)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -165,7 +165,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(java.lang.String,io.getstream.chat.java.models.Permission.PermissionUpdateRequestData)">update</a></span>&#8203;(java.lang.String&nbsp;name,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(java.lang.String,io.getstream.chat.java.models.Permission.PermissionUpdateRequestData)">update</a></span>&#8203;(java.lang.String&nbsp;id,
       <a href="../models/Permission.PermissionUpdateRequestData.html" title="class in io.getstream.chat.java.models">Permission.PermissionUpdateRequestData</a>&nbsp;permissionUpdateRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -192,7 +192,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <h4>create</h4>
-<pre class="methodSignature">@POST("custom_permission")
+<pre class="methodSignature">@POST("permissions")
 @NotNull
 retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;create&#8203;(@NotNull @Body
                                             <a href="../models/Permission.PermissionCreateRequestData.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData</a>&nbsp;permissionCreateRequestData)</pre>
@@ -204,10 +204,10 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
 <ul class="blockList">
 <li class="blockList">
 <h4>get</h4>
-<pre class="methodSignature">@GET("custom_permission/{name}")
+<pre class="methodSignature">@GET("permissions/{id}")
 @NotNull
-retrofit2.Call&lt;<a href="../models/Permission.PermissionGetResponse.html" title="class in io.getstream.chat.java.models">Permission.PermissionGetResponse</a>&gt;&nbsp;get&#8203;(@NotNull @Path("name")
-                                                     java.lang.String&nbsp;name)</pre>
+retrofit2.Call&lt;<a href="../models/Permission.PermissionGetResponse.html" title="class in io.getstream.chat.java.models">Permission.PermissionGetResponse</a>&gt;&nbsp;get&#8203;(@NotNull @Path("id")
+                                                     java.lang.String&nbsp;id)</pre>
 </li>
 </ul>
 <a id="update(java.lang.String,io.getstream.chat.java.models.Permission.PermissionUpdateRequestData)">
@@ -216,10 +216,10 @@ retrofit2.Call&lt;<a href="../models/Permission.PermissionGetResponse.html" titl
 <ul class="blockList">
 <li class="blockList">
 <h4>update</h4>
-<pre class="methodSignature">@POST("custom_permission/{name}")
+<pre class="methodSignature">@PUT("permissions/{id}")
 @NotNull
-retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;update&#8203;(@NotNull @Path("name")
-                                            java.lang.String&nbsp;name,
+retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;update&#8203;(@NotNull @Path("id")
+                                            java.lang.String&nbsp;id,
                                             @NotNull @Body
                                             <a href="../models/Permission.PermissionUpdateRequestData.html" title="class in io.getstream.chat.java.models">Permission.PermissionUpdateRequestData</a>&nbsp;permissionUpdateRequestData)</pre>
 </li>
@@ -230,9 +230,9 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
 <ul class="blockList">
 <li class="blockList">
 <h4>delete</h4>
-<pre class="methodSignature">@DELETE("custom_permission/{name}")
+<pre class="methodSignature">@DELETE("permissions/{id}")
 @NotNull
-retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;delete&#8203;(@NotNull @Path("name")
+retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;delete&#8203;(@NotNull @Path("id")
                                             java.lang.String&nbsp;name)</pre>
 </li>
 </ul>
@@ -242,7 +242,7 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
 <ul class="blockListLast">
 <li class="blockList">
 <h4>list</h4>
-<pre class="methodSignature">@GET("custom_permission")
+<pre class="methodSignature">@GET("permissions")
 @NotNull
 retrofit2.Call&lt;<a href="../models/Permission.PermissionListResponse.html" title="class in io.getstream.chat.java.models">Permission.PermissionListResponse</a>&gt;&nbsp;list()</pre>
 </li>

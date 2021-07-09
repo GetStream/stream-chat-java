@@ -181,7 +181,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <h4>create</h4>
-<pre class="methodSignature">@POST("custom_role")
+<pre class="methodSignature">@POST("roles")
 @NotNull
 retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;create&#8203;(@NotNull @Body
                                             <a href="../models/Role.RoleCreateRequestData.html" title="class in io.getstream.chat.java.models">Role.RoleCreateRequestData</a>&nbsp;roleCreateRequestData)</pre>
@@ -193,7 +193,7 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
 <ul class="blockList">
 <li class="blockList">
 <h4>delete</h4>
-<pre class="methodSignature">@DELETE("custom_role/{name}")
+<pre class="methodSignature">@DELETE("roles/{name}")
 @NotNull
 retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;delete&#8203;(@NotNull @Path("name")
                                             java.lang.String&nbsp;name)</pre>
@@ -205,7 +205,7 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
 <ul class="blockListLast">
 <li class="blockList">
 <h4>list</h4>
-<pre class="methodSignature">@GET("custom_role")
+<pre class="methodSignature">@GET("roles")
 @NotNull
 retrofit2.Call&lt;<a href="../models/Role.RoleListResponse.html" title="class in io.getstream.chat.java.models">Role.RoleListResponse</a>&gt;&nbsp;list()</pre>
 </li>
