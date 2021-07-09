@@ -8,14 +8,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class RoleTest extends BasicTest {
-
-  @DisplayName("Can create a role")
-  @Test
-  void whenCreatingRole_thenNoException() {
-    Assertions.assertDoesNotThrow(
-        () -> Role.create().name(RandomStringUtils.randomAlphabetic(5)).request());
-  }
-
   @DisplayName("Can delete a role")
   @Test
   void whenDeletingRole_thenDeleted() {
