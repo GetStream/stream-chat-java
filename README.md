@@ -1953,7 +1953,7 @@ User.unflag(targetUserId).userId(userId).request();
 **Create custom permission**
 
 ```java
-Permission.create().name("My custom permission").resource(Resource.ALL).owner(false).request();
+Permission.create().id("MyCustomId").name("My custom permission").action("DeleteChannel").request());
 ```
 
 **Create custom role**
@@ -1965,7 +1965,7 @@ Role.create().name("My custom role").request();
 **Delete custom permission**
 
 ```java
-Permission.delete("My custom permission").request();
+Permission.delete("MyCustomId").request()
 ```
 
 **Delete custom role**
@@ -1977,7 +1977,7 @@ Role.delete("My custom role").request();
 **Get custom permission**
 
 ```java
-Permission.get("My custom permission").request();
+Permission.get("MyCustomId").request()
 ```
 
 **List custom permission**
@@ -1995,7 +1995,10 @@ Role.list().request();
 **Update custom permission**
 
 ```java
-Permission.update("My custom permission").resource(Resource.CREATE_CHANNEL).request();
+Permission.update("MyCustomId", "My custom permission")
+          .action("DeleteChannel")
+          .owner(true)
+          .request());
 ```
 
 **Get App Settings**
