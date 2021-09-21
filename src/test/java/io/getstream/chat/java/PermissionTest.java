@@ -35,10 +35,21 @@ public class PermissionTest extends BasicTest {
     Map<String, Object> condition = new HashMap<>();
     condition.put("$subject.magic_custom_field", "magic_value");
     Assertions.assertDoesNotThrow(
-        () -> Permission.create().id(id).name(name).action("DeleteChannel").condition(condition).request());
+        () ->
+            Permission.create()
+                .id(id)
+                .name(name)
+                .action("DeleteChannel")
+                .condition(condition)
+                .request());
     pause();
     Assertions.assertDoesNotThrow(
-        () -> Permission.update(id, name).action("DeleteChannel").condition(condition).owner(true).request());
+        () ->
+            Permission.update(id, name)
+                .action("DeleteChannel")
+                .condition(condition)
+                .owner(true)
+                .request());
   }
 
   @DisplayName("Can retrieve permission")
@@ -49,7 +60,13 @@ public class PermissionTest extends BasicTest {
     Map<String, Object> condition = new HashMap<>();
     condition.put("$subject.magic_custom_field", "magic_value");
     Assertions.assertDoesNotThrow(
-        () -> Permission.create().id(id).name(name).action("DeleteChannel").condition(condition).request());
+        () ->
+            Permission.create()
+                .id(id)
+                .name(name)
+                .action("DeleteChannel")
+                .condition(condition)
+                .request());
     pause();
     Permission retrievedPermission =
         Assertions.assertDoesNotThrow(() -> Permission.get(id).request()).getPermission();
@@ -64,7 +81,13 @@ public class PermissionTest extends BasicTest {
     Map<String, Object> condition = new HashMap<>();
     condition.put("$subject.magic_custom_field", "magic_value");
     Assertions.assertDoesNotThrow(
-        () -> Permission.create().id(id).name(name).action("DeleteChannel").condition(condition).request());
+        () ->
+            Permission.create()
+                .id(id)
+                .name(name)
+                .action("DeleteChannel")
+                .condition(condition)
+                .request());
     pause();
     Assertions.assertDoesNotThrow(() -> Permission.delete(id).request());
     pause();
@@ -83,7 +106,13 @@ public class PermissionTest extends BasicTest {
     Map<String, Object> condition = new HashMap<>();
     condition.put("$subject.magic_custom_field", "magic_value");
     Assertions.assertDoesNotThrow(
-        () -> Permission.create().id(id).name(name).action("DeleteChannel").condition(condition).request());
+        () ->
+            Permission.create()
+                .id(id)
+                .name(name)
+                .action("DeleteChannel")
+                .condition(condition)
+                .request());
     pause();
     List<Permission> permissions =
         Assertions.assertDoesNotThrow(() -> Permission.list().request()).getPermissions();
