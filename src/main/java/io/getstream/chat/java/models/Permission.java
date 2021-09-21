@@ -8,6 +8,7 @@ import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.PermissionService;
 import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.util.List;
+import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -81,7 +82,7 @@ public class Permission {
 
     @Nullable
     @JsonProperty("condition")
-    private String condition;
+    private Map<String, Object> condition;
 
     public static class PermissionCreateRequest extends StreamRequest<StreamResponseObject> {
       @Override
@@ -129,7 +130,7 @@ public class Permission {
 
     @Nullable
     @JsonProperty("condition")
-    private String condition;
+    private Map<String, Object> condition;
 
     public static class PermissionUpdateRequest extends StreamRequest<StreamResponseObject> {
       private PermissionUpdateRequest(@NotNull String id, @NotNull String name) {
