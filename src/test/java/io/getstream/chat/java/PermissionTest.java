@@ -1,7 +1,9 @@
 package io.getstream.chat.java;
 
 import io.getstream.chat.java.models.Permission;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -13,12 +15,15 @@ public class PermissionTest extends BasicTest {
   @Test
   void whenCreatingPermission_thenNoException() {
     String name = RandomStringUtils.randomAlphabetic(10);
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("$subject.magic_custom_field", "magic_value");
     Assertions.assertDoesNotThrow(
         () ->
             Permission.create()
                 .id(RandomStringUtils.randomAlphabetic(10))
                 .name(name)
                 .action("DeleteChannel")
+                .condition(condition)
                 .request());
   }
 
@@ -27,11 +32,24 @@ public class PermissionTest extends BasicTest {
   void whenUpdatingPermission_thenNoException() {
     String name = RandomStringUtils.randomAlphabetic(10);
     String id = RandomStringUtils.randomAlphabetic(10);
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("$subject.magic_custom_field", "magic_value");
     Assertions.assertDoesNotThrow(
-        () -> Permission.create().id(id).name(name).action("DeleteChannel").request());
+        () ->
+            Permission.create()
+                .id(id)
+                .name(name)
+                .action("DeleteChannel")
+                .condition(condition)
+                .request());
     pause();
     Assertions.assertDoesNotThrow(
-        () -> Permission.update(id, name).action("DeleteChannel").owner(true).request());
+        () ->
+            Permission.update(id, name)
+                .action("DeleteChannel")
+                .condition(condition)
+                .owner(true)
+                .request());
   }
 
   @DisplayName("Can retrieve permission")
@@ -39,8 +57,16 @@ public class PermissionTest extends BasicTest {
   void whenRetrievingPermission_thenCorrectName() {
     String name = RandomStringUtils.randomAlphabetic(10);
     String id = RandomStringUtils.randomAlphabetic(10);
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("$subject.magic_custom_field", "magic_value");
     Assertions.assertDoesNotThrow(
-        () -> Permission.create().id(id).name(name).action("DeleteChannel").request());
+        () ->
+            Permission.create()
+                .id(id)
+                .name(name)
+                .action("DeleteChannel")
+                .condition(condition)
+                .request());
     pause();
     Permission retrievedPermission =
         Assertions.assertDoesNotThrow(() -> Permission.get(id).request()).getPermission();
@@ -52,8 +78,16 @@ public class PermissionTest extends BasicTest {
   void whenDeletingPermission_thenDeleted() {
     String name = RandomStringUtils.randomAlphabetic(10);
     String id = RandomStringUtils.randomAlphabetic(10);
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("$subject.magic_custom_field", "magic_value");
     Assertions.assertDoesNotThrow(
-        () -> Permission.create().id(id).name(name).action("DeleteChannel").request());
+        () ->
+            Permission.create()
+                .id(id)
+                .name(name)
+                .action("DeleteChannel")
+                .condition(condition)
+                .request());
     pause();
     Assertions.assertDoesNotThrow(() -> Permission.delete(id).request());
     pause();
@@ -69,8 +103,16 @@ public class PermissionTest extends BasicTest {
   void whenListingPermission_thenCanRetrieve() {
     String name = RandomStringUtils.randomAlphabetic(10);
     String id = RandomStringUtils.randomAlphabetic(10);
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("$subject.magic_custom_field", "magic_value");
     Assertions.assertDoesNotThrow(
-        () -> Permission.create().id(id).name(name).action("DeleteChannel").request());
+        () ->
+            Permission.create()
+                .id(id)
+                .name(name)
+                .action("DeleteChannel")
+                .condition(condition)
+                .request());
     pause();
     List<Permission> permissions =
         Assertions.assertDoesNotThrow(() -> Permission.list().request()).getPermissions();
