@@ -93,8 +93,7 @@ public class StreamServiceGenerator {
       String baseUrl =
           System.getenv("STREAM_CHAT_URL") != null
               ? System.getenv("STREAM_CHAT_URL")
-              : System.getProperty(
-                  "STREAM_CHAT_URL", "https://chat-proxy-us-east.stream-io-api.com");
+              : System.getProperty("STREAM_CHAT_URL", "https://chat.stream-io-api.com");
       Retrofit.Builder builder =
           new Retrofit.Builder()
               .baseUrl(baseUrl)
@@ -121,7 +120,8 @@ public class StreamServiceGenerator {
     Key signingKey =
         new SecretKeySpec(
             apiSecret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
-    // We set issued at 5 seconds ago to avoid problems like JWTAuth error: token used before
+    // We set issued at 5 seconds ago to avoid problems like JWTAuth error: token
+    // used before
     // issue
     // at (iat)
     GregorianCalendar calendar = new GregorianCalendar();
