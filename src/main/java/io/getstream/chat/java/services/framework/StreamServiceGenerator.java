@@ -62,7 +62,7 @@ public class StreamServiceGenerator {
                 + " property");
       }
       int streamChatTimeout =
-          System.getenv("STREAM_CHAT_URL") != null
+          System.getenv("STREAM_CHAT_TIMEOUT") != null
               ? Integer.parseInt(System.getenv("STREAM_CHAT_TIMEOUT"))
               : Integer.getInteger("STREAM_CHAT_TIMEOUT", 10000);
       OkHttpClient.Builder httpClient =

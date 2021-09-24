@@ -42,7 +42,7 @@ public class AppTest extends BasicTest {
     apiKeyField.set(StreamServiceGenerator.class, "XXX");
     StreamException exception =
         Assertions.assertThrows(StreamException.class, () -> App.get().request());
-    Assertions.assertEquals(401, exception.getResponseData().getStatusCode());
+    Assertions.assertEquals(404, exception.getResponseData().getStatusCode());
   }
 
   @DisplayName("App Get fails with bad secret (after enabling auth)")
