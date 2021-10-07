@@ -1330,8 +1330,6 @@ public class User {
 
     apiSecret = (apiSecret != null) ? apiSecret : System.getProperty("io.getstream.chat.apiSecret");
 
-    System.out.println(apiSecret);
-
     Key signingKey =
         new SecretKeySpec(
             apiSecret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
