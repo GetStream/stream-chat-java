@@ -36,3 +36,4 @@ secring.gpg
 .classpath
 .project
 .settings/
+gradle.properties

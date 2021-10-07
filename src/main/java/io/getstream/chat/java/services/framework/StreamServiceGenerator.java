@@ -66,8 +66,8 @@ public class StreamServiceGenerator {
               ? Integer.parseInt(System.getenv("STREAM_CHAT_TIMEOUT"))
               : Integer.getInteger("STREAM_CHAT_TIMEOUT", 10000);
 
-      OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
-          .callTimeout(streamChatTimeout, TimeUnit.MILLISECONDS);
+      OkHttpClient.Builder httpClient =
+          new OkHttpClient.Builder().callTimeout(streamChatTimeout, TimeUnit.MILLISECONDS);
 
       httpClient.interceptors().clear();
       HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor().setLevel(logLevel);
