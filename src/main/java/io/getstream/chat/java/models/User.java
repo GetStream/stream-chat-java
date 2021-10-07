@@ -1327,6 +1327,11 @@ public class User {
         System.getenv("STREAM_SECRET") != null
             ? System.getenv("STREAM_SECRET")
             : System.getProperty("STREAM_SECRET");
+
+    apiSecret = (apiSecret != null) ? apiSecret : System.getProperty("io.getstream.chat.apiSecret");
+
+    System.out.println(apiSecret);
+
     Key signingKey =
         new SecretKeySpec(
             apiSecret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());

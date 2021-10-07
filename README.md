@@ -119,12 +119,15 @@ This SDK uses lombok (code generation), retrofit (http client), jackson (json) a
 > You can find the exact versions in [build.gradle](./build.gradle).
 
 ### Configuration
-To configure the SDK, you need to setup the key and secret of your application.
-You can do so either by where enrironment variables have precedence:
-- setting `STREAM_KEY` and `STREAM_SECRET` environment variables
-- setting `STREAM_KEY` and `STREAM_SECRET` System properties
 
-You can also customize the base url and the timeout, with the STREAM_CHAT_URL and STREAM_CHAT_TIMEOUT respectively as System properties or environment variables.
+To configure the SDK you need to provide required properties
+
+| Property  | ENV | Default  | Required |
+| ------------- | ------------- | --- | --- |
+| io.getstream.chat.apiKey  | STREAM_KEY  | - | Yes |
+| io.getstream.chat.secretKey  | STREAM_SECRET  | - | Yes |
+| io.getstream.chat.timeout  | STREAM_CHAT_TIMEOUT  | 10000 | No |
+| io.getstream.chat.url  | STREAM_CHAT_URL  | https://chat.stream-io-api.com | No |
 
 You can also use your own CDN by creating an implementation of FileHandler and setting it this way
 

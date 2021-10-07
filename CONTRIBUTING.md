@@ -6,6 +6,16 @@ You also need to use javac >= 11 to compile (ensure that your JAVA_HOME points t
 ## Setup the project
 The project is a Maven project. For convenience, Eclipse files are provided in the repository, but it should be straightfoward to install in any other Java IDE.
 
+Rename `local.properties.example` to `local.properties` and put configuration there. These properties are automatically picked up during tests execution
+
+```shell
+# Run tests
+./gradlew test --no-daemon
+
+# Check code style
+./gradlew spotlessCheck --no-daemon
+```
+
 ## Architecture explanation
 The code is composed of:
 ### Model classes
