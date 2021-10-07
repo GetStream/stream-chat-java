@@ -168,11 +168,12 @@ public class BasicTest {
 
   private static void setAuth() {
     // TODO: remove this hack
-    Assertions.assertDoesNotThrow(() -> {
-      var method = StreamServiceGenerator.class.getDeclaredMethod("initKeys");
-      method.setAccessible(true);
-      method.invoke(null);
-    });
+    Assertions.assertDoesNotThrow(
+        () -> {
+          var method = StreamServiceGenerator.class.getDeclaredMethod("initKeys");
+          method.setAccessible(true);
+          method.invoke(null);
+        });
   }
 
   protected static List<ChannelMemberRequestObject> buildChannelMembersList() {

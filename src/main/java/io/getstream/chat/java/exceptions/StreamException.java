@@ -76,7 +76,9 @@ public class StreamException extends Exception {
     if (errorBody != null) {
       exception = StreamException.build(errorBody);
     } else {
-      exception = StreamException.build(String.format("Unexpected server response code %d", httpResponse.code()));
+      exception =
+          StreamException.build(
+              String.format("Unexpected server response code %d", httpResponse.code()));
     }
 
     if (exception.responseData == null) {
