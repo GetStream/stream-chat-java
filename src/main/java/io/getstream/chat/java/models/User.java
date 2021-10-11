@@ -337,7 +337,7 @@ public class User {
   @Builder
   @Setter
   public static class UserRequestObject {
-    @Nullable
+    @NotNull
     @JsonProperty("id")
     @Getter
     private String id;
@@ -778,7 +778,7 @@ public class User {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   public static class UserDeactivateRequestData {
-    @Nullable
+    @NotNull
     @JsonProperty("user_id")
     private String userId;
 
@@ -786,7 +786,7 @@ public class User {
     @JsonProperty("mark_messages_deleted")
     private Boolean markMessagesDeleted;
 
-    @Nullable
+    @NotNull
     @JsonProperty("created_by_id")
     private String createdById;
 
@@ -1327,6 +1327,9 @@ public class User {
         System.getenv("STREAM_SECRET") != null
             ? System.getenv("STREAM_SECRET")
             : System.getProperty("STREAM_SECRET");
+
+    apiSecret = (apiSecret != null) ? apiSecret : System.getProperty("io.getstream.chat.apiSecret");
+
     Key signingKey =
         new SecretKeySpec(
             apiSecret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());

@@ -24,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -165,23 +166,14 @@ public class BasicTest {
         "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s %2$s %5$s%6$s%n");
   }
 
-  private static void setAuth()
-      throws NoSuchFieldException, SecurityException, IllegalArgumentException,
-          IllegalAccessException {
-    String apiKey =
-        System.getenv("STREAM_KEY") != null
-            ? System.getenv("STREAM_KEY")
-            : System.getProperty("STREAM_KEY");
-    String apiSecret =
-        System.getenv("STREAM_SECRET") != null
-            ? System.getenv("STREAM_SECRET")
-            : System.getProperty("STREAM_SECRET");
-    Field apiKeyField = StreamServiceGenerator.class.getDeclaredField("apiKey");
-    apiKeyField.setAccessible(true);
-    apiKeyField.set(StreamServiceGenerator.class, apiKey);
-    Field apiSecretField = StreamServiceGenerator.class.getDeclaredField("apiSecret");
-    apiSecretField.setAccessible(true);
-    apiSecretField.set(StreamServiceGenerator.class, apiSecret);
+  private static void setAuth() {
+    // TODO: remove this hack
+    Assertions.assertDoesNotThrow(
+        () -> {
+          var method = StreamServiceGenerator.class.getDeclaredMethod("initKeys");
+          method.setAccessible(true);
+          method.invoke(null);
+        });
   }
 
   protected static List<ChannelMemberRequestObject> buildChannelMembersList() {
@@ -213,8 +205,6 @@ public class BasicTest {
   /**
    * This is used to pause after creation, as there can be a small delay before we can act upon the
    * resource
-   *
-   * @param milliseconds
    */
   protected void pause() {
     try {

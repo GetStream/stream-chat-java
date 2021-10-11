@@ -19,7 +19,7 @@ public class StreamServiceHandler {
       if (response.isSuccessful()) {
         return enrichResponse(response);
       }
-      throw StreamException.build(response.errorBody());
+      throw StreamException.build(response);
     } catch (IOException e) {
       throw StreamException.build(e);
     }
@@ -36,7 +36,7 @@ public class StreamServiceHandler {
                 onSuccess.accept(enrichResponse(response));
               }
             } else if (onError != null) {
-              onError.accept(StreamException.build(response.errorBody()));
+              onError.accept(StreamException.build(response));
             }
           }
 

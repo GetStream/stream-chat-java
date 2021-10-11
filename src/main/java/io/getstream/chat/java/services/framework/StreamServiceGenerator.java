@@ -42,10 +42,15 @@ public class StreamServiceGenerator {
         System.getenv("STREAM_KEY") != null
             ? System.getenv("STREAM_KEY")
             : System.getProperty("STREAM_KEY");
+
+    apiKey = (apiKey != null) ? apiKey : System.getProperty("io.getstream.chat.apiKey");
+
     apiSecret =
         System.getenv("STREAM_SECRET") != null
             ? System.getenv("STREAM_SECRET")
             : System.getProperty("STREAM_SECRET");
+
+    apiSecret = (apiSecret != null) ? apiSecret : System.getProperty("io.getstream.chat.apiSecret");
   }
 
   public static @NotNull <S> S createService(@NotNull Class<S> serviceClass) {
@@ -61,13 +66,9 @@ public class StreamServiceGenerator {
             "Missing Stream API secret. Please set STREAM_SECRET environment variable or System"
                 + " property");
       }
-      int streamChatTimeout =
-          System.getenv("STREAM_CHAT_TIMEOUT") != null
-              ? Integer.parseInt(System.getenv("STREAM_CHAT_TIMEOUT"))
-              : Integer.getInteger("STREAM_CHAT_TIMEOUT", 10000);
 
       OkHttpClient.Builder httpClient =
-          new OkHttpClient.Builder().callTimeout(streamChatTimeout, TimeUnit.MILLISECONDS);
+          new OkHttpClient.Builder().callTimeout(getStreamChatTimeout(), TimeUnit.MILLISECONDS);
 
       httpClient.interceptors().clear();
       HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor().setLevel(logLevel);
@@ -92,13 +93,10 @@ public class StreamServiceGenerator {
       mapper.setDateFormat(
           new StdDateFormat().withColonInTimeZone(true).withTimeZone(TimeZone.getTimeZone("UTC")));
       mapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
-      String baseUrl =
-          System.getenv("STREAM_CHAT_URL") != null
-              ? System.getenv("STREAM_CHAT_URL")
-              : System.getProperty("STREAM_CHAT_URL", "https://chat.stream-io-api.com");
+
       Retrofit.Builder builder =
           new Retrofit.Builder()
-              .baseUrl(baseUrl)
+              .baseUrl(getStreamChatBaseUrl())
               .addConverterFactory(new QueryConverterFactory())
               .addConverterFactory(JacksonConverterFactory.create(mapper));
       builder.client(httpClient.build());
@@ -137,5 +135,32 @@ public class StreamServiceGenerator {
         .setIssuedAt(calendar.getTime())
         .signWith(signingKey, SignatureAlgorithm.HS256)
         .compact();
+  }
+
+  private static long getStreamChatTimeout() {
+    String envTimeout = System.getenv("STREAM_CHAT_TIMEOUT");
+
+    if (envTimeout != null) {
+      return Integer.parseInt(envTimeout);
+    }
+
+    if (System.getProperties().containsKey("STREAM_CHAT_TIMEOUT")) {
+      return Integer.getInteger("STREAM_CHAT_TIMEOUT");
+    }
+
+    return Integer.getInteger("io.getstream.chat.timeout", 10000);
+  }
+
+  private static String getStreamChatBaseUrl() {
+    String baseUrl =
+        System.getenv("STREAM_CHAT_URL") != null
+            ? System.getenv("STREAM_CHAT_URL")
+            : System.getProperty("STREAM_CHAT_URL");
+
+    if (baseUrl != null) {
+      return baseUrl;
+    }
+
+    return System.getProperty("io.getstream.chat.url", "https://chat.stream-io-api.com");
   }
 }

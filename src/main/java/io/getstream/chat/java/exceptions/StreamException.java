@@ -9,6 +9,7 @@ import java.util.Map;
 import lombok.Data;
 import lombok.Getter;
 import okhttp3.ResponseBody;
+import retrofit2.Response;
 
 public class StreamException extends Exception {
 
@@ -45,6 +46,7 @@ public class StreamException extends Exception {
    * @param responseBody Stream API response body
    * @return the StreamException
    */
+  @Deprecated
   public static StreamException build(ResponseBody responseBody) {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -59,6 +61,33 @@ public class StreamException extends Exception {
     } catch (IOException e) {
       return new StreamException(e);
     }
+  }
+
+  /**
+   * Builds a StreamException based on response from the server and http code
+   *
+   * @param httpResponse Stream API response
+   * @return the StreamException
+   */
+  public static StreamException build(Response<?> httpResponse) {
+    StreamException exception;
+
+    ResponseBody errorBody = httpResponse.errorBody();
+    if (errorBody != null) {
+      exception = StreamException.build(errorBody);
+    } else {
+      exception =
+          StreamException.build(
+              String.format("Unexpected server response code %d", httpResponse.code()));
+    }
+
+    if (exception.responseData == null) {
+      ResponseData responseData = new ResponseData();
+      responseData.statusCode = httpResponse.code();
+      exception.responseData = responseData;
+    }
+
+    return exception;
   }
 
   /**
