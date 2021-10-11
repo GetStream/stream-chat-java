@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2021-10-11
+
+- Support for permissions v2
+- Use edge by default
+- Fix timeout setup and application into the requests
+- Fix some nullability of some types (channel created_by_id, user id etc.)
+- Fix NPE in some tests
+- Improve CI to cancel unnecessary tasks
+
 ## [1.2.0] - 2021-07-09
 
 - Add support for permission v2
