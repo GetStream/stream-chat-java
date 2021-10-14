@@ -157,7 +157,7 @@ public class ChannelType {
 
     @NotNull
     @JsonProperty("resources")
-    private List<ResourceAction> resources;
+    private List<String> resources;
   }
 
   public enum Action {
@@ -278,7 +278,7 @@ public class ChannelType {
 
     @Nullable
     @JsonProperty("resources")
-    private List<ResourceAction> resources;
+    private List<String> resources;
 
     @Nullable
     public static PermissionRequestObject buildFrom(@Nullable Policy policy) {
