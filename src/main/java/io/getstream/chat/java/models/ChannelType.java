@@ -154,6 +154,10 @@ public class ChannelType {
     @NotNull
     @JsonProperty("priority")
     private Integer priority;
+
+    @NotNull
+    @JsonProperty("resources")
+    private List<String> resources;
   }
 
   public enum Action {
@@ -271,6 +275,10 @@ public class ChannelType {
     @Nullable
     @JsonProperty("priority")
     private Integer priority;
+
+    @Nullable
+    @JsonProperty("resources")
+    private List<String> resources;
 
     @Nullable
     public static PermissionRequestObject buildFrom(@Nullable Policy policy) {

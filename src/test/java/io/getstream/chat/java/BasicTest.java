@@ -43,6 +43,7 @@ public class BasicTest {
     if (enable == null || enable.equals("false")) {
       return;
     }
+
     StreamServiceGenerator.logLevel = HttpLoggingInterceptor.Level.BODY;
     Logger root = Logger.getLogger("");
     root.setLevel(Level.FINE);
