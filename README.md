@@ -29,6 +29,7 @@ You can use this library to access chat API endpoints server-side, for the clien
   - [Supported Features](#supported-features)
   - [All Examples](#all-examples)
 - [Changelog](#changelog)
+- [FAQ](#faq)
 - [Contribute](#contribute)
 - [License](#license)
 - [We are hiring](#we-are-hiring)
@@ -2039,6 +2040,12 @@ boolean valid =  App.verifyWebhook(body, signature)
 
 ## Changelog
 See [the detailed changes](CHANGELOG.md).
+
+## FAQ
+
+1. If you get this exception: `java.lang.ClassNotFoundException: io.jsonwebtoken.SignatureAlgorithm`:
+
+See issue [#16](https://github.com/GetStream/stream-chat-java/issues/16) for a work around. We only provide runtime only dependency for JWT per [recommendation](https://github.com/jwtk/jjwt#understanding-jjwt-dependencies). That's why it might be missing in your runtime and by addding implementation library into your deps, it should be gone.
 
 ## Contribute
 See [the guide to contribute](CONTRIBUTING.md).
