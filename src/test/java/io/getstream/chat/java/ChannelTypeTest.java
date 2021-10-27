@@ -2,17 +2,56 @@ package io.getstream.chat.java;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.ChannelType;
 import io.getstream.chat.java.models.ChannelType.AutoMod;
 import io.getstream.chat.java.models.ChannelType.ChannelTypeListResponse;
+import io.getstream.chat.java.models.Command;
 import io.getstream.chat.java.models.ResourceAction;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 public class ChannelTypeTest extends BasicTest {
+  @Test
+  @DisplayName("Get channel type with populated commands")
+  void whenPopulatingCommands_thenFetchChannelTypeWithoutAnyIssues() {
+    var commandName = java.util.UUID.randomUUID().toString();
+
+    try {
+      Command.create().name(commandName).description("awesome").request();
+    } catch (StreamException ex) {
+      // If command already exists ignore the exception
+      Assertions.assertEquals(4, ex.getResponseData().getCode());
+    }
+
+    waitFor(
+        () -> {
+          var commands =
+              Assertions.assertDoesNotThrow(() -> Command.list().request().getCommands());
+          return commands != null
+              && commands.stream().anyMatch(c -> c.getName().equals(commandName));
+        });
+
+    var channelTypeName = java.util.UUID.randomUUID().toString();
+    var channelTypeResponse =
+        Assertions.assertDoesNotThrow(
+            () -> {
+              var response =
+                  ChannelType.create()
+                      .withDefaultConfig()
+                      .name(channelTypeName)
+                      .commands(List.of(commandName))
+                      .request();
+
+              assert response.getCommands() != null;
+              return ChannelType.get(response.getName()).request();
+            });
+
+    Assertions.assertEquals(channelTypeName, channelTypeResponse.getName());
+    Assertions.assertNotNull(channelTypeResponse.getCommands());
+    Assertions.assertEquals(1, channelTypeResponse.getCommands().size());
+  }
 
   @DisplayName("Can fetch channel type after creation with no Exception and correct name")
   @Test

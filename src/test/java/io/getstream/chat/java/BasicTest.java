@@ -1,16 +1,11 @@
 package io.getstream.chat.java;
 
 import io.getstream.chat.java.exceptions.StreamException;
-import io.getstream.chat.java.models.Blocklist;
-import io.getstream.chat.java.models.Channel;
+import io.getstream.chat.java.models.*;
 import io.getstream.chat.java.models.Channel.ChannelGetResponse;
 import io.getstream.chat.java.models.Channel.ChannelMemberRequestObject;
 import io.getstream.chat.java.models.Channel.ChannelRequestObject;
-import io.getstream.chat.java.models.ChannelType;
-import io.getstream.chat.java.models.Command;
-import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
-import io.getstream.chat.java.models.User;
 import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.User.UserUpsertRequestData.UserUpsertRequest;
 import io.getstream.chat.java.services.framework.HttpLoggingInterceptor;
@@ -19,6 +14,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Supplier;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -116,6 +113,13 @@ public class BasicTest {
                 // Do nothing
               }
             });
+
+    waitFor(
+        () -> {
+          var commands =
+              Assertions.assertDoesNotThrow(() -> Command.list().request().getCommands());
+          return commands == null || commands.size() == 0;
+        });
   }
 
   private static void createTestMessage() throws StreamException {
@@ -212,6 +216,26 @@ public class BasicTest {
       Thread.sleep(6000);
     } catch (InterruptedException e) {
       // Do nothing
+    }
+  }
+
+  protected static void waitFor(Supplier<Boolean> predicate) {
+    waitFor(predicate, 500L, 15000L);
+  }
+
+  protected static void waitFor(Supplier<Boolean> predicate, Long askInterval, Long timeout) {
+    var start = System.currentTimeMillis();
+
+    while (true) {
+      if (timeout < (System.currentTimeMillis() - start)) {
+        Assertions.fail(new TimeoutException());
+      }
+
+      if (Assertions.assertDoesNotThrow(predicate::get)) {
+        return;
+      }
+
+      Assertions.assertDoesNotThrow(() -> Thread.sleep(askInterval));
     }
   }
 }

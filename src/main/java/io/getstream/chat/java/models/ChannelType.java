@@ -544,7 +544,7 @@ public class ChannelType {
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
-  public static class ChannelTypeGetResponse extends ChannelTypeWithStringCommands
+  public static class ChannelTypeGetResponse extends ChannelTypeWithCommands
       implements StreamResponse {
     private RateLimit rateLimit;
 
