@@ -220,6 +220,10 @@ public class App extends StreamResponseObject {
     @JsonProperty("custom_action_handler_url")
     private String customActionHandlerUrl;
 
+    @NotNull
+    @JsonProperty("async_url_enrich_enabled")
+    private Boolean asyncURLEnrichEnabled;
+
     @Nullable
     @JsonProperty("enforce_unique_usernames")
     @JsonDeserialize(using = EnforceUniqueUsernamesDeserializer.class)
@@ -555,6 +559,11 @@ public class App extends StreamResponseObject {
     @JsonProperty("image_moderation_labels")
     @JsonInclude(Include.NON_NULL)
     private List<String> imageModerationLabels;
+
+    @Nullable
+    @JsonProperty("async_url_enrich_enabled")
+    @JsonInclude(Include.NON_NULL)
+    private Boolean asyncURLEnrichEnabled;
 
     @Nullable
     @JsonProperty("sqs_url")
