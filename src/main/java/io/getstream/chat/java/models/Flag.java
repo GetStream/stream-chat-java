@@ -10,6 +10,7 @@ import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.FlagService;
+import io.getstream.chat.java.services.framework.ServiceFactory;
 import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.util.Date;
 import java.util.List;
@@ -187,8 +188,8 @@ public class Flag {
 
     public static class FlagCreateRequest extends StreamRequest<FlagCreateResponse> {
       @Override
-      protected Call<FlagCreateResponse> generateCall() {
-        return StreamServiceGenerator.createService(FlagService.class).create(this.internalBuild());
+      protected Call<FlagCreateResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(FlagService.class).create(this.internalBuild());
       }
     }
   }
@@ -216,8 +217,8 @@ public class Flag {
 
     public static class FlagDeleteRequest extends StreamRequest<FlagDeleteResponse> {
       @Override
-      protected Call<FlagDeleteResponse> generateCall() {
-        return StreamServiceGenerator.createService(FlagService.class).delete(this.internalBuild());
+      protected Call<FlagDeleteResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(FlagService.class).delete(this.internalBuild());
       }
     }
   }
@@ -250,8 +251,8 @@ public class Flag {
 
     public static class FlagMessageQueryRequest extends StreamRequest<FlagMessageQueryResponse> {
       @Override
-      protected Call<FlagMessageQueryResponse> generateCall() {
-        return StreamServiceGenerator.createService(FlagService.class)
+      protected Call<FlagMessageQueryResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(FlagService.class)
             .messageQuery(this.internalBuild());
       }
     }

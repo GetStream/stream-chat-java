@@ -5,6 +5,7 @@ import io.getstream.chat.java.models.Role.RoleCreateRequestData.RoleCreateReques
 import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.RoleService;
+import io.getstream.chat.java.services.framework.ServiceFactory;
 import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.util.Date;
 import java.util.List;
@@ -47,8 +48,8 @@ public class Role {
 
     public static class RoleCreateRequest extends StreamRequest<StreamResponseObject> {
       @Override
-      protected Call<StreamResponseObject> generateCall() {
-        return StreamServiceGenerator.createService(RoleService.class).create(this.internalBuild());
+      protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(RoleService.class).create(this.internalBuild());
       }
     }
   }
@@ -58,15 +59,15 @@ public class Role {
     @NotNull private String name;
 
     @Override
-    protected Call<StreamResponseObject> generateCall() {
-      return StreamServiceGenerator.createService(RoleService.class).delete(name);
+    protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(RoleService.class).delete(name);
     }
   }
 
   public static class RoleListRequest extends StreamRequest<RoleListResponse> {
     @Override
-    protected Call<RoleListResponse> generateCall() {
-      return StreamServiceGenerator.createService(RoleService.class).list();
+    protected Call<RoleListResponse> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(RoleService.class).list();
     }
   }
 

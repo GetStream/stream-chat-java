@@ -22,6 +22,7 @@ import io.getstream.chat.java.models.framework.RequestObjectBuilder;
 import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.UserService;
+import io.getstream.chat.java.services.framework.ServiceFactory;
 import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -586,8 +587,8 @@ public class User {
       }
 
       @Override
-      protected Call<UserUpsertResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class).upsert(this.internalBuild());
+      protected Call<UserUpsertResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(UserService.class).upsert(this.internalBuild());
       }
     }
   }
@@ -634,8 +635,8 @@ public class User {
 
     public static class UserListRequest extends StreamRequest<UserListResponse> {
       @Override
-      protected Call<UserListResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class).list(this.internalBuild());
+      protected Call<UserListResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(UserService.class).list(this.internalBuild());
       }
     }
   }
@@ -652,8 +653,8 @@ public class User {
 
     public static class UserPartialUpdateRequest extends StreamRequest<UserPartialUpdateResponse> {
       @Override
-      protected Call<UserPartialUpdateResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class)
+      protected Call<UserPartialUpdateResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(UserService.class)
             .partialUpdate(this.internalBuild());
       }
     }
@@ -709,8 +710,8 @@ public class User {
 
     public static class UserQueryBannedRequest extends StreamRequest<UserQueryBannedResponse> {
       @Override
-      protected Call<UserQueryBannedResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class)
+      protected Call<UserQueryBannedResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(UserService.class)
             .queryBanned(this.internalBuild());
       }
     }
@@ -767,8 +768,8 @@ public class User {
 
     public static class UserBanRequest extends StreamRequest<StreamResponseObject> {
       @Override
-      protected Call<StreamResponseObject> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class).ban(this.internalBuild());
+      protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(UserService.class).ban(this.internalBuild());
       }
     }
   }
@@ -797,8 +798,8 @@ public class User {
       }
 
       @Override
-      protected Call<UserDeactivateResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class)
+      protected Call<UserDeactivateResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(UserService.class)
             .deactivate(userId, this.internalBuild());
       }
     }
@@ -834,8 +835,8 @@ public class User {
     }
 
     @Override
-    protected Call<UserDeleteResponse> generateCall() {
-      return StreamServiceGenerator.createService(UserService.class)
+    protected Call<UserDeleteResponse> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(UserService.class)
           .delete(userId, markMessagesDeleted, hardDelete, deleteConversationChannels);
     }
   }
@@ -868,8 +869,8 @@ public class User {
       }
 
       @Override
-      protected Call<UserReactivateResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class)
+      protected Call<UserReactivateResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(UserService.class)
             .reactivate(userId, this.internalBuild());
       }
     }
@@ -903,8 +904,8 @@ public class User {
 
     public static class UserMuteRequest extends StreamRequest<UserMuteResponse> {
       @Override
-      protected Call<UserMuteResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class).mute(this.internalBuild());
+      protected Call<UserMuteResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(UserService.class).mute(this.internalBuild());
       }
     }
   }
@@ -937,8 +938,8 @@ public class User {
 
     public static class UserUnmuteRequest extends StreamRequest<StreamResponseObject> {
       @Override
-      protected Call<StreamResponseObject> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class).unmute(this.internalBuild());
+      protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(UserService.class).unmute(this.internalBuild());
       }
     }
   }
@@ -954,8 +955,8 @@ public class User {
 
     public static class UserCreateGuestRequest extends StreamRequest<UserCreateGuestResponse> {
       @Override
-      protected Call<UserCreateGuestResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class)
+      protected Call<UserCreateGuestResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(UserService.class)
             .createGuest(this.internalBuild());
       }
     }
@@ -966,8 +967,8 @@ public class User {
     @NotNull private String userId;
 
     @Override
-    protected Call<UserExportResponse> generateCall() {
-      return StreamServiceGenerator.createService(UserService.class).export(userId);
+    protected Call<UserExportResponse> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(UserService.class).export(userId);
     }
   }
 
@@ -992,8 +993,8 @@ public class User {
     }
 
     @Override
-    protected Call<StreamResponseObject> generateCall() {
-      return StreamServiceGenerator.createService(UserService.class).unban(targetUserId, type, id);
+    protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(UserService.class).unban(targetUserId, type, id);
     }
   }
 
@@ -1004,10 +1005,10 @@ public class User {
     @Nullable private Date revokeTokensIssuedBefore;
 
     @Override
-    protected Call<UserPartialUpdateResponse> generateCall() {
+    protected Call<UserPartialUpdateResponse> generateCall(ServiceFactory serviceFactory) {
       DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
       formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-      return StreamServiceGenerator.createService(UserService.class)
+      return serviceFactory.create(UserService.class)
           .partialUpdate(
               new UserPartialUpdateRequest()
                   .users(

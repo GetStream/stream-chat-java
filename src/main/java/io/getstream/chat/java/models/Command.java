@@ -7,6 +7,7 @@ import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponse;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.CommandService;
+import io.getstream.chat.java.services.framework.ServiceFactory;
 import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.util.Date;
 import java.util.List;
@@ -69,8 +70,8 @@ public class Command {
 
     public static class CommandCreateRequest extends StreamRequest<CommandCreateResponse> {
       @Override
-      protected Call<CommandCreateResponse> generateCall() {
-        return StreamServiceGenerator.createService(CommandService.class)
+      protected Call<CommandCreateResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(CommandService.class)
             .create(this.internalBuild());
       }
     }
@@ -81,8 +82,8 @@ public class Command {
     @NotNull private String name;
 
     @Override
-    protected Call<CommandGetResponse> generateCall() {
-      return StreamServiceGenerator.createService(CommandService.class).get(name);
+    protected Call<CommandGetResponse> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(CommandService.class).get(name);
     }
   }
 
@@ -111,8 +112,8 @@ public class Command {
       }
 
       @Override
-      protected Call<CommandUpdateResponse> generateCall() {
-        return StreamServiceGenerator.createService(CommandService.class)
+      protected Call<CommandUpdateResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(CommandService.class)
             .update(name, this.internalBuild());
       }
     }
@@ -123,15 +124,15 @@ public class Command {
     @NotNull private String name;
 
     @Override
-    protected Call<CommandDeleteResponse> generateCall() {
-      return StreamServiceGenerator.createService(CommandService.class).delete(name);
+    protected Call<CommandDeleteResponse> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(CommandService.class).delete(name);
     }
   }
 
   public static class CommandListRequest extends StreamRequest<CommandListResponse> {
     @Override
-    protected Call<CommandListResponse> generateCall() {
-      return StreamServiceGenerator.createService(CommandService.class).list();
+    protected Call<CommandListResponse> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(CommandService.class).list();
     }
   }
 

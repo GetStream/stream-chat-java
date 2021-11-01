@@ -393,8 +393,8 @@ public class ChannelType {
       }
 
       @Override
-      protected Call<ChannelTypeCreateResponse> generateCall() {
-        return StreamServiceGenerator.createService(ChannelTypeService.class)
+      protected Call<ChannelTypeCreateResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(ChannelTypeService.class)
             .create(this.internalBuild());
       }
     }
@@ -405,8 +405,8 @@ public class ChannelType {
     @NotNull private String name;
 
     @Override
-    protected Call<ChannelTypeGetResponse> generateCall() {
-      return StreamServiceGenerator.createService(ChannelTypeService.class).get(name);
+    protected Call<ChannelTypeGetResponse> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(ChannelTypeService.class).get(name);
     }
   }
 
@@ -505,8 +505,8 @@ public class ChannelType {
       }
 
       @Override
-      protected Call<ChannelTypeUpdateResponse> generateCall() {
-        return StreamServiceGenerator.createService(ChannelTypeService.class)
+      protected Call<ChannelTypeUpdateResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(ChannelTypeService.class)
             .update(name, this.internalBuild());
       }
     }
@@ -517,15 +517,15 @@ public class ChannelType {
     @NotNull private String name;
 
     @Override
-    protected Call<StreamResponseObject> generateCall() {
-      return StreamServiceGenerator.createService(ChannelTypeService.class).delete(name);
+    protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(ChannelTypeService.class).delete(name);
     }
   }
 
   public static class ChannelTypeListRequest extends StreamRequest<ChannelTypeListResponse> {
     @Override
-    protected Call<ChannelTypeListResponse> generateCall() {
-      return StreamServiceGenerator.createService(ChannelTypeService.class).list();
+    protected Call<ChannelTypeListResponse> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(ChannelTypeService.class).list();
     }
   }
 

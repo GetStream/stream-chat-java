@@ -19,6 +19,7 @@ import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponse;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.AppService;
+import io.getstream.chat.java.services.framework.ServiceFactory;
 import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -475,8 +476,8 @@ public class App extends StreamResponseObject {
 
   public static class AppGetRequest extends StreamRequest<App> {
     @Override
-    protected Call<App> generateCall() {
-      return StreamServiceGenerator.createService(AppService.class).get();
+    protected Call<App> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(AppService.class).get();
     }
   }
 
@@ -602,8 +603,8 @@ public class App extends StreamResponseObject {
 
     public static class AppUpdateRequest extends StreamRequest<StreamResponseObject> {
       @Override
-      protected Call<StreamResponseObject> generateCall() {
-        return StreamServiceGenerator.createService(AppService.class).update(this.internalBuild());
+      protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(AppService.class).update(this.internalBuild());
       }
     }
   }
@@ -656,8 +657,8 @@ public class App extends StreamResponseObject {
     }
 
     @Override
-    protected Call<AppGetRateLimitsResponse> generateCall() {
-      return StreamServiceGenerator.createService(AppService.class)
+    protected Call<AppGetRateLimitsResponse> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(AppService.class)
           .getRateLimits(
               serverSide,
               android,
@@ -686,8 +687,8 @@ public class App extends StreamResponseObject {
 
     public static class AppCheckSqsRequest extends StreamRequest<AppCheckSqsResponse> {
       @Override
-      protected Call<AppCheckSqsResponse> generateCall() {
-        return StreamServiceGenerator.createService(AppService.class)
+      protected Call<AppCheckSqsResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(AppService.class)
             .checkSqs(this.internalBuild());
       }
     }
@@ -728,8 +729,8 @@ public class App extends StreamResponseObject {
 
     public static class AppCheckPushRequest extends StreamRequest<AppCheckPushResponse> {
       @Override
-      protected Call<AppCheckPushResponse> generateCall() {
-        return StreamServiceGenerator.createService(AppService.class)
+      protected Call<AppCheckPushResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(AppService.class)
             .checkPush(this.internalBuild());
       }
     }
@@ -740,10 +741,10 @@ public class App extends StreamResponseObject {
     @Nullable private Date revokeTokensIssuedBefore;
 
     @Override
-    protected Call<StreamResponseObject> generateCall() {
+    protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
       return new AppUpdateRequest()
           .revokeTokensIssuedBefore(revokeTokensIssuedBefore)
-          .generateCall();
+          .generateCall(serviceFactory);
     }
   }
 

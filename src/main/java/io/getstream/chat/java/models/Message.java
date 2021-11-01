@@ -18,6 +18,7 @@ import io.getstream.chat.java.models.Message.MessageUpdateRequestData.MessageUpd
 import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.framework.*;
 import io.getstream.chat.java.services.MessageService;
+import io.getstream.chat.java.services.framework.ServiceFactory;
 import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -716,8 +717,8 @@ public class Message {
       }
 
       @Override
-      protected Call<MessageSendResponse> generateCall() {
-        return StreamServiceGenerator.createService(MessageService.class)
+      protected Call<MessageSendResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(MessageService.class)
             .send(this.channelType, this.channelId, this.internalBuild());
       }
     }
@@ -728,8 +729,8 @@ public class Message {
     @NotNull private String id;
 
     @Override
-    protected Call<MessageGetResponse> generateCall() {
-      return StreamServiceGenerator.createService(MessageService.class).get(this.id);
+    protected Call<MessageGetResponse> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(MessageService.class).get(this.id);
     }
   }
 
@@ -750,8 +751,8 @@ public class Message {
       }
 
       @Override
-      protected Call<MessageUpdateResponse> generateCall() {
-        return StreamServiceGenerator.createService(MessageService.class)
+      protected Call<MessageUpdateResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(MessageService.class)
             .update(this.id, this.internalBuild());
       }
     }
@@ -770,8 +771,8 @@ public class Message {
     }
 
     @Override
-    protected Call<MessageDeleteResponse> generateCall() {
-      return StreamServiceGenerator.createService(MessageService.class).delete(this.id, this.hard);
+    protected Call<MessageDeleteResponse> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(MessageService.class).delete(this.id, this.hard);
     }
   }
 
@@ -848,8 +849,8 @@ public class Message {
 
     public static class MessageSearchRequest extends StreamRequest<MessageSearchResponse> {
       @Override
-      protected Call<MessageSearchResponse> generateCall() {
-        return StreamServiceGenerator.createService(MessageService.class)
+      protected Call<MessageSearchResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(MessageService.class)
             .search(this.internalBuild());
       }
     }
@@ -1101,8 +1102,8 @@ public class Message {
     @NotNull private List<String> messageIds;
 
     @Override
-    protected Call<MessageGetManyResponse> generateCall() {
-      return StreamServiceGenerator.createService(MessageService.class)
+    protected Call<MessageGetManyResponse> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(MessageService.class)
           .getMany(this.channelType, this.channelId, String.join(",", this.messageIds));
     }
   }
@@ -1192,8 +1193,8 @@ public class Message {
     }
 
     @Override
-    protected Call<MessageGetRepliesResponse> generateCall() {
-      return StreamServiceGenerator.createService(MessageService.class)
+    protected Call<MessageGetRepliesResponse> generateCall(ServiceFactory serviceFactory) {
+      return serviceFactory.create(MessageService.class)
           .getReplies(
               parentId,
               idGte,
@@ -1233,8 +1234,8 @@ public class Message {
       }
 
       @Override
-      protected Call<MessageRunCommandActionResponse> generateCall() {
-        return StreamServiceGenerator.createService(MessageService.class)
+      protected Call<MessageRunCommandActionResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(MessageService.class)
             .runCommandAction(messageId, this.internalBuild());
       }
     }
@@ -1257,8 +1258,8 @@ public class Message {
       }
 
       @Override
-      protected Call<MessageTranslateResponse> generateCall() {
-        return StreamServiceGenerator.createService(MessageService.class)
+      protected Call<MessageTranslateResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(MessageService.class)
             .translate(messageId, this.internalBuild());
       }
     }
@@ -1296,8 +1297,8 @@ public class Message {
       }
 
       @Override
-      protected Call<MessagePartialUpdateResponse> generateCall() {
-        return StreamServiceGenerator.createService(MessageService.class)
+      protected Call<MessagePartialUpdateResponse> generateCall(ServiceFactory serviceFactory) {
+        return serviceFactory.create(MessageService.class)
             .partialUpdate(id, this.internalBuild());
       }
     }
