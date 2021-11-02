@@ -1,10 +1,7 @@
 package io.getstream.chat.java.models;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
+import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Channel.ChannelExportRequestData.ChannelExportRequest;
 import io.getstream.chat.java.models.Channel.ChannelGetRequestData.ChannelGetRequest;
 import io.getstream.chat.java.models.Channel.ChannelHideRequestData.ChannelHideRequest;
@@ -32,13 +29,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.Singular;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -501,6 +492,28 @@ public class Channel {
     protected Call<ChannelDeleteResponse> generateCall() {
       return StreamServiceGenerator.createService(ChannelService.class)
           .delete(this.channelType, this.channelId);
+    }
+  }
+
+  @RequiredArgsConstructor
+  public static class ChannelDeleteManyRequest extends StreamRequest<ChannelDeleteManyResponse> {
+    @JsonProperty("cids")
+    @NotNull
+    private List<String> cids;
+
+    @JsonProperty("is_hard_delete")
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private boolean isHardDelete;
+
+    public ChannelDeleteManyRequest setDeleteStrategy(DeleteStrategy strategy) {
+      isHardDelete = strategy == DeleteStrategy.HARD;
+      return this;
+    }
+
+    @Override
+    protected Call<ChannelDeleteManyResponse> generateCall() throws StreamException {
+      return StreamServiceGenerator.createService(ChannelService.class).deleteMany(this);
     }
   }
 
@@ -1005,6 +1018,15 @@ public class Channel {
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
+  public static class ChannelDeleteManyResponse extends StreamResponseObject {
+    @JsonProperty("task_id")
+    @Getter
+    private String taskId;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelListResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("channels")
@@ -1223,6 +1245,11 @@ public class Channel {
   @NotNull
   public static ChannelDeleteRequest delete(@NotNull String type, @NotNull String id) {
     return new ChannelDeleteRequest(type, id);
+  }
+
+  @NotNull
+  public static ChannelDeleteManyRequest deleteMany(@NotNull List<String> cids) {
+    return new ChannelDeleteManyRequest(cids);
   }
 
   /**

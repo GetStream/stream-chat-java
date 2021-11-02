@@ -1,11 +1,8 @@
 package io.getstream.chat.java;
 
 import io.getstream.chat.java.models.Channel;
-import io.getstream.chat.java.models.Channel.ChannelExportRequestObject;
-import io.getstream.chat.java.models.Channel.ChannelGetResponse;
-import io.getstream.chat.java.models.Channel.ChannelMember;
-import io.getstream.chat.java.models.Channel.ChannelRequestObject;
-import io.getstream.chat.java.models.Channel.ChannelUpdateResponse;
+import io.getstream.chat.java.models.Channel.*;
+import io.getstream.chat.java.models.DeleteStrategy;
 import io.getstream.chat.java.models.Sort;
 import io.getstream.chat.java.models.Sort.Direction;
 import io.getstream.chat.java.models.User;
@@ -78,6 +75,26 @@ public class ChannelTest extends BasicTest {
                         .request())
             .getChannel();
     Assertions.assertNotNull(deletedChannel.getDeletedAt());
+  }
+
+  @Test
+  @DisplayName("Can delete many channels")
+  void whenDeletingManyChannels_thenTaskIdIsReturned() {
+    for (var deleteStrategy :
+        List.of(DeleteStrategy.DEFAULT, DeleteStrategy.SOFT, DeleteStrategy.HARD)) {
+      Assertions.assertDoesNotThrow(
+          () -> {
+            var ch1 = Assertions.assertDoesNotThrow(BasicTest::createRandomChannel).getChannel();
+            Assertions.assertNotNull(ch1);
+            var ch2 = Assertions.assertDoesNotThrow(BasicTest::createRandomChannel).getChannel();
+            Assertions.assertNotNull(ch2);
+
+            var cids = List.of(ch1.getCId(), ch2.getCId());
+            var deleteManyResponse =
+                Channel.deleteMany(cids).setDeleteStrategy(deleteStrategy).request();
+            Assertions.assertNotNull(deleteManyResponse.getTaskId());
+          });
+    }
   }
 
   @DisplayName("Can list channels")
