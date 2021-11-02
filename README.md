@@ -226,6 +226,7 @@ Message.send("team", "sample_channel")
 
 **Channels**
 - Delete channel
+- Delete many channels
 - Export channels
 - Export channels status
 - Get or create channel (type,id)
@@ -268,6 +269,7 @@ Message.send("team", "sample_channel")
 **GDPR**
 - Deactivate user
 - Delete user
+- Delete many users
 - Reactivate user
 
 **Messages**
@@ -350,6 +352,7 @@ Message.send("team", "sample_channel")
 - Create guest
 - Deactivate user
 - Delete user
+- Delete many users
 - Export user
 - Flag
 - Mute user
@@ -361,6 +364,9 @@ Message.send("team", "sample_channel")
 - Unflag
 - Unmute user
 - Upsert users
+
+**Tasks**
+- Get task status
 
 ### All examples
 **Upsert users**
@@ -913,6 +919,12 @@ Channel.update("messaging", "general").cooldown(0).request();
 
 ```java
 Channel.delete(type, id).request();
+```
+
+**Delete many channels**
+
+```java
+var taskId = Channel.deleteMany(List.of("c:1", "c:2"), DeleteStrategy.HARD).request().getTaskId();
 ```
 
 **Hide channel**
@@ -1879,6 +1891,18 @@ User.delete(targetUserId)
     .request();
 ```
 
+**Delete many users**
+
+```java
+var taskId = User.deleteMany(List.of("u1", "u2"))
+        .deleteUserStrategy(DeleteStrategy.SOFT)
+        .deleteMessagesStrategy(DeleteStrategy.HARD)
+        .request().getTaskId();
+
+var taskStatusResponse = TaskStatus.get(taskId).request();
+// "completed".equals(taskStatusResponse.status);
+```
+
 **Translate message**
 
 ```java
@@ -2029,6 +2053,20 @@ User.unmute().singleTargetId(targetUserId).userId(userId).request();
 
 ```java
 Message.queryFlags().request();
+```
+
+**Get task status**
+
+```java
+var taskId = "123";
+var taskStatusResponse = TaskStatus.get(taskId).request();
+// {LinkedHashMap@4341}  size = 2
+// id = "b9843be8-bcf0-484b-af01-726e1d3b82a3"
+// status = "completed"
+// createdAt = {Date@4339} "Tue Nov 02 17:54:28 CET 2021"
+// updatedAt = {Date@4340} "Tue Nov 02 17:54:32 CET 2021"
+// rateLimit = {RateLimit@4342} "RateLimit(limit=300, remaining=299, reset=Tue Nov 02 17:55:00 CET 2021)"
+// duration = "10.07ms"
 ```
 
 **Verify webhook**
