@@ -9,15 +9,9 @@ import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.DeviceService;
 import io.getstream.chat.java.services.framework.ServiceFactory;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.util.Date;
 import java.util.List;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -115,8 +109,7 @@ public class Device {
     public static class DeviceCreateRequest extends StreamRequest<StreamResponseObject> {
       @Override
       protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(DeviceService.class)
-            .create(this.internalBuild());
+        return serviceFactory.create(DeviceService.class).create(this.internalBuild());
       }
     }
   }

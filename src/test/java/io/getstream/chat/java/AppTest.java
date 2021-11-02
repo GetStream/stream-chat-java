@@ -8,10 +8,10 @@ import io.getstream.chat.java.models.App.PushConfigRequestObject;
 import io.getstream.chat.java.models.App.PushVersion;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
-import java.lang.reflect.Field;
+import io.getstream.chat.java.services.framework.DefaultServiceFactory;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Properties;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,27 +35,30 @@ public class AppTest extends BasicTest {
 
   @DisplayName("App Get fails with bad key")
   @Test
-  void givenBadKey_whenGettingApp_thenException()
-      throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-    Field apiKeyField = StreamServiceGenerator.class.getDeclaredField("apiKey");
-    apiKeyField.setAccessible(true);
-    apiKeyField.set(StreamServiceGenerator.class, "XXX");
+  void givenBadKey_whenGettingApp_thenException() {
+    var properties = new Properties();
+    properties.put(DefaultServiceFactory.API_KEY_PROP_NAME, "XXX");
+
+    var svcFactory = new DefaultServiceFactory(properties);
+
     StreamException exception =
-        Assertions.assertThrows(StreamException.class, () -> App.get().request());
+        Assertions.assertThrows(StreamException.class, () -> App.get().request(svcFactory));
     Assertions.assertEquals(401, exception.getResponseData().getStatusCode());
   }
 
   @DisplayName("App Get fails with bad secret (after enabling auth)")
   @Test
-  void givenBadSecret_whenEnableAuthAndGettingApp_thenException()
-      throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+  void givenBadSecret_whenEnableAuthAndGettingApp_thenException() {
     Assertions.assertDoesNotThrow(() -> App.update().disableAuthChecks(false).request());
-    Field apiSecretField = StreamServiceGenerator.class.getDeclaredField("apiSecret");
-    apiSecretField.setAccessible(true);
-    apiSecretField.set(
-        StreamServiceGenerator.class, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+    var properties = new Properties();
+    properties.put(
+        DefaultServiceFactory.API_SECRET_PROP_NAME,
+        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+
+    var svcFactory = new DefaultServiceFactory(properties);
+
     StreamException exception =
-        Assertions.assertThrows(StreamException.class, () -> App.get().request());
+        Assertions.assertThrows(StreamException.class, () -> App.get().request(svcFactory));
     Assertions.assertEquals(401, exception.getResponseData().getStatusCode());
   }
 

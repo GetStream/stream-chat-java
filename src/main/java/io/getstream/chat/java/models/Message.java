@@ -1,10 +1,6 @@
 package io.getstream.chat.java.models;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.getstream.chat.java.models.Flag.FlagDeleteRequestData.FlagDeleteRequest;
@@ -19,7 +15,6 @@ import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.framework.*;
 import io.getstream.chat.java.services.MessageService;
 import io.getstream.chat.java.services.framework.ServiceFactory;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
@@ -27,13 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.Singular;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -718,7 +707,8 @@ public class Message {
 
       @Override
       protected Call<MessageSendResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(MessageService.class)
+        return serviceFactory
+            .create(MessageService.class)
             .send(this.channelType, this.channelId, this.internalBuild());
       }
     }
@@ -752,8 +742,7 @@ public class Message {
 
       @Override
       protected Call<MessageUpdateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(MessageService.class)
-            .update(this.id, this.internalBuild());
+        return serviceFactory.create(MessageService.class).update(this.id, this.internalBuild());
       }
     }
   }
@@ -850,8 +839,7 @@ public class Message {
     public static class MessageSearchRequest extends StreamRequest<MessageSearchResponse> {
       @Override
       protected Call<MessageSearchResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(MessageService.class)
-            .search(this.internalBuild());
+        return serviceFactory.create(MessageService.class).search(this.internalBuild());
       }
     }
   }
@@ -1103,7 +1091,8 @@ public class Message {
 
     @Override
     protected Call<MessageGetManyResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(MessageService.class)
+      return serviceFactory
+          .create(MessageService.class)
           .getMany(this.channelType, this.channelId, String.join(",", this.messageIds));
     }
   }
@@ -1194,7 +1183,8 @@ public class Message {
 
     @Override
     protected Call<MessageGetRepliesResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(MessageService.class)
+      return serviceFactory
+          .create(MessageService.class)
           .getReplies(
               parentId,
               idGte,
@@ -1235,7 +1225,8 @@ public class Message {
 
       @Override
       protected Call<MessageRunCommandActionResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(MessageService.class)
+        return serviceFactory
+            .create(MessageService.class)
             .runCommandAction(messageId, this.internalBuild());
       }
     }
@@ -1259,7 +1250,8 @@ public class Message {
 
       @Override
       protected Call<MessageTranslateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(MessageService.class)
+        return serviceFactory
+            .create(MessageService.class)
             .translate(messageId, this.internalBuild());
       }
     }
@@ -1298,8 +1290,7 @@ public class Message {
 
       @Override
       protected Call<MessagePartialUpdateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(MessageService.class)
-            .partialUpdate(id, this.internalBuild());
+        return serviceFactory.create(MessageService.class).partialUpdate(id, this.internalBuild());
       }
     }
   }

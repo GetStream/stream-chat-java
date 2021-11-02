@@ -23,7 +23,6 @@ import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.UserService;
 import io.getstream.chat.java.services.framework.ServiceFactory;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.nio.charset.StandardCharsets;
@@ -33,15 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import javax.crypto.spec.SecretKeySpec;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.Singular;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -654,8 +645,7 @@ public class User {
     public static class UserPartialUpdateRequest extends StreamRequest<UserPartialUpdateResponse> {
       @Override
       protected Call<UserPartialUpdateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(UserService.class)
-            .partialUpdate(this.internalBuild());
+        return serviceFactory.create(UserService.class).partialUpdate(this.internalBuild());
       }
     }
   }
@@ -711,8 +701,7 @@ public class User {
     public static class UserQueryBannedRequest extends StreamRequest<UserQueryBannedResponse> {
       @Override
       protected Call<UserQueryBannedResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(UserService.class)
-            .queryBanned(this.internalBuild());
+        return serviceFactory.create(UserService.class).queryBanned(this.internalBuild());
       }
     }
   }
@@ -799,8 +788,7 @@ public class User {
 
       @Override
       protected Call<UserDeactivateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(UserService.class)
-            .deactivate(userId, this.internalBuild());
+        return serviceFactory.create(UserService.class).deactivate(userId, this.internalBuild());
       }
     }
   }
@@ -836,7 +824,8 @@ public class User {
 
     @Override
     protected Call<UserDeleteResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(UserService.class)
+      return serviceFactory
+          .create(UserService.class)
           .delete(userId, markMessagesDeleted, hardDelete, deleteConversationChannels);
     }
   }
@@ -870,8 +859,7 @@ public class User {
 
       @Override
       protected Call<UserReactivateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(UserService.class)
-            .reactivate(userId, this.internalBuild());
+        return serviceFactory.create(UserService.class).reactivate(userId, this.internalBuild());
       }
     }
   }
@@ -956,8 +944,7 @@ public class User {
     public static class UserCreateGuestRequest extends StreamRequest<UserCreateGuestResponse> {
       @Override
       protected Call<UserCreateGuestResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(UserService.class)
-            .createGuest(this.internalBuild());
+        return serviceFactory.create(UserService.class).createGuest(this.internalBuild());
       }
     }
   }
@@ -1008,7 +995,8 @@ public class User {
     protected Call<UserPartialUpdateResponse> generateCall(ServiceFactory serviceFactory) {
       DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
       formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-      return serviceFactory.create(UserService.class)
+      return serviceFactory
+          .create(UserService.class)
           .partialUpdate(
               new UserPartialUpdateRequest()
                   .users(

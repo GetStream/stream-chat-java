@@ -1,10 +1,6 @@
 package io.getstream.chat.java.models;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import io.getstream.chat.java.models.Channel.ChannelExportRequestData.ChannelExportRequest;
 import io.getstream.chat.java.models.Channel.ChannelGetRequestData.ChannelGetRequest;
 import io.getstream.chat.java.models.Channel.ChannelHideRequestData.ChannelHideRequest;
@@ -28,18 +24,11 @@ import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.ChannelService;
 import io.getstream.chat.java.services.framework.ServiceFactory;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.Singular;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -398,10 +387,12 @@ public class Channel {
       @Override
       protected Call<ChannelGetResponse> generateCall(ServiceFactory serviceFactory) {
         if (this.channelId != null) {
-          return serviceFactory.create(ChannelService.class)
+          return serviceFactory
+              .create(ChannelService.class)
               .getOrCreateWithId(this.channelType, this.channelId, this.internalBuild());
         }
-        return serviceFactory.create(ChannelService.class)
+        return serviceFactory
+            .create(ChannelService.class)
             .getOrCreateWithoutId(this.channelType, this.internalBuild());
       }
     }
@@ -486,7 +477,8 @@ public class Channel {
 
       @Override
       protected Call<ChannelUpdateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ChannelService.class)
+        return serviceFactory
+            .create(ChannelService.class)
             .update(this.channelType, this.channelId, this.internalBuild());
       }
     }
@@ -500,8 +492,7 @@ public class Channel {
 
     @Override
     protected Call<ChannelDeleteResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(ChannelService.class)
-          .delete(this.channelType, this.channelId);
+      return serviceFactory.create(ChannelService.class).delete(this.channelType, this.channelId);
     }
   }
 
@@ -563,8 +554,7 @@ public class Channel {
     public static class ChannelListRequest extends StreamRequest<ChannelListResponse> {
       @Override
       protected Call<ChannelListResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ChannelService.class)
-            .list(this.internalBuild());
+        return serviceFactory.create(ChannelService.class).list(this.internalBuild());
       }
     }
   }
@@ -577,8 +567,7 @@ public class Channel {
 
     @Override
     protected Call<ChannelTruncateResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(ChannelService.class)
-          .truncate(this.channelType, this.channelId);
+      return serviceFactory.create(ChannelService.class).truncate(this.channelType, this.channelId);
     }
   }
 
@@ -662,8 +651,7 @@ public class Channel {
         extends StreamRequest<ChannelQueryMembersResponse> {
       @Override
       protected Call<ChannelQueryMembersResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ChannelService.class)
-            .queryMembers(this.internalBuild());
+        return serviceFactory.create(ChannelService.class).queryMembers(this.internalBuild());
       }
     }
   }
@@ -681,8 +669,7 @@ public class Channel {
     public static class ChannelExportRequest extends StreamRequest<ChannelExportResponse> {
       @Override
       protected Call<ChannelExportResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ChannelService.class)
-            .export(this.internalBuild());
+        return serviceFactory.create(ChannelService.class).export(this.internalBuild());
       }
     }
   }
@@ -727,7 +714,8 @@ public class Channel {
 
       @Override
       protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ChannelService.class)
+        return serviceFactory
+            .create(ChannelService.class)
             .hide(this.channelType, this.channelId, this.internalBuild());
       }
     }
@@ -749,8 +737,7 @@ public class Channel {
     public static class ChannelMarkAllReadRequest extends StreamRequest<StreamResponseObject> {
       @Override
       protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ChannelService.class)
-            .markAllRead(this.internalBuild());
+        return serviceFactory.create(ChannelService.class).markAllRead(this.internalBuild());
       }
     }
   }
@@ -784,7 +771,8 @@ public class Channel {
 
       @Override
       protected Call<ChannelMarkReadResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ChannelService.class)
+        return serviceFactory
+            .create(ChannelService.class)
             .markRead(channelType, channelId, this.internalBuild());
       }
     }
@@ -818,8 +806,7 @@ public class Channel {
     public static class ChannelMuteRequest extends StreamRequest<ChannelMuteResponse> {
       @Override
       protected Call<ChannelMuteResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ChannelService.class)
-            .mute(this.internalBuild());
+        return serviceFactory.create(ChannelService.class).mute(this.internalBuild());
       }
     }
   }
@@ -850,7 +837,8 @@ public class Channel {
 
       @Override
       protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ChannelService.class)
+        return serviceFactory
+            .create(ChannelService.class)
             .show(this.channelType, this.channelId, this.internalBuild());
       }
     }
@@ -884,8 +872,7 @@ public class Channel {
     public static class ChannelUnMuteRequest extends StreamRequest<ChannelUnMuteResponse> {
       @Override
       protected Call<ChannelUnMuteResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ChannelService.class)
-            .unmute(this.internalBuild());
+        return serviceFactory.create(ChannelService.class).unmute(this.internalBuild());
       }
     }
   }
@@ -926,7 +913,8 @@ public class Channel {
 
       @Override
       protected Call<ChannelPartialUpdateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ChannelService.class)
+        return serviceFactory
+            .create(ChannelService.class)
             .partialUpdate(channelType, channelId, this.internalBuild());
       }
     }

@@ -8,14 +8,9 @@ import io.getstream.chat.java.models.framework.StreamResponse;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.CommandService;
 import io.getstream.chat.java.services.framework.ServiceFactory;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.util.Date;
 import java.util.List;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -71,8 +66,7 @@ public class Command {
     public static class CommandCreateRequest extends StreamRequest<CommandCreateResponse> {
       @Override
       protected Call<CommandCreateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(CommandService.class)
-            .create(this.internalBuild());
+        return serviceFactory.create(CommandService.class).create(this.internalBuild());
       }
     }
   }
@@ -113,8 +107,7 @@ public class Command {
 
       @Override
       protected Call<CommandUpdateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(CommandService.class)
-            .update(name, this.internalBuild());
+        return serviceFactory.create(CommandService.class).update(name, this.internalBuild());
       }
     }
   }

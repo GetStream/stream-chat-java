@@ -21,16 +21,10 @@ import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.EventService;
 import io.getstream.chat.java.services.framework.ServiceFactory;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Singular;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -275,7 +269,8 @@ public class Event {
 
       @Override
       protected Call<EventSendResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(EventService.class)
+        return serviceFactory
+            .create(EventService.class)
             .send(channelType, channelId, this.internalBuild());
       }
     }
@@ -302,7 +297,8 @@ public class Event {
 
       @Override
       protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(EventService.class)
+        return serviceFactory
+            .create(EventService.class)
             .sendUserCustom(targetUserId, this.internalBuild());
       }
     }

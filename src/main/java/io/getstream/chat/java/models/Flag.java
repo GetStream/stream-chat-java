@@ -11,15 +11,10 @@ import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.FlagService;
 import io.getstream.chat.java.services.framework.ServiceFactory;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.Singular;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -252,8 +247,7 @@ public class Flag {
     public static class FlagMessageQueryRequest extends StreamRequest<FlagMessageQueryResponse> {
       @Override
       protected Call<FlagMessageQueryResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(FlagService.class)
-            .messageQuery(this.internalBuild());
+        return serviceFactory.create(FlagService.class).messageQuery(this.internalBuild());
       }
     }
   }

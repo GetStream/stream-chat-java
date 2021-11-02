@@ -7,14 +7,9 @@ import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.PermissionService;
 import io.getstream.chat.java.services.framework.ServiceFactory;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.util.List;
 import java.util.Map;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -88,8 +83,7 @@ public class Permission {
     public static class PermissionCreateRequest extends StreamRequest<StreamResponseObject> {
       @Override
       protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(PermissionService.class)
-            .create(this.internalBuild());
+        return serviceFactory.create(PermissionService.class).create(this.internalBuild());
       }
     }
   }
@@ -146,8 +140,7 @@ public class Permission {
 
       @Override
       protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(PermissionService.class)
-            .update(id, this.internalBuild());
+        return serviceFactory.create(PermissionService.class).update(id, this.internalBuild());
       }
     }
   }

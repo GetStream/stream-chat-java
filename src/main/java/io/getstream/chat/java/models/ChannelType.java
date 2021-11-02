@@ -10,7 +10,7 @@ import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponse;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.ChannelTypeService;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
+import io.getstream.chat.java.services.framework.ServiceFactory;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -394,8 +394,7 @@ public class ChannelType {
 
       @Override
       protected Call<ChannelTypeCreateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ChannelTypeService.class)
-            .create(this.internalBuild());
+        return serviceFactory.create(ChannelTypeService.class).create(this.internalBuild());
       }
     }
   }
@@ -506,8 +505,7 @@ public class ChannelType {
 
       @Override
       protected Call<ChannelTypeUpdateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ChannelTypeService.class)
-            .update(name, this.internalBuild());
+        return serviceFactory.create(ChannelTypeService.class).update(name, this.internalBuild());
       }
     }
   }

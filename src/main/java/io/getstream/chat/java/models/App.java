@@ -20,7 +20,6 @@ import io.getstream.chat.java.models.framework.StreamResponse;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.AppService;
 import io.getstream.chat.java.services.framework.ServiceFactory;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
@@ -32,12 +31,7 @@ import java.util.List;
 import java.util.Map;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -658,7 +652,8 @@ public class App extends StreamResponseObject {
 
     @Override
     protected Call<AppGetRateLimitsResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(AppService.class)
+      return serviceFactory
+          .create(AppService.class)
           .getRateLimits(
               serverSide,
               android,
@@ -688,8 +683,7 @@ public class App extends StreamResponseObject {
     public static class AppCheckSqsRequest extends StreamRequest<AppCheckSqsResponse> {
       @Override
       protected Call<AppCheckSqsResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(AppService.class)
-            .checkSqs(this.internalBuild());
+        return serviceFactory.create(AppService.class).checkSqs(this.internalBuild());
       }
     }
   }
@@ -730,8 +724,7 @@ public class App extends StreamResponseObject {
     public static class AppCheckPushRequest extends StreamRequest<AppCheckPushResponse> {
       @Override
       protected Call<AppCheckPushResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(AppService.class)
-            .checkPush(this.internalBuild());
+        return serviceFactory.create(AppService.class).checkPush(this.internalBuild());
       }
     }
   }

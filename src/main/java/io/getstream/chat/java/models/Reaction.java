@@ -11,18 +11,11 @@ import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.ReactionService;
 import io.getstream.chat.java.services.framework.ServiceFactory;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.Singular;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -133,8 +126,7 @@ public class Reaction {
 
       @Override
       protected Call<ReactionSendResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ReactionService.class)
-            .send(messageId, this.internalBuild());
+        return serviceFactory.create(ReactionService.class).send(messageId, this.internalBuild());
       }
     }
   }
@@ -154,8 +146,7 @@ public class Reaction {
 
     @Override
     protected Call<ReactionDeleteResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(ReactionService.class)
-          .delete(messageId, type, userId);
+      return serviceFactory.create(ReactionService.class).delete(messageId, type, userId);
     }
   }
 

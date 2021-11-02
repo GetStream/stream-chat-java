@@ -5,6 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+import javax.crypto.spec.SecretKeySpec;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -12,24 +18,20 @@ import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
-import java.security.Key;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-
 public class DefaultServiceFactory implements ServiceFactory {
-  private static final String API_KEY_PROP_NAME = "io.getstream.chat.apiKey";
-  private static final String API_SECRET_PROP_NAME = "io.getstream.chat.apiSecret";
-  private static final String API_TIMEOUT_PROP_NAME = "io.getstream.chat.timeout";
+  public static final String API_KEY_PROP_NAME = "io.getstream.chat.apiKey";
 
-  private final Retrofit retrofit;
+  public static final String API_SECRET_PROP_NAME = "io.getstream.chat.apiSecret";
 
-  private static final HttpLoggingInterceptor.Level logLevel = HttpLoggingInterceptor.Level.NONE;
+  public static final String API_TIMEOUT_PROP_NAME = "io.getstream.chat.timeout";
 
-  private static final boolean failOnUnknownProperties = false;
+  public static final String API_URL_PROP_NAME = "io.getstream.chat.url";
+
+  private static final String API_DEFAULT_URL = "https://chat.stream-io-api.com";
 
   private static volatile ServiceFactory defaultInstance;
+
+  @NotNull private final Retrofit retrofit;
 
   public static ServiceFactory getInstance() {
     if (defaultInstance == null) {
@@ -52,7 +54,7 @@ public class DefaultServiceFactory implements ServiceFactory {
   }
 
   public DefaultServiceFactory(Properties properties) {
-    properties = mergeSystemProperties(properties);
+    properties = mergeAllProperties(properties);
     var apiKey = properties.get(API_KEY_PROP_NAME);
     var apiSecret = properties.get(API_SECRET_PROP_NAME);
 
@@ -71,10 +73,12 @@ public class DefaultServiceFactory implements ServiceFactory {
     OkHttpClient.Builder httpClient =
         new OkHttpClient.Builder()
             .callTimeout(getStreamChatTimeout(properties), TimeUnit.MILLISECONDS);
-
     httpClient.interceptors().clear();
-    HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor().setLevel(logLevel);
+
+    HttpLoggingInterceptor loggingInterceptor =
+        new HttpLoggingInterceptor().setLevel(getLogLevel(properties));
     httpClient.addInterceptor(loggingInterceptor);
+
     httpClient.addInterceptor(
         chain -> {
           Request original = chain.request();
@@ -85,21 +89,22 @@ public class DefaultServiceFactory implements ServiceFactory {
                   .newBuilder()
                   .url(url)
                   .header("Content-Type", "application/json")
-                  .header("X-Stream-Client", "stream-java-client-" + sdkVersion())
+                  .header("X-Stream-Client", "stream-java-client-" + getSdkVersion())
                   .header("Stream-Auth-Type", "jwt")
                   .header("Authorization", jwtToken(apiSecret.toString()))
                   .build();
           return chain.proceed(request);
         });
     final ObjectMapper mapper = new ObjectMapper();
-    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, failOnUnknownProperties);
+    mapper.configure(
+        DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, hasFailOnUnknownProperties(properties));
     mapper.setDateFormat(
         new StdDateFormat().withColonInTimeZone(true).withTimeZone(TimeZone.getTimeZone("UTC")));
     mapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
 
     Retrofit.Builder builder =
         new Retrofit.Builder()
-            .baseUrl(getStreamChatBaseUrl())
+            .baseUrl(getStreamChatBaseUrl(properties))
             .addConverterFactory(new QueryConverterFactory())
             .addConverterFactory(JacksonConverterFactory.create(mapper));
     builder.client(httpClient.build());
@@ -133,7 +138,8 @@ public class DefaultServiceFactory implements ServiceFactory {
         .compact();
   }
 
-  private static Properties mergeSystemProperties(Properties properties) {
+  @NotNull
+  private static Properties mergeAllProperties(Properties properties) {
     var mergedProperties = new Properties();
     var env = System.getenv();
 
@@ -147,22 +153,52 @@ public class DefaultServiceFactory implements ServiceFactory {
       mergedProperties.put(API_KEY_PROP_NAME, envApiKey);
     }
 
+    var envTimeout =
+        env.getOrDefault("STREAM_CHAT_TIMEOUT", System.getProperty("STREAM_CHAT_TIMEOUT"));
+    if (envTimeout != null) {
+      mergedProperties.put(API_TIMEOUT_PROP_NAME, envTimeout);
+    }
+
+    var envApiUrl = env.getOrDefault("STREAM_CHAT_URL", System.getProperty("STREAM_CHAT_URL"));
+    if (envApiUrl != null) {
+      mergedProperties.put(API_URL_PROP_NAME, envApiUrl);
+    }
+
     mergedProperties.putAll(System.getProperties());
     mergedProperties.putAll(properties);
     return mergedProperties;
   }
 
-  private static long getStreamChatTimeout(Properties properties) {
-    return 10000;
+  private static long getStreamChatTimeout(@NotNull Properties properties) {
+    var timeout = properties.getOrDefault(API_TIMEOUT_PROP_NAME, 10000);
+    return Long.parseLong(timeout.toString());
   }
 
-  private static String getStreamChatBaseUrl() {
-    return "https://chat.stream-io-api.com";
+  private static String getStreamChatBaseUrl(@NotNull Properties properties) {
+    var url = properties.getOrDefault(API_URL_PROP_NAME, API_DEFAULT_URL);
+    return url.toString();
   }
 
-  private static @NotNull String sdkVersion() {
-    final Properties properties = new Properties();
-    StreamServiceGenerator.class.getClassLoader().getResourceAsStream("version.properties");
-    return properties.getProperty("version");
+  private static @NotNull String getSdkVersion() {
+    var clsLoader = DefaultServiceFactory.class.getClassLoader();
+    try (var inputStream = clsLoader.getResourceAsStream("version.properties")) {
+      var properties = new Properties();
+      properties.load(inputStream);
+      return properties.getProperty("version");
+    } catch (IOException ex) {
+      throw new IllegalStateException(ex);
+    }
+  }
+
+  private static @NotNull HttpLoggingInterceptor.Level getLogLevel(@NotNull Properties properties) {
+    final var propName = "io.getstream.chat.debug.logLevel";
+    var logLevel = properties.getOrDefault(propName, "NONE").toString();
+    return HttpLoggingInterceptor.Level.valueOf(logLevel);
+  }
+
+  private static boolean hasFailOnUnknownProperties(@NotNull Properties properties) {
+    final var propName = "io.getstream.chat.debug.failOnUnknownProperties";
+    var hasEnabled = properties.getOrDefault(propName, "false");
+    return Boolean.parseBoolean(hasEnabled.toString());
   }
 }

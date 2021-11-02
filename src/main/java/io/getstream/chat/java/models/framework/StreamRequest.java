@@ -48,13 +48,15 @@ public abstract class StreamRequest<T extends StreamResponse> {
 
   /**
    * Executes the request asynchronously
+   *
    * @param svcFactory service factory
    * @param onSuccess executed when the request is successful
    * @param onError executed when IO problem occurs or the stream API return an error
    */
   public void requestAsync(
       @NotNull ServiceFactory svcFactory,
-      @Nullable Consumer<T> onSuccess, @Nullable Consumer<StreamException> onError) {
+      @Nullable Consumer<T> onSuccess,
+      @Nullable Consumer<StreamException> onError) {
     try {
       new StreamServiceHandler().handleAsync(generateCall(svcFactory), onSuccess, onError);
     } catch (StreamException e) {
