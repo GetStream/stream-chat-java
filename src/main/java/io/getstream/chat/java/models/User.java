@@ -1,9 +1,7 @@
 package io.getstream.chat.java.models;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Device.DeviceRequestObject;
@@ -843,20 +841,17 @@ public class User {
     @JsonProperty("user_ids")
     private List<String> userIds;
 
-    @NotNull
     @JsonProperty("user")
-    @Builder.Default
-    private DeleteStrategy deleteUserStrategy = DeleteStrategy.DEFAULT;
+    @JsonInclude(Include.NON_NULL)
+    private DeleteStrategy deleteUserStrategy;
 
-    @NotNull
     @JsonProperty("messages")
-    @Builder.Default
-    private DeleteStrategy deleteMessagesStrategy = DeleteStrategy.DEFAULT;
+    @JsonInclude(Include.NON_NULL)
+    private DeleteStrategy deleteMessagesStrategy;
 
-    @NotNull
     @JsonProperty("conversations")
-    @Builder.Default
-    private DeleteStrategy deleteConversationsStrategy = DeleteStrategy.DEFAULT;
+    @JsonInclude(Include.NON_NULL)
+    private DeleteStrategy deleteConversationsStrategy;
 
     public static class UserDeleteManyRequest extends StreamRequest<UserDeleteManyResponse> {
       @Override
@@ -871,9 +866,6 @@ public class User {
             throw StreamException.build(
                 "Users hard delete strategy cannot be combined with converstations or messages soft delete");
           }
-
-          data.deleteConversationsStrategy = DeleteStrategy.HARD;
-          data.deleteMessagesStrategy = DeleteStrategy.HARD;
         }
 
         return StreamServiceGenerator.createService(UserService.class).deleteMany(data);

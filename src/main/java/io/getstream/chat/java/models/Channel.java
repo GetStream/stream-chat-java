@@ -501,7 +501,7 @@ public class Channel {
     @NotNull
     private List<String> cids;
 
-    @JsonProperty("is_hard_delete")
+    @JsonProperty("hard_delete")
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private boolean isHardDelete;

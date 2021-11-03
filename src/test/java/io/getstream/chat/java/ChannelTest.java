@@ -80,8 +80,7 @@ public class ChannelTest extends BasicTest {
   @Test
   @DisplayName("Can delete many channels")
   void whenDeletingManyChannels_thenTaskIdIsReturned() {
-    for (var deleteStrategy :
-        List.of(DeleteStrategy.DEFAULT, DeleteStrategy.SOFT, DeleteStrategy.HARD)) {
+    for (var deleteStrategy : List.of(DeleteStrategy.SOFT, DeleteStrategy.HARD)) {
       Assertions.assertDoesNotThrow(
           () -> {
             var ch1 = Assertions.assertDoesNotThrow(BasicTest::createRandomChannel).getChannel();

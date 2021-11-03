@@ -135,7 +135,7 @@ public class UserTest extends BasicTest {
   @Test
   @DisplayName("Can delete many users")
   void whenDeleteManyUsers_thenTaskIdIsReturned() {
-    for (var strategy : List.of(DeleteStrategy.HARD, DeleteStrategy.SOFT, DeleteStrategy.DEFAULT)) {
+    for (var strategy : List.of(DeleteStrategy.HARD, DeleteStrategy.SOFT)) {
       var userIds = new ArrayList<String>();
 
       for (var i = 0; i < 3; i++) {
