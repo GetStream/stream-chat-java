@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -168,49 +168,54 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/User.UserDeleteManyResponse.html" title="class in io.getstream.chat.java.models">User.UserDeleteManyResponse</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteMany(io.getstream.chat.java.models.User.UserDeleteManyRequestData)">deleteMany</a></span>&#8203;(<a href="../models/User.UserDeleteManyRequestData.html" title="class in io.getstream.chat.java.models">User.UserDeleteManyRequestData</a>&nbsp;data)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/User.UserExportResponse.html" title="class in io.getstream.chat.java.models">User.UserExportResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#export(java.lang.String)">export</a></span>&#8203;(java.lang.String&nbsp;userId)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/User.UserListResponse.html" title="class in io.getstream.chat.java.models">User.UserListResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#list(io.getstream.chat.java.models.User.UserListRequestData)">list</a></span>&#8203;(<a href="../models/User.UserListRequestData.html" title="class in io.getstream.chat.java.models">User.UserListRequestData</a>&nbsp;userListRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/User.UserMuteResponse.html" title="class in io.getstream.chat.java.models">User.UserMuteResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#mute(io.getstream.chat.java.models.User.UserMuteRequestData)">mute</a></span>&#8203;(<a href="../models/User.UserMuteRequestData.html" title="class in io.getstream.chat.java.models">User.UserMuteRequestData</a>&nbsp;userMuteRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/User.UserPartialUpdateResponse.html" title="class in io.getstream.chat.java.models">User.UserPartialUpdateResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#partialUpdate(io.getstream.chat.java.models.User.UserPartialUpdateRequestData)">partialUpdate</a></span>&#8203;(<a href="../models/User.UserPartialUpdateRequestData.html" title="class in io.getstream.chat.java.models">User.UserPartialUpdateRequestData</a>&nbsp;userPartialUpdateRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/User.UserQueryBannedResponse.html" title="class in io.getstream.chat.java.models">User.UserQueryBannedResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#queryBanned(io.getstream.chat.java.models.User.UserQueryBannedRequestData)">queryBanned</a></span>&#8203;(<a href="../models/User.UserQueryBannedRequestData.html" title="class in io.getstream.chat.java.models">User.UserQueryBannedRequestData</a>&nbsp;userQueryBannedRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/User.UserReactivateResponse.html" title="class in io.getstream.chat.java.models">User.UserReactivateResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reactivate(java.lang.String,io.getstream.chat.java.models.User.UserReactivateRequestData)">reactivate</a></span>&#8203;(java.lang.String&nbsp;userId,
           <a href="../models/User.UserReactivateRequestData.html" title="class in io.getstream.chat.java.models">User.UserReactivateRequestData</a>&nbsp;userReactivateRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unban(java.lang.String,java.lang.String,java.lang.String)">unban</a></span>&#8203;(java.lang.String&nbsp;targetUserId,
      java.lang.String&nbsp;channelType,
      java.lang.String&nbsp;channelId)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unmute(io.getstream.chat.java.models.User.UserUnmuteRequestData)">unmute</a></span>&#8203;(<a href="../models/User.UserUnmuteRequestData.html" title="class in io.getstream.chat.java.models">User.UserUnmuteRequestData</a>&nbsp;userUnmuteRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/User.UserUpsertResponse.html" title="class in io.getstream.chat.java.models">User.UserUpsertResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#upsert(io.getstream.chat.java.models.User.UserUpsertRequestData)">upsert</a></span>&#8203;(<a href="../models/User.UserUpsertRequestData.html" title="class in io.getstream.chat.java.models">User.UserUpsertRequestData</a>&nbsp;userUpsertRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
@@ -315,6 +320,17 @@ retrofit2.Call&lt;<a href="../models/User.UserDeleteResponse.html" title="class 
                                                java.lang.Boolean&nbsp;hardDelete,
                                                @Nullable @Query("delete_conversation_channels")
                                                java.lang.Boolean&nbsp;deleteConversationChannels)</pre>
+</li>
+</ul>
+<a id="deleteMany(io.getstream.chat.java.models.User.UserDeleteManyRequestData)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>deleteMany</h4>
+<pre class="methodSignature">@POST("users/delete")
+retrofit2.Call&lt;<a href="../models/User.UserDeleteManyResponse.html" title="class in io.getstream.chat.java.models">User.UserDeleteManyResponse</a>&gt;&nbsp;deleteMany&#8203;(@NotNull @Body
+                                                       <a href="../models/User.UserDeleteManyRequestData.html" title="class in io.getstream.chat.java.models">User.UserDeleteManyRequestData</a>&nbsp;data)</pre>
 </li>
 </ul>
 <a id="reactivate(java.lang.String,io.getstream.chat.java.models.User.UserReactivateRequestData)">
