@@ -1,6 +1,7 @@
 package io.getstream.chat.java.models;
 
 import com.fasterxml.jackson.annotation.*;
+import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Channel.ChannelExportRequestData.ChannelExportRequest;
 import io.getstream.chat.java.models.Channel.ChannelGetRequestData.ChannelGetRequest;
 import io.getstream.chat.java.models.Channel.ChannelHideRequestData.ChannelHideRequest;
@@ -493,6 +494,28 @@ public class Channel {
     @Override
     protected Call<ChannelDeleteResponse> generateCall(ServiceFactory serviceFactory) {
       return serviceFactory.create(ChannelService.class).delete(this.channelType, this.channelId);
+    }
+  }
+
+  @RequiredArgsConstructor
+  public static class ChannelDeleteManyRequest extends StreamRequest<ChannelDeleteManyResponse> {
+    @JsonProperty("cids")
+    @NotNull
+    private List<String> cids;
+
+    @JsonProperty("hard_delete")
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private boolean hardDelete;
+
+    public ChannelDeleteManyRequest setDeleteStrategy(DeleteStrategy strategy) {
+      hardDelete = strategy == DeleteStrategy.HARD;
+      return this;
+    }
+
+    @Override
+    protected Call<ChannelDeleteManyResponse> generateCall(ServiceFactory svcFactory) throws StreamException {
+      return svcFactory.create(ChannelService.class).deleteMany(this);
     }
   }
 
@@ -994,6 +1017,15 @@ public class Channel {
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
+  public static class ChannelDeleteManyResponse extends StreamResponseObject {
+    @JsonProperty("task_id")
+    @Getter
+    private String taskId;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelListResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("channels")
@@ -1212,6 +1244,11 @@ public class Channel {
   @NotNull
   public static ChannelDeleteRequest delete(@NotNull String type, @NotNull String id) {
     return new ChannelDeleteRequest(type, id);
+  }
+
+  @NotNull
+  public static ChannelDeleteManyRequest deleteMany(@NotNull List<String> cids) {
+    return new ChannelDeleteManyRequest(cids);
   }
 
   /**

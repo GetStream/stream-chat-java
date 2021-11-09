@@ -1,37 +1,12 @@
 package io.getstream.chat.java.services;
 
-import io.getstream.chat.java.models.User.UserBanRequestData;
-import io.getstream.chat.java.models.User.UserCreateGuestRequestData;
-import io.getstream.chat.java.models.User.UserCreateGuestResponse;
-import io.getstream.chat.java.models.User.UserDeactivateRequestData;
-import io.getstream.chat.java.models.User.UserDeactivateResponse;
-import io.getstream.chat.java.models.User.UserDeleteResponse;
-import io.getstream.chat.java.models.User.UserExportResponse;
-import io.getstream.chat.java.models.User.UserListRequestData;
-import io.getstream.chat.java.models.User.UserListResponse;
-import io.getstream.chat.java.models.User.UserMuteRequestData;
-import io.getstream.chat.java.models.User.UserMuteResponse;
-import io.getstream.chat.java.models.User.UserPartialUpdateRequestData;
-import io.getstream.chat.java.models.User.UserPartialUpdateResponse;
-import io.getstream.chat.java.models.User.UserQueryBannedRequestData;
-import io.getstream.chat.java.models.User.UserQueryBannedResponse;
-import io.getstream.chat.java.models.User.UserReactivateRequestData;
-import io.getstream.chat.java.models.User.UserReactivateResponse;
-import io.getstream.chat.java.models.User.UserUnmuteRequestData;
-import io.getstream.chat.java.models.User.UserUpsertRequestData;
-import io.getstream.chat.java.models.User.UserUpsertResponse;
+import io.getstream.chat.java.models.User.*;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.framework.ToJson;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.GET;
-import retrofit2.http.PATCH;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 public interface UserService {
   @POST("users")
@@ -63,6 +38,9 @@ public interface UserService {
       @Nullable @Query("mark_messages_deleted") Boolean markMessagesDeleted,
       @Nullable @Query("hard_delete") Boolean hardDelete,
       @Nullable @Query("delete_conversation_channels") Boolean deleteConversationChannels);
+
+  @POST("users/delete")
+  Call<UserDeleteManyResponse> deleteMany(@NotNull @Body UserDeleteManyRequestData data);
 
   @POST("users/{user_id}/reactivate")
   Call<UserReactivateResponse> reactivate(

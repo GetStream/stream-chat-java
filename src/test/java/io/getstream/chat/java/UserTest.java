@@ -1,28 +1,22 @@
 package io.getstream.chat.java;
 
-import static io.getstream.chat.java.models.User.createToken;
-
+import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Channel;
+import io.getstream.chat.java.models.DeleteStrategy;
 import io.getstream.chat.java.models.User;
-import io.getstream.chat.java.models.User.Ban;
-import io.getstream.chat.java.models.User.ChannelMuteRequestObject;
-import io.getstream.chat.java.models.User.OwnUser;
-import io.getstream.chat.java.models.User.OwnUserRequestObject;
-import io.getstream.chat.java.models.User.UserMute;
-import io.getstream.chat.java.models.User.UserPartialUpdateRequestObject;
-import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.User.UserUpsertRequestData.UserUpsertRequest;
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.ThrowingSupplier;
+
+import java.lang.reflect.Field;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static io.getstream.chat.java.models.User.*;
 
 public class UserTest extends BasicTest {
 
@@ -138,6 +132,44 @@ public class UserTest extends BasicTest {
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     User deletedUser = Assertions.assertDoesNotThrow(() -> User.delete(userId).request()).getUser();
     Assertions.assertNotNull(deletedUser.getDeletedAt());
+  }
+
+  @Test
+  @DisplayName("Can delete many users")
+  void whenDeleteManyUsers_thenTaskIdIsReturned() {
+    for (var strategy : List.of(DeleteStrategy.HARD, DeleteStrategy.SOFT)) {
+      var userIds = new ArrayList<String>();
+
+      for (var i = 0; i < 3; i++) {
+        String userId = RandomStringUtils.randomAlphabetic(10);
+        UserUpsertRequest usersUpsertRequest = User.upsert();
+        var userObject = UserRequestObject.builder().id(userId).name("User to delete").build();
+        usersUpsertRequest.user(userObject);
+        Assertions.assertDoesNotThrow((ThrowingSupplier<UserUpsertResponse>) usersUpsertRequest::request);
+        userIds.add(userId);
+      }
+
+      Assertions.assertDoesNotThrow(
+          () -> {
+            var taskId =
+                User.deleteMany(userIds).deleteUserStrategy(strategy).request().getTaskId();
+
+            Assertions.assertNotNull(taskId);
+          });
+    }
+  }
+
+  @Test
+  @DisplayName("Illegal condition of deleteMany users")
+  void whenDeleteManyUsersWithIllegalCondition_thenItFails() {
+    Assertions.assertThrows(
+        StreamException.class,
+        () -> {
+          User.deleteMany(List.of("a"))
+              .deleteUserStrategy(DeleteStrategy.HARD)
+              .deleteMessagesStrategy(DeleteStrategy.SOFT)
+              .request();
+        });
   }
 
   @DisplayName("Can mute user")

@@ -1,16 +1,16 @@
 package io.getstream.chat.java.models;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Device.DeviceRequestObject;
 import io.getstream.chat.java.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.getstream.chat.java.models.Flag.FlagDeleteRequestData.FlagDeleteRequest;
 import io.getstream.chat.java.models.User.UserBanRequestData.UserBanRequest;
 import io.getstream.chat.java.models.User.UserCreateGuestRequestData.UserCreateGuestRequest;
 import io.getstream.chat.java.models.User.UserDeactivateRequestData.UserDeactivateRequest;
+import io.getstream.chat.java.models.User.UserDeleteManyRequestData.UserDeleteManyRequest;
 import io.getstream.chat.java.models.User.UserListRequestData.UserListRequest;
 import io.getstream.chat.java.models.User.UserMuteRequestData.UserMuteRequest;
 import io.getstream.chat.java.models.User.UserPartialUpdateRequestData.UserPartialUpdateRequest;
@@ -831,6 +831,55 @@ public class User {
   }
 
   @Builder(
+      builderClassName = "UserDeleteManyRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class UserDeleteManyRequestData {
+    @NotNull
+    @JsonProperty("user_ids")
+    private List<String> userIds;
+
+    @JsonProperty("user")
+    @JsonInclude(Include.NON_NULL)
+    private DeleteStrategy deleteUserStrategy;
+
+    @JsonProperty("messages")
+    @JsonInclude(Include.NON_NULL)
+    private DeleteStrategy deleteMessagesStrategy;
+
+    @JsonProperty("conversations")
+    @JsonInclude(Include.NON_NULL)
+    private DeleteStrategy deleteConversationsStrategy;
+
+    public static class UserDeleteManyRequest extends StreamRequest<UserDeleteManyResponse> {
+      @Override
+      protected Call<UserDeleteManyResponse> generateCall(ServiceFactory serviceFactory) throws StreamException {
+        var data = this.internalBuild();
+        if (data.deleteUserStrategy == DeleteStrategy.HARD) {
+          var anyOtherOptionIsSoftDelete =
+              data.deleteConversationsStrategy == DeleteStrategy.SOFT
+                  || data.deleteMessagesStrategy == DeleteStrategy.SOFT;
+
+          if (anyOtherOptionIsSoftDelete) {
+            throw StreamException.build(
+                "Users hard delete strategy cannot be combined with converstations or messages soft delete");
+          }
+        }
+
+        return serviceFactory.create(UserService.class).deleteMany(data);
+      }
+    }
+  }
+
+  @Data
+  @EqualsAndHashCode(callSuper = true)
+  public static class UserDeleteManyResponse extends StreamResponseObject {
+    @JsonProperty("task_id")
+    @Getter
+    private String taskId;
+  }
+
+  @Builder(
       builderClassName = "UserReactivateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
@@ -1196,6 +1245,17 @@ public class User {
   @NotNull
   public static UserDeleteRequest delete(@NotNull String userId) {
     return new UserDeleteRequest(userId);
+  }
+
+  /**
+   * Create many users deletion request
+   *
+   * @param userIds list of user ids to be deleted
+   * @return the created request
+   */
+  @NotNull
+  public static UserDeleteManyRequest deleteMany(@NotNull List<String> userIds) {
+    return new UserDeleteManyRequest().userIds(userIds);
   }
 
   /**
