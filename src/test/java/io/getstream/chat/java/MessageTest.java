@@ -6,6 +6,8 @@ import io.getstream.chat.java.models.Language;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.*;
 import io.getstream.chat.java.models.Sort;
+import io.getstream.chat.java.models.framework.DefaultFileHandler;
+import io.getstream.chat.java.services.framework.DefaultClient;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -220,6 +222,38 @@ public class MessageTest extends BasicTest {
                   testUserRequestObject.getId(),
                   "text/plain")
               .file(new File(testFileUrl.getFile()))
+              .requestAsync(Assertions::assertNotNull, Assertions::assertNull);
+        });
+  }
+
+  @Test
+  @DisplayName("Can upload txt file using custom client with no exceptions")
+  void whenUploadingTxtFileUsingCustomClient_thenNoException() {
+    var client = new DefaultClient(System.getProperties());
+    var fileHandler = new DefaultFileHandler(client);
+
+    Assertions.assertDoesNotThrow(
+        () ->
+            App.update()
+                .fileUploadConfig(
+                    FileUploadConfigRequestObject.builder()
+                        .allowedFileExtensions(Collections.emptyList())
+                        .build())
+                .withClient(client)
+                .request());
+
+    Assertions.assertDoesNotThrow(
+        () -> {
+          var testFileUrl = getClass().getClassLoader().getResource("upload_file.txt");
+          assert testFileUrl != null;
+
+          Message.uploadFile(
+                  testChannel.getType(),
+                  testChannel.getId(),
+                  testUserRequestObject.getId(),
+                  "text/plain")
+              .file(new File(testFileUrl.getFile()))
+              .withFileHandler(fileHandler)
               .requestAsync(Assertions::assertNotNull, Assertions::assertNull);
         });
   }

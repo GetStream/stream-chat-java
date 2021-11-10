@@ -14,7 +14,7 @@ import io.getstream.chat.java.models.Message.MessageUpdateRequestData.MessageUpd
 import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.framework.*;
 import io.getstream.chat.java.services.MessageService;
-import io.getstream.chat.java.services.framework.ServiceFactory;
+import io.getstream.chat.java.services.framework.Client;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
@@ -706,8 +706,8 @@ public class Message {
       }
 
       @Override
-      protected Call<MessageSendResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory
+      protected Call<MessageSendResponse> generateCall(Client client) {
+        return client
             .create(MessageService.class)
             .send(this.channelType, this.channelId, this.internalBuild());
       }
@@ -719,8 +719,8 @@ public class Message {
     @NotNull private String id;
 
     @Override
-    protected Call<MessageGetResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(MessageService.class).get(this.id);
+    protected Call<MessageGetResponse> generateCall(Client client) {
+      return client.create(MessageService.class).get(this.id);
     }
   }
 
@@ -741,8 +741,8 @@ public class Message {
       }
 
       @Override
-      protected Call<MessageUpdateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(MessageService.class).update(this.id, this.internalBuild());
+      protected Call<MessageUpdateResponse> generateCall(Client client) {
+        return client.create(MessageService.class).update(this.id, this.internalBuild());
       }
     }
   }
@@ -760,8 +760,8 @@ public class Message {
     }
 
     @Override
-    protected Call<MessageDeleteResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(MessageService.class).delete(this.id, this.hard);
+    protected Call<MessageDeleteResponse> generateCall(Client client) {
+      return client.create(MessageService.class).delete(this.id, this.hard);
     }
   }
 
@@ -838,14 +838,58 @@ public class Message {
 
     public static class MessageSearchRequest extends StreamRequest<MessageSearchResponse> {
       @Override
-      protected Call<MessageSearchResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(MessageService.class).search(this.internalBuild());
+      protected Call<MessageSearchResponse> generateCall(Client client) {
+        return client.create(MessageService.class).search(this.internalBuild());
+      }
+    }
+  }
+
+  public abstract static class FileRequest<TResponse> {
+    private FileHandler fileHandler;
+
+    public FileRequest<TResponse> withFileHandler(FileHandler fileHandler) {
+      this.fileHandler = fileHandler;
+      return this;
+    }
+
+    public abstract TResponse request() throws StreamException;
+
+    public void requestAsync(
+        @Nullable Consumer<TResponse> onSuccess, @Nullable Consumer<StreamException> onError) {
+      try {
+        var response = request();
+        if (onSuccess == null) {
+          return;
+        }
+
+        onSuccess.accept(response);
+      } catch (StreamException ex) {
+        if (onError != null) {
+          onError.accept(ex);
+        }
+      }
+    }
+
+    @NotNull
+    protected FileHandler getFileHandler() throws StreamException {
+      var fh = fileHandler;
+      if (fh != null) {
+        return fh;
+      }
+
+      try {
+        return fileHandlerClass.getDeclaredConstructor().newInstance();
+      } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
+        throw StreamException.build(
+            "Your file handler should have a public constructor with no argument");
+      } catch (InvocationTargetException e) {
+        throw StreamException.build(e);
       }
     }
   }
 
   // We do not use @RequiredArgsConstructor here for uniformity with MessageUploadImageRequest
-  public static class MessageUploadFileRequest {
+  public static class MessageUploadFileRequest extends FileRequest<MessageUploadFileResponse> {
     @NotNull private String channelType;
 
     @NotNull private String channelId;
@@ -875,33 +919,12 @@ public class Message {
 
     @NotNull
     public MessageUploadFileResponse request() throws StreamException {
-      return request(createDefaultFileHandler());
-    }
-
-    @NotNull
-    public MessageUploadFileResponse request(@NotNull FileHandler fileHandler)
-        throws StreamException {
-      return fileHandler.uploadFile(channelType, channelId, userId, file, contentType);
-    }
-
-    public void requestAsync(
-        @Nullable Consumer<MessageUploadFileResponse> onSuccess,
-        @Nullable Consumer<StreamException> onError) {
-      invokeDefaultFileHandlerAsync(
-          fileHandler -> requestAsync(fileHandler, onSuccess, onError), onError);
-    }
-
-    public void requestAsync(
-        @NotNull FileHandler fileHandler,
-        @Nullable Consumer<MessageUploadFileResponse> onSuccess,
-        @Nullable Consumer<StreamException> onError) {
-      fileHandler.uploadFileAsync(
-          channelType, channelId, userId, file, contentType, onSuccess, onError);
+      return getFileHandler().uploadFile(channelType, channelId, userId, file, contentType);
     }
   }
 
   @RequiredArgsConstructor
-  public static class MessageUploadImageRequest {
+  public static class MessageUploadImageRequest extends FileRequest<MessageUploadImageResponse> {
     @Nullable private File file;
 
     @NotNull private String channelType;
@@ -929,33 +952,13 @@ public class Message {
 
     @NotNull
     public MessageUploadImageResponse request() throws StreamException {
-      return request(createDefaultFileHandler());
-    }
-
-    @NotNull
-    public MessageUploadImageResponse request(FileHandler fileHandler) throws StreamException {
-      return fileHandler.uploadImage(
-          channelType, channelId, userId, file, contentType, uploadSizes);
-    }
-
-    public void requestAsync(
-        @Nullable Consumer<MessageUploadImageResponse> onSuccess,
-        @Nullable Consumer<StreamException> onError) {
-      invokeDefaultFileHandlerAsync(
-          fileHandler -> requestAsync(fileHandler, onSuccess, onError), onError);
-    }
-
-    public void requestAsync(
-        @NotNull FileHandler fileHandler,
-        @Nullable Consumer<MessageUploadImageResponse> onSuccess,
-        @Nullable Consumer<StreamException> onError) {
-      fileHandler.uploadImageAsync(
-          contentType, channelId, userId, file, contentType, uploadSizes, onSuccess, onError);
+      return getFileHandler()
+          .uploadImage(channelType, channelId, userId, file, contentType, uploadSizes);
     }
   }
 
   @RequiredArgsConstructor
-  public static class MessageDeleteFileRequest {
+  public static class MessageDeleteFileRequest extends FileRequest<StreamResponseObject> {
     @NotNull private String channelType;
 
     @NotNull private String channelId;
@@ -964,31 +967,12 @@ public class Message {
 
     @NotNull
     public StreamResponseObject request() throws StreamException {
-      return request(createDefaultFileHandler());
-    }
-
-    @NotNull
-    public StreamResponseObject request(@NotNull FileHandler fileHandler) throws StreamException {
-      return fileHandler.deleteFile(channelType, channelId, url);
-    }
-
-    public void requestAsync(
-        @Nullable Consumer<StreamResponseObject> onSuccess,
-        @Nullable Consumer<StreamException> onError) {
-      invokeDefaultFileHandlerAsync(
-          fileHandler -> requestAsync(fileHandler, onSuccess, onError), onError);
-    }
-
-    public void requestAsync(
-        @NotNull FileHandler fileHandler,
-        @Nullable Consumer<StreamResponseObject> onSuccess,
-        @Nullable Consumer<StreamException> onError) {
-      fileHandler.deleteFileAsync(channelType, channelId, url, onSuccess, onError);
+      return getFileHandler().deleteFile(channelType, channelId, url);
     }
   }
 
   @RequiredArgsConstructor
-  public static class MessageDeleteImageRequest {
+  public static class MessageDeleteImageRequest extends FileRequest<StreamResponseObject> {
     @NotNull private String channelType;
 
     @NotNull private String channelId;
@@ -997,26 +981,7 @@ public class Message {
 
     @NotNull
     public StreamResponseObject request() throws StreamException {
-      return request(createDefaultFileHandler());
-    }
-
-    @NotNull
-    public StreamResponseObject request(@NotNull FileHandler fileHandler) throws StreamException {
-      return fileHandler.deleteImage(channelType, channelId, url);
-    }
-
-    public void requestAsync(
-        @Nullable Consumer<StreamResponseObject> onSuccess,
-        @Nullable Consumer<StreamException> onError) {
-      invokeDefaultFileHandlerAsync(
-          fileHandler -> requestAsync(fileHandler, onSuccess, onError), onError);
-    }
-
-    public void requestAsync(
-        @NotNull FileHandler fileHandler,
-        @Nullable Consumer<StreamResponseObject> onSuccess,
-        @Nullable Consumer<StreamException> onError) {
-      fileHandler.deleteImageAsync(channelType, channelId, url, onSuccess, onError);
+      return getFileHandler().deleteImage(channelType, channelId, url);
     }
   }
 
@@ -1029,8 +994,8 @@ public class Message {
     @NotNull private List<String> messageIds;
 
     @Override
-    protected Call<MessageGetManyResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory
+    protected Call<MessageGetManyResponse> generateCall(Client client) {
+      return client
           .create(MessageService.class)
           .getMany(this.channelType, this.channelId, String.join(",", this.messageIds));
     }
@@ -1121,8 +1086,8 @@ public class Message {
     }
 
     @Override
-    protected Call<MessageGetRepliesResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory
+    protected Call<MessageGetRepliesResponse> generateCall(Client client) {
+      return client
           .create(MessageService.class)
           .getReplies(
               parentId,
@@ -1163,8 +1128,8 @@ public class Message {
       }
 
       @Override
-      protected Call<MessageRunCommandActionResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory
+      protected Call<MessageRunCommandActionResponse> generateCall(Client client) {
+        return client
             .create(MessageService.class)
             .runCommandAction(messageId, this.internalBuild());
       }
@@ -1188,10 +1153,8 @@ public class Message {
       }
 
       @Override
-      protected Call<MessageTranslateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory
-            .create(MessageService.class)
-            .translate(messageId, this.internalBuild());
+      protected Call<MessageTranslateResponse> generateCall(Client client) {
+        return client.create(MessageService.class).translate(messageId, this.internalBuild());
       }
     }
   }
@@ -1228,8 +1191,8 @@ public class Message {
       }
 
       @Override
-      protected Call<MessagePartialUpdateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(MessageService.class).partialUpdate(id, this.internalBuild());
+      protected Call<MessagePartialUpdateResponse> generateCall(Client client) {
+        return client.create(MessageService.class).partialUpdate(id, this.internalBuild());
       }
     }
   }
@@ -1567,28 +1530,5 @@ public class Message {
   @NotNull
   public static MessagePartialUpdateRequest partialUpdate(@NotNull String id) {
     return new MessagePartialUpdateRequest(id);
-  }
-
-  @NotNull
-  private static FileHandler createDefaultFileHandler() throws StreamException {
-    try {
-      return fileHandlerClass.getDeclaredConstructor().newInstance();
-    } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-      throw StreamException.build(
-          "Your file handler should have a public constructor with no argument");
-    } catch (InvocationTargetException e) {
-      throw StreamException.build(e);
-    }
-  }
-
-  private static void invokeDefaultFileHandlerAsync(
-      Consumer<FileHandler> body, Consumer<StreamException> onError) {
-    try {
-      body.accept(createDefaultFileHandler());
-    } catch (StreamException ex) {
-      if (onError != null) {
-        onError.accept(ex);
-      }
-    }
   }
 }

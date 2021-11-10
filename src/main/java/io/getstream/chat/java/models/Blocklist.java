@@ -6,7 +6,7 @@ import io.getstream.chat.java.models.Blocklist.BlocklistUpdateRequestData.Blockl
 import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.BlocklistService;
-import io.getstream.chat.java.services.framework.ServiceFactory;
+import io.getstream.chat.java.services.framework.Client;
 import java.util.Date;
 import java.util.List;
 import lombok.*;
@@ -48,8 +48,8 @@ public class Blocklist {
 
     public static class BlocklistCreateRequest extends StreamRequest<StreamResponseObject> {
       @Override
-      protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(BlocklistService.class).create(this.internalBuild());
+      protected Call<StreamResponseObject> generateCall(Client client) {
+        return client.create(BlocklistService.class).create(this.internalBuild());
       }
     }
   }
@@ -59,8 +59,8 @@ public class Blocklist {
     @NotNull private String name;
 
     @Override
-    protected Call<BlocklistGetResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(BlocklistService.class).get(name);
+    protected Call<BlocklistGetResponse> generateCall(Client client) {
+      return client.create(BlocklistService.class).get(name);
     }
   }
 
@@ -81,8 +81,8 @@ public class Blocklist {
       }
 
       @Override
-      protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(BlocklistService.class).update(name, this.internalBuild());
+      protected Call<StreamResponseObject> generateCall(Client client) {
+        return client.create(BlocklistService.class).update(name, this.internalBuild());
       }
     }
   }
@@ -92,15 +92,15 @@ public class Blocklist {
     @NotNull private String name;
 
     @Override
-    protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(BlocklistService.class).delete(name);
+    protected Call<StreamResponseObject> generateCall(Client client) {
+      return client.create(BlocklistService.class).delete(name);
     }
   }
 
   public static class BlocklistListRequest extends StreamRequest<BlocklistListResponse> {
     @Override
-    protected Call<BlocklistListResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(BlocklistService.class).list();
+    protected Call<BlocklistListResponse> generateCall(Client client) {
+      return client.create(BlocklistService.class).list();
     }
   }
 

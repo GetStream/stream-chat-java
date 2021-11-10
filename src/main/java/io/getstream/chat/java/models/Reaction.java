@@ -10,7 +10,7 @@ import io.getstream.chat.java.models.framework.RequestObjectBuilder;
 import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.ReactionService;
-import io.getstream.chat.java.services.framework.ServiceFactory;
+import io.getstream.chat.java.services.framework.Client;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -125,8 +125,8 @@ public class Reaction {
       }
 
       @Override
-      protected Call<ReactionSendResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ReactionService.class).send(messageId, this.internalBuild());
+      protected Call<ReactionSendResponse> generateCall(Client client) {
+        return client.create(ReactionService.class).send(messageId, this.internalBuild());
       }
     }
   }
@@ -145,8 +145,8 @@ public class Reaction {
     }
 
     @Override
-    protected Call<ReactionDeleteResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(ReactionService.class).delete(messageId, type, userId);
+    protected Call<ReactionDeleteResponse> generateCall(Client client) {
+      return client.create(ReactionService.class).delete(messageId, type, userId);
     }
   }
 
@@ -171,8 +171,8 @@ public class Reaction {
     }
 
     @Override
-    protected Call<ReactionListResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(ReactionService.class).list(messageId);
+    protected Call<ReactionListResponse> generateCall(Client client) {
+      return client.create(ReactionService.class).list(messageId);
     }
   }
 

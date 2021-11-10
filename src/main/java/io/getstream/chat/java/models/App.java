@@ -19,7 +19,7 @@ import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponse;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.AppService;
-import io.getstream.chat.java.services.framework.ServiceFactory;
+import io.getstream.chat.java.services.framework.Client;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
@@ -470,8 +470,8 @@ public class App extends StreamResponseObject {
 
   public static class AppGetRequest extends StreamRequest<App> {
     @Override
-    protected Call<App> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(AppService.class).get();
+    protected Call<App> generateCall(Client client) {
+      return client.create(AppService.class).get();
     }
   }
 
@@ -597,8 +597,8 @@ public class App extends StreamResponseObject {
 
     public static class AppUpdateRequest extends StreamRequest<StreamResponseObject> {
       @Override
-      protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(AppService.class).update(this.internalBuild());
+      protected Call<StreamResponseObject> generateCall(Client client) {
+        return client.create(AppService.class).update(this.internalBuild());
       }
     }
   }
@@ -651,8 +651,8 @@ public class App extends StreamResponseObject {
     }
 
     @Override
-    protected Call<AppGetRateLimitsResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory
+    protected Call<AppGetRateLimitsResponse> generateCall(Client client) {
+      return client
           .create(AppService.class)
           .getRateLimits(
               serverSide,
@@ -682,8 +682,8 @@ public class App extends StreamResponseObject {
 
     public static class AppCheckSqsRequest extends StreamRequest<AppCheckSqsResponse> {
       @Override
-      protected Call<AppCheckSqsResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(AppService.class).checkSqs(this.internalBuild());
+      protected Call<AppCheckSqsResponse> generateCall(Client client) {
+        return client.create(AppService.class).checkSqs(this.internalBuild());
       }
     }
   }
@@ -723,8 +723,8 @@ public class App extends StreamResponseObject {
 
     public static class AppCheckPushRequest extends StreamRequest<AppCheckPushResponse> {
       @Override
-      protected Call<AppCheckPushResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(AppService.class).checkPush(this.internalBuild());
+      protected Call<AppCheckPushResponse> generateCall(Client client) {
+        return client.create(AppService.class).checkPush(this.internalBuild());
       }
     }
   }
@@ -734,10 +734,10 @@ public class App extends StreamResponseObject {
     @Nullable private Date revokeTokensIssuedBefore;
 
     @Override
-    protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
+    protected Call<StreamResponseObject> generateCall(Client client) {
       return new AppUpdateRequest()
           .revokeTokensIssuedBefore(revokeTokensIssuedBefore)
-          .generateCall(serviceFactory);
+          .generateCall(client);
     }
   }
 
@@ -888,11 +888,20 @@ public class App extends StreamResponseObject {
    * @param signature the signature
    * @return true if the signature is valid
    */
-  public boolean verifyWebhook(String body, String signature) {
-    String apiSecret =
-        System.getenv("STREAM_SECRET") != null
-            ? System.getenv("STREAM_SECRET")
-            : System.getProperty("STREAM_SECRET");
+  public boolean verifyWebhook(@NotNull String body, @NotNull String signature) {
+    return verifySignature(body, signature);
+  }
+
+  /**
+   * Validates if hmac signature is correct for message body. Can be used for webhook verification
+   *
+   * @param apiSecret the secret key
+   * @param body the message body
+   * @param signature the signature
+   * @return true if the signature is valid
+   */
+  public static boolean verifySignature(
+      @NotNull String apiSecret, @NotNull String body, @NotNull String signature) {
     try {
       Key sk = new SecretKeySpec(apiSecret.getBytes(), "HmacSHA256");
       Mac mac = Mac.getInstance(sk.getAlgorithm());
@@ -906,10 +915,22 @@ public class App extends StreamResponseObject {
     }
   }
 
-  private String bytesToHex(byte[] hash) {
+  /**
+   * Validates if hmac signature is correct for message body. Can be used for webhook verification.
+   *
+   * @param body the message body
+   * @param signature the signature
+   * @return true if the signature is valid
+   */
+  public static boolean verifySignature(@NotNull String body, @NotNull String signature) {
+    String apiSecret = Client.getInstance().getApiSecret();
+    return verifySignature(apiSecret, body, signature);
+  }
+
+  private static String bytesToHex(byte[] hash) {
     StringBuilder hexString = new StringBuilder(2 * hash.length);
-    for (int i = 0; i < hash.length; i++) {
-      String hex = Integer.toHexString(0xff & hash[i]);
+    for (byte b : hash) {
+      String hex = Integer.toHexString(0xff & b);
       if (hex.length() == 1) {
         hexString.append('0');
       }

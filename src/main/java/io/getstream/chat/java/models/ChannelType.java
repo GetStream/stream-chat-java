@@ -10,7 +10,7 @@ import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponse;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.ChannelTypeService;
-import io.getstream.chat.java.services.framework.ServiceFactory;
+import io.getstream.chat.java.services.framework.Client;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -393,8 +393,8 @@ public class ChannelType {
       }
 
       @Override
-      protected Call<ChannelTypeCreateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ChannelTypeService.class).create(this.internalBuild());
+      protected Call<ChannelTypeCreateResponse> generateCall(Client client) {
+        return client.create(ChannelTypeService.class).create(this.internalBuild());
       }
     }
   }
@@ -404,8 +404,8 @@ public class ChannelType {
     @NotNull private String name;
 
     @Override
-    protected Call<ChannelTypeGetResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(ChannelTypeService.class).get(name);
+    protected Call<ChannelTypeGetResponse> generateCall(Client client) {
+      return client.create(ChannelTypeService.class).get(name);
     }
   }
 
@@ -504,8 +504,8 @@ public class ChannelType {
       }
 
       @Override
-      protected Call<ChannelTypeUpdateResponse> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(ChannelTypeService.class).update(name, this.internalBuild());
+      protected Call<ChannelTypeUpdateResponse> generateCall(Client client) {
+        return client.create(ChannelTypeService.class).update(name, this.internalBuild());
       }
     }
   }
@@ -515,15 +515,15 @@ public class ChannelType {
     @NotNull private String name;
 
     @Override
-    protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(ChannelTypeService.class).delete(name);
+    protected Call<StreamResponseObject> generateCall(Client client) {
+      return client.create(ChannelTypeService.class).delete(name);
     }
   }
 
   public static class ChannelTypeListRequest extends StreamRequest<ChannelTypeListResponse> {
     @Override
-    protected Call<ChannelTypeListResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(ChannelTypeService.class).list();
+    protected Call<ChannelTypeListResponse> generateCall(Client client) {
+      return client.create(ChannelTypeService.class).list();
     }
   }
 

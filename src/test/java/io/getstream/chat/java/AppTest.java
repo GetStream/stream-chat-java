@@ -8,7 +8,7 @@ import io.getstream.chat.java.models.App.PushConfigRequestObject;
 import io.getstream.chat.java.models.App.PushVersion;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
-import io.getstream.chat.java.services.framework.DefaultServiceFactory;
+import io.getstream.chat.java.services.framework.DefaultClient;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Properties;
@@ -17,11 +17,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class AppTest extends BasicTest {
-
   @DisplayName("App Get does not throw Exception")
   @Test
   void whenCallingGetApp_thenNoException() {
     Assertions.assertDoesNotThrow(() -> App.get().request());
+  }
+
+  @Test
+  @DisplayName("App get async does not throw Exception")
+  void whenCallingGetAppAsync_thenNoException() {
+    App.get().requestAsync(Assertions::assertNotNull, Assertions::assertNull);
   }
 
   @DisplayName("App Settings update does not throw Exception")
@@ -37,12 +42,13 @@ public class AppTest extends BasicTest {
   @Test
   void givenBadKey_whenGettingApp_thenException() {
     var properties = new Properties();
-    properties.put(DefaultServiceFactory.API_KEY_PROP_NAME, "XXX");
+    properties.put(DefaultClient.API_KEY_PROP_NAME, "XXX");
 
-    var svcFactory = new DefaultServiceFactory(properties);
+    var client = new DefaultClient(properties);
 
     StreamException exception =
-        Assertions.assertThrows(StreamException.class, () -> App.get().request(svcFactory));
+        Assertions.assertThrows(
+            StreamException.class, () -> App.get().withClient(client).request());
     Assertions.assertEquals(401, exception.getResponseData().getStatusCode());
   }
 
@@ -52,13 +58,13 @@ public class AppTest extends BasicTest {
     Assertions.assertDoesNotThrow(() -> App.update().disableAuthChecks(false).request());
     var properties = new Properties();
     properties.put(
-        DefaultServiceFactory.API_SECRET_PROP_NAME,
-        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        DefaultClient.API_SECRET_PROP_NAME, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 
-    var svcFactory = new DefaultServiceFactory(properties);
+    var client = new DefaultClient(properties);
 
     StreamException exception =
-        Assertions.assertThrows(StreamException.class, () -> App.get().request(svcFactory));
+        Assertions.assertThrows(
+            StreamException.class, () -> App.get().withClient(client).request());
     Assertions.assertEquals(401, exception.getResponseData().getStatusCode());
   }
 

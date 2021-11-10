@@ -6,7 +6,7 @@ import io.getstream.chat.java.models.Permission.PermissionUpdateRequestData.Perm
 import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.PermissionService;
-import io.getstream.chat.java.services.framework.ServiceFactory;
+import io.getstream.chat.java.services.framework.Client;
 import java.util.List;
 import java.util.Map;
 import lombok.*;
@@ -82,8 +82,8 @@ public class Permission {
 
     public static class PermissionCreateRequest extends StreamRequest<StreamResponseObject> {
       @Override
-      protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(PermissionService.class).create(this.internalBuild());
+      protected Call<StreamResponseObject> generateCall(Client client) {
+        return client.create(PermissionService.class).create(this.internalBuild());
       }
     }
   }
@@ -93,8 +93,8 @@ public class Permission {
     @NotNull private String id;
 
     @Override
-    protected Call<PermissionGetResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(PermissionService.class).get(id);
+    protected Call<PermissionGetResponse> generateCall(Client client) {
+      return client.create(PermissionService.class).get(id);
     }
   }
 
@@ -139,8 +139,8 @@ public class Permission {
       }
 
       @Override
-      protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(PermissionService.class).update(id, this.internalBuild());
+      protected Call<StreamResponseObject> generateCall(Client client) {
+        return client.create(PermissionService.class).update(id, this.internalBuild());
       }
     }
   }
@@ -150,15 +150,15 @@ public class Permission {
     @NotNull private String id;
 
     @Override
-    protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(PermissionService.class).delete(id);
+    protected Call<StreamResponseObject> generateCall(Client client) {
+      return client.create(PermissionService.class).delete(id);
     }
   }
 
   public static class PermissionListRequest extends StreamRequest<PermissionListResponse> {
     @Override
-    protected Call<PermissionListResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(PermissionService.class).list();
+    protected Call<PermissionListResponse> generateCall(Client client) {
+      return client.create(PermissionService.class).list();
     }
   }
 

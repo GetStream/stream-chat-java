@@ -8,7 +8,7 @@ import io.getstream.chat.java.models.framework.RequestObjectBuilder;
 import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.DeviceService;
-import io.getstream.chat.java.services.framework.ServiceFactory;
+import io.getstream.chat.java.services.framework.Client;
 import java.util.Date;
 import java.util.List;
 import lombok.*;
@@ -108,8 +108,8 @@ public class Device {
 
     public static class DeviceCreateRequest extends StreamRequest<StreamResponseObject> {
       @Override
-      protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-        return serviceFactory.create(DeviceService.class).create(this.internalBuild());
+      protected Call<StreamResponseObject> generateCall(Client client) {
+        return client.create(DeviceService.class).create(this.internalBuild());
       }
     }
   }
@@ -133,8 +133,8 @@ public class Device {
     }
 
     @Override
-    protected Call<StreamResponseObject> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(DeviceService.class).delete(id, userId);
+    protected Call<StreamResponseObject> generateCall(Client client) {
+      return client.create(DeviceService.class).delete(id, userId);
     }
   }
 
@@ -143,8 +143,8 @@ public class Device {
     @NotNull private String userId;
 
     @Override
-    protected Call<DeviceListResponse> generateCall(ServiceFactory serviceFactory) {
-      return serviceFactory.create(DeviceService.class).list(userId);
+    protected Call<DeviceListResponse> generateCall(Client client) {
+      return client.create(DeviceService.class).list(userId);
     }
   }
 

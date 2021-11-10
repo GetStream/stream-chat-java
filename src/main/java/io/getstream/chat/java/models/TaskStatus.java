@@ -5,7 +5,7 @@ import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.TaskStatusService;
-import io.getstream.chat.java.services.framework.ServiceFactory;
+import io.getstream.chat.java.services.framework.Client;
 import java.util.Date;
 import java.util.Map;
 import lombok.Data;
@@ -27,9 +27,8 @@ public class TaskStatus {
     @NotNull private String id;
 
     @Override
-    protected Call<TaskStatusGetResponse> generateCall(ServiceFactory serviceFactory)
-        throws StreamException {
-      return serviceFactory.create(TaskStatusService.class).get(this.id);
+    protected Call<TaskStatusGetResponse> generateCall(Client client) throws StreamException {
+      return client.create(TaskStatusService.class).get(this.id);
     }
   }
 

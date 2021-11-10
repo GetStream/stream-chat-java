@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public class DefaultServiceFactory implements ServiceFactory {
+public class DefaultClient implements Client {
   public static final String API_KEY_PROP_NAME = "io.getstream.chat.apiKey";
 
   public static final String API_SECRET_PROP_NAME = "io.getstream.chat.apiSecret";
@@ -29,15 +29,19 @@ public class DefaultServiceFactory implements ServiceFactory {
 
   private static final String API_DEFAULT_URL = "https://chat.stream-io-api.com";
 
-  private static volatile ServiceFactory defaultInstance;
+  private static volatile DefaultClient defaultInstance;
 
   @NotNull private final Retrofit retrofit;
 
-  public static ServiceFactory getInstance() {
+  @NotNull private final String apiSecret;
+
+  @NotNull private final String apiKey;
+
+  public static DefaultClient getInstance() {
     if (defaultInstance == null) {
-      synchronized (StreamServiceGenerator.class) {
+      synchronized (DefaultClient.class) {
         if (defaultInstance == null) {
-          defaultInstance = new DefaultServiceFactory();
+          defaultInstance = new DefaultClient();
         }
       }
     }
@@ -45,15 +49,15 @@ public class DefaultServiceFactory implements ServiceFactory {
     return defaultInstance;
   }
 
-  public static void setInstance(@NotNull ServiceFactory instance) {
+  public static void setInstance(@NotNull DefaultClient instance) {
     defaultInstance = instance;
   }
 
-  public DefaultServiceFactory() {
+  public DefaultClient() {
     this(System.getProperties());
   }
 
-  public DefaultServiceFactory(Properties properties) {
+  public DefaultClient(Properties properties) {
     properties = conformProperties(properties);
     var apiKey = properties.get(API_KEY_PROP_NAME);
     var apiSecret = properties.get(API_SECRET_PROP_NAME);
@@ -109,12 +113,24 @@ public class DefaultServiceFactory implements ServiceFactory {
             .addConverterFactory(JacksonConverterFactory.create(mapper));
     builder.client(httpClient.build());
     retrofit = builder.build();
+    this.apiSecret = apiSecret.toString();
+    this.apiKey = apiKey.toString();
   }
 
   @NotNull
   @Override
   public <TService> TService create(Class<TService> svcClass) {
     return retrofit.create(svcClass);
+  }
+
+  @NotNull
+  public String getApiSecret() {
+    return apiSecret;
+  }
+
+  @NotNull
+  public String getApiKey() {
+    return apiKey;
   }
 
   private static @NotNull String jwtToken(String apiSecret) {
@@ -140,33 +156,33 @@ public class DefaultServiceFactory implements ServiceFactory {
 
   @NotNull
   private static Properties conformProperties(Properties properties) {
-    var mergedProperties = new Properties();
+    var canformedProperties = new Properties();
     var env = System.getenv();
 
     var envApiSecret = env.getOrDefault("STREAM_SECRET", System.getProperty("STREAM_SECRET"));
     if (envApiSecret != null) {
-      mergedProperties.put(API_SECRET_PROP_NAME, envApiSecret);
+      canformedProperties.put(API_SECRET_PROP_NAME, envApiSecret);
     }
 
     var envApiKey = env.getOrDefault("STREAM_KEY", System.getProperty("STREAM_KEY"));
     if (envApiKey != null) {
-      mergedProperties.put(API_KEY_PROP_NAME, envApiKey);
+      canformedProperties.put(API_KEY_PROP_NAME, envApiKey);
     }
 
     var envTimeout =
         env.getOrDefault("STREAM_CHAT_TIMEOUT", System.getProperty("STREAM_CHAT_TIMEOUT"));
     if (envTimeout != null) {
-      mergedProperties.put(API_TIMEOUT_PROP_NAME, envTimeout);
+      canformedProperties.put(API_TIMEOUT_PROP_NAME, envTimeout);
     }
 
     var envApiUrl = env.getOrDefault("STREAM_CHAT_URL", System.getProperty("STREAM_CHAT_URL"));
     if (envApiUrl != null) {
-      mergedProperties.put(API_URL_PROP_NAME, envApiUrl);
+      canformedProperties.put(API_URL_PROP_NAME, envApiUrl);
     }
 
-    mergedProperties.putAll(System.getProperties());
-    mergedProperties.putAll(properties);
-    return mergedProperties;
+    canformedProperties.putAll(System.getProperties());
+    canformedProperties.putAll(properties);
+    return canformedProperties;
   }
 
   private static long getStreamChatTimeout(@NotNull Properties properties) {
@@ -180,7 +196,7 @@ public class DefaultServiceFactory implements ServiceFactory {
   }
 
   private static @NotNull String getSdkVersion() {
-    var clsLoader = DefaultServiceFactory.class.getClassLoader();
+    var clsLoader = DefaultClient.class.getClassLoader();
     try (var inputStream = clsLoader.getResourceAsStream("version.properties")) {
       var properties = new Properties();
       properties.load(inputStream);
