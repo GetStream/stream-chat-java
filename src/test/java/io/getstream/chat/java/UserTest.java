@@ -1,22 +1,21 @@
 package io.getstream.chat.java;
 
+import static io.getstream.chat.java.models.User.*;
+
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.DeleteStrategy;
 import io.getstream.chat.java.models.User;
 import io.getstream.chat.java.models.User.UserUpsertRequestData.UserUpsertRequest;
+import java.lang.reflect.Field;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.ThrowingSupplier;
-
-import java.lang.reflect.Field;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static io.getstream.chat.java.models.User.*;
 
 public class UserTest extends BasicTest {
 
@@ -145,7 +144,8 @@ public class UserTest extends BasicTest {
         UserUpsertRequest usersUpsertRequest = User.upsert();
         var userObject = UserRequestObject.builder().id(userId).name("User to delete").build();
         usersUpsertRequest.user(userObject);
-        Assertions.assertDoesNotThrow((ThrowingSupplier<UserUpsertResponse>) usersUpsertRequest::request);
+        Assertions.assertDoesNotThrow(
+            (ThrowingSupplier<UserUpsertResponse>) usersUpsertRequest::request);
         userIds.add(userId);
       }
 

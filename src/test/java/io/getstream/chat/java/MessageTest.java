@@ -4,15 +4,7 @@ import io.getstream.chat.java.models.App;
 import io.getstream.chat.java.models.App.FileUploadConfigRequestObject;
 import io.getstream.chat.java.models.Language;
 import io.getstream.chat.java.models.Message;
-import io.getstream.chat.java.models.Message.ActionRequestObject;
-import io.getstream.chat.java.models.Message.AttachmentRequestObject;
-import io.getstream.chat.java.models.Message.Crop;
-import io.getstream.chat.java.models.Message.FieldRequestObject;
-import io.getstream.chat.java.models.Message.ImageSizeRequestObject;
-import io.getstream.chat.java.models.Message.MessageRequestObject;
-import io.getstream.chat.java.models.Message.MessageType;
-import io.getstream.chat.java.models.Message.Resize;
-import io.getstream.chat.java.models.Message.SearchResult;
+import io.getstream.chat.java.models.Message.*;
 import io.getstream.chat.java.models.Sort;
 import java.io.File;
 import java.lang.reflect.Field;
@@ -203,6 +195,33 @@ public class MessageTest extends BasicTest {
                 .file(
                     new File(getClass().getClassLoader().getResource("upload_file.txt").getFile()))
                 .request());
+  }
+
+  @Test
+  @DisplayName("Can upload txt file async with no exceptions")
+  void whenUploadingTxtFileAsync_thenNoException() {
+    Assertions.assertDoesNotThrow(
+        () ->
+            App.update()
+                .fileUploadConfig(
+                    FileUploadConfigRequestObject.builder()
+                        .allowedFileExtensions(Collections.emptyList())
+                        .build())
+                .request());
+
+    Assertions.assertDoesNotThrow(
+        () -> {
+          var testFileUrl = getClass().getClassLoader().getResource("upload_file.txt");
+          assert testFileUrl != null;
+
+          Message.uploadFile(
+                  testChannel.getType(),
+                  testChannel.getId(),
+                  testUserRequestObject.getId(),
+                  "text/plain")
+              .file(new File(testFileUrl.getFile()))
+              .requestAsync(Assertions::assertNotNull, Assertions::assertNull);
+        });
   }
 
   @DisplayName("Can upload pdf file with no exception")

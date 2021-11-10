@@ -6,15 +6,14 @@ import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.TaskStatusService;
 import io.getstream.chat.java.services.framework.ServiceFactory;
+import java.util.Date;
+import java.util.Map;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
-
-import java.util.Date;
-import java.util.Map;
 
 @Data
 @NoArgsConstructor

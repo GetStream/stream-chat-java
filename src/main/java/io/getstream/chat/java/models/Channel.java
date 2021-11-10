@@ -514,7 +514,8 @@ public class Channel {
     }
 
     @Override
-    protected Call<ChannelDeleteManyResponse> generateCall(ServiceFactory svcFactory) throws StreamException {
+    protected Call<ChannelDeleteManyResponse> generateCall(ServiceFactory svcFactory)
+        throws StreamException {
       return svcFactory.create(ChannelService.class).deleteMany(this);
     }
   }

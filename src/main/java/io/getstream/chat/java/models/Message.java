@@ -875,41 +875,28 @@ public class Message {
 
     @NotNull
     public MessageUploadFileResponse request() throws StreamException {
-      try {
-        return fileHandlerClass
-            .getDeclaredConstructor()
-            .newInstance()
-            .uploadFile(channelType, channelId, userId, file, contentType);
-      } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-        throw StreamException.build(
-            "Your file handler should have a public constructor with no argument");
-      } catch (InvocationTargetException e) {
-        throw StreamException.build(e);
-      }
+      return request(createDefaultFileHandler());
     }
 
     @NotNull
+    public MessageUploadFileResponse request(@NotNull FileHandler fileHandler)
+        throws StreamException {
+      return fileHandler.uploadFile(channelType, channelId, userId, file, contentType);
+    }
+
     public void requestAsync(
         @Nullable Consumer<MessageUploadFileResponse> onSuccess,
         @Nullable Consumer<StreamException> onError) {
-      try {
-        try {
-          fileHandlerClass
-              .getDeclaredConstructor()
-              .newInstance()
-              .uploadFileAsync(
-                  channelType, channelId, userId, file, contentType, onSuccess, onError);
-        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-          throw StreamException.build(
-              "Your file handler should have a public constructor with no argument");
-        } catch (InvocationTargetException e) {
-          throw StreamException.build(e);
-        }
-      } catch (StreamException e) {
-        if (onError != null) {
-          onError.accept(e);
-        }
-      }
+      invokeDefaultFileHandlerAsync(
+          fileHandler -> requestAsync(fileHandler, onSuccess, onError), onError);
+    }
+
+    public void requestAsync(
+        @NotNull FileHandler fileHandler,
+        @Nullable Consumer<MessageUploadFileResponse> onSuccess,
+        @Nullable Consumer<StreamException> onError) {
+      fileHandler.uploadFileAsync(
+          channelType, channelId, userId, file, contentType, onSuccess, onError);
     }
   }
 
@@ -942,48 +929,28 @@ public class Message {
 
     @NotNull
     public MessageUploadImageResponse request() throws StreamException {
-      try {
-        return fileHandlerClass
-            .getDeclaredConstructor()
-            .newInstance()
-            .uploadImage(channelType, channelId, userId, file, contentType, uploadSizes);
-      } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-        throw StreamException.build(
-            "Your file handler should have a public constructor with no argument");
-      } catch (InvocationTargetException e) {
-        throw StreamException.build(e);
-      }
+      return request(createDefaultFileHandler());
     }
 
     @NotNull
+    public MessageUploadImageResponse request(FileHandler fileHandler) throws StreamException {
+      return fileHandler.uploadImage(
+          channelType, channelId, userId, file, contentType, uploadSizes);
+    }
+
     public void requestAsync(
         @Nullable Consumer<MessageUploadImageResponse> onSuccess,
         @Nullable Consumer<StreamException> onError) {
-      try {
-        try {
-          fileHandlerClass
-              .getDeclaredConstructor()
-              .newInstance()
-              .uploadImageAsync(
-                  channelType,
-                  channelId,
-                  userId,
-                  file,
-                  contentType,
-                  uploadSizes,
-                  onSuccess,
-                  onError);
-        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-          throw StreamException.build(
-              "Your file handler should have a public constructor with no argument");
-        } catch (InvocationTargetException e) {
-          throw StreamException.build(e);
-        }
-      } catch (StreamException e) {
-        if (onError != null) {
-          onError.accept(e);
-        }
-      }
+      invokeDefaultFileHandlerAsync(
+          fileHandler -> requestAsync(fileHandler, onSuccess, onError), onError);
+    }
+
+    public void requestAsync(
+        @NotNull FileHandler fileHandler,
+        @Nullable Consumer<MessageUploadImageResponse> onSuccess,
+        @Nullable Consumer<StreamException> onError) {
+      fileHandler.uploadImageAsync(
+          contentType, channelId, userId, file, contentType, uploadSizes, onSuccess, onError);
     }
   }
 
@@ -997,40 +964,26 @@ public class Message {
 
     @NotNull
     public StreamResponseObject request() throws StreamException {
-      try {
-        return fileHandlerClass
-            .getDeclaredConstructor()
-            .newInstance()
-            .deleteFile(channelType, channelId, url);
-      } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-        throw StreamException.build(
-            "Your file handler should have a public constructor with no argument");
-      } catch (InvocationTargetException e) {
-        throw StreamException.build(e);
-      }
+      return request(createDefaultFileHandler());
     }
 
     @NotNull
+    public StreamResponseObject request(@NotNull FileHandler fileHandler) throws StreamException {
+      return fileHandler.deleteFile(channelType, channelId, url);
+    }
+
     public void requestAsync(
         @Nullable Consumer<StreamResponseObject> onSuccess,
         @Nullable Consumer<StreamException> onError) {
-      try {
-        try {
-          fileHandlerClass
-              .getDeclaredConstructor()
-              .newInstance()
-              .deleteFileAsync(channelType, channelId, url, onSuccess, onError);
-        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-          throw StreamException.build(
-              "Your file handler should have a public constructor with no argument");
-        } catch (InvocationTargetException e) {
-          throw StreamException.build(e);
-        }
-      } catch (StreamException e) {
-        if (onError != null) {
-          onError.accept(e);
-        }
-      }
+      invokeDefaultFileHandlerAsync(
+          fileHandler -> requestAsync(fileHandler, onSuccess, onError), onError);
+    }
+
+    public void requestAsync(
+        @NotNull FileHandler fileHandler,
+        @Nullable Consumer<StreamResponseObject> onSuccess,
+        @Nullable Consumer<StreamException> onError) {
+      fileHandler.deleteFileAsync(channelType, channelId, url, onSuccess, onError);
     }
   }
 
@@ -1044,40 +997,26 @@ public class Message {
 
     @NotNull
     public StreamResponseObject request() throws StreamException {
-      try {
-        return fileHandlerClass
-            .getDeclaredConstructor()
-            .newInstance()
-            .deleteImage(channelType, channelId, url);
-      } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-        throw StreamException.build(
-            "Your file handler should have a public constructor with no argument");
-      } catch (InvocationTargetException e) {
-        throw StreamException.build(e);
-      }
+      return request(createDefaultFileHandler());
     }
 
     @NotNull
+    public StreamResponseObject request(@NotNull FileHandler fileHandler) throws StreamException {
+      return fileHandler.deleteImage(channelType, channelId, url);
+    }
+
     public void requestAsync(
         @Nullable Consumer<StreamResponseObject> onSuccess,
         @Nullable Consumer<StreamException> onError) {
-      try {
-        try {
-          fileHandlerClass
-              .getDeclaredConstructor()
-              .newInstance()
-              .deleteImageAsync(channelType, channelId, url, onSuccess, onError);
-        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-          throw StreamException.build(
-              "Your file handler should have a public constructor with no argument");
-        } catch (InvocationTargetException e) {
-          throw StreamException.build(e);
-        }
-      } catch (StreamException e) {
-        if (onError != null) {
-          onError.accept(e);
-        }
-      }
+      invokeDefaultFileHandlerAsync(
+          fileHandler -> requestAsync(fileHandler, onSuccess, onError), onError);
+    }
+
+    public void requestAsync(
+        @NotNull FileHandler fileHandler,
+        @Nullable Consumer<StreamResponseObject> onSuccess,
+        @Nullable Consumer<StreamException> onError) {
+      fileHandler.deleteImageAsync(channelType, channelId, url, onSuccess, onError);
     }
   }
 
@@ -1628,5 +1567,28 @@ public class Message {
   @NotNull
   public static MessagePartialUpdateRequest partialUpdate(@NotNull String id) {
     return new MessagePartialUpdateRequest(id);
+  }
+
+  @NotNull
+  private static FileHandler createDefaultFileHandler() throws StreamException {
+    try {
+      return fileHandlerClass.getDeclaredConstructor().newInstance();
+    } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
+      throw StreamException.build(
+          "Your file handler should have a public constructor with no argument");
+    } catch (InvocationTargetException e) {
+      throw StreamException.build(e);
+    }
+  }
+
+  private static void invokeDefaultFileHandlerAsync(
+      Consumer<FileHandler> body, Consumer<StreamException> onError) {
+    try {
+      body.accept(createDefaultFileHandler());
+    } catch (StreamException ex) {
+      if (onError != null) {
+        onError.accept(ex);
+      }
+    }
   }
 }

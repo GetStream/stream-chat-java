@@ -853,7 +853,8 @@ public class User {
 
     public static class UserDeleteManyRequest extends StreamRequest<UserDeleteManyResponse> {
       @Override
-      protected Call<UserDeleteManyResponse> generateCall(ServiceFactory serviceFactory) throws StreamException {
+      protected Call<UserDeleteManyResponse> generateCall(ServiceFactory serviceFactory)
+          throws StreamException {
         var data = this.internalBuild();
         if (data.deleteUserStrategy == DeleteStrategy.HARD) {
           var anyOtherOptionIsSoftDelete =

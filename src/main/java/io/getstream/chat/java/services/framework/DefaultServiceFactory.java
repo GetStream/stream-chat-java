@@ -50,11 +50,11 @@ public class DefaultServiceFactory implements ServiceFactory {
   }
 
   public DefaultServiceFactory() {
-    this(new Properties());
+    this(System.getProperties());
   }
 
   public DefaultServiceFactory(Properties properties) {
-    properties = mergeAllProperties(properties);
+    properties = conformProperties(properties);
     var apiKey = properties.get(API_KEY_PROP_NAME);
     var apiSecret = properties.get(API_SECRET_PROP_NAME);
 
@@ -139,7 +139,7 @@ public class DefaultServiceFactory implements ServiceFactory {
   }
 
   @NotNull
-  private static Properties mergeAllProperties(Properties properties) {
+  private static Properties conformProperties(Properties properties) {
     var mergedProperties = new Properties();
     var env = System.getenv();
 
