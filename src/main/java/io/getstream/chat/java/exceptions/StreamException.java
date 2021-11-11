@@ -4,13 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.Map;
 import lombok.Data;
 import lombok.Getter;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
-
-import java.io.IOException;
-import java.util.Map;
 
 public class StreamException extends Exception {
   private static final long serialVersionUID = 1L;
