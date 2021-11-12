@@ -7,7 +7,7 @@ import io.getstream.chat.java.models.Message.MessageUploadFileResponse;
 import io.getstream.chat.java.models.Message.MessageUploadImageResponse;
 import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.services.MessageService;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
+import io.getstream.chat.java.services.framework.Client;
 import io.getstream.chat.java.services.framework.StreamServiceHandler;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -25,6 +25,15 @@ import retrofit2.Call;
 
 @Log
 public class DefaultFileHandler implements FileHandler {
+  private final Client client;
+
+  public DefaultFileHandler() {
+    this(Client.getInstance());
+  }
+
+  public DefaultFileHandler(Client client) {
+    this.client = client;
+  }
 
   @Override
   public MessageUploadFileResponse uploadFile(
@@ -154,7 +163,8 @@ public class DefaultFileHandler implements FileHandler {
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       new ObjectMapper().writeValue(baos, user);
       RequestBody userRequestBody = RequestBody.create(MultipartBody.FORM, baos.toString("UTF-8"));
-      return StreamServiceGenerator.createService(MessageService.class)
+      return client
+          .create(MessageService.class)
           .uploadFile(channelType, channelId, userRequestBody, multipartFile);
     } catch (IOException e) {
       // This should not happen, can only be a development error
@@ -189,7 +199,8 @@ public class DefaultFileHandler implements FileHandler {
       new ObjectMapper().writeValue(baos, uploadSizes);
       RequestBody uploadSizesRequestBody =
           RequestBody.create(MultipartBody.FORM, baos.toString("UTF-8"));
-      return StreamServiceGenerator.createService(MessageService.class)
+      return client
+          .create(MessageService.class)
           .uploadImage(
               channelType, channelId, userRequestBody, multipartFile, uploadSizesRequestBody);
     } catch (IOException e) {
@@ -205,13 +216,11 @@ public class DefaultFileHandler implements FileHandler {
 
   private Call<StreamResponseObject> generateDeleteFileCall(
       @NotNull String channelType, @NotNull String channelId, @NotNull String url) {
-    return StreamServiceGenerator.createService(MessageService.class)
-        .deleteFile(channelType, channelId, url);
+    return client.create(MessageService.class).deleteFile(channelType, channelId, url);
   }
 
   private Call<StreamResponseObject> generateDeleteImageCall(
       @NotNull String channelType, @NotNull String channelId, @NotNull String url) {
-    return StreamServiceGenerator.createService(MessageService.class)
-        .deleteImage(channelType, channelId, url);
+    return client.create(MessageService.class).deleteImage(channelType, channelId, url);
   }
 }

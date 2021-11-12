@@ -8,22 +8,15 @@ import io.getstream.chat.java.models.Channel.ChannelRequestObject;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
 import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.User.UserUpsertRequestData.UserUpsertRequest;
-import io.getstream.chat.java.services.framework.HttpLoggingInterceptor;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 
 public class BasicTest {
   protected static UserRequestObject testUserRequestObject;
@@ -32,37 +25,9 @@ public class BasicTest {
   protected static Channel testChannel;
   protected static Message testMessage;
 
-  static void enableLogging() {
-    String enable =
-        System.getenv("ENABLE_LOGGING") != null
-            ? System.getenv("ENABLE_LOGGING")
-            : System.getProperty("ENABLE_LOGGING");
-    if (enable == null || enable.equals("false")) {
-      return;
-    }
-
-    StreamServiceGenerator.logLevel = HttpLoggingInterceptor.Level.BODY;
-    Logger root = Logger.getLogger("");
-    root.setLevel(Level.FINE);
-    for (Handler handler : root.getHandlers()) {
-      handler.setLevel(Level.FINE);
-    }
-  }
-
-  @BeforeEach
-  void resetAuth()
-      throws NoSuchFieldException, SecurityException, IllegalArgumentException,
-          IllegalAccessException {
-    setAuth();
-  }
-
   @BeforeAll
-  static void setup()
-      throws StreamException, NoSuchFieldException, SecurityException, IllegalArgumentException,
-          IllegalAccessException {
+  static void setup() throws StreamException, SecurityException, IllegalArgumentException {
     // failOnUnknownProperties();
-    setAuth();
-    enableLogging();
     setProperties();
     cleanChannelTypes();
     cleanBlocklists();
@@ -131,13 +96,6 @@ public class BasicTest {
     testChannel = testChannelGetResponse.getChannel();
   }
 
-  static void failOnUnknownProperties() throws Exception {
-    Field failOnUnknownProperties =
-        StreamServiceGenerator.class.getDeclaredField("failOnUnknownProperties");
-    failOnUnknownProperties.setAccessible(true);
-    failOnUnknownProperties.set(StreamServiceGenerator.class, true);
-  }
-
   static void upsertUsers() throws StreamException {
     testUserRequestObject =
         UserRequestObject.builder()
@@ -169,16 +127,6 @@ public class BasicTest {
     System.setProperty(
         "java.util.logging.SimpleFormatter.format",
         "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s %2$s %5$s%6$s%n");
-  }
-
-  private static void setAuth() {
-    // TODO: remove this hack
-    Assertions.assertDoesNotThrow(
-        () -> {
-          var method = StreamServiceGenerator.class.getDeclaredMethod("initKeys");
-          method.setAccessible(true);
-          method.invoke(null);
-        });
   }
 
   protected static List<ChannelMemberRequestObject> buildChannelMembersList() {

@@ -12,21 +12,20 @@ import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 public class StreamException extends Exception {
-
   private static final long serialVersionUID = 1L;
 
   @Getter private ResponseData responseData;
 
-  private StreamException(String message, ResponseData responseData) {
+  public StreamException(String message, ResponseData responseData) {
     super(message);
     this.responseData = responseData;
   }
 
-  private StreamException(String message, Throwable t) {
+  public StreamException(String message, Throwable t) {
     super(message, t);
   }
 
-  private StreamException(Throwable t) {
+  public StreamException(Throwable t) {
     super(t);
   }
 

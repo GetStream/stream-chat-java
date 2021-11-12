@@ -5,10 +5,13 @@ import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.TaskStatusService;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
+import io.getstream.chat.java.services.framework.Client;
 import java.util.Date;
 import java.util.Map;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 
@@ -24,8 +27,8 @@ public class TaskStatus {
     @NotNull private String id;
 
     @Override
-    protected Call<TaskStatusGetResponse> generateCall() throws StreamException {
-      return StreamServiceGenerator.createService(TaskStatusService.class).get(this.id);
+    protected Call<TaskStatusGetResponse> generateCall(Client client) throws StreamException {
+      return client.create(TaskStatusService.class).get(this.id);
     }
   }
 

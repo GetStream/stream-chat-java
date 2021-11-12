@@ -1,10 +1,6 @@
 package io.getstream.chat.java.models;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.getstream.chat.java.models.Flag.FlagDeleteRequestData.FlagDeleteRequest;
@@ -18,7 +14,7 @@ import io.getstream.chat.java.models.Message.MessageUpdateRequestData.MessageUpd
 import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.framework.*;
 import io.getstream.chat.java.services.MessageService;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
+import io.getstream.chat.java.services.framework.Client;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
@@ -26,13 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.Singular;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -716,8 +706,9 @@ public class Message {
       }
 
       @Override
-      protected Call<MessageSendResponse> generateCall() {
-        return StreamServiceGenerator.createService(MessageService.class)
+      protected Call<MessageSendResponse> generateCall(Client client) {
+        return client
+            .create(MessageService.class)
             .send(this.channelType, this.channelId, this.internalBuild());
       }
     }
@@ -728,8 +719,8 @@ public class Message {
     @NotNull private String id;
 
     @Override
-    protected Call<MessageGetResponse> generateCall() {
-      return StreamServiceGenerator.createService(MessageService.class).get(this.id);
+    protected Call<MessageGetResponse> generateCall(Client client) {
+      return client.create(MessageService.class).get(this.id);
     }
   }
 
@@ -750,9 +741,8 @@ public class Message {
       }
 
       @Override
-      protected Call<MessageUpdateResponse> generateCall() {
-        return StreamServiceGenerator.createService(MessageService.class)
-            .update(this.id, this.internalBuild());
+      protected Call<MessageUpdateResponse> generateCall(Client client) {
+        return client.create(MessageService.class).update(this.id, this.internalBuild());
       }
     }
   }
@@ -770,8 +760,8 @@ public class Message {
     }
 
     @Override
-    protected Call<MessageDeleteResponse> generateCall() {
-      return StreamServiceGenerator.createService(MessageService.class).delete(this.id, this.hard);
+    protected Call<MessageDeleteResponse> generateCall(Client client) {
+      return client.create(MessageService.class).delete(this.id, this.hard);
     }
   }
 
@@ -848,15 +838,58 @@ public class Message {
 
     public static class MessageSearchRequest extends StreamRequest<MessageSearchResponse> {
       @Override
-      protected Call<MessageSearchResponse> generateCall() {
-        return StreamServiceGenerator.createService(MessageService.class)
-            .search(this.internalBuild());
+      protected Call<MessageSearchResponse> generateCall(Client client) {
+        return client.create(MessageService.class).search(this.internalBuild());
+      }
+    }
+  }
+
+  public abstract static class FileRequest<TResponse> {
+    private FileHandler fileHandler;
+
+    public FileRequest<TResponse> withFileHandler(FileHandler fileHandler) {
+      this.fileHandler = fileHandler;
+      return this;
+    }
+
+    public abstract TResponse request() throws StreamException;
+
+    public void requestAsync(
+        @Nullable Consumer<TResponse> onSuccess, @Nullable Consumer<StreamException> onError) {
+      try {
+        var response = request();
+        if (onSuccess == null) {
+          return;
+        }
+
+        onSuccess.accept(response);
+      } catch (StreamException ex) {
+        if (onError != null) {
+          onError.accept(ex);
+        }
+      }
+    }
+
+    @NotNull
+    protected FileHandler getFileHandler() throws StreamException {
+      var fh = fileHandler;
+      if (fh != null) {
+        return fh;
+      }
+
+      try {
+        return fileHandlerClass.getDeclaredConstructor().newInstance();
+      } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
+        throw StreamException.build(
+            "Your file handler should have a public constructor with no argument");
+      } catch (InvocationTargetException e) {
+        throw StreamException.build(e);
       }
     }
   }
 
   // We do not use @RequiredArgsConstructor here for uniformity with MessageUploadImageRequest
-  public static class MessageUploadFileRequest {
+  public static class MessageUploadFileRequest extends FileRequest<MessageUploadFileResponse> {
     @NotNull private String channelType;
 
     @NotNull private String channelId;
@@ -886,46 +919,12 @@ public class Message {
 
     @NotNull
     public MessageUploadFileResponse request() throws StreamException {
-      try {
-        return fileHandlerClass
-            .getDeclaredConstructor()
-            .newInstance()
-            .uploadFile(channelType, channelId, userId, file, contentType);
-      } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-        throw StreamException.build(
-            "Your file handler should have a public constructor with no argument");
-      } catch (InvocationTargetException e) {
-        throw StreamException.build(e);
-      }
-    }
-
-    @NotNull
-    public void requestAsync(
-        @Nullable Consumer<MessageUploadFileResponse> onSuccess,
-        @Nullable Consumer<StreamException> onError) {
-      try {
-        try {
-          fileHandlerClass
-              .getDeclaredConstructor()
-              .newInstance()
-              .uploadFileAsync(
-                  channelType, channelId, userId, file, contentType, onSuccess, onError);
-        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-          throw StreamException.build(
-              "Your file handler should have a public constructor with no argument");
-        } catch (InvocationTargetException e) {
-          throw StreamException.build(e);
-        }
-      } catch (StreamException e) {
-        if (onError != null) {
-          onError.accept(e);
-        }
-      }
+      return getFileHandler().uploadFile(channelType, channelId, userId, file, contentType);
     }
   }
 
   @RequiredArgsConstructor
-  public static class MessageUploadImageRequest {
+  public static class MessageUploadImageRequest extends FileRequest<MessageUploadImageResponse> {
     @Nullable private File file;
 
     @NotNull private String channelType;
@@ -953,53 +952,13 @@ public class Message {
 
     @NotNull
     public MessageUploadImageResponse request() throws StreamException {
-      try {
-        return fileHandlerClass
-            .getDeclaredConstructor()
-            .newInstance()
-            .uploadImage(channelType, channelId, userId, file, contentType, uploadSizes);
-      } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-        throw StreamException.build(
-            "Your file handler should have a public constructor with no argument");
-      } catch (InvocationTargetException e) {
-        throw StreamException.build(e);
-      }
-    }
-
-    @NotNull
-    public void requestAsync(
-        @Nullable Consumer<MessageUploadImageResponse> onSuccess,
-        @Nullable Consumer<StreamException> onError) {
-      try {
-        try {
-          fileHandlerClass
-              .getDeclaredConstructor()
-              .newInstance()
-              .uploadImageAsync(
-                  channelType,
-                  channelId,
-                  userId,
-                  file,
-                  contentType,
-                  uploadSizes,
-                  onSuccess,
-                  onError);
-        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-          throw StreamException.build(
-              "Your file handler should have a public constructor with no argument");
-        } catch (InvocationTargetException e) {
-          throw StreamException.build(e);
-        }
-      } catch (StreamException e) {
-        if (onError != null) {
-          onError.accept(e);
-        }
-      }
+      return getFileHandler()
+          .uploadImage(channelType, channelId, userId, file, contentType, uploadSizes);
     }
   }
 
   @RequiredArgsConstructor
-  public static class MessageDeleteFileRequest {
+  public static class MessageDeleteFileRequest extends FileRequest<StreamResponseObject> {
     @NotNull private String channelType;
 
     @NotNull private String channelId;
@@ -1008,45 +967,12 @@ public class Message {
 
     @NotNull
     public StreamResponseObject request() throws StreamException {
-      try {
-        return fileHandlerClass
-            .getDeclaredConstructor()
-            .newInstance()
-            .deleteFile(channelType, channelId, url);
-      } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-        throw StreamException.build(
-            "Your file handler should have a public constructor with no argument");
-      } catch (InvocationTargetException e) {
-        throw StreamException.build(e);
-      }
-    }
-
-    @NotNull
-    public void requestAsync(
-        @Nullable Consumer<StreamResponseObject> onSuccess,
-        @Nullable Consumer<StreamException> onError) {
-      try {
-        try {
-          fileHandlerClass
-              .getDeclaredConstructor()
-              .newInstance()
-              .deleteFileAsync(channelType, channelId, url, onSuccess, onError);
-        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-          throw StreamException.build(
-              "Your file handler should have a public constructor with no argument");
-        } catch (InvocationTargetException e) {
-          throw StreamException.build(e);
-        }
-      } catch (StreamException e) {
-        if (onError != null) {
-          onError.accept(e);
-        }
-      }
+      return getFileHandler().deleteFile(channelType, channelId, url);
     }
   }
 
   @RequiredArgsConstructor
-  public static class MessageDeleteImageRequest {
+  public static class MessageDeleteImageRequest extends FileRequest<StreamResponseObject> {
     @NotNull private String channelType;
 
     @NotNull private String channelId;
@@ -1055,40 +981,7 @@ public class Message {
 
     @NotNull
     public StreamResponseObject request() throws StreamException {
-      try {
-        return fileHandlerClass
-            .getDeclaredConstructor()
-            .newInstance()
-            .deleteImage(channelType, channelId, url);
-      } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-        throw StreamException.build(
-            "Your file handler should have a public constructor with no argument");
-      } catch (InvocationTargetException e) {
-        throw StreamException.build(e);
-      }
-    }
-
-    @NotNull
-    public void requestAsync(
-        @Nullable Consumer<StreamResponseObject> onSuccess,
-        @Nullable Consumer<StreamException> onError) {
-      try {
-        try {
-          fileHandlerClass
-              .getDeclaredConstructor()
-              .newInstance()
-              .deleteImageAsync(channelType, channelId, url, onSuccess, onError);
-        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
-          throw StreamException.build(
-              "Your file handler should have a public constructor with no argument");
-        } catch (InvocationTargetException e) {
-          throw StreamException.build(e);
-        }
-      } catch (StreamException e) {
-        if (onError != null) {
-          onError.accept(e);
-        }
-      }
+      return getFileHandler().deleteImage(channelType, channelId, url);
     }
   }
 
@@ -1101,8 +994,9 @@ public class Message {
     @NotNull private List<String> messageIds;
 
     @Override
-    protected Call<MessageGetManyResponse> generateCall() {
-      return StreamServiceGenerator.createService(MessageService.class)
+    protected Call<MessageGetManyResponse> generateCall(Client client) {
+      return client
+          .create(MessageService.class)
           .getMany(this.channelType, this.channelId, String.join(",", this.messageIds));
     }
   }
@@ -1192,8 +1086,9 @@ public class Message {
     }
 
     @Override
-    protected Call<MessageGetRepliesResponse> generateCall() {
-      return StreamServiceGenerator.createService(MessageService.class)
+    protected Call<MessageGetRepliesResponse> generateCall(Client client) {
+      return client
+          .create(MessageService.class)
           .getReplies(
               parentId,
               idGte,
@@ -1233,8 +1128,9 @@ public class Message {
       }
 
       @Override
-      protected Call<MessageRunCommandActionResponse> generateCall() {
-        return StreamServiceGenerator.createService(MessageService.class)
+      protected Call<MessageRunCommandActionResponse> generateCall(Client client) {
+        return client
+            .create(MessageService.class)
             .runCommandAction(messageId, this.internalBuild());
       }
     }
@@ -1257,9 +1153,8 @@ public class Message {
       }
 
       @Override
-      protected Call<MessageTranslateResponse> generateCall() {
-        return StreamServiceGenerator.createService(MessageService.class)
-            .translate(messageId, this.internalBuild());
+      protected Call<MessageTranslateResponse> generateCall(Client client) {
+        return client.create(MessageService.class).translate(messageId, this.internalBuild());
       }
     }
   }
@@ -1296,9 +1191,8 @@ public class Message {
       }
 
       @Override
-      protected Call<MessagePartialUpdateResponse> generateCall() {
-        return StreamServiceGenerator.createService(MessageService.class)
-            .partialUpdate(id, this.internalBuild());
+      protected Call<MessagePartialUpdateResponse> generateCall(Client client) {
+        return client.create(MessageService.class).partialUpdate(id, this.internalBuild());
       }
     }
   }
