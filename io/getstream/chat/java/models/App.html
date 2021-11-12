@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":10};
+var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":10,"i7":9,"i8":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -372,7 +372,24 @@ extends <a href="framework/StreamResponseObject.html" title="class in io.getstre
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyWebhook(java.lang.String,java.lang.String)">verifyWebhook</a></span>&#8203;(java.lang.String&nbsp;body,
              java.lang.String&nbsp;signature)</code></th>
 <td class="colLast">
-<div class="block">Validates if hmac signature is correct for message body</div>
+<div class="block">Validates if hmac signature is correct for message body.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyWebhookSignature(java.lang.String,java.lang.String)">verifyWebhookSignature</a></span>&#8203;(java.lang.String&nbsp;body,
+                      java.lang.String&nbsp;signature)</code></th>
+<td class="colLast">
+<div class="block">Validates if hmac signature is correct for message body.</div>
+</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyWebhookSignature(java.lang.String,java.lang.String,java.lang.String)">verifyWebhookSignature</a></span>&#8203;(java.lang.String&nbsp;apiSecret,
+                      java.lang.String&nbsp;body,
+                      java.lang.String&nbsp;signature)</code></th>
+<td class="colLast">
+<div class="block">Validates if hmac signature is correct for message body.</div>
 </td>
 </tr>
 </table>
@@ -528,16 +545,61 @@ public static&nbsp;<a href="App.AppRevokeTokensRequest.html" title="class in io.
 <a id="verifyWebhook(java.lang.String,java.lang.String)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>verifyWebhook</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;verifyWebhook&#8203;(java.lang.String&nbsp;body,
+<pre class="methodSignature">public&nbsp;boolean&nbsp;verifyWebhook&#8203;(@NotNull
+                             java.lang.String&nbsp;body,
+                             @NotNull
                              java.lang.String&nbsp;signature)</pre>
-<div class="block">Validates if hmac signature is correct for message body</div>
+<div class="block">Validates if hmac signature is correct for message body.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>body</code> - raw body from http request converted to a string.</dd>
+<dd><code>signature</code> - the signature provided in X-Signature header</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the signature is valid</dd>
+</dl>
+</li>
+</ul>
+<a id="verifyWebhookSignature(java.lang.String,java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>verifyWebhookSignature</h4>
+<pre class="methodSignature">public static&nbsp;boolean&nbsp;verifyWebhookSignature&#8203;(@NotNull
+                                             java.lang.String&nbsp;apiSecret,
+                                             @NotNull
+                                             java.lang.String&nbsp;body,
+                                             @NotNull
+                                             java.lang.String&nbsp;signature)</pre>
+<div class="block">Validates if hmac signature is correct for message body.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>apiSecret</code> - the secret key</dd>
+<dd><code>body</code> - raw body from http request converted to a string.</dd>
+<dd><code>signature</code> - the signature provided in X-Signature header</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the signature is valid</dd>
+</dl>
+</li>
+</ul>
+<a id="verifyWebhookSignature(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>verifyWebhookSignature</h4>
+<pre class="methodSignature">public static&nbsp;boolean&nbsp;verifyWebhookSignature&#8203;(@NotNull
+                                             java.lang.String&nbsp;body,
+                                             @NotNull
+                                             java.lang.String&nbsp;signature)</pre>
+<div class="block">Validates if hmac signature is correct for message body.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>body</code> - the message body</dd>
-<dd><code>signature</code> - the signature</dd>
+<dd><code>signature</code> - the signature provided in X-Signature header</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if the signature is valid</dd>
 </dl>

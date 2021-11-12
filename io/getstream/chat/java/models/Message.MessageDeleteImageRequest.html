@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10};
+var data = {"i0":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -122,7 +122,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
+<li><a href="Message.FileRequest.html" title="class in io.getstream.chat.java.models">io.getstream.chat.java.models.Message.FileRequest</a>&lt;<a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</li>
+<li>
+<ul class="inheritance">
 <li>io.getstream.chat.java.models.Message.MessageDeleteImageRequest</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -135,7 +140,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <hr>
 <pre>public static class <span class="typeNameLabel">Message.MessageDeleteImageRequest</span>
-extends java.lang.Object</pre>
+extends <a href="Message.FileRequest.html" title="class in io.getstream.chat.java.models">Message.FileRequest</a>&lt;<a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</pre>
 </li>
 </ul>
 </div>
@@ -182,13 +187,14 @@ extends java.lang.Object</pre>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#request()">request</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#requestAsync(java.util.function.Consumer,java.util.function.Consumer)">requestAsync</a></span>&#8203;(java.util.function.Consumer&lt;<a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;onSuccess,
-            java.util.function.Consumer&lt;<a href="../exceptions/StreamException.html" title="class in io.getstream.chat.java.exceptions">StreamException</a>&gt;&nbsp;onError)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
 </table>
+<ul class="blockList">
+<li class="blockList"><a id="methods.inherited.from.class.io.getstream.chat.java.models.Message.FileRequest">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;io.getstream.chat.java.models.<a href="Message.FileRequest.html" title="class in io.getstream.chat.java.models">Message.FileRequest</a></h3>
+<code><a href="Message.FileRequest.html#getFileHandler()">getFileHandler</a>, <a href="Message.FileRequest.html#requestAsync(java.util.function.Consumer,java.util.function.Consumer)">requestAsync</a>, <a href="Message.FileRequest.html#withFileHandler(io.getstream.chat.java.models.framework.FileHandler)">withFileHandler</a></code></li>
+</ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
@@ -234,29 +240,18 @@ extends java.lang.Object</pre>
 <a id="request()">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>request</h4>
 <pre class="methodSignature">@NotNull
 public&nbsp;<a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&nbsp;request()
                              throws <a href="../exceptions/StreamException.html" title="class in io.getstream.chat.java.exceptions">StreamException</a></pre>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="Message.FileRequest.html#request()">request</a></code>&nbsp;in class&nbsp;<code><a href="Message.FileRequest.html" title="class in io.getstream.chat.java.models">Message.FileRequest</a>&lt;<a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../exceptions/StreamException.html" title="class in io.getstream.chat.java.exceptions">StreamException</a></code></dd>
 </dl>
-</li>
-</ul>
-<a id="requestAsync(java.util.function.Consumer,java.util.function.Consumer)">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>requestAsync</h4>
-<pre class="methodSignature">@NotNull
-public&nbsp;void&nbsp;requestAsync&#8203;(@Nullable
-                         java.util.function.Consumer&lt;<a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;onSuccess,
-                         @Nullable
-                         java.util.function.Consumer&lt;<a href="../exceptions/StreamException.html" title="class in io.getstream.chat.java.exceptions">StreamException</a>&gt;&nbsp;onError)</pre>
 </li>
 </ul>
 </li>
