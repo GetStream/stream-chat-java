@@ -58,7 +58,7 @@ public class DefaultClient implements Client {
   }
 
   public DefaultClient(Properties properties) {
-    properties = conformProperties(properties);
+    properties = extendProperties(properties);
     var apiKey = properties.get(API_KEY_PROP_NAME);
     var apiSecret = properties.get(API_SECRET_PROP_NAME);
 
@@ -155,7 +155,7 @@ public class DefaultClient implements Client {
   }
 
   @NotNull
-  private static Properties conformProperties(Properties properties) {
+  private static Properties extendProperties(Properties properties) {
     var canformedProperties = new Properties();
     var env = System.getenv();
 

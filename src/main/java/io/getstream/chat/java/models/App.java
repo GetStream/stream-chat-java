@@ -882,25 +882,25 @@ public class App extends StreamResponseObject {
   }
 
   /**
-   * Validates if hmac signature is correct for message body
+   * Validates if hmac signature is correct for message body.
    *
    * @param body the message body
-   * @param signature the signature
+   * @param signature the signature provided in X-Signature header
    * @return true if the signature is valid
    */
   public boolean verifyWebhook(@NotNull String body, @NotNull String signature) {
-    return verifySignature(body, signature);
+    return verifyWebhookSignature(body, signature);
   }
 
   /**
-   * Validates if hmac signature is correct for message body. Can be used for webhook verification
+   * Validates if hmac signature is correct for message body.
    *
    * @param apiSecret the secret key
    * @param body the message body
-   * @param signature the signature
+   * @param signature the signature provided in X-Signature header
    * @return true if the signature is valid
    */
-  public static boolean verifySignature(
+  public static boolean verifyWebhookSignature(
       @NotNull String apiSecret, @NotNull String body, @NotNull String signature) {
     try {
       Key sk = new SecretKeySpec(apiSecret.getBytes(), "HmacSHA256");
@@ -916,15 +916,15 @@ public class App extends StreamResponseObject {
   }
 
   /**
-   * Validates if hmac signature is correct for message body. Can be used for webhook verification.
+   * Validates if hmac signature is correct for message body.
    *
    * @param body the message body
-   * @param signature the signature
+   * @param signature the signature provided in X-Signature header
    * @return true if the signature is valid
    */
-  public static boolean verifySignature(@NotNull String body, @NotNull String signature) {
+  public static boolean verifyWebhookSignature(@NotNull String body, @NotNull String signature) {
     String apiSecret = Client.getInstance().getApiSecret();
-    return verifySignature(apiSecret, body, signature);
+    return verifyWebhookSignature(apiSecret, body, signature);
   }
 
   private static String bytesToHex(byte[] hash) {
