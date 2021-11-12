@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2021-11-12
+
+- Make StreamException constructors public
+- Add ability to use SDK with multile clients. Now we can pass custom client implementation to every
+request object.
+```java
+    var client = new DefaultClient();
+    var response = App.get().withClient(client).request();
+```
+- Add `App.verifyWebhookSignature`
+- Add `User.create_token(String apiSecret, String userId, Date expiresAt, Date issuedAt)`
+
 ## [1.4.0] - 2021-11-03
 
 - Add deleteMany for Channels
