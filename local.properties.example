@@ -8,4 +8,3 @@ io.getstream.chat.apiKey=
 io.getstream.chat.apiSecret=
 io.getstream.chat.url=https://chat.stream-io-api.com
 io.getstream.chat.timeout=10000
-# io.getstream.chat.test.logging=false

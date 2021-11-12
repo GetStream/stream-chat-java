@@ -6,14 +6,10 @@ import io.getstream.chat.java.models.Blocklist.BlocklistUpdateRequestData.Blockl
 import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.BlocklistService;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
+import io.getstream.chat.java.services.framework.Client;
 import java.util.Date;
 import java.util.List;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -52,9 +48,8 @@ public class Blocklist {
 
     public static class BlocklistCreateRequest extends StreamRequest<StreamResponseObject> {
       @Override
-      protected Call<StreamResponseObject> generateCall() {
-        return StreamServiceGenerator.createService(BlocklistService.class)
-            .create(this.internalBuild());
+      protected Call<StreamResponseObject> generateCall(Client client) {
+        return client.create(BlocklistService.class).create(this.internalBuild());
       }
     }
   }
@@ -64,8 +59,8 @@ public class Blocklist {
     @NotNull private String name;
 
     @Override
-    protected Call<BlocklistGetResponse> generateCall() {
-      return StreamServiceGenerator.createService(BlocklistService.class).get(name);
+    protected Call<BlocklistGetResponse> generateCall(Client client) {
+      return client.create(BlocklistService.class).get(name);
     }
   }
 
@@ -86,9 +81,8 @@ public class Blocklist {
       }
 
       @Override
-      protected Call<StreamResponseObject> generateCall() {
-        return StreamServiceGenerator.createService(BlocklistService.class)
-            .update(name, this.internalBuild());
+      protected Call<StreamResponseObject> generateCall(Client client) {
+        return client.create(BlocklistService.class).update(name, this.internalBuild());
       }
     }
   }
@@ -98,15 +92,15 @@ public class Blocklist {
     @NotNull private String name;
 
     @Override
-    protected Call<StreamResponseObject> generateCall() {
-      return StreamServiceGenerator.createService(BlocklistService.class).delete(name);
+    protected Call<StreamResponseObject> generateCall(Client client) {
+      return client.create(BlocklistService.class).delete(name);
     }
   }
 
   public static class BlocklistListRequest extends StreamRequest<BlocklistListResponse> {
     @Override
-    protected Call<BlocklistListResponse> generateCall() {
-      return StreamServiceGenerator.createService(BlocklistService.class).list();
+    protected Call<BlocklistListResponse> generateCall(Client client) {
+      return client.create(BlocklistService.class).list();
     }
   }
 

@@ -10,18 +10,12 @@ import io.getstream.chat.java.models.framework.RequestObjectBuilder;
 import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.ReactionService;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
+import io.getstream.chat.java.services.framework.Client;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.Singular;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -131,9 +125,8 @@ public class Reaction {
       }
 
       @Override
-      protected Call<ReactionSendResponse> generateCall() {
-        return StreamServiceGenerator.createService(ReactionService.class)
-            .send(messageId, this.internalBuild());
+      protected Call<ReactionSendResponse> generateCall(Client client) {
+        return client.create(ReactionService.class).send(messageId, this.internalBuild());
       }
     }
   }
@@ -152,9 +145,8 @@ public class Reaction {
     }
 
     @Override
-    protected Call<ReactionDeleteResponse> generateCall() {
-      return StreamServiceGenerator.createService(ReactionService.class)
-          .delete(messageId, type, userId);
+    protected Call<ReactionDeleteResponse> generateCall(Client client) {
+      return client.create(ReactionService.class).delete(messageId, type, userId);
     }
   }
 
@@ -179,8 +171,8 @@ public class Reaction {
     }
 
     @Override
-    protected Call<ReactionListResponse> generateCall() {
-      return StreamServiceGenerator.createService(ReactionService.class).list(messageId);
+    protected Call<ReactionListResponse> generateCall(Client client) {
+      return client.create(ReactionService.class).list(messageId);
     }
   }
 

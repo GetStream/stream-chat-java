@@ -10,15 +10,11 @@ import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.FlagService;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
+import io.getstream.chat.java.services.framework.Client;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.Singular;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
@@ -187,8 +183,8 @@ public class Flag {
 
     public static class FlagCreateRequest extends StreamRequest<FlagCreateResponse> {
       @Override
-      protected Call<FlagCreateResponse> generateCall() {
-        return StreamServiceGenerator.createService(FlagService.class).create(this.internalBuild());
+      protected Call<FlagCreateResponse> generateCall(Client client) {
+        return client.create(FlagService.class).create(this.internalBuild());
       }
     }
   }
@@ -216,8 +212,8 @@ public class Flag {
 
     public static class FlagDeleteRequest extends StreamRequest<FlagDeleteResponse> {
       @Override
-      protected Call<FlagDeleteResponse> generateCall() {
-        return StreamServiceGenerator.createService(FlagService.class).delete(this.internalBuild());
+      protected Call<FlagDeleteResponse> generateCall(Client client) {
+        return client.create(FlagService.class).delete(this.internalBuild());
       }
     }
   }
@@ -250,9 +246,8 @@ public class Flag {
 
     public static class FlagMessageQueryRequest extends StreamRequest<FlagMessageQueryResponse> {
       @Override
-      protected Call<FlagMessageQueryResponse> generateCall() {
-        return StreamServiceGenerator.createService(FlagService.class)
-            .messageQuery(this.internalBuild());
+      protected Call<FlagMessageQueryResponse> generateCall(Client client) {
+        return client.create(FlagService.class).messageQuery(this.internalBuild());
       }
     }
   }

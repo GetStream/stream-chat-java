@@ -22,11 +22,10 @@ import io.getstream.chat.java.models.framework.RequestObjectBuilder;
 import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.UserService;
-import io.getstream.chat.java.services.framework.StreamServiceGenerator;
+import io.getstream.chat.java.services.framework.Client;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -578,8 +577,8 @@ public class User {
       }
 
       @Override
-      protected Call<UserUpsertResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class).upsert(this.internalBuild());
+      protected Call<UserUpsertResponse> generateCall(Client client) {
+        return client.create(UserService.class).upsert(this.internalBuild());
       }
     }
   }
@@ -626,8 +625,8 @@ public class User {
 
     public static class UserListRequest extends StreamRequest<UserListResponse> {
       @Override
-      protected Call<UserListResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class).list(this.internalBuild());
+      protected Call<UserListResponse> generateCall(Client client) {
+        return client.create(UserService.class).list(this.internalBuild());
       }
     }
   }
@@ -644,9 +643,8 @@ public class User {
 
     public static class UserPartialUpdateRequest extends StreamRequest<UserPartialUpdateResponse> {
       @Override
-      protected Call<UserPartialUpdateResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class)
-            .partialUpdate(this.internalBuild());
+      protected Call<UserPartialUpdateResponse> generateCall(Client client) {
+        return client.create(UserService.class).partialUpdate(this.internalBuild());
       }
     }
   }
@@ -701,9 +699,8 @@ public class User {
 
     public static class UserQueryBannedRequest extends StreamRequest<UserQueryBannedResponse> {
       @Override
-      protected Call<UserQueryBannedResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class)
-            .queryBanned(this.internalBuild());
+      protected Call<UserQueryBannedResponse> generateCall(Client client) {
+        return client.create(UserService.class).queryBanned(this.internalBuild());
       }
     }
   }
@@ -759,8 +756,8 @@ public class User {
 
     public static class UserBanRequest extends StreamRequest<StreamResponseObject> {
       @Override
-      protected Call<StreamResponseObject> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class).ban(this.internalBuild());
+      protected Call<StreamResponseObject> generateCall(Client client) {
+        return client.create(UserService.class).ban(this.internalBuild());
       }
     }
   }
@@ -789,9 +786,8 @@ public class User {
       }
 
       @Override
-      protected Call<UserDeactivateResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class)
-            .deactivate(userId, this.internalBuild());
+      protected Call<UserDeactivateResponse> generateCall(Client client) {
+        return client.create(UserService.class).deactivate(userId, this.internalBuild());
       }
     }
   }
@@ -826,8 +822,9 @@ public class User {
     }
 
     @Override
-    protected Call<UserDeleteResponse> generateCall() {
-      return StreamServiceGenerator.createService(UserService.class)
+    protected Call<UserDeleteResponse> generateCall(Client client) {
+      return client
+          .create(UserService.class)
           .delete(userId, markMessagesDeleted, hardDelete, deleteConversationChannels);
     }
   }
@@ -855,7 +852,7 @@ public class User {
 
     public static class UserDeleteManyRequest extends StreamRequest<UserDeleteManyResponse> {
       @Override
-      protected Call<UserDeleteManyResponse> generateCall() throws StreamException {
+      protected Call<UserDeleteManyResponse> generateCall(Client client) throws StreamException {
         var data = this.internalBuild();
         if (data.deleteUserStrategy == DeleteStrategy.HARD) {
           var anyOtherOptionIsSoftDelete =
@@ -868,7 +865,7 @@ public class User {
           }
         }
 
-        return StreamServiceGenerator.createService(UserService.class).deleteMany(data);
+        return client.create(UserService.class).deleteMany(data);
       }
     }
   }
@@ -909,9 +906,8 @@ public class User {
       }
 
       @Override
-      protected Call<UserReactivateResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class)
-            .reactivate(userId, this.internalBuild());
+      protected Call<UserReactivateResponse> generateCall(Client client) {
+        return client.create(UserService.class).reactivate(userId, this.internalBuild());
       }
     }
   }
@@ -944,8 +940,8 @@ public class User {
 
     public static class UserMuteRequest extends StreamRequest<UserMuteResponse> {
       @Override
-      protected Call<UserMuteResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class).mute(this.internalBuild());
+      protected Call<UserMuteResponse> generateCall(Client client) {
+        return client.create(UserService.class).mute(this.internalBuild());
       }
     }
   }
@@ -978,8 +974,8 @@ public class User {
 
     public static class UserUnmuteRequest extends StreamRequest<StreamResponseObject> {
       @Override
-      protected Call<StreamResponseObject> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class).unmute(this.internalBuild());
+      protected Call<StreamResponseObject> generateCall(Client client) {
+        return client.create(UserService.class).unmute(this.internalBuild());
       }
     }
   }
@@ -995,9 +991,8 @@ public class User {
 
     public static class UserCreateGuestRequest extends StreamRequest<UserCreateGuestResponse> {
       @Override
-      protected Call<UserCreateGuestResponse> generateCall() {
-        return StreamServiceGenerator.createService(UserService.class)
-            .createGuest(this.internalBuild());
+      protected Call<UserCreateGuestResponse> generateCall(Client client) {
+        return client.create(UserService.class).createGuest(this.internalBuild());
       }
     }
   }
@@ -1007,8 +1002,8 @@ public class User {
     @NotNull private String userId;
 
     @Override
-    protected Call<UserExportResponse> generateCall() {
-      return StreamServiceGenerator.createService(UserService.class).export(userId);
+    protected Call<UserExportResponse> generateCall(Client client) {
+      return client.create(UserService.class).export(userId);
     }
   }
 
@@ -1033,8 +1028,8 @@ public class User {
     }
 
     @Override
-    protected Call<StreamResponseObject> generateCall() {
-      return StreamServiceGenerator.createService(UserService.class).unban(targetUserId, type, id);
+    protected Call<StreamResponseObject> generateCall(Client client) {
+      return client.create(UserService.class).unban(targetUserId, type, id);
     }
   }
 
@@ -1045,10 +1040,11 @@ public class User {
     @Nullable private Date revokeTokensIssuedBefore;
 
     @Override
-    protected Call<UserPartialUpdateResponse> generateCall() {
+    protected Call<UserPartialUpdateResponse> generateCall(Client client) {
       DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
       formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-      return StreamServiceGenerator.createService(UserService.class)
+      return client
+          .create(UserService.class)
           .partialUpdate(
               new UserPartialUpdateRequest()
                   .users(
@@ -1375,14 +1371,16 @@ public class User {
   @NotNull
   public static String createToken(
       @NotNull String userId, @Nullable Date expiresAt, @Nullable Date issuedAt) {
-    String apiSecret =
-        System.getenv("STREAM_SECRET") != null
-            ? System.getenv("STREAM_SECRET")
-            : System.getProperty("STREAM_SECRET");
+    return createToken(Client.getInstance().getApiSecret(), userId, expiresAt, issuedAt);
+  }
 
-    apiSecret = (apiSecret != null) ? apiSecret : System.getProperty("io.getstream.chat.apiSecret");
-
-    Key signingKey =
+  @NotNull
+  public static String createToken(
+      @NotNull String apiSecret,
+      @NotNull String userId,
+      @Nullable Date expiresAt,
+      @Nullable Date issuedAt) {
+    var signingKey =
         new SecretKeySpec(
             apiSecret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
 
