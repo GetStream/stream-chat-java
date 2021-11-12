@@ -884,7 +884,7 @@ public class App extends StreamResponseObject {
   /**
    * Validates if hmac signature is correct for message body.
    *
-   * @param body the message body
+   * @param body raw body from http request converted to a string.
    * @param signature the signature provided in X-Signature header
    * @return true if the signature is valid
    */
@@ -896,7 +896,7 @@ public class App extends StreamResponseObject {
    * Validates if hmac signature is correct for message body.
    *
    * @param apiSecret the secret key
-   * @param body the message body
+   * @param body raw body from http request converted to a string.
    * @param signature the signature provided in X-Signature header
    * @return true if the signature is valid
    */
