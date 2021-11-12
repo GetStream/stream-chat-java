@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.5.0] - 2021-11-12
 
 - Make StreamException constructors public
+- Add ability to use SDK with multile clients. Now we can pass custom client implementation to every
+request object.
+```java
+    var client = new DefaultClien();
+    var response = App.get().withClient(client).request();
+```
+- Add `App.verifyWebhookSignature`
+- Add `User.create_token(String apiSecret, String userId, Date expiresAt, Date issuedAt)`
 
 ## [1.4.0] - 2021-11-03
 
