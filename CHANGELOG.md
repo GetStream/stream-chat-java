@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.5.0] - 2021-11-12
 
 - Make StreamException constructors public
-- Add ability to use SDK with multile clients. Now we can pass custom client implementation to every
+- Add ability to use SDK with multiple clients. Now, we can pass a custom client implementation to every
 request object.
 ```java
     var client = new DefaultClient();
