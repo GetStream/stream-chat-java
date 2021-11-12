@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add ability to use SDK with multile clients. Now we can pass custom client implementation to every
 request object.
 ```java
-    var client = new DefaultClien();
+    var client = new DefaultClient();
     var response = App.get().withClient(client).request();
 ```
 - Add `App.verifyWebhookSignature`
