@@ -40,7 +40,9 @@ public interface ChannelService {
 
   @POST("channels/{type}/{id}/truncate")
   Call<ChannelTruncateResponse> truncate(
-      @NotNull @Path("type") String channelType, @NotNull @Path("id") String channelId);
+      @NotNull @Path("type") String channelType,
+      @NotNull @Path("id") String channelId,
+      @Nullable @Body ChannelTruncateRequestData channelTruncateRequestData);
 
   @GET("members")
   Call<ChannelQueryMembersResponse> queryMembers(
