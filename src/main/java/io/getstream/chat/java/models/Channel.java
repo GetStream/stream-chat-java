@@ -455,6 +455,10 @@ public class Channel {
     private Boolean skipPush;
 
     @Nullable
+    @JsonProperty("hide_history")
+    private Boolean hideHistory;
+
+    @Nullable
     @JsonProperty("data")
     private ChannelRequestObject data;
 
