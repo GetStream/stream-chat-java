@@ -790,6 +790,10 @@ Add/remove members
 
 ```java
 Channel.update(type, id).addMember("thierry").addMember("josh").request();
+// Or hiding the history of the channel when adding a new member
+Channel.update(type, id).addMember("john").hideHistory(true).request();
+
+// Removing a member
 Channel.update(type, id).removeMember("tommaso").request();
 ```
 
