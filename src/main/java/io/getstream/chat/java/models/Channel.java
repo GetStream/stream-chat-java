@@ -12,6 +12,7 @@ import io.getstream.chat.java.models.Channel.ChannelMuteRequestData.ChannelMuteR
 import io.getstream.chat.java.models.Channel.ChannelPartialUpdateRequestData.ChannelPartialUpdateRequest;
 import io.getstream.chat.java.models.Channel.ChannelQueryMembersRequestData.ChannelQueryMembersRequest;
 import io.getstream.chat.java.models.Channel.ChannelShowRequestData.ChannelShowRequest;
+import io.getstream.chat.java.models.Channel.ChannelTruncateRequestData.ChannelTruncateRequest;
 import io.getstream.chat.java.models.Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest;
 import io.getstream.chat.java.models.Channel.ChannelUpdateRequestData.ChannelUpdateRequest;
 import io.getstream.chat.java.models.ChannelType.BlocklistBehavior;
@@ -587,15 +588,43 @@ public class Channel {
     }
   }
 
-  @RequiredArgsConstructor
-  public static class ChannelTruncateRequest extends StreamRequest<ChannelTruncateResponse> {
-    @NotNull private String channelType;
+  @Builder(
+      builderClassName = "ChannelTruncateRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class ChannelTruncateRequestData {
+    @Nullable
+    @JsonProperty("hard_delete")
+    private boolean hardDelete;
 
-    @NotNull private String channelId;
+    @Nullable
+    @JsonProperty("skip_push")
+    private boolean skipPush;
 
-    @Override
-    protected Call<ChannelTruncateResponse> generateCall(Client client) {
-      return client.create(ChannelService.class).truncate(this.channelType, this.channelId);
+    @Nullable
+    @JsonProperty("truncated_at")
+    private Date truncatedAt;
+
+    @Nullable
+    @JsonProperty("message")
+    private MessageRequestObject message;
+
+    public static class ChannelTruncateRequest extends StreamRequest<ChannelTruncateResponse> {
+      @NotNull private String channelType;
+
+      @NotNull private String channelId;
+
+      private ChannelTruncateRequest(@NotNull String channelType, @Nullable String channelId) {
+        this.channelId = channelId;
+        this.channelType = channelType;
+      }
+
+      @Override
+      protected Call<ChannelTruncateResponse> generateCall(Client client) {
+        return client
+            .create(ChannelService.class)
+            .truncate(this.channelType, this.channelId, this.internalBuild());
+      }
     }
   }
 

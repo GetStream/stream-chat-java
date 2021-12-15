@@ -3,6 +3,7 @@ package io.getstream.chat.java;
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.Channel.*;
 import io.getstream.chat.java.models.DeleteStrategy;
+import io.getstream.chat.java.models.Message.MessageRequestObject;
 import io.getstream.chat.java.models.Sort;
 import io.getstream.chat.java.models.Sort.Direction;
 import io.getstream.chat.java.models.User;
@@ -113,12 +114,37 @@ public class ChannelTest extends BasicTest {
     // We should not use testChannel to not remove testMessage
     ChannelGetResponse channelGetResponse =
         Assertions.assertDoesNotThrow(() -> createRandomChannel());
-    Assertions.assertDoesNotThrow(
-        () ->
-            Channel.truncate(
-                    channelGetResponse.getChannel().getType(),
-                    channelGetResponse.getChannel().getId())
-                .request());
+    ChannelTruncateResponse resp =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.truncate(
+                        channelGetResponse.getChannel().getType(),
+                        channelGetResponse.getChannel().getId())
+                    .request());
+    Assertions.assertNotNull(resp.getChannel());
+  }
+
+  @DisplayName("Can truncate channel with options")
+  @Test
+  void whenTruncateChannelWithOptions_thenNoException() {
+    // We should not use testChannel to not remove testMessage
+    ChannelGetResponse channelGetResponse =
+        Assertions.assertDoesNotThrow(() -> createRandomChannel());
+    MessageRequestObject message =
+        MessageRequestObject.builder()
+            .text("Truncate channel")
+            .userId(testUserRequestObject.getId())
+            .build();
+    ChannelTruncateResponse resp =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.truncate(
+                        channelGetResponse.getChannel().getType(),
+                        channelGetResponse.getChannel().getId())
+                    .skipPush(true)
+                    .message(message)
+                    .request());
+    Assertions.assertNotNull(resp.getChannel());
   }
 
   @DisplayName("Can query channel members")
