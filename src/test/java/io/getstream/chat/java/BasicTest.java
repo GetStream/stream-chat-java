@@ -83,7 +83,7 @@ public class BasicTest {
         () -> {
           var commands =
               Assertions.assertDoesNotThrow(() -> Command.list().request().getCommands());
-          return commands == null || commands.size() == 0;
+          return commands.size() == 5; // Built-in 5 commands
         });
   }
 
