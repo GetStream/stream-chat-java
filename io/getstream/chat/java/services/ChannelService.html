@@ -227,8 +227,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i14" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelTruncateResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelTruncateResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#truncate(java.lang.String,java.lang.String)">truncate</a></span>&#8203;(java.lang.String&nbsp;channelType,
-        java.lang.String&nbsp;channelId)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#truncate(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelTruncateRequestData)">truncate</a></span>&#8203;(java.lang.String&nbsp;channelType,
+        java.lang.String&nbsp;channelId,
+        <a href="../models/Channel.ChannelTruncateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelTruncateRequestData</a>&nbsp;channelTruncateRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i15" class="rowColor">
@@ -338,7 +339,7 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelListResponse.html" title="cl
                                                  <a href="../models/Channel.ChannelListRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelListRequestData</a>&nbsp;channelListRequestData)</pre>
 </li>
 </ul>
-<a id="truncate(java.lang.String,java.lang.String)">
+<a id="truncate(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelTruncateRequestData)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -348,7 +349,9 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelListResponse.html" title="cl
 retrofit2.Call&lt;<a href="../models/Channel.ChannelTruncateResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelTruncateResponse</a>&gt;&nbsp;truncate&#8203;(@NotNull @Path("type")
                                                          java.lang.String&nbsp;channelType,
                                                          @NotNull @Path("id")
-                                                         java.lang.String&nbsp;channelId)</pre>
+                                                         java.lang.String&nbsp;channelId,
+                                                         @Nullable @Body
+                                                         <a href="../models/Channel.ChannelTruncateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelTruncateRequestData</a>&nbsp;channelTruncateRequestData)</pre>
 </li>
 </ul>
 <a id="queryMembers(io.getstream.chat.java.models.Channel.ChannelQueryMembersRequestData)">
