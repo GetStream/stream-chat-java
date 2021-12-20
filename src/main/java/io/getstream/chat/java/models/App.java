@@ -102,6 +102,14 @@ public class App extends StreamResponseObject {
 
   @Data
   @NoArgsConstructor
+  public static class HuaweiConfig {
+    @NotNull
+    @JsonProperty("enabled")
+    private Boolean enabled;
+  }
+
+  @Data
+  @NoArgsConstructor
   public static class PushNotificationFields {
     @NotNull
     @JsonProperty("version")
@@ -114,6 +122,10 @@ public class App extends StreamResponseObject {
     @NotNull
     @JsonProperty("firebase")
     private FirebaseConfig firebaseConfig;
+
+    @NotNull
+    @JsonProperty("huawei")
+    private HuaweiConfig huaweiConfig;
   }
 
   @Data
@@ -255,6 +267,14 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("revoke_tokens_issued_before")
     private Date revokeTokensIssuedBefore;
+
+    @Nullable
+    @JsonProperty("grants")
+    private Map<String, List<String>> grants;
+
+    @Nullable
+    @JsonProperty("webhook_events")
+    private List<String> webhookEvents;
   }
 
   public enum PermissionVersion {
@@ -457,6 +477,18 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Setter
+  public static class HuaweiConfigRequestObject {
+    @Nullable
+    @JsonProperty("id")
+    private String id;
+
+    @Nullable
+    @JsonProperty("secret")
+    private String secret;
+  }
+
+  @Builder
+  @Setter
   public static class PushConfigRequestObject {
     @Nullable
     @JsonProperty("version")
@@ -499,6 +531,11 @@ public class App extends StreamResponseObject {
     @JsonProperty("firebase_config")
     @JsonInclude(Include.NON_NULL)
     private FirebaseConfigRequestObject firebaseConfig;
+
+    @Nullable
+    @JsonProperty("huawei_config")
+    @JsonInclude(Include.NON_NULL)
+    private HuaweiConfigRequestObject huaweiConfig;
 
     @Nullable
     @JsonProperty("push_config")
@@ -581,6 +618,10 @@ public class App extends StreamResponseObject {
     private String webhookURL;
 
     @Nullable
+    @JsonProperty("webhook_events")
+    private List<String> webhookEvents;
+
+    @Nullable
     @JsonProperty("multi_tenant_enabled")
     @JsonInclude(Include.NON_NULL)
     private Boolean multiTenantEnabled;
@@ -594,6 +635,15 @@ public class App extends StreamResponseObject {
     @JsonProperty("channel_hide_members_only")
     @JsonInclude(Include.NON_NULL)
     private Boolean channelHideMembersOnly;
+
+    @Nullable
+    @JsonProperty("migrate_permissions_to_v2")
+    @JsonInclude(Include.NON_NULL)
+    private Boolean migratePermissionsToV2;
+
+    @Nullable
+    @JsonProperty("grants")
+    private Map<String, List<String>> grants;
 
     public static class AppUpdateRequest extends StreamRequest<StreamResponseObject> {
       @Override
