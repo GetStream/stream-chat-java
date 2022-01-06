@@ -120,6 +120,10 @@ public class ChannelType {
   @JsonProperty("permissions")
   private List<Policy> permissions;
 
+  @Nullable
+  @JsonProperty("grants")
+  private Map<String, List<String>> grants;
+
   @Data
   @NoArgsConstructor
   public static class Threshold {
@@ -369,6 +373,10 @@ public class ChannelType {
     protected List<PermissionRequestObject> permissions;
 
     @Nullable
+    @JsonProperty("grants")
+    protected Map<String, List<String>> grants;
+
+    @Nullable
     @JsonProperty("name")
     private String name;
 
@@ -495,6 +503,10 @@ public class ChannelType {
     @Nullable
     @JsonProperty("permissions")
     protected List<PermissionRequestObject> permissions;
+
+    @Nullable
+    @JsonProperty("grants")
+    protected Map<String, List<String>> grants;
 
     public static class ChannelTypeUpdateRequest extends StreamRequest<ChannelTypeUpdateResponse> {
       @NotNull private String name;

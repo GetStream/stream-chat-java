@@ -90,4 +90,10 @@ public interface ChannelService {
       @NotNull @Path("type") String channelType,
       @NotNull @Path("id") String channelId,
       @NotNull @Body ChannelPartialUpdateRequestData channelPartialUpdateRequestData);
+
+  @POST("channels/{type}/{id}")
+  Call<ChannelUpdateResponse> assignRoles(
+      @NotNull @Path("type") String channelType,
+      @NotNull @Path("id") String channelId,
+      @NotNull @Body AssignRoleRequestData assignRoleRequestData);
 }

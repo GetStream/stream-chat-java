@@ -312,4 +312,19 @@ public class ChannelTest extends BasicTest {
                     .getChannel());
     Assertions.assertEquals(updatedTeam, updateChannel.getTeam());
   }
+
+  @DisplayName("Can assign roles")
+  @Test
+  void whenAssigningRole_throwsNoError() {
+    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
+    var assignment = new RoleAssignment();
+    assignment.setChannelRole("channel_moderator");
+    assignment.setUserId(testUserRequestObject.getId());
+
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.assignRoles(channel.getType(), channel.getId())
+                .assignRole(assignment)
+                .request());
+  }
 }

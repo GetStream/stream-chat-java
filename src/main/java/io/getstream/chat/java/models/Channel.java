@@ -2,6 +2,7 @@ package io.getstream.chat.java.models;
 
 import com.fasterxml.jackson.annotation.*;
 import io.getstream.chat.java.exceptions.StreamException;
+import io.getstream.chat.java.models.Channel.AssignRoleRequestData.AssignRoleRequest;
 import io.getstream.chat.java.models.Channel.ChannelExportRequestData.ChannelExportRequest;
 import io.getstream.chat.java.models.Channel.ChannelGetRequestData.ChannelGetRequest;
 import io.getstream.chat.java.models.Channel.ChannelHideRequestData.ChannelHideRequest;
@@ -176,6 +177,18 @@ public class Channel {
     @Nullable
     @JsonProperty("shadow_banned")
     private Boolean shadowBanned;
+  }
+
+  @Data
+  @NoArgsConstructor
+  public static class RoleAssignment {
+    @Nullable
+    @JsonProperty("channel_role")
+    private String channelRole;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
   }
 
   @Builder
@@ -486,6 +499,39 @@ public class Channel {
         return client
             .create(ChannelService.class)
             .update(this.channelType, this.channelId, this.internalBuild());
+      }
+    }
+  }
+
+  @Builder(
+      builderClassName = "AssignRoleRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class AssignRoleRequestData {
+    @Singular
+    @Nullable
+    @JsonProperty("assign_roles")
+    private List<RoleAssignment> assignRoles;
+
+    @Nullable
+    @JsonProperty("message")
+    private MessageRequestObject message;
+
+    public static class AssignRoleRequest extends StreamRequest<ChannelUpdateResponse> {
+      @NotNull private String channelType;
+
+      @NotNull private String channelId;
+
+      private AssignRoleRequest(@NotNull String channelType, @NotNull String channelId) {
+        this.channelId = channelId;
+        this.channelType = channelType;
+      }
+
+      @Override
+      protected Call<ChannelUpdateResponse> generateCall(Client client) {
+        return client
+            .create(ChannelService.class)
+            .assignRoles(this.channelType, this.channelId, this.internalBuild());
       }
     }
   }
@@ -1415,5 +1461,17 @@ public class Channel {
   public static ChannelPartialUpdateRequest partialUpdate(
       @NotNull String type, @NotNull String id) {
     return new ChannelPartialUpdateRequest(type, id);
+  }
+
+  /**
+   * Creates an assign role request
+   *
+   * @param type the channel type
+   * @param id the channel id
+   * @return the created request
+   */
+  @NotNull
+  public static AssignRoleRequest assignRoles(@NotNull String type, @NotNull String id) {
+    return new AssignRoleRequest(type, id);
   }
 }

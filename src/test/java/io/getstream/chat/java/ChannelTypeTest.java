@@ -8,6 +8,8 @@ import io.getstream.chat.java.models.ChannelType.AutoMod;
 import io.getstream.chat.java.models.ChannelType.ChannelTypeListResponse;
 import io.getstream.chat.java.models.Command;
 import io.getstream.chat.java.models.ResourceAction;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.*;
@@ -131,5 +133,29 @@ public class ChannelTypeTest extends BasicTest {
     pause();
     Assertions.assertDoesNotThrow(
         () -> ChannelType.update(channelName).automod(AutoMod.SIMPLE).request());
+  }
+
+  @DisplayName("Can create channel type with specific grants")
+  @Test
+  void whenManipulatingChannelTypeWithGrants_throwsNoException() {
+    String channelTypeName = RandomStringUtils.randomAlphabetic(10);
+    var expectedGrants = List.of("read-channel", "create-message");
+    var channelGrants = new HashMap<String, List<String>>();
+    channelGrants.put("channel_member", expectedGrants);
+    Assertions.assertDoesNotThrow(
+        () ->
+            ChannelType.create()
+                .withDefaultConfig()
+                .grants(channelGrants)
+                .name(channelTypeName)
+                .request());
+    waitFor(
+        () -> {
+          var channelType =
+              Assertions.assertDoesNotThrow(() -> ChannelType.get(channelTypeName).request());
+          var actualGrants = channelType.getGrants().get("channel_member");
+
+          return new HashSet<>(actualGrants).equals(new HashSet<>(expectedGrants));
+        });
   }
 }
