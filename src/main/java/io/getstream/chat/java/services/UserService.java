@@ -64,5 +64,6 @@ public interface UserService {
   Call<StreamResponseObject> unban(
       @NotNull @Query("target_user_id") String targetUserId,
       @Nullable @Query("type") String channelType,
-      @Nullable @Query("id") String channelId);
+      @Nullable @Query("id") String channelId,
+      @Nullable @Query("shadow") Boolean shadow);
 }

@@ -1015,6 +1015,8 @@ public class User {
 
     @Nullable private String id;
 
+    @Nullable private Boolean shadow;
+
     @NotNull
     public UserUnbanRequest type(@NotNull String type) {
       this.type = type;
@@ -1027,9 +1029,15 @@ public class User {
       return this;
     }
 
+    @NotNull
+    public UserUnbanRequest shadow(@NotNull Boolean shadow) {
+      this.shadow = shadow;
+      return this;
+    }
+
     @Override
     protected Call<StreamResponseObject> generateCall(Client client) {
-      return client.create(UserService.class).unban(targetUserId, type, id);
+      return client.create(UserService.class).unban(targetUserId, type, id, shadow);
     }
   }
 
@@ -1213,7 +1221,15 @@ public class User {
   public static UserBanRequest ban() {
     return new UserBanRequest();
   }
-
+  /**
+   * Creates a shadow ban request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static UserBanRequest shadowBan() {
+    return new UserBanRequest().shadow(true);
+  }
   /**
    * Creates a query banned request
    *
@@ -1342,6 +1358,16 @@ public class User {
     return new UserUnbanRequest(targetUserId);
   }
 
+  /**
+   * Creates a remove shadow ban request
+   *
+   * @param targetUserId the user id to unban
+   * @return the created request
+   */
+  @NotNull
+  public static UserUnbanRequest removeShadowBan(@NotNull String targetUserId) {
+    return new UserUnbanRequest(targetUserId).shadow(true);
+  }
   /**
    * Creates a revoke token request
    *
