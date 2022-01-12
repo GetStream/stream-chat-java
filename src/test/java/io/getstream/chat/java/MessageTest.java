@@ -576,4 +576,30 @@ public class MessageTest extends BasicTest {
             .getMessage();
     Assertions.assertEquals(updatedText, updatedMessage.getText());
   }
+
+  @DisplayName("Can pin a message")
+  @Test
+  void whenPinningAMessage_thenIsPinned() {
+    Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
+    Message updatedMessage =
+        Assertions.assertDoesNotThrow(
+                () -> Message.pinMessage(message.getId(), testUserRequestObject.getId()).request())
+            .getMessage();
+    Assertions.assertTrue(updatedMessage.getPinned());
+  }
+
+  @DisplayName("Can unpin a message")
+  @Test
+  void whenUnpinningAMessage_thenIsUnpinned() {
+    Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
+    Assertions.assertDoesNotThrow(
+            () -> Message.pinMessage(message.getId(), testUserRequestObject.getId()).request())
+        .getMessage();
+    var unPinnedMessage =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.unpinMessage(message.getId(), testUserRequestObject.getId()).request())
+            .getMessage();
+    Assertions.assertFalse(unPinnedMessage.getPinned());
+  }
 }

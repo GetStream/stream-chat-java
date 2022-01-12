@@ -76,6 +76,23 @@ public class UserTest extends BasicTest {
     Assertions.assertTrue(bans.stream().anyMatch(ban -> ban.getUser().getId().equals(userId)));
   }
 
+  @DisplayName("Can shadow ban user")
+  @Test
+  void whenShadowBanUser_thenIsShadowBanned() {
+    String userId = RandomStringUtils.randomAlphabetic(10);
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.user(
+        UserRequestObject.builder().id(userId).name("User to shadowban").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.shadowBan().userId(testUserRequestObject.getId()).targetUserId(userId).request());
+    List<Ban> bans = Assertions.assertDoesNotThrow(() -> User.queryBanned().request()).getBans();
+    var banned =
+        bans.stream().filter(ban -> ban.getUser().getId().equals(userId)).findFirst().get();
+    Assertions.assertTrue(banned.getShadow());
+  }
+
   @DisplayName("Can list banned user")
   @Test
   void whenListingBannedUsers_thenContainsBanned() {
@@ -232,6 +249,22 @@ public class UserTest extends BasicTest {
     Assertions.assertTrue(bans.stream().anyMatch(ban -> ban.getUser().getId().equals(userId)));
     Assertions.assertDoesNotThrow(() -> User.unban(userId).request());
     bans = Assertions.assertDoesNotThrow(() -> User.queryBanned().request()).getBans();
+    Assertions.assertFalse(bans.stream().anyMatch(ban -> ban.getUser().getId().equals(userId)));
+  }
+
+  @DisplayName("Can remove a shadow ban")
+  @Test
+  void whenRemovingShadowBan_thenIsRemoved() {
+    String userId = RandomStringUtils.randomAlphabetic(10);
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.user(
+        UserRequestObject.builder().id(userId).name("User to shadowban").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.shadowBan().userId(testUserRequestObject.getId()).targetUserId(userId).request());
+    Assertions.assertDoesNotThrow(() -> User.removeShadowBan(userId).request());
+    List<Ban> bans = Assertions.assertDoesNotThrow(() -> User.queryBanned().request()).getBans();
     Assertions.assertFalse(bans.stream().anyMatch(ban -> ban.getUser().getId().equals(userId)));
   }
 

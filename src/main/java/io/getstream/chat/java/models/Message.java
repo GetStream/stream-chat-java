@@ -1531,4 +1531,48 @@ public class Message {
   public static MessagePartialUpdateRequest partialUpdate(@NotNull String id) {
     return new MessagePartialUpdateRequest(id);
   }
+
+  /**
+   * Creates a pin message request without expiration. It invokes message partial update under the
+   * hood.
+   *
+   * @param id the message id
+   * @param userId id of the user who pins the message
+   * @return the created request
+   */
+  @NotNull
+  public static MessagePartialUpdateRequest pinMessage(@NotNull String id, @NotNull String userId) {
+    return new MessagePartialUpdateRequest(id).setValue("pinned", true).userId(userId);
+  }
+
+  /**
+   * Creates a pin message request with expiration. It invokes message partial update under the
+   * hood.
+   *
+   * @param id the message id
+   * @param userId id of the user who pins the message
+   * @param expiration expiration of the pin
+   * @return the created request
+   */
+  @NotNull
+  public static MessagePartialUpdateRequest pinMessage(
+      @NotNull String id, @NotNull String userId, @NotNull Date expiration) {
+    return new MessagePartialUpdateRequest(id)
+        .setValue("pinned", true)
+        .setValue("pin_expires", expiration)
+        .userId(userId);
+  }
+
+  /**
+   * Creates an unpin message request. It invokes message partial update under the hood.
+   *
+   * @param id the message id
+   * @param userId id of the user who unpins the message
+   * @return the created request
+   */
+  @NotNull
+  public static MessagePartialUpdateRequest unpinMessage(
+      @NotNull String id, @NotNull String userId) {
+    return new MessagePartialUpdateRequest(id).setValue("pinned", false).userId(userId);
+  }
 }
