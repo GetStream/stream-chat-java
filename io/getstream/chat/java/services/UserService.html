@@ -205,9 +205,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unban(java.lang.String,java.lang.String,java.lang.String)">unban</a></span>&#8203;(java.lang.String&nbsp;targetUserId,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unban(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)">unban</a></span>&#8203;(java.lang.String&nbsp;targetUserId,
      java.lang.String&nbsp;channelType,
-     java.lang.String&nbsp;channelId)</code></th>
+     java.lang.String&nbsp;channelId,
+     java.lang.Boolean&nbsp;shadow)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i12" class="altColor">
@@ -390,7 +391,7 @@ retrofit2.Call&lt;<a href="../models/User.UserCreateGuestResponse.html" title="c
                                                          <a href="../models/User.UserCreateGuestRequestData.html" title="class in io.getstream.chat.java.models">User.UserCreateGuestRequestData</a>&nbsp;userCreateGuestRequestData)</pre>
 </li>
 </ul>
-<a id="unban(java.lang.String,java.lang.String,java.lang.String)">
+<a id="unban(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -402,7 +403,9 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
                                            @Nullable @Query("type")
                                            java.lang.String&nbsp;channelType,
                                            @Nullable @Query("id")
-                                           java.lang.String&nbsp;channelId)</pre>
+                                           java.lang.String&nbsp;channelId,
+                                           @Nullable @Query("shadow")
+                                           java.lang.Boolean&nbsp;shadow)</pre>
 </li>
 </ul>
 </li>

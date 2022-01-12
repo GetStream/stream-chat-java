@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":10,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9,"i15":9,"i16":9,"i17":10,"i18":9,"i19":9,"i20":9,"i21":9};
+var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":10,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9,"i15":9,"i16":9,"i17":9,"i18":10,"i19":9,"i20":9,"i21":9,"i22":9,"i23":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -476,6 +476,13 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i15" class="rowColor">
+<td class="colFirst"><code>static <a href="User.UserUnbanRequest.html" title="class in io.getstream.chat.java.models">User.UserUnbanRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeShadowBan(java.lang.String)">removeShadowBan</a></span>&#8203;(java.lang.String&nbsp;targetUserId)</code></th>
+<td class="colLast">
+<div class="block">Creates a remove shadow ban request</div>
+</td>
+</tr>
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>static <a href="User.UserRevokeTokensRequest.html" title="class in io.getstream.chat.java.models">User.UserRevokeTokensRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#revokeToken(java.lang.String,java.util.Date)">revokeToken</a></span>&#8203;(java.lang.String&nbsp;userId,
            java.util.Date&nbsp;revokeTokensIssuedBefore)</code></th>
@@ -483,7 +490,7 @@ extends java.lang.Object</pre>
 <div class="block">Creates a revoke token request</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>static <a href="User.UserRevokeTokensRequest.html" title="class in io.getstream.chat.java.models">User.UserRevokeTokensRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#revokeTokens(java.util.List,java.util.Date)">revokeTokens</a></span>&#8203;(java.util.List&lt;java.lang.String&gt;&nbsp;userIds,
             java.util.Date&nbsp;revokeTokensIssuedBefore)</code></th>
@@ -491,34 +498,41 @@ extends java.lang.Object</pre>
 <div class="block">Creates a revoke token request</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAdditionalField(java.lang.String,java.lang.Object)">setAdditionalField</a></span>&#8203;(java.lang.String&nbsp;name,
                   java.lang.Object&nbsp;value)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>static <a href="User.UserBanRequestData.UserBanRequest.html" title="class in io.getstream.chat.java.models">User.UserBanRequestData.UserBanRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#shadowBan()">shadowBan</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Creates a shadow ban request</div>
+</td>
+</tr>
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>static <a href="User.UserUnbanRequest.html" title="class in io.getstream.chat.java.models">User.UserUnbanRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unban(java.lang.String)">unban</a></span>&#8203;(java.lang.String&nbsp;targetUserId)</code></th>
 <td class="colLast">
 <div class="block">Creates an unban request</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>static <a href="Flag.FlagDeleteRequestData.FlagDeleteRequest.html" title="class in io.getstream.chat.java.models">Flag.FlagDeleteRequestData.FlagDeleteRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unflag(java.lang.String)">unflag</a></span>&#8203;(java.lang.String&nbsp;userId)</code></th>
 <td class="colLast">
 <div class="block">Creates an unflag request</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>static <a href="User.UserUnmuteRequestData.UserUnmuteRequest.html" title="class in io.getstream.chat.java.models">User.UserUnmuteRequestData.UserUnmuteRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unmute()">unmute</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates an unmute request</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>static <a href="User.UserUpsertRequestData.UserUpsertRequest.html" title="class in io.getstream.chat.java.models">User.UserUpsertRequestData.UserUpsertRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#upsert()">upsert</a></span>()</code></th>
 <td class="colLast">
@@ -641,6 +655,21 @@ public static&nbsp;<a href="User.UserPartialUpdateRequestData.UserPartialUpdateR
 <pre class="methodSignature">@NotNull
 public static&nbsp;<a href="User.UserBanRequestData.UserBanRequest.html" title="class in io.getstream.chat.java.models">User.UserBanRequestData.UserBanRequest</a>&nbsp;ban()</pre>
 <div class="block">Creates a ban request</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the created request</dd>
+</dl>
+</li>
+</ul>
+<a id="shadowBan()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>shadowBan</h4>
+<pre class="methodSignature">@NotNull
+public static&nbsp;<a href="User.UserBanRequestData.UserBanRequest.html" title="class in io.getstream.chat.java.models">User.UserBanRequestData.UserBanRequest</a>&nbsp;shadowBan()</pre>
+<div class="block">Creates a shadow ban request</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the created request</dd>
@@ -843,6 +872,24 @@ public static&nbsp;<a href="User.UserCreateGuestRequestData.UserCreateGuestReque
 public static&nbsp;<a href="User.UserUnbanRequest.html" title="class in io.getstream.chat.java.models">User.UserUnbanRequest</a>&nbsp;unban&#8203;(@NotNull
                                           java.lang.String&nbsp;targetUserId)</pre>
 <div class="block">Creates an unban request</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>targetUserId</code> - the user id to unban</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the created request</dd>
+</dl>
+</li>
+</ul>
+<a id="removeShadowBan(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>removeShadowBan</h4>
+<pre class="methodSignature">@NotNull
+public static&nbsp;<a href="User.UserUnbanRequest.html" title="class in io.getstream.chat.java.models">User.UserUnbanRequest</a>&nbsp;removeShadowBan&#8203;(@NotNull
+                                                    java.lang.String&nbsp;targetUserId)</pre>
+<div class="block">Creates a remove shadow ban request</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>targetUserId</code> - the user id to unban</dd>

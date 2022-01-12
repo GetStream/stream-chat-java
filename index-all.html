@@ -2100,6 +2100,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/ResourceAction.html#PIN_MESSAGE">PIN_MESSAGE</a></span> - Static variable in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/ResourceAction.html" title="class in io.getstream.chat.java.models">ResourceAction</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.html#pinMessage(java.lang.String,java.lang.String)">pinMessage(String, String)</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.html" title="class in io.getstream.chat.java.models">Message</a></dt>
+<dd>
+<div class="block">Creates a pin message request without expiration.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.html#pinMessage(java.lang.String,java.lang.String,java.util.Date)">pinMessage(String, String, Date)</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.html" title="class in io.getstream.chat.java.models">Message</a></dt>
+<dd>
+<div class="block">Creates a pin message request with expiration.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Language.html#PL">PL</a></span> - io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Language.html" title="enum in io.getstream.chat.java.models">Language</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.Policy.html#%3Cinit%3E()">Policy()</a></span> - Constructor for class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.Policy.html" title="class in io.getstream.chat.java.models">App.Policy</a></dt>
@@ -2218,6 +2226,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/ResourceAction.html#REMOVE_OWN_CHANNEL_MEMBERSHIP">REMOVE_OWN_CHANNEL_MEMBERSHIP</a></span> - Static variable in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/ResourceAction.html" title="class in io.getstream.chat.java.models">ResourceAction</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/User.html#removeShadowBan(java.lang.String)">removeShadowBan(String)</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/User.html" title="class in io.getstream.chat.java.models">User</a></dt>
+<dd>
+<div class="block">Creates a remove shadow ban request</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/ChannelType.ChannelTypeCreateRequestData.html#replies">replies</a></span> - Variable in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/ChannelType.ChannelTypeCreateRequestData.html" title="class in io.getstream.chat.java.models">ChannelType.ChannelTypeCreateRequestData</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/ChannelType.ChannelTypeUpdateRequestData.html#replies">replies</a></span> - Variable in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/ChannelType.ChannelTypeUpdateRequestData.html" title="class in io.getstream.chat.java.models">ChannelType.ChannelTypeUpdateRequestData</a></dt>
@@ -2404,6 +2416,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/framework/StreamResponseWithRateLimit.html#setRateLimit(io.getstream.chat.java.models.RateLimit)">setRateLimit(RateLimit)</a></span> - Method in interface io.getstream.chat.java.models.framework.<a href="io/getstream/chat/java/models/framework/StreamResponseWithRateLimit.html" title="interface in io.getstream.chat.java.models.framework">StreamResponseWithRateLimit</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/User.UserUnbanRequest.html#shadow(java.lang.Boolean)">shadow(Boolean)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/User.UserUnbanRequest.html" title="class in io.getstream.chat.java.models">User.UserUnbanRequest</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/User.html#shadowBan()">shadowBan()</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/User.html" title="class in io.getstream.chat.java.models">User</a></dt>
+<dd>
+<div class="block">Creates a shadow ban request</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Channel.html#show(java.lang.String,java.lang.String)">show(String, String)</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Channel.html" title="class in io.getstream.chat.java.models">Channel</a></dt>
 <dd>
 <div class="block">Creates a show request</div>
@@ -2548,7 +2566,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Creates an unban request</div>
 </dd>
-<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/UserService.html#unban(java.lang.String,java.lang.String,java.lang.String)">unban(String, String, String)</a></span> - Method in interface io.getstream.chat.java.services.<a href="io/getstream/chat/java/services/UserService.html" title="interface in io.getstream.chat.java.services">UserService</a></dt>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/UserService.html#unban(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)">unban(String, String, String, Boolean)</a></span> - Method in interface io.getstream.chat.java.services.<a href="io/getstream/chat/java/services/UserService.html" title="interface in io.getstream.chat.java.services">UserService</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.html#unflag(java.lang.String)">unflag(String)</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.html" title="class in io.getstream.chat.java.models">Message</a></dt>
 <dd>
@@ -2606,6 +2624,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/UserService.html#unmute(io.getstream.chat.java.models.User.UserUnmuteRequestData)">unmute(User.UserUnmuteRequestData)</a></span> - Method in interface io.getstream.chat.java.services.<a href="io/getstream/chat/java/services/UserService.html" title="interface in io.getstream.chat.java.services">UserService</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.html#unpinMessage(java.lang.String,java.lang.String)">unpinMessage(String, String)</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.html" title="class in io.getstream.chat.java.models">Message</a></dt>
+<dd>
+<div class="block">Creates an unpin message request.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.html#update()">update()</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.html" title="class in io.getstream.chat.java.models">App</a></dt>
 <dd>
 <div class="block">Creates an update request.</div>
