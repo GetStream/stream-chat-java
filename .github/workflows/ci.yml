@@ -1,0 +1,28 @@
+name: Build
+
+on: [pull_request]
+
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: 🧪 Test & lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Commit message lint
+        uses: wagoid/commitlint-github-action@v4
+
+      - name: Test
+        env:
+          STREAM_KEY: ${{ secrets.STREAM_KEY }}
+          STREAM_SECRET: ${{ secrets.STREAM_SECRET }}
+        run: |
+          ./gradlew spotlessCheck --no-daemon
+          ./gradlew test --no-daemon
