@@ -1,9 +1,17 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [1.6.0](https://github.com/GetStream/stream-chat-java/compare/1.5.0...1.6.0) (2022-01-18)
+
+
+### Features
+
+* add grants to channeltype ([#37](https://github.com/GetStream/stream-chat-java/issues/37)) ([2a2d5fb](https://github.com/GetStream/stream-chat-java/commit/2a2d5fb2b3ad7db4427bfad9bda3f6c92b33b31f))
+* add hidehistory to addmember ([#35](https://github.com/GetStream/stream-chat-java/issues/35)) ([ce27c41](https://github.com/GetStream/stream-chat-java/commit/ce27c4174aa7e922d9f2ce9aca23d62bc2a25037))
+* add missing requests ([#39](https://github.com/GetStream/stream-chat-java/issues/39)) ([237c7cb](https://github.com/GetStream/stream-chat-java/commit/237c7cbe2abf9462835532a09b5f6eae13c999cc))
+* add options to truncate ([#34](https://github.com/GetStream/stream-chat-java/issues/34)) ([25c3fb9](https://github.com/GetStream/stream-chat-java/commit/25c3fb9538c999e1a33557a10af21916746d81f4))
+* extend app config ([#36](https://github.com/GetStream/stream-chat-java/issues/36)) ([cdc129d](https://github.com/GetStream/stream-chat-java/commit/cdc129d48b91019b5a2e7382391c0e0f35754511))
 
 ## [1.5.0] - 2021-11-12
 
