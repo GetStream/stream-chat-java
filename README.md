@@ -1,4 +1,6 @@
-# Official Java SDK for [Stream Chat](https://getstream.io/chat/docs/) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.getstream/stream-chat-java/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/io.getstream/stream-chat-java) [![build](https://github.com/GetStream/stream-chat-java/workflows/Build/badge.svg)](https://github.com/GetStream/stream-chat-java/actions)
+# Official Java SDK for [Stream Chat](https://getstream.io/chat/docs/)
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.getstream/stream-chat-java/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/io.getstream/stream-chat-java) [![build](https://github.com/GetStream/stream-chat-java/workflows/Build/badge.svg)](https://github.com/GetStream/stream-chat-java/actions)
 
 The official Java API client for [Stream chat](https://getstream.io/chat/) a service for building chat applications.
 
