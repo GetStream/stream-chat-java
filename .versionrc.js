@@ -7,7 +7,7 @@ const gradleUpdater = {
     },
 
     writeVersion: function (contents, version) {
-        return contents.replace(this.VERSION_REGEX.exec(contents)[0], `VERSION = '${version}'`);
+        return contents.replace(this.VERSION_REGEX.exec(contents)[0], `version = '${version}'`);
     }
 }
 
