@@ -11,6 +11,7 @@ import java.security.Key;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import javax.crypto.spec.SecretKeySpec;
+import okhttp3.ConnectionPool;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -76,6 +77,7 @@ public class DefaultClient implements Client {
 
     OkHttpClient.Builder httpClient =
         new OkHttpClient.Builder()
+            .connectionPool(new ConnectionPool(5, 59, TimeUnit.SECONDS))
             .callTimeout(getStreamChatTimeout(properties), TimeUnit.MILLISECONDS);
     httpClient.interceptors().clear();
 
