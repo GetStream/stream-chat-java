@@ -191,6 +191,7 @@ public class ChannelTest extends BasicTest {
                                 .type(testChannel.getType())
                                 .id(testChannel.getId())
                                 .build())
+                        .exportUsers(false)
                         .request())
             .getTaskId();
     Assertions.assertDoesNotThrow(() -> Channel.exportStatus(taskId).request());

@@ -769,6 +769,22 @@ public class Channel {
     @JsonProperty("channels")
     private List<ChannelExportRequestObject> channels;
 
+    @Nullable
+    @JsonProperty("version")
+    private String version;
+
+    @Nullable
+    @JsonProperty("clear_deleted_message_text")
+    private Boolean clearDeletedMessageText;
+
+    @Nullable
+    @JsonProperty("include_truncated_messages")
+    private Boolean includeTruncatedMessages;
+
+    @Nullable
+    @JsonProperty("export_users")
+    private Boolean exportUsers;
+
     public static class ChannelExportRequest extends StreamRequest<ChannelExportResponse> {
       @Override
       protected Call<ChannelExportResponse> generateCall(Client client) {
