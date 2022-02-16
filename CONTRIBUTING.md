@@ -1,8 +1,45 @@
-# Guide to contribute to the Stream Chat Java SDK
-## Requirements
+# :recycle: Contributing <!-- omit in toc -->
+
+## Requirements <!-- omit in toc -->
 To contribute to this project, you need to have [Lombok](https://projectlombok.org/) installed in your IDE.
 You also need to use javac >= 11 to compile (ensure that your JAVA_HOME points to such a location), even if the produced library is compatible with Java 8 (for some reasons, jdk 8 compiler fails on some Lombok annotations).
 
+- [Setup the project](#setup-the-project)
+- [Architecture explanation](#architecture-explanation)
+  - [Model classes](#model-classes)
+  - [Request classes](#request-classes)
+  - [RequestData and RequestObject classes](#requestdata-and-requestobject-classes)
+  - [Response classes](#response-classes)
+  - [Service interfaces](#service-interfaces)
+  - [The StreamServiceGenerator class](#the-streamservicegenerator-class)
+  - [The StreamResponse interface and related classes](#the-streamresponse-interface-and-related-classes)
+  - [The StreamRequest and StreamServiceHandler classes](#the-streamrequest-and-streamservicehandler-classes)
+  - [Test classes](#test-classes)
+- [Code rules](#code-rules)
+- [How to](#how-to)
+  - [Enable logging](#enable-logging)
+  - [Add a new endpoint with request body schema or json query parameter](#add-a-new-endpoint-with-request-body-schema-or-json-query-parameter)
+    - [Create the Model and Service](#create-the-model-and-service)
+    - [Create the RequestObject classes](#create-the-requestobject-classes)
+    - [Create the xxxResponse class](#create-the-xxxresponse-class)
+    - [Create the xxxRequestData class](#create-the-xxxrequestdata-class)
+    - [Create the xxxRequest](#create-the-xxxrequest)
+    - [Add the endpoint path variables to the xxxRequest class](#add-the-endpoint-path-variables-to-the-xxxrequest-class)
+    - [Add the request creation method](#add-the-request-creation-method)
+    - [Add the service method](#add-the-service-method)
+    - [Make the xxxRequest extend StreamRequest<xxxResponse>](#make-the-xxxrequest-extend-streamrequestxxxresponse)
+    - [Update README.md (features and examples)](#update-readmemd-features-and-examples)
+  - [Add a new endpoint without request body schema or json query parameter](#add-a-new-endpoint-without-request-body-schema-or-json-query-parameter)
+    - [Create the Model and Service](#create-the-model-and-service-1)
+    - [Create the xxxResponse class](#create-the-xxxresponse-class-1)
+    - [Create the xxxRequest](#create-the-xxxrequest-1)
+    - [Add the request creation method](#add-the-request-creation-method-1)
+    - [Add the service method](#add-the-service-method-1)
+    - [Make the xxxRequest extend StreamRequest<xxxResponse>](#make-the-xxxrequest-extend-streamrequestxxxresponse-1)
+    - [Update DOCS.md (features and examples)](#update-docsmd-features-and-examples)
+  - [Add new fields to requests or responses](#add-new-fields-to-requests-or-responses)
+- [Commit message convention](#commit-message-convention)
+- [Releasing a new version (for Stream developers)](#releasing-a-new-version-for-stream-developers)
 ## Setup the project
 The project is a Maven project. For convenience, Eclipse files are provided in the repository, but it should be straightfoward to install in any other Java IDE.
 
@@ -128,7 +165,23 @@ You need to implement the `generateCall` method, calling the service using the `
 #### Make the xxxRequest extend StreamRequest<xxxResponse>
 You need to implement the `generateCall` method, calling the service using the `StreamServiceGenerator`
 
-#### Update README.md (features and examples)
+#### Update DOCS.md (features and examples)
 
 ### Add new fields to requests or responses
 If you want to add new fields, just add the corresponding attributes in the Request, RequestData or Response class. That's all :)
+
+## Commit message convention
+
+This repository follows a commit message convention in order to automatically generate the [CHANGELOG](./CHANGELOG.md). Make sure you follow the rules of [conventional commits](https://www.conventionalcommits.org/) when opening a pull request.
+
+## Releasing a new version (for Stream developers)
+
+In order to release new version you need to be a maintainer of the library.
+
+- Kick off a job called `initiate_release` ([link](https://github.com/GetStream/stream-chat-ruby/actions/workflows/initiate_release.yml)).
+
+The job creates a pull request with the changelog. Check if it looks good.
+
+- Merge the pull request.
+
+Once the PR is merged, it automatically kicks off another job which will upload the Gem to RubyGems.org and creates a GitHub release.
