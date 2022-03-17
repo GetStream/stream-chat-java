@@ -239,6 +239,25 @@ public class Channel {
     public static ChannelRequestObject buildFrom(@Nullable Channel channel) {
       return RequestObjectBuilder.build(ChannelRequestObject.class, channel);
     }
+
+    private ChannelRequestObject(
+        @Nullable UserRequestObject createdBy,
+        @Nullable String team,
+        @Nullable Boolean autoTranslationEnabled,
+        @Nullable Language autoTranslationLanguage,
+        @Nullable Boolean frozen,
+        @Nullable List<ChannelMemberRequestObject> members,
+        @Nullable ConfigOverridesRequestObject configOverrides,
+        Map<String, Object> additionalFields) {
+      this.createdBy = createdBy;
+      this.team = team;
+      this.autoTranslationEnabled = autoTranslationEnabled;
+      this.autoTranslationLanguage = autoTranslationLanguage;
+      this.frozen = frozen;
+      this.members = members;
+      this.configOverrides = configOverrides;
+      this.additionalFields = new HashMap<String, Object>(additionalFields);
+    }
   }
 
   @Builder

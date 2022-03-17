@@ -32,6 +32,47 @@ public class ChannelTest extends BasicTest {
                 .request());
   }
 
+  @DisplayName("Can set custom field on channel")
+  @Test
+  void whenSettingCustomField_thenNoException() {
+    var channelReq =
+        ChannelRequestObject.builder()
+            .createdBy(testUserRequestObject)
+            .members(buildChannelMembersList())
+            .build();
+    channelReq.setAdditionalField("fieldkey", "fieldvalue");
+    var channel =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.getOrCreate(testChannel.getType(), RandomStringUtils.randomAlphabetic(12))
+                    .data(channelReq)
+                    .request());
+    Assertions.assertEquals(
+        "fieldvalue", channel.getChannel().getAdditionalFields().get("fieldkey"));
+  }
+
+  @DisplayName("Can set custom field on channel after fields have already been set in builder")
+  @Test
+  void whenSettingCustomFieldInBuilderAndAfer_thenNoException() {
+    var channelReq =
+        ChannelRequestObject.builder()
+            .createdBy(testUserRequestObject)
+            .members(buildChannelMembersList())
+            .additionalField("fieldkey1", "fieldvalue1")
+            .build();
+    channelReq.setAdditionalField("fieldkey2", "fieldvalue2");
+    var channel =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.getOrCreate(testChannel.getType(), RandomStringUtils.randomAlphabetic(12))
+                    .data(channelReq)
+                    .request());
+    Assertions.assertEquals(
+        "fieldvalue1", channel.getChannel().getAdditionalFields().get("fieldkey1"));
+    Assertions.assertEquals(
+        "fieldvalue2", channel.getChannel().getAdditionalFields().get("fieldkey2"));
+  }
+
   @DisplayName("Can add a moderator to a channel (update)")
   @Test
   void whenAddingModerator_thenHasModerator() {
