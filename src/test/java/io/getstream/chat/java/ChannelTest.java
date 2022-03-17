@@ -8,9 +8,9 @@ import io.getstream.chat.java.models.Sort;
 import io.getstream.chat.java.models.Sort.Direction;
 import io.getstream.chat.java.models.User;
 import io.getstream.chat.java.models.User.ChannelMute;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+
+import java.util.*;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -30,6 +30,41 @@ public class ChannelTest extends BasicTest {
                         .members(buildChannelMembersList())
                         .build())
                 .request());
+  }
+
+  @DisplayName("Can set custom field on channel")
+  @Test
+  void whenSettingCustomField_thenNoException() {
+    var channelReq =
+            ChannelRequestObject.builder()
+                    .createdBy(testUserRequestObject)
+                    .members(buildChannelMembersList())
+                    .build();
+    channelReq.setAdditionalField("fieldkey", "fieldvalue");
+    var channel =
+            Assertions.assertDoesNotThrow(
+                    () -> Channel.getOrCreate(testChannel.getType(), null).data(channelReq).request());
+    Assertions.assertEquals(
+            "fieldvalue", channel.getChannel().getAdditionalFields().get("fieldkey"));
+  }
+
+  @DisplayName("Can set custom field on channel after fields have already been set in builder")
+  @Test
+  void whenSettingCustomFieldInBuilderAndAfer_thenNoException() {
+    var channelReq =
+            ChannelRequestObject.builder()
+                    .createdBy(testUserRequestObject)
+                    .members(buildChannelMembersList())
+                    .additionalField("fieldkey1", "fieldvalue1")
+                    .build();
+    channelReq.setAdditionalField("fieldkey2", "fieldvalue2");
+    var channel =
+            Assertions.assertDoesNotThrow(
+                    () -> Channel.getOrCreate(testChannel.getType(), "test1").data(channelReq).request());
+    Assertions.assertEquals(
+            "fieldvalue1", channel.getChannel().getAdditionalFields().get("fieldkey1"));
+    Assertions.assertEquals(
+            "fieldvalue2", channel.getChannel().getAdditionalFields().get("fieldkey2"));
   }
 
   @DisplayName("Can add a moderator to a channel (update)")
