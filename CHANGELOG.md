@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/GetStream/stream-chat-java/compare/1.6.0...1.9.0) (2022-03-18)
+
+
+### Features
+
+* add missing properties for export channel ([#51](https://github.com/GetStream/stream-chat-java/issues/51)) ([5a0706e](https://github.com/GetStream/stream-chat-java/commit/5a0706e0cbbebd1b5487db1ef1ea55b519c1c6b2))
+* set pool connection pool lifetime to 59seconds ([#50](https://github.com/GetStream/stream-chat-java/issues/50)) ([3037209](https://github.com/GetStream/stream-chat-java/commit/3037209edf501ed5007650d119171b0bfcdce4dd))
+
+
+### Bug Fixes
+
+* additional fields mutable ([#53](https://github.com/GetStream/stream-chat-java/issues/53)) ([3f33a59](https://github.com/GetStream/stream-chat-java/commit/3f33a595fb373a11340c3b385d437d197e5b62a1))
+
 ## [1.6.0](https://github.com/GetStream/stream-chat-java/compare/1.5.0...1.6.0) (2022-01-18)
 
 
