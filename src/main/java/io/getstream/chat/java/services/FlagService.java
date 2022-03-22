@@ -6,13 +6,14 @@ import io.getstream.chat.java.models.Flag.FlagDeleteRequestData;
 import io.getstream.chat.java.models.Flag.FlagDeleteResponse;
 import io.getstream.chat.java.models.Flag.FlagMessageQueryRequestData;
 import io.getstream.chat.java.models.Flag.FlagMessageQueryResponse;
+import io.getstream.chat.java.models.Flag.QueryFlagReportsRequestData;
+import io.getstream.chat.java.models.Flag.QueryFlagReportsResponse;
+import io.getstream.chat.java.models.Flag.ReviewFlagReportRequestData;
+import io.getstream.chat.java.models.Flag.ReviewFlagReportResponse;
 import io.getstream.chat.java.services.framework.ToJson;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 public interface FlagService {
 
@@ -25,4 +26,13 @@ public interface FlagService {
   @GET("moderation/flags/message")
   Call<FlagMessageQueryResponse> messageQuery(
       @NotNull @ToJson @Query("payload") FlagMessageQueryRequestData flagMessageQueryRequestData);
+
+  @POST("moderation/reports")
+  Call<QueryFlagReportsResponse> queryFlagReports(
+      @NotNull @Body QueryFlagReportsRequestData queryFlagReportsRequestData);
+
+  @PATCH("moderation/reports/{id}")
+  Call<ReviewFlagReportResponse> reviewFlagReport(
+      @NotNull @Path("id") String id,
+      @NotNull @Body ReviewFlagReportRequestData reviewFlagReportRequestData);
 }
