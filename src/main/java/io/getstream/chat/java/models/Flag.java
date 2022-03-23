@@ -5,6 +5,8 @@ import io.getstream.chat.java.models.ChannelType.Threshold;
 import io.getstream.chat.java.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.getstream.chat.java.models.Flag.FlagDeleteRequestData.FlagDeleteRequest;
 import io.getstream.chat.java.models.Flag.FlagMessageQueryRequestData.FlagMessageQueryRequest;
+import io.getstream.chat.java.models.Flag.QueryFlagReportsRequestData.QueryFlagReportsRequest;
+import io.getstream.chat.java.models.Flag.ReviewFlagReportRequestData.ReviewFlagReportRequest;
 import io.getstream.chat.java.models.Message.Moderation;
 import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.framework.StreamRequest;
@@ -100,6 +102,51 @@ public class Flag {
     @Nullable
     @JsonProperty("rejected_at")
     private Date rejectedAt;
+  }
+
+  @Data
+  @NoArgsConstructor
+  public static class FlagReport {
+    @NotNull
+    @JsonProperty("id")
+    private String Id;
+
+    @Nullable
+    @JsonProperty("message")
+    private Message message;
+
+    @Nullable
+    @JsonProperty("flags_count")
+    private Integer flagsCount;
+
+    @Nullable
+    @JsonProperty("message_user_id")
+    private String messageUserId;
+
+    @Nullable
+    @JsonProperty("channel_cid")
+    private String channelCid;
+
+    @Nullable
+    @JsonProperty("created_at")
+    private Date createdAt;
+
+    @Nullable
+    @JsonProperty("updated_at")
+    private Date updatedAt;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class ExtendedFlagReport extends FlagReport {
+    @NotNull
+    @JsonProperty("review_result")
+    private String reviewResult;
+
+    @Nullable
+    @JsonProperty("review_details")
+    private Map<String, Object> reviewDetails;
   }
 
   @Data
@@ -224,7 +271,7 @@ public class Flag {
       buildMethodName = "internalBuild")
   public static class FlagMessageQueryRequestData {
     @Nullable
-    @JsonProperty("filterConditions")
+    @JsonProperty("filter_conditions")
     @Singular
     private Map<String, Object> filterConditions;
 
@@ -248,6 +295,71 @@ public class Flag {
       @Override
       protected Call<FlagMessageQueryResponse> generateCall(Client client) {
         return client.create(FlagService.class).messageQuery(this.internalBuild());
+      }
+    }
+  }
+
+  @Builder(
+      builderClassName = "QueryFlagReportsRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class QueryFlagReportsRequestData {
+    @Nullable
+    @JsonProperty("filter_conditions")
+    @Singular
+    private Map<String, Object> filterConditions;
+
+    @Nullable
+    @JsonProperty("limit")
+    private Integer limit;
+
+    @Nullable
+    @JsonProperty("offset")
+    private Integer offset;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    public static class QueryFlagReportsRequest extends StreamRequest<QueryFlagReportsResponse> {
+      @Override
+      protected Call<QueryFlagReportsResponse> generateCall(Client client) {
+        return client.create(FlagService.class).queryFlagReports(this.internalBuild());
+      }
+    }
+  }
+
+  @Builder(
+      builderClassName = "ReviewFlagReportRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class ReviewFlagReportRequestData {
+    @NotNull
+    @JsonProperty("review_result")
+    private String reviewResult;
+
+    @Nullable
+    @JsonProperty("review_details")
+    private Map<String, Object> reviewDetails;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    public static class ReviewFlagReportRequest extends StreamRequest<ReviewFlagReportResponse> {
+      @NotNull private String id;
+
+      public ReviewFlagReportRequest(@NotNull String id) {
+        this.id = id;
+      }
+
+      @Override
+      protected Call<ReviewFlagReportResponse> generateCall(Client client) {
+        return client.create(FlagService.class).reviewFlagReport(id, this.internalBuild());
       }
     }
   }
@@ -279,6 +391,24 @@ public class Flag {
     private List<MessageFlag> flags;
   }
 
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class QueryFlagReportsResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("flag_reports")
+    private List<FlagReport> flagReports;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class ReviewFlagReportResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("flag_report")
+    private ExtendedFlagReport flagReport;
+  }
+
   /**
    * Creates a create request
    *
@@ -307,5 +437,25 @@ public class Flag {
   @NotNull
   public static FlagMessageQueryRequest queryMessages() {
     return new FlagMessageQueryRequest();
+  }
+
+  /**
+   * Creates a query flag report request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static QueryFlagReportsRequest queryFlagReports() {
+    return new QueryFlagReportsRequest();
+  }
+
+  /**
+   * Creates a review flag report request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static ReviewFlagReportRequest reviewFlagReport(String id) {
+    return new ReviewFlagReportRequest(id);
   }
 }

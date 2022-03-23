@@ -107,4 +107,46 @@ public class FlagTest extends BasicTest {
         response.getFlags().stream()
             .anyMatch(flag -> flag.getMessage().getId().equals(message.getId())));
   }
+
+  @DisplayName("Can look up flag reports")
+  @Test
+  void whenQueryingFlagReports_thenRetrieved() {
+    Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
+    Assertions.assertDoesNotThrow(
+        () -> Flag.create().targetMessageId(message.getId()).user(testUserRequestObject).request());
+    var flagReports =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Flag.queryFlagReports()
+                    .filterCondition("message_id", message.getId())
+                    .request()
+                    .getFlagReports());
+    Assertions.assertEquals(message.getId(), flagReports.get(0).getMessage().getId());
+  }
+
+  @DisplayName("Can send flag report")
+  @Test
+  void whenReviewingFlagReports_thenSucceeds() {
+    Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
+    Assertions.assertDoesNotThrow(
+        () -> Flag.create().targetMessageId(message.getId()).user(testUserRequestObject).request());
+    var flagReports =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Flag.queryFlagReports()
+                    .filterCondition("message_id", message.getId())
+                    .request()
+                    .getFlagReports());
+    Assertions.assertEquals(message.getId(), flagReports.get(0).getMessage().getId());
+
+    var report =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Flag.reviewFlagReport(flagReports.get(0).getId())
+                    .reviewResult("reviewed")
+                    .userId(testUserRequestObject.getId())
+                    .request()
+                    .getFlagReport());
+    Assertions.assertEquals(message.getId(), report.getMessage().getId());
+  }
 }
