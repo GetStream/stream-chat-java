@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -158,6 +158,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#messageQuery(io.getstream.chat.java.models.Flag.FlagMessageQueryRequestData)">messageQuery</a></span>&#8203;(<a href="../models/Flag.FlagMessageQueryRequestData.html" title="class in io.getstream.chat.java.models">Flag.FlagMessageQueryRequestData</a>&nbsp;flagMessageQueryRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Flag.QueryFlagReportsResponse.html" title="class in io.getstream.chat.java.models">Flag.QueryFlagReportsResponse</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#queryFlagReports(io.getstream.chat.java.models.Flag.QueryFlagReportsRequestData)">queryFlagReports</a></span>&#8203;(<a href="../models/Flag.QueryFlagReportsRequestData.html" title="class in io.getstream.chat.java.models">Flag.QueryFlagReportsRequestData</a>&nbsp;queryFlagReportsRequestData)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Flag.ReviewFlagReportResponse.html" title="class in io.getstream.chat.java.models">Flag.ReviewFlagReportResponse</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reviewFlagReport(java.lang.String,io.getstream.chat.java.models.Flag.ReviewFlagReportRequestData)">reviewFlagReport</a></span>&#8203;(java.lang.String&nbsp;id,
+                <a href="../models/Flag.ReviewFlagReportRequestData.html" title="class in io.getstream.chat.java.models">Flag.ReviewFlagReportRequestData</a>&nbsp;reviewFlagReportRequestData)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
 </table>
 </li>
 </ul>
@@ -200,12 +211,36 @@ retrofit2.Call&lt;<a href="../models/Flag.FlagDeleteResponse.html" title="class 
 <a id="messageQuery(io.getstream.chat.java.models.Flag.FlagMessageQueryRequestData)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>messageQuery</h4>
 <pre class="methodSignature">@GET("moderation/flags/message")
 retrofit2.Call&lt;<a href="../models/Flag.FlagMessageQueryResponse.html" title="class in io.getstream.chat.java.models">Flag.FlagMessageQueryResponse</a>&gt;&nbsp;messageQuery&#8203;(@NotNull @Query("payload")
                                                            <a href="../models/Flag.FlagMessageQueryRequestData.html" title="class in io.getstream.chat.java.models">Flag.FlagMessageQueryRequestData</a>&nbsp;flagMessageQueryRequestData)</pre>
+</li>
+</ul>
+<a id="queryFlagReports(io.getstream.chat.java.models.Flag.QueryFlagReportsRequestData)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>queryFlagReports</h4>
+<pre class="methodSignature">@POST("moderation/reports")
+retrofit2.Call&lt;<a href="../models/Flag.QueryFlagReportsResponse.html" title="class in io.getstream.chat.java.models">Flag.QueryFlagReportsResponse</a>&gt;&nbsp;queryFlagReports&#8203;(@NotNull @Body
+                                                               <a href="../models/Flag.QueryFlagReportsRequestData.html" title="class in io.getstream.chat.java.models">Flag.QueryFlagReportsRequestData</a>&nbsp;queryFlagReportsRequestData)</pre>
+</li>
+</ul>
+<a id="reviewFlagReport(java.lang.String,io.getstream.chat.java.models.Flag.ReviewFlagReportRequestData)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>reviewFlagReport</h4>
+<pre class="methodSignature">@PATCH("moderation/reports/{id}")
+retrofit2.Call&lt;<a href="../models/Flag.ReviewFlagReportResponse.html" title="class in io.getstream.chat.java.models">Flag.ReviewFlagReportResponse</a>&gt;&nbsp;reviewFlagReport&#8203;(@NotNull @Path("id")
+                                                               java.lang.String&nbsp;id,
+                                                               @NotNull @Body
+                                                               <a href="../models/Flag.ReviewFlagReportRequestData.html" title="class in io.getstream.chat.java.models">Flag.ReviewFlagReportRequestData</a>&nbsp;reviewFlagReportRequestData)</pre>
 </li>
 </ul>
 </li>
