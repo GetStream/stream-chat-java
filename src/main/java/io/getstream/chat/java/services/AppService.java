@@ -7,14 +7,19 @@ import io.getstream.chat.java.models.App.AppCheckSqsRequestData;
 import io.getstream.chat.java.models.App.AppCheckSqsResponse;
 import io.getstream.chat.java.models.App.AppGetRateLimitsResponse;
 import io.getstream.chat.java.models.App.AppUpdateRequestData;
+import io.getstream.chat.java.models.App.ListPushProviderResponse;
+import io.getstream.chat.java.models.App.PushProviderRequestData;
+import io.getstream.chat.java.models.App.UpsertPushProviderResponse;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface AppService {
@@ -39,4 +44,15 @@ public interface AppService {
 
   @POST("check_push")
   Call<AppCheckPushResponse> checkPush(@NotNull @Body AppCheckPushRequestData internalBuild);
+
+  @POST("push_providers")
+  Call<UpsertPushProviderResponse> upsertPushProvider(
+      @NotNull @Body PushProviderRequestData pushProviderRequestData);
+
+  @GET("push_providers")
+  Call<ListPushProviderResponse> listPushProviders();
+
+  @DELETE("push_providers/{type}/{name}")
+  Call<StreamResponseObject> deletePushProvider(
+      @NotNull @Path("type") String providerType, @NotNull @Path("name") String name);
 }

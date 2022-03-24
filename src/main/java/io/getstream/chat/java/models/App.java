@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.getstream.chat.java.models.App.AppCheckPushRequestData.AppCheckPushRequest;
 import io.getstream.chat.java.models.App.AppCheckSqsRequestData.AppCheckSqsRequest;
 import io.getstream.chat.java.models.App.AppUpdateRequestData.AppUpdateRequest;
+import io.getstream.chat.java.models.App.PushProviderRequestData.PushProviderRequest;
 import io.getstream.chat.java.models.ChannelType.ChannelTypeWithStringCommands;
 import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.framework.RequestObjectBuilder;
@@ -507,6 +508,28 @@ public class App extends StreamResponseObject {
     }
   }
 
+  public static class ListPushProvidersRequest extends StreamRequest<ListPushProviderResponse> {
+    @Override
+    protected Call<ListPushProviderResponse> generateCall(Client client) {
+      return client.create(AppService.class).listPushProviders();
+    }
+  }
+
+  public static class DeletePushProviderRequest extends StreamRequest<StreamResponseObject> {
+    private String providerType;
+    private String name;
+
+    public DeletePushProviderRequest(@NotNull String providerType, @NotNull String name) {
+      this.providerType = providerType;
+      this.name = name;
+    }
+
+    @Override
+    protected Call<StreamResponseObject> generateCall(Client client) {
+      return client.create(AppService.class).deletePushProvider(this.providerType, this.name);
+    }
+  }
+
   @Builder(
       builderClassName = "AppUpdateRequest",
       builderMethodName = "",
@@ -793,6 +816,103 @@ public class App extends StreamResponseObject {
 
   @Data
   @NoArgsConstructor
+  public static class PushProvider {
+    @NotNull
+    @JsonProperty("name")
+    private String name;
+
+    @NotNull
+    @JsonProperty("type")
+    private PushProviderType type;
+
+    @Nullable
+    @JsonProperty("description")
+    private String description;
+
+    @Nullable
+    @JsonProperty("disabled_at")
+    private Date disabledAt;
+
+    @Nullable
+    @JsonProperty("disabled_reason")
+    private String disabledReason;
+
+    @Nullable
+    @JsonProperty("apn_auth_key")
+    private String apnAuthKey;
+
+    @Nullable
+    @JsonProperty("apn_key_id")
+    private String apnKeyId;
+
+    @Nullable
+    @JsonProperty("apn_team_id")
+    private String apnTeamId;
+
+    @Nullable
+    @JsonProperty("apn_topic")
+    private String apnTopic;
+
+    @Nullable
+    @JsonProperty("firebase_credentials")
+    private String firebaseCredentials;
+
+    @Nullable
+    @JsonProperty("huawei_app_id")
+    private String huaweiAppId;
+
+    @Nullable
+    @JsonProperty("huawei_app_secret")
+    private String huaweiAppSecret;
+
+    @Nullable
+    @JsonProperty("xiaomi_package_name")
+    private String xiaomiPackageName;
+
+    @Nullable
+    @JsonProperty("xiaomi_app_secret")
+    private String xiaomiAppSecret;
+
+    @Nullable
+    @JsonProperty("created_at")
+    private Date createdAt;
+
+    @Nullable
+    @JsonProperty("updated_at")
+    private Date updatedAt;
+
+    public enum PushProviderType {
+      @JsonProperty("firebase")
+      Firebase,
+      @JsonProperty("apn")
+      Apn,
+      @JsonProperty("xiaomi")
+      Xiaomi,
+      @JsonProperty("huawei")
+      Huawei,
+      @JsonEnumDefaultValue
+      UNKNOWN
+    }
+  }
+
+  @Builder(
+      builderClassName = "PushProviderRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class PushProviderRequestData {
+    @JsonProperty("push_provider")
+    private PushProvider pushProvider;
+
+    public static class PushProviderRequest extends StreamRequest<UpsertPushProviderResponse> {
+      @Override
+      protected Call<UpsertPushProviderResponse> generateCall(Client client) {
+        return client.create(AppService.class).upsertPushProvider(this.internalBuild());
+      }
+    }
+  }
+
+  @Data
+  @NoArgsConstructor
   public static class AppGetRateLimitsResponse implements StreamResponse {
     @NotNull
     @JsonProperty("server_side")
@@ -870,6 +990,24 @@ public class App extends StreamResponseObject {
     private Map<String, String> renderedMessage;
   }
 
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class UpsertPushProviderResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("push_provider")
+    private PushProvider pushProvider;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class ListPushProviderResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("push_providers")
+    private List<PushProvider> pushProviders;
+  }
+
   /**
    * Creates a get request.
    *
@@ -929,6 +1067,39 @@ public class App extends StreamResponseObject {
   @NotNull
   public static AppRevokeTokensRequest revokeTokens(@Nullable Date revokeTokensIssuedBefore) {
     return new AppRevokeTokensRequest(revokeTokensIssuedBefore);
+  }
+
+  /**
+   * Creates an upsert push provider request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static PushProviderRequest upsertPushProvider() {
+    return new PushProviderRequest();
+  }
+
+  /**
+   * Creates a list push providers request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static ListPushProvidersRequest listPushProviders() {
+    return new ListPushProvidersRequest();
+  }
+
+  /**
+   * Creates a delete push provider request
+   *
+   * @param providerType push provider type
+   * @param name push provider name
+   * @return the created request
+   */
+  @NotNull
+  public static DeletePushProviderRequest deletePushProvider(
+      @NotNull String providerType, @NotNull String name) {
+    return new DeletePushProviderRequest(providerType, name);
   }
 
   /**
