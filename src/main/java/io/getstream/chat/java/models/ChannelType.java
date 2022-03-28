@@ -41,6 +41,10 @@ public class ChannelType {
   private Boolean readEvents;
 
   @Nullable
+  @JsonProperty("reminders")
+  private Boolean reminders;
+
+  @Nullable
   @JsonProperty("connect_events")
   private Boolean connectEvents;
 
@@ -304,6 +308,10 @@ public class ChannelType {
     protected Boolean readEvents;
 
     @Nullable
+    @JsonProperty("reminders")
+    protected Boolean reminders;
+
+    @Nullable
     @JsonProperty("connect_events")
     protected Boolean connectEvents;
 
@@ -429,6 +437,10 @@ public class ChannelType {
     @Nullable
     @JsonProperty("read_events")
     protected Boolean readEvents;
+
+    @Nullable
+    @JsonProperty("reminders")
+    protected Boolean reminders;
 
     @Nullable
     @JsonProperty("connect_events")
