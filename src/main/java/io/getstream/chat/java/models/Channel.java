@@ -350,6 +350,10 @@ public class Channel {
     @Nullable
     @JsonProperty("blocklist_behavior")
     private BlocklistBehavior blocklistBehavior;
+
+    @Nullable
+    @JsonProperty("commands")
+    private List<String> Commands;
   }
 
   @Builder
