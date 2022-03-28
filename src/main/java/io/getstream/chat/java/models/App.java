@@ -231,6 +231,10 @@ public class App extends StreamResponseObject {
     @JsonProperty("async_url_enrich_enabled")
     private Boolean asyncURLEnrichEnabled;
 
+    @NotNull
+    @JsonProperty("reminders_interval")
+    private int remindersInterval;
+
     @Nullable
     @JsonProperty("enforce_unique_usernames")
     @JsonDeserialize(using = EnforceUniqueUsernamesDeserializer.class)
@@ -551,6 +555,10 @@ public class App extends StreamResponseObject {
     @JsonProperty("custom_action_handler_url")
     @JsonInclude(Include.NON_NULL)
     private String customActionHandlerUrl;
+
+    @NotNull
+    @JsonProperty("reminders_interval")
+    private int remindersInterval;
 
     @Nullable
     @JsonProperty("enforce_unique_usernames")
