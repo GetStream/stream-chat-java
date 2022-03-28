@@ -109,6 +109,19 @@ public class App extends StreamResponseObject {
     private Boolean enabled;
   }
 
+  public enum PushProviderType {
+    @JsonProperty("firebase")
+    Firebase,
+    @JsonProperty("apn")
+    Apn,
+    @JsonProperty("xiaomi")
+    Xiaomi,
+    @JsonProperty("huawei")
+    Huawei,
+    @JsonEnumDefaultValue
+    UNKNOWN
+  }
+
   @Data
   @NoArgsConstructor
   public static class PushNotificationFields {
@@ -376,6 +389,10 @@ public class App extends StreamResponseObject {
     @NotNull
     @JsonProperty("provider")
     private String provider;
+
+    @NotNull
+    @JsonProperty("provider_name")
+    private String providerName;
 
     @NotNull
     @JsonProperty("error_message")
@@ -795,6 +812,14 @@ public class App extends StreamResponseObject {
     private Boolean skipDevices;
 
     @Nullable
+    @JsonProperty("push_provider_name")
+    private String pushProviderName;
+
+    @Nullable
+    @JsonProperty("push_provider_type")
+    private PushProviderType pushProviderType;
+
+    @Nullable
     @JsonProperty("user_id")
     private String userId;
 
@@ -888,19 +913,6 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("updated_at")
     private Date updatedAt;
-
-    public enum PushProviderType {
-      @JsonProperty("firebase")
-      Firebase,
-      @JsonProperty("apn")
-      Apn,
-      @JsonProperty("xiaomi")
-      Xiaomi,
-      @JsonProperty("huawei")
-      Huawei,
-      @JsonEnumDefaultValue
-      UNKNOWN
-    }
   }
 
   @Builder(
