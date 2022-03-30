@@ -1,7 +1,7 @@
 package io.getstream.chat.java;
 
+import io.getstream.chat.java.models.App.PushProviderType;
 import io.getstream.chat.java.models.Device;
-import io.getstream.chat.java.models.Device.PushProvider;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +18,7 @@ public class DeviceTest extends BasicTest {
             Device.create()
                 .id(RandomStringUtils.randomAlphabetic(10))
                 .user(testUserRequestObject)
-                .pushProvider(PushProvider.APN)
+                .pushProvider(PushProviderType.Apn)
                 .request());
   }
 
@@ -31,7 +31,7 @@ public class DeviceTest extends BasicTest {
             Device.create()
                 .id(deviceId)
                 .user(testUserRequestObject)
-                .pushProvider(PushProvider.APN)
+                .pushProvider(PushProviderType.Apn)
                 .request());
     Assertions.assertDoesNotThrow(
         () -> Device.delete(deviceId, testUserRequestObject.getId()).request());
@@ -51,7 +51,7 @@ public class DeviceTest extends BasicTest {
             Device.create()
                 .id(deviceId)
                 .user(testUserRequestObject)
-                .pushProvider(PushProvider.APN)
+                .pushProvider(PushProviderType.Apn)
                 .request());
     List<Device> devices =
         Assertions.assertDoesNotThrow(() -> Device.list(testUserRequestObject.getId()).request())

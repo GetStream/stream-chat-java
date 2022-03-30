@@ -1,7 +1,7 @@
 package io.getstream.chat.java.models;
 
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.getstream.chat.java.models.App.PushProviderType;
 import io.getstream.chat.java.models.Device.DeviceCreateRequestData.DeviceCreateRequest;
 import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.framework.RequestObjectBuilder;
@@ -21,11 +21,15 @@ import retrofit2.Call;
 public class Device {
   @Nullable
   @JsonProperty("push_provider")
-  private PushProvider pushProvider;
+  private PushProviderType pushProvider;
 
   @NotNull
   @JsonProperty("id")
   private String id;
+
+  @Nullable
+  @JsonProperty("push_provider_name")
+  private String pushProviderName;
 
   @NotNull
   @JsonProperty("created_at")
@@ -43,25 +47,20 @@ public class Device {
   @JsonProperty("user_id")
   private String userId;
 
-  public enum PushProvider {
-    @JsonProperty("firebase")
-    FIREBASE,
-    @JsonProperty("apn")
-    APN,
-    @JsonEnumDefaultValue
-    UNKNOWN
-  }
-
   @Builder
   @Setter
   public static class DeviceRequestObject {
     @Nullable
     @JsonProperty("push_provider")
-    private PushProvider pushProvider;
+    private PushProviderType pushProvider;
 
     @Nullable
     @JsonProperty("id")
     private String id;
+
+    @Nullable
+    @JsonProperty("push_provider_name")
+    private String pushProviderName;
 
     @Nullable
     @JsonProperty("created_at")
@@ -92,11 +91,15 @@ public class Device {
   public static class DeviceCreateRequestData {
     @Nullable
     @JsonProperty("push_provider")
-    private PushProvider pushProvider;
+    private PushProviderType pushProvider;
 
     @Nullable
     @JsonProperty("id")
     private String id;
+
+    @Nullable
+    @JsonProperty("push_provider_name")
+    private String pushProviderName;
 
     @Nullable
     @JsonProperty("user_id")
