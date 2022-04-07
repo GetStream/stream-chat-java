@@ -99,6 +99,14 @@ public class Channel {
   @JsonProperty("last_message_at")
   private Date lastMessageAt;
 
+  @NotNull
+  @JsonProperty("truncated_by_id")
+  private String truncatedById;
+
+  @NotNull
+  @JsonProperty("truncated_by")
+  private User truncatedBy;
+
   @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
 
   @JsonAnyGetter
@@ -677,6 +685,14 @@ public class Channel {
     @Nullable
     @JsonProperty("message")
     private MessageRequestObject message;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
 
     public static class ChannelTruncateRequest extends StreamRequest<ChannelTruncateResponse> {
       @NotNull private String channelType;
