@@ -130,6 +130,10 @@ public class App extends StreamResponseObject {
     private PushVersion version;
 
     @NotNull
+    @JsonProperty("offline_only")
+    private Boolean offlineOnly;
+
+    @NotNull
     @JsonProperty("apn")
     private APNConfig aPNConfig;
 
@@ -515,6 +519,10 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("version")
     private PushVersion version;
+
+    @Nullable
+    @JsonProperty("offline_only")
+    private Boolean offlineOnly;
 
     @Nullable
     public static PushConfigRequestObject buildFrom(@Nullable PushVersion pushVersion) {
