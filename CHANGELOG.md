@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/GetStream/stream-chat-java/compare/1.9.0...1.10.0) (2022-04-13)
+
+
+### Features
+
+* add commands to update ([#58](https://github.com/GetStream/stream-chat-java/issues/58)) ([9fc42e0](https://github.com/GetStream/stream-chat-java/commit/9fc42e0df71ec15f8d2d86ea2414fdf12ed29848))
+* add moderation apis ([#56](https://github.com/GetStream/stream-chat-java/issues/56)) ([106ded4](https://github.com/GetStream/stream-chat-java/commit/106ded442f4b89cb7e9ebded98845d914125215e))
+* add provider fields ([#59](https://github.com/GetStream/stream-chat-java/issues/59)) ([e6e1d44](https://github.com/GetStream/stream-chat-java/commit/e6e1d44428379b6e75a9827a8b350f3571497249))
+* add push provider ([#57](https://github.com/GetStream/stream-chat-java/issues/57)) ([6a655fc](https://github.com/GetStream/stream-chat-java/commit/6a655fc939f184412cc65b8663bf8332b2461976))
+* add reminders ([#60](https://github.com/GetStream/stream-chat-java/issues/60)) ([0df895d](https://github.com/GetStream/stream-chat-java/commit/0df895d0e9e5218af090686bb65a73b29211112d))
+* **app_settings:** add offlineonly ([#62](https://github.com/GetStream/stream-chat-java/issues/62)) ([d334f6a](https://github.com/GetStream/stream-chat-java/commit/d334f6ab0a8911c4db1b1684cc5e8236ad069203))
+* **permissions:** add channel role property ([#64](https://github.com/GetStream/stream-chat-java/issues/64)) ([1626ff9](https://github.com/GetStream/stream-chat-java/commit/1626ff921e81fd17652ddd3428e8d6edfeabc39e))
+* **truncate:** add truncated by id ([#61](https://github.com/GetStream/stream-chat-java/issues/61)) ([c302c7a](https://github.com/GetStream/stream-chat-java/commit/c302c7a819d102c73557c453903d0b0f7240c314))
+
 ## [1.9.0](https://github.com/GetStream/stream-chat-java/compare/1.6.0...1.9.0) (2022-03-18)
 
 
