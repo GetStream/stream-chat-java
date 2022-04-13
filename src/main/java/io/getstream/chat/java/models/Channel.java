@@ -167,6 +167,10 @@ public class Channel {
     private String role;
 
     @Nullable
+    @JsonProperty("channel_role")
+    private String channelRole;
+
+    @Nullable
     @JsonProperty("created_at")
     private Date createdAt;
 
@@ -298,6 +302,10 @@ public class Channel {
     @Nullable
     @JsonProperty("role")
     private String role;
+
+    @Nullable
+    @JsonProperty("channel_role")
+    private String channelRole;
 
     @Nullable
     @JsonProperty("created_at")
