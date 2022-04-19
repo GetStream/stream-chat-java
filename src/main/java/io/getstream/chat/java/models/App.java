@@ -99,6 +99,10 @@ public class App extends StreamResponseObject {
     @NotNull
     @JsonProperty("data_template")
     private String dataTemplate;
+
+    @NotNull
+    @JsonProperty("apn_template")
+    private String apnTemplate;
   }
 
   @Data
@@ -144,6 +148,10 @@ public class App extends StreamResponseObject {
     @NotNull
     @JsonProperty("huawei")
     private HuaweiConfig huaweiConfig;
+
+    @NotNull
+    @JsonProperty("providers")
+    private List<PushProvider> providers;
   }
 
   @Data
@@ -494,6 +502,10 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("data_template")
     private String dataTemplate;
+
+    @Nullable
+    @JsonProperty("apn_template")
+    private String apnTemplate;
 
     @Nullable
     public static FirebaseConfigRequestObject buildFrom(@Nullable FirebaseConfig firebaseConfig) {
@@ -897,6 +909,10 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("firebase_credentials")
     private String firebaseCredentials;
+
+    @Nullable
+    @JsonProperty("firebase_apn_template")
+    private String firebaseApnTemplate;
 
     @Nullable
     @JsonProperty("huawei_app_id")
