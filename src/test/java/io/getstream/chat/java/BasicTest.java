@@ -36,6 +36,18 @@ public class BasicTest {
     createTestChannel();
     createTestMessage();
   }
+  /*
+  @AfterAll
+  static void teardown() throws StreamException {
+    User.deleteMany(
+            testUsersRequestObjects.stream().map(user -> user.getId()).collect(Collectors.toList()))
+        .deleteUserStrategy(DeleteStrategy.HARD)
+        .deleteMessagesStrategy(DeleteStrategy.HARD)
+        .request();
+    Channel.deleteMany(List.of(testChannel.getCId()))
+        .setDeleteStrategy(DeleteStrategy.HARD)
+        .request();
+  }*/
 
   private static void cleanChannelTypes() throws StreamException {
     ChannelType.list()
