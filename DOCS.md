@@ -46,6 +46,19 @@ StreamRequest objects have builder style methods. Some methods require xxxReques
 #### Perform the request
 This can be done either synchronously, calling the `request()` method and handling the StreamException exceptions, or asynchronously, calling the `requestAsync(Consumer<Response> onSuccess, Consumer<StreamException> onError)`
 
+#### Explicitly pass in API key and secret
+By default the underlying HTTP client tries to get `STREAM_KEY` & `STREAM_SECRET` environmental variables or get `io.getstream.chat.apiKey` & `io.getstream.chat.apiSecret` system properties.
+
+You can override this behavior by explicitly passing in the API key and secret and setting a new default client.
+
+```java
+var properties = new Properties();
+properties.put(DefaultClient.API_KEY_PROP_NAME, "<api-key>");
+properties.put(DefaultClient.API_SECRET_PROP_NAME, "<api-secret>");
+var client = new DefaultClient(properties);
+DefaultClient.setInstance(client);
+```
+
 ### Simple Example
 **Synchronous:**
 
