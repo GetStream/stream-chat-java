@@ -109,7 +109,7 @@ To configure the SDK you need to provide required properties
 | Property  | ENV | Default  | Required |
 | ------------- | ------------- | --- | --- |
 | io.getstream.chat.apiKey  | STREAM_KEY  | - | Yes |
-| io.getstream.chat.secretKey  | STREAM_SECRET  | - | Yes |
+| io.getstream.chat.apiSecret  | STREAM_SECRET  | - | Yes |
 | io.getstream.chat.timeout  | STREAM_CHAT_TIMEOUT  | 10000 | No |
 | io.getstream.chat.url  | STREAM_CHAT_URL  | https://chat.stream-io-api.com | No |
 
