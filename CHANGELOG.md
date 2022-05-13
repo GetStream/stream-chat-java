@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/GetStream/stream-chat-java/compare/1.10.0...1.11.0) (2022-05-13)
+
+
+### Features
+
+* **push:** add apn template fields ([#67](https://github.com/GetStream/stream-chat-java/issues/67)) ([3627c9b](https://github.com/GetStream/stream-chat-java/commit/3627c9b6e027b0d2b70b23021b532efe84068c82))
+
 ## [1.10.0](https://github.com/GetStream/stream-chat-java/compare/1.9.0...1.10.0) (2022-04-13)
 
 
