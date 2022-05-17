@@ -1791,6 +1791,49 @@ var taskStatusResponse = TaskStatus.get(taskId).request();
 // duration = "10.07ms"
 ```
 
+**Create a file import**
+
+```java
+// Generate S3 upload URL
+var createUrlResponse = Import.createImportUrl("streamchatjava.json").request();
+
+// Now, upload the import file to S3.
+// 
+// Note: if you use OkHttp library this is super tricky because of the library's internals:
+// The headers sent to this endpoint must be Content-Type: application/json, instead OkHttp sends
+// Content-Type: application/json; charset=utf-8 which wouldn't be wrong in general but
+// in this particular case AWS will return a 403 error.
+// The only way to overwrite this header is to attach a network interceptor.
+var client =
+    new OkHttpClient.Builder()
+        .addNetworkInterceptor(
+            chain -> {
+                var request =
+                    chain
+                        .request()
+                        .newBuilder()
+                        .removeHeader("Accept-Encoding")
+                        .removeHeader("User-Agent")
+                        .removeHeader("Connection")
+                        .removeHeader("Content-Type")
+                        .addHeader("Content-Type", "application/json")
+                        .build();
+
+                return chain.proceed(request);
+        })
+    .build();
+
+var request =
+    new Request.Builder()
+        .url(createUrlResponse.getUploadUrl())
+        .put(RequestBody.create(MediaType.parse("application/json"), Files.readString("streamchatjava.json")))
+        .build();
+
+client.newCall(request).execute();
+
+Import.createImport(createUrlResponse.getPath(), Import.ImportMode.Upsert);
+```
+
 **Verify webhook**
 
 ```java

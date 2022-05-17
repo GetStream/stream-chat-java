@@ -47,7 +47,6 @@ public class ImportTests extends BasicTest {
                           .removeHeader("Connection")
                           .removeHeader("Content-Type")
                           .addHeader("Content-Type", "application/json")
-                          .addHeader("Content-Length", "2")
                           .build();
 
                   return chain.proceed(request);

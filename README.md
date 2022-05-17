@@ -13,6 +13,8 @@
     <br />
     <a href="https://getstream.github.io/stream-chat-java/">JavaDoc</a>
     ·
+    <a href="https://github.com/GetStream/stream-chat-java/blob/main/DOCS.md">Code Samples</a>
+    ·
     <a href="https://github.com/GetStream/stream-chat-java/issues">Report Bug</a>
     ·
     <a href="https://github.com/GetStream/stream-chat-java/issues">Request Feature</a>
