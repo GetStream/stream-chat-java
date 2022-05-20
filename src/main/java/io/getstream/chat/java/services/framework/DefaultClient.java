@@ -8,6 +8,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import javax.crypto.spec.SecretKeySpec;
@@ -21,22 +22,16 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class DefaultClient implements Client {
   public static final String API_KEY_PROP_NAME = "io.getstream.chat.apiKey";
-
   public static final String API_SECRET_PROP_NAME = "io.getstream.chat.apiSecret";
-
   public static final String API_TIMEOUT_PROP_NAME = "io.getstream.chat.timeout";
-
   public static final String API_URL_PROP_NAME = "io.getstream.chat.url";
 
   private static final String API_DEFAULT_URL = "https://chat.stream-io-api.com";
-
   private static volatile DefaultClient defaultInstance;
-
-  @NotNull private final Retrofit retrofit;
-
+  @NotNull private Retrofit retrofit;
   @NotNull private final String apiSecret;
-
   @NotNull private final String apiKey;
+  @NotNull private final Properties extendedProperties;
 
   public static DefaultClient getInstance() {
     if (defaultInstance == null) {
@@ -59,9 +54,9 @@ public class DefaultClient implements Client {
   }
 
   public DefaultClient(Properties properties) {
-    properties = extendProperties(properties);
-    var apiKey = properties.get(API_KEY_PROP_NAME);
-    var apiSecret = properties.get(API_SECRET_PROP_NAME);
+    extendedProperties = extendProperties(properties);
+    var apiKey = extendedProperties.get(API_KEY_PROP_NAME);
+    var apiSecret = extendedProperties.get(API_SECRET_PROP_NAME);
 
     if (apiSecret == null) {
       throw new IllegalStateException(
@@ -75,21 +70,26 @@ public class DefaultClient implements Client {
               + " property");
     }
 
+    this.apiSecret = apiSecret.toString();
+    this.apiKey = apiKey.toString();
+    this.retrofit = buildRetrofitClient();
+  }
+
+  private Retrofit buildRetrofitClient() {
     OkHttpClient.Builder httpClient =
         new OkHttpClient.Builder()
             .connectionPool(new ConnectionPool(5, 59, TimeUnit.SECONDS))
-            .callTimeout(getStreamChatTimeout(properties), TimeUnit.MILLISECONDS);
+            .callTimeout(getStreamChatTimeout(extendedProperties), TimeUnit.MILLISECONDS);
     httpClient.interceptors().clear();
 
     HttpLoggingInterceptor loggingInterceptor =
-        new HttpLoggingInterceptor().setLevel(getLogLevel(properties));
+        new HttpLoggingInterceptor().setLevel(getLogLevel(extendedProperties));
     httpClient.addInterceptor(loggingInterceptor);
 
     httpClient.addInterceptor(
         chain -> {
           Request original = chain.request();
-          HttpUrl url =
-              original.url().newBuilder().addQueryParameter("api_key", apiKey.toString()).build();
+          HttpUrl url = original.url().newBuilder().addQueryParameter("api_key", apiKey).build();
           Request request =
               original
                   .newBuilder()
@@ -97,26 +97,26 @@ public class DefaultClient implements Client {
                   .header("Content-Type", "application/json")
                   .header("X-Stream-Client", "stream-java-client-" + getSdkVersion())
                   .header("Stream-Auth-Type", "jwt")
-                  .header("Authorization", jwtToken(apiSecret.toString()))
+                  .header("Authorization", jwtToken(apiSecret))
                   .build();
           return chain.proceed(request);
         });
     final ObjectMapper mapper = new ObjectMapper();
     mapper.configure(
-        DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, hasFailOnUnknownProperties(properties));
+        DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
+        hasFailOnUnknownProperties(extendedProperties));
     mapper.setDateFormat(
         new StdDateFormat().withColonInTimeZone(true).withTimeZone(TimeZone.getTimeZone("UTC")));
     mapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
 
     Retrofit.Builder builder =
         new Retrofit.Builder()
-            .baseUrl(getStreamChatBaseUrl(properties))
+            .baseUrl(getStreamChatBaseUrl(extendedProperties))
             .addConverterFactory(new QueryConverterFactory())
             .addConverterFactory(JacksonConverterFactory.create(mapper));
     builder.client(httpClient.build());
-    retrofit = builder.build();
-    this.apiSecret = apiSecret.toString();
-    this.apiKey = apiKey.toString();
+
+    return builder.build();
   }
 
   @NotNull
@@ -133,6 +133,12 @@ public class DefaultClient implements Client {
   @NotNull
   public String getApiKey() {
     return apiKey;
+  }
+
+  public void setTimeout(@NotNull Duration timeoutDuration) {
+    extendedProperties.setProperty(
+        API_TIMEOUT_PROP_NAME, Long.toString(timeoutDuration.toMillis()));
+    this.retrofit = buildRetrofitClient();
   }
 
   private static @NotNull String jwtToken(String apiSecret) {
