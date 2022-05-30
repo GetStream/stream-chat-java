@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](https://github.com/GetStream/stream-chat-java/compare/v1.11.0...v1.12.0) (2022-05-30)
+
+
+### Features
+
+* **import:** add import urls ([#74](https://github.com/GetStream/stream-chat-java/issues/74)) ([152627a](https://github.com/GetStream/stream-chat-java/commit/152627a6f3beda6ea57d0347942eb701144bc725))
+* **timeout:** add overload for setting timeout ([#75](https://github.com/GetStream/stream-chat-java/issues/75)) ([a82766c](https://github.com/GetStream/stream-chat-java/commit/a82766c0de574d1b0d84ef2fd2535f2e07090df7))
+
 ## [1.11.0](https://github.com/GetStream/stream-chat-java/compare/1.10.0...1.11.0) (2022-05-13)
 
 
