@@ -16,7 +16,7 @@ public abstract class StreamRequest<T extends StreamResponse> {
   /**
    * Executes the request
    *
-   * @return the channel update response
+   * @return response
    * @throws StreamException when IO problem occurs or the stream API return an error
    */
   @NotNull

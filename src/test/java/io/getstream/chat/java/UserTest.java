@@ -5,6 +5,7 @@ import static io.getstream.chat.java.models.User.*;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.DeleteStrategy;
+import io.getstream.chat.java.models.Language;
 import io.getstream.chat.java.models.User;
 import io.getstream.chat.java.models.User.UserUpsertRequestData.UserUpsertRequest;
 import java.lang.reflect.Field;
@@ -23,6 +24,22 @@ public class UserTest extends BasicTest {
   @Test
   void whenListingUsers_thenNoException() {
     Assertions.assertDoesNotThrow(() -> User.list().request());
+  }
+
+  @DisplayName("Can parse language correctly")
+  @Test
+  void whenParsingLanguage_thenNoException() {
+    var id = RandomStringUtils.randomAlphabetic(10);
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.upsert()
+                .user(UserRequestObject.builder().id(id).language(Language.FR).build())
+                .request());
+
+    var lang =
+        Assertions.assertDoesNotThrow(
+            () -> User.list().filterCondition("id", id).request().getUsers().get(0).getLanguage());
+    Assertions.assertEquals(lang, Language.FR);
   }
 
   @DisplayName("Can partial update a user")
