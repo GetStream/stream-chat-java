@@ -19,7 +19,7 @@ public class LanguageDeserializer extends JsonDeserializer<Language> {
       try {
         if (jsonString.equals(
             Language.class.getField(enumValue.name()).getAnnotation(JsonProperty.class).value())) {
-          return Language.UNKNOWN;
+          return enumValue;
         }
       } catch (NoSuchFieldException e) {
         return null;

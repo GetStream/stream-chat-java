@@ -106,7 +106,11 @@ public class AppTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             App.update()
-                .pushConfig(PushConfigRequestObject.builder().version(PushVersion.V2).build())
+                .pushConfig(
+                    PushConfigRequestObject.builder()
+                        .version(PushVersion.V2)
+                        .offlineOnly(false)
+                        .build())
                 .request());
     Assertions.assertDoesNotThrow(
         () ->
