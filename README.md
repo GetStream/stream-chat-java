@@ -30,7 +30,7 @@ For the client-side integrations (web and mobile) have a look at the JavaScript,
 
 ## ⚙️ Installation
 
-> The Stream chat Java SDK requires Java 8+. It supports latest LTS.
+> The Stream chat Java SDK requires Java 11+. It supports latest LTS.
 
 > The Stream chat Java SDK is compatible with Groovy, Scala, Kotlin and Clojure.
 ### Installation for Java
