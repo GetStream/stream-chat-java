@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.12.2](https://github.com/GetStream/stream-chat-java/compare/1.12.1...1.12.2) (2022-10-07)
+
+
+### Bug Fixes
+
+* add "lt" to language model ([#84](https://github.com/GetStream/stream-chat-java/issues/84)) ([f76b649](https://github.com/GetStream/stream-chat-java/commit/f76b6496c9f7f0a370682e338c30362417bae839))
+
 ### [1.12.1](https://github.com/GetStream/stream-chat-java/compare/1.12.0...1.12.1) (2022-09-07)
 
 
