@@ -64,6 +64,8 @@ public enum Language {
   KA,
   @JsonProperty("ko")
   KO,
+  @JsonProperty("lt")
+  LT,
   @JsonProperty("lv")
   LV,
   @JsonProperty("ms")
