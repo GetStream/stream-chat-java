@@ -50,7 +50,7 @@ public class FilterCondition {
 
   public static Map<String, Object> lessThan(
       @NotNull String fieldName, @NotNull Object fieldValue) {
-    return Collections.singletonMap(fieldName, Collections.singletonMap("lt", fieldValue));
+    return Collections.singletonMap(fieldName, Collections.singletonMap("$lt", fieldValue));
   }
 
   public static Map<String, Object> lessThanEquals(
