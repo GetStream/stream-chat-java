@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.12.3](https://github.com/GetStream/stream-chat-java/compare/1.12.2...1.12.3) (2022-10-14)
+
+
+### Bug Fixes
+
+* lt filter ([#87](https://github.com/GetStream/stream-chat-java/issues/87)) ([6187cc5](https://github.com/GetStream/stream-chat-java/commit/6187cc5c8d212bd5976b46bdea3896039fa06483))
+
 ### [1.12.2](https://github.com/GetStream/stream-chat-java/compare/1.12.1...1.12.2) (2022-10-07)
 
 
