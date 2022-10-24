@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.12.4](https://github.com/GetStream/stream-chat-java/compare/1.12.3...1.12.4) (2022-10-24)
+
+
+### Bug Fixes
+
+* null annotation of channel model ([#90](https://github.com/GetStream/stream-chat-java/issues/90)) ([1c790c4](https://github.com/GetStream/stream-chat-java/commit/1c790c4faa05f7e28a379cb7a9d3eb73eea2f4c4))
+
 ### [1.12.3](https://github.com/GetStream/stream-chat-java/compare/1.12.2...1.12.3) (2022-10-14)
 
 
