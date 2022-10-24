@@ -91,19 +91,19 @@ public class Channel {
   @JsonProperty("updated_at")
   private Date updatedAt;
 
-  @NotNull
+  @Nullable
   @JsonProperty("deleted_at")
   private Date deletedAt;
 
-  @NotNull
+  @Nullable
   @JsonProperty("last_message_at")
   private Date lastMessageAt;
 
-  @NotNull
+  @Nullable
   @JsonProperty("truncated_by_id")
   private String truncatedById;
 
-  @NotNull
+  @Nullable
   @JsonProperty("truncated_by")
   private User truncatedBy;
 
