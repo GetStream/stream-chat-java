@@ -16,6 +16,9 @@ public class LanguageDeserializer extends JsonDeserializer<Language> {
       return null;
     }
     for (Language enumValue : Language.values()) {
+      if (enumValue == Language.UNKNOWN) {
+        continue;
+      }
       try {
         if (jsonString.equals(
             Language.class.getField(enumValue.name()).getAnnotation(JsonProperty.class).value())) {
@@ -27,7 +30,6 @@ public class LanguageDeserializer extends JsonDeserializer<Language> {
         throw deserializationContext.instantiationException(Language.class, "Should not happen");
       }
     }
-    throw deserializationContext.instantiationException(
-        Language.class, "Unparseable value for Language: " + jsonString);
+    return Language.UNKNOWN;
   }
 }
