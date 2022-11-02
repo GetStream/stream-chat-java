@@ -42,6 +42,26 @@ public class UserTest extends BasicTest {
     Assertions.assertEquals(lang, Language.FR);
   }
 
+  @DisplayName("Not defined language is set to unknown")
+  @Test
+  void whenParsingNotDefinedLanguage_thenUnknown() {
+    var id = RandomStringUtils.randomAlphabetic(10);
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.upsert()
+                .user(
+                    UserRequestObject.builder()
+                        .id(id)
+                        .additionalField("language", "something-unknown")
+                        .build())
+                .request());
+
+    var lang =
+        Assertions.assertDoesNotThrow(
+            () -> User.list().filterCondition("id", id).request().getUsers().get(0).getLanguage());
+    Assertions.assertEquals(lang, Language.UNKNOWN);
+  }
+
   @DisplayName("Can partial update a user")
   @Test
   void whenPartiallyUpdatingUser_thenNoException() {
