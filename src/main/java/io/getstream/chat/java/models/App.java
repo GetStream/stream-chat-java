@@ -161,7 +161,7 @@ public class App extends StreamResponseObject {
     @JsonProperty("name")
     private String name;
 
-    @NotNull
+    @Nullable
     @JsonProperty("roles")
     private List<String> roles;
 
