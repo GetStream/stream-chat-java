@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.12.6](https://github.com/GetStream/stream-chat-java/compare/1.12.5...1.12.6) (2022-11-04)
+
+
+### Bug Fixes
+
+* when owner, nullable is fine ([#96](https://github.com/GetStream/stream-chat-java/issues/96)) ([8fba4a1](https://github.com/GetStream/stream-chat-java/commit/8fba4a14a74970eb37bb971a66fab31ecf046144))
+
 ### [1.12.5](https://github.com/GetStream/stream-chat-java/compare/1.12.4...1.12.5) (2022-11-02)
 
 
