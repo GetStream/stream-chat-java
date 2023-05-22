@@ -413,6 +413,30 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Setter
+  public static class AsyncModerationCallback {
+    @Nullable
+    @JsonProperty("mode")
+    private String mode;
+
+    @Nullable
+    @JsonProperty("server_url")
+    private String serverUrl;
+  }
+
+  @Builder
+  @Setter
+  public static class AsyncModerationConfigRequestObject {
+    @Nullable
+    @JsonProperty("callback")
+    private AsyncModerationCallback callback;
+
+    @Nullable
+    @JsonProperty("timeout_ms")
+    private Number timeoutMs;
+  }
+
+  @Builder
+  @Setter
   public static class FileUploadConfigRequestObject {
 
     @Nullable
@@ -664,6 +688,11 @@ public class App extends StreamResponseObject {
     @JsonProperty("async_url_enrich_enabled")
     @JsonInclude(Include.NON_NULL)
     private Boolean asyncURLEnrichEnabled;
+
+    @Nullable
+    @JsonProperty("async_moderation_config")
+    @JsonInclude(Include.NON_NULL)
+    private AsyncModerationConfigRequestObject asyncModerationConfig;
 
     @Nullable
     @JsonProperty("sqs_url")

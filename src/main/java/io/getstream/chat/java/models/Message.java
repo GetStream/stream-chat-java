@@ -695,6 +695,14 @@ public class Message {
     @JsonProperty("skip_push")
     private Boolean skipPush;
 
+    @Nullable
+    @JsonProperty("is_pending_message")
+    private Boolean isPendingMessage;
+
+    @Nullable
+    @JsonProperty("pending_message_metadata")
+    private Map<String, Object> pendingMessageMetadata;
+
     public static class MessageSendRequest extends StreamRequest<MessageSendResponse> {
       @NotNull private String channelId;
 
