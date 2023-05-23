@@ -9,6 +9,7 @@ import io.getstream.chat.java.models.Message.MessagePartialUpdateRequestData.Mes
 import io.getstream.chat.java.models.Message.MessageRunCommandActionRequestData.MessageRunCommandActionRequest;
 import io.getstream.chat.java.models.Message.MessageSearchRequestData.MessageSearchRequest;
 import io.getstream.chat.java.models.Message.MessageSendRequestData.MessageSendRequest;
+import io.getstream.chat.java.models.Message.MessageCommitRequestData.MessageCommitRequest;
 import io.getstream.chat.java.models.Message.MessageTranslateRequestData.MessageTranslateRequest;
 import io.getstream.chat.java.models.Message.MessageUpdateRequestData.MessageUpdateRequest;
 import io.getstream.chat.java.models.User.UserRequestObject;
@@ -1168,6 +1169,25 @@ public class Message {
   }
 
   @Builder(
+          builderClassName = "MessageCommitRequest",
+          builderMethodName = "",
+          buildMethodName = "internalBuild")
+  public static class MessageCommitRequestData {
+    public static class MessageCommitRequest extends StreamRequest<MessageCommitResponse> {
+      @NotNull private String messageId;
+
+      public MessageCommitRequest(@NotNull String messageId) {
+        this.messageId = messageId;
+      }
+
+      @Override
+      protected Call<MessageCommitResponse> generateCall(Client client) {
+        return client.create(MessageService.class).commit(messageId, this.internalBuild());
+      }
+    }
+  }
+
+  @Builder(
       builderClassName = "MessagePartialUpdateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
@@ -1227,6 +1247,15 @@ public class Message {
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class MessageUpdateResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("message")
+    private Message message;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class MessageCommitResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("message")
     private Message message;
@@ -1497,6 +1526,16 @@ public class Message {
     return new MessageTranslateRequest(messageId);
   }
 
+  /**
+   * Creates a commit message request
+   *
+   * @param messageId the pending message id to commit
+   * @return the created request
+   */
+  @NotNull
+  public static MessageCommitRequest commit(@NotNull String messageId) {
+    return new MessageCommitRequest(messageId);
+  }
   /**
    * Creates a flag request
    *
