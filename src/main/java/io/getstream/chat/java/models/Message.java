@@ -5,11 +5,11 @@ import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.getstream.chat.java.models.Flag.FlagDeleteRequestData.FlagDeleteRequest;
 import io.getstream.chat.java.models.Flag.FlagMessageQueryRequestData.FlagMessageQueryRequest;
+import io.getstream.chat.java.models.Message.MessageCommitRequestData.MessageCommitRequest;
 import io.getstream.chat.java.models.Message.MessagePartialUpdateRequestData.MessagePartialUpdateRequest;
 import io.getstream.chat.java.models.Message.MessageRunCommandActionRequestData.MessageRunCommandActionRequest;
 import io.getstream.chat.java.models.Message.MessageSearchRequestData.MessageSearchRequest;
 import io.getstream.chat.java.models.Message.MessageSendRequestData.MessageSendRequest;
-import io.getstream.chat.java.models.Message.MessageCommitRequestData.MessageCommitRequest;
 import io.getstream.chat.java.models.Message.MessageTranslateRequestData.MessageTranslateRequest;
 import io.getstream.chat.java.models.Message.MessageUpdateRequestData.MessageUpdateRequest;
 import io.getstream.chat.java.models.User.UserRequestObject;
@@ -1169,9 +1169,9 @@ public class Message {
   }
 
   @Builder(
-          builderClassName = "MessageCommitRequest",
-          builderMethodName = "",
-          buildMethodName = "internalBuild")
+      builderClassName = "MessageCommitRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class MessageCommitRequestData {
     public static class MessageCommitRequest extends StreamRequest<MessageCommitResponse> {
       @NotNull private String messageId;

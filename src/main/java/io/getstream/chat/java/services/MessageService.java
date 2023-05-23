@@ -1,17 +1,16 @@
 package io.getstream.chat.java.services;
 
-import io.getstream.chat.java.models.Message;
+import io.getstream.chat.java.models.Message.MessageCommitRequestData;
+import io.getstream.chat.java.models.Message.MessageCommitResponse;
 import io.getstream.chat.java.models.Message.MessageDeleteResponse;
 import io.getstream.chat.java.models.Message.MessageGetManyResponse;
 import io.getstream.chat.java.models.Message.MessageGetRepliesResponse;
-import io.getstream.chat.java.models.Message.MessageCommitResponse;
 import io.getstream.chat.java.models.Message.MessageGetResponse;
 import io.getstream.chat.java.models.Message.MessagePartialUpdateRequestData;
 import io.getstream.chat.java.models.Message.MessagePartialUpdateResponse;
 import io.getstream.chat.java.models.Message.MessageRunCommandActionRequestData;
 import io.getstream.chat.java.models.Message.MessageRunCommandActionResponse;
 import io.getstream.chat.java.models.Message.MessageSearchRequestData;
-import io.getstream.chat.java.models.Message.MessageCommitRequestData;
 import io.getstream.chat.java.models.Message.MessageSearchResponse;
 import io.getstream.chat.java.models.Message.MessageSendRequestData;
 import io.getstream.chat.java.models.Message.MessageSendResponse;
@@ -58,8 +57,8 @@ public interface MessageService {
 
   @POST("messages/{id}/commit")
   Call<MessageCommitResponse> commit(
-    @NotNull @Path("id") String messageId,
-    @NotNull @Body MessageCommitRequestData messageCommitRequestData);
+      @NotNull @Path("id") String messageId,
+      @NotNull @Body MessageCommitRequestData messageCommitRequestData);
 
   @Multipart
   @Headers("X-Stream-LogRequestBody: false")
