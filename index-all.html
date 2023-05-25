@@ -6,15 +6,16 @@
 <title>Index (stream-chat-java 1.12.6 API)</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style">
-<link rel="stylesheet" type="text/css" href="jquery/jquery-ui.css" title="Style">
+<link rel="stylesheet" type="text/css" href="jquery/jquery-ui.min.css" title="Style">
+<link rel="stylesheet" type="text/css" href="jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="script.js"></script>
 <script type="text/javascript" src="jquery/jszip/dist/jszip.min.js"></script>
 <script type="text/javascript" src="jquery/jszip-utils/dist/jszip-utils.min.js"></script>
 <!--[if IE]>
 <script type="text/javascript" src="jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="jquery/jquery-3.5.1.js"></script>
-<script type="text/javascript" src="jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="jquery/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="jquery/jquery-ui.min.js"></script>
 </head>
 <body>
 <script type="text/javascript"><!--
@@ -172,6 +173,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><a href="io/getstream/chat/java/models/App.AppUpdateRequestData.AppUpdateRequest.html" title="class in io.getstream.chat.java.models"><span class="typeNameLink">App.AppUpdateRequestData.AppUpdateRequest</span></a> - Class in <a href="io/getstream/chat/java/models/package-summary.html">io.getstream.chat.java.models</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/getstream/chat/java/models/App.AsyncModerationCallback.html" title="class in io.getstream.chat.java.models"><span class="typeNameLink">App.AsyncModerationCallback</span></a> - Class in <a href="io/getstream/chat/java/models/package-summary.html">io.getstream.chat.java.models</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/getstream/chat/java/models/App.AsyncModerationConfigRequestObject.html" title="class in io.getstream.chat.java.models"><span class="typeNameLink">App.AsyncModerationConfigRequestObject</span></a> - Class in <a href="io/getstream/chat/java/models/package-summary.html">io.getstream.chat.java.models</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/getstream/chat/java/models/App.AuthenticationType.html" title="enum in io.getstream.chat.java.models"><span class="typeNameLink">App.AuthenticationType</span></a> - Enum in <a href="io/getstream/chat/java/models/package-summary.html">io.getstream.chat.java.models</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/getstream/chat/java/models/App.DeletePushProviderRequest.html" title="class in io.getstream.chat.java.models"><span class="typeNameLink">App.DeletePushProviderRequest</span></a> - Class in <a href="io/getstream/chat/java/models/package-summary.html">io.getstream.chat.java.models</a></dt>
@@ -257,6 +262,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Creates an assign role request</div>
 </dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/ChannelService.html#assignRoles(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.AssignRoleRequestData)">assignRoles(String, String, Channel.AssignRoleRequestData)</a></span> - Method in interface io.getstream.chat.java.services.<a href="io/getstream/chat/java/services/ChannelService.html" title="interface in io.getstream.chat.java.services">ChannelService</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.AsyncModerationCallback.html#%3Cinit%3E()">AsyncModerationCallback()</a></span> - Constructor for class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.AsyncModerationCallback.html" title="class in io.getstream.chat.java.models">App.AsyncModerationCallback</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.AsyncModerationConfigRequestObject.html#%3Cinit%3E()">AsyncModerationConfigRequestObject()</a></span> - Constructor for class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.AsyncModerationConfigRequestObject.html" title="class in io.getstream.chat.java.models">App.AsyncModerationConfigRequestObject</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.Attachment.html#%3Cinit%3E()">Attachment()</a></span> - Constructor for class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.Attachment.html" title="class in io.getstream.chat.java.models">Message.Attachment</a></dt>
 <dd>&nbsp;</dd>
@@ -771,6 +780,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Command.CommandUpdateRequestData.html#%3Cinit%3E()">CommandUpdateRequestData()</a></span> - Constructor for class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Command.CommandUpdateRequestData.html" title="class in io.getstream.chat.java.models">Command.CommandUpdateRequestData</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Command.CommandUpdateResponse.html#%3Cinit%3E()">CommandUpdateResponse()</a></span> - Constructor for class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Command.CommandUpdateResponse.html" title="class in io.getstream.chat.java.models">Command.CommandUpdateResponse</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.html#commit(java.lang.String)">commit(String)</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.html" title="class in io.getstream.chat.java.models">Message</a></dt>
+<dd>
+<div class="block">Creates a commit message request</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/MessageService.html#commit(java.lang.String,io.getstream.chat.java.models.Message.MessageCommitRequestData)">commit(String, Message.MessageCommitRequestData)</a></span> - Method in interface io.getstream.chat.java.services.<a href="io/getstream/chat/java/services/MessageService.html" title="interface in io.getstream.chat.java.services">MessageService</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Import.ImportState.html#Completed">Completed</a></span> - io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Import.ImportState.html" title="enum in io.getstream.chat.java.models">Import.ImportState</a></dt>
 <dd>&nbsp;</dd>
@@ -1438,6 +1453,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Import.ListImportsRequest.html#generateCall(io.getstream.chat.java.services.framework.Client)">generateCall(Client)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Import.ListImportsRequest.html" title="class in io.getstream.chat.java.models">Import.ListImportsRequest</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.MessageCommitRequestData.MessageCommitRequest.html#generateCall(io.getstream.chat.java.services.framework.Client)">generateCall(Client)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.MessageCommitRequestData.MessageCommitRequest.html" title="class in io.getstream.chat.java.models">Message.MessageCommitRequestData.MessageCommitRequest</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.MessageDeleteRequest.html#generateCall(io.getstream.chat.java.services.framework.Client)">generateCall(Client)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.MessageDeleteRequest.html" title="class in io.getstream.chat.java.models">Message.MessageDeleteRequest</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.MessageGetManyRequest.html#generateCall(io.getstream.chat.java.services.framework.Client)">generateCall(Client)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.MessageGetManyRequest.html" title="class in io.getstream.chat.java.models">Message.MessageGetManyRequest</a></dt>
@@ -1962,6 +1979,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><a href="io/getstream/chat/java/models/Message.ImageSizeRequestObject.html" title="class in io.getstream.chat.java.models"><span class="typeNameLink">Message.ImageSizeRequestObject</span></a> - Class in <a href="io/getstream/chat/java/models/package-summary.html">io.getstream.chat.java.models</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/getstream/chat/java/models/Message.MessageCommitRequestData.html" title="class in io.getstream.chat.java.models"><span class="typeNameLink">Message.MessageCommitRequestData</span></a> - Class in <a href="io/getstream/chat/java/models/package-summary.html">io.getstream.chat.java.models</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/getstream/chat/java/models/Message.MessageCommitRequestData.MessageCommitRequest.html" title="class in io.getstream.chat.java.models"><span class="typeNameLink">Message.MessageCommitRequestData.MessageCommitRequest</span></a> - Class in <a href="io/getstream/chat/java/models/package-summary.html">io.getstream.chat.java.models</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/getstream/chat/java/models/Message.MessageCommitResponse.html" title="class in io.getstream.chat.java.models"><span class="typeNameLink">Message.MessageCommitResponse</span></a> - Class in <a href="io/getstream/chat/java/models/package-summary.html">io.getstream.chat.java.models</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/getstream/chat/java/models/Message.MessageDeleteFileRequest.html" title="class in io.getstream.chat.java.models"><span class="typeNameLink">Message.MessageDeleteFileRequest</span></a> - Class in <a href="io/getstream/chat/java/models/package-summary.html">io.getstream.chat.java.models</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/getstream/chat/java/models/Message.MessageDeleteImageRequest.html" title="class in io.getstream.chat.java.models"><span class="typeNameLink">Message.MessageDeleteImageRequest</span></a> - Class in <a href="io/getstream/chat/java/models/package-summary.html">io.getstream.chat.java.models</a></dt>
@@ -2039,6 +2062,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><a href="io/getstream/chat/java/models/Message.SearchResult.html" title="class in io.getstream.chat.java.models"><span class="typeNameLink">Message.SearchResult</span></a> - Class in <a href="io/getstream/chat/java/models/package-summary.html">io.getstream.chat.java.models</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/getstream/chat/java/models/Message.SearchResultMessage.html" title="class in io.getstream.chat.java.models"><span class="typeNameLink">Message.SearchResultMessage</span></a> - Class in <a href="io/getstream/chat/java/models/package-summary.html">io.getstream.chat.java.models</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.MessageCommitRequestData.MessageCommitRequest.html#%3Cinit%3E(java.lang.String)">MessageCommitRequest(String)</a></span> - Constructor for class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.MessageCommitRequestData.MessageCommitRequest.html" title="class in io.getstream.chat.java.models">Message.MessageCommitRequestData.MessageCommitRequest</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.MessageCommitRequestData.html#%3Cinit%3E()">MessageCommitRequestData()</a></span> - Constructor for class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.MessageCommitRequestData.html" title="class in io.getstream.chat.java.models">Message.MessageCommitRequestData</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.MessageCommitResponse.html#%3Cinit%3E()">MessageCommitResponse()</a></span> - Constructor for class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.MessageCommitResponse.html" title="class in io.getstream.chat.java.models">Message.MessageCommitResponse</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.MessageDeleteFileRequest.html#%3Cinit%3E()">MessageDeleteFileRequest()</a></span> - Constructor for class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.MessageDeleteFileRequest.html" title="class in io.getstream.chat.java.models">Message.MessageDeleteFileRequest</a></dt>
 <dd>&nbsp;</dd>
