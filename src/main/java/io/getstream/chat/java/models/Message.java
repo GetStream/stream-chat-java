@@ -5,6 +5,7 @@ import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.getstream.chat.java.models.Flag.FlagDeleteRequestData.FlagDeleteRequest;
 import io.getstream.chat.java.models.Flag.FlagMessageQueryRequestData.FlagMessageQueryRequest;
+import io.getstream.chat.java.models.Message.MessageCommitRequestData.MessageCommitRequest;
 import io.getstream.chat.java.models.Message.MessagePartialUpdateRequestData.MessagePartialUpdateRequest;
 import io.getstream.chat.java.models.Message.MessageRunCommandActionRequestData.MessageRunCommandActionRequest;
 import io.getstream.chat.java.models.Message.MessageSearchRequestData.MessageSearchRequest;
@@ -695,6 +696,14 @@ public class Message {
     @JsonProperty("skip_push")
     private Boolean skipPush;
 
+    @Nullable
+    @JsonProperty("is_pending_message")
+    private Boolean isPendingMessage;
+
+    @Nullable
+    @JsonProperty("pending_message_metadata")
+    private Map<String, Object> pendingMessageMetadata;
+
     public static class MessageSendRequest extends StreamRequest<MessageSendResponse> {
       @NotNull private String channelId;
 
@@ -1160,6 +1169,25 @@ public class Message {
   }
 
   @Builder(
+      builderClassName = "MessageCommitRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class MessageCommitRequestData {
+    public static class MessageCommitRequest extends StreamRequest<MessageCommitResponse> {
+      @NotNull private String messageId;
+
+      public MessageCommitRequest(@NotNull String messageId) {
+        this.messageId = messageId;
+      }
+
+      @Override
+      protected Call<MessageCommitResponse> generateCall(Client client) {
+        return client.create(MessageService.class).commit(messageId, this.internalBuild());
+      }
+    }
+  }
+
+  @Builder(
       builderClassName = "MessagePartialUpdateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
@@ -1219,6 +1247,15 @@ public class Message {
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class MessageUpdateResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("message")
+    private Message message;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class MessageCommitResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("message")
     private Message message;
@@ -1489,6 +1526,16 @@ public class Message {
     return new MessageTranslateRequest(messageId);
   }
 
+  /**
+   * Creates a commit message request
+   *
+   * @param messageId the pending message id to commit
+   * @return the created request
+   */
+  @NotNull
+  public static MessageCommitRequest commit(@NotNull String messageId) {
+    return new MessageCommitRequest(messageId);
+  }
   /**
    * Creates a flag request
    *

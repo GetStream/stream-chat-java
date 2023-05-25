@@ -1103,6 +1103,10 @@ public class Channel {
     private List<Message> pinnedMessages;
 
     @Nullable
+    @JsonProperty("pending_messages")
+    private List<Message> pendingMessages;
+
+    @Nullable
     @JsonProperty("watcher_count")
     private Integer watcher_count;
 
