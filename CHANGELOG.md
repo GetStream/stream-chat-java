@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/GetStream/stream-chat-java/compare/1.12.6...1.13.0) (2023-05-25)
+
+
+### Features
+
+* added support for pending messages ([#100](https://github.com/GetStream/stream-chat-java/issues/100)) ([7105068](https://github.com/GetStream/stream-chat-java/commit/7105068d7060fb9a32b87ee184e5faca1c4b895e))
+
 ### [1.12.6](https://github.com/GetStream/stream-chat-java/compare/1.12.5...1.12.6) (2022-11-04)
 
 
