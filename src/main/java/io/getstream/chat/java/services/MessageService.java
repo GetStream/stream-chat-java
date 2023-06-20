@@ -57,9 +57,8 @@ public interface MessageService {
 
   @POST("messages/{id}/commit")
   Call<MessageCommitResponse> commit(
-      @NotNull @Path("id") String messageId,
-      @NotNull @Body MessageCommitRequestData messageCommitRequestData);
-
+      @NotNull @Path("id") String messageId
+  );
   @Multipart
   @Headers("X-Stream-LogRequestBody: false")
   @POST("channels/{type}/{id}/file")

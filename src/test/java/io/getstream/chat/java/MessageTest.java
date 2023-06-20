@@ -10,10 +10,7 @@ import io.getstream.chat.java.models.framework.DefaultFileHandler;
 import io.getstream.chat.java.services.framework.DefaultClient;
 import java.io.File;
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.jupiter.api.Assertions;
@@ -394,6 +391,35 @@ public class MessageTest extends BasicTest {
         () -> Message.deleteImage(testChannel.getType(), testChannel.getId(), url).request());
   }
 
+  @DisplayName("Can send a pending message")
+  @Test
+  void whenSendingPending() {
+    String text = "This is a message";
+    MessageRequestObject messageRequest =
+            MessageRequestObject
+                    .builder()
+                    .text(text)
+                    .userId(testUserRequestObject.getId())
+                    .build();
+    Map<String, Object> metadata = new HashMap<String, Object>();
+    metadata.put("boo", "cute");
+
+    Message message =
+            Assertions.assertDoesNotThrow(
+                            () ->
+                                    Message.send(testChannel.getType(), testChannel.getId())
+                                            .message(messageRequest)
+                                            .isPendingMessage(true)
+                                            .pendingMessageMetadata(metadata)
+                                            .request())
+                    .getMessage();
+    Assertions.assertNull(message.getDeletedAt());
+
+    Assertions.assertDoesNotThrow(
+            () ->
+                    Message.commit(message.getId()).request());
+
+  }
   @DisplayName("Can delete a message")
   @Test
   void whenDeletingMessage_thenIsDeleted() {
@@ -405,6 +431,7 @@ public class MessageTest extends BasicTest {
                 () ->
                     Message.send(testChannel.getType(), testChannel.getId())
                         .message(messageRequest)
+                        .pending(true)
                         .request())
             .getMessage();
     Assertions.assertNull(message.getDeletedAt());
