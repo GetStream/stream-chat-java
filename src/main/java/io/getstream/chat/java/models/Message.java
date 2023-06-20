@@ -1171,6 +1171,7 @@ public class Message {
       }
     }
   }
+
   @Builder(
       builderClassName = "MessageCommitRequest",
       builderMethodName = "",

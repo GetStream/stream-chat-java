@@ -396,30 +396,24 @@ public class MessageTest extends BasicTest {
   void whenSendingPending() {
     String text = "This is a message";
     MessageRequestObject messageRequest =
-            MessageRequestObject
-                    .builder()
-                    .text(text)
-                    .userId(testUserRequestObject.getId())
-                    .build();
+        MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
     Map<String, Object> metadata = new HashMap<String, Object>();
     metadata.put("boo", "cute");
 
     Message message =
-            Assertions.assertDoesNotThrow(
-                            () ->
-                                    Message.send(testChannel.getType(), testChannel.getId())
-                                            .message(messageRequest)
-                                            .isPendingMessage(true)
-                                            .pendingMessageMetadata(metadata)
-                                            .request())
-                    .getMessage();
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .message(messageRequest)
+                        .isPendingMessage(true)
+                        .pendingMessageMetadata(metadata)
+                        .request())
+            .getMessage();
     Assertions.assertNull(message.getDeletedAt());
 
-    Assertions.assertDoesNotThrow(
-            () ->
-                    Message.commit(message.getId()).request());
-
+    Assertions.assertDoesNotThrow(() -> Message.commit(message.getId()).request());
   }
+
   @DisplayName("Can delete a message")
   @Test
   void whenDeletingMessage_thenIsDeleted() {
