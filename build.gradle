@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'io.getstream'
-version = '1.13.0'
+version = '1.13.1'
 description = 'Stream Chat official Java SDK'
 
 java {
@@ -23,6 +23,11 @@ repositories {
 }
 
 dependencies {
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.11.0"))
+
+    // define any required OkHttp artifacts without version
+    implementation("com.squareup.okhttp3:okhttp")
+
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
     implementation 'com.intellij:annotations:12.0'
