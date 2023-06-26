@@ -701,6 +701,10 @@ public class Message {
     private Boolean isPendingMessage;
 
     @Nullable
+    @JsonProperty("pending")
+    private Boolean pending;
+
+    @Nullable
     @JsonProperty("pending_message_metadata")
     private Map<String, Object> pendingMessageMetadata;
 
@@ -1182,7 +1186,7 @@ public class Message {
 
       @Override
       protected Call<MessageCommitResponse> generateCall(Client client) {
-        return client.create(MessageService.class).commit(messageId, this.internalBuild());
+        return client.create(MessageService.class).commit(messageId);
       }
     }
   }

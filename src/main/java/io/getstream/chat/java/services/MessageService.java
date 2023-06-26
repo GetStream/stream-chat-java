@@ -1,6 +1,5 @@
 package io.getstream.chat.java.services;
 
-import io.getstream.chat.java.models.Message.MessageCommitRequestData;
 import io.getstream.chat.java.models.Message.MessageCommitResponse;
 import io.getstream.chat.java.models.Message.MessageDeleteResponse;
 import io.getstream.chat.java.models.Message.MessageGetManyResponse;
@@ -56,9 +55,7 @@ public interface MessageService {
       @NotNull @ToJson @Query("payload") MessageSearchRequestData messageSearchRequestData);
 
   @POST("messages/{id}/commit")
-  Call<MessageCommitResponse> commit(
-      @NotNull @Path("id") String messageId,
-      @NotNull @Body MessageCommitRequestData messageCommitRequestData);
+  Call<MessageCommitResponse> commit(@NotNull @Path("id") String messageId);
 
   @Multipart
   @Headers("X-Stream-LogRequestBody: false")
