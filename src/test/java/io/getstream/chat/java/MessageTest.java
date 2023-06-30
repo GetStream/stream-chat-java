@@ -425,6 +425,7 @@ public class MessageTest extends BasicTest {
                 () ->
                     Message.send(testChannel.getType(), testChannel.getId())
                         .message(messageRequest)
+                        .pending(true)
                         .request())
             .getMessage();
     Assertions.assertNull(message.getDeletedAt());
