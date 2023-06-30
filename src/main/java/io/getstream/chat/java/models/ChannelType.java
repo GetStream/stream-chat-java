@@ -89,6 +89,10 @@ public class ChannelType {
   private Integer maxMessageLength;
 
   @Nullable
+  @JsonProperty("mark_messages_pending")
+  private Boolean markMessagesPending;
+
+  @Nullable
   @JsonProperty("automod")
   private AutoMod automod;
 
@@ -356,6 +360,10 @@ public class ChannelType {
     protected Integer maxMessageLength;
 
     @Nullable
+    @JsonProperty("mark_messages_pending")
+    protected Boolean markMessagesPending;
+
+    @Nullable
     @JsonProperty("automod")
     protected AutoMod automod;
 
@@ -485,6 +493,10 @@ public class ChannelType {
     @Nullable
     @JsonProperty("max_message_length")
     protected Integer maxMessageLength;
+
+    @Nullable
+    @JsonProperty("mark_messages_pending")
+    protected Boolean markMessagesPending;
 
     @Nullable
     @JsonProperty("automod")
