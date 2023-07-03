@@ -33,7 +33,20 @@ public class AppTest extends BasicTest {
   @Test
   void whenUpdatingAppSettings_thenNoException() {
     Assertions.assertDoesNotThrow(
-        () -> App.update().disableAuthChecks(true).disablePermissionsChecks(true).request());
+        () ->
+            App.update()
+                .disableAuthChecks(true)
+                .disablePermissionsChecks(true)
+                .asyncModerationConfig(
+                    App.AsyncModerationConfigRequestObject.builder()
+                        .callback(
+                            App.AsyncModerationCallback.builder()
+                                .mode("CALLBACK_MODE_REST")
+                                .serverUrl("http://localhost.com")
+                                .build())
+                        .timeoutMs(3000)
+                        .build())
+                .request());
     Assertions.assertDoesNotThrow(
         () -> App.update().disableAuthChecks(false).disablePermissionsChecks(false).request());
   }
