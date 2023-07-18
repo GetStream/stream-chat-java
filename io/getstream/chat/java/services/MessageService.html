@@ -171,7 +171,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Message.MessageGetResponse.html" title="class in io.getstream.chat.java.models">Message.MessageGetResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get(java.lang.String)">get</a></span>&#8203;(java.lang.String&nbsp;id)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get(java.lang.String,java.lang.Boolean)">get</a></span>&#8203;(java.lang.String&nbsp;id,
+   java.lang.Boolean&nbsp;showDeletedMessage)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i5" class="rowColor">
@@ -397,7 +398,7 @@ retrofit2.Call&lt;<a href="../models/Message.MessageDeleteResponse.html" title="
                                                      java.lang.Boolean&nbsp;hard)</pre>
 </li>
 </ul>
-<a id="get(java.lang.String)">
+<a id="get(java.lang.String,java.lang.Boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -405,7 +406,9 @@ retrofit2.Call&lt;<a href="../models/Message.MessageDeleteResponse.html" title="
 <h4>get</h4>
 <pre class="methodSignature">@GET("messages/{id}")
 retrofit2.Call&lt;<a href="../models/Message.MessageGetResponse.html" title="class in io.getstream.chat.java.models">Message.MessageGetResponse</a>&gt;&nbsp;get&#8203;(@NotNull @Path("id")
-                                               java.lang.String&nbsp;id)</pre>
+                                               java.lang.String&nbsp;id,
+                                               @Nullable @Query("show_deleted_message")
+                                               java.lang.Boolean&nbsp;showDeletedMessage)</pre>
 </li>
 </ul>
 <a id="getMany(java.lang.String,java.lang.String,java.lang.String)">
