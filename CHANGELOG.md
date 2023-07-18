@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.0](https://github.com/GetStream/stream-chat-java/compare/1.13.1...1.14.0) (2023-07-18)
+
+
+### Features
+
+* added `pending` property to message ([#104](https://github.com/GetStream/stream-chat-java/issues/104)) ([46eef4f](https://github.com/GetStream/stream-chat-java/commit/46eef4f3debfe7807bb7fd1effa2f5c1c968f8f5))
+* added mark_messages_pending property to channel config ([#105](https://github.com/GetStream/stream-chat-java/issues/105)) ([182835e](https://github.com/GetStream/stream-chat-java/commit/182835ed1a852135755f1bbc8764aa2c1ed3b581))
+* added support for show_deleted_messages in getMessage endpoint ([#106](https://github.com/GetStream/stream-chat-java/issues/106)) ([40aa482](https://github.com/GetStream/stream-chat-java/commit/40aa482adde4e61f56855328b69f9e6cb5e20bcc))
+
 ### [1.13.1](https://github.com/GetStream/stream-chat-java/compare/1.13.0...1.13.1) (2023-06-09)
 
 ## [1.13.0](https://github.com/GetStream/stream-chat-java/compare/1.12.6...1.13.0) (2023-05-25)
