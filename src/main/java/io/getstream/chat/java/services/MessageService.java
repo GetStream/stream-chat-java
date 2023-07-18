@@ -93,7 +93,9 @@ public interface MessageService {
       @NotNull @Path("id") String id, @Nullable @Query("hard") Boolean hard);
 
   @GET("messages/{id}")
-  Call<MessageGetResponse> get(@NotNull @Path("id") String id);
+  Call<MessageGetResponse> get(
+      @NotNull @Path("id") String id,
+      @Nullable @Query("show_deleted_message") Boolean showDeletedMessage);
 
   @GET("channels/{type}/{id}/messages")
   Call<MessageGetManyResponse> getMany(

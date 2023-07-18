@@ -730,10 +730,17 @@ public class Message {
   @RequiredArgsConstructor
   public static class MessageGetRequest extends StreamRequest<MessageGetResponse> {
     @NotNull private String id;
+    @Nullable private Boolean showDeletedMessages;
+
+    @NotNull
+    public MessageGetRequest showDeletedMessages(@NotNull Boolean showDeletedMessages) {
+      this.showDeletedMessages = showDeletedMessages;
+      return this;
+    }
 
     @Override
     protected Call<MessageGetResponse> generateCall(Client client) {
-      return client.create(MessageService.class).get(this.id);
+      return client.create(MessageService.class).get(this.id, this.showDeletedMessages);
     }
   }
 

@@ -28,6 +28,27 @@ public class MessageTest extends BasicTest {
     Assertions.assertTrue(retrievedMessage.getId().equals(testMessage.getId()));
   }
 
+  @DisplayName("Can retrieve a deleted message")
+  @Test
+  void whenRetrievingADeletedMessage_thenIsRetrieved() {
+    Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
+    Assertions.assertDoesNotThrow(() -> Message.delete(message.getId()).request());
+    Message retrievedMessage =
+        Assertions.assertDoesNotThrow(
+                () -> Message.get(message.getId()).showDeletedMessages(false).request())
+            .getMessage();
+
+    Assertions.assertTrue(retrievedMessage.getId().equals(message.getId()));
+    Assertions.assertFalse(retrievedMessage.getText().equals(message.getText()));
+
+    retrievedMessage =
+        Assertions.assertDoesNotThrow(
+                () -> Message.get(message.getId()).showDeletedMessages(true).request())
+            .getMessage();
+    Assertions.assertTrue(retrievedMessage.getId().equals(message.getId()));
+    Assertions.assertTrue(retrievedMessage.getText().equals(message.getText()));
+  }
+
   @DisplayName("Can update a message")
   @Test
   void whenUpdatingAMessage_thenNoException() {
