@@ -2,6 +2,8 @@ package io.getstream.chat.java;
 
 import io.getstream.chat.java.models.App;
 import io.getstream.chat.java.models.App.FileUploadConfigRequestObject;
+import io.getstream.chat.java.models.Blocklist;
+import io.getstream.chat.java.models.ChannelType;
 import io.getstream.chat.java.models.Language;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.*;
@@ -514,6 +516,7 @@ public class MessageTest extends BasicTest {
   @Test
   void whenExecutingCommandAction_thenNoException() {
     String text = "/giphy boom";
+
     MessageRequestObject messageCreateRequest =
         MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
     Message message =
@@ -642,5 +645,50 @@ public class MessageTest extends BasicTest {
                     Message.unpinMessage(message.getId(), testUserRequestObject.getId()).request())
             .getMessage();
     Assertions.assertFalse(unPinnedMessage.getPinned());
+  }
+
+  @DisplayName("Can force enable or disable moderation on a message")
+  @Test
+  void whenForcingModerationOnAMessage_thenIsForced() {
+    String text = "This is a shitty message";
+    Assertions.assertDoesNotThrow(
+        () -> Blocklist.create().name("swear-blocklist").words(Arrays.asList("shitty")).request());
+
+    Assertions.assertDoesNotThrow(() -> Thread.sleep(2000));
+
+    Assertions.assertDoesNotThrow(
+        () ->
+            ChannelType.update(testChannel.getType())
+                .blocklist("swear-blocklist")
+                .blocklistBehavior(ChannelType.BlocklistBehavior.BLOCK)
+                .request());
+
+    Assertions.assertDoesNotThrow(() -> Thread.sleep(5000));
+
+    MessageRequestObject messageRequest1 =
+        MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
+    Message msg1 =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .forceModeration(true)
+                        .message(messageRequest1)
+                        .request())
+            .getMessage();
+
+    Assertions.assertTrue(msg1.getText().equals("Message was blocked by moderation policies"));
+
+    MessageRequestObject messageRequest2 =
+        MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
+    Message msg2 =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .forceModeration(false)
+                        .message(messageRequest2)
+                        .request())
+            .getMessage();
+
+    Assertions.assertTrue(msg2.getText().equals(text));
   }
 }

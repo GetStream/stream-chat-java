@@ -705,6 +705,10 @@ public class Message {
     private Boolean pending;
 
     @Nullable
+    @JsonProperty("force_moderation")
+    private Boolean forceModeration;
+
+    @Nullable
     @JsonProperty("pending_message_metadata")
     private Map<String, Object> pendingMessageMetadata;
 
