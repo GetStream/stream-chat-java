@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](https://github.com/GetStream/stream-chat-java/compare/1.14.0...1.15.0) (2023-07-26)
+
+
+### Features
+
+* added support for force_moderation on message ([#108](https://github.com/GetStream/stream-chat-java/issues/108)) ([d71ccba](https://github.com/GetStream/stream-chat-java/commit/d71ccba984111604dcb96c68671c6394c525a4db))
+
 ## [1.14.0](https://github.com/GetStream/stream-chat-java/compare/1.13.1...1.14.0) (2023-07-18)
 
 
