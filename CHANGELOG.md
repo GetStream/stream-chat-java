@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.15.1](https://github.com/GetStream/stream-chat-java/compare/1.15.0...1.15.1) (2023-08-02)
+
+
+### Bug Fixes
+
+* make created_by_id nullable in UserDeactivateRequest ([#110](https://github.com/GetStream/stream-chat-java/issues/110)) ([200c2f0](https://github.com/GetStream/stream-chat-java/commit/200c2f0b23e3dd43c40701d6d9f12c20e5caad34))
+
 ## [1.15.0](https://github.com/GetStream/stream-chat-java/compare/1.14.0...1.15.0) (2023-07-26)
 
 
