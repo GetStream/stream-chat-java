@@ -775,7 +775,7 @@ public class User {
     @JsonProperty("mark_messages_deleted")
     private Boolean markMessagesDeleted;
 
-    @NotNull
+    @Nullable
     @JsonProperty("created_by_id")
     private String createdById;
 
