@@ -510,6 +510,15 @@ public class MessageTest extends BasicTest {
             .getMessages();
     // This assertion is for now commented as there is an issue on the backend
     // Assertions.assertEquals(1, repliesAfterFirstMessage.size());
+
+    // test deleted reply count
+    Assertions.assertDoesNotThrow(() -> Message.delete(firstReply.getId()).request());
+    Message m =
+        Assertions.assertDoesNotThrow(() -> Message.get(parentMessage.getId()).request())
+            .getMessage();
+
+    Assertions.assertEquals(2, m.getReplyCount());
+    Assertions.assertEquals(1, m.getDeletedReplyCount());
   }
 
   @DisplayName("Can execute command action")

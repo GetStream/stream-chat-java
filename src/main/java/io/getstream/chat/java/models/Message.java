@@ -98,6 +98,10 @@ public class Message {
   private Integer replyCount;
 
   @Nullable
+  @JsonProperty("deleted_reply_count")
+  private Integer deletedReplyCount;
+
+  @Nullable
   @JsonProperty("quoted_message_id")
   private String quotedMessageId;
 
