@@ -29,12 +29,38 @@ public class BasicTest {
   static void setup() throws StreamException, SecurityException, IllegalArgumentException {
     // failOnUnknownProperties();
     setProperties();
+    cleanChannels();
     cleanChannelTypes();
     cleanBlocklists();
     cleanCommands();
     upsertUsers();
     createTestChannel();
     createTestMessage();
+  }
+
+  private static void cleanChannels() {
+    try {
+      while (true) {
+        List<String> channels =
+            Channel.list().request().getChannels().stream()
+                .map(channel -> channel.getChannel().getCId())
+                .collect(Collectors.toList());
+
+        if (channels.size() == 0) {
+          break;
+        }
+
+        var deleteManyResponse =
+            Channel.deleteMany(channels).setDeleteStrategy(DeleteStrategy.HARD).request();
+        Assertions.assertNotNull(deleteManyResponse.getTaskId());
+      }
+
+    } catch (StreamException e) {
+      // Do nothing
+    }
+
+    // wait for the channels to delete
+    Assertions.assertDoesNotThrow(() -> Thread.sleep(2000));
   }
 
   private static void cleanChannelTypes() throws StreamException {
@@ -50,6 +76,8 @@ public class BasicTest {
                 // Do nothing. Happens when there are channels of that type
               }
             });
+
+    Assertions.assertDoesNotThrow(() -> Thread.sleep(2000));
   }
 
   private static void cleanBlocklists() throws StreamException {
