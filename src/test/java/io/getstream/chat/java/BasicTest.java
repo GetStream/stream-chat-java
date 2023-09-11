@@ -89,8 +89,6 @@ public class BasicTest {
                 // Do nothing. Happens when there are channels of that type
               }
             });
-
-    Assertions.assertDoesNotThrow(() -> Thread.sleep(2000));
   }
 
   private static void cleanBlocklists() throws StreamException {
