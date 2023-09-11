@@ -6,6 +6,7 @@ import io.getstream.chat.java.models.Channel.ChannelGetResponse;
 import io.getstream.chat.java.models.Channel.ChannelMemberRequestObject;
 import io.getstream.chat.java.models.Channel.ChannelRequestObject;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
+import io.getstream.chat.java.models.TaskStatus.TaskStatusGetResponse;
 import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.User.UserUpsertRequestData.UserUpsertRequest;
 import java.util.ArrayList;
@@ -29,12 +30,50 @@ public class BasicTest {
   static void setup() throws StreamException, SecurityException, IllegalArgumentException {
     // failOnUnknownProperties();
     setProperties();
+    cleanChannels();
     cleanChannelTypes();
     cleanBlocklists();
     cleanCommands();
     upsertUsers();
     createTestChannel();
     createTestMessage();
+  }
+
+  private static void cleanChannels() throws StreamException {
+    while (true) {
+      List<String> channels =
+          Channel.list().request().getChannels().stream()
+              .map(channel -> channel.getChannel().getCId())
+              .collect(Collectors.toList());
+
+      if (channels.size() == 0) {
+        break;
+      }
+
+      var deleteManyResponse =
+          Channel.deleteMany(channels).setDeleteStrategy(DeleteStrategy.HARD).request();
+      String taskId = deleteManyResponse.getTaskId();
+      Assertions.assertNotNull(taskId);
+
+      System.out.printf("Waiting for channel deletion task %s to complete...\n", taskId);
+
+      while (true) {
+        TaskStatusGetResponse response = TaskStatus.get(taskId).request();
+        String status = response.getStatus();
+
+        if (status.equals("completed") || status.equals("ok")) {
+          break;
+        }
+        if (status.equals("failed") || status.equals("error")) {
+          throw new StreamException(
+              String.format("Failed to delete channel(task_id: %s): %s", response.getId(), status),
+              (Throwable) null);
+        }
+
+        // wait for the channels to delete
+        Assertions.assertDoesNotThrow(() -> Thread.sleep(500));
+      }
+    }
   }
 
   private static void cleanChannelTypes() throws StreamException {
