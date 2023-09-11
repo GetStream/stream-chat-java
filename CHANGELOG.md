@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.15.2](https://github.com/GetStream/stream-chat-java/compare/1.15.1...1.15.2) (2023-09-11)
+
+
+### Features
+
+* add new field to Message ([#112](https://github.com/GetStream/stream-chat-java/issues/112)) ([33c0803](https://github.com/GetStream/stream-chat-java/commit/33c0803c0ad1221f3b481c9816e8a960a56d6537))
+
 ### [1.15.1](https://github.com/GetStream/stream-chat-java/compare/1.15.0...1.15.1) (2023-08-02)
 
 
