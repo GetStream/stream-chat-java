@@ -137,7 +137,7 @@ public class ChannelTypeTest extends BasicTest {
 
   @DisplayName("Can update channel type with quotes with no Exception")
   @Test
-  void whenCreatingDefaultChannelType_thenCanUpdateWithNoException() {
+  void whenCreatingDefaultChannelType_thenCanUpdateQuotesWithNoException() {
     String channelName = RandomStringUtils.randomAlphabetic(10);
     Assertions.assertDoesNotThrow(
         () -> ChannelType.create().withDefaultConfig().name(channelName).request());
