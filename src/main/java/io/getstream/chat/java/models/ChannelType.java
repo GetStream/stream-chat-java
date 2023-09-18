@@ -336,6 +336,10 @@ public class ChannelType {
     protected Boolean replies;
 
     @Nullable
+    @JsonProperty("quotes")
+    protected Boolean quotes;
+
+    @Nullable
     @JsonProperty("uploads")
     protected Boolean uploads;
 
@@ -469,6 +473,10 @@ public class ChannelType {
     @Nullable
     @JsonProperty("replies")
     protected Boolean replies;
+
+    @Nullable
+    @JsonProperty("quotes")
+    protected Boolean quotes;
 
     @Nullable
     @JsonProperty("uploads")
