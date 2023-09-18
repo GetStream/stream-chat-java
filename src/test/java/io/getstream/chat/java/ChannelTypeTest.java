@@ -143,7 +143,7 @@ public class ChannelTypeTest extends BasicTest {
         () -> ChannelType.create().withDefaultConfig().name(channelName).request());
     pause();
     Assertions.assertDoesNotThrow(
-        () -> ChannelType.update(channelName).quotes(false).request());
+        () -> ChannelType.update(channelName).request());
   }
 
   @DisplayName("Can create channel type with specific grants")
