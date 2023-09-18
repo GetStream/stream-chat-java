@@ -61,6 +61,10 @@ public class ChannelType {
   private Boolean replies;
 
   @Nullable
+  @JsonProperty("quotes")
+  private Boolean quotes;
+
+  @Nullable
   @JsonProperty("uploads")
   private Boolean uploads;
 
