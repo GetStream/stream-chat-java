@@ -135,6 +135,16 @@ public class ChannelTypeTest extends BasicTest {
         () -> ChannelType.update(channelName).automod(AutoMod.SIMPLE).request());
   }
 
+  @DisplayName("Can update channel type with quotes with no Exception")
+  @Test
+  void whenCreatingDefaultChannelType_thenCanUpdateQuotesWithNoException() {
+    String channelName = RandomStringUtils.randomAlphabetic(10);
+    Assertions.assertDoesNotThrow(
+        () -> ChannelType.create().withDefaultConfig().name(channelName).request());
+    pause();
+    Assertions.assertDoesNotThrow(() -> ChannelType.update(channelName).quotes(false).request());
+  }
+
   @DisplayName("Can create channel type with specific grants")
   @Test
   void whenManipulatingChannelTypeWithGrants_throwsNoException() {
