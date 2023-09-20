@@ -852,9 +852,6 @@ public class Message {
       if (offset != null && offset > 0 && next != null && !next.isEmpty()) {
         throw new IllegalArgumentException("Cannot use offset with next value");
       }
-      if (offset != null && offset > 0 && sorts != null && !sorts.isEmpty()) {
-        throw new IllegalArgumentException("Cannot use offset with sort value");
-      }
       this.query = query;
       this.filterConditions = filterConditions;
       this.messageFilterConditions = messageFilterConditions;
