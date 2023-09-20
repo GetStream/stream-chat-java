@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.16.2](https://github.com/GetStream/stream-chat-java/compare/1.16.1...1.16.2) (2023-09-20)
+
+
+### Features
+
+* allow search with offset and sort ([#118](https://github.com/GetStream/stream-chat-java/issues/118)) ([6d8a6ca](https://github.com/GetStream/stream-chat-java/commit/6d8a6ca46d651655b08d85c3df2f91bdd637fdbe))
+
 ### [1.16.1](https://github.com/GetStream/stream-chat-java/compare/1.16.0...1.16.1) (2023-09-19)
 
 ## [1.16.0](https://github.com/GetStream/stream-chat-java/compare/1.15.2...1.16.0) (2023-09-18)
