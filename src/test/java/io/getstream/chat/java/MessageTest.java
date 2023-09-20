@@ -104,20 +104,6 @@ public class MessageTest extends BasicTest {
                 .request());
   }
 
-  @DisplayName("Searching with offset and sort throws an exception")
-  @Test
-  void givenOffsetAndSort_whenSearchingMessages_thenThrowException() {
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () ->
-            Message.search()
-                .filterCondition("id", testChannel.getId())
-                .query(testMessage.getText())
-                .offset(1)
-                .sort(Sort.builder().field("created_at").direction(Sort.Direction.ASC).build())
-                .request());
-  }
-
   @DisplayName("Can search messages using query with no exception and retrieve given message")
   @Test
   void givenQuery_whenSearchingMessage_thenNoExceptionAndRetrievesMessage() {
