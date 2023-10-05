@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.17.0](https://github.com/GetStream/stream-chat-java/compare/1.16.2...1.17.0) (2023-10-05)
+
+
+### Features
+
+* support message unblock endpoint ([#120](https://github.com/GetStream/stream-chat-java/issues/120)) ([763e442](https://github.com/GetStream/stream-chat-java/commit/763e442fe0f2b8473d5e552ecef7f5a0883f83b6))
+
 ### [1.16.2](https://github.com/GetStream/stream-chat-java/compare/1.16.1...1.16.2) (2023-09-20)
 
 
