@@ -15,6 +15,7 @@ import io.getstream.chat.java.models.Message.MessageSendRequestData;
 import io.getstream.chat.java.models.Message.MessageSendResponse;
 import io.getstream.chat.java.models.Message.MessageTranslateRequestData;
 import io.getstream.chat.java.models.Message.MessageTranslateResponse;
+import io.getstream.chat.java.models.Message.MessageUnblockRequestData;
 import io.getstream.chat.java.models.Message.MessageUpdateRequestData;
 import io.getstream.chat.java.models.Message.MessageUpdateResponse;
 import io.getstream.chat.java.models.Message.MessageUploadFileResponse;
@@ -129,4 +130,8 @@ public interface MessageService {
   Call<MessagePartialUpdateResponse> partialUpdate(
       @NotNull @Path("id") String id,
       @NotNull @Body MessagePartialUpdateRequestData messagePartialUpdateRequestData);
+
+  @POST("moderation/unblock_message")
+  Call<StreamResponseObject> unblockMessage(
+      @NotNull @Body MessageUnblockRequestData messageUnblockRequestData);
 }

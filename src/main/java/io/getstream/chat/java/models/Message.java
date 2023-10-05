@@ -11,6 +11,7 @@ import io.getstream.chat.java.models.Message.MessageRunCommandActionRequestData.
 import io.getstream.chat.java.models.Message.MessageSearchRequestData.MessageSearchRequest;
 import io.getstream.chat.java.models.Message.MessageSendRequestData.MessageSendRequest;
 import io.getstream.chat.java.models.Message.MessageTranslateRequestData.MessageTranslateRequest;
+import io.getstream.chat.java.models.Message.MessageUnblockRequestData.MessageUnblockRequest;
 import io.getstream.chat.java.models.Message.MessageUpdateRequestData.MessageUpdateRequest;
 import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.framework.*;
@@ -1241,6 +1242,27 @@ public class Message {
     }
   }
 
+  @Builder(
+      builderClassName = "MessageUnblockRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class MessageUnblockRequestData {
+    @NotNull
+    @JsonProperty("target_message_id")
+    private String targetMessageId;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    public static class MessageUnblockRequest extends StreamRequest<StreamResponseObject> {
+      @Override
+      protected Call<StreamResponseObject> generateCall(Client client) {
+        return client.create(MessageService.class).unblockMessage(this.internalBuild());
+      }
+    }
+  }
+
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
@@ -1637,5 +1659,16 @@ public class Message {
   public static MessagePartialUpdateRequest unpinMessage(
       @NotNull String id, @NotNull String userId) {
     return new MessagePartialUpdateRequest(id).setValue("pinned", false).userId(userId);
+  }
+
+  /**
+   * Creates an unblock message request
+   *
+   * @param messageId the message id to unblock
+   * @return the created request
+   */
+  @NotNull
+  public static MessageUnblockRequest unblock(@NotNull String messageId) {
+    return new MessageUnblockRequest().targetMessageId(messageId);
   }
 }

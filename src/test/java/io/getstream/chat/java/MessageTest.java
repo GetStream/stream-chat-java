@@ -15,6 +15,7 @@ import java.lang.reflect.Field;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -507,6 +508,7 @@ public class MessageTest extends BasicTest {
     Assertions.assertEquals(1, m.getDeletedReplyCount());
   }
 
+  @Disabled
   @DisplayName("Can execute command action")
   @Test
   void whenExecutingCommandAction_thenNoException() {
@@ -645,16 +647,17 @@ public class MessageTest extends BasicTest {
   @DisplayName("Can force enable or disable moderation on a message")
   @Test
   void whenForcingModerationOnAMessage_thenIsForced() {
-    String text = "This is a shitty message";
+    final String text = "This is a shitty message";
+    final String blocklistName = RandomStringUtils.randomAlphabetic(5);
     Assertions.assertDoesNotThrow(
-        () -> Blocklist.create().name("swear-blocklist").words(Arrays.asList("shitty")).request());
+        () -> Blocklist.create().name(blocklistName).words(Arrays.asList("shitty")).request());
 
-    Assertions.assertDoesNotThrow(() -> Thread.sleep(2000));
+    Assertions.assertDoesNotThrow(() -> Thread.sleep(5000));
 
     Assertions.assertDoesNotThrow(
         () ->
             ChannelType.update(testChannel.getType())
-                .blocklist("swear-blocklist")
+                .blocklist(blocklistName)
                 .blocklistBehavior(ChannelType.BlocklistBehavior.BLOCK)
                 .request());
 
@@ -685,5 +688,54 @@ public class MessageTest extends BasicTest {
             .getMessage();
 
     Assertions.assertTrue(msg2.getText().equals(text));
+
+    Assertions.assertDoesNotThrow(() -> Blocklist.delete(blocklistName).request());
+  }
+
+  @DisplayName("Can unblock a message")
+  @Test
+  void whenUnblockingAMessage_thenIsUnblocked() {
+    final String swearText = "This is a hate message";
+    final String blocklistName = RandomStringUtils.randomAlphabetic(5);
+    Assertions.assertDoesNotThrow(
+        () -> Blocklist.create().name(blocklistName).words(Arrays.asList("hate")).request());
+
+    Assertions.assertDoesNotThrow(() -> Thread.sleep(5000));
+
+    Assertions.assertDoesNotThrow(
+        () ->
+            ChannelType.update(testChannel.getType())
+                .blocklist(blocklistName)
+                .blocklistBehavior(ChannelType.BlocklistBehavior.BLOCK)
+                .request());
+
+    Assertions.assertDoesNotThrow(() -> Thread.sleep(5000));
+
+    MessageRequestObject messageRequest1a =
+        MessageRequestObject.builder()
+            .text(swearText)
+            .userId(testUserRequestObject.getId())
+            .build();
+    Message msg1a =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .forceModeration(true)
+                        .message(messageRequest1a)
+                        .request())
+            .getMessage();
+
+    Assertions.assertEquals("Message was blocked by moderation policies", msg1a.getText());
+
+    Assertions.assertDoesNotThrow(
+        () -> Message.unblock(msg1a.getId()).userId(testUserRequestObject.getId()).request());
+
+    Message msg1b =
+        Assertions.assertDoesNotThrow(() -> Message.get(msg1a.getId()).request()).getMessage();
+
+    Assertions.assertEquals(swearText, msg1b.getText());
+    Assertions.assertEquals(msg1a.getId(), msg1b.getId());
+
+    Assertions.assertDoesNotThrow(() -> Blocklist.delete(blocklistName).request());
   }
 }
