@@ -279,6 +279,18 @@ public class App extends StreamResponseObject {
     private String sqsSecret;
 
     @Nullable
+    @JsonProperty("sns_topic_arn")
+    private String snsTopicArn;
+
+    @Nullable
+    @JsonProperty("sns_key")
+    private String snsKey;
+
+    @Nullable
+    @JsonProperty("sns_secret")
+    private String snsSecret;
+
+    @Nullable
     @JsonProperty("file_upload_config")
     private FileUploadConfig fileUploadConfig;
 
@@ -710,6 +722,21 @@ public class App extends StreamResponseObject {
     private String sqsSecret;
 
     @Nullable
+    @JsonProperty("sns_topic_arn")
+    @JsonInclude(Include.NON_NULL)
+    private String snsTopicArn;
+
+    @Nullable
+    @JsonProperty("sns_key")
+    @JsonInclude(Include.NON_NULL)
+    private String snsKey;
+
+    @Nullable
+    @JsonProperty("sns_secret")
+    @JsonInclude(Include.NON_NULL)
+    private String snsSecret;
+
+    @Nullable
     @JsonProperty("webhook_url")
     @JsonInclude(Include.NON_NULL)
     private String webhookURL;
@@ -831,6 +858,31 @@ public class App extends StreamResponseObject {
       @Override
       protected Call<AppCheckSqsResponse> generateCall(Client client) {
         return client.create(AppService.class).checkSqs(this.internalBuild());
+      }
+    }
+  }
+
+  @Builder(
+    builderClassName = "AppCheckSnsRequest",
+    builderMethodName = "",
+    buildMethodName = "internalBuild")
+  public static class AppCheckSnsRequestData {
+    @Nullable
+    @JsonProperty("sns_topic_arn")
+    private String snsTopicArn;
+
+    @Nullable
+    @JsonProperty("sns_key")
+    private String snsKey;
+
+    @Nullable
+    @JsonProperty("sns_secret")
+    private String snsSecret;
+
+    public static class AppCheckSnsRequest extends StreamRequest<AppCheckSnsResponse> {
+      @Override
+      protected Call<AppCheckSnsResponse> generateCall(Client client) {
+        return client.create(AppService.class).checkSns(this.internalBuild());
       }
     }
   }
@@ -1037,6 +1089,32 @@ public class App extends StreamResponseObject {
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
+  public static class AppCheckSnsResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("status")
+    private Status status;
+
+    @Nullable
+    @JsonProperty("error")
+    private String error;
+
+    @Nullable
+    @JsonProperty("data")
+    private Map<String, Object> data;
+
+    public enum Status {
+      @JsonProperty("ok")
+      OK,
+      @JsonProperty("error")
+      ERROR,
+      @JsonEnumDefaultValue
+      UNKNOWN
+    }
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
   public static class AppCheckPushResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("device_errors")
@@ -1119,6 +1197,16 @@ public class App extends StreamResponseObject {
   @NotNull
   public static AppCheckSqsRequest checkSqs() {
     return new AppCheckSqsRequest();
+  }
+
+  /**
+   * Creates a check SNS request.
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static AppCheckSnsRequest checkSns() {
+    return new AppCheckSnsRequest();
   }
 
   /**

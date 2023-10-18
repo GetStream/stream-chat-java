@@ -4,6 +4,8 @@ import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.App;
 import io.getstream.chat.java.models.App.AppCheckSqsResponse;
 import io.getstream.chat.java.models.App.AppCheckSqsResponse.Status;
+import io.getstream.chat.java.models.App.AppCheckSnsResponse;
+import io.getstream.chat.java.models.App.AppCheckSnsResponse.Status;
 import io.getstream.chat.java.models.App.PushConfigRequestObject;
 import io.getstream.chat.java.models.App.PushVersion;
 import io.getstream.chat.java.models.Message;
@@ -97,6 +99,20 @@ public class AppTest extends BasicTest {
                     .sqsKey("key")
                     .sqsSecret("secret")
                     .sqsUrl("https://foo.com/bar")
+                    .request());
+    Assertions.assertEquals(Status.ERROR, response.getStatus());
+  }
+
+  @DisplayName("Can check sns")
+  @Test
+  void whenCheckingBadSns_thenError() {
+    AppCheckSnsResponse response =
+        Assertions.assertDoesNotThrow(
+            () ->
+                App.checkSns()
+                    .snsKey("key")
+                    .snsSecret("secret")
+                    .snsTopicArn("my-topic-arn")
                     .request());
     Assertions.assertEquals(Status.ERROR, response.getStatus());
   }

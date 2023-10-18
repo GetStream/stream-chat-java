@@ -1538,6 +1538,21 @@ App.update()
 App.checkSqs().request();
 ```
 
+**Check SNS**
+
+
+```java
+// set your SNS topic details
+App.update()
+    .snsKey("yourkey")
+    .snsKey("yoursecret")
+    .snsTopicArn("arn:aws:sns:us-east-1:123456789012:my-topic")
+    .request();
+
+// send a test message
+App.checkSns().request();
+```
+
 **Create device**
 
 ```java

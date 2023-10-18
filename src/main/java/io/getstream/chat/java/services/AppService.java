@@ -5,6 +5,8 @@ import io.getstream.chat.java.models.App.AppCheckPushRequestData;
 import io.getstream.chat.java.models.App.AppCheckPushResponse;
 import io.getstream.chat.java.models.App.AppCheckSqsRequestData;
 import io.getstream.chat.java.models.App.AppCheckSqsResponse;
+import io.getstream.chat.java.models.App.AppCheckSnsRequestData;
+import io.getstream.chat.java.models.App.AppCheckSnsResponse;
 import io.getstream.chat.java.models.App.AppGetRateLimitsResponse;
 import io.getstream.chat.java.models.App.AppUpdateRequestData;
 import io.getstream.chat.java.models.App.ListPushProviderResponse;
@@ -41,6 +43,9 @@ public interface AppService {
 
   @POST("check_sqs")
   Call<AppCheckSqsResponse> checkSqs(@NotNull @Body AppCheckSqsRequestData appCheckSqsRequestData);
+
+  @POST("check_sns")
+  Call<AppCheckSnsResponse> checkSns(@NotNull @Body AppCheckSnsRequestData appCheckSnsRequestData);
 
   @POST("check_push")
   Call<AppCheckPushResponse> checkPush(@NotNull @Body AppCheckPushRequestData internalBuild);
