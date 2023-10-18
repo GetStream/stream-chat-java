@@ -2,8 +2,8 @@ package io.getstream.chat.java;
 
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.App;
+import io.getstream.chat.java.models.App.AppCheckSnsResponse;
 import io.getstream.chat.java.models.App.AppCheckSqsResponse;
-import io.getstream.chat.java.models.App.AppCheckSqsResponse.Status;
 import io.getstream.chat.java.models.App.PushConfigRequestObject;
 import io.getstream.chat.java.models.App.PushVersion;
 import io.getstream.chat.java.models.Message;
@@ -17,6 +17,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class AppTest extends BasicTest {
+  private AppCheckSnsResponse.Status SnsStatus;
+  private AppCheckSqsResponse.Status SqsStatus;
+
   @DisplayName("App Get does not throw Exception")
   @Test
   void whenCallingGetApp_thenNoException() {
@@ -98,7 +101,21 @@ public class AppTest extends BasicTest {
                     .sqsSecret("secret")
                     .sqsUrl("https://foo.com/bar")
                     .request());
-    Assertions.assertEquals(Status.ERROR, response.getStatus());
+    Assertions.assertEquals(SqsStatus.ERROR, response.getStatus());
+  }
+
+  @DisplayName("Can check sns")
+  @Test
+  void whenCheckingBadSns_thenError() {
+    AppCheckSnsResponse response =
+        Assertions.assertDoesNotThrow(
+            () ->
+                App.checkSns()
+                    .snsKey("key")
+                    .snsSecret("secret")
+                    .snsTopicArn("arn:aws:sns:us-east-1:123456789012:sns-topic")
+                    .request());
+    Assertions.assertEquals(SnsStatus.ERROR, response.getStatus());
   }
 
   @DisplayName("Can check push templates")
