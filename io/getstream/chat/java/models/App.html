@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":10,"i10":9,"i11":9};
+var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":10,"i11":9,"i12":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -180,6 +180,16 @@ extends <a href="framework/StreamResponseObject.html" title="class in io.getstre
 <tr class="rowColor">
 <td class="colFirst"><code>static class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="App.AppCheckPushResponse.html" title="class in io.getstream.chat.java.models">App.AppCheckPushResponse</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="App.AppCheckSnsRequestData.html" title="class in io.getstream.chat.java.models">App.AppCheckSnsRequestData</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="App.AppCheckSnsResponse.html" title="class in io.getstream.chat.java.models">App.AppCheckSnsResponse</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
@@ -389,13 +399,20 @@ extends <a href="framework/StreamResponseObject.html" title="class in io.getstre
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>static <a href="App.AppCheckSnsRequestData.AppCheckSnsRequest.html" title="class in io.getstream.chat.java.models">App.AppCheckSnsRequestData.AppCheckSnsRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkSns()">checkSns</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Creates a check SNS request.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>static <a href="App.AppCheckSqsRequestData.AppCheckSqsRequest.html" title="class in io.getstream.chat.java.models">App.AppCheckSqsRequestData.AppCheckSqsRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkSqs()">checkSqs</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a check SQS request.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>static <a href="App.DeletePushProviderRequest.html" title="class in io.getstream.chat.java.models">App.DeletePushProviderRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deletePushProvider(java.lang.String,java.lang.String)">deletePushProvider</a></span>&#8203;(java.lang.String&nbsp;providerType,
                   java.lang.String&nbsp;name)</code></th>
@@ -403,49 +420,49 @@ extends <a href="framework/StreamResponseObject.html" title="class in io.getstre
 <div class="block">Creates a delete push provider request</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>static <a href="App.AppGetRequest.html" title="class in io.getstream.chat.java.models">App.AppGetRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get()">get</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a get request.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>static <a href="App.AppGetRateLimitsRequest.html" title="class in io.getstream.chat.java.models">App.AppGetRateLimitsRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRateLimits()">getRateLimits</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a get rate limits request.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>static <a href="App.ListPushProvidersRequest.html" title="class in io.getstream.chat.java.models">App.ListPushProvidersRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#listPushProviders()">listPushProviders</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a list push providers request</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>static <a href="App.AppRevokeTokensRequest.html" title="class in io.getstream.chat.java.models">App.AppRevokeTokensRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#revokeTokens(java.util.Date)">revokeTokens</a></span>&#8203;(java.util.Date&nbsp;revokeTokensIssuedBefore)</code></th>
 <td class="colLast">
 <div class="block">Creates a revoke tokens request</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>static <a href="App.AppUpdateRequestData.AppUpdateRequest.html" title="class in io.getstream.chat.java.models">App.AppUpdateRequestData.AppUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates an update request.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>static <a href="App.PushProviderRequestData.PushProviderRequest.html" title="class in io.getstream.chat.java.models">App.PushProviderRequestData.PushProviderRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#upsertPushProvider()">upsertPushProvider</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates an upsert push provider request</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyWebhook(java.lang.String,java.lang.String)">verifyWebhook</a></span>&#8203;(java.lang.String&nbsp;body,
              java.lang.String&nbsp;signature)</code></th>
@@ -453,7 +470,7 @@ extends <a href="framework/StreamResponseObject.html" title="class in io.getstre
 <div class="block">Validates if hmac signature is correct for message body.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyWebhookSignature(java.lang.String,java.lang.String)">verifyWebhookSignature</a></span>&#8203;(java.lang.String&nbsp;body,
                       java.lang.String&nbsp;signature)</code></th>
@@ -461,7 +478,7 @@ extends <a href="framework/StreamResponseObject.html" title="class in io.getstre
 <div class="block">Validates if hmac signature is correct for message body.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyWebhookSignature(java.lang.String,java.lang.String,java.lang.String)">verifyWebhookSignature</a></span>&#8203;(java.lang.String&nbsp;apiSecret,
                       java.lang.String&nbsp;body,
@@ -581,6 +598,21 @@ public static&nbsp;<a href="App.AppGetRateLimitsRequest.html" title="class in io
 <pre class="methodSignature">@NotNull
 public static&nbsp;<a href="App.AppCheckSqsRequestData.AppCheckSqsRequest.html" title="class in io.getstream.chat.java.models">App.AppCheckSqsRequestData.AppCheckSqsRequest</a>&nbsp;checkSqs()</pre>
 <div class="block">Creates a check SQS request.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the created request</dd>
+</dl>
+</li>
+</ul>
+<a id="checkSns()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>checkSns</h4>
+<pre class="methodSignature">@NotNull
+public static&nbsp;<a href="App.AppCheckSnsRequestData.AppCheckSnsRequest.html" title="class in io.getstream.chat.java.models">App.AppCheckSnsRequestData.AppCheckSnsRequest</a>&nbsp;checkSns()</pre>
+<div class="block">Creates a check SNS request.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the created request</dd>

@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -150,22 +150,27 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/App.AppCheckSnsResponse.html" title="class in io.getstream.chat.java.models">App.AppCheckSnsResponse</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkSns(io.getstream.chat.java.models.App.AppCheckSnsRequestData)">checkSns</a></span>&#8203;(<a href="../models/App.AppCheckSnsRequestData.html" title="class in io.getstream.chat.java.models">App.AppCheckSnsRequestData</a>&nbsp;appCheckSnsRequestData)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/App.AppCheckSqsResponse.html" title="class in io.getstream.chat.java.models">App.AppCheckSqsResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkSqs(io.getstream.chat.java.models.App.AppCheckSqsRequestData)">checkSqs</a></span>&#8203;(<a href="../models/App.AppCheckSqsRequestData.html" title="class in io.getstream.chat.java.models">App.AppCheckSqsRequestData</a>&nbsp;appCheckSqsRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deletePushProvider(java.lang.String,java.lang.String)">deletePushProvider</a></span>&#8203;(java.lang.String&nbsp;providerType,
                   java.lang.String&nbsp;name)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/App.html" title="class in io.getstream.chat.java.models">App</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get()">get</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/App.AppGetRateLimitsResponse.html" title="class in io.getstream.chat.java.models">App.AppGetRateLimitsResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRateLimits(java.lang.Boolean,java.lang.Boolean,java.lang.Boolean,java.lang.Boolean,java.lang.String)">getRateLimits</a></span>&#8203;(java.lang.Boolean&nbsp;serverSide,
              java.lang.Boolean&nbsp;android,
@@ -174,17 +179,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
              java.lang.String&nbsp;endpoints)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/App.ListPushProviderResponse.html" title="class in io.getstream.chat.java.models">App.ListPushProviderResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#listPushProviders()">listPushProviders</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(io.getstream.chat.java.models.App.AppUpdateRequestData)">update</a></span>&#8203;(<a href="../models/App.AppUpdateRequestData.html" title="class in io.getstream.chat.java.models">App.AppUpdateRequestData</a>&nbsp;appSettings)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/App.UpsertPushProviderResponse.html" title="class in io.getstream.chat.java.models">App.UpsertPushProviderResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#upsertPushProvider(io.getstream.chat.java.models.App.PushProviderRequestData)">upsertPushProvider</a></span>&#8203;(<a href="../models/App.PushProviderRequestData.html" title="class in io.getstream.chat.java.models">App.PushProviderRequestData</a>&nbsp;pushProviderRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
@@ -257,6 +262,17 @@ retrofit2.Call&lt;<a href="../models/App.AppGetRateLimitsResponse.html" title="c
 <pre class="methodSignature">@POST("check_sqs")
 retrofit2.Call&lt;<a href="../models/App.AppCheckSqsResponse.html" title="class in io.getstream.chat.java.models">App.AppCheckSqsResponse</a>&gt;&nbsp;checkSqs&#8203;(@NotNull @Body
                                                  <a href="../models/App.AppCheckSqsRequestData.html" title="class in io.getstream.chat.java.models">App.AppCheckSqsRequestData</a>&nbsp;appCheckSqsRequestData)</pre>
+</li>
+</ul>
+<a id="checkSns(io.getstream.chat.java.models.App.AppCheckSnsRequestData)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>checkSns</h4>
+<pre class="methodSignature">@POST("check_sns")
+retrofit2.Call&lt;<a href="../models/App.AppCheckSnsResponse.html" title="class in io.getstream.chat.java.models">App.AppCheckSnsResponse</a>&gt;&nbsp;checkSns&#8203;(@NotNull @Body
+                                                 <a href="../models/App.AppCheckSnsRequestData.html" title="class in io.getstream.chat.java.models">App.AppCheckSnsRequestData</a>&nbsp;appCheckSnsRequestData)</pre>
 </li>
 </ul>
 <a id="checkPush(io.getstream.chat.java.models.App.AppCheckPushRequestData)">
