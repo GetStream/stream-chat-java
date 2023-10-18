@@ -113,7 +113,7 @@ public class AppTest extends BasicTest {
                 App.checkSns()
                     .snsKey("key")
                     .snsSecret("secret")
-                    .snsTopicArns("arn:aws:sns:us-east-1:123456789012:sns-topic")
+                    .snsTopicArn("arn:aws:sns:us-east-1:123456789012:sns-topic")
                     .request());
     Assertions.assertEquals(SnsStatus.ERROR, response.getStatus());
   }
