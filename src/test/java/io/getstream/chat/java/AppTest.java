@@ -3,7 +3,6 @@ package io.getstream.chat.java;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.App;
 import io.getstream.chat.java.models.App.AppCheckSnsResponse;
-import io.getstream.chat.java.models.App.AppCheckSnsResponse.Status;
 import io.getstream.chat.java.models.App.AppCheckSqsResponse;
 import io.getstream.chat.java.models.App.AppCheckSqsResponse.Status;
 import io.getstream.chat.java.models.App.PushConfigRequestObject;
@@ -19,6 +18,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class AppTest extends BasicTest {
+  private AppCheckSnsResponse.Status SnsStatus;
+
   @DisplayName("App Get does not throw Exception")
   @Test
   void whenCallingGetApp_thenNoException() {
@@ -114,7 +115,7 @@ public class AppTest extends BasicTest {
                     .snsSecret("secret")
                     .snsTopicArn("my-topic-arn")
                     .request());
-    Assertions.assertEquals(Status.ERROR, response.getStatus());
+    Assertions.assertEquals(SnsStatus.ERROR, response.getStatus());
   }
 
   @DisplayName("Can check push templates")
