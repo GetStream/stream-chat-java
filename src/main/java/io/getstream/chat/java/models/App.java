@@ -863,9 +863,9 @@ public class App extends StreamResponseObject {
   }
 
   @Builder(
-    builderClassName = "AppCheckSnsRequest",
-    builderMethodName = "",
-    buildMethodName = "internalBuild")
+      builderClassName = "AppCheckSnsRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
   public static class AppCheckSnsRequestData {
     @Nullable
     @JsonProperty("sns_topic_arn")

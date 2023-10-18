@@ -2,10 +2,10 @@ package io.getstream.chat.java;
 
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.App;
-import io.getstream.chat.java.models.App.AppCheckSqsResponse;
-import io.getstream.chat.java.models.App.AppCheckSqsResponse.Status;
 import io.getstream.chat.java.models.App.AppCheckSnsResponse;
 import io.getstream.chat.java.models.App.AppCheckSnsResponse.Status;
+import io.getstream.chat.java.models.App.AppCheckSqsResponse;
+import io.getstream.chat.java.models.App.AppCheckSqsResponse.Status;
 import io.getstream.chat.java.models.App.PushConfigRequestObject;
 import io.getstream.chat.java.models.App.PushVersion;
 import io.getstream.chat.java.models.Message;
