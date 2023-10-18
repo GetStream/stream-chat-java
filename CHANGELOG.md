@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.18.0](https://github.com/GetStream/stream-chat-java/compare/1.17.0...1.18.0) (2023-10-18)
+
+
+### Features
+
+* sns support ([#122](https://github.com/GetStream/stream-chat-java/issues/122)) ([bfac399](https://github.com/GetStream/stream-chat-java/commit/bfac399eb0cb23c35ee810709e337f1f1305af04))
+
 ## [1.17.0](https://github.com/GetStream/stream-chat-java/compare/1.16.2...1.17.0) (2023-10-05)
 
 
