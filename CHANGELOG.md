@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.19.0](https://github.com/GetStream/stream-chat-java/compare/v1.18.0...v1.19.0) (2023-11-02)
+
+
+### Features
+
+* allow sending invites when creating a channel ([#124](https://github.com/GetStream/stream-chat-java/issues/124)) ([937dc3a](https://github.com/GetStream/stream-chat-java/commit/937dc3a7736ba60ea7a32d0ffb34138ab28e4cf8))
+
 ## [1.18.0](https://github.com/GetStream/stream-chat-java/compare/1.17.0...1.18.0) (2023-10-18)
 
 
