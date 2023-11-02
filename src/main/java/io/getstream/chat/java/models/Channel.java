@@ -231,6 +231,11 @@ public class Channel {
     @JsonProperty("members")
     private List<ChannelMemberRequestObject> members;
 
+    @Singular
+    @Nullable
+    @JsonProperty("invites")
+    private List<ChannelMemberRequestObject> invites;
+
     @Nullable
     @JsonProperty("config_overrides")
     private ConfigOverridesRequestObject configOverrides;
@@ -259,6 +264,7 @@ public class Channel {
         @Nullable Language autoTranslationLanguage,
         @Nullable Boolean frozen,
         @Nullable List<ChannelMemberRequestObject> members,
+        @Nullable List<ChannelMemberRequestObject> invites,
         @Nullable ConfigOverridesRequestObject configOverrides,
         Map<String, Object> additionalFields) {
       this.createdBy = createdBy;
@@ -267,6 +273,7 @@ public class Channel {
       this.autoTranslationLanguage = autoTranslationLanguage;
       this.frozen = frozen;
       this.members = members;
+      this.invites = invites;
       this.configOverrides = configOverrides;
       this.additionalFields = new HashMap<String, Object>(additionalFields);
     }
