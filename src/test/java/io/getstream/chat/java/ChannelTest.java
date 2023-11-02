@@ -11,6 +11,7 @@ import io.getstream.chat.java.models.User.ChannelMute;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -30,6 +31,39 @@ public class ChannelTest extends BasicTest {
                         .members(buildChannelMembersList())
                         .build())
                 .request());
+  }
+
+  @DisplayName("Can create channel with invites")
+  @Test
+  void whenCreatingChannelWithInvites_thenNoException() {
+    var lastUser = testUsersRequestObjects.get(testUsersRequestObjects.size() - 1);
+    // invite last user and add the rest as members
+    var channelReq =
+        ChannelRequestObject.builder()
+            .createdBy(testUserRequestObject)
+            .members(
+                testUsersRequestObjects.stream()
+                    .limit(testUsersRequestObjects.size() - 1)
+                    .map(user -> ChannelMemberRequestObject.builder().user(user).build())
+                    .collect(Collectors.toList()))
+            .invite(ChannelMemberRequestObject.builder().user(lastUser).build())
+            .build();
+    var channel =
+        Assertions.assertDoesNotThrow(
+            () -> Channel.getOrCreate(testChannel.getType()).data(channelReq).request());
+
+    var invitedMember =
+        channel.getMembers().stream()
+            .filter(
+                channelMember -> {
+                  var invited = channelMember.getInvited();
+                  return invited != null && invited;
+                })
+            .findFirst()
+            .get();
+
+    Assertions.assertNotNull(invitedMember);
+    Assertions.assertEquals(invitedMember.getUserId(), lastUser.getId());
   }
 
   @DisplayName("Can set custom field on channel")
