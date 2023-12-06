@@ -424,6 +424,48 @@ public class MessageTest extends BasicTest {
     Assertions.assertDoesNotThrow(() -> Message.commit(message.getId()).request());
   }
 
+  @DisplayName("Can send a silent message")
+  @Test
+  void whenSendingSilent() {
+    String text = "This is a silent message";
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder()
+            .text(text)
+            .userId(testUserRequestObject.getId())
+            .silent(true)
+            .build();
+
+    Message message =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .message(messageRequest)
+                        .request())
+            .getMessage();
+    Assertions.assertTrue(message.getSilent());
+  }
+
+  @DisplayName("Can send a system message")
+  @Test
+  void whenSendingSystem() {
+    String text = "This is a system message";
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder()
+            .text(text)
+            .type(MessageType.SYSTEM)
+            .userId(testUserRequestObject.getId())
+            .build();
+
+    Message message =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .message(messageRequest)
+                        .request())
+            .getMessage();
+    Assertions.assertEquals(MessageType.SYSTEM, message.getType());
+  }
+
   @DisplayName("Can delete a message")
   @Test
   void whenDeletingMessage_thenIsDeleted() {

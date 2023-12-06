@@ -414,6 +414,10 @@ public class Message {
     private String text;
 
     @Nullable
+    @JsonProperty("type")
+    private MessageType type;
+
+    @Nullable
     @JsonProperty("mml")
     private String mml;
 
