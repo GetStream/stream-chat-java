@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.20.0](https://github.com/GetStream/stream-chat-java/compare/1.19.0...1.20.0) (2023-12-06)
+
+
+### Features
+
+* add the ability to set message type when sending a message ([#127](https://github.com/GetStream/stream-chat-java/issues/127)) ([8cb5f47](https://github.com/GetStream/stream-chat-java/commit/8cb5f471f7c6521af08fb9479f99b0412788c2df))
+
 ## [1.19.0](https://github.com/GetStream/stream-chat-java/compare/v1.18.0...v1.19.0) (2023-11-02)
 
 
