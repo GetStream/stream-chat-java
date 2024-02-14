@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.20.1](https://github.com/GetStream/stream-chat-java/compare/1.20.0...1.20.1) (2024-02-14)
+
+
+### Bug Fixes
+
+* remove unused dependency ([#130](https://github.com/GetStream/stream-chat-java/issues/130)) ([ad4e624](https://github.com/GetStream/stream-chat-java/commit/ad4e624bde94f9ceeaf2adb1d3bf25d2282eb81f))
+
 ## [1.20.0](https://github.com/GetStream/stream-chat-java/compare/1.19.0...1.20.0) (2023-12-06)
 
 
