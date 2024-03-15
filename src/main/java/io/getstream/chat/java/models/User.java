@@ -623,6 +623,10 @@ public class User {
     @JsonProperty("connection_id")
     private String connectionId;
 
+    @Nullable
+    @JsonProperty("include_deactivated_users")
+    private Boolean includeDeactivatedUsers;
+
     public static class UserListRequest extends StreamRequest<UserListResponse> {
       @Override
       protected Call<UserListResponse> generateCall(Client client) {
