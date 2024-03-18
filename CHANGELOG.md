@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.0](https://github.com/GetStream/stream-chat-java/compare/1.20.1...1.21.0) (2024-03-18)
+
+
+### Features
+
+* query deactivated users ([#134](https://github.com/GetStream/stream-chat-java/issues/134)) ([374d0e9](https://github.com/GetStream/stream-chat-java/commit/374d0e9b650abbce0062ee966a4a89415d233dd9))
+* unread counts ([#133](https://github.com/GetStream/stream-chat-java/issues/133)) ([7a075ae](https://github.com/GetStream/stream-chat-java/commit/7a075ae9b0d605dc8c166c2d16c84ae9af61c730))
+
 ### [1.20.1](https://github.com/GetStream/stream-chat-java/compare/1.20.0...1.20.1) (2024-02-14)
 
 
