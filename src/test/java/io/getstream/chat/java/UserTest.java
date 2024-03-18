@@ -5,9 +5,18 @@ import static io.getstream.chat.java.models.User.*;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.DeleteStrategy;
+import io.getstream.chat.java.models.FilterCondition;
 import io.getstream.chat.java.models.Language;
 import io.getstream.chat.java.models.User;
+import io.getstream.chat.java.models.User.Ban;
+import io.getstream.chat.java.models.User.ChannelMuteRequestObject;
+import io.getstream.chat.java.models.User.OwnUser;
+import io.getstream.chat.java.models.User.OwnUserRequestObject;
+import io.getstream.chat.java.models.User.UserMute;
+import io.getstream.chat.java.models.User.UserPartialUpdateRequestObject;
+import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.User.UserUpsertRequestData.UserUpsertRequest;
+import io.getstream.chat.java.models.User.UserUpsertResponse;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.logging.Level;
@@ -174,6 +183,58 @@ public class UserTest extends BasicTest {
                 () -> User.reactivate(userId).createdById(testUserRequestObject.getId()).request())
             .getUser();
     Assertions.assertNull(reactivatedUser.getDeactivatedAt());
+  }
+
+  @DisplayName("Can list deactivated users")
+  @Test
+  void whenListingDeactivateUsers_thenIncludesDeactivated() {
+    String userId = RandomStringUtils.randomAlphabetic(10);
+    String deactivatedUserId = RandomStringUtils.randomAlphabetic(10);
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.user(UserRequestObject.builder().id(userId).name("User").build());
+    usersUpsertRequest.user(
+        UserRequestObject.builder().id(deactivatedUserId).name("User to deactivate").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.deactivate(deactivatedUserId)
+                .createdById(testUserRequestObject.getId())
+                .request());
+
+    List<User> users =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    User.list()
+                        .filterConditions(FilterCondition.in("id", userId, deactivatedUserId))
+                        .includeDeactivatedUsers(true)
+                        .request())
+            .getUsers();
+
+    Assertions.assertEquals(2, users.size());
+
+    for (User user : users) {
+      if (user.getId().equals(deactivatedUserId)) {
+        Assertions.assertNotNull(user.getDeactivatedAt());
+      } else {
+        Assertions.assertNull(user.getDeactivatedAt());
+      }
+    }
+
+    users =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    User.list()
+                        .filterConditions(FilterCondition.in("id", userId, deactivatedUserId))
+                        .request())
+            .getUsers();
+
+    Assertions.assertEquals(1, users.size());
+
+    User user = users.get(0);
+    Assertions.assertEquals(userId, user.getId());
+
+    Assertions.assertNull(user.getDeactivatedAt());
   }
 
   @DisplayName("Can delete user")
