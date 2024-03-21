@@ -45,25 +45,23 @@ dependencies {
 def localProperties = new Properties()
 def localPropertiesFile = project.rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
-    try (FileInputStream stream = new FileInputStream(localPropertiesFile)) {
-        localProperties.load(stream)
-    }
+	localProperties.load(localPropertiesFile.newDataInputStream())
 }
 
 test {
-    useJUnitPlatform()
+	useJUnitPlatform()
 
-    testLogging {
-        exceptionFormat = 'full'
-        events 'standard_out', 'standard_error', "passed", "skipped", "failed"
-    }
+	testLogging {
+		exceptionFormat = 'full'
+		events 'standard_out', 'standard_error', "passed", "skipped", "failed"
+	}
 
-    doFirst {
-        // Inject local properties into tests runtime system properties
-        localProperties.forEach((k, v) -> {
-            systemProperty k.toString(), v.toString()
-        })
-    }
+	doFirst {
+		// Inject local properties into tests runtime system properties
+		localProperties.each{k, v ->
+			systemProperty k.toString(), v.toString()
+		}
+	}
 
     finalizedBy jacocoTestReport
 }
