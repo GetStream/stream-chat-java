@@ -1,8 +1,8 @@
 plugins {
-    id 'java'
-    id 'io.github.gradle-nexus.publish-plugin' version '1.1.0'
-    id 'com.diffplug.spotless' version '6.25.0'
-    id 'org.barfuin.gradle.jacocolog' version '2.0.0'
+	id 'java'
+	id 'io.github.gradle-nexus.publish-plugin' version '1.1.0'
+	id 'com.diffplug.spotless' version '6.25.0'
+	id 'org.barfuin.gradle.jacocolog' version '2.0.0'
 }
 
 group = 'io.getstream'
@@ -10,36 +10,36 @@ version = '1.21.0'
 description = 'Stream Chat official Java SDK'
 
 java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
-    }
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(11)
+	}
 }
 
 repositories {
-    mavenLocal()
-    mavenCentral()
-    maven { url "https://plugins.gradle.org/m2/" }
-    maven { url uri('https://repo.maven.apache.org/maven2/') }
+	mavenLocal()
+	mavenCentral()
+	maven { url "https://plugins.gradle.org/m2/" }
+	maven { url uri('https://repo.maven.apache.org/maven2/') }
 }
 
 dependencies {
-    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.11.0"))
+	implementation(platform("com.squareup.okhttp3:okhttp-bom:4.11.0"))
 
-    // define any required OkHttp artifacts without version
-    implementation("com.squareup.okhttp3:okhttp")
+	// define any required OkHttp artifacts without version
+	implementation("com.squareup.okhttp3:okhttp")
 
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
-    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
-    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
-    testImplementation 'org.apache.commons:commons-lang3:3.12.0'
-    compileOnly 'org.projectlombok:lombok:1.18.22'
-    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+	implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+	implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+	testImplementation 'org.apache.commons:commons-lang3:3.12.0'
+	compileOnly 'org.projectlombok:lombok:1.18.22'
+	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
-    testCompileOnly 'org.projectlombok:lombok:1.18.22'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+	testCompileOnly 'org.projectlombok:lombok:1.18.22'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
 
 def localProperties = new Properties()
@@ -63,20 +63,20 @@ test {
 		}
 	}
 
-    finalizedBy jacocoTestReport
+	finalizedBy jacocoTestReport
 }
 
 def generatedVersionDir = "${buildDir}/generated-version"
 
 sourceSets {
-    main {
-        output.dir(generatedVersionDir, builtBy: 'generateVersionProperties')
-    }
+	main {
+		output.dir(generatedVersionDir, builtBy: 'generateVersionProperties')
+	}
 }
 spotless {
-    java {
-        googleJavaFormat()
-    }
+	java {
+		googleJavaFormat()
+	}
 
 	groovyGradle {
 		target '*.gradle'
@@ -85,17 +85,17 @@ spotless {
 }
 
 jacocoTestReport {
-    dependsOn test
+	dependsOn test
 }
 
 task generateVersionProperties {
-    doLast {
-        def propertiesFile = file "$generatedVersionDir/version.properties"
-        propertiesFile.parentFile.mkdirs()
-        def properties = new Properties()
-        properties.setProperty("version", rootProject.version.toString())
-        propertiesFile.withWriter { properties.store(it, null) }
-    }
+	doLast {
+		def propertiesFile = file "$generatedVersionDir/version.properties"
+		propertiesFile.parentFile.mkdirs()
+		def properties = new Properties()
+		properties.setProperty("version", rootProject.version.toString())
+		propertiesFile.withWriter { properties.store(it, null) }
+	}
 }
 processResources.dependsOn generateVersionProperties
 
