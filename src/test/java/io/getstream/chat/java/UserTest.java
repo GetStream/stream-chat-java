@@ -394,7 +394,9 @@ public class UserTest extends BasicTest {
   }
 
   private Object getRequestObjectFieldValue(String fieldName, Object requestObject)
-      throws NoSuchFieldException, SecurityException, IllegalArgumentException,
+      throws NoSuchFieldException,
+          SecurityException,
+          IllegalArgumentException,
           IllegalAccessException {
     Field field = requestObject.getClass().getDeclaredField(fieldName);
     field.setAccessible(true);
