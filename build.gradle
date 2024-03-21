@@ -79,6 +79,11 @@ spotless {
     java {
         googleJavaFormat()
     }
+
+	groovyGradle {
+		target '*.gradle'
+		greclipse()
+	}
 }
 
 jacocoTestReport {
