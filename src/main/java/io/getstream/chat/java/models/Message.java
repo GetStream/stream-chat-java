@@ -1578,6 +1578,7 @@ public class Message {
   public static MessageCommitRequest commit(@NotNull String messageId) {
     return new MessageCommitRequest(messageId);
   }
+
   /**
    * Creates a flag request
    *

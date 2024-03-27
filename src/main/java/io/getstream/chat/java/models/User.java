@@ -1225,6 +1225,7 @@ public class User {
   public static UserBanRequest ban() {
     return new UserBanRequest();
   }
+
   /**
    * Creates a shadow ban request
    *
@@ -1234,6 +1235,7 @@ public class User {
   public static UserBanRequest shadowBan() {
     return new UserBanRequest().shadow(true);
   }
+
   /**
    * Creates a query banned request
    *
@@ -1372,6 +1374,7 @@ public class User {
   public static UserUnbanRequest removeShadowBan(@NotNull String targetUserId) {
     return new UserUnbanRequest(targetUserId).shadow(true);
   }
+
   /**
    * Creates a revoke token request
    *
