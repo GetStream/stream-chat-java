@@ -189,6 +189,10 @@ public class Channel {
     @Nullable
     @JsonProperty("shadow_banned")
     private Boolean shadowBanned;
+
+    @Nullable
+    @JsonProperty("notifications_muted")
+    private Boolean notificationsMuted;
   }
 
   @Data

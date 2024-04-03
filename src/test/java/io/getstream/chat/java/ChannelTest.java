@@ -317,6 +317,19 @@ public class ChannelTest extends BasicTest {
                 .user(testUserRequestObject)
                 .request());
     Assertions.assertTrue(isChannelMutedForTestUser(channel.getType(), channel.getId()));
+    ChannelMember channelMember =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.queryMembers()
+                    .id(channel.getId())
+                    .type(channel.getType())
+                    .request()
+                    .getMembers()
+                    .stream()
+                    .filter(cm -> cm.getUserId().equals(testUserRequestObject.getId()))
+                    .findFirst()
+                    .get());
+    Assertions.assertTrue(channelMember.getNotificationsMuted());
   }
 
   private boolean isChannelMutedForTestUser(String channelType, String channelId) {
