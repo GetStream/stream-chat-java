@@ -330,6 +330,21 @@ public class ChannelTest extends BasicTest {
                     .findFirst()
                     .get());
     Assertions.assertTrue(channelMember.getNotificationsMuted());
+
+    ChannelMember chm =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.queryMembers()
+                    .filterCondition("notifications_muted", true)
+                    .id(channel.getId())
+                    .type(channel.getType())
+                    .request()
+                    .getMembers()
+                    .stream()
+                    .filter(cm -> cm.getUserId().equals(testUserRequestObject.getId()))
+                    .findFirst()
+                    .get());
+    Assertions.assertTrue(chm.getNotificationsMuted());
   }
 
   private boolean isChannelMutedForTestUser(String channelType, String channelId) {
