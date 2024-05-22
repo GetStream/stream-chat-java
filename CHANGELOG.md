@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.23.0](https://github.com/GetStream/stream-chat-java/compare/1.22.2...1.23.0) (2024-05-22)
+
+
+### Features
+
+* add test for `notifications_muted` query members ([#143](https://github.com/GetStream/stream-chat-java/issues/143)) ([c25d107](https://github.com/GetStream/stream-chat-java/commit/c25d1077b435b1749e04baef4c5a73c368c9900e))
+
 ### [1.22.2](https://github.com/GetStream/stream-chat-java/compare/1.22.1...1.22.2) (2024-04-18)
 
 
