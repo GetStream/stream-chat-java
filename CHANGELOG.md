@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.24.0](https://github.com/GetStream/stream-chat-java/compare/v1.23.0...v1.24.0) (2024-05-24)
+
+
+### Features
+
+* add message history api ([#145](https://github.com/GetStream/stream-chat-java/issues/145)) ([dce8529](https://github.com/GetStream/stream-chat-java/commit/dce8529c718a9be5248030c23e2736ee9a028b2d))
+
 ## [1.23.0](https://github.com/GetStream/stream-chat-java/compare/1.22.2...1.23.0) (2024-05-22)
 
 
