@@ -1,4 +1,5 @@
 plugins {
+	id 'com.github.johnrengelman.shadow' version '7.1.2'
 	id 'java'
 	id 'io.github.gradle-nexus.publish-plugin' version '1.1.0'
 	id 'com.diffplug.spotless' version '6.25.0'
@@ -98,5 +99,15 @@ task generateVersionProperties {
 	}
 }
 processResources.dependsOn generateVersionProperties
+
+shadowJar {
+	dependencies {
+		include(dependency('io.jsonwebtoken:jjwt-api:0.12.5'))
+		include(dependency('io.jsonwebtoken:jjwt-impl:0.12.5'))
+		include(dependency('io.jsonwebtoken:jjwt-jackson:0.12.5'))
+	}
+	relocate 'io.jsonwebtoken', 'shadow.jsonwebtoken'
+}
+
 
 apply from: "publish.gradle"
