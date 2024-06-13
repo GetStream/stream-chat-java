@@ -92,7 +92,6 @@ public class BlockUser {
     @EqualsAndHashCode(callSuper = true)
     @NoArgsConstructor
     public static class UnblockUserResponse extends StreamResponseObject {
-        // Add relevant fields if needed
     }
 
     @Data
