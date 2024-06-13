@@ -4,149 +4,143 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.BlockUserService;
-import io.getstream.chat.java.services.UserService;
 import io.getstream.chat.java.services.framework.Client;
-import lombok.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import retrofit2.Call;
-
 import java.util.Date;
 import java.util.List;
+import lombok.*;
+import org.jetbrains.annotations.NotNull;
+import retrofit2.Call;
 
 @Data
 @NoArgsConstructor
 public class BlockUser {
 
-    @Builder(
-            builderClassName = "BlockUserRequest",
-            builderMethodName = "",
-            buildMethodName = "internalBuild"
-    )
-    public static class BlockUserRequestData {
-        @NotNull
-        @JsonProperty("blocked_user_id")
-        private String blockedUserID;
-
-        @NotNull
-        @JsonProperty("user_id")
-        private String userID;
-
-        public static class BlockUserRequest extends StreamRequest<BlockUserResponse> {
-            @Override
-            protected Call<BlockUserResponse> generateCall(Client client) {
-                var data = this.internalBuild();
-                return client.create(BlockUserService.class).blockUser(data);
-            }
-        }
-    }
-
-    @Builder(
-            builderClassName = "UnblockUserRequest",
-            builderMethodName = "",
-            buildMethodName = "internalBuild"
-    )
-    public static class UnblockUserRequestData {
-        @NotNull
-        @JsonProperty("blocked_user_id")
-        private String blockedUserID;
-
-        @NotNull
-        @JsonProperty("user_id")
-        private String userID;
-
-        public static class UnblockUserRequest extends StreamRequest<UnblockUserResponse> {
-            @Override
-            protected Call<UnblockUserResponse> generateCall(Client client) {
-                var data = this.internalBuild();
-                return client.create(BlockUserService.class).unblockUser(data);
-            }
-        }
-    }
+  @Builder(
+      builderClassName = "BlockUserRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class BlockUserRequestData {
+    @NotNull
+    @JsonProperty("blocked_user_id")
+    private String blockedUserID;
 
     @NotNull
-    public static BlockUserRequestData.BlockUserRequest blockUser() {
-        return new BlockUserRequestData.BlockUserRequest();
+    @JsonProperty("user_id")
+    private String userID;
+
+    public static class BlockUserRequest extends StreamRequest<BlockUserResponse> {
+      @Override
+      protected Call<BlockUserResponse> generateCall(Client client) {
+        var data = this.internalBuild();
+        return client.create(BlockUserService.class).blockUser(data);
+      }
     }
+  }
+
+  @Builder(
+      builderClassName = "UnblockUserRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class UnblockUserRequestData {
+    @NotNull
+    @JsonProperty("blocked_user_id")
+    private String blockedUserID;
 
     @NotNull
-    public static UnblockUserRequestData.UnblockUserRequest unblockUser() {
-        return new UnblockUserRequestData.UnblockUserRequest();
+    @JsonProperty("user_id")
+    private String userID;
+
+    public static class UnblockUserRequest extends StreamRequest<UnblockUserResponse> {
+      @Override
+      protected Call<UnblockUserResponse> generateCall(Client client) {
+        var data = this.internalBuild();
+        return client.create(BlockUserService.class).unblockUser(data);
+      }
     }
+  }
 
-    @Data
-    @EqualsAndHashCode(callSuper = true)
-    @NoArgsConstructor
-    public static class BlockUserResponse extends StreamResponseObject {
-        @JsonProperty("blocked_by_user_id")
-        private String blockedByUserID;
+  @NotNull
+  public static BlockUserRequestData.BlockUserRequest blockUser() {
+    return new BlockUserRequestData.BlockUserRequest();
+  }
 
-        @JsonProperty("blocked_user_id")
-        private String blockedUserID;
+  @NotNull
+  public static UnblockUserRequestData.UnblockUserRequest unblockUser() {
+    return new UnblockUserRequestData.UnblockUserRequest();
+  }
 
-        @JsonProperty("created_at")
-        private Date createdAt;
-    }
+  @Data
+  @EqualsAndHashCode(callSuper = true)
+  @NoArgsConstructor
+  public static class BlockUserResponse extends StreamResponseObject {
+    @JsonProperty("blocked_by_user_id")
+    private String blockedByUserID;
 
-    @Data
-    @EqualsAndHashCode(callSuper = true)
-    @NoArgsConstructor
-    public static class UnblockUserResponse extends StreamResponseObject {
-    }
+    @JsonProperty("blocked_user_id")
+    private String blockedUserID;
 
-    @Data
-    @EqualsAndHashCode(callSuper = true)
-    @NoArgsConstructor
-    public static class GetBlockedUsersResponse extends StreamResponseObject {
-        @JsonProperty("blocks")
-        private List<BlockedUserResponse> blockedUsers;
-    }
+    @JsonProperty("created_at")
+    private Date createdAt;
+  }
 
-    @Data
-    @NoArgsConstructor
-    public static class BlockedUserResponse {
-        @JsonProperty("user")
-        private User blockedByUser;
+  @Data
+  @EqualsAndHashCode(callSuper = true)
+  @NoArgsConstructor
+  public static class UnblockUserResponse extends StreamResponseObject {}
 
-        @JsonProperty("user_id")
-        private String blockedByUserID;
+  @Data
+  @EqualsAndHashCode(callSuper = true)
+  @NoArgsConstructor
+  public static class GetBlockedUsersResponse extends StreamResponseObject {
+    @JsonProperty("blocks")
+    private List<BlockedUserResponse> blockedUsers;
+  }
 
-        @JsonProperty("blocked_user")
-        private User blockedUser;
+  @Data
+  @NoArgsConstructor
+  public static class BlockedUserResponse {
+    @JsonProperty("user")
+    private User blockedByUser;
 
-        @JsonProperty("blocked_user_id")
-        private String blockedUserID;
+    @JsonProperty("user_id")
+    private String blockedByUserID;
 
-        @JsonProperty("created_at")
-        private Date createdAt;
-    }
+    @JsonProperty("blocked_user")
+    private User blockedUser;
 
-    @Builder(
-            builderClassName = "GetBlockedUsersRequest",
-            builderMethodName = "",
-            buildMethodName = "internalBuild"
-    )
-    public static class GetBlockedUsersRequestData {
-        @NotNull
-        @JsonProperty("user_id")
-        private String blockedByUserID;
+    @JsonProperty("blocked_user_id")
+    private String blockedUserID;
 
-        public static class GetBlockedUsersRequest extends StreamRequest<GetBlockedUsersResponse> {
-            private String blockedByUserID;
+    @JsonProperty("created_at")
+    private Date createdAt;
+  }
 
-            public GetBlockedUsersRequest(String blockedByUserID) {
-                this.blockedByUserID = blockedByUserID;
-            }
-
-            @Override
-            protected Call<GetBlockedUsersResponse> generateCall(Client client) {
-                return client.create(BlockUserService.class).getBlockedUsers(blockedByUserID);
-            }
-        }
-    }
-
+  @Builder(
+      builderClassName = "GetBlockedUsersRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class GetBlockedUsersRequestData {
     @NotNull
-    public static GetBlockedUsersRequestData.GetBlockedUsersRequest getBlockedUsers(String blockedByUserID) {
-        return new GetBlockedUsersRequestData.GetBlockedUsersRequest(blockedByUserID);
+    @JsonProperty("user_id")
+    private String blockedByUserID;
+
+    public static class GetBlockedUsersRequest extends StreamRequest<GetBlockedUsersResponse> {
+      private String blockedByUserID;
+
+      public GetBlockedUsersRequest(String blockedByUserID) {
+        this.blockedByUserID = blockedByUserID;
+      }
+
+      @Override
+      protected Call<GetBlockedUsersResponse> generateCall(Client client) {
+        return client.create(BlockUserService.class).getBlockedUsers(blockedByUserID);
+      }
     }
+  }
+
+  @NotNull
+  public static GetBlockedUsersRequestData.GetBlockedUsersRequest getBlockedUsers(
+      String blockedByUserID) {
+    return new GetBlockedUsersRequestData.GetBlockedUsersRequest(blockedByUserID);
+  }
 }
