@@ -35,29 +35,12 @@ nexusPublishing {
 	}
 }
 
-task javadocJar(type: Jar) {
-	classifier = 'javadoc'
-	from javadoc
-}
-
-task sourcesJar(type: Jar) {
-	classifier = 'sources'
-	from sourceSets.main.allSource
-}
-
-artifacts {
-	archives javadocJar, sourcesJar
-}
-
 afterEvaluate {
 	publishing {
 		publications {
 			release(MavenPublication) {
 				from components.java
 				artifactId 'stream-chat-java'
-
-				artifact sourcesJar
-				artifact javadocJar
 
 				pom {
 					name = "Stream Chat official Java API Client"
@@ -81,15 +64,23 @@ afterEvaluate {
 						developerConnection = 'scm:git:ssh://github.com/getstream/stream-chat-java.git'
 						url = 'https://github.com/getstream/stream-chat-java/tree/main'
 					}
+
+					withXml {
+						asNode().dependencies.dependency.each { dep ->
+							if(dep.groupId.last().value().last() == 'io.jsonwebtoken') {
+								assert dep.parent().remove(dep)
+							}
+						}
+					}
 				}
 			}
 		}
 	}
 }
 
-signing {
-	sign publishing.publications
-}
+//signing {
+//	sign publishing.publications
+//}
 
 javadoc {
 	options.addBooleanOption('html5', true)
