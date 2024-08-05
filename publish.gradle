@@ -35,6 +35,11 @@ nexusPublishing {
 	}
 }
 
+// to remove shadowed jar from the regular release publication
+components.java.withVariantsFromConfiguration(configurations.shadowRuntimeElements) {
+	skip()
+}
+
 afterEvaluate {
 	publishing {
 		publications {
@@ -64,23 +69,20 @@ afterEvaluate {
 						developerConnection = 'scm:git:ssh://github.com/getstream/stream-chat-java.git'
 						url = 'https://github.com/getstream/stream-chat-java/tree/main'
 					}
-
-					withXml {
-						asNode().dependencies.dependency.each { dep ->
-							if(dep.groupId.last().value().last() == 'io.jsonwebtoken') {
-								assert dep.parent().remove(dep)
-							}
-						}
-					}
 				}
+			}
+
+			shadow(MavenPublication) { publication ->
+				project.shadow.component(publication)
+				artifactId 'stream-chat-java-all'
 			}
 		}
 	}
 }
 
-//signing {
-//	sign publishing.publications
-//}
+signing {
+	sign publishing.publications
+}
 
 javadoc {
 	options.addBooleanOption('html5', true)
