@@ -10,9 +10,10 @@ public class ImportTests extends BasicTest {
   @DisplayName("Can run imports")
   @Test
   void importTestEnd2End() {
+    String fileName = "streamchatjava.json";
     var createUrlResponse =
-        Assertions.assertDoesNotThrow(
-            () -> Import.createImportUrl("streamchatjava.json").request());
+        Assertions.assertDoesNotThrow(() -> Import.createImportUrl(fileName).request());
+    Assertions.assertTrue(createUrlResponse.getPath().endsWith(fileName));
 
     uploadJsonToS3(createUrlResponse);
 
