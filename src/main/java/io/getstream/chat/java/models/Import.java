@@ -83,7 +83,7 @@ public class Import {
       buildMethodName = "internalBuild")
   public static class CreateImportUrlRequestData {
     @Nullable
-    @JsonProperty("file_name")
+    @JsonProperty("filename")
     private String fileName;
 
     public static class CreateImportUrlRequest
