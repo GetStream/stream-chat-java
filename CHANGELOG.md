@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.25.0](https://github.com/GetStream/stream-chat-java/compare/1.24.0...1.25.0) (2024-08-08)
+
+
+### Bug Fixes
+
+* request param name file_name -> filename ([#150](https://github.com/GetStream/stream-chat-java/issues/150)) ([28eaac0](https://github.com/GetStream/stream-chat-java/commit/28eaac0a2428a4ebc522a6a6c35672a150047186))
+
 ## [1.24.0](https://github.com/GetStream/stream-chat-java/compare/v1.23.0...v1.24.0) (2024-05-24)
 
 
