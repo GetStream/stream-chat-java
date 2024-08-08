@@ -119,6 +119,10 @@ public class User {
     return this.additionalFields;
   }
 
+  @Nullable
+  @JsonProperty("blocked_user_ids")
+  private List<String> blockedUserIDs;
+
   @JsonAnySetter
   public void setAdditionalField(String name, Object value) {
     this.additionalFields.put(name, value);
