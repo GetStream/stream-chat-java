@@ -40,41 +40,45 @@ components.java.withVariantsFromConfiguration(configurations.shadowRuntimeElemen
 	skip()
 }
 
+def configurePom(pom) {
+	pom.with {
+		name = "Stream Chat official Java API Client"
+		description = "Stream Chat Java Client for backend integrations"
+		url = 'https://github.com/getstream/stream-chat-java'
+		licenses {
+			license {
+				name = 'Stream License'
+				url = 'https://github.com/GetStream/stream-chat-java/blob/main/LICENSE'
+			}
+		}
+		developers {
+			developer {
+				id = 'getstream-support'
+				name = 'Stream Support'
+				email = 'support@getstream.io'
+			}
+		}
+		scm {
+			connection = 'scm:git:github.com/getstream/stream-chat-java.git'
+			developerConnection = 'scm:git:ssh://github.com/getstream/stream-chat-java.git'
+			url = 'https://github.com/getstream/stream-chat-java/tree/main'
+		}
+	}
+}
+
 afterEvaluate {
 	publishing {
 		publications {
 			release(MavenPublication) {
 				from components.java
 				artifactId 'stream-chat-java'
-
-				pom {
-					name = "Stream Chat official Java API Client"
-					description = "Stream Chat Java Client for backend integrations"
-					url = 'https://github.com/getstream/stream-chat-java'
-					licenses {
-						license {
-							name = 'Stream License'
-							url = 'https://github.com/GetStream/stream-chat-java/blob/main/LICENSE'
-						}
-					}
-					developers {
-						developer {
-							id = 'getstream-support'
-							name = 'Stream Support'
-							email = 'support@getstream.io'
-						}
-					}
-					scm {
-						connection = 'scm:git:github.com/getstream/stream-chat-java.git'
-						developerConnection = 'scm:git:ssh://github.com/getstream/stream-chat-java.git'
-						url = 'https://github.com/getstream/stream-chat-java/tree/main'
-					}
-				}
+				configurePom(pom)
 			}
 
 			shadow(MavenPublication) { publication ->
 				project.shadow.component(publication)
 				artifactId 'stream-chat-java-all'
+				configurePom(pom)
 			}
 		}
 	}
