@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.26.0](https://github.com/GetStream/stream-chat-java/compare/1.25.0...1.26.0) (2024-08-15)
+
+
+### Features
+
+* Publish the shadow publication (`stream-chat-java-all`) ([#153](https://github.com/GetStream/stream-chat-java/issues/153)) ([117e3d7](https://github.com/GetStream/stream-chat-java/commit/117e3d7d9385a70c7ce6b1b2c3c9ef01e644ce8b))
+* Block user ([#147](https://github.com/GetStream/stream-chat-java/pull/147)) ([76bfad2](https://github.com/GetStream/stream-chat-java/commit/76bfad254b9116f919b50776e359b5a3bd76b675))
+
 ## [1.25.0](https://github.com/GetStream/stream-chat-java/compare/1.24.0...1.25.0) (2024-08-08)
 
 
