@@ -78,6 +78,8 @@ afterEvaluate {
 			shadow(MavenPublication) { publication ->
 				project.shadow.component(publication)
 				artifactId 'stream-chat-java-all'
+				artifact javadocJar
+				artifact sourcesJar
 				configurePom(pom)
 			}
 		}
