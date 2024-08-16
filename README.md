@@ -33,6 +33,7 @@ For the client-side integrations (web and mobile) have a look at the JavaScript,
 > The Stream chat Java SDK requires Java 11+. It supports latest LTS.
 
 > The Stream chat Java SDK is compatible with Groovy, Scala, Kotlin and Clojure.
+
 ### Installation for Java
 
 #### Gradle
@@ -42,6 +43,7 @@ dependencies {
     implementation "io.getstream:stream-chat-java:$stream_version"
 }
 ```
+
 #### Maven
 
 ```maven
@@ -99,30 +101,42 @@ dependencies {
 > You can see an example project at [GetStream/stream-chat-clojure-example](https://github.com/GetStream/stream-chat-clojure-example).
 
 ## 🔀 Dependencies
+
 This SDK uses lombok (code generation), retrofit (http client), jackson (json) and jjwt (jwt).
 
 > You can find the exact versions in [build.gradle](./build.gradle).
 
+## 🥷🏿 Shadowed version
+
+If you have conflicts with our dependencies, you can use the shadowed (shaded) version of the library:
+
+<pre>
+io.getstream:stream-chat-java<b>-all</b>:1.26.2
+</pre>
+
 ## ✨ Getting started
+
 ### Configuration
 
 To configure the SDK you need to provide required properties
 
-| Property  | ENV | Default  | Required |
-| ------------- | ------------- | --- | --- |
-| io.getstream.chat.apiKey  | STREAM_KEY  | - | Yes |
-| io.getstream.chat.apiSecret  | STREAM_SECRET  | - | Yes |
-| io.getstream.chat.timeout  | STREAM_CHAT_TIMEOUT  | 10000 | No |
-| io.getstream.chat.url  | STREAM_CHAT_URL  | https://chat.stream-io-api.com | No |
+| Property                    | ENV                 | Default                        | Required |
+| --------------------------- | ------------------- | ------------------------------ | -------- |
+| io.getstream.chat.apiKey    | STREAM_KEY          | -                              | Yes      |
+| io.getstream.chat.apiSecret | STREAM_SECRET       | -                              | Yes      |
+| io.getstream.chat.timeout   | STREAM_CHAT_TIMEOUT | 10000                          | No       |
+| io.getstream.chat.url       | STREAM_CHAT_URL     | https://chat.stream-io-api.com | No       |
 
 You can also use your own CDN by creating an implementation of FileHandler and setting it this way
 
 ```java
 Message.fileHandlerClass = MyFileHandler.class
 ```
+
 All setup must be done prior to any request to the API.
 
 ## Print Chat app configuration
+
 <table>
 <tbody>
 <tr><td><strong>Java</strong></td><td>
@@ -166,7 +180,7 @@ Head over to [DOCS.md](./DOCS.md) for code snippets.
 
 1. If you get this exception: `java.lang.ClassNotFoundException: io.jsonwebtoken.SignatureAlgorithm`:
 
-See issue [#16](https://github.com/GetStream/stream-chat-java/issues/16) for a work around. We only provide runtime only dependency for JWT per [recommendation](https://github.com/jwtk/jjwt#understanding-jjwt-dependencies). That's why it might be missing in your runtime and by addding implementation library into your deps, it should be gone.
+See [shadowed version](#-shadowed-version).
 
 ## ✍️ Contributing
 
