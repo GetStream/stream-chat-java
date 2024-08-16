@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.26.2](https://github.com/GetStream/stream-chat-java/compare/1.25.0...1.26.2) (2024-08-16)
+
+
+### Features
+
+* publish the shadow publication as well ([#153](https://github.com/GetStream/stream-chat-java/issues/153)) ([117e3d7](https://github.com/GetStream/stream-chat-java/commit/117e3d7d9385a70c7ce6b1b2c3c9ef01e644ce8b))
+
+
+### Bug Fixes
+
+* ensure publish tasks run after sign tasks ([#157](https://github.com/GetStream/stream-chat-java/issues/157)) ([8929766](https://github.com/GetStream/stream-chat-java/commit/8929766a79189cc09255ab264e47aa6ca92ec22e))
+
 ### [1.26.1](https://github.com/GetStream/stream-chat-java/compare/1.25.0...1.26.1) (2024-08-16)
 
 
