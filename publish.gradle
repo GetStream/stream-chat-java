@@ -90,6 +90,13 @@ signing {
 	sign publishing.publications
 }
 
+// Ensure that the publish tasks run after the sign tasks, otherwise gradle will complain
+tasks.matching { it.name.startsWith('publish') }.all { publishTask ->
+	tasks.matching { it.name.startsWith('sign') }.all { signTask ->
+		publishTask.mustRunAfter(signTask)
+	}
+}
+
 javadoc {
 	options.addBooleanOption('html5', true)
 }
