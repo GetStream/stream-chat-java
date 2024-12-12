@@ -79,7 +79,8 @@ public class MessageHistoryTest extends BasicTest {
               initialCustomFieldValue, firstUpdate.getAdditionalFields().get(customField));
           var secondUpdate = history.get(0);
           Assertions.assertEquals(updatedText1, secondUpdate.getText());
-          Assertions.assertEquals(secondUser.getId(), secondUpdate.getMessageUpdatedById());
+          Assertions.assertEquals(
+              testUserRequestObject.getId(), secondUpdate.getMessageUpdatedById());
           Assertions.assertEquals(
               updatedCustomFieldValue, secondUpdate.getAdditionalFields().get(customField));
 
@@ -106,7 +107,8 @@ public class MessageHistoryTest extends BasicTest {
 
           secondUpdate = sortedHistory.get(1);
           Assertions.assertEquals(updatedText1, secondUpdate.getText());
-          Assertions.assertEquals(secondUser.getId(), secondUpdate.getMessageUpdatedById());
+          Assertions.assertEquals(
+              testUserRequestObject.getId(), secondUpdate.getMessageUpdatedById());
         });
   }
 }
