@@ -95,7 +95,7 @@ public class DefaultClient implements Client {
                   .newBuilder()
                   .url(url)
                   .header("Content-Type", "application/json")
-                  .header("X-Stream-Client", "stream-java-client-" + getSdkVersion())
+                  .header("X-Stream-Client", "stream-java-client-" + sdkVersion)
                   .header("Stream-Auth-Type", "jwt")
                   .header("Authorization", jwtToken(apiSecret))
                   .build();
@@ -202,6 +202,8 @@ public class DefaultClient implements Client {
     var url = properties.getOrDefault(API_URL_PROP_NAME, API_DEFAULT_URL);
     return url.toString();
   }
+
+  private static final @NotNull String sdkVersion = getSdkVersion();
 
   private static @NotNull String getSdkVersion() {
     var clsLoader = DefaultClient.class.getClassLoader();
