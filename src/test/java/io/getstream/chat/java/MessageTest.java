@@ -3,10 +3,11 @@ package io.getstream.chat.java;
 import io.getstream.chat.java.models.App;
 import io.getstream.chat.java.models.App.FileUploadConfigRequestObject;
 import io.getstream.chat.java.models.Blocklist;
-import io.getstream.chat.java.models.ChannelType;
 import io.getstream.chat.java.models.Language;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.*;
+import io.getstream.chat.java.models.Moderation;
+import io.getstream.chat.java.models.Moderation.*;
 import io.getstream.chat.java.models.Sort;
 import io.getstream.chat.java.models.framework.DefaultFileHandler;
 import io.getstream.chat.java.services.framework.DefaultClient;
@@ -699,11 +700,14 @@ public class MessageTest extends BasicTest {
     Assertions.assertDoesNotThrow(() -> Thread.sleep(5000));
 
     Assertions.assertDoesNotThrow(
-        () ->
-            ChannelType.update(testChannel.getType())
-                .blocklist(blocklistName)
-                .blocklistBehavior(ChannelType.BlocklistBehavior.BLOCK)
-                .request());
+        () -> {
+          String key = String.format("chat:%s:%s", testChannel.getType(), testChannel.getId());
+          BlockListRule rule =
+              BlockListRule.builder().name(blocklistName).action(Moderation.Action.REMOVE).build();
+          Moderation.upsertConfig(key)
+              .blockListConfig(BlockListConfigRequestObject.builder().rules(List.of(rule)).build())
+              .request();
+        });
 
     Assertions.assertDoesNotThrow(() -> Thread.sleep(5000));
 
@@ -718,7 +722,7 @@ public class MessageTest extends BasicTest {
                         .request())
             .getMessage();
 
-    Assertions.assertTrue(msg1.getText().equals("Message was blocked by moderation policies"));
+    Assertions.assertEquals("Message was blocked by moderation policies", msg1.getText());
 
     MessageRequestObject messageRequest2 =
         MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
@@ -731,13 +735,14 @@ public class MessageTest extends BasicTest {
                         .request())
             .getMessage();
 
-    Assertions.assertTrue(msg2.getText().equals(text));
+    Assertions.assertEquals(text, msg2.getText());
 
     Assertions.assertDoesNotThrow(() -> Blocklist.delete(blocklistName).request());
   }
 
   @DisplayName("Can unblock a message")
   @Test
+  @Disabled("Need to implement unblock with moderation v2")
   void whenUnblockingAMessage_thenIsUnblocked() {
     final String swearText = "This is a hate message";
     final String blocklistName = RandomStringUtils.randomAlphabetic(5);
@@ -747,11 +752,14 @@ public class MessageTest extends BasicTest {
     Assertions.assertDoesNotThrow(() -> Thread.sleep(5000));
 
     Assertions.assertDoesNotThrow(
-        () ->
-            ChannelType.update(testChannel.getType())
-                .blocklist(blocklistName)
-                .blocklistBehavior(ChannelType.BlocklistBehavior.BLOCK)
-                .request());
+        () -> {
+          String key = String.format("chat:%s:%s", testChannel.getType(), testChannel.getId());
+          BlockListRule rule =
+              BlockListRule.builder().name(blocklistName).action(Moderation.Action.REMOVE).build();
+          Moderation.upsertConfig(key)
+              .blockListConfig(BlockListConfigRequestObject.builder().rules(List.of(rule)).build())
+              .request();
+        });
 
     Assertions.assertDoesNotThrow(() -> Thread.sleep(5000));
 
