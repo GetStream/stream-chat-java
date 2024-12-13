@@ -190,10 +190,9 @@ public class Moderation {
   }
 
   /**
-   * Creates a get or create request
+   * Creates an upsert config request
    *
-   * @param type the channel type
-   * @param id the channel id
+   * @param key the moderation config key
    * @return the created request
    */
   @NotNull
@@ -201,11 +200,23 @@ public class Moderation {
     return new UpsertConfigRequest(key);
   }
 
+  /**
+   * Creates a delete config request
+   *
+   * @param key the moderation config key
+   * @return the created request
+   */
   @NotNull
   public static DeleteConfigRequest deleteConfig(@NotNull String key) {
     return new DeleteConfigRequest(key);
   }
 
+  /*
+   * Creates a get config request
+   *
+   * @param key the moderation config key
+   * @return the created request
+   */
   @NotNull
   public static ConfigGetRequest getConfig(@NotNull String key) {
     return new ConfigGetRequest(key);

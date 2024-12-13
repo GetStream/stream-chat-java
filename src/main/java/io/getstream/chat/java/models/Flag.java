@@ -452,6 +452,7 @@ public class Flag {
   /**
    * Creates a review flag report request
    *
+   * @param id the flag report id
    * @return the created request
    */
   @NotNull

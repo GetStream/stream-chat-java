@@ -145,6 +145,7 @@ public class UnreadCounts {
   /**
    * Creates a get request.
    *
+   * @param userId the user id
    * @return the created request
    */
   @NotNull
