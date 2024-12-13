@@ -516,6 +516,17 @@ public class ChannelTest extends BasicTest {
                     .request());
     Assertions.assertNotNull(channelMemberResponse.getMember().getArchivedAt());
 
+    ChannelListResponse channelListResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.list()
+                    .userId(testUserRequestObject.getId())
+                    .filterCondition("archived", true)
+                    .request());
+    Assertions.assertEquals(1, channelListResponse.getChannels().size());
+    Assertions.assertEquals(
+        channel.getId(), channelListResponse.getChannels().get(0).getChannel().getId());
+
     channelMemberResponse =
         Assertions.assertDoesNotThrow(
             () ->
