@@ -14,7 +14,7 @@
 <!--[if IE]>
 <script type="text/javascript" src="../../../../../jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="../../../../../jquery/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../../../../../jquery/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../../../../../jquery/jquery-ui.min.js"></script>
 </head>
 <body>
@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6,"i14":6,"i15":6,"i16":6,"i17":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6,"i14":6,"i15":6,"i16":6,"i17":6,"i18":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -250,6 +250,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelUpdateRequestData)">update</a></span>&#8203;(java.lang.String&nbsp;channelType,
       java.lang.String&nbsp;channelId,
       <a href="../models/Channel.ChannelUpdateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelUpdateRequestData</a>&nbsp;channelUpdateRequestData)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelMemberResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberResponse</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateMemberPartial(java.lang.String,java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelMemberPartialUpdateRequestData)">updateMemberPartial</a></span>&#8203;(java.lang.String&nbsp;channelType,
+                   java.lang.String&nbsp;channelId,
+                   java.lang.String&nbsp;userId,
+                   <a href="../models/Channel.ChannelMemberPartialUpdateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberPartialUpdateRequestData</a>&nbsp;updateMemberPartialRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -491,7 +499,7 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelPartialUpdateResponse.html" 
 <a id="assignRoles(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.AssignRoleRequestData)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>assignRoles</h4>
 <pre class="methodSignature">@POST("channels/{type}/{id}")
@@ -501,6 +509,23 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelUpdateResponse.html" title="
                                                           java.lang.String&nbsp;channelId,
                                                           @NotNull @Body
                                                           <a href="../models/Channel.AssignRoleRequestData.html" title="class in io.getstream.chat.java.models">Channel.AssignRoleRequestData</a>&nbsp;assignRoleRequestData)</pre>
+</li>
+</ul>
+<a id="updateMemberPartial(java.lang.String,java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelMemberPartialUpdateRequestData)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>updateMemberPartial</h4>
+<pre class="methodSignature">@PATCH("channels/{type}/{id}/member/{user_id}")
+retrofit2.Call&lt;<a href="../models/Channel.ChannelMemberResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberResponse</a>&gt;&nbsp;updateMemberPartial&#8203;(@NotNull @Path("type")
+                                                                  java.lang.String&nbsp;channelType,
+                                                                  @NotNull @Path("id")
+                                                                  java.lang.String&nbsp;channelId,
+                                                                  @NotNull @Path("user_id")
+                                                                  java.lang.String&nbsp;userId,
+                                                                  @NotNull @Body
+                                                                  <a href="../models/Channel.ChannelMemberPartialUpdateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberPartialUpdateRequestData</a>&nbsp;updateMemberPartialRequestData)</pre>
 </li>
 </ul>
 </li>
