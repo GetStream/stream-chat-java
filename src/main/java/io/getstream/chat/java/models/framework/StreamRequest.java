@@ -46,6 +46,7 @@ public abstract class StreamRequest<T extends StreamResponse> {
    * Use custom client implementation to execute requests
    *
    * @param client the client implementation
+   * @return the request
    */
   public StreamRequest<T> withClient(Client client) {
     this.client = client;
