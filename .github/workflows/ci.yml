@@ -25,4 +25,5 @@ jobs:
           STREAM_SECRET: ${{ secrets.STREAM_SECRET }}
         run: |
           ./gradlew spotlessCheck --no-daemon
+          ./gradlew javadoc --no-daemon
           ./gradlew jacocoTestReport --no-daemon
