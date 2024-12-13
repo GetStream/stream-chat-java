@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.27.0](https://github.com/GetStream/stream-chat-java/compare/1.26.2...1.27.0) (2024-12-13)
+
+
+### Features
+
+* member custom data, pinning and archiving ([#162](https://github.com/GetStream/stream-chat-java/issues/162)) ([38c7348](https://github.com/GetStream/stream-chat-java/commit/38c73481c5df5e513ba54c73f5852f03db0f0bb3))
+
+
+### Bug Fixes
+
+* javadoc ([#164](https://github.com/GetStream/stream-chat-java/issues/164)) ([69f4266](https://github.com/GetStream/stream-chat-java/commit/69f426684cce5ed13cd4a391344b16b1c03a1333))
+* update the readme to include the shadowed version ([#159](https://github.com/GetStream/stream-chat-java/issues/159)) ([97a7119](https://github.com/GetStream/stream-chat-java/commit/97a7119d82c063478f9b6229cc6cc994b8e8f48a))
+* version file read happens only once ([#160](https://github.com/GetStream/stream-chat-java/issues/160)) ([570548b](https://github.com/GetStream/stream-chat-java/commit/570548bbba73ad49d2a94e81a7b1052b86cce33a))
+
 ### [1.26.2](https://github.com/GetStream/stream-chat-java/compare/1.25.0...1.26.2) (2024-08-16)
 
 
