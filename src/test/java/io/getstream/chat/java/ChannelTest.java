@@ -446,7 +446,6 @@ public class ChannelTest extends BasicTest {
                     .setValue("channel_role", "channel_moderator")
                     .request());
 
-    System.out.println(channelMemberResponse.getMember());
     Assertions.assertEquals(
         "custom_value", channelMemberResponse.getMember().getAdditionalFields().get("custom_key"));
     Assertions.assertEquals(
@@ -494,8 +493,6 @@ public class ChannelTest extends BasicTest {
             () ->
                 Channel.pin(channel.getType(), channel.getId(), testUserRequestObject.getId())
                     .request());
-    System.out.println(channelMemberResponse.getMember());
-    System.out.println(channelMemberResponse.getMember().getPinnedAt());
     Assertions.assertNotNull(channelMemberResponse.getMember().getPinnedAt());
 
     channelMemberResponse =
