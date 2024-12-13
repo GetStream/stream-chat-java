@@ -431,4 +431,120 @@ public class ChannelTest extends BasicTest {
                 .assignRole(assignment)
                 .request());
   }
+
+  @DisplayName("Can update a channel member partially")
+  @Test
+  void whenUpdatingChannelMemberPartially_thenIsUpdated() {
+    // We should not use testChannel to not modify it
+    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
+    ChannelMemberResponse channelMemberResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.updateMemberPartial(
+                        channel.getType(), channel.getId(), testUserRequestObject.getId())
+                    .setValue("custom_key", "custom_value")
+                    .setValue("channel_role", "channel_moderator")
+                    .request());
+
+    System.out.println(channelMemberResponse.getMember());
+    Assertions.assertEquals(
+        "custom_value", channelMemberResponse.getMember().getAdditionalFields().get("custom_key"));
+    Assertions.assertEquals(
+        "channel_moderator", channelMemberResponse.getMember().getChannelRole());
+
+    // unset
+    channelMemberResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.updateMemberPartial(
+                        channel.getType(), channel.getId(), testUserRequestObject.getId())
+                    .unsetValue("custom_key")
+                    .request());
+
+    Assertions.assertNull(
+        channelMemberResponse.getMember().getAdditionalFields().get("custom_key"));
+  }
+
+  @DisplayName("Can pin and unpin a channel")
+  @Test
+  void whenPinningAndUnpinningAChannel_thenIsPinnedAndUnpinned() {
+    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
+    ChannelMemberResponse channelMemberResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.pin(channel.getType(), channel.getId(), testUserRequestObject.getId())
+                    .request());
+    Date pinnedAt = channelMemberResponse.getMember().getPinnedAt();
+    Assertions.assertNotNull(pinnedAt);
+
+    channelMemberResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.unpin(channel.getType(), channel.getId(), testUserRequestObject.getId())
+                    .request());
+    Assertions.assertNull(channelMemberResponse.getMember().getPinnedAt());
+  }
+
+  @DisplayName("Can pin and unpin a channel using unset")
+  @Test
+  void whenPinningAndUnpinningAChannelUsingUnset_thenIsPinnedAndUnpinned() {
+    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
+    ChannelMemberResponse channelMemberResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.pin(channel.getType(), channel.getId(), testUserRequestObject.getId())
+                    .request());
+    System.out.println(channelMemberResponse.getMember());
+    System.out.println(channelMemberResponse.getMember().getPinnedAt());
+    Assertions.assertNotNull(channelMemberResponse.getMember().getPinnedAt());
+
+    channelMemberResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.updateMemberPartial(
+                        channel.getType(), channel.getId(), testUserRequestObject.getId())
+                    .unsetValue("pinned")
+                    .request());
+    Assertions.assertNull(channelMemberResponse.getMember().getPinnedAt());
+  }
+
+  @DisplayName("Can archive and unarchive a channel")
+  @Test
+  void whenArchivingChannel_thenIsArchived() {
+    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
+    ChannelMemberResponse channelMemberResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.archive(channel.getType(), channel.getId(), testUserRequestObject.getId())
+                    .request());
+    Assertions.assertNotNull(channelMemberResponse.getMember().getArchivedAt());
+
+    channelMemberResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.unarchive(channel.getType(), channel.getId(), testUserRequestObject.getId())
+                    .request());
+    Assertions.assertNull(channelMemberResponse.getMember().getArchivedAt());
+  }
+
+  @DisplayName("Can archive and unarchive a channel using unset")
+  @Test
+  void whenArchivingChannelUsingUnset_thenIsArchived() {
+    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
+    ChannelMemberResponse channelMemberResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.archive(channel.getType(), channel.getId(), testUserRequestObject.getId())
+                    .request());
+    Assertions.assertNotNull(channelMemberResponse.getMember().getArchivedAt());
+
+    channelMemberResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.updateMemberPartial(
+                        channel.getType(), channel.getId(), testUserRequestObject.getId())
+                    .unsetValue("archived")
+                    .request());
+    Assertions.assertNull(channelMemberResponse.getMember().getArchivedAt());
+  }
 }

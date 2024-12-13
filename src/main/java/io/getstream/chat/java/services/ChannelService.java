@@ -96,4 +96,11 @@ public interface ChannelService {
       @NotNull @Path("type") String channelType,
       @NotNull @Path("id") String channelId,
       @NotNull @Body AssignRoleRequestData assignRoleRequestData);
+
+  @PATCH("channels/{type}/{id}/member/{user_id}")
+  Call<ChannelMemberResponse> updateMemberPartial(
+      @NotNull @Path("type") String channelType,
+      @NotNull @Path("id") String channelId,
+      @NotNull @Path("user_id") String userId,
+      @NotNull @Body ChannelMemberPartialUpdateRequestData updateMemberPartialRequestData);
 }

@@ -9,6 +9,7 @@ import io.getstream.chat.java.models.Channel.ChannelHideRequestData.ChannelHideR
 import io.getstream.chat.java.models.Channel.ChannelListRequestData.ChannelListRequest;
 import io.getstream.chat.java.models.Channel.ChannelMarkAllReadRequestData.ChannelMarkAllReadRequest;
 import io.getstream.chat.java.models.Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest;
+import io.getstream.chat.java.models.Channel.ChannelMemberPartialUpdateRequestData.ChannelMemberPartialUpdateRequest;
 import io.getstream.chat.java.models.Channel.ChannelMuteRequestData.ChannelMuteRequest;
 import io.getstream.chat.java.models.Channel.ChannelPartialUpdateRequestData.ChannelPartialUpdateRequest;
 import io.getstream.chat.java.models.Channel.ChannelQueryMembersRequestData.ChannelQueryMembersRequest;
@@ -138,6 +139,17 @@ public class Channel {
   @Data
   @NoArgsConstructor
   public static class ChannelMember {
+    public enum InviteStatus {
+      @JsonProperty("pending")
+      PENDING,
+      @JsonProperty("accepted")
+      ACCEPTED,
+      @JsonProperty("rejected")
+      REJECTED,
+      @JsonEnumDefaultValue
+      UNKNOWN
+    }
+
     @Nullable
     @JsonProperty("user_id")
     private String userId;
@@ -193,6 +205,30 @@ public class Channel {
     @Nullable
     @JsonProperty("notifications_muted")
     private Boolean notificationsMuted;
+
+    @Nullable
+    @JsonProperty("status")
+    private InviteStatus status;
+
+    @Nullable
+    @JsonProperty("archived_at")
+    private Date archivedAt;
+
+    @Nullable
+    @JsonProperty("pinned_at")
+    private Date pinnedAt;
+
+    @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalFields() {
+      return this.additionalFields;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalField(String name, Object value) {
+      this.additionalFields.put(name, value);
+    }
   }
 
   @Data
@@ -1097,6 +1133,54 @@ public class Channel {
     }
   }
 
+  @Builder(
+      builderClassName = "ChannelMemberPartialUpdateRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class ChannelMemberPartialUpdateRequestData {
+    @Singular
+    @Nullable
+    @JsonProperty("set")
+    private Map<String, Object> setValues;
+
+    @Singular
+    @Nullable
+    @JsonProperty("unset")
+    private List<String> unsetValues;
+
+    public static class ChannelMemberPartialUpdateRequest
+        extends StreamRequest<ChannelMemberResponse> {
+      @NotNull private String channelType;
+
+      @NotNull private String channelId;
+
+      @NotNull private String userId;
+
+      private ChannelMemberPartialUpdateRequest(
+          @NotNull String channelType, @NotNull String channelId, @NotNull String userId) {
+        this.channelType = channelType;
+        this.channelId = channelId;
+        this.userId = userId;
+      }
+
+      @Override
+      protected Call<ChannelMemberResponse> generateCall(Client client) {
+        return client
+            .create(ChannelService.class)
+            .updateMemberPartial(channelType, channelId, userId, this.internalBuild());
+      }
+    }
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class ChannelMemberResponse extends StreamResponseObject {
+    @Nullable
+    @JsonProperty("channel_member")
+    private ChannelMember member;
+  }
+
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
@@ -1347,6 +1431,23 @@ public class Channel {
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
+  public static class ChannelPinResponse extends StreamResponseObject {
+    @Nullable
+    @JsonProperty("channel_mute")
+    private ChannelMute channelMute;
+
+    @Nullable
+    @JsonProperty("channel_mutes")
+    private List<ChannelMute> channelMutes;
+
+    @Nullable
+    @JsonProperty("own_user")
+    private OwnUser ownUser;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
   public static class ChannelPartialUpdateResponse extends StreamResponseObject {
     @NotNull
     @JsonProperty("channel")
@@ -1551,5 +1652,75 @@ public class Channel {
   @NotNull
   public static AssignRoleRequest assignRoles(@NotNull String type, @NotNull String id) {
     return new AssignRoleRequest(type, id);
+  }
+
+  /**
+   * Creates a update member partial request
+   *
+   * @param type the channel type
+   * @param id the channel id
+   * @param userId the user id
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelMemberPartialUpdateRequest updateMemberPartial(
+      @NotNull String type, @NotNull String id, @NotNull String userId) {
+    return new ChannelMemberPartialUpdateRequest(type, id, userId);
+  }
+
+  /**
+   * Creates a pin channel request
+   *
+   * @param type the channel type
+   * @param id the channel id
+   * @param userId the user id
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelMemberPartialUpdateRequest pin(
+      @NotNull String type, @NotNull String id, @NotNull String userId) {
+    return new ChannelMemberPartialUpdateRequest(type, id, userId).setValue("pinned", true);
+  }
+
+  /**
+   * Creates a unpin channel request
+   *
+   * @param type the channel type
+   * @param id the channel id
+   * @param userId the user id
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelMemberPartialUpdateRequest unpin(
+      @NotNull String type, @NotNull String id, @NotNull String userId) {
+    return new ChannelMemberPartialUpdateRequest(type, id, userId).setValue("pinned", false);
+  }
+
+  /**
+   * Creates a archive channel request
+   *
+   * @param type the channel type
+   * @param id the channel id
+   * @param userId the user id
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelMemberPartialUpdateRequest archive(
+      @NotNull String type, @NotNull String id, @NotNull String userId) {
+    return new ChannelMemberPartialUpdateRequest(type, id, userId).setValue("archived", true);
+  }
+
+  /**
+   * Creates a unarchive channel request
+   *
+   * @param type the channel type
+   * @param id the channel id
+   * @param userId the user id
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelMemberPartialUpdateRequest unarchive(
+      @NotNull String type, @NotNull String id, @NotNull String userId) {
+    return new ChannelMemberPartialUpdateRequest(type, id, userId).setValue("archived", false);
   }
 }
