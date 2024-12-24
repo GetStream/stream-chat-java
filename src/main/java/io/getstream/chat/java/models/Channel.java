@@ -142,10 +142,12 @@ public class Channel {
     public enum InviteStatus {
       @JsonProperty("pending")
       PENDING,
-      @JsonProperty("accepted")
-      ACCEPTED,
+      @JsonProperty("member")
+      MEMBER,
       @JsonProperty("rejected")
       REJECTED,
+      @JsonProperty("accepted")
+      ACCEPTED,
       @JsonEnumDefaultValue
       UNKNOWN
     }
