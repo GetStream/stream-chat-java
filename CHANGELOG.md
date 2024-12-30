@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.27.1](https://github.com/GetStream/stream-chat-java/compare/1.27.0...1.27.1) (2024-12-30)
+
+
+### Bug Fixes
+
+* add missing enum value ([#166](https://github.com/GetStream/stream-chat-java/issues/166)) ([b5a1843](https://github.com/GetStream/stream-chat-java/commit/b5a1843b47f124b15f341bde1e40399c6f3fc08f))
+
 ## [1.27.0](https://github.com/GetStream/stream-chat-java/compare/1.26.2...1.27.0) (2024-12-13)
 
 
