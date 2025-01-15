@@ -4,6 +4,7 @@ import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.App;
 import io.getstream.chat.java.models.App.AppCheckSnsResponse;
 import io.getstream.chat.java.models.App.AppCheckSqsResponse;
+import io.getstream.chat.java.models.App.AppConfig;
 import io.getstream.chat.java.models.App.PushConfigRequestObject;
 import io.getstream.chat.java.models.App.PushVersion;
 import io.getstream.chat.java.models.Message;
@@ -12,6 +13,7 @@ import io.getstream.chat.java.services.framework.DefaultClient;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Properties;
+import java.util.Random;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -157,5 +159,21 @@ public class AppTest extends BasicTest {
     Calendar calendar = new GregorianCalendar();
     calendar.add(Calendar.DAY_OF_MONTH, -1);
     Assertions.assertDoesNotThrow(() -> App.revokeTokens(calendar.getTime()).request());
+  }
+
+  @DisplayName("App Settings update size limit does not throw Exception")
+  @Test
+  void whenUpdatingAppSettingsSizeLimit_thenNoException() {
+    AppConfig appConfig = Assertions.assertDoesNotThrow(() -> App.get().request()).getApp();
+    int newSizeLimit = (new Random()).nextInt(100 * 1024 * 1024);
+    Assertions.assertDoesNotThrow(
+        () ->
+            App.update()
+                .fileUploadConfig(
+                    App.FileUploadConfigRequestObject.builder().sizeLimit(newSizeLimit).build())
+                .request());
+
+    appConfig = Assertions.assertDoesNotThrow(() -> App.get().request()).getApp();
+    Assertions.assertEquals(newSizeLimit, appConfig.getFileUploadConfig().getSizeLimit());
   }
 }

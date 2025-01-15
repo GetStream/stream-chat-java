@@ -406,6 +406,10 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("blocked_mime_types")
     private List<String> blockedMimeTypes;
+
+    @Nullable
+    @JsonProperty("size_limit")
+    private Integer sizeLimit;
   }
 
   @Data
@@ -467,6 +471,10 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("blocked_mime_types")
     private List<String> blockedMimeTypes;
+
+    @Nullable
+    @JsonProperty("size_limit")
+    private Integer sizeLimit;
 
     @Nullable
     public static FileUploadConfigRequestObject buildFrom(
