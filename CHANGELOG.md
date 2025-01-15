@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.27.2](https://github.com/GetStream/stream-chat-java/compare/1.27.1...1.27.2) (2025-01-15)
+
+
+### Bug Fixes
+
+* add missing field ([#168](https://github.com/GetStream/stream-chat-java/issues/168)) ([659c044](https://github.com/GetStream/stream-chat-java/commit/659c04432891b8475419643784e831482dd7a193))
+
 ### [1.27.1](https://github.com/GetStream/stream-chat-java/compare/1.27.0...1.27.1) (2024-12-30)
 
 
