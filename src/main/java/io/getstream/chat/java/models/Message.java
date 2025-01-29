@@ -67,6 +67,10 @@ public class Message {
   private User user;
 
   @Nullable
+  @JsonProperty("restricted_visibility")
+  private List<String> restrictedVisibility;
+
+  @Nullable
   @JsonProperty("attachments")
   private List<Attachment> attachments;
 
@@ -424,6 +428,10 @@ public class Message {
     @Nullable
     @JsonProperty("user")
     private UserRequestObject user;
+
+    @Nullable
+    @JsonProperty("restricted_visibility")
+    private List<String> restrictedVisibility;
 
     @Nullable
     @JsonProperty("parent_id")
