@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.28.0](https://github.com/GetStream/stream-chat-java/compare/1.27.2...1.28.0) (2025-02-11)
+
+
+### Features
+
+* added restricted visibility ([#170](https://github.com/GetStream/stream-chat-java/issues/170)) ([16d5354](https://github.com/GetStream/stream-chat-java/commit/16d535489da7695f0cc6a81ff64e5bbc476fb491))
+
 ### [1.27.2](https://github.com/GetStream/stream-chat-java/compare/1.27.1...1.27.2) (2025-01-15)
 
 
