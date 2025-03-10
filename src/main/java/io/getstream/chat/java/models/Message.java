@@ -794,15 +794,23 @@ public class Message {
 
     @Nullable private Boolean hard;
 
+    @Nullable private String deletedBy;
+
     @NotNull
     public MessageDeleteRequest hard(@NotNull Boolean hard) {
       this.hard = hard;
       return this;
     }
 
+    @NotNull
+    public MessageDeleteRequest deletedBy(@NotNull String deletedBy) {
+      this.deletedBy = deletedBy;
+      return this;
+    }
+
     @Override
     protected Call<MessageDeleteResponse> generateCall(Client client) {
-      return client.create(MessageService.class).delete(this.id, this.hard);
+      return client.create(MessageService.class).delete(this.id, this.hard, this.deletedBy);
     }
   }
 
