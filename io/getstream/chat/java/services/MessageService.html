@@ -151,8 +151,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Message.MessageDeleteResponse.html" title="class in io.getstream.chat.java.models">Message.MessageDeleteResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#delete(java.lang.String,java.lang.Boolean)">delete</a></span>&#8203;(java.lang.String&nbsp;id,
-      java.lang.Boolean&nbsp;hard)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#delete(java.lang.String,java.lang.Boolean,java.lang.String)">delete</a></span>&#8203;(java.lang.String&nbsp;id,
+      java.lang.Boolean&nbsp;hard,
+      java.lang.String&nbsp;deletedBy)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
@@ -390,7 +391,7 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
                                                  java.lang.String&nbsp;url)</pre>
 </li>
 </ul>
-<a id="delete(java.lang.String,java.lang.Boolean)">
+<a id="delete(java.lang.String,java.lang.Boolean,java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -400,7 +401,9 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
 retrofit2.Call&lt;<a href="../models/Message.MessageDeleteResponse.html" title="class in io.getstream.chat.java.models">Message.MessageDeleteResponse</a>&gt;&nbsp;delete&#8203;(@NotNull @Path("id")
                                                      java.lang.String&nbsp;id,
                                                      @Nullable @Query("hard")
-                                                     java.lang.Boolean&nbsp;hard)</pre>
+                                                     java.lang.Boolean&nbsp;hard,
+                                                     @Nullable @Query("deleted_by")
+                                                     java.lang.String&nbsp;deletedBy)</pre>
 </li>
 </ul>
 <a id="get(java.lang.String,java.lang.Boolean)">
