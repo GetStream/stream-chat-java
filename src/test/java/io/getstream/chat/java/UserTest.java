@@ -77,16 +77,19 @@ public class UserTest extends BasicTest {
     var id = RandomStringUtils.randomAlphabetic(10);
     var team = "blue";
     var role = "admin";
-    
+
     // Create user with team and teams_role
-    UserUpsertResponse response = Assertions.assertDoesNotThrow(
-        () -> User.upsert()
-            .user(UserRequestObject.builder()
-                .id(id)
-                .teams(Collections.singletonList(team))
-                .teamsRole(Collections.singletonMap(team, role))
-                .build())
-            .request());
+    UserUpsertResponse response =
+        Assertions.assertDoesNotThrow(
+            () ->
+                User.upsert()
+                    .user(
+                        UserRequestObject.builder()
+                            .id(id)
+                            .teams(Collections.singletonList(team))
+                            .teamsRole(Collections.singletonMap(team, role))
+                            .build())
+                    .request());
 
     // Verify the user was created with correct team and role
     User createdUser = response.getUsers().get(id);
@@ -173,7 +176,8 @@ public class UserTest extends BasicTest {
     // Verify the changes
     Assertions.assertEquals("blue", updatedUser.getAdditionalFields().get("team"));
     @SuppressWarnings("unchecked")
-    Map<String, String> teamsRole = (Map<String, String>) updatedUser.getAdditionalFields().get("teams_role");
+    Map<String, String> teamsRole =
+        (Map<String, String>) updatedUser.getAdditionalFields().get("teams_role");
     Assertions.assertEquals("admin", teamsRole.get("blue"));
   }
 
