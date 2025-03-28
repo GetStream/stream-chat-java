@@ -160,7 +160,7 @@ public class UserTest extends BasicTest {
     UserPartialUpdateRequestObject userPartialUpdateRequestObject =
         UserPartialUpdateRequestObject.builder()
             .id(user.getId())
-            .setValue("team", "blue")
+            .setValue("teams", Collections.singletonList("blue"))
             .setValue("teams_role", Collections.singletonMap("blue", "admin"))
             .build();
 
@@ -174,11 +174,8 @@ public class UserTest extends BasicTest {
             .get(user.getId());
 
     // Verify the changes
-    Assertions.assertEquals("blue", updatedUser.getAdditionalFields().get("team"));
-    @SuppressWarnings("unchecked")
-    Map<String, String> teamsRole =
-        (Map<String, String>) updatedUser.getAdditionalFields().get("teams_role");
-    Assertions.assertEquals("admin", teamsRole.get("blue"));
+    Assertions.assertEquals("blue", updatedUser.getTeams().get(0));
+    Assertions.assertEquals("admin", updatedUser.getTeamsRole().get("blue"));
   }
 
   @DisplayName("Can ban user")
