@@ -34,6 +34,7 @@ public class BasicTest {
     cleanChannelTypes();
     cleanBlocklists();
     cleanCommands();
+    cleanUsers();
     upsertUsers();
     createTestChannel();
     createTestMessage();
@@ -67,6 +68,43 @@ public class BasicTest {
         if (status.equals("failed") || status.equals("error")) {
           throw new StreamException(
               String.format("Failed to delete channel(task_id: %s): %s", response.getId(), status),
+              (Throwable) null);
+        }
+
+        // wait for the channels to delete
+        Assertions.assertDoesNotThrow(() -> Thread.sleep(500));
+      }
+    }
+  }
+
+  private static void cleanUsers() throws StreamException {
+    while (true) {
+      List<String> users =
+          User.list().request().getUsers().stream()
+              .map(user -> user.getId())
+              .collect(Collectors.toList());
+
+      if (users.size() == 0) {
+        break;
+      }
+
+      var deleteManyResponse =
+          User.deleteMany(users).deleteUserStrategy(DeleteStrategy.HARD).request();
+      String taskId = deleteManyResponse.getTaskId();
+      Assertions.assertNotNull(taskId);
+
+      System.out.printf("Waiting for user deletion task %s to complete...\n", taskId);
+
+      while (true) {
+        TaskStatusGetResponse response = TaskStatus.get(taskId).request();
+        String status = response.getStatus();
+
+        if (status.equals("completed") || status.equals("ok")) {
+          break;
+        }
+        if (status.equals("failed") || status.equals("error")) {
+          throw new StreamException(
+              String.format("Failed to delete user(task_id: %s): %s", response.getId(), status),
               (Throwable) null);
         }
 
