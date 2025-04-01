@@ -9,11 +9,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class ModerationTest extends BasicTest {
+
   @DisplayName("Can upsert, get and delete moderation config")
   @Test
   void whenUpsertingGetttingDeletingModerationConfig_thenNoException() {
+    final String blocklistName = "profanity_en_2020_v1";
     BlockListRule rule =
-        BlockListRule.builder().name("test").action(Moderation.Action.REMOVE).build();
+        BlockListRule.builder().name(blocklistName).action(Moderation.Action.REMOVE).build();
 
     String key = "chat:messaging:1234";
     Assertions.assertDoesNotThrow(
@@ -27,7 +29,7 @@ public class ModerationTest extends BasicTest {
         Assertions.assertDoesNotThrow(() -> Moderation.getConfig(key).request());
 
     Assertions.assertEquals(
-        response.getConfig().getBlockListConfig().getRules().get(0).getName(), "test");
+        blocklistName, response.getConfig().getBlockListConfig().getRules().get(0).getName());
 
     Assertions.assertDoesNotThrow(() -> Moderation.deleteConfig(key).request());
 

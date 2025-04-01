@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.29.0](https://github.com/GetStream/stream-chat-java/compare/1.28.0...1.29.0) (2025-03-11)
+
+
+### Features
+
+* **server:** added deleted by filed ([#173](https://github.com/GetStream/stream-chat-java/issues/173)) ([d046dc1](https://github.com/GetStream/stream-chat-java/commit/d046dc1d042dbb966b0c3912037e2c044e156af8))
+
 ## [1.28.0](https://github.com/GetStream/stream-chat-java/compare/1.27.2...1.28.0) (2025-02-11)
 
 
