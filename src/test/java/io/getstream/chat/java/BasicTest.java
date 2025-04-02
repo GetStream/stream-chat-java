@@ -174,6 +174,7 @@ public class BasicTest {
   }
 
   static void upsertUsers() throws StreamException {
+    testUsersRequestObjects.clear();
     testUserRequestObject =
         UserRequestObject.builder()
             .id(RandomStringUtils.randomAlphabetic(10))

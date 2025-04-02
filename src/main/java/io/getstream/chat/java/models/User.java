@@ -59,6 +59,9 @@ public class User {
   @JsonProperty("teams")
   private List<String> teams;
 
+  @JsonProperty("teams_role")
+  private Map<String, String> teamsRole;
+
   @NotNull
   @JsonProperty("online")
   private Boolean online;
@@ -220,6 +223,10 @@ public class User {
     private String role;
 
     @Nullable
+    @JsonProperty("teams_role")
+    private Map<String, String> teamsRole;
+
+    @Nullable
     @JsonProperty("roles")
     private List<String> roles;
 
@@ -360,6 +367,10 @@ public class User {
     @Nullable
     @JsonProperty("teams")
     private List<String> teams;
+
+    @Nullable
+    @JsonProperty("teams_role")
+    private Map<String, String> teamsRole;
 
     @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
 

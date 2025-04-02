@@ -71,6 +71,33 @@ public class UserTest extends BasicTest {
     Assertions.assertEquals(lang, Language.UNKNOWN);
   }
 
+  @DisplayName("Can create a user with team and teams_role")
+  @Test
+  void whenCreatingUserWithTeam_thenNoException() {
+    var id = RandomStringUtils.randomAlphabetic(10);
+    var team = "blue";
+    var role = "admin";
+
+    // Create user with team and teams_role
+    UserUpsertResponse response =
+        Assertions.assertDoesNotThrow(
+            () ->
+                User.upsert()
+                    .user(
+                        UserRequestObject.builder()
+                            .id(id)
+                            .teams(Collections.singletonList(team))
+                            .teamsRole(Collections.singletonMap(team, role))
+                            .build())
+                    .request());
+
+    // Verify the user was created with correct team and role
+    User createdUser = response.getUsers().get(id);
+    Assertions.assertNotNull(createdUser);
+    Assertions.assertEquals(team, createdUser.getTeams().get(0));
+    Assertions.assertEquals(role, createdUser.getTeamsRole().get(team));
+  }
+
   @DisplayName("Can partial update a user")
   @Test
   void whenPartiallyUpdatingUser_thenNoException() {
@@ -107,6 +134,48 @@ public class UserTest extends BasicTest {
             .get(user.getId());
     Assertions.assertNull(updatedUser.getName());
     Assertions.assertEquals(addedValue, updatedUser.getAdditionalFields().get(addedKey));
+  }
+
+  @DisplayName("Can partial update a user with team and teams_role")
+  @Test
+  void whenPartiallyUpdatingUserWithTeam_thenNoException() {
+    // First create a basic user
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    User user =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    usersUpsertRequest
+                        .user(
+                            UserRequestObject.builder()
+                                .id(RandomStringUtils.randomAlphabetic(10))
+                                .name("Test User")
+                                .build())
+                        .request())
+            .getUsers()
+            .values()
+            .iterator()
+            .next();
+
+    // Partially update the user with team and teams_role
+    UserPartialUpdateRequestObject userPartialUpdateRequestObject =
+        UserPartialUpdateRequestObject.builder()
+            .id(user.getId())
+            .setValue("teams", Collections.singletonList("blue"))
+            .setValue("teams_role", Collections.singletonMap("blue", "admin"))
+            .build();
+
+    User updatedUser =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    User.partialUpdate()
+                        .users(Arrays.asList(userPartialUpdateRequestObject))
+                        .request())
+            .getUsers()
+            .get(user.getId());
+
+    // Verify the changes
+    Assertions.assertEquals("blue", updatedUser.getTeams().get(0));
+    Assertions.assertEquals("admin", updatedUser.getTeamsRole().get("blue"));
   }
 
   @DisplayName("Can ban user")
