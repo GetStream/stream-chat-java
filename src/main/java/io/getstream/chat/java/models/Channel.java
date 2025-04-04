@@ -1725,4 +1725,62 @@ public class Channel {
       @NotNull String type, @NotNull String id, @NotNull String userId) {
     return new ChannelMemberPartialUpdateRequest(type, id, userId).setValue("archived", false);
   }
+
+  @Builder(
+      builderClassName = "LiveLocationUpdateRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class LiveLocationUpdateRequestData {
+    @Nullable
+    @JsonProperty("location_id")
+    private String locationId;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("latitude")
+    private Double latitude;
+
+    @Nullable
+    @JsonProperty("longitude")
+    private Double longitude;
+
+    @Nullable
+    @JsonProperty("end_at")
+    private Date endAt;
+
+    @Nullable
+    @JsonProperty("created_by_device_id")
+    private String createdByDeviceId;
+
+    public static class LiveLocationUpdateRequest extends StreamRequest<StreamResponseObject> {
+      @NotNull private String channelType;
+      @NotNull private String channelId;
+      @NotNull private LiveLocationUpdateRequestData liveLocationData;
+
+      private LiveLocationUpdateRequest(@NotNull String channelType, @NotNull String channelId) {
+        this.channelType = channelType;
+        this.channelId = channelId;
+      }
+
+      public LiveLocationUpdateRequest liveLocation(@NotNull LiveLocationUpdateRequestData data) {
+        this.liveLocationData = data;
+        return this;
+      }
+
+      @Override
+      protected Call<StreamResponseObject> generateCall(Client client) {
+        return client
+            .create(ChannelService.class)
+            .updateLiveLocation(this.channelType, this.channelId, this.liveLocationData);
+      }
+    }
+  }
+
+  public static LiveLocationUpdateRequestData.LiveLocationUpdateRequest updateLiveLocation(
+      @NotNull String channelType, @NotNull String channelId) {
+    return new LiveLocationUpdateRequestData.LiveLocationUpdateRequest(channelType, channelId);
+  }
 }

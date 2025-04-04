@@ -28,6 +28,7 @@ import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -167,6 +168,10 @@ public class Message {
   @Nullable
   @JsonProperty("pinned_at")
   private Date pinnedAt;
+
+  @Nullable
+  @JsonProperty("live_location")
+  private LiveLocationRequestObject liveLocation;
 
   @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
 
@@ -491,6 +496,10 @@ public class Message {
     @JsonProperty("pinned_at")
     private Date pinnedAt;
 
+    @Nullable
+    @JsonProperty("live_location")
+    private LiveLocationRequestObject liveLocation;
+
     @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
 
     @JsonAnyGetter
@@ -651,6 +660,43 @@ public class Message {
     @Nullable
     public static FieldRequestObject buildFrom(@Nullable Field field) {
       return RequestObjectBuilder.build(FieldRequestObject.class, field);
+    }
+  }
+
+  @Builder
+  @Setter
+  public static class LiveLocationRequestObject {
+    @Nullable
+    @JsonProperty("id")
+    private String id;
+    
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+    
+    @Nullable
+    @JsonProperty("channel_cid")
+    private String channelCid;
+    
+    @Nullable
+    @JsonProperty("latitude")
+    private Double latitude;
+    
+    @Nullable
+    @JsonProperty("longitude")
+    private Double longitude;
+    
+    @Nullable
+    @JsonProperty("end_at")
+    private Date endAt;
+    
+    @Nullable
+    @JsonProperty("created_by_device_id")
+    private String createdByDeviceId;
+    
+    @Nullable
+    public static LiveLocationRequestObject buildFrom(@Nullable ChannelType.LiveLocation liveLocation) {
+      return RequestObjectBuilder.build(LiveLocationRequestObject.class, liveLocation);
     }
   }
 
@@ -1691,5 +1737,51 @@ public class Message {
   @NotNull
   public static MessageUnblockRequest unblock(@NotNull String messageId) {
     return new MessageUnblockRequest().targetMessageId(messageId);
+  }
+
+  /**
+   * Helper method to create a message with a live location
+   *
+   * @param channelType the channel type
+   * @param channelId the channel id
+   * @param text the message text
+   * @param userId the user id
+   * @param latitude the location latitude
+   * @param longitude the location longitude
+   * @param endAt the end time for the live location
+   * @param deviceId the device id that created the location
+   * @return the message send request
+   */
+  @NotNull
+  public static MessageSendRequest sendWithLiveLocation(
+      @NotNull String channelType,
+      @NotNull String channelId,
+      @Nullable String text,
+      @NotNull String userId,
+      @NotNull Double latitude,
+      @NotNull Double longitude,
+      @NotNull Date endAt,
+      @NotNull String deviceId) {
+    
+    String locationId = UUID.randomUUID().toString();
+    String channelCid = channelType + ":" + channelId;
+    
+    LiveLocationRequestObject liveLocation = LiveLocationRequestObject.builder()
+        .id(locationId)
+        .userId(userId)
+        .channelCid(channelCid)
+        .latitude(latitude)
+        .longitude(longitude)
+        .endAt(endAt)
+        .createdByDeviceId(deviceId)
+        .build();
+    
+    MessageRequestObject message = MessageRequestObject.builder()
+        .text(text)
+        .userId(userId)
+        .liveLocation(liveLocation)
+        .build();
+    
+    return send(channelType, channelId).message(message);
   }
 }
