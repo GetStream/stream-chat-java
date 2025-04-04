@@ -103,4 +103,10 @@ public interface ChannelService {
       @NotNull @Path("id") String channelId,
       @NotNull @Path("user_id") String userId,
       @NotNull @Body ChannelMemberPartialUpdateRequestData updateMemberPartialRequestData);
+
+  @PUT("channels/{type}/{id}/live_location")
+  Call<StreamResponseObject> updateLiveLocation(
+      @NotNull @Path("type") String channelType,
+      @NotNull @Path("id") String channelId,
+      @NotNull @Body Channel.LiveLocationUpdateRequestData liveLocationUpdateRequestData);
 }

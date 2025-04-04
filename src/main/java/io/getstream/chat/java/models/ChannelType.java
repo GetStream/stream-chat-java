@@ -673,4 +673,39 @@ public class ChannelType {
   public static ChannelTypeListRequest list() throws StreamException {
     return new ChannelTypeListRequest();
   }
+
+  /**
+   * Represents a live location shared in a channel
+   */
+  @Data
+  @Builder
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public static class LiveLocation {
+      private String id;
+      
+      @JsonProperty("user_id")
+      private String userId;
+      
+      @JsonProperty("channel_cid")
+      private String channelCid;
+      
+      @JsonProperty("message_id")
+      private String messageId;
+      
+      private Double latitude;
+      private Double longitude;
+      
+      @JsonProperty("end_at")
+      private Date endAt;
+      
+      @JsonProperty("created_by_device_id")
+      private String createdByDeviceId;
+      
+      @JsonProperty("created_at")
+      private Date createdAt;
+      
+      @JsonProperty("updated_at")
+      private Date updatedAt;
+  }
 }

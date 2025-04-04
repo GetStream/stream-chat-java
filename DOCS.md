@@ -1861,3 +1861,64 @@ Import.createImport(createUrlResponse.getPath(), Import.ImportMode.Upsert);
 // signature comes from the HTTP header x-signature
 boolean valid =  App.verifyWebhook(body, signature)
 ```
+
+## Live Location Features
+
+Stream Chat supports sharing and updating a user's live location within a channel. There are a few ways to work with live locations:
+
+### Sending a Message with Live Location
+
+The simplest way to share a location is to send a message containing live location data:
+
+```java
+Date endTime = new Date(System.currentTimeMillis() + 3600 * 1000); // 1 hour from now
+
+// Send a message with live location
+Message message = Message.sendWithLiveLocation(
+    "messaging",        // channel type
+    "my-channel-id",    // channel id
+    "Sharing my location", // message text
+    "user-id",          // user id
+    40.7128,            // latitude (New York City)
+    -74.0060,           // longitude
+    endTime,            // when the live location sharing ends
+    "ios-device-123"    // device ID that's sharing the location
+)
+.request()
+.getMessage();
+```
+
+### Updating a Live Location
+
+Once a live location has been created, you can update it with new coordinates:
+
+```java
+// Update existing live location
+LiveLocationUpdateRequestData requestData = LiveLocationUpdateRequestData.builder()
+    .locationId("existing-location-id")
+    .userId("user-id")
+    .latitude(34.0522)  // new latitude (Los Angeles)
+    .longitude(-118.2437) // new longitude
+    .build();
+
+Channel.updateLiveLocation("messaging", "my-channel-id")
+    .liveLocation(requestData)
+    .request();
+```
+
+### Getting a User's Active Live Locations
+
+To retrieve all active live locations for a user:
+
+```java
+UserGetActiveLiveLocationsResponse response = User.getActiveLiveLocations("user-id")
+    .request();
+
+List<LiveLocation> liveLocations = response.getLiveLocations();
+for (LiveLocation location : liveLocations) {
+    System.out.println("Location ID: " + location.getId());
+    System.out.println("Latitude: " + location.getLatitude());
+    System.out.println("Longitude: " + location.getLongitude());
+    System.out.println("End time: " + location.getEndAt());
+}
+```
