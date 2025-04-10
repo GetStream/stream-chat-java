@@ -66,4 +66,9 @@ public interface UserService {
       @Nullable @Query("type") String channelType,
       @Nullable @Query("id") String channelId,
       @Nullable @Query("shadow") Boolean shadow);
+
+  @GET("users/{user_id}/live_locations")
+  Call<User.UserGetActiveLiveLocationsResponse> getUserActiveLiveLocations(
+      @NotNull @Path("user_id") String userId,
+      @NotNull @Query("user_id") String queryUserId);
 }

@@ -1447,4 +1447,32 @@ public class User {
         .signWith(signingKey, SignatureAlgorithm.HS256)
         .compact();
   }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class UserGetActiveLiveLocationsResponse extends StreamResponseObject {
+    @Nullable
+    @JsonProperty("live_locations")
+    private List<ChannelType.LiveLocation> liveLocations;
+  }
+
+  public static class UserGetActiveLiveLocationsRequest extends StreamRequest<UserGetActiveLiveLocationsResponse> {
+    @NotNull private String userId;
+
+    private UserGetActiveLiveLocationsRequest(@NotNull String userId) {
+      this.userId = userId;
+    }
+
+    @Override
+    protected Call<UserGetActiveLiveLocationsResponse> generateCall(Client client) {
+      return client
+          .create(UserService.class)
+          .getUserActiveLiveLocations(this.userId, this.userId);
+    }
+  }
+
+  public static UserGetActiveLiveLocationsRequest getActiveLiveLocations(@NotNull String userId) {
+    return new UserGetActiveLiveLocationsRequest(userId);
+  }
 }
