@@ -8,11 +8,8 @@ import io.getstream.chat.java.models.FilterCondition;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Sort;
 import io.getstream.chat.java.models.Thread;
-import io.getstream.chat.java.models.User;
-import io.getstream.chat.java.models.User.UserRequestObject;
 import java.util.List;
 import java.util.UUID;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,22 +20,18 @@ public class ThreadTest extends BasicTest {
   @DisplayName("Can query threads with filter parameters")
   @Test
   void whenQueryingThreadsWithFilter_thenNoException() throws StreamException {
-    // Create a user
-    UserRequestObject user =
-        UserRequestObject.builder()
-            .id("user-" + RandomStringUtils.randomAlphabetic(10))
-            .name("User 1")
-            .build();
-    User.upsert().user(user).request();
-
     // Create a channel with a thread
     String channelId = UUID.randomUUID().toString();
     Channel.ChannelGetResponse channel =
         Channel.getOrCreate("messaging", channelId)
             .data(
                 ChannelRequestObject.builder()
-                    .createdBy(user)
-                    .members(List.of(ChannelMemberRequestObject.builder().user(user).build()))
+                    .createdBy(testUserRequestObject)
+                    .members(
+                        List.of(
+                            ChannelMemberRequestObject.builder()
+                                .user(testUserRequestObject)
+                                .build()))
                     .build())
             .request();
 
@@ -46,7 +39,7 @@ public class ThreadTest extends BasicTest {
     Message.MessageRequestObject parentMessage =
         Message.MessageRequestObject.builder()
             .text("Parent message for thread")
-            .userId(user.getId())
+            .userId(testUserRequestObject.getId())
             .build();
 
     Message.MessageSendResponse parentMessageResponse =
@@ -58,7 +51,7 @@ public class ThreadTest extends BasicTest {
     Message.MessageRequestObject replyMessage =
         Message.MessageRequestObject.builder()
             .text("Reply in thread")
-            .userId(user.getId())
+            .userId(testUserRequestObject.getId())
             .parentId(parentMessageResponse.getMessage().getId())
             .build();
 
@@ -69,7 +62,7 @@ public class ThreadTest extends BasicTest {
     // Query threads with filter for the specific channel
     Thread.QueryThreadsResponse response =
         Thread.queryThreads()
-            .userId(user.getId())
+            .userId(testUserRequestObject.getId())
             .filter(FilterCondition.eq("channel_cid", channel.getChannel().getCId()))
             .request();
 
@@ -87,22 +80,18 @@ public class ThreadTest extends BasicTest {
   @DisplayName("Can query threads with sort parameters")
   @Test
   void whenQueryingThreadsWithSort_thenNoException() throws StreamException {
-    // Create a user
-    UserRequestObject user =
-        UserRequestObject.builder()
-            .id("user-" + RandomStringUtils.randomAlphabetic(10))
-            .name("User 1")
-            .build();
-    User.upsert().user(user).request();
-
     // Create two channels with threads
     String channel1Id = UUID.randomUUID().toString();
     Channel.ChannelGetResponse channel1 =
         Channel.getOrCreate("messaging", channel1Id)
             .data(
                 ChannelRequestObject.builder()
-                    .createdBy(user)
-                    .members(List.of(ChannelMemberRequestObject.builder().user(user).build()))
+                    .createdBy(testUserRequestObject)
+                    .members(
+                        List.of(
+                            ChannelMemberRequestObject.builder()
+                                .user(testUserRequestObject)
+                                .build()))
                     .build())
             .request();
 
@@ -110,7 +99,7 @@ public class ThreadTest extends BasicTest {
     Message.MessageRequestObject parentMessage1 =
         Message.MessageRequestObject.builder()
             .text("Parent message for thread 1")
-            .userId(user.getId())
+            .userId(testUserRequestObject.getId())
             .build();
 
     Message.MessageSendResponse parentMessageResponse1 =
@@ -122,7 +111,7 @@ public class ThreadTest extends BasicTest {
     Message.MessageRequestObject replyMessage1 =
         Message.MessageRequestObject.builder()
             .text("Reply in thread 1")
-            .userId(user.getId())
+            .userId(testUserRequestObject.getId())
             .parentId(parentMessageResponse1.getMessage().getId())
             .build();
 
@@ -136,8 +125,12 @@ public class ThreadTest extends BasicTest {
         Channel.getOrCreate("messaging", channel2Id)
             .data(
                 ChannelRequestObject.builder()
-                    .createdBy(user)
-                    .members(List.of(ChannelMemberRequestObject.builder().user(user).build()))
+                    .createdBy(testUserRequestObject)
+                    .members(
+                        List.of(
+                            ChannelMemberRequestObject.builder()
+                                .user(testUserRequestObject)
+                                .build()))
                     .build())
             .request();
 
@@ -145,7 +138,7 @@ public class ThreadTest extends BasicTest {
     Message.MessageRequestObject parentMessage2 =
         Message.MessageRequestObject.builder()
             .text("Parent message for thread 2")
-            .userId(user.getId())
+            .userId(testUserRequestObject.getId())
             .build();
 
     Message.MessageSendResponse parentMessageResponse2 =
@@ -157,7 +150,7 @@ public class ThreadTest extends BasicTest {
     Message.MessageRequestObject replyMessage2 =
         Message.MessageRequestObject.builder()
             .text("Reply in thread 2")
-            .userId(user.getId())
+            .userId(testUserRequestObject.getId())
             .parentId(parentMessageResponse2.getMessage().getId())
             .build();
 
@@ -168,7 +161,7 @@ public class ThreadTest extends BasicTest {
     // Query threads with sort by created_at in descending order
     Thread.QueryThreadsResponse response =
         Thread.queryThreads()
-            .userId(user.getId())
+            .userId(testUserRequestObject.getId())
             .sort(Sort.builder().field("created_at").direction(Sort.Direction.DESC).build())
             .request();
 
@@ -195,22 +188,18 @@ public class ThreadTest extends BasicTest {
   @DisplayName("Can query threads with both filter and sort parameters")
   @Test
   void whenQueryingThreadsWithFilterAndSort_thenNoException() throws StreamException {
-    // Create a user
-    UserRequestObject user =
-        UserRequestObject.builder()
-            .id("user-" + RandomStringUtils.randomAlphabetic(10))
-            .name("User 1")
-            .build();
-    User.upsert().user(user).request();
-
     // Create a channel with multiple threads
     String channelId = UUID.randomUUID().toString();
     Channel.ChannelGetResponse channel =
         Channel.getOrCreate("messaging", channelId)
             .data(
                 ChannelRequestObject.builder()
-                    .createdBy(user)
-                    .members(List.of(ChannelMemberRequestObject.builder().user(user).build()))
+                    .createdBy(testUserRequestObject)
+                    .members(
+                        List.of(
+                            ChannelMemberRequestObject.builder()
+                                .user(testUserRequestObject)
+                                .build()))
                     .build())
             .request();
 
@@ -218,7 +207,7 @@ public class ThreadTest extends BasicTest {
     Message.MessageRequestObject parentMessage1 =
         Message.MessageRequestObject.builder()
             .text("Parent message for thread 1")
-            .userId(user.getId())
+            .userId(testUserRequestObject.getId())
             .build();
 
     Message.MessageSendResponse parentMessageResponse1 =
@@ -230,7 +219,7 @@ public class ThreadTest extends BasicTest {
     Message.MessageRequestObject replyMessage1 =
         Message.MessageRequestObject.builder()
             .text("Reply in thread 1")
-            .userId(user.getId())
+            .userId(testUserRequestObject.getId())
             .parentId(parentMessageResponse1.getMessage().getId())
             .build();
 
@@ -242,7 +231,7 @@ public class ThreadTest extends BasicTest {
     Message.MessageRequestObject parentMessage2 =
         Message.MessageRequestObject.builder()
             .text("Parent message for thread 2")
-            .userId(user.getId())
+            .userId(testUserRequestObject.getId())
             .build();
 
     Message.MessageSendResponse parentMessageResponse2 =
@@ -254,7 +243,7 @@ public class ThreadTest extends BasicTest {
     Message.MessageRequestObject replyMessage2 =
         Message.MessageRequestObject.builder()
             .text("Reply in thread 2")
-            .userId(user.getId())
+            .userId(testUserRequestObject.getId())
             .parentId(parentMessageResponse2.getMessage().getId())
             .build();
 
@@ -265,7 +254,7 @@ public class ThreadTest extends BasicTest {
     // Query threads with filter for the specific channel and sort by created_at in descending order
     Thread.QueryThreadsResponse response =
         Thread.queryThreads()
-            .userId(user.getId())
+            .userId(testUserRequestObject.getId())
             .filter(FilterCondition.eq("channel_cid", channel.getChannel().getCId()))
             .sort(Sort.builder().field("created_at").direction(Sort.Direction.DESC).build())
             .request();
