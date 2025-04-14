@@ -72,7 +72,7 @@ public class BasicTest {
         }
 
         // wait for the channels to delete
-        Assertions.assertDoesNotThrow(() -> Thread.sleep(500));
+        Assertions.assertDoesNotThrow(() -> java.lang.Thread.sleep(500));
       }
     }
   }
@@ -109,7 +109,7 @@ public class BasicTest {
         }
 
         // wait for the channels to delete
-        Assertions.assertDoesNotThrow(() -> Thread.sleep(500));
+        Assertions.assertDoesNotThrow(() -> java.lang.Thread.sleep(500));
       }
     }
   }
@@ -239,7 +239,7 @@ public class BasicTest {
    */
   protected void pause() {
     try {
-      Thread.sleep(6000);
+      java.lang.Thread.sleep(6000);
     } catch (InterruptedException e) {
       // Do nothing
     }
@@ -261,7 +261,7 @@ public class BasicTest {
         return;
       }
 
-      Assertions.assertDoesNotThrow(() -> Thread.sleep(askInterval));
+      Assertions.assertDoesNotThrow(() -> java.lang.Thread.sleep(askInterval));
     }
   }
 }
