@@ -30,7 +30,7 @@ public class ExportUsersTest extends BasicTest {
         taskCompleted = true;
         break;
       }
-      Assertions.assertDoesNotThrow(() -> Thread.sleep(500));
+      Assertions.assertDoesNotThrow(() -> java.lang.Thread.sleep(500));
     }
     Assertions.assertTrue(taskCompleted);
   }
