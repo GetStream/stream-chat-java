@@ -8,5 +8,6 @@ import retrofit2.http.*;
 
 public interface ThreadService {
   @POST("threads")
-  Call<QueryThreadsResponse> queryThreads(@NotNull @Body QueryThreadsRequestData queryThreadsRequestData);
-} 
+  Call<QueryThreadsResponse> queryThreads(
+      @NotNull @Body QueryThreadsRequestData queryThreadsRequestData);
+}

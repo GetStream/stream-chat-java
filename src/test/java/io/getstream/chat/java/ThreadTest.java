@@ -176,14 +176,14 @@ public class ThreadTest extends BasicTest {
     Assertions.assertNotNull(response);
     Assertions.assertNotNull(response.getThreads());
     Assertions.assertEquals(2, response.getThreads().size());
-    
+
     // The second thread should be first in the list (most recent)
     Assertions.assertEquals(
         channel2.getChannel().getCId(), response.getThreads().get(0).getChannelCid());
     Assertions.assertEquals(
         parentMessageResponse2.getMessage().getId(),
         response.getThreads().get(0).getParentMessageId());
-    
+
     // The first thread should be second in the list
     Assertions.assertEquals(
         channel1.getChannel().getCId(), response.getThreads().get(1).getChannelCid());
@@ -274,14 +274,14 @@ public class ThreadTest extends BasicTest {
     Assertions.assertNotNull(response);
     Assertions.assertNotNull(response.getThreads());
     Assertions.assertEquals(2, response.getThreads().size());
-    
+
     // The second thread should be first in the list (most recent)
     Assertions.assertEquals(
         channel.getChannel().getCId(), response.getThreads().get(0).getChannelCid());
     Assertions.assertEquals(
         parentMessageResponse2.getMessage().getId(),
         response.getThreads().get(0).getParentMessageId());
-    
+
     // The first thread should be second in the list
     Assertions.assertEquals(
         channel.getChannel().getCId(), response.getThreads().get(1).getChannelCid());
