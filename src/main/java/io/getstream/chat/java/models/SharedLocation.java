@@ -42,6 +42,9 @@ public class SharedLocation {
   @Data
   @NoArgsConstructor
   public static class SharedLocationRequest {
+    @JsonProperty("message_id")
+    private String messageId;
+
     @JsonProperty("created_by_device_id")
     private String createdByDeviceId;
 
@@ -52,6 +55,9 @@ public class SharedLocation {
     @Nullable private Double latitude;
 
     @Nullable private Double longitude;
+
+    @JsonProperty("user_id")
+    private String userId;
   }
 
   @Data
@@ -97,6 +103,7 @@ public class SharedLocation {
 
     public static class UpdateLocationRequest extends StreamRequest<SharedLocationResponse> {
       private SharedLocationRequest request;
+      private String userId;
 
       public UpdateLocationRequest() {}
 
@@ -109,18 +116,32 @@ public class SharedLocation {
         return this;
       }
 
+      public UpdateLocationRequest userId(String userId) {
+        this.userId = userId;
+        return this;
+      }
+
       @Override
       protected Call<SharedLocationResponse> generateCall(Client client) {
-        return client.create(SharedLocationService.class).updateLiveLocation(request);
+        return client.create(SharedLocationService.class).updateLiveLocation(userId, request);
       }
     }
   }
 
   public static class GetLocationsRequestData {
     public static class GetLocationsRequest extends StreamRequest<ActiveLiveLocationsResponse> {
+      private String userId;
+
+      public GetLocationsRequest() {}
+
+      public GetLocationsRequest userId(String userId) {
+        this.userId = userId;
+        return this;
+      }
+
       @Override
       protected Call<ActiveLiveLocationsResponse> generateCall(Client client) {
-        return client.create(SharedLocationService.class).getLiveLocations();
+        return client.create(SharedLocationService.class).getLiveLocations(userId);
       }
     }
   }
