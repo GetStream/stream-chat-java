@@ -1,7 +1,6 @@
 package io.getstream.chat.java.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.getstream.chat.java.StreamClient;
 import io.getstream.chat.java.exceptions.StreamException;
 import java.util.Date;
 import java.util.List;
