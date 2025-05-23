@@ -1,17 +1,19 @@
 package io.getstream.chat.java.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.getstream.chat.java.exceptions.StreamException;
+import com.fasterxml.jackson.annotation.*;
+import io.getstream.chat.java.models.framework.StreamRequest;
+import io.getstream.chat.java.models.framework.StreamResponseObject;
+import io.getstream.chat.java.services.SharedLocationService;
+import io.getstream.chat.java.services.framework.Client;
 import java.util.Date;
 import java.util.List;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import retrofit2.Response;
+import retrofit2.Call;
 
 @Data
-@Builder
+@NoArgsConstructor
 public class SharedLocation {
   @JsonProperty("channel_cid")
   private String channelCid;
@@ -38,7 +40,7 @@ public class SharedLocation {
   private String userId;
 
   @Data
-  @Builder
+  @NoArgsConstructor
   public static class SharedLocationRequest {
     @JsonProperty("created_by_device_id")
     private String createdByDeviceId;
@@ -53,8 +55,9 @@ public class SharedLocation {
   }
 
   @Data
-  @Builder
-  public static class SharedLocationResponse {
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class SharedLocationResponse extends StreamResponseObject {
     @JsonProperty("created_by_device_id")
     private String createdByDeviceId;
 
@@ -66,53 +69,60 @@ public class SharedLocation {
   }
 
   @Data
-  @Builder
-  public static class ActiveLiveLocationsResponse {
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class ActiveLiveLocationsResponse extends StreamResponseObject {
     @JsonProperty("active_live_locations")
     private List<SharedLocation> activeLiveLocations;
   }
 
+  @Builder(
+      builderClassName = "UpdateLocationRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class UpdateLocationRequestData {
+    @NotNull
+    @JsonProperty("request")
+    private SharedLocationRequest request;
+
+    public static class UpdateLocationRequest extends StreamRequest<SharedLocationResponse> {
+      @Override
+      protected Call<SharedLocationResponse> generateCall(Client client) {
+        return client.create(SharedLocationService.class).updateLiveLocation(this.internalBuild());
+      }
+    }
+  }
+
+  @Builder(
+      builderClassName = "GetLocationsRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class GetLocationsRequestData {
+    public static class GetLocationsRequest extends StreamRequest<ActiveLiveLocationsResponse> {
+      @Override
+      protected Call<ActiveLiveLocationsResponse> generateCall(Client client) {
+        return client.create(SharedLocationService.class).getLiveLocations();
+      }
+    }
+  }
+
+  /**
+   * Creates an update location request
+   *
+   * @return the created request
+   */
+  @NotNull
   public static UpdateLocationRequest updateLocation() {
     return new UpdateLocationRequest();
   }
 
+  /**
+   * Creates a get locations request
+   *
+   * @return the created request
+   */
+  @NotNull
   public static GetLocationsRequest getLocations() {
     return new GetLocationsRequest();
-  }
-
-  public static class UpdateLocationRequest {
-    private SharedLocationRequest request;
-
-    public UpdateLocationRequest request(@NotNull SharedLocationRequest request) {
-      this.request = request;
-      return this;
-    }
-
-    public SharedLocationResponse request() throws StreamException {
-      Response<SharedLocationResponse> response =
-          StreamClient.getInstance()
-              .getSharedLocationService()
-              .updateLiveLocation(request)
-              .execute();
-
-      if (!response.isSuccessful()) {
-        throw new StreamException("Failed to update live location: " + response.code());
-      }
-
-      return response.body();
-    }
-  }
-
-  public static class GetLocationsRequest {
-    public ActiveLiveLocationsResponse request() throws StreamException {
-      Response<ActiveLiveLocationsResponse> response =
-          StreamClient.getInstance().getSharedLocationService().getLiveLocations().execute();
-
-      if (!response.isSuccessful()) {
-        throw new StreamException("Failed to get live locations: " + response.code());
-      }
-
-      return response.body();
-    }
   }
 }
