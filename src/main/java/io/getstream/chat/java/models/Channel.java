@@ -81,6 +81,10 @@ public class Channel {
   private List<Message> messages;
 
   @Nullable
+  @JsonProperty("active_live_locations")
+  private List<SharedLocation> activeLiveLocations;
+
+  @Nullable
   @JsonProperty("read")
   private List<ChannelRead> read;
 
