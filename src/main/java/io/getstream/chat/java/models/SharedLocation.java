@@ -1,11 +1,15 @@
 package io.getstream.chat.java.models;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.getstream.chat.java.StreamClient;
+import io.getstream.chat.java.exceptions.StreamException;
 import java.util.Date;
 import java.util.List;
 import lombok.Builder;
 import lombok.Data;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import retrofit2.Response;
 
 @Data
 @Builder
@@ -67,5 +71,49 @@ public class SharedLocation {
   public static class ActiveLiveLocationsResponse {
     @JsonProperty("active_live_locations")
     private List<SharedLocation> activeLiveLocations;
+  }
+
+  public static UpdateLocationRequest updateLocation() {
+    return new UpdateLocationRequest();
+  }
+
+  public static GetLocationsRequest getLocations() {
+    return new GetLocationsRequest();
+  }
+
+  public static class UpdateLocationRequest {
+    private SharedLocationRequest request;
+
+    public UpdateLocationRequest request(@NotNull SharedLocationRequest request) {
+      this.request = request;
+      return this;
+    }
+
+    public SharedLocationResponse request() throws StreamException {
+      Response<SharedLocationResponse> response =
+          StreamClient.getInstance()
+              .getSharedLocationService()
+              .updateLiveLocation(request)
+              .execute();
+
+      if (!response.isSuccessful()) {
+        throw new StreamException("Failed to update live location: " + response.code());
+      }
+
+      return response.body();
+    }
+  }
+
+  public static class GetLocationsRequest {
+    public ActiveLiveLocationsResponse request() throws StreamException {
+      Response<ActiveLiveLocationsResponse> response =
+          StreamClient.getInstance().getSharedLocationService().getLiveLocations().execute();
+
+      if (!response.isSuccessful()) {
+        throw new StreamException("Failed to get live locations: " + response.code());
+      }
+
+      return response.body();
+    }
   }
 }
