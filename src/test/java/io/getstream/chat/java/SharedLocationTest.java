@@ -7,13 +7,9 @@ import io.getstream.chat.java.models.Message.MessageType;
 import io.getstream.chat.java.models.SharedLocation;
 import io.getstream.chat.java.models.SharedLocation.ActiveLiveLocationsResponse;
 import io.getstream.chat.java.models.SharedLocation.SharedLocationRequest;
-import io.getstream.chat.java.models.SharedLocation.SharedLocationResponse;
-import io.getstream.chat.java.models.User.UserRequestObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.TimeZone;
 import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
@@ -24,10 +20,11 @@ public class SharedLocationTest extends BasicTest {
 
   @DisplayName("Can send message with shared location and verify")
   @Test
-  void whenSendingMessageWithSharedLocation_thenCanGetThroughUsersLocations() throws StreamException, ParseException {
+  void whenSendingMessageWithSharedLocation_thenCanGetThroughUsersLocations()
+      throws StreamException, ParseException {
     // Create a unique device ID for this test
     String deviceId = "device-" + UUID.randomUUID().toString();
-    
+
     // Create shared location request
     SharedLocationRequest locationRequest = new SharedLocation.SharedLocationRequest();
     locationRequest.setCreatedByDeviceId(deviceId);
@@ -46,17 +43,19 @@ public class SharedLocationTest extends BasicTest {
     sharedLocation.setEndAt(dateFormat.parse(locationRequest.getEndAt()));
 
     // Send message with shared location
-    MessageRequestObject messageRequest = MessageRequestObject.builder()
-        .text("I'm sharing my live location")
-        .userId(testUserRequestObject.getId())
-        .type(MessageType.REGULAR)
-        .sharedLocation(sharedLocation)
-        .build();
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder()
+            .text("I'm sharing my live location")
+            .userId(testUserRequestObject.getId())
+            .type(MessageType.REGULAR)
+            .sharedLocation(sharedLocation)
+            .build();
 
-    Message message = Message.send(testChannel.getType(), testChannel.getId())
-        .message(messageRequest)
-        .request()
-        .getMessage();
+    Message message =
+        Message.send(testChannel.getType(), testChannel.getId())
+            .message(messageRequest)
+            .request()
+            .getMessage();
 
     // Verify message was sent with correct shared location
     Assertions.assertNotNull(message);
@@ -64,7 +63,7 @@ public class SharedLocationTest extends BasicTest {
     Assertions.assertEquals(deviceId, message.getSharedLocation().getCreatedByDeviceId());
     Assertions.assertEquals(40.7128, message.getSharedLocation().getLatitude());
     Assertions.assertEquals(-74.0060, message.getSharedLocation().getLongitude());
-    
+
     // Parse and verify the endAt date
     Date expectedEndAt = dateFormat.parse("2025-12-31T23:59:59Z");
     Assertions.assertEquals(expectedEndAt, message.getSharedLocation().getEndAt());
@@ -75,7 +74,7 @@ public class SharedLocationTest extends BasicTest {
   void whenUpdatingLiveLocation_thenCanGetUpdatedLocation() throws StreamException, ParseException {
     // Create a unique device ID for this test
     String deviceId = "device-" + UUID.randomUUID().toString();
-    
+
     // Create initial shared location request
     SharedLocationRequest initialLocationRequest = new SharedLocation.SharedLocationRequest();
     initialLocationRequest.setCreatedByDeviceId(deviceId);
@@ -94,17 +93,19 @@ public class SharedLocationTest extends BasicTest {
     initialSharedLocation.setEndAt(dateFormat.parse(initialLocationRequest.getEndAt()));
 
     // Send initial message with shared location
-    MessageRequestObject initialMessageRequest = MessageRequestObject.builder()
-        .text("I'm sharing my live location")
-        .userId(testUserRequestObject.getId())
-        .type(MessageType.REGULAR)
-        .sharedLocation(initialSharedLocation)
-        .build();
+    MessageRequestObject initialMessageRequest =
+        MessageRequestObject.builder()
+            .text("I'm sharing my live location")
+            .userId(testUserRequestObject.getId())
+            .type(MessageType.REGULAR)
+            .sharedLocation(initialSharedLocation)
+            .build();
 
-    Message initialMessage = Message.send(testChannel.getType(), testChannel.getId())
-        .message(initialMessageRequest)
-        .request()
-        .getMessage();
+    Message initialMessage =
+        Message.send(testChannel.getType(), testChannel.getId())
+            .message(initialMessageRequest)
+            .request()
+            .getMessage();
 
     // Create updated location request
     SharedLocationRequest updatedLocationRequest = new SharedLocation.SharedLocationRequest();
@@ -116,15 +117,15 @@ public class SharedLocationTest extends BasicTest {
     updatedLocationRequest.setUserId(testUserRequestObject.getId());
 
     // Update the location
-    SharedLocation.SharedLocationResponse updateResponse = SharedLocation.updateLocation()
-        .userId(testUserRequestObject.getId())
-        .request(updatedLocationRequest)
-        .request();
+    SharedLocation.SharedLocationResponse updateResponse =
+        SharedLocation.updateLocation()
+            .userId(testUserRequestObject.getId())
+            .request(updatedLocationRequest)
+            .request();
 
     // Get active live locations
-    ActiveLiveLocationsResponse activeLocations = SharedLocation.getLocations()
-        .userId(testUserRequestObject.getId())
-        .request();
+    ActiveLiveLocationsResponse activeLocations =
+        SharedLocation.getLocations().userId(testUserRequestObject.getId()).request();
 
     // Verify the updated location
     Assertions.assertNotNull(activeLocations);
@@ -132,16 +133,17 @@ public class SharedLocationTest extends BasicTest {
     Assertions.assertFalse(activeLocations.getActiveLiveLocations().isEmpty());
 
     // Find our location in the response
-    SharedLocation updatedLocation = activeLocations.getActiveLiveLocations().stream()
-        .filter(loc -> deviceId.equals(loc.getCreatedByDeviceId()))
-        .findFirst()
-        .orElse(null);
+    SharedLocation updatedLocation =
+        activeLocations.getActiveLiveLocations().stream()
+            .filter(loc -> deviceId.equals(loc.getCreatedByDeviceId()))
+            .findFirst()
+            .orElse(null);
 
     Assertions.assertNotNull(updatedLocation);
     Assertions.assertEquals(deviceId, updatedLocation.getCreatedByDeviceId());
     Assertions.assertEquals(40.7589, updatedLocation.getLatitude());
     Assertions.assertEquals(-73.9851, updatedLocation.getLongitude());
-    
+
     // Verify the endAt date
     Date expectedEndAt = dateFormat.parse("2025-12-31T23:59:59Z");
     Assertions.assertEquals(expectedEndAt, updatedLocation.getEndAt());
