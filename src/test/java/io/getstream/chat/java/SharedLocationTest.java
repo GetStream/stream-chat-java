@@ -16,13 +16,11 @@ public class SharedLocationTest extends BasicTest {
   @Test
   void whenUpdatingLiveLocation_thenNoException() throws StreamException {
     String deviceId = "device-" + UUID.randomUUID().toString();
-    SharedLocationRequest request =
-        SharedLocationRequest.builder()
-            .createdByDeviceId(deviceId)
-            .latitude(40.7128)
-            .longitude(-74.0060)
-            .endAt("2024-12-31T23:59:59Z")
-            .build();
+    SharedLocationRequest request = new SharedLocation.SharedLocationRequest();
+    request.setCreatedByDeviceId(deviceId);
+    request.setLatitude(40.7128);
+    request.setLongitude(-74.0060);
+    request.setEndAt("2024-12-31T23:59:59Z");
 
     SharedLocationResponse response = SharedLocation.updateLocation().request(request).request();
 
@@ -43,12 +41,10 @@ public class SharedLocationTest extends BasicTest {
   @Test
   void whenUpdatingLiveLocationWithMinimalData_thenNoException() throws StreamException {
     String deviceId = "device-" + UUID.randomUUID().toString();
-    SharedLocationRequest request =
-        SharedLocationRequest.builder()
-            .createdByDeviceId(deviceId)
-            .latitude(40.7128)
-            .longitude(-74.0060)
-            .build();
+    SharedLocationRequest request = new SharedLocation.SharedLocationRequest();
+    request.setCreatedByDeviceId(deviceId);
+    request.setLatitude(40.7128);
+    request.setLongitude(-74.0060);
 
     SharedLocationResponse response = SharedLocation.updateLocation().request(request).request();
 

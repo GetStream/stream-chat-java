@@ -76,27 +76,46 @@ public class SharedLocation {
     private List<SharedLocation> activeLiveLocations;
   }
 
-  @Builder(
-      builderClassName = "UpdateLocationRequest",
-      builderMethodName = "",
-      buildMethodName = "internalBuild")
   public static class UpdateLocationRequestData {
     @NotNull
     @JsonProperty("request")
     private SharedLocationRequest request;
 
+    public UpdateLocationRequestData() {}
+
+    public UpdateLocationRequestData(SharedLocationRequest request) {
+      this.request = request;
+    }
+
+    public SharedLocationRequest getRequest() {
+      return request;
+    }
+
+    public void setRequest(SharedLocationRequest request) {
+      this.request = request;
+    }
+
     public static class UpdateLocationRequest extends StreamRequest<SharedLocationResponse> {
+      private SharedLocationRequest request;
+
+      public UpdateLocationRequest() {}
+
+      public UpdateLocationRequest(SharedLocationRequest request) {
+        this.request = request;
+      }
+
+      public UpdateLocationRequest request(SharedLocationRequest request) {
+        this.request = request;
+        return this;
+      }
+
       @Override
       protected Call<SharedLocationResponse> generateCall(Client client) {
-        return client.create(SharedLocationService.class).updateLiveLocation(this.internalBuild());
+        return client.create(SharedLocationService.class).updateLiveLocation(request);
       }
     }
   }
 
-  @Builder(
-      builderClassName = "GetLocationsRequest",
-      builderMethodName = "",
-      buildMethodName = "internalBuild")
   public static class GetLocationsRequestData {
     public static class GetLocationsRequest extends StreamRequest<ActiveLiveLocationsResponse> {
       @Override
@@ -112,8 +131,8 @@ public class SharedLocation {
    * @return the created request
    */
   @NotNull
-  public static UpdateLocationRequest updateLocation() {
-    return new UpdateLocationRequest();
+  public static UpdateLocationRequestData.UpdateLocationRequest updateLocation() {
+    return new UpdateLocationRequestData.UpdateLocationRequest();
   }
 
   /**
@@ -122,7 +141,7 @@ public class SharedLocation {
    * @return the created request
    */
   @NotNull
-  public static GetLocationsRequest getLocations() {
-    return new GetLocationsRequest();
+  public static GetLocationsRequestData.GetLocationsRequest getLocations() {
+    return new GetLocationsRequestData.GetLocationsRequest();
   }
 }
