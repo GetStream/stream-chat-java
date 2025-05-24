@@ -1,6 +1,9 @@
 package io.getstream.chat.java;
 
 import io.getstream.chat.java.exceptions.StreamException;
+import io.getstream.chat.java.models.Channel;
+import io.getstream.chat.java.models.Channel.ChannelGetResponse;
+import io.getstream.chat.java.models.Channel.ChannelRequestObject;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
 import io.getstream.chat.java.models.Message.MessageType;
@@ -147,5 +150,79 @@ public class SharedLocationTest extends BasicTest {
     // Verify the endAt date
     Date expectedEndAt = dateFormat.parse("2025-12-31T23:59:59Z");
     Assertions.assertEquals(expectedEndAt, updatedLocation.getEndAt());
+  }
+
+  @DisplayName("Can verify live location in channel")
+  @Test
+  void whenQueryingChannel_thenShouldHaveLiveLocation() throws StreamException, ParseException {
+    // Create a unique device ID for this test
+    String deviceId = "device-" + UUID.randomUUID().toString();
+
+    // Create shared location request
+    SharedLocationRequest locationRequest = new SharedLocation.SharedLocationRequest();
+    locationRequest.setCreatedByDeviceId(deviceId);
+    locationRequest.setLatitude(40.7128);
+    locationRequest.setLongitude(-74.0060);
+    locationRequest.setEndAt("2025-12-31T23:59:59Z");
+    locationRequest.setUserId(testUserRequestObject.getId());
+
+    // Convert request to SharedLocation
+    SharedLocation sharedLocation = new SharedLocation();
+    sharedLocation.setCreatedByDeviceId(locationRequest.getCreatedByDeviceId());
+    sharedLocation.setLatitude(locationRequest.getLatitude());
+    sharedLocation.setLongitude(locationRequest.getLongitude());
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+    sharedLocation.setEndAt(dateFormat.parse(locationRequest.getEndAt()));
+
+    // Send message with shared location
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder()
+            .text("I'm sharing my live location")
+            .userId(testUserRequestObject.getId())
+            .type(MessageType.REGULAR)
+            .sharedLocation(sharedLocation)
+            .build();
+
+    Message message =
+        Message.send(testChannel.getType(), testChannel.getId())
+            .message(messageRequest)
+            .request()
+            .getMessage();
+
+    // Verify message was sent with correct shared location
+    Assertions.assertNotNull(message);
+    Assertions.assertNotNull(message.getSharedLocation());
+    Assertions.assertEquals(deviceId, message.getSharedLocation().getCreatedByDeviceId());
+    Assertions.assertEquals(40.7128, message.getSharedLocation().getLatitude());
+    Assertions.assertEquals(-74.0060, message.getSharedLocation().getLongitude());
+
+    // Parse and verify the endAt date
+    Date expectedEndAt = dateFormat.parse("2025-12-31T23:59:59Z");
+    Assertions.assertEquals(expectedEndAt, message.getSharedLocation().getEndAt());
+
+    // Query the channel to verify it has the live location
+    ChannelGetResponse response =
+        Channel.getOrCreate(testChannel.getType(), testChannel.getId())
+            .data(ChannelRequestObject.builder().createdBy(testUserRequestObject).build())
+            .request();
+
+    // Verify the channel has active live locations
+    Assertions.assertNotNull(response.getActiveLiveLocations());
+    Assertions.assertFalse(response.getActiveLiveLocations().isEmpty());
+
+    // Find our location in the active live locations
+    SharedLocation channelLocation =
+        response.getActiveLiveLocations().stream()
+            .filter(loc -> deviceId.equals(loc.getCreatedByDeviceId()))
+            .findFirst()
+            .orElse(null);
+
+    // Verify the location details
+    Assertions.assertNotNull(channelLocation);
+    Assertions.assertEquals(deviceId, channelLocation.getCreatedByDeviceId());
+    Assertions.assertEquals(40.7128, channelLocation.getLatitude());
+    Assertions.assertEquals(-74.0060, channelLocation.getLongitude());
+    Assertions.assertEquals(expectedEndAt, channelLocation.getEndAt());
   }
 }

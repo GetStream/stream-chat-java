@@ -80,9 +80,9 @@ public class Channel {
   @JsonProperty("messages")
   private List<Message> messages;
 
-  @Nullable
-  @JsonProperty("active_live_locations")
-  private List<SharedLocation> activeLiveLocations;
+  // @Nullable
+  // @JsonProperty("active_live_locations")
+  // private List<SharedLocation> activeLiveLocations;
 
   @Nullable
   @JsonProperty("read")
@@ -1234,6 +1234,10 @@ public class Channel {
     @Nullable
     @JsonProperty("hide_messages_before")
     private Date hideMessagesBefore;
+
+    @Nullable
+    @JsonProperty("active_live_locations")
+    private List<SharedLocation> activeLiveLocations;
   }
 
   @Data
@@ -1729,4 +1733,8 @@ public class Channel {
       @NotNull String type, @NotNull String id, @NotNull String userId) {
     return new ChannelMemberPartialUpdateRequest(type, id, userId).setValue("archived", false);
   }
+
+  // public List<SharedLocation> getActiveLiveLocations() {
+  //   return activeLiveLocations;
+  // }
 }
