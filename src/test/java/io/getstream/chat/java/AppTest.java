@@ -196,7 +196,7 @@ public class AppTest extends BasicTest {
     try {
       App.update().eventHooks(Collections.singletonList(webhookHook)).request();
     } catch (StreamException e) {
-      if ("cannot set event hooks in hook v1 system".equals(e.getMessage())) {
+      if (e.getMessage().contains("cannot set event hooks in hook v1 system")) {
         return;
       }
       throw e;
@@ -220,7 +220,7 @@ public class AppTest extends BasicTest {
     try {
       App.update().eventHooks(Collections.singletonList(sqsHook)).request();
     } catch (StreamException e) {
-      if ("cannot set event hooks in hook v1 system".equals(e.getMessage())) {
+      if (e.getMessage().contains("cannot set event hooks in hook v1 system")) {
         return;
       }
       throw e;
@@ -244,7 +244,7 @@ public class AppTest extends BasicTest {
     try {
       App.update().eventHooks(Collections.singletonList(snsHook)).request();
     } catch (StreamException e) {
-      if ("cannot set event hooks in hook v1 system".equals(e.getMessage())) {
+      if (e.getMessage().contains("cannot set event hooks in hook v1 system")) {
         return;
       }
       throw e;
