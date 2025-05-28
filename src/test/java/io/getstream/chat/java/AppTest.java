@@ -5,15 +5,19 @@ import io.getstream.chat.java.models.App;
 import io.getstream.chat.java.models.App.AppCheckSnsResponse;
 import io.getstream.chat.java.models.App.AppCheckSqsResponse;
 import io.getstream.chat.java.models.App.AppConfig;
+import io.getstream.chat.java.models.App.EventHook;
 import io.getstream.chat.java.models.App.PushConfigRequestObject;
 import io.getstream.chat.java.models.App.PushVersion;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
 import io.getstream.chat.java.services.framework.DefaultClient;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Properties;
 import java.util.Random;
+import java.util.Arrays;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -175,5 +179,81 @@ public class AppTest extends BasicTest {
 
     appConfig = Assertions.assertDoesNotThrow(() -> App.get().request()).getApp();
     Assertions.assertEquals(newSizeLimit, appConfig.getFileUploadConfig().getSizeLimit());
+  }
+
+  @DisplayName("Can update app settings with webhook event hook")
+  @Test
+  void whenUpdatingAppSettingsWithWebhookEventHook_thenNoException() throws StreamException {
+    EventHook webhookHook = new EventHook();
+    webhookHook.setId("webhook-1");
+    webhookHook.setHookType(App.HookType.WEBHOOK);
+    webhookHook.setEnabled(true);
+    webhookHook.setEventTypes(Arrays.asList("message.new", "message.updated"));
+    webhookHook.setWebhookURL("https://example.com/webhook");
+    webhookHook.setCreatedAt(new Date());
+    webhookHook.setUpdatedAt(new Date());
+
+    try {
+      App.update()
+          .eventHooks(Collections.singletonList(webhookHook))
+          .request();
+    } catch (StreamException e) {
+      if ("cannot set event hooks in hook v1 system".equals(e.getMessage())) {
+        return;
+      }
+      throw e;
+    }
+  }
+
+  @DisplayName("Can update app settings with SQS event hook")
+  @Test
+  void whenUpdatingAppSettingsWithSQSEventHook_thenNoException() throws StreamException {
+    EventHook sqsHook = new EventHook();
+    sqsHook.setId("sqs-1");
+    sqsHook.setHookType(App.HookType.SQS);
+    sqsHook.setEnabled(true);
+    sqsHook.setEventTypes(Arrays.asList("user.presence.changed", "user.updated"));
+    sqsHook.setSqsQueueURL("https://sqs.us-east-1.amazonaws.com/123456789012/MyQueue");
+    sqsHook.setSqsRegion("us-east-1");
+    sqsHook.setSqsAuthType("resource");
+    sqsHook.setCreatedAt(new Date());
+    sqsHook.setUpdatedAt(new Date());
+
+    try {
+      App.update()
+          .eventHooks(Collections.singletonList(sqsHook))
+          .request();
+    } catch (StreamException e) {
+      if ("cannot set event hooks in hook v1 system".equals(e.getMessage())) {
+        return;
+      }
+      throw e;
+    }
+  }
+
+  @DisplayName("Can update app settings with SNS event hook")
+  @Test
+  void whenUpdatingAppSettingsWithSNSEventHook_thenNoException() throws StreamException {
+    EventHook snsHook = new EventHook();
+    snsHook.setId("sns-1");
+    snsHook.setHookType(App.HookType.SNS);
+    snsHook.setEnabled(true);
+    snsHook.setEventTypes(Arrays.asList("channel.created", "channel.updated"));
+    snsHook.setSnsTopicARN("arn:aws:sns:us-east-1:123456789012:MyTopic");
+    snsHook.setSnsRegion("us-east-1");
+    snsHook.setSnsAuthType("resource");
+    snsHook.setCreatedAt(new Date());
+    snsHook.setUpdatedAt(new Date());
+
+    try {
+      App.update()
+          .eventHooks(Collections.singletonList(snsHook))
+          .request();
+    } catch (StreamException e) {
+      if ("cannot set event hooks in hook v1 system".equals(e.getMessage())) {
+        return;
+      }
+      throw e;
+    }
   }
 }
