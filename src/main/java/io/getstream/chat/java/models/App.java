@@ -371,9 +371,9 @@ public class App extends StreamResponseObject {
 
   public enum AuthType {
     @JsonProperty("keys")
-    KEYS,     // Using AWS access key and secret key
+    KEYS, // Using AWS access key and secret key
     @JsonProperty("role")
-    ROLE,     // Using IAM role
+    ROLE, // Using IAM role
     @JsonProperty("resource")
     RESOURCE, // Using resource-based policy
     @JsonEnumDefaultValue

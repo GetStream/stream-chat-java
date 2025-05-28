@@ -11,13 +11,13 @@ import io.getstream.chat.java.models.App.PushVersion;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
 import io.getstream.chat.java.services.framework.DefaultClient;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Properties;
 import java.util.Random;
-import java.util.Arrays;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -194,9 +194,7 @@ public class AppTest extends BasicTest {
     webhookHook.setUpdatedAt(new Date());
 
     try {
-      App.update()
-          .eventHooks(Collections.singletonList(webhookHook))
-          .request();
+      App.update().eventHooks(Collections.singletonList(webhookHook)).request();
     } catch (StreamException e) {
       if ("cannot set event hooks in hook v1 system".equals(e.getMessage())) {
         return;
@@ -220,9 +218,7 @@ public class AppTest extends BasicTest {
     sqsHook.setUpdatedAt(new Date());
 
     try {
-      App.update()
-          .eventHooks(Collections.singletonList(sqsHook))
-          .request();
+      App.update().eventHooks(Collections.singletonList(sqsHook)).request();
     } catch (StreamException e) {
       if ("cannot set event hooks in hook v1 system".equals(e.getMessage())) {
         return;
@@ -246,9 +242,7 @@ public class AppTest extends BasicTest {
     snsHook.setUpdatedAt(new Date());
 
     try {
-      App.update()
-          .eventHooks(Collections.singletonList(snsHook))
-          .request();
+      App.update().eventHooks(Collections.singletonList(snsHook)).request();
     } catch (StreamException e) {
       if ("cannot set event hooks in hook v1 system".equals(e.getMessage())) {
         return;
