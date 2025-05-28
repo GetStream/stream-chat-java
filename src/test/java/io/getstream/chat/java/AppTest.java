@@ -215,7 +215,7 @@ public class AppTest extends BasicTest {
     sqsHook.setEventTypes(Arrays.asList("user.presence.changed", "user.updated"));
     sqsHook.setSqsQueueURL("https://sqs.us-east-1.amazonaws.com/123456789012/MyQueue");
     sqsHook.setSqsRegion("us-east-1");
-    sqsHook.setSqsAuthType("resource");
+    sqsHook.setSqsAuthType(App.AuthType.RESOURCE);
     sqsHook.setCreatedAt(new Date());
     sqsHook.setUpdatedAt(new Date());
 
@@ -241,7 +241,7 @@ public class AppTest extends BasicTest {
     snsHook.setEventTypes(Arrays.asList("channel.created", "channel.updated"));
     snsHook.setSnsTopicARN("arn:aws:sns:us-east-1:123456789012:MyTopic");
     snsHook.setSnsRegion("us-east-1");
-    snsHook.setSnsAuthType("resource");
+    snsHook.setSnsAuthType(App.AuthType.RESOURCE);
     snsHook.setCreatedAt(new Date());
     snsHook.setUpdatedAt(new Date());
 

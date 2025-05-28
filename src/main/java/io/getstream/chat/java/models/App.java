@@ -369,6 +369,17 @@ public class App extends StreamResponseObject {
     UNKNOWN
   }
 
+  public enum AuthType {
+    @JsonProperty("keys")
+    KEYS,     // Using AWS access key and secret key
+    @JsonProperty("role")
+    ROLE,     // Using IAM role
+    @JsonProperty("resource")
+    RESOURCE, // Using resource-based policy
+    @JsonEnumDefaultValue
+    UNKNOWN
+  }
+
   @Data
   @NoArgsConstructor
   public static class EventHook {
@@ -402,7 +413,7 @@ public class App extends StreamResponseObject {
 
     @Nullable
     @JsonProperty("sqs_auth_type")
-    private String sqsAuthType;
+    private AuthType sqsAuthType;
 
     @Nullable
     @JsonProperty("sqs_key")
@@ -426,7 +437,7 @@ public class App extends StreamResponseObject {
 
     @Nullable
     @JsonProperty("sns_auth_type")
-    private String snsAuthType;
+    private AuthType snsAuthType;
 
     @Nullable
     @JsonProperty("sns_key")
