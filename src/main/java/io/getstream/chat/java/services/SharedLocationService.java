@@ -6,11 +6,11 @@ import retrofit2.Call;
 import retrofit2.http.*;
 
 public interface SharedLocationService {
-  @GET("users/locations")
+  @GET("users/live_locations")
   Call<SharedLocation.ActiveLiveLocationsResponse> getLiveLocations(
       @NotNull @Query("user_id") String userId);
 
-  @PUT("users/location")
+  @PUT("users/live_locations")
   Call<SharedLocation.SharedLocationResponse> updateLiveLocation(
       @NotNull @Query("user_id") String userId,
       @NotNull @Body SharedLocation.SharedLocationRequest sharedLocationRequest);
