@@ -530,6 +530,31 @@ public class MessageTest extends BasicTest {
     Assertions.assertNotNull(deletedMessage.getDeletedAt());
   }
 
+  @DisplayName("Can delete a message with deletedBy specified")
+  @Test
+  void whenDeletingMessageWithDeletedBy_thenIsDeletedWithSpecifiedUser() {
+    String text = "This is a message to be deleted with deletedBy";
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
+    Message message =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .message(messageRequest)
+                        .request())
+            .getMessage();
+    Assertions.assertNull(message.getDeletedAt());
+
+    String deletedByUserId = "test-deleted-by-user";
+    Message deletedMessage =
+        Assertions.assertDoesNotThrow(
+                () -> Message.delete(message.getId()).deletedBy(deletedByUserId).request())
+            .getMessage();
+    Assertions.assertNotNull(deletedMessage.getDeletedAt());
+    // Additional assertions can be added here once the backend supports checking the deletedBy
+    // field
+  }
+
   @DisplayName("Can retrieve many messages")
   @Test
   void whenRetrievingManyMessage_thenAreRetrieved() {

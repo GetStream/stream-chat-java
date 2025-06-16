@@ -91,7 +91,9 @@ public interface MessageService {
 
   @DELETE("messages/{id}")
   Call<MessageDeleteResponse> delete(
-      @NotNull @Path("id") String id, @Nullable @Query("hard") Boolean hard);
+      @NotNull @Path("id") String id,
+      @Nullable @Query("hard") Boolean hard,
+      @Nullable @Query("deleted_by") String deletedBy);
 
   @GET("messages/{id}")
   Call<MessageGetResponse> get(

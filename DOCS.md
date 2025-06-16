@@ -1208,6 +1208,12 @@ Message.delete(messageId).request();
 
 // hard delete the message (works only server-side)
 Message.delete(messageId).hard(true).request();
+
+// delete the message with a specific user as the deleter
+Message.delete(messageId).deletedBy(userId).request();
+
+// combine parameters
+Message.delete(messageId).hard(true).deletedBy(userId).request();
 ```
 
 **Upload file or image**
