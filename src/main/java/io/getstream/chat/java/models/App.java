@@ -365,6 +365,8 @@ public class App extends StreamResponseObject {
     SQS,
     @JsonProperty("sns")
     SNS,
+    @JsonProperty("pending_message")
+    PENDING_MESSAGE,
     @JsonEnumDefaultValue
     UNKNOWN
   }
@@ -382,20 +384,39 @@ public class App extends StreamResponseObject {
 
   @Data
   @NoArgsConstructor
+  public static class PendingMessageCallback {
+    @Nullable
+    @JsonProperty("mode")
+    private CallbackMode mode;
+  }
+
+  public enum CallbackMode {
+    @JsonProperty("CALLBACK_MODE_NONE")
+    NONE,
+    @JsonProperty("CALLBACK_MODE_REST")
+    REST,
+    @JsonProperty("CALLBACK_MODE_TWIRP")
+    TWIRP,
+    @JsonEnumDefaultValue
+    UNKNOWN
+  }
+
+  @Data
+  @NoArgsConstructor
   public static class EventHook {
-    @NotNull
+    @Nullable
     @JsonProperty("id")
     private String id;
 
-    @NotNull
+    @Nullable
     @JsonProperty("hook_type")
     private HookType hookType;
 
-    @NotNull
+    @Nullable
     @JsonProperty("enabled")
     private Boolean enabled;
 
-    @NotNull
+    @Nullable
     @JsonProperty("event_types")
     private List<String> eventTypes;
 
@@ -451,11 +472,19 @@ public class App extends StreamResponseObject {
     @JsonProperty("sns_role_arn")
     private String snsRoleARN;
 
-    @NotNull
+    @Nullable
+    @JsonProperty("timeout_ms")
+    private Integer timeoutMs;
+
+    @Nullable
+    @JsonProperty("callback")
+    private PendingMessageCallback callback;
+
+    @Nullable
     @JsonProperty("created_at")
     private Date createdAt;
 
-    @NotNull
+    @Nullable
     @JsonProperty("updated_at")
     private Date updatedAt;
   }
