@@ -32,5 +32,6 @@ public interface ReminderService {
       @NotNull @Path("id") String messageId, @NotNull @Query("user_id") String userId);
 
   @POST("reminders/query")
-  Call<ReminderQueryResponse> query(@NotNull @Body ReminderQueryRequestData reminderQueryRequestData);
-} 
+  Call<ReminderQueryResponse> query(
+      @NotNull @Body ReminderQueryRequestData reminderQueryRequestData);
+}

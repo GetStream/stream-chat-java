@@ -1,24 +1,49 @@
 package io.getstream.chat.java;
 
+import io.getstream.chat.java.models.Channel;
+import io.getstream.chat.java.models.Channel.ConfigOverridesRequestObject;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Reminder;
-import io.getstream.chat.java.models.Sort;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class ReminderTest extends BasicTest {
+
+  @BeforeAll
+  static void setupReminders() {
+    Map<String, Object> configOverrides = new HashMap<>();
+    configOverrides.put("user_message_reminders", true);
+    
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.partialUpdate(testChannel.getType(), testChannel.getId())
+                .setValue("config_overrides", configOverrides)
+                .request());
+  }
+
+  @AfterAll
+  static void teardownReminders() {
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.partialUpdate(testChannel.getType(), testChannel.getId())
+                .setValue("config_overrides", Collections.emptyMap())
+                .request());
+  }
 
   @DisplayName("Can create a reminder for a message")
   @Test
   void whenCreatingAReminder_thenNoException() {
     // Create a new message for this test
     Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
-    
+
     // Create a reminder for the test message
     Reminder reminder =
         Assertions.assertDoesNotThrow(
@@ -34,7 +59,7 @@ public class ReminderTest extends BasicTest {
     Assertions.assertEquals(message.getId(), reminder.getMessageId());
     Assertions.assertEquals(testUserRequestObject.getId(), reminder.getUserId());
     Assertions.assertNotNull(reminder.getRemindAt());
-    
+
     // Verify the new fields
     Assertions.assertNotNull(reminder.getChannelCid(), "Channel CID should not be null");
     // The channel CID should be in the format "type:id"
@@ -48,7 +73,7 @@ public class ReminderTest extends BasicTest {
   void whenUpdatingAReminder_thenNoException() {
     // Create a new message for this test
     Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
-    
+
     // Create a reminder first
     Reminder reminder =
         Assertions.assertDoesNotThrow(
@@ -75,11 +100,11 @@ public class ReminderTest extends BasicTest {
     Assertions.assertEquals(reminder.getId(), updatedReminder.getId());
     Assertions.assertEquals(message.getId(), updatedReminder.getMessageId());
     Assertions.assertEquals(testUserRequestObject.getId(), updatedReminder.getUserId());
-    
+
     // The updated remind_at time should be different from the original
     Assertions.assertNotEquals(
         reminder.getRemindAt().getTime(), updatedReminder.getRemindAt().getTime());
-    
+
     // Verify the channel_cid is preserved
     Assertions.assertEquals(reminder.getChannelCid(), updatedReminder.getChannelCid());
   }
@@ -89,7 +114,7 @@ public class ReminderTest extends BasicTest {
   void whenDeletingAReminder_thenNoException() {
     // Create a new message for this test
     Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
-    
+
     // Create a reminder first
     Reminder reminder =
         Assertions.assertDoesNotThrow(
@@ -102,10 +127,8 @@ public class ReminderTest extends BasicTest {
 
     // Delete the reminder
     Assertions.assertDoesNotThrow(
-            () ->
-                Reminder.deleteReminder(message.getId(), testUserRequestObject.getId())
-                    .request());
-    
+        () -> Reminder.deleteReminder(message.getId(), testUserRequestObject.getId()).request());
+
     // Since the API might not return the deleted reminder, we just verify that the delete operation
     // completed without throwing an exception
   }
@@ -115,7 +138,7 @@ public class ReminderTest extends BasicTest {
   void whenQueryingRemindersWithFilterConditions_thenNoException() {
     // Create a new message for this test
     Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
-    
+
     // Create a reminder first
     Reminder reminder =
         Assertions.assertDoesNotThrow(
@@ -147,21 +170,18 @@ public class ReminderTest extends BasicTest {
     Assertions.assertNotNull(reminders);
     // Note: The API might not return any reminders if they were deleted or not indexed yet
     // So we don't assert that the list is not empty
-    
+
     // Check for pagination fields
-    Assertions.assertDoesNotThrow(() -> {
-      String prev = Reminder.queryReminders()
-          .userId(testUserRequestObject.getId())
-          .request()
-          .getPrev();
-      
-      String next = Reminder.queryReminders()
-          .userId(testUserRequestObject.getId())
-          .request()
-          .getNext();
-      
-      // We don't assert specific values as they might be null depending on the data
-    });
+    Assertions.assertDoesNotThrow(
+        () -> {
+          String prev =
+              Reminder.queryReminders().userId(testUserRequestObject.getId()).request().getPrev();
+
+          String next =
+              Reminder.queryReminders().userId(testUserRequestObject.getId()).request().getNext();
+
+          // We don't assert specific values as they might be null depending on the data
+        });
   }
 
   @DisplayName("Can create a reminder without a remind_at date")
@@ -169,7 +189,7 @@ public class ReminderTest extends BasicTest {
   void whenCreatingAReminderWithoutRemindAt_thenNoException() {
     // Create a new message for this test
     Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
-    
+
     // Create a reminder without a remind_at date
     Reminder reminder =
         Assertions.assertDoesNotThrow(
@@ -184,8 +204,8 @@ public class ReminderTest extends BasicTest {
     Assertions.assertEquals(message.getId(), reminder.getMessageId());
     Assertions.assertEquals(testUserRequestObject.getId(), reminder.getUserId());
     // The API might not set a default remind_at time, so we don't assert that it's not null
-    
+
     // Verify the channel_cid field
     Assertions.assertNotNull(reminder.getChannelCid(), "Channel CID should not be null");
   }
-} 
+}

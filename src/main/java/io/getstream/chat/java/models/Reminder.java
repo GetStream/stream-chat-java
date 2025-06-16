@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Reminder.ReminderCreateRequestData.ReminderCreateRequest;
 import io.getstream.chat.java.models.Reminder.ReminderQueryRequestData.ReminderQueryRequest;
 import io.getstream.chat.java.models.Reminder.ReminderUpdateRequestData.ReminderUpdateRequest;
@@ -21,7 +20,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.Singular;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -212,11 +210,11 @@ public class Reminder {
     @NotNull
     @JsonProperty("reminders")
     private List<Reminder> reminders;
-    
+
     @Nullable
     @JsonProperty("prev")
     private String prev;
-    
+
     @Nullable
     @JsonProperty("next")
     private String next;
@@ -266,4 +264,4 @@ public class Reminder {
   public static ReminderQueryRequest queryReminders() {
     return new ReminderQueryRequest();
   }
-} 
+}
