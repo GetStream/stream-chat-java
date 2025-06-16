@@ -1,7 +1,6 @@
 package io.getstream.chat.java;
 
 import io.getstream.chat.java.models.Channel;
-import io.getstream.chat.java.models.Channel.ConfigOverridesRequestObject;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Reminder;
 import java.util.Collections;
@@ -21,7 +20,7 @@ public class ReminderTest extends BasicTest {
   static void setupReminders() {
     Map<String, Object> configOverrides = new HashMap<>();
     configOverrides.put("user_message_reminders", true);
-    
+
     Assertions.assertDoesNotThrow(
         () ->
             Channel.partialUpdate(testChannel.getType(), testChannel.getId())
