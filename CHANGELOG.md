@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.30.0](https://github.com/GetStream/stream-chat-java/compare/1.29.0...1.30.0) (2025-06-18)
+
+
+### Features
+
+* add draft endpoints ([#177](https://github.com/GetStream/stream-chat-java/issues/177)) ([866d832](https://github.com/GetStream/stream-chat-java/commit/866d8321fe19ade2a145fa98f1e2675bf6a0ba05))
+* implemented the message reminders feature ([#175](https://github.com/GetStream/stream-chat-java/issues/175)) ([4f107dd](https://github.com/GetStream/stream-chat-java/commit/4f107dd25551be9ec6b4be698a495ead88b3501f))
+
 ## [1.29.0](https://github.com/GetStream/stream-chat-java/compare/1.28.0...1.29.0) (2025-03-11)
 
 
