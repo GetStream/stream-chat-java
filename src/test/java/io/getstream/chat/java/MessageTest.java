@@ -545,7 +545,7 @@ public class MessageTest extends BasicTest {
             .getMessage();
     Assertions.assertNull(message.getDeletedAt());
 
-    String deletedByUserId = "test-deleted-by-user";
+    String deletedByUserId = testUsersRequestObjects.get(1).getId();
     Message deletedMessage =
         Assertions.assertDoesNotThrow(
                 () -> Message.delete(message.getId()).deletedBy(deletedByUserId).request())

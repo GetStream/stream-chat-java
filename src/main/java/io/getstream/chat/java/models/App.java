@@ -358,6 +358,137 @@ public class App extends StreamResponseObject {
     UNKNOWN
   }
 
+  public enum HookType {
+    @JsonProperty("webhook")
+    WEBHOOK,
+    @JsonProperty("sqs")
+    SQS,
+    @JsonProperty("sns")
+    SNS,
+    @JsonProperty("pending_message")
+    PENDING_MESSAGE,
+    @JsonEnumDefaultValue
+    UNKNOWN
+  }
+
+  public enum AuthType {
+    @JsonProperty("keys")
+    KEYS, // Using AWS access key and secret key
+    @JsonProperty("role")
+    ROLE, // Using IAM role
+    @JsonProperty("resource")
+    RESOURCE, // Using resource-based policy
+    @JsonEnumDefaultValue
+    UNKNOWN
+  }
+
+  @Data
+  @NoArgsConstructor
+  public static class PendingMessageCallback {
+    @Nullable
+    @JsonProperty("mode")
+    private CallbackMode mode;
+  }
+
+  public enum CallbackMode {
+    @JsonProperty("CALLBACK_MODE_NONE")
+    NONE,
+    @JsonProperty("CALLBACK_MODE_REST")
+    REST,
+    @JsonProperty("CALLBACK_MODE_TWIRP")
+    TWIRP,
+    @JsonEnumDefaultValue
+    UNKNOWN
+  }
+
+  @Data
+  @NoArgsConstructor
+  public static class EventHook {
+    @Nullable
+    @JsonProperty("id")
+    private String id;
+
+    @Nullable
+    @JsonProperty("hook_type")
+    private HookType hookType;
+
+    @Nullable
+    @JsonProperty("enabled")
+    private Boolean enabled;
+
+    @Nullable
+    @JsonProperty("event_types")
+    private List<String> eventTypes;
+
+    @Nullable
+    @JsonProperty("webhook_url")
+    private String webhookURL;
+
+    @Nullable
+    @JsonProperty("sqs_queue_url")
+    private String sqsQueueURL;
+
+    @Nullable
+    @JsonProperty("sqs_region")
+    private String sqsRegion;
+
+    @Nullable
+    @JsonProperty("sqs_auth_type")
+    private AuthType sqsAuthType;
+
+    @Nullable
+    @JsonProperty("sqs_key")
+    private String sqsKey;
+
+    @Nullable
+    @JsonProperty("sqs_secret")
+    private String sqsSecret;
+
+    @Nullable
+    @JsonProperty("sqs_role_arn")
+    private String sqsRoleARN;
+
+    @Nullable
+    @JsonProperty("sns_topic_arn")
+    private String snsTopicARN;
+
+    @Nullable
+    @JsonProperty("sns_region")
+    private String snsRegion;
+
+    @Nullable
+    @JsonProperty("sns_auth_type")
+    private AuthType snsAuthType;
+
+    @Nullable
+    @JsonProperty("sns_key")
+    private String snsKey;
+
+    @Nullable
+    @JsonProperty("sns_secret")
+    private String snsSecret;
+
+    @Nullable
+    @JsonProperty("sns_role_arn")
+    private String snsRoleARN;
+
+    @Nullable
+    @JsonProperty("timeout_ms")
+    private Integer timeoutMs;
+
+    @Nullable
+    @JsonProperty("callback")
+    private PendingMessageCallback callback;
+
+    @Nullable
+    @JsonProperty("created_at")
+    private Date createdAt;
+
+    @Nullable
+    @JsonProperty("updated_at")
+    private Date updatedAt;
+  }
+
   public static class EnforceUniqueUsernamesDeserializer
       extends JsonDeserializer<EnforceUniqueUsernames> {
     @Override
@@ -777,6 +908,11 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("grants")
     private Map<String, List<String>> grants;
+
+    @Nullable
+    @JsonProperty("event_hooks")
+    @JsonInclude(Include.NON_NULL)
+    private List<EventHook> eventHooks;
 
     public static class AppUpdateRequest extends StreamRequest<StreamResponseObject> {
       @Override

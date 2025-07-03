@@ -423,6 +423,10 @@ public class Channel {
     @Nullable
     @JsonProperty("commands")
     private List<String> Commands;
+
+    @Nullable
+    @JsonProperty("user_message_reminders")
+    private Boolean userMessageReminders;
   }
 
   @Builder
