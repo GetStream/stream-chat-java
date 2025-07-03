@@ -13,13 +13,28 @@ import io.getstream.chat.java.models.SharedLocation.SharedLocationRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class SharedLocationTest extends BasicTest {
+
+  @BeforeAll
+  static void setupSharedLocations() {
+    Map<String, Object> configOverrides = new HashMap<>();
+    configOverrides.put("shared_locations", true);
+
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.partialUpdate(testChannel.getType(), testChannel.getId())
+                .setValue("config_overrides", configOverrides)
+                .request());
+  }
 
   @DisplayName("Can send message with shared location and verify")
   @Test

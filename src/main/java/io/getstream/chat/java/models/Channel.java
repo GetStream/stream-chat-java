@@ -427,6 +427,10 @@ public class Channel {
     @Nullable
     @JsonProperty("user_message_reminders")
     private Boolean userMessageReminders;
+
+    @Nullable
+    @JsonProperty("shared_locations")
+    private Boolean sharedLocations;
   }
 
   @Builder
