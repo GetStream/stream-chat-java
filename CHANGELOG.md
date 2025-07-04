@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.31.0](https://github.com/GetStream/stream-chat-java/compare/1.30.0...1.31.0) (2025-07-04)
+
 ## [1.30.0](https://github.com/GetStream/stream-chat-java/compare/1.29.0...1.30.0) (2025-06-18)
 
 
