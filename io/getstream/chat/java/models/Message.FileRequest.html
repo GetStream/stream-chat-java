@@ -183,7 +183,7 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>protected <a href="framework/FileHandler.html" title="interface in io.getstream.chat.java.models.framework">FileHandler</a></code></td>
+<td class="colFirst"><code>protected @NotNull <a href="framework/FileHandler.html" title="interface in io.getstream.chat.java.models.framework">FileHandler</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFileHandler()">getFileHandler</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -194,8 +194,8 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#requestAsync(java.util.function.Consumer,java.util.function.Consumer)">requestAsync</a></span>&#8203;(java.util.function.Consumer&lt;<a href="Message.FileRequest.html" title="type parameter in Message.FileRequest">TResponse</a>&gt;&nbsp;onSuccess,
-            java.util.function.Consumer&lt;<a href="../exceptions/StreamException.html" title="class in io.getstream.chat.java.exceptions">StreamException</a>&gt;&nbsp;onError)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#requestAsync(java.util.function.Consumer,java.util.function.Consumer)">requestAsync</a></span>&#8203;(@Nullable java.util.function.Consumer&lt;<a href="Message.FileRequest.html" title="type parameter in Message.FileRequest">TResponse</a>&gt;&nbsp;onSuccess,
+            @Nullable java.util.function.Consumer&lt;<a href="../exceptions/StreamException.html" title="class in io.getstream.chat.java.exceptions">StreamException</a>&gt;&nbsp;onError)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -276,9 +276,9 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>requestAsync</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;requestAsync&#8203;(@Nullable
-                         java.util.function.Consumer&lt;<a href="Message.FileRequest.html" title="type parameter in Message.FileRequest">TResponse</a>&gt;&nbsp;onSuccess,
+                         @Nullable java.util.function.Consumer&lt;<a href="Message.FileRequest.html" title="type parameter in Message.FileRequest">TResponse</a>&gt;&nbsp;onSuccess,
                          @Nullable
-                         java.util.function.Consumer&lt;<a href="../exceptions/StreamException.html" title="class in io.getstream.chat.java.exceptions">StreamException</a>&gt;&nbsp;onError)</pre>
+                         @Nullable java.util.function.Consumer&lt;<a href="../exceptions/StreamException.html" title="class in io.getstream.chat.java.exceptions">StreamException</a>&gt;&nbsp;onError)</pre>
 </li>
 </ul>
 <a id="getFileHandler()">
@@ -288,8 +288,8 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getFileHandler</h4>
 <pre class="methodSignature">@NotNull
-protected&nbsp;<a href="framework/FileHandler.html" title="interface in io.getstream.chat.java.models.framework">FileHandler</a>&nbsp;getFileHandler()
-                              throws <a href="../exceptions/StreamException.html" title="class in io.getstream.chat.java.exceptions">StreamException</a></pre>
+protected&nbsp;@NotNull <a href="framework/FileHandler.html" title="interface in io.getstream.chat.java.models.framework">FileHandler</a>&nbsp;getFileHandler()
+                                       throws <a href="../exceptions/StreamException.html" title="class in io.getstream.chat.java.exceptions">StreamException</a></pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../exceptions/StreamException.html" title="class in io.getstream.chat.java.exceptions">StreamException</a></code></dd>

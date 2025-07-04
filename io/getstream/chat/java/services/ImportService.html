@@ -156,13 +156,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Import.GetImportResponse.html" title="class in io.getstream.chat.java.models">Import.GetImportResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getImport(java.lang.String)">getImport</a></span>&#8203;(java.lang.String&nbsp;id)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getImport(java.lang.String)">getImport</a></span>&#8203;(@NotNull java.lang.String&nbsp;id)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Import.ListImportsResponse.html" title="class in io.getstream.chat.java.models">Import.ListImportsResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#listImports(java.lang.Integer,java.lang.Integer)">listImports</a></span>&#8203;(java.lang.Integer&nbsp;limit,
-           java.lang.Integer&nbsp;offset)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#listImports(java.lang.Integer,java.lang.Integer)">listImports</a></span>&#8203;(@Nullable java.lang.Integer&nbsp;limit,
+           @Nullable java.lang.Integer&nbsp;offset)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -212,7 +212,7 @@ retrofit2.Call&lt;<a href="../models/Import.CreateImportResponse.html" title="cl
 <h4>getImport</h4>
 <pre class="methodSignature">@GET("imports/{id}")
 retrofit2.Call&lt;<a href="../models/Import.GetImportResponse.html" title="class in io.getstream.chat.java.models">Import.GetImportResponse</a>&gt;&nbsp;getImport&#8203;(@NotNull @Path("id")
-                                                   java.lang.String&nbsp;id)</pre>
+                                                   @NotNull java.lang.String&nbsp;id)</pre>
 </li>
 </ul>
 <a id="listImports(java.lang.Integer,java.lang.Integer)">
@@ -223,9 +223,9 @@ retrofit2.Call&lt;<a href="../models/Import.GetImportResponse.html" title="class
 <h4>listImports</h4>
 <pre class="methodSignature">@GET("imports")
 retrofit2.Call&lt;<a href="../models/Import.ListImportsResponse.html" title="class in io.getstream.chat.java.models">Import.ListImportsResponse</a>&gt;&nbsp;listImports&#8203;(@Nullable @Query("limit")
-                                                       java.lang.Integer&nbsp;limit,
+                                                       @Nullable java.lang.Integer&nbsp;limit,
                                                        @Nullable @Query("offset")
-                                                       java.lang.Integer&nbsp;offset)</pre>
+                                                       @Nullable java.lang.Integer&nbsp;offset)</pre>
 </li>
 </ul>
 </li>

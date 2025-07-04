@@ -146,17 +146,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteConfig(java.lang.String)">deleteConfig</a></span>&#8203;(java.lang.String&nbsp;key)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteConfig(java.lang.String)">deleteConfig</a></span>&#8203;(@NotNull java.lang.String&nbsp;key)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Moderation.ConfigGetResponse.html" title="class in io.getstream.chat.java.models">Moderation.ConfigGetResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getConfig(java.lang.String)">getConfig</a></span>&#8203;(java.lang.String&nbsp;key)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getConfig(java.lang.String)">getConfig</a></span>&#8203;(@NotNull java.lang.String&nbsp;key)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Moderation.UpsertConfigResponse.html" title="class in io.getstream.chat.java.models">Moderation.UpsertConfigResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#upsertConfig(io.getstream.chat.java.models.Moderation.UpsertConfigRequestData)">upsertConfig</a></span>&#8203;(<a href="../models/Moderation.UpsertConfigRequestData.html" title="class in io.getstream.chat.java.models">Moderation.UpsertConfigRequestData</a>&nbsp;upsertConfig)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#upsertConfig(io.getstream.chat.java.models.Moderation.UpsertConfigRequestData)">upsertConfig</a></span>&#8203;(@Nullable <a href="../models/Moderation.UpsertConfigRequestData.html" title="class in io.getstream.chat.java.models">Moderation.UpsertConfigRequestData</a>&nbsp;upsertConfig)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -184,7 +184,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>getConfig</h4>
 <pre class="methodSignature">@GET("api/v2/moderation/config/{key}")
 retrofit2.Call&lt;<a href="../models/Moderation.ConfigGetResponse.html" title="class in io.getstream.chat.java.models">Moderation.ConfigGetResponse</a>&gt;&nbsp;getConfig&#8203;(@NotNull @Path("key")
-                                                       java.lang.String&nbsp;key)</pre>
+                                                       @NotNull java.lang.String&nbsp;key)</pre>
 </li>
 </ul>
 <a id="deleteConfig(java.lang.String)">
@@ -195,7 +195,7 @@ retrofit2.Call&lt;<a href="../models/Moderation.ConfigGetResponse.html" title="c
 <h4>deleteConfig</h4>
 <pre class="methodSignature">@DELETE("api/v2/moderation/config/{key}")
 retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;deleteConfig&#8203;(@NotNull @Path("key")
-                                                  java.lang.String&nbsp;key)</pre>
+                                                  @NotNull java.lang.String&nbsp;key)</pre>
 </li>
 </ul>
 <a id="upsertConfig(io.getstream.chat.java.models.Moderation.UpsertConfigRequestData)">
@@ -206,7 +206,7 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
 <h4>upsertConfig</h4>
 <pre class="methodSignature">@POST("api/v2/moderation/config")
 retrofit2.Call&lt;<a href="../models/Moderation.UpsertConfigResponse.html" title="class in io.getstream.chat.java.models">Moderation.UpsertConfigResponse</a>&gt;&nbsp;upsertConfig&#8203;(@Nullable @Body
-                                                             <a href="../models/Moderation.UpsertConfigRequestData.html" title="class in io.getstream.chat.java.models">Moderation.UpsertConfigRequestData</a>&nbsp;upsertConfig)</pre>
+                                                             @Nullable <a href="../models/Moderation.UpsertConfigRequestData.html" title="class in io.getstream.chat.java.models">Moderation.UpsertConfigRequestData</a>&nbsp;upsertConfig)</pre>
 </li>
 </ul>
 </li>

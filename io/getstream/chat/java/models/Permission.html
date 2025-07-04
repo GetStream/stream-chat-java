@@ -233,37 +233,37 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>static <a href="Permission.PermissionCreateRequestData.PermissionCreateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData.PermissionCreateRequest</a></code></td>
+<td class="colFirst"><code>static @NotNull <a href="Permission.PermissionCreateRequestData.PermissionCreateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData.PermissionCreateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create()">create</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a create request</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>static <a href="Permission.PermissionDeleteRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionDeleteRequest</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#delete(java.lang.String)">delete</a></span>&#8203;(java.lang.String&nbsp;id)</code></th>
+<td class="colFirst"><code>static @NotNull <a href="Permission.PermissionDeleteRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionDeleteRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#delete(java.lang.String)">delete</a></span>&#8203;(@NotNull java.lang.String&nbsp;id)</code></th>
 <td class="colLast">
 <div class="block">Creates a delete request</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>static <a href="Permission.PermissionGetRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionGetRequest</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get(java.lang.String)">get</a></span>&#8203;(java.lang.String&nbsp;id)</code></th>
+<td class="colFirst"><code>static @NotNull <a href="Permission.PermissionGetRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionGetRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get(java.lang.String)">get</a></span>&#8203;(@NotNull java.lang.String&nbsp;id)</code></th>
 <td class="colLast">
 <div class="block">Creates a get request</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>static <a href="Permission.PermissionListRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionListRequest</a></code></td>
+<td class="colFirst"><code>static @NotNull <a href="Permission.PermissionListRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionListRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#list()">list</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a list request</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code>static <a href="Permission.PermissionUpdateRequestData.PermissionUpdateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionUpdateRequestData.PermissionUpdateRequest</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(java.lang.String,java.lang.String)">update</a></span>&#8203;(java.lang.String&nbsp;id,
-      java.lang.String&nbsp;name)</code></th>
+<td class="colFirst"><code>static @NotNull <a href="Permission.PermissionUpdateRequestData.PermissionUpdateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionUpdateRequestData.PermissionUpdateRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(java.lang.String,java.lang.String)">update</a></span>&#8203;(@NotNull java.lang.String&nbsp;id,
+      @NotNull java.lang.String&nbsp;name)</code></th>
 <td class="colLast">
 <div class="block">Creates an update request</div>
 </td>
@@ -318,7 +318,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>create</h4>
 <pre class="methodSignature">@NotNull
-public static&nbsp;<a href="Permission.PermissionCreateRequestData.PermissionCreateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData.PermissionCreateRequest</a>&nbsp;create()</pre>
+public static&nbsp;@NotNull <a href="Permission.PermissionCreateRequestData.PermissionCreateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData.PermissionCreateRequest</a>&nbsp;create()</pre>
 <div class="block">Creates a create request</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -333,8 +333,8 @@ public static&nbsp;<a href="Permission.PermissionCreateRequestData.PermissionCre
 <li class="blockList">
 <h4>get</h4>
 <pre class="methodSignature">@NotNull
-public static&nbsp;<a href="Permission.PermissionGetRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionGetRequest</a>&nbsp;get&#8203;(@NotNull
-                                                  java.lang.String&nbsp;id)</pre>
+public static&nbsp;@NotNull <a href="Permission.PermissionGetRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionGetRequest</a>&nbsp;get&#8203;(@NotNull
+                                                           @NotNull java.lang.String&nbsp;id)</pre>
 <div class="block">Creates a get request</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -351,10 +351,10 @@ public static&nbsp;<a href="Permission.PermissionGetRequest.html" title="class i
 <li class="blockList">
 <h4>update</h4>
 <pre class="methodSignature">@NotNull
-public static&nbsp;<a href="Permission.PermissionUpdateRequestData.PermissionUpdateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionUpdateRequestData.PermissionUpdateRequest</a>&nbsp;update&#8203;(@NotNull
-                                                                                    java.lang.String&nbsp;id,
-                                                                                    @NotNull
-                                                                                    java.lang.String&nbsp;name)</pre>
+public static&nbsp;@NotNull <a href="Permission.PermissionUpdateRequestData.PermissionUpdateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionUpdateRequestData.PermissionUpdateRequest</a>&nbsp;update&#8203;(@NotNull
+                                                                                             @NotNull java.lang.String&nbsp;id,
+                                                                                             @NotNull
+                                                                                             @NotNull java.lang.String&nbsp;name)</pre>
 <div class="block">Creates an update request</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -372,8 +372,8 @@ public static&nbsp;<a href="Permission.PermissionUpdateRequestData.PermissionUpd
 <li class="blockList">
 <h4>delete</h4>
 <pre class="methodSignature">@NotNull
-public static&nbsp;<a href="Permission.PermissionDeleteRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionDeleteRequest</a>&nbsp;delete&#8203;(@NotNull
-                                                        java.lang.String&nbsp;id)</pre>
+public static&nbsp;@NotNull <a href="Permission.PermissionDeleteRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionDeleteRequest</a>&nbsp;delete&#8203;(@NotNull
+                                                                 @NotNull java.lang.String&nbsp;id)</pre>
 <div class="block">Creates a delete request</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -390,7 +390,7 @@ public static&nbsp;<a href="Permission.PermissionDeleteRequest.html" title="clas
 <li class="blockList">
 <h4>list</h4>
 <pre class="methodSignature">@NotNull
-public static&nbsp;<a href="Permission.PermissionListRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionListRequest</a>&nbsp;list()</pre>
+public static&nbsp;@NotNull <a href="Permission.PermissionListRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionListRequest</a>&nbsp;list()</pre>
 <div class="block">Creates a list request</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>

@@ -249,30 +249,30 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>static <a href="Import.CreateImportRequestData.CreateImportRequest.html" title="class in io.getstream.chat.java.models">Import.CreateImportRequestData.CreateImportRequest</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createImport(java.lang.String,io.getstream.chat.java.models.Import.ImportMode)">createImport</a></span>&#8203;(java.lang.String&nbsp;path,
-            <a href="Import.ImportMode.html" title="enum in io.getstream.chat.java.models">Import.ImportMode</a>&nbsp;mode)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createImport(java.lang.String,io.getstream.chat.java.models.Import.ImportMode)">createImport</a></span>&#8203;(@NotNull java.lang.String&nbsp;path,
+            @Nullable <a href="Import.ImportMode.html" title="enum in io.getstream.chat.java.models">Import.ImportMode</a>&nbsp;mode)</code></th>
 <td class="colLast">
 <div class="block">Creates a create import request</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static <a href="Import.CreateImportUrlRequestData.CreateImportUrlRequest.html" title="class in io.getstream.chat.java.models">Import.CreateImportUrlRequestData.CreateImportUrlRequest</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createImportUrl(java.lang.String)">createImportUrl</a></span>&#8203;(java.lang.String&nbsp;fileName)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createImportUrl(java.lang.String)">createImportUrl</a></span>&#8203;(@NotNull java.lang.String&nbsp;fileName)</code></th>
 <td class="colLast">
 <div class="block">Creates a create import url request</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>static <a href="Import.GetImportRequest.html" title="class in io.getstream.chat.java.models">Import.GetImportRequest</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getImport(java.lang.String)">getImport</a></span>&#8203;(java.lang.String&nbsp;id)</code></th>
+<td class="colFirst"><code>static @NotNull <a href="Import.GetImportRequest.html" title="class in io.getstream.chat.java.models">Import.GetImportRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getImport(java.lang.String)">getImport</a></span>&#8203;(@NotNull java.lang.String&nbsp;id)</code></th>
 <td class="colLast">
 <div class="block">Creates a get import request</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>static <a href="Import.ListImportsRequest.html" title="class in io.getstream.chat.java.models">Import.ListImportsRequest</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#listImports(java.lang.Integer,java.lang.Integer)">listImports</a></span>&#8203;(java.lang.Integer&nbsp;limit,
-           java.lang.Integer&nbsp;offset)</code></th>
+<td class="colFirst"><code>static @NotNull <a href="Import.ListImportsRequest.html" title="class in io.getstream.chat.java.models">Import.ListImportsRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#listImports(java.lang.Integer,java.lang.Integer)">listImports</a></span>&#8203;(@Nullable java.lang.Integer&nbsp;limit,
+           @Nullable java.lang.Integer&nbsp;offset)</code></th>
 <td class="colLast">
 <div class="block">Creates a list import request</div>
 </td>
@@ -328,7 +328,7 @@ extends java.lang.Object</pre>
 <h4>createImportUrl</h4>
 <pre class="methodSignature">@NotNull
 public static&nbsp;<a href="Import.CreateImportUrlRequestData.CreateImportUrlRequest.html" title="class in io.getstream.chat.java.models">Import.CreateImportUrlRequestData.CreateImportUrlRequest</a>&nbsp;createImportUrl&#8203;(@NotNull
-                                                                                       java.lang.String&nbsp;fileName)</pre>
+                                                                                       @NotNull java.lang.String&nbsp;fileName)</pre>
 <div class="block">Creates a create import url request</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -346,9 +346,9 @@ public static&nbsp;<a href="Import.CreateImportUrlRequestData.CreateImportUrlReq
 <h4>createImport</h4>
 <pre class="methodSignature">@NotNull
 public static&nbsp;<a href="Import.CreateImportRequestData.CreateImportRequest.html" title="class in io.getstream.chat.java.models">Import.CreateImportRequestData.CreateImportRequest</a>&nbsp;createImport&#8203;(@NotNull
-                                                                              java.lang.String&nbsp;path,
+                                                                              @NotNull java.lang.String&nbsp;path,
                                                                               @Nullable
-                                                                              <a href="Import.ImportMode.html" title="enum in io.getstream.chat.java.models">Import.ImportMode</a>&nbsp;mode)</pre>
+                                                                              @Nullable <a href="Import.ImportMode.html" title="enum in io.getstream.chat.java.models">Import.ImportMode</a>&nbsp;mode)</pre>
 <div class="block">Creates a create import request</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -366,8 +366,8 @@ public static&nbsp;<a href="Import.CreateImportRequestData.CreateImportRequest.h
 <li class="blockList">
 <h4>getImport</h4>
 <pre class="methodSignature">@NotNull
-public static&nbsp;<a href="Import.GetImportRequest.html" title="class in io.getstream.chat.java.models">Import.GetImportRequest</a>&nbsp;getImport&#8203;(@NotNull
-                                                java.lang.String&nbsp;id)</pre>
+public static&nbsp;@NotNull <a href="Import.GetImportRequest.html" title="class in io.getstream.chat.java.models">Import.GetImportRequest</a>&nbsp;getImport&#8203;(@NotNull
+                                                         @NotNull java.lang.String&nbsp;id)</pre>
 <div class="block">Creates a get import request</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -384,10 +384,10 @@ public static&nbsp;<a href="Import.GetImportRequest.html" title="class in io.get
 <li class="blockList">
 <h4>listImports</h4>
 <pre class="methodSignature">@NotNull
-public static&nbsp;<a href="Import.ListImportsRequest.html" title="class in io.getstream.chat.java.models">Import.ListImportsRequest</a>&nbsp;listImports&#8203;(@Nullable
-                                                    java.lang.Integer&nbsp;limit,
-                                                    @Nullable
-                                                    java.lang.Integer&nbsp;offset)</pre>
+public static&nbsp;@NotNull <a href="Import.ListImportsRequest.html" title="class in io.getstream.chat.java.models">Import.ListImportsRequest</a>&nbsp;listImports&#8203;(@Nullable
+                                                             @Nullable java.lang.Integer&nbsp;limit,
+                                                             @Nullable
+                                                             @Nullable java.lang.Integer&nbsp;offset)</pre>
 <div class="block">Creates a list import request</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

@@ -146,15 +146,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Event.EventSendResponse.html" title="class in io.getstream.chat.java.models">Event.EventSendResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#send(java.lang.String,java.lang.String,io.getstream.chat.java.models.Event.EventSendRequestData)">send</a></span>&#8203;(java.lang.String&nbsp;channelType,
-    java.lang.String&nbsp;channelId,
-    <a href="../models/Event.EventSendRequestData.html" title="class in io.getstream.chat.java.models">Event.EventSendRequestData</a>&nbsp;eventSendRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#send(java.lang.String,java.lang.String,io.getstream.chat.java.models.Event.EventSendRequestData)">send</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
+    @NotNull java.lang.String&nbsp;channelId,
+    @NotNull <a href="../models/Event.EventSendRequestData.html" title="class in io.getstream.chat.java.models">Event.EventSendRequestData</a>&nbsp;eventSendRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sendUserCustom(java.lang.String,io.getstream.chat.java.models.Event.EventSendUserCustomRequestData)">sendUserCustom</a></span>&#8203;(java.lang.String&nbsp;userId,
-              <a href="../models/Event.EventSendUserCustomRequestData.html" title="class in io.getstream.chat.java.models">Event.EventSendUserCustomRequestData</a>&nbsp;eventSendUserCustomRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sendUserCustom(java.lang.String,io.getstream.chat.java.models.Event.EventSendUserCustomRequestData)">sendUserCustom</a></span>&#8203;(@NotNull java.lang.String&nbsp;userId,
+              @NotNull <a href="../models/Event.EventSendUserCustomRequestData.html" title="class in io.getstream.chat.java.models">Event.EventSendUserCustomRequestData</a>&nbsp;eventSendUserCustomRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -182,11 +182,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>send</h4>
 <pre class="methodSignature">@POST("channels/{type}/{id}/event")
 retrofit2.Call&lt;<a href="../models/Event.EventSendResponse.html" title="class in io.getstream.chat.java.models">Event.EventSendResponse</a>&gt;&nbsp;send&#8203;(@NotNull @Path("type")
-                                             java.lang.String&nbsp;channelType,
+                                             @NotNull java.lang.String&nbsp;channelType,
                                              @NotNull @Path("id")
-                                             java.lang.String&nbsp;channelId,
+                                             @NotNull java.lang.String&nbsp;channelId,
                                              @NotNull @Body
-                                             <a href="../models/Event.EventSendRequestData.html" title="class in io.getstream.chat.java.models">Event.EventSendRequestData</a>&nbsp;eventSendRequestData)</pre>
+                                             @NotNull <a href="../models/Event.EventSendRequestData.html" title="class in io.getstream.chat.java.models">Event.EventSendRequestData</a>&nbsp;eventSendRequestData)</pre>
 </li>
 </ul>
 <a id="sendUserCustom(java.lang.String,io.getstream.chat.java.models.Event.EventSendUserCustomRequestData)">
@@ -197,9 +197,9 @@ retrofit2.Call&lt;<a href="../models/Event.EventSendResponse.html" title="class 
 <h4>sendUserCustom</h4>
 <pre class="methodSignature">@POST("users/{user_id}/event")
 retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;sendUserCustom&#8203;(@NotNull @Path("user_id")
-                                                    java.lang.String&nbsp;userId,
+                                                    @NotNull java.lang.String&nbsp;userId,
                                                     @NotNull @Body
-                                                    <a href="../models/Event.EventSendUserCustomRequestData.html" title="class in io.getstream.chat.java.models">Event.EventSendUserCustomRequestData</a>&nbsp;eventSendUserCustomRequestData)</pre>
+                                                    @NotNull <a href="../models/Event.EventSendUserCustomRequestData.html" title="class in io.getstream.chat.java.models">Event.EventSendUserCustomRequestData</a>&nbsp;eventSendUserCustomRequestData)</pre>
 </li>
 </ul>
 </li>

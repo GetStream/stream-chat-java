@@ -146,12 +146,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/UnreadCounts.UnreadCountsBatchResponse.html" title="class in io.getstream.chat.java.models">UnreadCounts.UnreadCountsBatchResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batch(io.getstream.chat.java.models.UnreadCounts.UnreadCountsBatchRequestData)">batch</a></span>&#8203;(<a href="../models/UnreadCounts.UnreadCountsBatchRequestData.html" title="class in io.getstream.chat.java.models">UnreadCounts.UnreadCountsBatchRequestData</a>&nbsp;unreadCountsBatchRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batch(io.getstream.chat.java.models.UnreadCounts.UnreadCountsBatchRequestData)">batch</a></span>&#8203;(@NotNull <a href="../models/UnreadCounts.UnreadCountsBatchRequestData.html" title="class in io.getstream.chat.java.models">UnreadCounts.UnreadCountsBatchRequestData</a>&nbsp;unreadCountsBatchRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/UnreadCounts.UnreadCountsResponse.html" title="class in io.getstream.chat.java.models">UnreadCounts.UnreadCountsResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get(java.lang.String)">get</a></span>&#8203;(java.lang.String&nbsp;userId)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get(java.lang.String)">get</a></span>&#8203;(@NotNull java.lang.String&nbsp;userId)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -179,7 +179,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>get</h4>
 <pre class="methodSignature">@GET("unread")
 retrofit2.Call&lt;<a href="../models/UnreadCounts.UnreadCountsResponse.html" title="class in io.getstream.chat.java.models">UnreadCounts.UnreadCountsResponse</a>&gt;&nbsp;get&#8203;(@NotNull @Query("user_id")
-                                                      java.lang.String&nbsp;userId)</pre>
+                                                      @NotNull java.lang.String&nbsp;userId)</pre>
 </li>
 </ul>
 <a id="batch(io.getstream.chat.java.models.UnreadCounts.UnreadCountsBatchRequestData)">
@@ -190,7 +190,7 @@ retrofit2.Call&lt;<a href="../models/UnreadCounts.UnreadCountsResponse.html" tit
 <h4>batch</h4>
 <pre class="methodSignature">@POST("unread_batch")
 retrofit2.Call&lt;<a href="../models/UnreadCounts.UnreadCountsBatchResponse.html" title="class in io.getstream.chat.java.models">UnreadCounts.UnreadCountsBatchResponse</a>&gt;&nbsp;batch&#8203;(@NotNull @Body
-                                                             <a href="../models/UnreadCounts.UnreadCountsBatchRequestData.html" title="class in io.getstream.chat.java.models">UnreadCounts.UnreadCountsBatchRequestData</a>&nbsp;unreadCountsBatchRequestData)</pre>
+                                                             @NotNull <a href="../models/UnreadCounts.UnreadCountsBatchRequestData.html" title="class in io.getstream.chat.java.models">UnreadCounts.UnreadCountsBatchRequestData</a>&nbsp;unreadCountsBatchRequestData)</pre>
 </li>
 </ul>
 </li>

@@ -146,15 +146,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelUpdateResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelUpdateResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#assignRoles(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.AssignRoleRequestData)">assignRoles</a></span>&#8203;(java.lang.String&nbsp;channelType,
-           java.lang.String&nbsp;channelId,
-           <a href="../models/Channel.AssignRoleRequestData.html" title="class in io.getstream.chat.java.models">Channel.AssignRoleRequestData</a>&nbsp;assignRoleRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#assignRoles(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.AssignRoleRequestData)">assignRoles</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
+           @NotNull java.lang.String&nbsp;channelId,
+           @NotNull <a href="../models/Channel.AssignRoleRequestData.html" title="class in io.getstream.chat.java.models">Channel.AssignRoleRequestData</a>&nbsp;assignRoleRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelDeleteResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelDeleteResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#delete(java.lang.String,java.lang.String)">delete</a></span>&#8203;(java.lang.String&nbsp;channelType,
-      java.lang.String&nbsp;channelId)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#delete(java.lang.String,java.lang.String)">delete</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
+      @NotNull java.lang.String&nbsp;channelId)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
@@ -164,100 +164,100 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelExportResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#export(io.getstream.chat.java.models.Channel.ChannelExportRequestData)">export</a></span>&#8203;(<a href="../models/Channel.ChannelExportRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData</a>&nbsp;channelExportRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#export(io.getstream.chat.java.models.Channel.ChannelExportRequestData)">export</a></span>&#8203;(@NotNull <a href="../models/Channel.ChannelExportRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData</a>&nbsp;channelExportRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelExportStatusResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportStatusResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#exportStatus(java.lang.String)">exportStatus</a></span>&#8203;(java.lang.String&nbsp;taskId)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#exportStatus(java.lang.String)">exportStatus</a></span>&#8203;(@NotNull java.lang.String&nbsp;taskId)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelGetResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelGetResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOrCreateWithId(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelGetRequestData)">getOrCreateWithId</a></span>&#8203;(java.lang.String&nbsp;channelType,
-                 java.lang.String&nbsp;channelId,
-                 <a href="../models/Channel.ChannelGetRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelGetRequestData</a>&nbsp;channelGetRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOrCreateWithId(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelGetRequestData)">getOrCreateWithId</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
+                 @NotNull java.lang.String&nbsp;channelId,
+                 @Nullable <a href="../models/Channel.ChannelGetRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelGetRequestData</a>&nbsp;channelGetRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelGetResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelGetResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOrCreateWithoutId(java.lang.String,io.getstream.chat.java.models.Channel.ChannelGetRequestData)">getOrCreateWithoutId</a></span>&#8203;(java.lang.String&nbsp;channelType,
-                    <a href="../models/Channel.ChannelGetRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelGetRequestData</a>&nbsp;channelGetRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOrCreateWithoutId(java.lang.String,io.getstream.chat.java.models.Channel.ChannelGetRequestData)">getOrCreateWithoutId</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
+                    @Nullable <a href="../models/Channel.ChannelGetRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelGetRequestData</a>&nbsp;channelGetRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hide(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelHideRequestData)">hide</a></span>&#8203;(java.lang.String&nbsp;channelType,
-    java.lang.String&nbsp;channelId,
-    <a href="../models/Channel.ChannelHideRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelHideRequestData</a>&nbsp;channelHideRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hide(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelHideRequestData)">hide</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
+    @NotNull java.lang.String&nbsp;channelId,
+    @NotNull <a href="../models/Channel.ChannelHideRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelHideRequestData</a>&nbsp;channelHideRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelListResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelListResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#list(io.getstream.chat.java.models.Channel.ChannelListRequestData)">list</a></span>&#8203;(<a href="../models/Channel.ChannelListRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelListRequestData</a>&nbsp;channelListRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#list(io.getstream.chat.java.models.Channel.ChannelListRequestData)">list</a></span>&#8203;(@Nullable <a href="../models/Channel.ChannelListRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelListRequestData</a>&nbsp;channelListRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#markAllRead(io.getstream.chat.java.models.Channel.ChannelMarkAllReadRequestData)">markAllRead</a></span>&#8203;(<a href="../models/Channel.ChannelMarkAllReadRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkAllReadRequestData</a>&nbsp;channelMarkAllReadRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#markAllRead(io.getstream.chat.java.models.Channel.ChannelMarkAllReadRequestData)">markAllRead</a></span>&#8203;(@NotNull <a href="../models/Channel.ChannelMarkAllReadRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkAllReadRequestData</a>&nbsp;channelMarkAllReadRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelMarkReadResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#markRead(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelMarkReadRequestData)">markRead</a></span>&#8203;(java.lang.String&nbsp;channelType,
-        java.lang.String&nbsp;channelId,
-        <a href="../models/Channel.ChannelMarkReadRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadRequestData</a>&nbsp;channelMarkReadRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#markRead(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelMarkReadRequestData)">markRead</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
+        @NotNull java.lang.String&nbsp;channelId,
+        @NotNull <a href="../models/Channel.ChannelMarkReadRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadRequestData</a>&nbsp;channelMarkReadRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelMuteResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelMuteResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#mute(io.getstream.chat.java.models.Channel.ChannelMuteRequestData)">mute</a></span>&#8203;(<a href="../models/Channel.ChannelMuteRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMuteRequestData</a>&nbsp;channelMuteRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#mute(io.getstream.chat.java.models.Channel.ChannelMuteRequestData)">mute</a></span>&#8203;(@NotNull <a href="../models/Channel.ChannelMuteRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMuteRequestData</a>&nbsp;channelMuteRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelPartialUpdateResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelPartialUpdateResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#partialUpdate(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelPartialUpdateRequestData)">partialUpdate</a></span>&#8203;(java.lang.String&nbsp;channelType,
-             java.lang.String&nbsp;channelId,
-             <a href="../models/Channel.ChannelPartialUpdateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelPartialUpdateRequestData</a>&nbsp;channelPartialUpdateRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#partialUpdate(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelPartialUpdateRequestData)">partialUpdate</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
+             @NotNull java.lang.String&nbsp;channelId,
+             @NotNull <a href="../models/Channel.ChannelPartialUpdateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelPartialUpdateRequestData</a>&nbsp;channelPartialUpdateRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i13" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelQueryMembersResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelQueryMembersResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#queryMembers(io.getstream.chat.java.models.Channel.ChannelQueryMembersRequestData)">queryMembers</a></span>&#8203;(<a href="../models/Channel.ChannelQueryMembersRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelQueryMembersRequestData</a>&nbsp;channelQueryMembersRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#queryMembers(io.getstream.chat.java.models.Channel.ChannelQueryMembersRequestData)">queryMembers</a></span>&#8203;(@NotNull <a href="../models/Channel.ChannelQueryMembersRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelQueryMembersRequestData</a>&nbsp;channelQueryMembersRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i14" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#show(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelShowRequestData)">show</a></span>&#8203;(java.lang.String&nbsp;channelType,
-    java.lang.String&nbsp;channelId,
-    <a href="../models/Channel.ChannelShowRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelShowRequestData</a>&nbsp;channelShowRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#show(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelShowRequestData)">show</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
+    @NotNull java.lang.String&nbsp;channelId,
+    @NotNull <a href="../models/Channel.ChannelShowRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelShowRequestData</a>&nbsp;channelShowRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i15" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelTruncateResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelTruncateResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#truncate(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelTruncateRequestData)">truncate</a></span>&#8203;(java.lang.String&nbsp;channelType,
-        java.lang.String&nbsp;channelId,
-        <a href="../models/Channel.ChannelTruncateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelTruncateRequestData</a>&nbsp;channelTruncateRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#truncate(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelTruncateRequestData)">truncate</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
+        @NotNull java.lang.String&nbsp;channelId,
+        @Nullable <a href="../models/Channel.ChannelTruncateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelTruncateRequestData</a>&nbsp;channelTruncateRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i16" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelUnMuteResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unmute(io.getstream.chat.java.models.Channel.ChannelUnMuteRequestData)">unmute</a></span>&#8203;(<a href="../models/Channel.ChannelUnMuteRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData</a>&nbsp;channelUnMuteRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unmute(io.getstream.chat.java.models.Channel.ChannelUnMuteRequestData)">unmute</a></span>&#8203;(@NotNull <a href="../models/Channel.ChannelUnMuteRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData</a>&nbsp;channelUnMuteRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i17" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelUpdateResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelUpdateResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelUpdateRequestData)">update</a></span>&#8203;(java.lang.String&nbsp;channelType,
-      java.lang.String&nbsp;channelId,
-      <a href="../models/Channel.ChannelUpdateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelUpdateRequestData</a>&nbsp;channelUpdateRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelUpdateRequestData)">update</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
+      @NotNull java.lang.String&nbsp;channelId,
+      @NotNull <a href="../models/Channel.ChannelUpdateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelUpdateRequestData</a>&nbsp;channelUpdateRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i18" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Channel.ChannelMemberResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateMemberPartial(java.lang.String,java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelMemberPartialUpdateRequestData)">updateMemberPartial</a></span>&#8203;(java.lang.String&nbsp;channelType,
-                   java.lang.String&nbsp;channelId,
-                   java.lang.String&nbsp;userId,
-                   <a href="../models/Channel.ChannelMemberPartialUpdateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberPartialUpdateRequestData</a>&nbsp;updateMemberPartialRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateMemberPartial(java.lang.String,java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelMemberPartialUpdateRequestData)">updateMemberPartial</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
+                   @NotNull java.lang.String&nbsp;channelId,
+                   @NotNull java.lang.String&nbsp;userId,
+                   @NotNull <a href="../models/Channel.ChannelMemberPartialUpdateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberPartialUpdateRequestData</a>&nbsp;updateMemberPartialRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -285,11 +285,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>update</h4>
 <pre class="methodSignature">@POST("channels/{type}/{id}")
 retrofit2.Call&lt;<a href="../models/Channel.ChannelUpdateResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelUpdateResponse</a>&gt;&nbsp;update&#8203;(@NotNull @Path("type")
-                                                     java.lang.String&nbsp;channelType,
+                                                     @NotNull java.lang.String&nbsp;channelType,
                                                      @NotNull @Path("id")
-                                                     java.lang.String&nbsp;channelId,
+                                                     @NotNull java.lang.String&nbsp;channelId,
                                                      @NotNull @Body
-                                                     <a href="../models/Channel.ChannelUpdateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelUpdateRequestData</a>&nbsp;channelUpdateRequestData)</pre>
+                                                     @NotNull <a href="../models/Channel.ChannelUpdateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelUpdateRequestData</a>&nbsp;channelUpdateRequestData)</pre>
 </li>
 </ul>
 <a id="getOrCreateWithId(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelGetRequestData)">
@@ -300,11 +300,11 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelUpdateResponse.html" title="
 <h4>getOrCreateWithId</h4>
 <pre class="methodSignature">@POST("channels/{type}/{id}/query")
 retrofit2.Call&lt;<a href="../models/Channel.ChannelGetResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelGetResponse</a>&gt;&nbsp;getOrCreateWithId&#8203;(@NotNull @Path("type")
-                                                             java.lang.String&nbsp;channelType,
+                                                             @NotNull java.lang.String&nbsp;channelType,
                                                              @NotNull @Path("id")
-                                                             java.lang.String&nbsp;channelId,
+                                                             @NotNull java.lang.String&nbsp;channelId,
                                                              @Nullable @Body
-                                                             <a href="../models/Channel.ChannelGetRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelGetRequestData</a>&nbsp;channelGetRequestData)</pre>
+                                                             @Nullable <a href="../models/Channel.ChannelGetRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelGetRequestData</a>&nbsp;channelGetRequestData)</pre>
 </li>
 </ul>
 <a id="getOrCreateWithoutId(java.lang.String,io.getstream.chat.java.models.Channel.ChannelGetRequestData)">
@@ -315,9 +315,9 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelGetResponse.html" title="cla
 <h4>getOrCreateWithoutId</h4>
 <pre class="methodSignature">@POST("channels/{type}/query")
 retrofit2.Call&lt;<a href="../models/Channel.ChannelGetResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelGetResponse</a>&gt;&nbsp;getOrCreateWithoutId&#8203;(@NotNull @Path("type")
-                                                                java.lang.String&nbsp;channelType,
+                                                                @NotNull java.lang.String&nbsp;channelType,
                                                                 @Nullable @Body
-                                                                <a href="../models/Channel.ChannelGetRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelGetRequestData</a>&nbsp;channelGetRequestData)</pre>
+                                                                @Nullable <a href="../models/Channel.ChannelGetRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelGetRequestData</a>&nbsp;channelGetRequestData)</pre>
 </li>
 </ul>
 <a id="delete(java.lang.String,java.lang.String)">
@@ -328,9 +328,9 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelGetResponse.html" title="cla
 <h4>delete</h4>
 <pre class="methodSignature">@DELETE("channels/{type}/{id}")
 retrofit2.Call&lt;<a href="../models/Channel.ChannelDeleteResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelDeleteResponse</a>&gt;&nbsp;delete&#8203;(@NotNull @Path("type")
-                                                     java.lang.String&nbsp;channelType,
+                                                     @NotNull java.lang.String&nbsp;channelType,
                                                      @NotNull @Path("id")
-                                                     java.lang.String&nbsp;channelId)</pre>
+                                                     @NotNull java.lang.String&nbsp;channelId)</pre>
 </li>
 </ul>
 <a id="deleteMany(io.getstream.chat.java.models.Channel.ChannelDeleteManyRequest)">
@@ -352,7 +352,7 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelDeleteManyResponse.html" tit
 <h4>list</h4>
 <pre class="methodSignature">@POST("channels")
 retrofit2.Call&lt;<a href="../models/Channel.ChannelListResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelListResponse</a>&gt;&nbsp;list&#8203;(@Nullable @Body
-                                                 <a href="../models/Channel.ChannelListRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelListRequestData</a>&nbsp;channelListRequestData)</pre>
+                                                 @Nullable <a href="../models/Channel.ChannelListRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelListRequestData</a>&nbsp;channelListRequestData)</pre>
 </li>
 </ul>
 <a id="truncate(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelTruncateRequestData)">
@@ -363,11 +363,11 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelListResponse.html" title="cl
 <h4>truncate</h4>
 <pre class="methodSignature">@POST("channels/{type}/{id}/truncate")
 retrofit2.Call&lt;<a href="../models/Channel.ChannelTruncateResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelTruncateResponse</a>&gt;&nbsp;truncate&#8203;(@NotNull @Path("type")
-                                                         java.lang.String&nbsp;channelType,
+                                                         @NotNull java.lang.String&nbsp;channelType,
                                                          @NotNull @Path("id")
-                                                         java.lang.String&nbsp;channelId,
+                                                         @NotNull java.lang.String&nbsp;channelId,
                                                          @Nullable @Body
-                                                         <a href="../models/Channel.ChannelTruncateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelTruncateRequestData</a>&nbsp;channelTruncateRequestData)</pre>
+                                                         @Nullable <a href="../models/Channel.ChannelTruncateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelTruncateRequestData</a>&nbsp;channelTruncateRequestData)</pre>
 </li>
 </ul>
 <a id="queryMembers(io.getstream.chat.java.models.Channel.ChannelQueryMembersRequestData)">
@@ -378,7 +378,7 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelTruncateResponse.html" title
 <h4>queryMembers</h4>
 <pre class="methodSignature">@GET("members")
 retrofit2.Call&lt;<a href="../models/Channel.ChannelQueryMembersResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelQueryMembersResponse</a>&gt;&nbsp;queryMembers&#8203;(@NotNull @Query("payload")
-                                                                 <a href="../models/Channel.ChannelQueryMembersRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelQueryMembersRequestData</a>&nbsp;channelQueryMembersRequestData)</pre>
+                                                                 @NotNull <a href="../models/Channel.ChannelQueryMembersRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelQueryMembersRequestData</a>&nbsp;channelQueryMembersRequestData)</pre>
 </li>
 </ul>
 <a id="export(io.getstream.chat.java.models.Channel.ChannelExportRequestData)">
@@ -389,7 +389,7 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelQueryMembersResponse.html" t
 <h4>export</h4>
 <pre class="methodSignature">@POST("export_channels")
 retrofit2.Call&lt;<a href="../models/Channel.ChannelExportResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportResponse</a>&gt;&nbsp;export&#8203;(@NotNull @Body
-                                                     <a href="../models/Channel.ChannelExportRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData</a>&nbsp;channelExportRequestData)</pre>
+                                                     @NotNull <a href="../models/Channel.ChannelExportRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData</a>&nbsp;channelExportRequestData)</pre>
 </li>
 </ul>
 <a id="exportStatus(java.lang.String)">
@@ -400,7 +400,7 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelExportResponse.html" title="
 <h4>exportStatus</h4>
 <pre class="methodSignature">@GET("export_channels/{id}")
 retrofit2.Call&lt;<a href="../models/Channel.ChannelExportStatusResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportStatusResponse</a>&gt;&nbsp;exportStatus&#8203;(@NotNull @Path("id")
-                                                                 java.lang.String&nbsp;taskId)</pre>
+                                                                 @NotNull java.lang.String&nbsp;taskId)</pre>
 </li>
 </ul>
 <a id="hide(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelHideRequestData)">
@@ -411,11 +411,11 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelExportStatusResponse.html" t
 <h4>hide</h4>
 <pre class="methodSignature">@POST("channels/{type}/{id}/hide")
 retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;hide&#8203;(@NotNull @Path("type")
-                                          java.lang.String&nbsp;channelType,
+                                          @NotNull java.lang.String&nbsp;channelType,
                                           @NotNull @Path("id")
-                                          java.lang.String&nbsp;channelId,
+                                          @NotNull java.lang.String&nbsp;channelId,
                                           @NotNull @Body
-                                          <a href="../models/Channel.ChannelHideRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelHideRequestData</a>&nbsp;channelHideRequestData)</pre>
+                                          @NotNull <a href="../models/Channel.ChannelHideRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelHideRequestData</a>&nbsp;channelHideRequestData)</pre>
 </li>
 </ul>
 <a id="markAllRead(io.getstream.chat.java.models.Channel.ChannelMarkAllReadRequestData)">
@@ -426,7 +426,7 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
 <h4>markAllRead</h4>
 <pre class="methodSignature">@POST("channels/read")
 retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;markAllRead&#8203;(@NotNull @Body
-                                                 <a href="../models/Channel.ChannelMarkAllReadRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkAllReadRequestData</a>&nbsp;channelMarkAllReadRequestData)</pre>
+                                                 @NotNull <a href="../models/Channel.ChannelMarkAllReadRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkAllReadRequestData</a>&nbsp;channelMarkAllReadRequestData)</pre>
 </li>
 </ul>
 <a id="markRead(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelMarkReadRequestData)">
@@ -437,11 +437,11 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
 <h4>markRead</h4>
 <pre class="methodSignature">@POST("channels/{type}/{id}/read")
 retrofit2.Call&lt;<a href="../models/Channel.ChannelMarkReadResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadResponse</a>&gt;&nbsp;markRead&#8203;(@NotNull @Path("type")
-                                                         java.lang.String&nbsp;channelType,
+                                                         @NotNull java.lang.String&nbsp;channelType,
                                                          @NotNull @Path("id")
-                                                         java.lang.String&nbsp;channelId,
+                                                         @NotNull java.lang.String&nbsp;channelId,
                                                          @NotNull @Body
-                                                         <a href="../models/Channel.ChannelMarkReadRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadRequestData</a>&nbsp;channelMarkReadRequestData)</pre>
+                                                         @NotNull <a href="../models/Channel.ChannelMarkReadRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadRequestData</a>&nbsp;channelMarkReadRequestData)</pre>
 </li>
 </ul>
 <a id="mute(io.getstream.chat.java.models.Channel.ChannelMuteRequestData)">
@@ -452,7 +452,7 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelMarkReadResponse.html" title
 <h4>mute</h4>
 <pre class="methodSignature">@POST("moderation/mute/channel")
 retrofit2.Call&lt;<a href="../models/Channel.ChannelMuteResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelMuteResponse</a>&gt;&nbsp;mute&#8203;(@NotNull @Body
-                                                 <a href="../models/Channel.ChannelMuteRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMuteRequestData</a>&nbsp;channelMuteRequestData)</pre>
+                                                 @NotNull <a href="../models/Channel.ChannelMuteRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMuteRequestData</a>&nbsp;channelMuteRequestData)</pre>
 </li>
 </ul>
 <a id="show(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelShowRequestData)">
@@ -463,11 +463,11 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelMuteResponse.html" title="cl
 <h4>show</h4>
 <pre class="methodSignature">@POST("channels/{type}/{id}/show")
 retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;show&#8203;(@NotNull @Path("type")
-                                          java.lang.String&nbsp;channelType,
+                                          @NotNull java.lang.String&nbsp;channelType,
                                           @NotNull @Path("id")
-                                          java.lang.String&nbsp;channelId,
+                                          @NotNull java.lang.String&nbsp;channelId,
                                           @NotNull @Body
-                                          <a href="../models/Channel.ChannelShowRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelShowRequestData</a>&nbsp;channelShowRequestData)</pre>
+                                          @NotNull <a href="../models/Channel.ChannelShowRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelShowRequestData</a>&nbsp;channelShowRequestData)</pre>
 </li>
 </ul>
 <a id="unmute(io.getstream.chat.java.models.Channel.ChannelUnMuteRequestData)">
@@ -478,7 +478,7 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
 <h4>unmute</h4>
 <pre class="methodSignature">@POST("moderation/unmute/channel")
 retrofit2.Call&lt;<a href="../models/Channel.ChannelUnMuteResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteResponse</a>&gt;&nbsp;unmute&#8203;(@NotNull @Body
-                                                     <a href="../models/Channel.ChannelUnMuteRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData</a>&nbsp;channelUnMuteRequestData)</pre>
+                                                     @NotNull <a href="../models/Channel.ChannelUnMuteRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData</a>&nbsp;channelUnMuteRequestData)</pre>
 </li>
 </ul>
 <a id="partialUpdate(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelPartialUpdateRequestData)">
@@ -489,11 +489,11 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelUnMuteResponse.html" title="
 <h4>partialUpdate</h4>
 <pre class="methodSignature">@PATCH("channels/{type}/{id}")
 retrofit2.Call&lt;<a href="../models/Channel.ChannelPartialUpdateResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelPartialUpdateResponse</a>&gt;&nbsp;partialUpdate&#8203;(@NotNull @Path("type")
-                                                                   java.lang.String&nbsp;channelType,
+                                                                   @NotNull java.lang.String&nbsp;channelType,
                                                                    @NotNull @Path("id")
-                                                                   java.lang.String&nbsp;channelId,
+                                                                   @NotNull java.lang.String&nbsp;channelId,
                                                                    @NotNull @Body
-                                                                   <a href="../models/Channel.ChannelPartialUpdateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelPartialUpdateRequestData</a>&nbsp;channelPartialUpdateRequestData)</pre>
+                                                                   @NotNull <a href="../models/Channel.ChannelPartialUpdateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelPartialUpdateRequestData</a>&nbsp;channelPartialUpdateRequestData)</pre>
 </li>
 </ul>
 <a id="assignRoles(java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.AssignRoleRequestData)">
@@ -504,11 +504,11 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelPartialUpdateResponse.html" 
 <h4>assignRoles</h4>
 <pre class="methodSignature">@POST("channels/{type}/{id}")
 retrofit2.Call&lt;<a href="../models/Channel.ChannelUpdateResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelUpdateResponse</a>&gt;&nbsp;assignRoles&#8203;(@NotNull @Path("type")
-                                                          java.lang.String&nbsp;channelType,
+                                                          @NotNull java.lang.String&nbsp;channelType,
                                                           @NotNull @Path("id")
-                                                          java.lang.String&nbsp;channelId,
+                                                          @NotNull java.lang.String&nbsp;channelId,
                                                           @NotNull @Body
-                                                          <a href="../models/Channel.AssignRoleRequestData.html" title="class in io.getstream.chat.java.models">Channel.AssignRoleRequestData</a>&nbsp;assignRoleRequestData)</pre>
+                                                          @NotNull <a href="../models/Channel.AssignRoleRequestData.html" title="class in io.getstream.chat.java.models">Channel.AssignRoleRequestData</a>&nbsp;assignRoleRequestData)</pre>
 </li>
 </ul>
 <a id="updateMemberPartial(java.lang.String,java.lang.String,java.lang.String,io.getstream.chat.java.models.Channel.ChannelMemberPartialUpdateRequestData)">
@@ -519,13 +519,13 @@ retrofit2.Call&lt;<a href="../models/Channel.ChannelUpdateResponse.html" title="
 <h4>updateMemberPartial</h4>
 <pre class="methodSignature">@PATCH("channels/{type}/{id}/member/{user_id}")
 retrofit2.Call&lt;<a href="../models/Channel.ChannelMemberResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberResponse</a>&gt;&nbsp;updateMemberPartial&#8203;(@NotNull @Path("type")
-                                                                  java.lang.String&nbsp;channelType,
+                                                                  @NotNull java.lang.String&nbsp;channelType,
                                                                   @NotNull @Path("id")
-                                                                  java.lang.String&nbsp;channelId,
+                                                                  @NotNull java.lang.String&nbsp;channelId,
                                                                   @NotNull @Path("user_id")
-                                                                  java.lang.String&nbsp;userId,
+                                                                  @NotNull java.lang.String&nbsp;userId,
                                                                   @NotNull @Body
-                                                                  <a href="../models/Channel.ChannelMemberPartialUpdateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberPartialUpdateRequestData</a>&nbsp;updateMemberPartialRequestData)</pre>
+                                                                  @NotNull <a href="../models/Channel.ChannelMemberPartialUpdateRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberPartialUpdateRequestData</a>&nbsp;updateMemberPartialRequestData)</pre>
 </li>
 </ul>
 </li>

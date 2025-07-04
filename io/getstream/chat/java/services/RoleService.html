@@ -145,17 +145,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create(io.getstream.chat.java.models.Role.RoleCreateRequestData)">create</a></span>&#8203;(<a href="../models/Role.RoleCreateRequestData.html" title="class in io.getstream.chat.java.models">Role.RoleCreateRequestData</a>&nbsp;roleCreateRequestData)</code></th>
+<td class="colFirst"><code>@NotNull retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create(io.getstream.chat.java.models.Role.RoleCreateRequestData)">create</a></span>&#8203;(@NotNull <a href="../models/Role.RoleCreateRequestData.html" title="class in io.getstream.chat.java.models">Role.RoleCreateRequestData</a>&nbsp;roleCreateRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#delete(java.lang.String)">delete</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
+<td class="colFirst"><code>@NotNull retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#delete(java.lang.String)">delete</a></span>&#8203;(@NotNull java.lang.String&nbsp;name)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Role.RoleListResponse.html" title="class in io.getstream.chat.java.models">Role.RoleListResponse</a>&gt;</code></td>
+<td class="colFirst"><code>@NotNull retrofit2.Call&lt;<a href="../models/Role.RoleListResponse.html" title="class in io.getstream.chat.java.models">Role.RoleListResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#list()">list</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -184,8 +184,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>create</h4>
 <pre class="methodSignature">@POST("roles")
 @NotNull
-retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;create&#8203;(@NotNull @Body
-                                            <a href="../models/Role.RoleCreateRequestData.html" title="class in io.getstream.chat.java.models">Role.RoleCreateRequestData</a>&nbsp;roleCreateRequestData)</pre>
+@NotNull retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;create&#8203;(@NotNull @Body
+                                                     @NotNull <a href="../models/Role.RoleCreateRequestData.html" title="class in io.getstream.chat.java.models">Role.RoleCreateRequestData</a>&nbsp;roleCreateRequestData)</pre>
 </li>
 </ul>
 <a id="delete(java.lang.String)">
@@ -196,8 +196,8 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
 <h4>delete</h4>
 <pre class="methodSignature">@DELETE("roles/{name}")
 @NotNull
-retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;delete&#8203;(@NotNull @Path("name")
-                                            java.lang.String&nbsp;name)</pre>
+@NotNull retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;delete&#8203;(@NotNull @Path("name")
+                                                     @NotNull java.lang.String&nbsp;name)</pre>
 </li>
 </ul>
 <a id="list()">
@@ -208,7 +208,7 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
 <h4>list</h4>
 <pre class="methodSignature">@GET("roles")
 @NotNull
-retrofit2.Call&lt;<a href="../models/Role.RoleListResponse.html" title="class in io.getstream.chat.java.models">Role.RoleListResponse</a>&gt;&nbsp;list()</pre>
+@NotNull retrofit2.Call&lt;<a href="../models/Role.RoleListResponse.html" title="class in io.getstream.chat.java.models">Role.RoleListResponse</a>&gt;&nbsp;list()</pre>
 </li>
 </ul>
 </li>

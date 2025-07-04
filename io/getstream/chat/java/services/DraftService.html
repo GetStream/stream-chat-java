@@ -159,7 +159,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteDraft(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">deleteDraft</a></span>&#8203;(java.lang.String&nbsp;type,
            java.lang.String&nbsp;id,
            java.lang.String&nbsp;userId,
-           java.lang.String&nbsp;parentId)</code></th>
+           @Nullable java.lang.String&nbsp;parentId)</code></th>
 <td class="colLast">
 <div class="block">Deletes a draft message from a channel.</div>
 </td>
@@ -169,7 +169,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDraft(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">getDraft</a></span>&#8203;(java.lang.String&nbsp;type,
         java.lang.String&nbsp;id,
         java.lang.String&nbsp;userId,
-        java.lang.String&nbsp;parentId)</code></th>
+        @Nullable java.lang.String&nbsp;parentId)</code></th>
 <td class="colLast">
 <div class="block">Gets a draft message from a channel.</div>
 </td>
@@ -236,7 +236,7 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
                                                  @Query("user_id")
                                                  java.lang.String&nbsp;userId,
                                                  @Query("parent_id") @Nullable
-                                                 java.lang.String&nbsp;parentId)</pre>
+                                                 @Nullable java.lang.String&nbsp;parentId)</pre>
 <div class="block">Deletes a draft message from a channel.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -263,7 +263,7 @@ retrofit2.Call&lt;<a href="../models/Draft.GetDraftResponse.html" title="class i
                                                 @Query("user_id")
                                                 java.lang.String&nbsp;userId,
                                                 @Query("parent_id") @Nullable
-                                                java.lang.String&nbsp;parentId)</pre>
+                                                @Nullable java.lang.String&nbsp;parentId)</pre>
 <div class="block">Gets a draft message from a channel.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

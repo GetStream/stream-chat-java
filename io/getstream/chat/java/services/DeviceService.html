@@ -146,18 +146,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create(io.getstream.chat.java.models.Device.DeviceCreateRequestData)">create</a></span>&#8203;(<a href="../models/Device.DeviceCreateRequestData.html" title="class in io.getstream.chat.java.models">Device.DeviceCreateRequestData</a>&nbsp;deviceCreateRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create(io.getstream.chat.java.models.Device.DeviceCreateRequestData)">create</a></span>&#8203;(@NotNull <a href="../models/Device.DeviceCreateRequestData.html" title="class in io.getstream.chat.java.models">Device.DeviceCreateRequestData</a>&nbsp;deviceCreateRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#delete(java.lang.String,java.lang.String)">delete</a></span>&#8203;(java.lang.String&nbsp;id,
-      java.lang.String&nbsp;userId)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#delete(java.lang.String,java.lang.String)">delete</a></span>&#8203;(@NotNull java.lang.String&nbsp;id,
+      @NotNull java.lang.String&nbsp;userId)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Device.DeviceListResponse.html" title="class in io.getstream.chat.java.models">Device.DeviceListResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#list(java.lang.String)">list</a></span>&#8203;(java.lang.String&nbsp;userId)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#list(java.lang.String)">list</a></span>&#8203;(@NotNull java.lang.String&nbsp;userId)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -185,7 +185,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>create</h4>
 <pre class="methodSignature">@POST("devices")
 retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;create&#8203;(@NotNull @Body
-                                            <a href="../models/Device.DeviceCreateRequestData.html" title="class in io.getstream.chat.java.models">Device.DeviceCreateRequestData</a>&nbsp;deviceCreateRequestData)</pre>
+                                            @NotNull <a href="../models/Device.DeviceCreateRequestData.html" title="class in io.getstream.chat.java.models">Device.DeviceCreateRequestData</a>&nbsp;deviceCreateRequestData)</pre>
 </li>
 </ul>
 <a id="delete(java.lang.String,java.lang.String)">
@@ -196,9 +196,9 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
 <h4>delete</h4>
 <pre class="methodSignature">@DELETE("devices")
 retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;delete&#8203;(@NotNull @Query("id")
-                                            java.lang.String&nbsp;id,
+                                            @NotNull java.lang.String&nbsp;id,
                                             @NotNull @Query("user_id")
-                                            java.lang.String&nbsp;userId)</pre>
+                                            @NotNull java.lang.String&nbsp;userId)</pre>
 </li>
 </ul>
 <a id="list(java.lang.String)">
@@ -209,7 +209,7 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
 <h4>list</h4>
 <pre class="methodSignature">@GET("devices")
 retrofit2.Call&lt;<a href="../models/Device.DeviceListResponse.html" title="class in io.getstream.chat.java.models">Device.DeviceListResponse</a>&gt;&nbsp;list&#8203;(@NotNull @Query("user_id")
-                                               java.lang.String&nbsp;userId)</pre>
+                                               @NotNull java.lang.String&nbsp;userId)</pre>
 </li>
 </ul>
 </li>

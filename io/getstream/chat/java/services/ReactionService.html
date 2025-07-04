@@ -146,20 +146,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Reaction.ReactionDeleteResponse.html" title="class in io.getstream.chat.java.models">Reaction.ReactionDeleteResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#delete(java.lang.String,java.lang.String,java.lang.String)">delete</a></span>&#8203;(java.lang.String&nbsp;messageId,
-      java.lang.String&nbsp;type,
-      java.lang.String&nbsp;userId)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#delete(java.lang.String,java.lang.String,java.lang.String)">delete</a></span>&#8203;(@NotNull java.lang.String&nbsp;messageId,
+      @NotNull java.lang.String&nbsp;type,
+      @NotNull java.lang.String&nbsp;userId)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Reaction.ReactionListResponse.html" title="class in io.getstream.chat.java.models">Reaction.ReactionListResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#list(java.lang.String)">list</a></span>&#8203;(java.lang.String&nbsp;messageId)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#list(java.lang.String)">list</a></span>&#8203;(@NotNull java.lang.String&nbsp;messageId)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/Reaction.ReactionSendResponse.html" title="class in io.getstream.chat.java.models">Reaction.ReactionSendResponse</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#send(java.lang.String,io.getstream.chat.java.models.Reaction.ReactionSendRequestData)">send</a></span>&#8203;(java.lang.String&nbsp;messageId,
-    <a href="../models/Reaction.ReactionSendRequestData.html" title="class in io.getstream.chat.java.models">Reaction.ReactionSendRequestData</a>&nbsp;reactionSendRequestData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#send(java.lang.String,io.getstream.chat.java.models.Reaction.ReactionSendRequestData)">send</a></span>&#8203;(@NotNull java.lang.String&nbsp;messageId,
+    @NotNull <a href="../models/Reaction.ReactionSendRequestData.html" title="class in io.getstream.chat.java.models">Reaction.ReactionSendRequestData</a>&nbsp;reactionSendRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -187,9 +187,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>send</h4>
 <pre class="methodSignature">@POST("messages/{id}/reaction")
 retrofit2.Call&lt;<a href="../models/Reaction.ReactionSendResponse.html" title="class in io.getstream.chat.java.models">Reaction.ReactionSendResponse</a>&gt;&nbsp;send&#8203;(@NotNull @Path("id")
-                                                   java.lang.String&nbsp;messageId,
+                                                   @NotNull java.lang.String&nbsp;messageId,
                                                    @NotNull @Body
-                                                   <a href="../models/Reaction.ReactionSendRequestData.html" title="class in io.getstream.chat.java.models">Reaction.ReactionSendRequestData</a>&nbsp;reactionSendRequestData)</pre>
+                                                   @NotNull <a href="../models/Reaction.ReactionSendRequestData.html" title="class in io.getstream.chat.java.models">Reaction.ReactionSendRequestData</a>&nbsp;reactionSendRequestData)</pre>
 </li>
 </ul>
 <a id="delete(java.lang.String,java.lang.String,java.lang.String)">
@@ -200,11 +200,11 @@ retrofit2.Call&lt;<a href="../models/Reaction.ReactionSendResponse.html" title="
 <h4>delete</h4>
 <pre class="methodSignature">@DELETE("messages/{id}/reaction/{type}")
 retrofit2.Call&lt;<a href="../models/Reaction.ReactionDeleteResponse.html" title="class in io.getstream.chat.java.models">Reaction.ReactionDeleteResponse</a>&gt;&nbsp;delete&#8203;(@NotNull @Path("id")
-                                                       java.lang.String&nbsp;messageId,
+                                                       @NotNull java.lang.String&nbsp;messageId,
                                                        @NotNull @Path("type")
-                                                       java.lang.String&nbsp;type,
+                                                       @NotNull java.lang.String&nbsp;type,
                                                        @NotNull @Query("user_id")
-                                                       java.lang.String&nbsp;userId)</pre>
+                                                       @NotNull java.lang.String&nbsp;userId)</pre>
 </li>
 </ul>
 <a id="list(java.lang.String)">
@@ -215,7 +215,7 @@ retrofit2.Call&lt;<a href="../models/Reaction.ReactionDeleteResponse.html" title
 <h4>list</h4>
 <pre class="methodSignature">@GET("messages/{id}/reactions")
 retrofit2.Call&lt;<a href="../models/Reaction.ReactionListResponse.html" title="class in io.getstream.chat.java.models">Reaction.ReactionListResponse</a>&gt;&nbsp;list&#8203;(@NotNull @Path("id")
-                                                   java.lang.String&nbsp;messageId)</pre>
+                                                   @NotNull java.lang.String&nbsp;messageId)</pre>
 </li>
 </ul>
 </li>
