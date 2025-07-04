@@ -423,6 +423,10 @@ public class Channel {
     @Nullable
     @JsonProperty("user_message_reminders")
     private Boolean userMessageReminders;
+
+    @Nullable
+    @JsonProperty("shared_locations")
+    private Boolean sharedLocations;
   }
 
   @Builder
@@ -1234,6 +1238,10 @@ public class Channel {
     @Nullable
     @JsonProperty("hide_messages_before")
     private Date hideMessagesBefore;
+
+    @Nullable
+    @JsonProperty("active_live_locations")
+    private List<SharedLocation> activeLiveLocations;
   }
 
   @Data

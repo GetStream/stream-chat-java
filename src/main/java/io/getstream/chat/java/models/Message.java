@@ -168,6 +168,10 @@ public class Message {
   @JsonProperty("pinned_at")
   private Date pinnedAt;
 
+  @Nullable
+  @JsonProperty("shared_location")
+  private SharedLocation sharedLocation;
+
   @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
 
   @JsonAnyGetter
@@ -490,6 +494,16 @@ public class Message {
     @Nullable
     @JsonProperty("pinned_at")
     private Date pinnedAt;
+
+    @Nullable
+    @JsonProperty("shared_location")
+    private SharedLocation sharedLocation;
+
+    @NotNull
+    public MessageRequestObject setSharedLocation(@Nullable SharedLocation sharedLocation) {
+      this.sharedLocation = sharedLocation;
+      return this;
+    }
 
     @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
 
