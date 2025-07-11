@@ -41,8 +41,13 @@ public class ChannelType {
   private Boolean readEvents;
 
   @Nullable
+  @Deprecated
   @JsonProperty("reminders")
   private Boolean reminders;
+
+  @Nullable
+  @JsonProperty("message_re_engagement_hooks")
+  private Boolean messageReEngagementHooks;
 
   @Nullable
   @JsonProperty("connect_events")
@@ -315,9 +320,14 @@ public class ChannelType {
     @JsonProperty("read_events")
     protected Boolean readEvents;
 
+    @Deprecated
     @Nullable
     @JsonProperty("reminders")
     protected Boolean reminders;
+
+    @Nullable
+    @JsonProperty("message_re_engagement_hooks")
+    protected Boolean messageReEngagementHooks;
 
     @Nullable
     @JsonProperty("connect_events")
@@ -457,6 +467,11 @@ public class ChannelType {
     @Nullable
     @JsonProperty("reminders")
     protected Boolean reminders;
+
+    @Deprecated
+    @Nullable
+    @JsonProperty("message_re_engagement_hooks")
+    protected Boolean messageReEngagementHooks;
 
     @Nullable
     @JsonProperty("connect_events")

@@ -258,9 +258,14 @@ public class App extends StreamResponseObject {
     @JsonProperty("async_url_enrich_enabled")
     private Boolean asyncURLEnrichEnabled;
 
+    @Deprecated
     @NotNull
     @JsonProperty("reminders_interval")
     private int remindersInterval;
+
+    @NotNull
+    @JsonProperty("message_re_engagement_hooks_interval")
+    private int messageReEngagementHooksInterval;
 
     @Nullable
     @JsonProperty("enforce_unique_usernames")
@@ -795,6 +800,11 @@ public class App extends StreamResponseObject {
     @NotNull
     @JsonProperty("reminders_interval")
     private int remindersInterval;
+
+    @Deprecated
+    @NotNull
+    @JsonProperty("message_re_engagement_hooks_interval")
+    private int messageReEngagementHooksInterval;
 
     @Nullable
     @JsonProperty("enforce_unique_usernames")
