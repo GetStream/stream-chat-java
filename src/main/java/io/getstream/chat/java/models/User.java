@@ -307,7 +307,7 @@ public class User {
 
     @Nullable
     @JsonProperty("avg_response_time")
-    private Double avgResponseTime;
+    private Integer avgResponseTime;
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
