@@ -1,5 +1,6 @@
 package io.getstream.chat.java;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.App;
 import io.getstream.chat.java.models.App.AppCheckSnsResponse;
@@ -11,11 +12,13 @@ import io.getstream.chat.java.models.App.PushVersion;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
 import io.getstream.chat.java.services.framework.DefaultClient;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.Random;
 import org.junit.jupiter.api.Assertions;
@@ -249,5 +252,57 @@ public class AppTest extends BasicTest {
       }
       throw e;
     }
+  }
+
+  @DisplayName("App Settings update webhook events")
+  @Test
+  void whenUpdatingAppSettings_thenDoesntAlwaysChangeWebhookEvents() {
+    var messageNewList = Arrays.asList("message.new");
+    Assertions.assertDoesNotThrow(() -> App.update().webhookEvents(messageNewList).request());
+
+    var appConfig = Assertions.assertDoesNotThrow(() -> App.get().request()).getApp();
+    Assertions.assertEquals(messageNewList, appConfig.getWebhookEvents());
+
+    // Updating another field should not change (reset) webhook events
+    Assertions.assertDoesNotThrow(() -> App.update().remindersInterval(60).request());
+
+    appConfig = Assertions.assertDoesNotThrow(() -> App.get().request()).getApp();
+    Assertions.assertEquals(messageNewList, appConfig.getWebhookEvents());
+
+    // Reset webhook events to defaults using an empty list
+    Assertions.assertDoesNotThrow(() -> App.update().webhookEvents(new ArrayList<>()).request());
+    appConfig = Assertions.assertDoesNotThrow(() -> App.get().request()).getApp();
+    Assertions.assertTrue(appConfig.getWebhookEvents().size() > 1);
+  }
+
+  @DisplayName("AppConfig encoding should not include null fields")
+  @Test
+  void whenEncodingAppConfig_thenNoNullFields() {
+    var appConfig = App.update().internalBuild();
+    final ObjectMapper mapper = new ObjectMapper();
+
+    String json = Assertions.assertDoesNotThrow(() -> mapper.writeValueAsString(appConfig));
+
+    // When we didn't set any fields, the JSON should be empty
+    Assertions.assertEquals("{}", json);
+
+    // We set some fields where we mean to reset them
+    var appConfigNull =
+        App.update()
+            .webhookEvents(new ArrayList<>())
+            .revokeTokensIssuedBefore(null)
+            .grants(new HashMap<>())
+            .internalBuild();
+
+    json = Assertions.assertDoesNotThrow(() -> mapper.writeValueAsString(appConfigNull));
+
+    Assertions.assertTrue(
+        json.contains("\"webhook_events\":[]"), "JSON should contain null webhook_events field");
+
+    Assertions.assertTrue(
+        json.contains("\"revoke_tokens_issued_before\":null"),
+        "JSON should contain null revoke_tokens_issued_before field");
+
+    Assertions.assertTrue(json.contains("\"grants\":{}"), "JSON should contain null grants field");
   }
 }
