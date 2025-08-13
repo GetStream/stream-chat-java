@@ -318,6 +318,10 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("webhook_events")
     private List<String> webhookEvents;
+
+    @Nullable
+    @JsonProperty("user_response_time_enabled")
+    private Boolean userResponseTimeEnabled;
   }
 
   public enum PermissionVersion {

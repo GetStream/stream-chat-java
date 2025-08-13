@@ -126,6 +126,10 @@ public class User {
   @JsonProperty("blocked_user_ids")
   private List<String> blockedUserIDs;
 
+  @Nullable
+  @JsonProperty("avg_response_time")
+  private Integer avgResponseTime;
+
   @JsonAnySetter
   public void setAdditionalField(String name, Object value) {
     this.additionalFields.put(name, value);
@@ -300,6 +304,10 @@ public class User {
     private List<String> latestHiddenChannels;
 
     @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
+
+    @Nullable
+    @JsonProperty("avg_response_time")
+    private Integer avgResponseTime;
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalFields() {
