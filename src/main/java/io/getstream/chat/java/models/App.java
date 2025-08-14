@@ -798,6 +798,7 @@ public class App extends StreamResponseObject {
 
     @NotNull
     @JsonProperty("reminders_interval")
+    @JsonInclude(Include.NON_DEFAULT)
     private int remindersInterval;
 
     @Nullable
@@ -887,6 +888,7 @@ public class App extends StreamResponseObject {
 
     @Nullable
     @JsonProperty("webhook_events")
+    @JsonInclude(Include.NON_NULL)
     private List<String> webhookEvents;
 
     @Nullable
@@ -894,10 +896,13 @@ public class App extends StreamResponseObject {
     @JsonInclude(Include.NON_NULL)
     private Boolean multiTenantEnabled;
 
+    static final Date defaultDate = new Date(Long.MIN_VALUE);
+
     @Nullable
     @JsonProperty("revoke_tokens_issued_before")
-    // This field can be sent as null
-    private Date revokeTokensIssuedBefore;
+    @JsonInclude(value = Include.CUSTOM, valueFilter = NonDefaultDateFilter.class)
+    @Builder.Default
+    private Date revokeTokensIssuedBefore = defaultDate;
 
     @Nullable
     @JsonProperty("channel_hide_members_only")
@@ -911,6 +916,7 @@ public class App extends StreamResponseObject {
 
     @Nullable
     @JsonProperty("grants")
+    @JsonInclude(Include.NON_NULL)
     private Map<String, List<String>> grants;
 
     @Nullable
@@ -922,6 +928,17 @@ public class App extends StreamResponseObject {
       @Override
       protected Call<StreamResponseObject> generateCall(Client client) {
         return client.create(AppService.class).update(this.internalBuild());
+      }
+    }
+
+    // Filter that excludes default date and included null (used to reset)
+    static class NonDefaultDateFilter {
+      // Return true if filtering out (excluding), false to include
+      @Override
+      public boolean equals(Object o) {
+        // only ever called with String value
+        Date other = (Date) o;
+        return defaultDate.equals(other);
       }
     }
   }
