@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.31.0](https://github.com/GetStream/stream-chat-java/compare/1.30.0...1.31.0) (2025-08-14)
+
+
+### Features
+
+* Add avg response time to app setting and user response ([#186](https://github.com/GetStream/stream-chat-java/issues/186)) ([2cfe3f6](https://github.com/GetStream/stream-chat-java/commit/2cfe3f63c2844837fd870d21908af1e105ff7c52))
+
+
+### Bug Fixes
+
+* don't reset webhook events when updating other fields ([#188](https://github.com/GetStream/stream-chat-java/issues/188)) ([4814163](https://github.com/GetStream/stream-chat-java/commit/4814163c2c4184360b10d9477cbbb49b52220d04))
+
 ## [1.31.0](https://github.com/GetStream/stream-chat-java/compare/1.30.0...1.31.0) (2025-07-04)
 
 ## [1.30.0](https://github.com/GetStream/stream-chat-java/compare/1.29.0...1.30.0) (2025-06-18)
