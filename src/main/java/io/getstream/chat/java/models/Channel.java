@@ -81,6 +81,10 @@ public class Channel {
   private List<Message> messages;
 
   @Nullable
+  @JsonProperty("messages_count")
+  private Integer messagesCount;
+
+  @Nullable
   @JsonProperty("read")
   private List<ChannelRead> read;
 
@@ -427,6 +431,10 @@ public class Channel {
     @Nullable
     @JsonProperty("shared_locations")
     private Boolean sharedLocations;
+
+    @Nullable
+    @JsonProperty("count_messages")
+    private Boolean countMessages;
   }
 
   @Builder
