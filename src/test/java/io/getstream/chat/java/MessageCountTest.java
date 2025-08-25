@@ -44,8 +44,6 @@ public class MessageCountTest extends BasicTest {
     ChannelGetResponse refreshed =
         Assertions.assertDoesNotThrow(() -> Channel.getOrCreate(type, id).request());
 
-    System.out.printf("%s", refreshed.getChannel());
-
     Assertions.assertTrue(
         refreshed.getChannel().getMessageCount() == 1,
         "messages_count should be 1 when count_messages is enabled");
@@ -68,7 +66,6 @@ public class MessageCountTest extends BasicTest {
 
     String type = channelGetResponse.getChannel().getType();
     String id = channelGetResponse.getChannel().getId();
-    System.out.printf("[count_enabled] Channel CID: %s%n", channelGetResponse.getChannel().getCId());
 
     // Disable count_messages via partial update (config_overrides)
     Map<String, Object> overrides = new HashMap<>();
