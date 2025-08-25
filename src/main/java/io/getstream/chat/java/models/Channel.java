@@ -81,8 +81,8 @@ public class Channel {
   private List<Message> messages;
 
   @Nullable
-  @JsonProperty("messages_count")
-  private Integer messagesCount;
+  @JsonProperty("message_count")
+  private Integer messageCount;
 
   @Nullable
   @JsonProperty("read")
