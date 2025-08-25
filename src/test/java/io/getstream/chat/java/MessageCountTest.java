@@ -73,7 +73,6 @@ public class MessageCountTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () -> Channel.partialUpdate(type, id).setValue("config_overrides", overrides).request());
 
-
     MessageRequestObject messageRequest =
         MessageRequestObject.builder()
             .text("test message")
@@ -86,7 +85,7 @@ public class MessageCountTest extends BasicTest {
         Assertions.assertDoesNotThrow(() -> Channel.getOrCreate(type, id).request());
 
     Integer messagesCount = refreshed.getChannel().getMessageCount();
-    Assertions.assertNull(messagesCount, "messages_count should not be present when count_messages is disabled");
+    Assertions.assertNull(
+        messagesCount, "messages_count should not be present when count_messages is disabled");
   }
-
 }
