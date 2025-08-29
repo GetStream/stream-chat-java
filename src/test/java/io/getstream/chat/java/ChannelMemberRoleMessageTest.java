@@ -17,9 +17,7 @@ public class ChannelMemberRoleMessageTest extends BasicTest {
   @DisplayName("Messages include channel member role")
   @Test
   void whenSendingMessages_thenMemberRoleIsIncluded() {
-    String customRole = "custom_role_" + RandomStringUtils.randomAlphabetic(5);
-    Assertions.assertDoesNotThrow(() -> Role.create().name(customRole).request());
-    pause();
+    String customRole = "custom_role";
 
     UserRequestObject userWithCustomRole = testUsersRequestObjects.get(0);
     UserRequestObject userWithDefaultRole = testUsersRequestObjects.get(1);
@@ -34,6 +32,7 @@ public class ChannelMemberRoleMessageTest extends BasicTest {
                             .member(
                                 ChannelMemberRequestObject.builder()
                                     .user(userWithCustomRole)
+                                    .channelRole(customRole)
                                     .build())
                             .member(
                                 ChannelMemberRequestObject.builder()
@@ -42,17 +41,6 @@ public class ChannelMemberRoleMessageTest extends BasicTest {
                             .build())
                     .request());
     var channel = channelResp.getChannel();
-
-    var assignment = new RoleAssignment();
-    assignment.setChannelRole(customRole);
-    assignment.setUserId(userWithCustomRole.getId());
-    Assertions.assertDoesNotThrow(
-        () ->
-            Channel.assignRoles(channel.getType(), channel.getId())
-                .assignRole(assignment)
-                .request());
-
-    pause();
 
     Message messageWithRole =
         Assertions.assertDoesNotThrow(
