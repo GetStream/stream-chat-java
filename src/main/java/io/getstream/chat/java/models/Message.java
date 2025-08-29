@@ -2,6 +2,7 @@ package io.getstream.chat.java.models;
 
 import com.fasterxml.jackson.annotation.*;
 import io.getstream.chat.java.exceptions.StreamException;
+import io.getstream.chat.java.models.Channel.ChannelMember;
 import io.getstream.chat.java.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.getstream.chat.java.models.Flag.FlagDeleteRequestData.FlagDeleteRequest;
 import io.getstream.chat.java.models.Flag.FlagMessageQueryRequestData.FlagMessageQueryRequest;
@@ -15,7 +16,6 @@ import io.getstream.chat.java.models.Message.MessageUnblockRequestData.MessageUn
 import io.getstream.chat.java.models.Message.MessageUpdateRequestData.MessageUpdateRequest;
 import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.framework.*;
-import io.getstream.chat.java.models.Channel.ChannelMember;
 import io.getstream.chat.java.services.MessageService;
 import io.getstream.chat.java.services.framework.Client;
 import java.io.File;
