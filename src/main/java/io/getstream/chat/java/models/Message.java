@@ -172,6 +172,10 @@ public class Message {
   @JsonProperty("shared_location")
   private SharedLocation sharedLocation;
 
+  @Nullable
+  @JsonProperty("member")
+  private ChannelMember member;
+
   @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
 
   @JsonAnyGetter
