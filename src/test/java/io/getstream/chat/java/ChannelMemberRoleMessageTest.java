@@ -4,7 +4,6 @@ import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.Channel.*;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
-import io.getstream.chat.java.models.Role;
 import io.getstream.chat.java.models.User.UserRequestObject;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
