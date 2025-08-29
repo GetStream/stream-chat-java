@@ -15,6 +15,7 @@ import io.getstream.chat.java.models.Message.MessageUnblockRequestData.MessageUn
 import io.getstream.chat.java.models.Message.MessageUpdateRequestData.MessageUpdateRequest;
 import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.framework.*;
+import io.getstream.chat.java.models.Channel.ChannelMember;
 import io.getstream.chat.java.services.MessageService;
 import io.getstream.chat.java.services.framework.Client;
 import java.io.File;

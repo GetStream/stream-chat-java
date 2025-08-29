@@ -24,16 +24,10 @@ public class ChannelMemberRoleMessageTest extends BasicTest {
     pause();
 
     // Select two different users from the pre-created user list
-    UserRequestObject userWithRole = testUsersRequestObjects.get(0);
-    UserRequestObject userWithoutRole = testUsersRequestObjects.get(1);
+    UserRequestObject userWithCustomRole = testUsersRequestObjects.get(0);
+    UserRequestObject userWithDefaultRole = testUsersRequestObjects.get(1);
 
-    // Build channel members – assign the custom role to the first user only
-    var memberWithRole =
-        ChannelMemberRequestObject.builder().user(userWithRole).role(customRole).build();
-    var memberWithoutRole =
-        ChannelMemberRequestObject.builder().user(userWithoutRole).build();
-
-    // Create a new channel with these members
+    // Create a new channel with these members (roles will be assigned later)
     var channelResp =
         Assertions.assertDoesNotThrow(
             () ->
@@ -41,11 +35,20 @@ public class ChannelMemberRoleMessageTest extends BasicTest {
                     .data(
                         ChannelRequestObject.builder()
                             .createdBy(testUserRequestObject)
-                            .member(memberWithRole)
-                            .member(memberWithoutRole)
+                            .member(ChannelMemberRequestObject.builder().user(userWithCustomRole).build())
+                            .member(ChannelMemberRequestObject.builder().user(userWithDefaultRole).build())
                             .build())
                     .request());
     var channel = channelResp.getChannel();
+
+    // Assign the custom role to the first user *after* channel creation
+    var assignment = new RoleAssignment();
+    assignment.setChannelRole(customRole);
+    assignment.setUserId(userWithCustomRole.getId());
+    Assertions.assertDoesNotThrow(
+        () -> Channel.assignRoles(channel.getType(), channel.getId()).assignRole(assignment).request());
+
+    pause(); // give backend time to apply the role
 
     // User with role sends a message
     Message messageWithRole =
@@ -55,7 +58,7 @@ public class ChannelMemberRoleMessageTest extends BasicTest {
                         .message(
                             MessageRequestObject.builder()
                                 .text("Message from user with role")
-                                .userId(userWithRole.getId())
+                                .userId(userWithCustomRole.getId())
                                 .build())
                         .request())
             .getMessage();
@@ -68,17 +71,17 @@ public class ChannelMemberRoleMessageTest extends BasicTest {
                         .message(
                             MessageRequestObject.builder()
                                 .text("Message from user without role")
-                                .userId(userWithoutRole.getId())
+                                .userId(userWithDefaultRole.getId())
                                 .build())
                         .request())
             .getMessage();
 
     // Assert the role information in the immediate responses
     Assertions.assertNotNull(messageWithRole.getMember());
-    Assertions.assertEquals(customRole, messageWithRole.getMember().getRole());
+    Assertions.assertEquals(customRole, messageWithRole.getMember().getChannelRole());
 
     Assertions.assertNotNull(messageWithoutRole.getMember());
-    Assertions.assertNull(messageWithoutRole.getMember().getRole());
+    Assertions.assertEquals("channel_member", messageWithoutRole.getMember().getChannelRole());
 
     // Retrieve the channel again and ensure both messages still carry the correct member role
     var channelState =
@@ -101,11 +104,12 @@ public class ChannelMemberRoleMessageTest extends BasicTest {
 
     Assertions.assertNotNull(storedWithRole);
     Assertions.assertNotNull(storedWithRole.getMember());
-    Assertions.assertEquals(customRole, storedWithRole.getMember().getRole());
+    Assertions.assertEquals(customRole, storedWithRole.getMember().getChannelRole());
 
     Assertions.assertNotNull(storedWithoutRole);
     Assertions.assertNotNull(storedWithoutRole.getMember());
-    Assertions.assertNull(storedWithoutRole.getMember().getRole());
+    Assertions.assertEquals("channel_member", storedWithoutRole.getMember().getChannelRole());
   }
 }
+
 
