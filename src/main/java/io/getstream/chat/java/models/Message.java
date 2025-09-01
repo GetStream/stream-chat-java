@@ -2,6 +2,7 @@ package io.getstream.chat.java.models;
 
 import com.fasterxml.jackson.annotation.*;
 import io.getstream.chat.java.exceptions.StreamException;
+import io.getstream.chat.java.models.Channel.ChannelMember;
 import io.getstream.chat.java.models.Flag.FlagCreateRequestData.FlagCreateRequest;
 import io.getstream.chat.java.models.Flag.FlagDeleteRequestData.FlagDeleteRequest;
 import io.getstream.chat.java.models.Flag.FlagMessageQueryRequestData.FlagMessageQueryRequest;
@@ -171,6 +172,10 @@ public class Message {
   @Nullable
   @JsonProperty("shared_location")
   private SharedLocation sharedLocation;
+
+  @Nullable
+  @JsonProperty("member")
+  private ChannelMember member;
 
   @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
 
