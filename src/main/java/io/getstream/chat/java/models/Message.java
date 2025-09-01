@@ -832,7 +832,9 @@ public class Message {
 
     @Override
     protected Call<MessageDeleteResponse> generateCall(Client client) {
-      return client.create(MessageService.class).delete(this.id, this.hard, this.deletedBy, this.deleteForMe);
+      return client
+          .create(MessageService.class)
+          .delete(this.id, this.hard, this.deletedBy, this.deleteForMe);
     }
   }
 

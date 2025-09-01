@@ -899,7 +899,11 @@ public class MessageTest extends BasicTest {
     // Test delete for me only
     Message deletedMessage =
         Assertions.assertDoesNotThrow(
-                () -> Message.delete(message.getId()).deleteForMe(true).deletedBy(testUserRequestObject.getId()).request())
+                () ->
+                    Message.delete(message.getId())
+                        .deleteForMe(true)
+                        .deletedBy(testUserRequestObject.getId())
+                        .request())
             .getMessage();
     Assertions.assertNotNull(deletedMessage.getDeletedAt());
   }
@@ -944,8 +948,7 @@ public class MessageTest extends BasicTest {
 
     // Test convenience method for hard delete
     Message deletedMessage =
-        Assertions.assertDoesNotThrow(
-                () -> Message.hardDelete(message.getId()).request())
+        Assertions.assertDoesNotThrow(() -> Message.hardDelete(message.getId()).request())
             .getMessage();
     Assertions.assertNotNull(deletedMessage.getDeletedAt());
   }
