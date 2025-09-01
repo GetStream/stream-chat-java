@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.31.1](https://github.com/GetStream/stream-chat-java/compare/1.31.0...1.31.1) (2025-09-01)
+
+
+### Features
+
+* Added `Delete for me` support on behalf of a user ([#193](https://github.com/GetStream/stream-chat-java/issues/193)) ([0f81c7e](https://github.com/GetStream/stream-chat-java/commit/0f81c7e272e8fa5867e1ddee8ffe2073d06ed322))
+
 ## [1.31.0](https://github.com/GetStream/stream-chat-java/compare/1.30.0...1.31.0) (2025-08-14)
 
 
