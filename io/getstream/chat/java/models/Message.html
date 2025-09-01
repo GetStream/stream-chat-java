@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":10,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9,"i15":9,"i16":10,"i17":9,"i18":9,"i19":9,"i20":9,"i21":9,"i22":9,"i23":9};
+var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":10,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9,"i15":9,"i16":9,"i17":9,"i18":10,"i19":9,"i20":9,"i21":9,"i22":9,"i23":9,"i24":9,"i25":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -473,6 +473,14 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>static @NotNull <a href="Message.MessageDeleteRequest.html" title="class in io.getstream.chat.java.models">Message.MessageDeleteRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteForMe(java.lang.String,java.lang.String)">deleteForMe</a></span>&#8203;(@NotNull java.lang.String&nbsp;id,
+           @NotNull java.lang.String&nbsp;userId)</code></th>
+<td class="colLast">
+<div class="block">Creates a delete for me request</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Message.MessageDeleteImageRequest.html" title="class in io.getstream.chat.java.models">Message.MessageDeleteImageRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteImage(java.lang.String,java.lang.String,java.lang.String)">deleteImage</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
            @NotNull java.lang.String&nbsp;channelId,
@@ -481,26 +489,26 @@ extends java.lang.Object</pre>
 <div class="block">Creates a delete image request</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Flag.FlagCreateRequestData.FlagCreateRequest.html" title="class in io.getstream.chat.java.models">Flag.FlagCreateRequestData.FlagCreateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#flag(java.lang.String)">flag</a></span>&#8203;(@NotNull java.lang.String&nbsp;messageId)</code></th>
 <td class="colLast">
 <div class="block">Creates a flag request</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Message.MessageGetRequest.html" title="class in io.getstream.chat.java.models">Message.MessageGetRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get(java.lang.String)">get</a></span>&#8203;(@NotNull java.lang.String&nbsp;id)</code></th>
 <td class="colLast">
 <div class="block">Creates a get request</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAdditionalFields()">getAdditionalFields</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Message.MessageGetManyRequest.html" title="class in io.getstream.chat.java.models">Message.MessageGetManyRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMany(java.lang.String,java.lang.String,java.util.List)">getMany</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
        @NotNull java.lang.String&nbsp;channelId,
@@ -509,21 +517,28 @@ extends java.lang.Object</pre>
 <div class="block">Creates a get many request</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Message.MessageGetRepliesRequest.html" title="class in io.getstream.chat.java.models">Message.MessageGetRepliesRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getReplies(java.lang.String)">getReplies</a></span>&#8203;(@NotNull java.lang.String&nbsp;parentMessageId)</code></th>
 <td class="colLast">
 <div class="block">Creates a get replies request</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>static @NotNull <a href="Message.MessageDeleteRequest.html" title="class in io.getstream.chat.java.models">Message.MessageDeleteRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hardDelete(java.lang.String)">hardDelete</a></span>&#8203;(@NotNull java.lang.String&nbsp;id)</code></th>
+<td class="colLast">
+<div class="block">Creates a hard delete request</div>
+</td>
+</tr>
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Message.MessagePartialUpdateRequestData.MessagePartialUpdateRequest.html" title="class in io.getstream.chat.java.models">Message.MessagePartialUpdateRequestData.MessagePartialUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#partialUpdate(java.lang.String)">partialUpdate</a></span>&#8203;(@NotNull java.lang.String&nbsp;id)</code></th>
 <td class="colLast">
 <div class="block">Creates a partial update request</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Message.MessagePartialUpdateRequestData.MessagePartialUpdateRequest.html" title="class in io.getstream.chat.java.models">Message.MessagePartialUpdateRequestData.MessagePartialUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pinMessage(java.lang.String,java.lang.String)">pinMessage</a></span>&#8203;(@NotNull java.lang.String&nbsp;id,
           @NotNull java.lang.String&nbsp;userId)</code></th>
@@ -531,7 +546,7 @@ extends java.lang.Object</pre>
 <div class="block">Creates a pin message request without expiration.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Message.MessagePartialUpdateRequestData.MessagePartialUpdateRequest.html" title="class in io.getstream.chat.java.models">Message.MessagePartialUpdateRequestData.MessagePartialUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pinMessage(java.lang.String,java.lang.String,java.util.Date)">pinMessage</a></span>&#8203;(@NotNull java.lang.String&nbsp;id,
           @NotNull java.lang.String&nbsp;userId,
@@ -540,28 +555,28 @@ extends java.lang.Object</pre>
 <div class="block">Creates a pin message request with expiration.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Flag.FlagMessageQueryRequestData.FlagMessageQueryRequest.html" title="class in io.getstream.chat.java.models">Flag.FlagMessageQueryRequestData.FlagMessageQueryRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#queryFlags()">queryFlags</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a query flag request</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Message.MessageRunCommandActionRequestData.MessageRunCommandActionRequest.html" title="class in io.getstream.chat.java.models">Message.MessageRunCommandActionRequestData.MessageRunCommandActionRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#runCommandAction(java.lang.String)">runCommandAction</a></span>&#8203;(@NotNull java.lang.String&nbsp;messageId)</code></th>
 <td class="colLast">
 <div class="block">Creates a run command action request</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#search()">search</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a search request</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Message.MessageSendRequestData.MessageSendRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSendRequestData.MessageSendRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#send(java.lang.String,java.lang.String)">send</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
     @NotNull java.lang.String&nbsp;channelId)</code></th>
@@ -569,34 +584,34 @@ extends java.lang.Object</pre>
 <div class="block">Creates send request</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAdditionalField(java.lang.String,java.lang.Object)">setAdditionalField</a></span>&#8203;(java.lang.String&nbsp;name,
                   java.lang.Object&nbsp;value)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Message.MessageTranslateRequestData.MessageTranslateRequest.html" title="class in io.getstream.chat.java.models">Message.MessageTranslateRequestData.MessageTranslateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#translate(java.lang.String)">translate</a></span>&#8203;(@NotNull java.lang.String&nbsp;messageId)</code></th>
 <td class="colLast">
 <div class="block">Creates a translate request</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Message.MessageUnblockRequestData.MessageUnblockRequest.html" title="class in io.getstream.chat.java.models">Message.MessageUnblockRequestData.MessageUnblockRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unblock(java.lang.String)">unblock</a></span>&#8203;(@NotNull java.lang.String&nbsp;messageId)</code></th>
 <td class="colLast">
 <div class="block">Creates an unblock message request</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Flag.FlagDeleteRequestData.FlagDeleteRequest.html" title="class in io.getstream.chat.java.models">Flag.FlagDeleteRequestData.FlagDeleteRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unflag(java.lang.String)">unflag</a></span>&#8203;(@NotNull java.lang.String&nbsp;messageId)</code></th>
 <td class="colLast">
 <div class="block">Creates a unflag request</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Message.MessagePartialUpdateRequestData.MessagePartialUpdateRequest.html" title="class in io.getstream.chat.java.models">Message.MessagePartialUpdateRequestData.MessagePartialUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unpinMessage(java.lang.String,java.lang.String)">unpinMessage</a></span>&#8203;(@NotNull java.lang.String&nbsp;id,
             @NotNull java.lang.String&nbsp;userId)</code></th>
@@ -604,14 +619,14 @@ extends java.lang.Object</pre>
 <div class="block">Creates an unpin message request.</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Message.MessageUpdateRequestData.MessageUpdateRequest.html" title="class in io.getstream.chat.java.models">Message.MessageUpdateRequestData.MessageUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(java.lang.String)">update</a></span>&#8203;(@NotNull java.lang.String&nbsp;id)</code></th>
 <td class="colLast">
 <div class="block">Creates an update request</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Message.MessageUploadFileRequest.html" title="class in io.getstream.chat.java.models">Message.MessageUploadFileRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#uploadFile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">uploadFile</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
           @NotNull java.lang.String&nbsp;channelId,
@@ -621,7 +636,7 @@ extends java.lang.Object</pre>
 <div class="block">Creates a file upload request</div>
 </td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Message.MessageUploadImageRequest.html" title="class in io.getstream.chat.java.models">Message.MessageUploadImageRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#uploadImage(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">uploadImage</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
            @NotNull java.lang.String&nbsp;channelId,
@@ -782,6 +797,45 @@ public static&nbsp;@NotNull <a href="Message.MessageDeleteRequest.html" title="c
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>id</code> - the message id</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the created request</dd>
+</dl>
+</li>
+</ul>
+<a id="hardDelete(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>hardDelete</h4>
+<pre class="methodSignature">@NotNull
+public static&nbsp;@NotNull <a href="Message.MessageDeleteRequest.html" title="class in io.getstream.chat.java.models">Message.MessageDeleteRequest</a>&nbsp;hardDelete&#8203;(@NotNull
+                                                               @NotNull java.lang.String&nbsp;id)</pre>
+<div class="block">Creates a hard delete request</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>id</code> - the message id</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the created request</dd>
+</dl>
+</li>
+</ul>
+<a id="deleteForMe(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>deleteForMe</h4>
+<pre class="methodSignature">@NotNull
+public static&nbsp;@NotNull <a href="Message.MessageDeleteRequest.html" title="class in io.getstream.chat.java.models">Message.MessageDeleteRequest</a>&nbsp;deleteForMe&#8203;(@NotNull
+                                                                @NotNull java.lang.String&nbsp;id,
+                                                                @NotNull
+                                                                @NotNull java.lang.String&nbsp;userId)</pre>
+<div class="block">Creates a delete for me request</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>id</code> - the message id</dd>
+<dd><code>userId</code> - the user id for whom the message should be deleted</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the created request</dd>
 </dl>
