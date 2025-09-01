@@ -905,19 +905,18 @@ public class MessageTest extends BasicTest {
                         .deletedBy(testUserRequestObject.getId())
                         .request())
             .getMessage();
-    
+
     // Verify the delete request was successful
     Assertions.assertNotNull(deletedMessage);
-    
-    // For delete for me, the message should still exist but be marked as deleted for the specific user
+
+    // For delete for me, the message should still exist but be marked as deleted for the specific
+    // user
     // The deletedAt might be null as this is a "soft delete for me" operation
     System.out.println("Delete for me response - deletedAt: " + deletedMessage.getDeletedAt());
-    
+
     // Verify the message still exists (delete for me doesn't permanently delete)
     Message retrievedMessage =
-        Assertions.assertDoesNotThrow(
-                () -> Message.get(message.getId()).request())
-            .getMessage();
+        Assertions.assertDoesNotThrow(() -> Message.get(message.getId()).request()).getMessage();
     Assertions.assertNotNull(retrievedMessage);
     Assertions.assertEquals(message.getId(), retrievedMessage.getId());
   }
@@ -942,15 +941,13 @@ public class MessageTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () -> Message.deleteForMe(message.getId(), testUserRequestObject.getId()).request())
             .getMessage();
-    
+
     // Verify the delete request was successful
     Assertions.assertNotNull(deletedMessage);
-    
+
     // Verify the message still exists (delete for me doesn't permanently delete)
     Message retrievedMessage =
-        Assertions.assertDoesNotThrow(
-                () -> Message.get(message.getId()).request())
-            .getMessage();
+        Assertions.assertDoesNotThrow(() -> Message.get(message.getId()).request()).getMessage();
     Assertions.assertNotNull(retrievedMessage);
     Assertions.assertEquals(message.getId(), retrievedMessage.getId());
   }
