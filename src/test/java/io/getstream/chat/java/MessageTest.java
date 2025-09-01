@@ -880,4 +880,73 @@ public class MessageTest extends BasicTest {
 
     Assertions.assertDoesNotThrow(() -> Blocklist.delete(blocklistName).request());
   }
+
+  @DisplayName("Can delete message for me only")
+  @Test
+  void whenDeletingMessageForMe_thenIsDeletedForMe() {
+    String text = "This is a message to delete for me only";
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
+    Message message =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .message(messageRequest)
+                        .request())
+            .getMessage();
+    Assertions.assertNull(message.getDeletedAt());
+
+    // Test delete for me only
+    Message deletedMessage =
+        Assertions.assertDoesNotThrow(
+                () -> Message.delete(message.getId()).deleteForMe(true).deletedBy(testUserRequestObject.getId()).request())
+            .getMessage();
+    Assertions.assertNotNull(deletedMessage.getDeletedAt());
+  }
+
+  @DisplayName("Can use convenience method for delete for me")
+  @Test
+  void whenUsingDeleteForMeConvenienceMethod_thenIsDeletedForMe() {
+    String text = "This is a message to delete for me using convenience method";
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
+    Message message =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .message(messageRequest)
+                        .request())
+            .getMessage();
+    Assertions.assertNull(message.getDeletedAt());
+
+    // Test convenience method for delete for me
+    Message deletedMessage =
+        Assertions.assertDoesNotThrow(
+                () -> Message.deleteForMe(message.getId(), testUserRequestObject.getId()).request())
+            .getMessage();
+    Assertions.assertNotNull(deletedMessage.getDeletedAt());
+  }
+
+  @DisplayName("Can use convenience method for hard delete")
+  @Test
+  void whenUsingHardDeleteConvenienceMethod_thenIsHardDeleted() {
+    String text = "This is a message to hard delete using convenience method";
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
+    Message message =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .message(messageRequest)
+                        .request())
+            .getMessage();
+    Assertions.assertNull(message.getDeletedAt());
+
+    // Test convenience method for hard delete
+    Message deletedMessage =
+        Assertions.assertDoesNotThrow(
+                () -> Message.hardDelete(message.getId()).request())
+            .getMessage();
+    Assertions.assertNotNull(deletedMessage.getDeletedAt());
+  }
 }

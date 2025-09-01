@@ -810,6 +810,8 @@ public class Message {
 
     @Nullable private String deletedBy;
 
+    @Nullable private Boolean deleteForMe;
+
     @NotNull
     public MessageDeleteRequest hard(@NotNull Boolean hard) {
       this.hard = hard;
@@ -822,9 +824,15 @@ public class Message {
       return this;
     }
 
+    @NotNull
+    public MessageDeleteRequest deleteForMe(@NotNull Boolean deleteForMe) {
+      this.deleteForMe = deleteForMe;
+      return this;
+    }
+
     @Override
     protected Call<MessageDeleteResponse> generateCall(Client client) {
-      return client.create(MessageService.class).delete(this.id, this.hard, this.deletedBy);
+      return client.create(MessageService.class).delete(this.id, this.hard, this.deletedBy, this.deleteForMe);
     }
   }
 
@@ -1475,6 +1483,29 @@ public class Message {
   @NotNull
   public static MessageDeleteRequest delete(@NotNull String id) {
     return new MessageDeleteRequest(id);
+  }
+
+  /**
+   * Creates a hard delete request
+   *
+   * @param id the message id
+   * @return the created request
+   */
+  @NotNull
+  public static MessageDeleteRequest hardDelete(@NotNull String id) {
+    return new MessageDeleteRequest(id).hard(true);
+  }
+
+  /**
+   * Creates a delete for me request
+   *
+   * @param id the message id
+   * @param userId the user id for whom the message should be deleted
+   * @return the created request
+   */
+  @NotNull
+  public static MessageDeleteRequest deleteForMe(@NotNull String id, @NotNull String userId) {
+    return new MessageDeleteRequest(id).deleteForMe(true).deletedBy(userId);
   }
 
   /**
