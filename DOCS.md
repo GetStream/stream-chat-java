@@ -1214,6 +1214,13 @@ Message.delete(messageId).deletedBy(userId).request();
 
 // combine parameters
 Message.delete(messageId).hard(true).deletedBy(userId).request();
+
+// delete for me only (message is only deleted for the specified user)
+Message.delete(messageId).deleteForMe(userId).request();
+
+// convenience methods
+Message.hardDelete(messageId).request();
+Message.deleteForMe(messageId, userId).request();
 ```
 
 **Upload file or image**

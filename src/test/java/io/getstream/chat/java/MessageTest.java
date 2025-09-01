@@ -880,4 +880,96 @@ public class MessageTest extends BasicTest {
 
     Assertions.assertDoesNotThrow(() -> Blocklist.delete(blocklistName).request());
   }
+
+  @DisplayName("Can delete message for me only")
+  @Test
+  void whenDeletingMessageForMe_thenIsDeletedForMe() {
+    String text = "This is a message to delete for me only";
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
+    Message message =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .message(messageRequest)
+                        .request())
+            .getMessage();
+    Assertions.assertNull(message.getDeletedAt());
+
+    // Test delete for me only
+    Message deletedMessage =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.delete(message.getId())
+                        .deleteForMe(testUserRequestObject.getId())
+                        .request())
+            .getMessage();
+
+    // Verify the delete request was successful
+    Assertions.assertNotNull(deletedMessage);
+
+    // For delete for me, the message should still exist but be marked as deleted for the specific
+    // user
+    // The deletedAt might be null as this is a "soft delete for me" operation
+    System.out.println("Delete for me response - deletedAt: " + deletedMessage.getDeletedAt());
+
+    // Verify the message still exists (delete for me doesn't permanently delete)
+    Message retrievedMessage =
+        Assertions.assertDoesNotThrow(() -> Message.get(message.getId()).request()).getMessage();
+    Assertions.assertNotNull(retrievedMessage);
+    Assertions.assertEquals(message.getId(), retrievedMessage.getId());
+  }
+
+  @DisplayName("Can use convenience method for delete for me")
+  @Test
+  void whenUsingDeleteForMeConvenienceMethod_thenIsDeletedForMe() {
+    String text = "This is a message to delete for me using convenience method";
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
+    Message message =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .message(messageRequest)
+                        .request())
+            .getMessage();
+    Assertions.assertNull(message.getDeletedAt());
+
+    // Test convenience method for delete for me
+    Message deletedMessage =
+        Assertions.assertDoesNotThrow(
+                () -> Message.deleteForMe(message.getId(), testUserRequestObject.getId()).request())
+            .getMessage();
+
+    // Verify the delete request was successful
+    Assertions.assertNotNull(deletedMessage);
+
+    // Verify the message still exists (delete for me doesn't permanently delete)
+    Message retrievedMessage =
+        Assertions.assertDoesNotThrow(() -> Message.get(message.getId()).request()).getMessage();
+    Assertions.assertNotNull(retrievedMessage);
+    Assertions.assertEquals(message.getId(), retrievedMessage.getId());
+  }
+
+  @DisplayName("Can use convenience method for hard delete")
+  @Test
+  void whenUsingHardDeleteConvenienceMethod_thenIsHardDeleted() {
+    String text = "This is a message to hard delete using convenience method";
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder().text(text).userId(testUserRequestObject.getId()).build();
+    Message message =
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Message.send(testChannel.getType(), testChannel.getId())
+                        .message(messageRequest)
+                        .request())
+            .getMessage();
+    Assertions.assertNull(message.getDeletedAt());
+
+    // Test convenience method for hard delete
+    Message deletedMessage =
+        Assertions.assertDoesNotThrow(() -> Message.hardDelete(message.getId()).request())
+            .getMessage();
+    Assertions.assertNotNull(deletedMessage.getDeletedAt());
+  }
 }
