@@ -901,8 +901,7 @@ public class MessageTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Message.delete(message.getId())
-                        .deleteForMe(true)
-                        .deletedBy(testUserRequestObject.getId())
+                        .deleteForMe(testUserRequestObject.getId())
                         .request())
             .getMessage();
 

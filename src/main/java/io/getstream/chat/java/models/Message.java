@@ -825,8 +825,9 @@ public class Message {
     }
 
     @NotNull
-    public MessageDeleteRequest deleteForMe(@NotNull Boolean deleteForMe) {
-      this.deleteForMe = deleteForMe;
+    public MessageDeleteRequest deleteForMe(@NotNull String userId) {
+      this.deleteForMe = true;
+      this.deletedBy = userId;
       return this;
     }
 
@@ -1507,7 +1508,7 @@ public class Message {
    */
   @NotNull
   public static MessageDeleteRequest deleteForMe(@NotNull String id, @NotNull String userId) {
-    return new MessageDeleteRequest(id).deleteForMe(true).deletedBy(userId);
+    return new MessageDeleteRequest(id).deleteForMe(userId);
   }
 
   /**

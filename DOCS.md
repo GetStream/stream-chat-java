@@ -1216,7 +1216,7 @@ Message.delete(messageId).deletedBy(userId).request();
 Message.delete(messageId).hard(true).deletedBy(userId).request();
 
 // delete for me only (message is only deleted for the specified user)
-Message.delete(messageId).deleteForMe(true).deletedBy(userId).request();
+Message.delete(messageId).deleteForMe(userId).request();
 
 // convenience methods
 Message.hardDelete(messageId).request();
