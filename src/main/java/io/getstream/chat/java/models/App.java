@@ -375,6 +375,20 @@ public class App extends StreamResponseObject {
     UNKNOWN
   }
 
+  public enum Product {
+    @JsonProperty("chat")
+    CHAT,
+    @JsonProperty("video")
+    VIDEO,
+    @JsonProperty("moderation")
+    MODERATION,
+    @JsonProperty("feeds")
+    FEEDS,
+    @JsonProperty("all")
+    @JsonEnumDefaultValue
+    ALL
+  }
+
   public enum AuthType {
     @JsonProperty("keys")
     KEYS, // Using AWS access key and secret key
@@ -419,6 +433,10 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("enabled")
     private Boolean enabled;
+
+    @Nullable
+    @JsonProperty("product")
+    private Product product;
 
     @Nullable
     @JsonProperty("event_types")
