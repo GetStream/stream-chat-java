@@ -201,9 +201,7 @@ public class AppTest extends BasicTest {
     chatWebhookHook.setProduct(App.Product.CHAT);
 
     try {
-      App.update()
-          .eventHooks(Arrays.asList(defaultWebhookHook, chatWebhookHook))
-          .request();
+      App.update().eventHooks(Arrays.asList(defaultWebhookHook, chatWebhookHook)).request();
     } catch (StreamException e) {
       if (e.getMessage().contains("cannot set event hooks in hook v1 system")) {
         return;
