@@ -252,7 +252,7 @@ public class AppTest extends BasicTest {
     pendingMessageHook.setEnabled(true);
     pendingMessageHook.setWebhookURL("https://example.com/pending-message-webhook");
     pendingMessageHook.setTimeoutMs(3000);
-    
+
     App.PendingMessageCallback callback = new App.PendingMessageCallback();
     callback.setMode(App.CallbackMode.REST);
     pendingMessageHook.setCallback(callback);
