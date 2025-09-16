@@ -184,20 +184,24 @@ public class AppTest extends BasicTest {
     Assertions.assertEquals(newSizeLimit, appConfig.getFileUploadConfig().getSizeLimit());
   }
 
-  @DisplayName("Can update app settings with webhook event hook")
+  @DisplayName("Can update app settings with webhook event hooks with different products")
   @Test
-  void whenUpdatingAppSettingsWithWebhookEventHook_thenNoException() throws StreamException {
-    EventHook webhookHook = new EventHook();
-    webhookHook.setId("webhook-1");
-    webhookHook.setHookType(App.HookType.WEBHOOK);
-    webhookHook.setEnabled(true);
-    webhookHook.setEventTypes(Arrays.asList("message.new", "message.updated"));
-    webhookHook.setWebhookURL("https://example.com/webhook");
-    webhookHook.setCreatedAt(new Date());
-    webhookHook.setUpdatedAt(new Date());
+  void whenUpdatingAppSettingsWithWebhookEventHooks_thenNoException() throws StreamException {
+    EventHook defaultWebhookHook = new EventHook();
+    defaultWebhookHook.setHookType(App.HookType.WEBHOOK);
+    defaultWebhookHook.setEnabled(true);
+    defaultWebhookHook.setEventTypes(Arrays.asList("message.new", "message.updated"));
+    defaultWebhookHook.setWebhookURL("https://example.com/webhook-default");
+
+    EventHook chatWebhookHook = new EventHook();
+    chatWebhookHook.setHookType(App.HookType.WEBHOOK);
+    chatWebhookHook.setEnabled(true);
+    chatWebhookHook.setEventTypes(Arrays.asList("message.new", "message.updated"));
+    chatWebhookHook.setWebhookURL("https://example.com/webhook-chat");
+    chatWebhookHook.setProduct(App.Product.CHAT);
 
     try {
-      App.update().eventHooks(Collections.singletonList(webhookHook)).request();
+      App.update().eventHooks(Arrays.asList(defaultWebhookHook, chatWebhookHook)).request();
     } catch (StreamException e) {
       if (e.getMessage().contains("cannot set event hooks in hook v1 system")) {
         return;
