@@ -126,4 +126,3 @@ public class DeliveryReceiptsTest extends BasicTest {
     return confirmation;
   }
 }
-
