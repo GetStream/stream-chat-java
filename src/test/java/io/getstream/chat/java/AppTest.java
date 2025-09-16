@@ -45,21 +45,6 @@ public class AppTest extends BasicTest {
   @Test
   void whenUpdatingAppSettings_thenNoException() {
     Assertions.assertDoesNotThrow(
-        () ->
-            App.update()
-                .disableAuthChecks(true)
-                .disablePermissionsChecks(true)
-                .asyncModerationConfig(
-                    App.AsyncModerationConfigRequestObject.builder()
-                        .callback(
-                            App.AsyncModerationCallback.builder()
-                                .mode("CALLBACK_MODE_REST")
-                                .serverUrl("http://localhost.com")
-                                .build())
-                        .timeoutMs(3000)
-                        .build())
-                .request());
-    Assertions.assertDoesNotThrow(
         () -> App.update().disableAuthChecks(false).disablePermissionsChecks(false).request());
   }
 
@@ -250,6 +235,30 @@ public class AppTest extends BasicTest {
 
     try {
       App.update().eventHooks(Collections.singletonList(snsHook)).request();
+    } catch (StreamException e) {
+      if (e.getMessage().contains("cannot set event hooks in hook v1 system")) {
+        return;
+      }
+      throw e;
+    }
+  }
+
+  @DisplayName("Can update app settings with pending message event hook")
+  @Test
+  void whenUpdatingAppSettingsWithPendingMessageEventHook_thenNoException() throws StreamException {
+    EventHook pendingMessageHook = new EventHook();
+    pendingMessageHook.setId("5944d247-8b4f-4108-a970-fe1d11fca989");
+    pendingMessageHook.setHookType(App.HookType.PENDING_MESSAGE);
+    pendingMessageHook.setEnabled(true);
+    pendingMessageHook.setWebhookURL("https://example.com/pending-message-webhook");
+    pendingMessageHook.setTimeoutMs(3000);
+    
+    App.PendingMessageCallback callback = new App.PendingMessageCallback();
+    callback.setMode(App.CallbackMode.REST);
+    pendingMessageHook.setCallback(callback);
+
+    try {
+      App.update().eventHooks(Collections.singletonList(pendingMessageHook)).request();
     } catch (StreamException e) {
       if (e.getMessage().contains("cannot set event hooks in hook v1 system")) {
         return;
