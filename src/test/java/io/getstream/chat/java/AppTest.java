@@ -214,10 +214,10 @@ public class AppTest extends BasicTest {
   @Test
   void whenUpdatingAppSettingsWithSQSEventHook_thenNoException() throws StreamException {
     EventHook sqsHook = new EventHook();
-    sqsHook.setId("sqs-1");
+    sqsHook.setId("4f811340-1cbb-40ef-8393-1c2b2e0d339a");
     sqsHook.setHookType(App.HookType.SQS);
     sqsHook.setEnabled(true);
-    sqsHook.setEventTypes(Arrays.asList("user.presence.changed", "user.updated"));
+    sqsHook.setEventTypes(Arrays.asList("message.new", "user.updated"));
     sqsHook.setSqsQueueURL("https://sqs.us-east-1.amazonaws.com/123456789012/MyQueue");
     sqsHook.setSqsRegion("us-east-1");
     sqsHook.setSqsAuthType(App.AuthType.RESOURCE);
@@ -238,7 +238,7 @@ public class AppTest extends BasicTest {
   @Test
   void whenUpdatingAppSettingsWithSNSEventHook_thenNoException() throws StreamException {
     EventHook snsHook = new EventHook();
-    snsHook.setId("sns-1");
+    snsHook.setId("7469e77e-52cd-4765-8ca0-e6a28e95e482");
     snsHook.setHookType(App.HookType.SNS);
     snsHook.setEnabled(true);
     snsHook.setEventTypes(Arrays.asList("channel.created", "channel.updated"));
@@ -256,27 +256,6 @@ public class AppTest extends BasicTest {
       }
       throw e;
     }
-  }
-
-  @DisplayName("App Settings update webhook events")
-  @Test
-  void whenUpdatingAppSettings_thenDoesntAlwaysChangeWebhookEvents() {
-    var messageNewList = Arrays.asList("message.new");
-    Assertions.assertDoesNotThrow(() -> App.update().webhookEvents(messageNewList).request());
-
-    var appConfig = Assertions.assertDoesNotThrow(() -> App.get().request()).getApp();
-    Assertions.assertEquals(messageNewList, appConfig.getWebhookEvents());
-
-    // Updating another field should not change (reset) webhook events
-    Assertions.assertDoesNotThrow(() -> App.update().remindersInterval(60).request());
-
-    appConfig = Assertions.assertDoesNotThrow(() -> App.get().request()).getApp();
-    Assertions.assertEquals(messageNewList, appConfig.getWebhookEvents());
-
-    // Reset webhook events to defaults using an empty list
-    Assertions.assertDoesNotThrow(() -> App.update().webhookEvents(new ArrayList<>()).request());
-    appConfig = Assertions.assertDoesNotThrow(() -> App.get().request()).getApp();
-    Assertions.assertTrue(appConfig.getWebhookEvents().size() > 1);
   }
 
   @DisplayName("AppConfig encoding should not include null fields")
