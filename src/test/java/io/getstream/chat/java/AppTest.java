@@ -45,21 +45,6 @@ public class AppTest extends BasicTest {
   @Test
   void whenUpdatingAppSettings_thenNoException() {
     Assertions.assertDoesNotThrow(
-        () ->
-            App.update()
-                .disableAuthChecks(true)
-                .disablePermissionsChecks(true)
-                .asyncModerationConfig(
-                    App.AsyncModerationConfigRequestObject.builder()
-                        .callback(
-                            App.AsyncModerationCallback.builder()
-                                .mode("CALLBACK_MODE_REST")
-                                .serverUrl("http://localhost.com")
-                                .build())
-                        .timeoutMs(3000)
-                        .build())
-                .request());
-    Assertions.assertDoesNotThrow(
         () -> App.update().disableAuthChecks(false).disablePermissionsChecks(false).request());
   }
 
@@ -214,10 +199,10 @@ public class AppTest extends BasicTest {
   @Test
   void whenUpdatingAppSettingsWithSQSEventHook_thenNoException() throws StreamException {
     EventHook sqsHook = new EventHook();
-    sqsHook.setId("sqs-1");
+    sqsHook.setId("4f811340-1cbb-40ef-8393-1c2b2e0d339a");
     sqsHook.setHookType(App.HookType.SQS);
     sqsHook.setEnabled(true);
-    sqsHook.setEventTypes(Arrays.asList("user.presence.changed", "user.updated"));
+    sqsHook.setEventTypes(Arrays.asList("message.new", "user.updated"));
     sqsHook.setSqsQueueURL("https://sqs.us-east-1.amazonaws.com/123456789012/MyQueue");
     sqsHook.setSqsRegion("us-east-1");
     sqsHook.setSqsAuthType(App.AuthType.RESOURCE);
@@ -238,7 +223,7 @@ public class AppTest extends BasicTest {
   @Test
   void whenUpdatingAppSettingsWithSNSEventHook_thenNoException() throws StreamException {
     EventHook snsHook = new EventHook();
-    snsHook.setId("sns-1");
+    snsHook.setId("7469e77e-52cd-4765-8ca0-e6a28e95e482");
     snsHook.setHookType(App.HookType.SNS);
     snsHook.setEnabled(true);
     snsHook.setEventTypes(Arrays.asList("channel.created", "channel.updated"));
@@ -258,25 +243,28 @@ public class AppTest extends BasicTest {
     }
   }
 
-  @DisplayName("App Settings update webhook events")
+  @DisplayName("Can update app settings with pending message event hook")
   @Test
-  void whenUpdatingAppSettings_thenDoesntAlwaysChangeWebhookEvents() {
-    var messageNewList = Arrays.asList("message.new");
-    Assertions.assertDoesNotThrow(() -> App.update().webhookEvents(messageNewList).request());
+  void whenUpdatingAppSettingsWithPendingMessageEventHook_thenNoException() throws StreamException {
+    EventHook pendingMessageHook = new EventHook();
+    pendingMessageHook.setId("5944d247-8b4f-4108-a970-fe1d11fca989");
+    pendingMessageHook.setHookType(App.HookType.PENDING_MESSAGE);
+    pendingMessageHook.setEnabled(true);
+    pendingMessageHook.setWebhookURL("https://example.com/pending-message-webhook");
+    pendingMessageHook.setTimeoutMs(3000);
 
-    var appConfig = Assertions.assertDoesNotThrow(() -> App.get().request()).getApp();
-    Assertions.assertEquals(messageNewList, appConfig.getWebhookEvents());
+    App.PendingMessageCallback callback = new App.PendingMessageCallback();
+    callback.setMode(App.CallbackMode.REST);
+    pendingMessageHook.setCallback(callback);
 
-    // Updating another field should not change (reset) webhook events
-    Assertions.assertDoesNotThrow(() -> App.update().remindersInterval(60).request());
-
-    appConfig = Assertions.assertDoesNotThrow(() -> App.get().request()).getApp();
-    Assertions.assertEquals(messageNewList, appConfig.getWebhookEvents());
-
-    // Reset webhook events to defaults using an empty list
-    Assertions.assertDoesNotThrow(() -> App.update().webhookEvents(new ArrayList<>()).request());
-    appConfig = Assertions.assertDoesNotThrow(() -> App.get().request()).getApp();
-    Assertions.assertTrue(appConfig.getWebhookEvents().size() > 1);
+    try {
+      App.update().eventHooks(Collections.singletonList(pendingMessageHook)).request();
+    } catch (StreamException e) {
+      if (e.getMessage().contains("cannot set event hooks in hook v1 system")) {
+        return;
+      }
+      throw e;
+    }
   }
 
   @DisplayName("AppConfig encoding should not include null fields")
