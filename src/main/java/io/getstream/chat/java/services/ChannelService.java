@@ -2,6 +2,7 @@ package io.getstream.chat.java.services;
 
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.Channel.*;
+import io.getstream.chat.java.models.MarkDeliveredOptions;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.framework.ToJson;
 import org.jetbrains.annotations.NotNull;
@@ -103,4 +104,8 @@ public interface ChannelService {
       @NotNull @Path("id") String channelId,
       @NotNull @Path("user_id") String userId,
       @NotNull @Body ChannelMemberPartialUpdateRequestData updateMemberPartialRequestData);
+
+  @POST("channels/delivered")
+  Call<MarkDeliveredOptions.MarkDeliveredResponse> markChannelsDelivered(
+      @NotNull @Body MarkDeliveredOptions markDeliveredOptions);
 }
