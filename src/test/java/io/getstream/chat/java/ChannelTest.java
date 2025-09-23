@@ -555,4 +555,73 @@ public class ChannelTest extends BasicTest {
                     .request());
     Assertions.assertNull(channelMemberResponse.getMember().getArchivedAt());
   }
+
+  @DisplayName("Can set custom field on channel member")
+  @Test
+  void whenSettingCustomFieldOnMember_thenNoException() {
+    final var customField = "custom_field_on_member";
+    final var customValue = "custom_value";
+
+    var channelMemberReq =
+        ChannelMemberRequestObject.builder()
+            .user(testUserRequestObject)
+            .additionalField(customField, customValue)
+            .build();
+    var channelReq =
+        ChannelRequestObject.builder()
+            .createdBy(testUserRequestObject)
+            .members(List.of(channelMemberReq))
+            .build();
+    var channel =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.getOrCreate(testChannel.getType(), RandomStringUtils.randomAlphabetic(12))
+                    .data(channelReq)
+                    .request());
+
+    Assertions.assertNotNull(channel.getMembers());
+    var members = channel.getMembers();
+    Assertions.assertEquals(1, members.size());
+    var member = members.get(0);
+    Assertions.assertEquals(customValue, member.getAdditionalFields().get(customField));
+  }
+
+  @DisplayName("Can set custom field on channel member")
+  @Test
+  void whenPartialUpdateMember_thenNoException() {
+    var channelType = "messaging";
+    var channelId = RandomStringUtils.randomAlphabetic(12);
+    var channelMemberReq =
+        ChannelMemberRequestObject.builder()
+            .user(testUserRequestObject)
+            .additionalField("field1", "value1")
+            .build();
+    var channelReq =
+        ChannelRequestObject.builder()
+            .createdBy(testUserRequestObject)
+            .members(List.of(channelMemberReq))
+            .build();
+    var channel =
+        Assertions.assertDoesNotThrow(
+            () -> Channel.getOrCreate(channelType, channelId).data(channelReq).request());
+
+    Assertions.assertNotNull(channel.getMembers());
+    var members = channel.getMembers();
+    Assertions.assertEquals(1, members.size());
+    var member = members.get(0);
+    Assertions.assertEquals("value1", member.getAdditionalFields().get("field1"));
+
+    // update partial
+    var partialUpdateResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.updateMemberPartial(channelType, channelId, testUserRequestObject.getId())
+                    .setValue("field1", "updated_value1")
+                    .setValue("field2", "value2")
+                    .request());
+
+    var updatedMember = partialUpdateResponse.getMember();
+    Assertions.assertEquals("updated_value1", updatedMember.getAdditionalFields().get("field1"));
+    Assertions.assertEquals("value2", updatedMember.getAdditionalFields().get("field2"));
+  }
 }
