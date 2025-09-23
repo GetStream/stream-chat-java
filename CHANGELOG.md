@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.33.0](https://github.com/GetStream/stream-chat-java/compare/1.32.0...1.33.0) (2025-09-23)
+
+
+### Features
+
+* add additional fields to channel member request ([#199](https://github.com/GetStream/stream-chat-java/issues/199)) ([3a319f6](https://github.com/GetStream/stream-chat-java/commit/3a319f680ea09f6e5b0d590231b989d43a4e9d62))
+
+
+### Bug Fixes
+
+* Failing webhook tests ([#198](https://github.com/GetStream/stream-chat-java/issues/198)) ([1592e3f](https://github.com/GetStream/stream-chat-java/commit/1592e3f0aed5492c9ed8f0ed29664b81452539d7))
+
 ## [1.32.0](https://github.com/GetStream/stream-chat-java/compare/1.31.1...1.32.0) (2025-09-01)
 
 ### [1.31.1](https://github.com/GetStream/stream-chat-java/compare/1.31.0...1.31.1) (2025-09-01)
