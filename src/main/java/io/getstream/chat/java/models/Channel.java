@@ -380,6 +380,18 @@ public class Channel {
     @JsonProperty("shadow_banned")
     private Boolean shadowBanned;
 
+    @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalFields() {
+      return this.additionalFields;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalField(String name, Object value) {
+      this.additionalFields.put(name, value);
+    }
+
     @Nullable
     public static ChannelMemberRequestObject buildFrom(@Nullable ChannelMember channelMember) {
       return RequestObjectBuilder.build(ChannelMemberRequestObject.class, channelMember);
