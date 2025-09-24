@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.33.1](https://github.com/GetStream/stream-chat-java/compare/1.33.0...1.33.1) (2025-09-24)
+
+
+### Bug Fixes
+
+* Expose getEventHooks() ([#201](https://github.com/GetStream/stream-chat-java/issues/201)) ([f5951a9](https://github.com/GetStream/stream-chat-java/commit/f5951a91305220277b013ddf74e21bfbe2e73c2a))
+
 ## [1.33.0](https://github.com/GetStream/stream-chat-java/compare/1.32.0...1.33.0) (2025-09-23)
 
 
