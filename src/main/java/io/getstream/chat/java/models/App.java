@@ -500,7 +500,7 @@ public class App extends StreamResponseObject {
 
     @Nullable
     @JsonProperty("timeout_ms")
-    private Integer timeoutMs;
+    private Number timeoutMs;
 
     @Nullable
     @JsonProperty("callback")
