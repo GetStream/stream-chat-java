@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.33.2](https://github.com/GetStream/stream-chat-java/compare/1.33.1...1.33.2) (2025-09-24)
+
+
+### Bug Fixes
+
+* Change timeout_ms in event hooks to Number to match the old async moderation config ([#203](https://github.com/GetStream/stream-chat-java/issues/203)) ([b80e6b7](https://github.com/GetStream/stream-chat-java/commit/b80e6b7228cc759c6bbe433726311673a2952eff))
+
 ### [1.33.1](https://github.com/GetStream/stream-chat-java/compare/1.33.0...1.33.1) (2025-09-24)
 
 
