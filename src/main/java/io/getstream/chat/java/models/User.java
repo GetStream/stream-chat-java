@@ -24,13 +24,12 @@ import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.UserService;
 import io.getstream.chat.java.services.framework.Client;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
-import javax.crypto.spec.SecretKeySpec;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -1473,9 +1472,7 @@ public class User {
       @NotNull String userId,
       @Nullable Date expiresAt,
       @Nullable Date issuedAt) {
-    var signingKey =
-        new SecretKeySpec(
-            apiSecret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
+    var signingKey = Keys.hmacShaKeyFor(apiSecret.getBytes(StandardCharsets.UTF_8));
 
     if (issuedAt == null) {
       GregorianCalendar calendar = new GregorianCalendar();
@@ -1485,11 +1482,11 @@ public class User {
 
     return Jwts.builder()
         .claim("user_id", userId)
-        .setExpiration(expiresAt)
-        .setIssuedAt(issuedAt)
-        .setIssuer("Stream Chat Java SDK")
-        .setSubject("Stream Chat Java SDK")
-        .signWith(signingKey, SignatureAlgorithm.HS256)
+        .expiration(expiresAt)
+        .issuedAt(issuedAt)
+        .issuer("Stream Chat Java SDK")
+        .subject("Stream Chat Java SDK")
+        .signWith(signingKey, Jwts.SIG.HS256)
         .compact();
   }
 }
