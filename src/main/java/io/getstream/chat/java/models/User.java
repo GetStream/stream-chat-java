@@ -346,10 +346,11 @@ public class User {
 
   @Builder
   @Setter
+  @Getter
+  @EqualsAndHashCode
   public static class UserRequestObject {
     @NotNull
     @JsonProperty("id")
-    @Getter
     private String id;
 
     @Nullable
@@ -399,6 +400,8 @@ public class User {
   }
 
   @Builder
+  @Getter
+  @EqualsAndHashCode
   public static class UserPartialUpdateRequestObject {
     @Nullable
     @JsonProperty("id")
@@ -417,6 +420,8 @@ public class User {
 
   @Builder
   @Setter
+  @Getter
+  @EqualsAndHashCode
   public static class OwnUserRequestObject {
     @Nullable
     @JsonProperty("id")
@@ -521,6 +526,8 @@ public class User {
 
   @Builder
   @Setter
+  @Getter
+  @EqualsAndHashCode
   public static class UserMuteRequestObject {
     @Nullable
     @JsonProperty("user")
@@ -550,6 +557,8 @@ public class User {
 
   @Builder
   @Setter
+  @Getter
+  @EqualsAndHashCode
   public static class ChannelMuteRequestObject {
     @Nullable
     @JsonProperty("user")
@@ -581,6 +590,8 @@ public class User {
       builderClassName = "UserUpsertRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserUpsertRequestData {
     @Nullable
     @JsonProperty("users")
@@ -610,6 +621,8 @@ public class User {
       builderClassName = "UserListRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserListRequestData {
     // Singular is required because cannot be null
     @Singular
@@ -662,6 +675,8 @@ public class User {
       builderClassName = "UserPartialUpdateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserPartialUpdateRequestData {
     @Singular
     @Nullable
@@ -680,6 +695,8 @@ public class User {
       builderClassName = "UserQueryBannedRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserQueryBannedRequestData {
     // Singular is required because cannot be null
     @Singular
@@ -736,6 +753,8 @@ public class User {
       builderClassName = "UserBanRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserBanRequestData {
     @Nullable
     @JsonProperty("target_user_id")
@@ -793,6 +812,8 @@ public class User {
       builderClassName = "UserDeactivateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserDeactivateRequestData {
     @NotNull
     @JsonProperty("user_id")
@@ -807,7 +828,6 @@ public class User {
     private String createdById;
 
     public static class UserDeactivateRequest extends StreamRequest<UserDeactivateResponse> {
-
       private UserDeactivateRequest(@NotNull String userId) {
         this.userId = userId;
       }
@@ -820,6 +840,8 @@ public class User {
   }
 
   @RequiredArgsConstructor
+  @Getter
+  @EqualsAndHashCode(callSuper = true)
   public static class UserDeleteRequest extends StreamRequest<UserDeleteResponse> {
     @NotNull private String userId;
 
@@ -860,6 +882,8 @@ public class User {
       builderClassName = "UserDeleteManyRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserDeleteManyRequestData {
     @NotNull
     @JsonProperty("user_ids")
@@ -901,7 +925,6 @@ public class User {
   @EqualsAndHashCode(callSuper = true)
   public static class UserDeleteManyResponse extends StreamResponseObject {
     @JsonProperty("task_id")
-    @Getter
     private String taskId;
   }
 
@@ -909,6 +932,8 @@ public class User {
       builderClassName = "UserReactivateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserReactivateRequestData {
     @Nullable
     @JsonProperty("user_id")
@@ -943,6 +968,8 @@ public class User {
       builderClassName = "UserMuteRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserMuteRequestData {
     @Nullable
     @JsonProperty("target_id")
@@ -977,6 +1004,8 @@ public class User {
       builderClassName = "UserUnmuteRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserUnmuteRequestData {
     @Nullable
     @JsonProperty("target_id")
@@ -1011,6 +1040,8 @@ public class User {
       builderClassName = "UserCreateGuestRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserCreateGuestRequestData {
     @Nullable
     @JsonProperty("user")
@@ -1025,6 +1056,8 @@ public class User {
   }
 
   @RequiredArgsConstructor
+  @Getter
+  @EqualsAndHashCode(callSuper = true)
   public static class UserExportRequest extends StreamRequest<UserExportResponse> {
     @NotNull private String userId;
 
@@ -1035,6 +1068,8 @@ public class User {
   }
 
   @RequiredArgsConstructor
+  @Getter
+  @EqualsAndHashCode(callSuper = true)
   public static class UserUnbanRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String targetUserId;
 
@@ -1069,6 +1104,8 @@ public class User {
   }
 
   @AllArgsConstructor
+  @Getter
+  @EqualsAndHashCode(callSuper = true)
   public static class UserRevokeTokensRequest extends StreamRequest<UserPartialUpdateResponse> {
     @NotNull private List<String> userIds = new ArrayList<>();
 

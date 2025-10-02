@@ -37,6 +37,8 @@ public class Blocklist {
       builderClassName = "BlocklistCreateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class BlocklistCreateRequestData {
     @Nullable
     @JsonProperty("name")
@@ -55,6 +57,8 @@ public class Blocklist {
   }
 
   @RequiredArgsConstructor
+  @Getter
+  @EqualsAndHashCode(callSuper = true)
   public static class BlocklistGetRequest extends StreamRequest<BlocklistGetResponse> {
     @NotNull private String name;
 
@@ -68,6 +72,8 @@ public class Blocklist {
       builderClassName = "BlocklistUpdateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class BlocklistUpdateRequestData {
     @Nullable
     @JsonProperty("words")
@@ -88,6 +94,8 @@ public class Blocklist {
   }
 
   @RequiredArgsConstructor
+  @Getter
+  @EqualsAndHashCode(callSuper = true)
   public static class BlocklistDeleteRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String name;
 

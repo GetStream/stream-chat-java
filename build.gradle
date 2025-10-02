@@ -4,6 +4,7 @@ plugins {
 	id 'com.diffplug.spotless' version '6.25.0'
 	id 'org.barfuin.gradle.jacocolog' version '3.1.0'
 	id 'com.github.johnrengelman.shadow' version '8.1.1'
+	id 'io.freefair.lombok' version '8.4'
 }
 
 group = 'io.getstream'
@@ -39,12 +40,7 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.5'
 	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 	testImplementation 'org.apache.commons:commons-lang3:3.12.0'
-	compileOnly 'org.projectlombok:lombok:1.18.32'
-	annotationProcessor 'org.projectlombok:lombok:1.18.32'
 	compileOnly 'org.jetbrains:annotations:24.1.0'
-
-	testCompileOnly 'org.projectlombok:lombok:1.18.32'
-	testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
 }
 
 def localProperties = new Properties()
@@ -108,6 +104,13 @@ shadowJar {
 	enableRelocation true
 	relocationPrefix "shadowed"
 	mergeServiceFiles()
+}
+
+// Configure javadoc to use delomboked sources
+javadoc {
+	dependsOn delombok
+	source = delombok.target
+	options.addStringOption('Xdoclint:none', '-quiet')
 }
 
 apply from: "publish.gradle"
