@@ -6,6 +6,7 @@ import io.getstream.chat.java.models.MarkDeliveredOptions;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
 import io.getstream.chat.java.models.Message.MessageType;
+import io.getstream.chat.java.models.User;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -37,10 +38,14 @@ public class DeliveryReceiptsTest extends BasicTest {
     confirmation.setCid(testChannel.getCId());
     confirmation.setId(message.getId());
 
-    // Create mark delivered options with userId
+    // Create mark delivered options with user object
     MarkDeliveredOptions options = new MarkDeliveredOptions();
     options.setLatestDeliveredMessages(Arrays.asList(confirmation));
-    options.setUserId(testUserRequestObject.getId());
+
+    // Create a minimal User object with just the ID
+    User user = new User();
+    user.setId(testUserRequestObject.getId());
+    options.setUser(user);
 
     // Mark channels as delivered
     MarkDeliveredOptions.MarkDeliveredResponse response =
@@ -72,10 +77,14 @@ public class DeliveryReceiptsTest extends BasicTest {
     confirmation.setCid(testChannel.getCId());
     confirmation.setId(message.getId());
 
-    // Create mark delivered options
+    // Create mark delivered options with user object
     MarkDeliveredOptions options = new MarkDeliveredOptions();
     options.setLatestDeliveredMessages(Arrays.asList(confirmation));
-    options.setUserId(testUserRequestObject.getId());
+
+    // Create a minimal User object with just the ID
+    User user = new User();
+    user.setId(testUserRequestObject.getId());
+    options.setUser(user);
 
     // Mark channels as delivered
     MarkDeliveredOptions.MarkDeliveredResponse response =
@@ -116,10 +125,14 @@ public class DeliveryReceiptsTest extends BasicTest {
             createConfirmation(testChannel.getCId(), messages.get(0).getId()),
             createConfirmation(testChannel.getCId(), messages.get(1).getId()));
 
-    // Create mark delivered options with userId
+    // Create mark delivered options with user object
     MarkDeliveredOptions options = new MarkDeliveredOptions();
     options.setLatestDeliveredMessages(confirmations);
-    options.setUserId(testUserRequestObject.getId());
+
+    // Create a minimal User object with just the ID
+    User user = new User();
+    user.setId(testUserRequestObject.getId());
+    options.setUser(user);
 
     // Mark channels as delivered
     MarkDeliveredOptions.MarkDeliveredResponse response =
