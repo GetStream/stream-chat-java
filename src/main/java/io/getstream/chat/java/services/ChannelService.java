@@ -107,5 +107,6 @@ public interface ChannelService {
 
   @POST("channels/delivered")
   Call<MarkDeliveredOptions.MarkDeliveredResponse> markChannelsDelivered(
-      @NotNull @Body MarkDeliveredOptions markDeliveredOptions);
+      @NotNull @Body MarkDeliveredOptions markDeliveredOptions,
+      @NotNull @Query("user_id") String userId);
 }

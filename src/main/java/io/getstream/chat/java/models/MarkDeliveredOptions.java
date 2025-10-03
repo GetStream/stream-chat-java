@@ -33,6 +33,7 @@ public class MarkDeliveredOptions {
 
   public static class MarkDeliveredRequest extends StreamRequest<MarkDeliveredResponse> {
     private MarkDeliveredOptions options;
+    private String userId;
 
     public MarkDeliveredRequest() {}
 
@@ -55,7 +56,7 @@ public class MarkDeliveredOptions {
 
     @Override
     protected Call<MarkDeliveredResponse> generateCall(Client client) {
-      return client.create(ChannelService.class).markChannelsDelivered(options);
+      return client.create(ChannelService.class).markChannelsDelivered(options, userId);
     }
   }
 
