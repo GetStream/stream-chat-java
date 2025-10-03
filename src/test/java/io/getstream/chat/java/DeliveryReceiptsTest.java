@@ -38,14 +38,15 @@ public class DeliveryReceiptsTest extends BasicTest {
     confirmation.setCid(testChannel.getCId());
     confirmation.setId(message.getId());
 
-    // Create mark delivered options with user object
+    // Create mark delivered options with both user and userId
     MarkDeliveredOptions options = new MarkDeliveredOptions();
     options.setLatestDeliveredMessages(Arrays.asList(confirmation));
 
-    // Create a minimal User object with just the ID
+    // Set both user object and userId string
     User user = new User();
     user.setId(testUserRequestObject.getId());
     options.setUser(user);
+    options.setUserId(testUserRequestObject.getId());
 
     // Mark channels as delivered
     MarkDeliveredOptions.MarkDeliveredResponse response =
@@ -77,14 +78,15 @@ public class DeliveryReceiptsTest extends BasicTest {
     confirmation.setCid(testChannel.getCId());
     confirmation.setId(message.getId());
 
-    // Create mark delivered options with user object
+    // Create mark delivered options with both user and userId
     MarkDeliveredOptions options = new MarkDeliveredOptions();
     options.setLatestDeliveredMessages(Arrays.asList(confirmation));
 
-    // Create a minimal User object with just the ID
+    // Set both user object and userId string
     User user = new User();
     user.setId(testUserRequestObject.getId());
     options.setUser(user);
+    options.setUserId(testUserRequestObject.getId());
 
     // Mark channels as delivered
     MarkDeliveredOptions.MarkDeliveredResponse response =
@@ -125,14 +127,15 @@ public class DeliveryReceiptsTest extends BasicTest {
             createConfirmation(testChannel.getCId(), messages.get(0).getId()),
             createConfirmation(testChannel.getCId(), messages.get(1).getId()));
 
-    // Create mark delivered options with user object
+    // Create mark delivered options with both user and userId
     MarkDeliveredOptions options = new MarkDeliveredOptions();
     options.setLatestDeliveredMessages(confirmations);
 
-    // Create a minimal User object with just the ID
+    // Set both user object and userId string
     User user = new User();
     user.setId(testUserRequestObject.getId());
     options.setUser(user);
+    options.setUserId(testUserRequestObject.getId());
 
     // Mark channels as delivered
     MarkDeliveredOptions.MarkDeliveredResponse response =
