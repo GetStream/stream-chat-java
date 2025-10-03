@@ -37,9 +37,14 @@ public class DeliveryReceiptsTest extends BasicTest {
     confirmation.setCid(testChannel.getCId());
     confirmation.setId(message.getId());
 
+    // Create mark delivered options with userId
+    MarkDeliveredOptions options = new MarkDeliveredOptions();
+    options.setLatestDeliveredMessages(Arrays.asList(confirmation));
+    options.setUserId(testUserRequestObject.getId());
+
     // Mark channels as delivered
     MarkDeliveredOptions.MarkDeliveredResponse response =
-        MarkDeliveredOptions.markChannelsDelivered(Arrays.asList(confirmation)).request();
+        MarkDeliveredOptions.markChannelsDelivered(options).request();
 
     // Verify response is not null (successful call)
     Assertions.assertNotNull(response);
