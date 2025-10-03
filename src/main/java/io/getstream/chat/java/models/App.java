@@ -322,6 +322,10 @@ public class App extends StreamResponseObject {
     @Nullable
     @JsonProperty("user_response_time_enabled")
     private Boolean userResponseTimeEnabled;
+
+    @Nullable
+    @JsonProperty("event_hooks")
+    private List<EventHook> eventHooks;
   }
 
   public enum PermissionVersion {
@@ -496,7 +500,7 @@ public class App extends StreamResponseObject {
 
     @Nullable
     @JsonProperty("timeout_ms")
-    private Integer timeoutMs;
+    private Number timeoutMs;
 
     @Nullable
     @JsonProperty("callback")
