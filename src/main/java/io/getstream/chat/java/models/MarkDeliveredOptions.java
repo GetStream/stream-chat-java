@@ -45,6 +45,14 @@ public class MarkDeliveredOptions {
       return this;
     }
 
+    public MarkDeliveredRequest userId(String userId) {
+      if (this.options == null) {
+        this.options = new MarkDeliveredOptions();
+      }
+      this.options.setUserId(userId);
+      return this;
+    }
+
     @Override
     protected Call<MarkDeliveredResponse> generateCall(Client client) {
       return client.create(ChannelService.class).markChannelsDelivered(options);
