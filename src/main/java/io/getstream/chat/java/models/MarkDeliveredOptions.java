@@ -47,10 +47,7 @@ public class MarkDeliveredOptions {
     }
 
     public MarkDeliveredRequest userId(String userId) {
-      if (this.options == null) {
-        this.options = new MarkDeliveredOptions();
-      }
-      this.options.setUserId(userId);
+      this.userId = userId;
       return this;
     }
 

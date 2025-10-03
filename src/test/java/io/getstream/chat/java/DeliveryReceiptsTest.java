@@ -6,7 +6,6 @@ import io.getstream.chat.java.models.MarkDeliveredOptions;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
 import io.getstream.chat.java.models.Message.MessageType;
-import io.getstream.chat.java.models.User;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -38,17 +37,7 @@ public class DeliveryReceiptsTest extends BasicTest {
     confirmation.setCid(testChannel.getCId());
     confirmation.setId(message.getId());
 
-    // Create mark delivered options with both user and userId
-    MarkDeliveredOptions options = new MarkDeliveredOptions();
-    options.setLatestDeliveredMessages(Arrays.asList(confirmation));
-
-    // Set both user object and userId string
-    User user = new User();
-    user.setId(testUserRequestObject.getId());
-    options.setUser(user);
-    options.setUserId(testUserRequestObject.getId());
-
-    // Mark channels as delivered
+    // Mark channels as delivered using the fluent API
     MarkDeliveredOptions.MarkDeliveredResponse response =
         MarkDeliveredOptions.markChannelsDelivered(Arrays.asList(confirmation))
             .userId(testUserRequestObject.getId())
@@ -80,9 +69,13 @@ public class DeliveryReceiptsTest extends BasicTest {
     confirmation.setCid(testChannel.getCId());
     confirmation.setId(message.getId());
 
-    // Mark channels as delivered with user_id as parameter
+    // Create mark delivered options
+    MarkDeliveredOptions options = new MarkDeliveredOptions();
+    options.setLatestDeliveredMessages(Arrays.asList(confirmation));
+
+    // Mark channels as delivered using the fluent API
     MarkDeliveredOptions.MarkDeliveredResponse response =
-        MarkDeliveredOptions.markChannelsDelivered(Arrays.asList(confirmation))
+        MarkDeliveredOptions.markChannelsDelivered(options)
             .userId(testUserRequestObject.getId())
             .request();
 
@@ -121,7 +114,7 @@ public class DeliveryReceiptsTest extends BasicTest {
             createConfirmation(testChannel.getCId(), messages.get(0).getId()),
             createConfirmation(testChannel.getCId(), messages.get(1).getId()));
 
-    // Mark channels as delivered with user_id as parameter
+    // Mark channels as delivered using the fluent API
     MarkDeliveredOptions.MarkDeliveredResponse response =
         MarkDeliveredOptions.markChannelsDelivered(confirmations)
             .userId(testUserRequestObject.getId())
