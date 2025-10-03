@@ -50,7 +50,9 @@ public class DeliveryReceiptsTest extends BasicTest {
 
     // Mark channels as delivered
     MarkDeliveredOptions.MarkDeliveredResponse response =
-        MarkDeliveredOptions.markChannelsDelivered(options).request();
+        MarkDeliveredOptions.markChannelsDelivered(Arrays.asList(confirmation))
+            .userId(testUserRequestObject.getId())
+            .request();
 
     // Verify response is not null (successful call)
     Assertions.assertNotNull(response);
@@ -78,19 +80,11 @@ public class DeliveryReceiptsTest extends BasicTest {
     confirmation.setCid(testChannel.getCId());
     confirmation.setId(message.getId());
 
-    // Create mark delivered options with both user and userId
-    MarkDeliveredOptions options = new MarkDeliveredOptions();
-    options.setLatestDeliveredMessages(Arrays.asList(confirmation));
-
-    // Set both user object and userId string
-    User user = new User();
-    user.setId(testUserRequestObject.getId());
-    options.setUser(user);
-    options.setUserId(testUserRequestObject.getId());
-
-    // Mark channels as delivered
+    // Mark channels as delivered with user_id as parameter
     MarkDeliveredOptions.MarkDeliveredResponse response =
-        MarkDeliveredOptions.markChannelsDelivered(options).request();
+        MarkDeliveredOptions.markChannelsDelivered(Arrays.asList(confirmation))
+            .userId(testUserRequestObject.getId())
+            .request();
 
     // Verify response is not null (successful call)
     Assertions.assertNotNull(response);
@@ -127,19 +121,11 @@ public class DeliveryReceiptsTest extends BasicTest {
             createConfirmation(testChannel.getCId(), messages.get(0).getId()),
             createConfirmation(testChannel.getCId(), messages.get(1).getId()));
 
-    // Create mark delivered options with both user and userId
-    MarkDeliveredOptions options = new MarkDeliveredOptions();
-    options.setLatestDeliveredMessages(confirmations);
-
-    // Set both user object and userId string
-    User user = new User();
-    user.setId(testUserRequestObject.getId());
-    options.setUser(user);
-    options.setUserId(testUserRequestObject.getId());
-
-    // Mark channels as delivered
+    // Mark channels as delivered with user_id as parameter
     MarkDeliveredOptions.MarkDeliveredResponse response =
-        MarkDeliveredOptions.markChannelsDelivered(options).request();
+        MarkDeliveredOptions.markChannelsDelivered(confirmations)
+            .userId(testUserRequestObject.getId())
+            .request();
 
     // Verify response is not null (successful call)
     Assertions.assertNotNull(response);
