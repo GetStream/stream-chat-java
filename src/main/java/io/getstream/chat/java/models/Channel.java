@@ -1216,6 +1216,10 @@ public class Channel {
     @JsonProperty("user")
     private UserRequestObject user;
 
+    @Nullable
+    @JsonProperty("last_delivered_messages")
+    private List<LastDeliveredMessage> lastDeliveredMessages;
+
     public static class MarkDeliveredRequest extends StreamRequest<StreamResponseObject> {
       @Override
       protected Call<StreamResponseObject> generateCall(Client client) {
@@ -1512,6 +1516,19 @@ public class Channel {
     @NotNull
     @JsonProperty("members")
     private List<ChannelMember> members;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public static class LastDeliveredMessage {
+    @NotNull
+    @JsonProperty("cid")
+    private String cid;
+
+    @NotNull
+    @JsonProperty("message_id")
+    private String messageId;
   }
 
   /**

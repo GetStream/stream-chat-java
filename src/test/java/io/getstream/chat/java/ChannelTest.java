@@ -625,10 +625,19 @@ public class ChannelTest extends BasicTest {
     Assertions.assertEquals("value2", updatedMember.getAdditionalFields().get("field2"));
   }
 
-  @DisplayName("Can mark messages delivered")
+  @DisplayName("Can mark messages delivered with last delivered messages")
   @Test
-  void whenMarkingDelivered_thenNoException() {
+  void whenMarkingDeliveredWithLastDeliveredMessages_thenNoException() {
+    var lastDeliveredMessages =
+        List.of(
+            new Channel.LastDeliveredMessage("messaging:test-channel-1", "message-1"),
+            new Channel.LastDeliveredMessage("messaging:test-channel-2", "message-2"));
+
     Assertions.assertDoesNotThrow(
-        () -> Channel.markDelivered().userId(testUserRequestObject.getId()).request());
+        () ->
+            Channel.markDelivered()
+                .userId(testUserRequestObject.getId())
+                .lastDeliveredMessages(lastDeliveredMessages)
+                .request());
   }
 }
