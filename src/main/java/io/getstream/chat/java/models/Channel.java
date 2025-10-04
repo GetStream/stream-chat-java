@@ -1527,7 +1527,7 @@ public class Channel {
     private String cid;
 
     @NotNull
-    @JsonProperty("message_id")
+    @JsonProperty("id")
     private String messageId;
   }
 
