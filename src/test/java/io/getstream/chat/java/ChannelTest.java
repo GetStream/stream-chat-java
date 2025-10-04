@@ -629,6 +629,6 @@ public class ChannelTest extends BasicTest {
   @Test
   void whenMarkingDelivered_thenNoException() {
     Assertions.assertDoesNotThrow(
-        () -> Channel.markDelivered().user(testUserRequestObject).request());
+        () -> Channel.markDelivered().userId(testUserRequestObject.getId()).request());
   }
 }
