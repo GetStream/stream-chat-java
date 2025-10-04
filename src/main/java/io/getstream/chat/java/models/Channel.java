@@ -1219,7 +1219,7 @@ public class Channel {
     public static class MarkDeliveredRequest extends StreamRequest<StreamResponseObject> {
       @Override
       protected Call<StreamResponseObject> generateCall(Client client) {
-        return client.create(ChannelService.class).markDelivered(this.internalBuild());
+        return client.create(ChannelService.class).markDelivered(this.internalBuild(), userId);
       }
     }
   }

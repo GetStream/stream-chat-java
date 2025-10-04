@@ -106,5 +106,6 @@ public interface ChannelService {
 
   @POST("channels/delivered")
   Call<StreamResponseObject> markDelivered(
-      @NotNull @Body MarkDeliveredRequestData markDeliveredOptions);
+      @NotNull @Body MarkDeliveredRequestData markDeliveredOptions,
+      @Query("user_id") String userId);
 }
