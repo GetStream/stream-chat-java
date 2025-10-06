@@ -1217,8 +1217,8 @@ public class Channel {
     private UserRequestObject user;
 
     @Nullable
-    @JsonProperty("last_delivered_messages")
-    private List<LastDeliveredMessage> lastDeliveredMessages;
+    @JsonProperty("latest_delivered_messages")
+    private List<LatestDeliveredMessage> latestDeliveredMessages;
 
     public static class MarkDeliveredRequest extends StreamRequest<StreamResponseObject> {
       @Override
@@ -1521,7 +1521,7 @@ public class Channel {
   @Data
   @NoArgsConstructor
   @AllArgsConstructor
-  public static class LastDeliveredMessage {
+  public static class LatestDeliveredMessage {
     @NotNull
     @JsonProperty("cid")
     private String cid;
