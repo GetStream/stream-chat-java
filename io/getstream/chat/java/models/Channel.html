@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":10,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9,"i15":9,"i16":9,"i17":10,"i18":9,"i19":9,"i20":9,"i21":9,"i22":9,"i23":9,"i24":9};
+var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":10,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9,"i15":9,"i16":9,"i17":9,"i18":10,"i19":9,"i20":9,"i21":9,"i22":9,"i23":9,"i24":9,"i25":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -350,6 +350,16 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Channel.LatestDeliveredMessage.html" title="class in io.getstream.chat.java.models">Channel.LatestDeliveredMessage</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Channel.MarkDeliveredRequestData.html" title="class in io.getstream.chat.java.models">Channel.MarkDeliveredRequestData</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Channel.RoleAssignment.html" title="class in io.getstream.chat.java.models">Channel.RoleAssignment</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -479,6 +489,13 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i12" class="altColor">
+<td class="colFirst"><code>static @NotNull <a href="Channel.MarkDeliveredRequestData.MarkDeliveredRequest.html" title="class in io.getstream.chat.java.models">Channel.MarkDeliveredRequestData.MarkDeliveredRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#markDelivered()">markDelivered</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Creates a mark delivered request</div>
+</td>
+</tr>
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#markRead(java.lang.String,java.lang.String)">markRead</a></span>&#8203;(@NotNull java.lang.String&nbsp;type,
         @NotNull java.lang.String&nbsp;id)</code></th>
@@ -486,14 +503,14 @@ extends java.lang.Object</pre>
 <div class="block">Creates a mark read request</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Channel.ChannelMuteRequestData.ChannelMuteRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelMuteRequestData.ChannelMuteRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#mute()">mute</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a mute request</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Channel.ChannelPartialUpdateRequestData.ChannelPartialUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelPartialUpdateRequestData.ChannelPartialUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#partialUpdate(java.lang.String,java.lang.String)">partialUpdate</a></span>&#8203;(@NotNull java.lang.String&nbsp;type,
              @NotNull java.lang.String&nbsp;id)</code></th>
@@ -501,7 +518,7 @@ extends java.lang.Object</pre>
 <div class="block">Creates a partial update request</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Channel.ChannelMemberPartialUpdateRequestData.ChannelMemberPartialUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberPartialUpdateRequestData.ChannelMemberPartialUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pin(java.lang.String,java.lang.String,java.lang.String)">pin</a></span>&#8203;(@NotNull java.lang.String&nbsp;type,
    @NotNull java.lang.String&nbsp;id,
@@ -510,20 +527,20 @@ extends java.lang.Object</pre>
 <div class="block">Creates a pin channel request</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Channel.ChannelQueryMembersRequestData.ChannelQueryMembersRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelQueryMembersRequestData.ChannelQueryMembersRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#queryMembers()">queryMembers</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a query members request</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAdditionalField(java.lang.String,java.lang.Object)">setAdditionalField</a></span>&#8203;(java.lang.String&nbsp;name,
                   java.lang.Object&nbsp;value)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Channel.ChannelShowRequestData.ChannelShowRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelShowRequestData.ChannelShowRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#show(java.lang.String,java.lang.String)">show</a></span>&#8203;(@NotNull java.lang.String&nbsp;type,
     @NotNull java.lang.String&nbsp;id)</code></th>
@@ -531,7 +548,7 @@ extends java.lang.Object</pre>
 <div class="block">Creates a show request</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Channel.ChannelTruncateRequestData.ChannelTruncateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelTruncateRequestData.ChannelTruncateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#truncate(java.lang.String,java.lang.String)">truncate</a></span>&#8203;(@NotNull java.lang.String&nbsp;type,
         @NotNull java.lang.String&nbsp;id)</code></th>
@@ -539,7 +556,7 @@ extends java.lang.Object</pre>
 <div class="block">Creates a truncate request</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Channel.ChannelMemberPartialUpdateRequestData.ChannelMemberPartialUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberPartialUpdateRequestData.ChannelMemberPartialUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unarchive(java.lang.String,java.lang.String,java.lang.String)">unarchive</a></span>&#8203;(@NotNull java.lang.String&nbsp;type,
          @NotNull java.lang.String&nbsp;id,
@@ -548,14 +565,14 @@ extends java.lang.Object</pre>
 <div class="block">Creates a unarchive channel request</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unmute()">unmute</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates an unmute request</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Channel.ChannelMemberPartialUpdateRequestData.ChannelMemberPartialUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberPartialUpdateRequestData.ChannelMemberPartialUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unpin(java.lang.String,java.lang.String,java.lang.String)">unpin</a></span>&#8203;(@NotNull java.lang.String&nbsp;type,
      @NotNull java.lang.String&nbsp;id,
@@ -564,7 +581,7 @@ extends java.lang.Object</pre>
 <div class="block">Creates a unpin channel request</div>
 </td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Channel.ChannelUpdateRequestData.ChannelUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelUpdateRequestData.ChannelUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(java.lang.String,java.lang.String)">update</a></span>&#8203;(@NotNull java.lang.String&nbsp;type,
       @NotNull java.lang.String&nbsp;id)</code></th>
@@ -572,7 +589,7 @@ extends java.lang.Object</pre>
 <div class="block">Creates an update request</div>
 </td>
 </tr>
-<tr id="i24" class="altColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Channel.ChannelMemberPartialUpdateRequestData.ChannelMemberPartialUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberPartialUpdateRequestData.ChannelMemberPartialUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateMemberPartial(java.lang.String,java.lang.String,java.lang.String)">updateMemberPartial</a></span>&#8203;(@NotNull java.lang.String&nbsp;type,
                    @NotNull java.lang.String&nbsp;id,
@@ -1067,7 +1084,7 @@ public static&nbsp;@NotNull <a href="Channel.ChannelMemberPartialUpdateRequestDa
 <a id="unarchive(java.lang.String,java.lang.String,java.lang.String)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>unarchive</h4>
 <pre class="methodSignature">@NotNull
@@ -1083,6 +1100,21 @@ public static&nbsp;@NotNull <a href="Channel.ChannelMemberPartialUpdateRequestDa
 <dd><code>type</code> - the channel type</dd>
 <dd><code>id</code> - the channel id</dd>
 <dd><code>userId</code> - the user id</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the created request</dd>
+</dl>
+</li>
+</ul>
+<a id="markDelivered()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>markDelivered</h4>
+<pre class="methodSignature">@NotNull
+public static&nbsp;@NotNull <a href="Channel.MarkDeliveredRequestData.MarkDeliveredRequest.html" title="class in io.getstream.chat.java.models">Channel.MarkDeliveredRequestData.MarkDeliveredRequest</a>&nbsp;markDelivered()</pre>
+<div class="block">Creates a mark delivered request</div>
+<dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the created request</dd>
 </dl>
