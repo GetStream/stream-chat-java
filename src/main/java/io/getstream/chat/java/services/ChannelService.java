@@ -103,4 +103,9 @@ public interface ChannelService {
       @NotNull @Path("id") String channelId,
       @NotNull @Path("user_id") String userId,
       @NotNull @Body ChannelMemberPartialUpdateRequestData updateMemberPartialRequestData);
+
+  @POST("channels/delivered")
+  Call<StreamResponseObject> markDelivered(
+      @NotNull @Body MarkDeliveredRequestData markDeliveredOptions,
+      @Query("user_id") String userId);
 }

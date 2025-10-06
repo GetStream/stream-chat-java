@@ -17,6 +17,7 @@ import io.getstream.chat.java.models.Channel.ChannelShowRequestData.ChannelShowR
 import io.getstream.chat.java.models.Channel.ChannelTruncateRequestData.ChannelTruncateRequest;
 import io.getstream.chat.java.models.Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest;
 import io.getstream.chat.java.models.Channel.ChannelUpdateRequestData.ChannelUpdateRequest;
+import io.getstream.chat.java.models.Channel.MarkDeliveredRequestData.MarkDeliveredRequest;
 import io.getstream.chat.java.models.ChannelType.BlocklistBehavior;
 import io.getstream.chat.java.models.ChannelType.ChannelTypeWithCommands;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
@@ -1202,6 +1203,31 @@ public class Channel {
     }
   }
 
+  @Builder(
+      builderClassName = "MarkDeliveredRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  public static class MarkDeliveredRequestData {
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    @Nullable
+    @JsonProperty("latest_delivered_messages")
+    private List<LatestDeliveredMessage> latestDeliveredMessages;
+
+    public static class MarkDeliveredRequest extends StreamRequest<StreamResponseObject> {
+      @Override
+      protected Call<StreamResponseObject> generateCall(Client client) {
+        return client.create(ChannelService.class).markDelivered(this.internalBuild(), userId);
+      }
+    }
+  }
+
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
@@ -1492,6 +1518,19 @@ public class Channel {
     private List<ChannelMember> members;
   }
 
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public static class LatestDeliveredMessage {
+    @NotNull
+    @JsonProperty("cid")
+    private String cid;
+
+    @NotNull
+    @JsonProperty("id")
+    private String messageId;
+  }
+
   /**
    * Creates a get or create request
    *
@@ -1756,5 +1795,15 @@ public class Channel {
   public static ChannelMemberPartialUpdateRequest unarchive(
       @NotNull String type, @NotNull String id, @NotNull String userId) {
     return new ChannelMemberPartialUpdateRequest(type, id, userId).setValue("archived", false);
+  }
+
+  /**
+   * Creates a mark delivered request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static MarkDeliveredRequest markDelivered() {
+    return new MarkDeliveredRequest();
   }
 }
