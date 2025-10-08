@@ -49,6 +49,8 @@ public class Device {
 
   @Builder
   @Setter
+  @Getter
+  @EqualsAndHashCode
   public static class DeviceRequestObject {
     @Nullable
     @JsonProperty("push_provider")
@@ -88,6 +90,8 @@ public class Device {
       builderClassName = "DeviceCreateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class DeviceCreateRequestData {
     @Nullable
     @JsonProperty("push_provider")
@@ -117,6 +121,8 @@ public class Device {
     }
   }
 
+  @Getter
+  @EqualsAndHashCode(callSuper = true)
   @RequiredArgsConstructor
   public static class DeviceDeleteRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String id;
@@ -141,6 +147,8 @@ public class Device {
     }
   }
 
+  @Getter
+  @EqualsAndHashCode(callSuper = true)
   @RequiredArgsConstructor
   public static class DeviceListRequest extends StreamRequest<DeviceListResponse> {
     @NotNull private String userId;

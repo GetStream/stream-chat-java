@@ -21,6 +21,8 @@ public class Moderation {
       builderClassName = "ConfigGetRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class ConfigGetRequestData {
     public static class ConfigGetRequest extends StreamRequest<ConfigGetResponse> {
       @NotNull private String key;
@@ -117,6 +119,8 @@ public class Moderation {
   }
 
   @Builder
+  @Getter
+  @EqualsAndHashCode
   public static class BlockListConfigRequestObject {
     @Nullable
     @JsonProperty("async")
@@ -131,6 +135,8 @@ public class Moderation {
       builderClassName = "UpsertConfigRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UpsertConfigRequestData {
     @Nullable
     @JsonProperty("key")
@@ -169,6 +175,8 @@ public class Moderation {
     private Config config;
   }
 
+  @Getter
+  @EqualsAndHashCode(callSuper = true)
   @RequiredArgsConstructor
   public static class DeleteConfigRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String key;
@@ -179,6 +187,8 @@ public class Moderation {
     }
   }
 
+  @Getter
+  @EqualsAndHashCode(callSuper = true)
   @RequiredArgsConstructor
   public static class ConfigGetRequest extends StreamRequest<ConfigGetResponse> {
     @NotNull private String key;

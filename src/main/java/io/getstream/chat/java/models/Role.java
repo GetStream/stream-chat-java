@@ -36,6 +36,8 @@ public class Role {
       builderClassName = "RoleCreateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class RoleCreateRequestData {
     @Nullable
     @JsonProperty("name")
@@ -49,6 +51,8 @@ public class Role {
     }
   }
 
+  @Getter
+  @EqualsAndHashCode(callSuper = true)
   @RequiredArgsConstructor
   public static class RoleDeleteRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String name;

@@ -92,6 +92,7 @@ public class SharedLocation {
     private List<SharedLocation> activeLiveLocations;
   }
 
+  @EqualsAndHashCode
   public static class UpdateLocationRequestData {
     @NotNull
     @JsonProperty("request")
@@ -111,6 +112,8 @@ public class SharedLocation {
       this.request = request;
     }
 
+    @Getter
+    @EqualsAndHashCode(callSuper = true)
     public static class UpdateLocationRequest extends StreamRequest<SharedLocationResponse> {
       private SharedLocationRequest request;
       private String userId;
@@ -138,6 +141,8 @@ public class SharedLocation {
     }
   }
 
+  @Getter
+  @EqualsAndHashCode
   public static class GetLocationsRequestData {
     public static class GetLocationsRequest extends StreamRequest<ActiveLiveLocationsResponse> {
       private String userId;
