@@ -136,6 +136,10 @@ public class ChannelType {
   @JsonProperty("grants")
   private Map<String, List<String>> grants;
 
+  @Nullable
+  @JsonProperty("count_messages")
+  private Boolean countMessages;
+
   @Data
   @NoArgsConstructor
   public static class Threshold {
@@ -404,6 +408,10 @@ public class ChannelType {
     @JsonProperty("name")
     private String name;
 
+    @Nullable
+    @JsonProperty("count_messages")
+    private Boolean countMessages;
+
     public static class ChannelTypeCreateRequest extends StreamRequest<ChannelTypeCreateResponse> {
 
       private static final boolean DEFAULT_PUSH_NOTIFICATIONS = true;
@@ -543,6 +551,10 @@ public class ChannelType {
     @Nullable
     @JsonProperty("grants")
     protected Map<String, List<String>> grants;
+
+    @Nullable
+    @JsonProperty("count_messages")
+    private Boolean countMessages;
 
     public static class ChannelTypeUpdateRequest extends StreamRequest<ChannelTypeUpdateResponse> {
       @NotNull private String name;
