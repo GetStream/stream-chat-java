@@ -91,7 +91,7 @@ public class Permission {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class PermissionGetRequest extends StreamRequest<PermissionGetResponse> {
     @NotNull private String id;
@@ -152,7 +152,7 @@ public class Permission {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class PermissionDeleteRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String id;

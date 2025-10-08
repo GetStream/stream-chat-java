@@ -668,7 +668,7 @@ public class Channel {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class ChannelDeleteRequest extends StreamRequest<ChannelDeleteResponse> {
     @NotNull private String channelType;
@@ -682,7 +682,7 @@ public class Channel {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class ChannelDeleteManyRequest extends StreamRequest<ChannelDeleteManyResponse> {
     @JsonProperty("cids")
@@ -945,7 +945,7 @@ public class Channel {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class ChannelExportStatusRequest
       extends StreamRequest<ChannelExportStatusResponse> {

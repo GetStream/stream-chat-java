@@ -764,7 +764,7 @@ public class App extends StreamResponseObject {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   public static class DeletePushProviderRequest extends StreamRequest<StreamResponseObject> {
     private String providerType;
     private String name;
@@ -976,7 +976,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @NoArgsConstructor
   @AllArgsConstructor
   public static class AppGetRateLimitsRequest extends StreamRequest<AppGetRateLimitsResponse> {
@@ -1110,7 +1110,7 @@ public class App extends StreamResponseObject {
 
   @AllArgsConstructor
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   public static class AppRevokeTokensRequest extends StreamRequest<StreamResponseObject> {
     @Nullable private Date revokeTokensIssuedBefore;
 

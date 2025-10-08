@@ -184,7 +184,7 @@ public class Draft {
 
   /** Request for deleting a draft. */
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   public static class DeleteDraftRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String channelType;
     @NotNull private String channelId;
@@ -218,7 +218,7 @@ public class Draft {
 
   /** Request for getting a draft. */
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   public static class GetDraftRequest extends StreamRequest<GetDraftResponse> {
     @NotNull private String channelType;
     @NotNull private String channelId;

@@ -840,7 +840,7 @@ public class User {
 
   @RequiredArgsConstructor
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   public static class UserDeleteRequest extends StreamRequest<UserDeleteResponse> {
     @NotNull private String userId;
 
@@ -1056,7 +1056,7 @@ public class User {
 
   @RequiredArgsConstructor
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   public static class UserExportRequest extends StreamRequest<UserExportResponse> {
     @NotNull private String userId;
 
@@ -1068,7 +1068,7 @@ public class User {
 
   @RequiredArgsConstructor
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   public static class UserUnbanRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String targetUserId;
 
@@ -1104,7 +1104,7 @@ public class User {
 
   @AllArgsConstructor
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   public static class UserRevokeTokensRequest extends StreamRequest<UserPartialUpdateResponse> {
     @NotNull private List<String> userIds = new ArrayList<>();
 

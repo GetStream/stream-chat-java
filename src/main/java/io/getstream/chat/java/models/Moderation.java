@@ -176,7 +176,7 @@ public class Moderation {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class DeleteConfigRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String key;
@@ -188,7 +188,7 @@ public class Moderation {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class ConfigGetRequest extends StreamRequest<ConfigGetResponse> {
     @NotNull private String key;

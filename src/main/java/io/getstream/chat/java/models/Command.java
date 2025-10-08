@@ -74,7 +74,7 @@ public class Command {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class CommandGetRequest extends StreamRequest<CommandGetResponse> {
     @NotNull private String name;
@@ -119,7 +119,7 @@ public class Command {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class CommandDeleteRequest extends StreamRequest<CommandDeleteResponse> {
     @NotNull private String name;

@@ -58,7 +58,7 @@ public class Blocklist {
 
   @RequiredArgsConstructor
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   public static class BlocklistGetRequest extends StreamRequest<BlocklistGetResponse> {
     @NotNull private String name;
 
@@ -95,7 +95,7 @@ public class Blocklist {
 
   @RequiredArgsConstructor
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   public static class BlocklistDeleteRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String name;
 

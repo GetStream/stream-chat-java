@@ -52,7 +52,7 @@ public class Role {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class RoleDeleteRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String name;

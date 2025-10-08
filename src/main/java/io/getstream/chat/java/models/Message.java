@@ -782,7 +782,7 @@ public class Message {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class MessageGetRequest extends StreamRequest<MessageGetResponse> {
     @NotNull private String id;
@@ -826,7 +826,7 @@ public class Message {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class MessageDeleteRequest extends StreamRequest<MessageDeleteResponse> {
     @NotNull private String id;
@@ -987,7 +987,7 @@ public class Message {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   // We do not use @RequiredArgsConstructor here for uniformity with MessageUploadImageRequest
   public static class MessageUploadFileRequest extends FileRequest<MessageUploadFileResponse> {
     @NotNull private String channelType;
@@ -1024,7 +1024,7 @@ public class Message {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class MessageUploadImageRequest extends FileRequest<MessageUploadImageResponse> {
     @Nullable private File file;
@@ -1060,7 +1060,7 @@ public class Message {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class MessageDeleteFileRequest extends FileRequest<StreamResponseObject> {
     @NotNull private String channelType;
@@ -1076,7 +1076,7 @@ public class Message {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class MessageDeleteImageRequest extends FileRequest<StreamResponseObject> {
     @NotNull private String channelType;
@@ -1092,7 +1092,7 @@ public class Message {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class MessageGetManyRequest extends StreamRequest<MessageGetManyResponse> {
     @NotNull private String channelType;
@@ -1110,7 +1110,7 @@ public class Message {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class MessageGetRepliesRequest extends StreamRequest<MessageGetRepliesResponse> {
     @NotNull private String parentId;

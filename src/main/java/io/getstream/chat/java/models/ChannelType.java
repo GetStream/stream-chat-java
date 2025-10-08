@@ -447,7 +447,7 @@ public class ChannelType {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class ChannelTypeGetRequest extends StreamRequest<ChannelTypeGetResponse> {
     @NotNull private String name;
@@ -582,7 +582,7 @@ public class ChannelType {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = true)
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class ChannelTypeDeleteRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String name;

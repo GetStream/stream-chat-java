@@ -113,7 +113,7 @@ public class SharedLocation {
     }
 
     @Getter
-    @EqualsAndHashCode(callSuper = true)
+    @EqualsAndHashCode
     public static class UpdateLocationRequest extends StreamRequest<SharedLocationResponse> {
       private SharedLocationRequest request;
       private String userId;
