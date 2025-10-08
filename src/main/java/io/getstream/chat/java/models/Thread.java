@@ -170,6 +170,8 @@ public class Thread {
       builderClassName = "QueryThreadsRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class QueryThreadsRequestData {
     @Nullable
     @JsonProperty("filter")

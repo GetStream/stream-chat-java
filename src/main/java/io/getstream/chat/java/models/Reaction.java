@@ -61,6 +61,8 @@ public class Reaction {
 
   @Builder
   @Setter
+  @Getter
+  @EqualsAndHashCode
   public static class ReactionRequestObject {
     @Nullable
     @JsonProperty("message_id")
@@ -104,6 +106,8 @@ public class Reaction {
       builderClassName = "ReactionSendRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class ReactionSendRequestData {
     @Nullable
     @JsonProperty("reaction")
@@ -131,6 +135,8 @@ public class Reaction {
     }
   }
 
+  @Getter
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class ReactionDeleteRequest extends StreamRequest<ReactionDeleteResponse> {
     @NotNull private String messageId;
@@ -150,6 +156,8 @@ public class Reaction {
     }
   }
 
+  @Getter
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class ReactionListRequest extends StreamRequest<ReactionListResponse> {
     @NotNull private String messageId;

@@ -1,5 +1,7 @@
 package io.getstream.chat.java;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.App;
@@ -26,9 +28,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class AppTest extends BasicTest {
-  private AppCheckSnsResponse.Status SnsStatus;
-  private AppCheckSqsResponse.Status SqsStatus;
-
   @DisplayName("App Get does not throw Exception")
   @Test
   void whenCallingGetApp_thenNoException() {
@@ -82,6 +81,14 @@ public class AppTest extends BasicTest {
   @Test
   void whenCallingGetRateLimits_thenNoException() {
     Assertions.assertDoesNotThrow(() -> App.getRateLimits().request());
+    Assertions.assertDoesNotThrow(
+        () ->
+            App.AppGetRateLimitsRequest.builder()
+                .android(true)
+                .ios(true)
+                .endpoint("QueryChannels")
+                .build()
+                .request());
   }
 
   @DisplayName("Can check sqs")
@@ -95,7 +102,7 @@ public class AppTest extends BasicTest {
                     .sqsSecret("secret")
                     .sqsUrl("https://foo.com/bar")
                     .request());
-    Assertions.assertEquals(SqsStatus.ERROR, response.getStatus());
+    Assertions.assertEquals(AppCheckSqsResponse.Status.ERROR, response.getStatus());
   }
 
   @DisplayName("Can check sns")
@@ -109,7 +116,7 @@ public class AppTest extends BasicTest {
                     .snsSecret("secret")
                     .snsTopicArn("arn:aws:sns:us-east-1:123456789012:sns-topic")
                     .request());
-    Assertions.assertEquals(SnsStatus.ERROR, response.getStatus());
+    Assertions.assertEquals(AppCheckSnsResponse.Status.ERROR, response.getStatus());
   }
 
   @DisplayName("Can check push templates")
@@ -272,6 +279,7 @@ public class AppTest extends BasicTest {
   void whenEncodingAppConfig_thenNoNullFields() {
     var appConfig = App.update().internalBuild();
     final ObjectMapper mapper = new ObjectMapper();
+    mapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE);
 
     String json = Assertions.assertDoesNotThrow(() -> mapper.writeValueAsString(appConfig));
 

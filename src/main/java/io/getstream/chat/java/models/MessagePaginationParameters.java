@@ -3,9 +3,13 @@ package io.getstream.chat.java.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.jetbrains.annotations.Nullable;
 
 @Builder
+@Getter
+@EqualsAndHashCode
 public class MessagePaginationParameters {
   @Nullable
   @JsonProperty("limit")

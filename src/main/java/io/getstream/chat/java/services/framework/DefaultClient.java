@@ -1,5 +1,7 @@
 package io.getstream.chat.java.services.framework;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
@@ -102,6 +104,8 @@ public class DefaultClient implements Client {
           return chain.proceed(request);
         });
     final ObjectMapper mapper = new ObjectMapper();
+    // do not encode getter methods in json
+    mapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE);
     mapper.configure(
         DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
         hasFailOnUnknownProperties(extendedProperties));

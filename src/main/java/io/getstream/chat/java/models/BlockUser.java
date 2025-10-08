@@ -19,6 +19,8 @@ public class BlockUser {
       builderClassName = "BlockUserRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class BlockUserRequestData {
     @NotNull
     @JsonProperty("blocked_user_id")
@@ -41,6 +43,8 @@ public class BlockUser {
       builderClassName = "UnblockUserRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UnblockUserRequestData {
     @NotNull
     @JsonProperty("blocked_user_id")
@@ -119,14 +123,14 @@ public class BlockUser {
       builderClassName = "GetBlockedUsersRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class GetBlockedUsersRequestData {
     @NotNull
     @JsonProperty("user_id")
     private String blockedByUserID;
 
     public static class GetBlockedUsersRequest extends StreamRequest<GetBlockedUsersResponse> {
-      private String blockedByUserID;
-
       public GetBlockedUsersRequest(String blockedByUserID) {
         this.blockedByUserID = blockedByUserID;
       }

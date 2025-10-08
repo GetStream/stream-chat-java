@@ -24,13 +24,12 @@ import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.UserService;
 import io.getstream.chat.java.services.framework.Client;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
-import javax.crypto.spec.SecretKeySpec;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -346,10 +345,11 @@ public class User {
 
   @Builder
   @Setter
+  @Getter
+  @EqualsAndHashCode
   public static class UserRequestObject {
     @NotNull
     @JsonProperty("id")
-    @Getter
     private String id;
 
     @Nullable
@@ -399,6 +399,8 @@ public class User {
   }
 
   @Builder
+  @Getter
+  @EqualsAndHashCode
   public static class UserPartialUpdateRequestObject {
     @Nullable
     @JsonProperty("id")
@@ -417,6 +419,8 @@ public class User {
 
   @Builder
   @Setter
+  @Getter
+  @EqualsAndHashCode
   public static class OwnUserRequestObject {
     @Nullable
     @JsonProperty("id")
@@ -521,6 +525,8 @@ public class User {
 
   @Builder
   @Setter
+  @Getter
+  @EqualsAndHashCode
   public static class UserMuteRequestObject {
     @Nullable
     @JsonProperty("user")
@@ -550,6 +556,8 @@ public class User {
 
   @Builder
   @Setter
+  @Getter
+  @EqualsAndHashCode
   public static class ChannelMuteRequestObject {
     @Nullable
     @JsonProperty("user")
@@ -581,6 +589,8 @@ public class User {
       builderClassName = "UserUpsertRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserUpsertRequestData {
     @Nullable
     @JsonProperty("users")
@@ -610,6 +620,8 @@ public class User {
       builderClassName = "UserListRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserListRequestData {
     // Singular is required because cannot be null
     @Singular
@@ -662,6 +674,8 @@ public class User {
       builderClassName = "UserPartialUpdateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserPartialUpdateRequestData {
     @Singular
     @Nullable
@@ -680,6 +694,8 @@ public class User {
       builderClassName = "UserQueryBannedRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserQueryBannedRequestData {
     // Singular is required because cannot be null
     @Singular
@@ -736,6 +752,8 @@ public class User {
       builderClassName = "UserBanRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserBanRequestData {
     @Nullable
     @JsonProperty("target_user_id")
@@ -793,6 +811,8 @@ public class User {
       builderClassName = "UserDeactivateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserDeactivateRequestData {
     @NotNull
     @JsonProperty("user_id")
@@ -807,7 +827,6 @@ public class User {
     private String createdById;
 
     public static class UserDeactivateRequest extends StreamRequest<UserDeactivateResponse> {
-
       private UserDeactivateRequest(@NotNull String userId) {
         this.userId = userId;
       }
@@ -820,6 +839,8 @@ public class User {
   }
 
   @RequiredArgsConstructor
+  @Getter
+  @EqualsAndHashCode
   public static class UserDeleteRequest extends StreamRequest<UserDeleteResponse> {
     @NotNull private String userId;
 
@@ -860,6 +881,8 @@ public class User {
       builderClassName = "UserDeleteManyRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserDeleteManyRequestData {
     @NotNull
     @JsonProperty("user_ids")
@@ -901,7 +924,6 @@ public class User {
   @EqualsAndHashCode(callSuper = true)
   public static class UserDeleteManyResponse extends StreamResponseObject {
     @JsonProperty("task_id")
-    @Getter
     private String taskId;
   }
 
@@ -909,6 +931,8 @@ public class User {
       builderClassName = "UserReactivateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserReactivateRequestData {
     @Nullable
     @JsonProperty("user_id")
@@ -943,6 +967,8 @@ public class User {
       builderClassName = "UserMuteRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserMuteRequestData {
     @Nullable
     @JsonProperty("target_id")
@@ -977,6 +1003,8 @@ public class User {
       builderClassName = "UserUnmuteRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserUnmuteRequestData {
     @Nullable
     @JsonProperty("target_id")
@@ -1011,6 +1039,8 @@ public class User {
       builderClassName = "UserCreateGuestRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UserCreateGuestRequestData {
     @Nullable
     @JsonProperty("user")
@@ -1025,6 +1055,8 @@ public class User {
   }
 
   @RequiredArgsConstructor
+  @Getter
+  @EqualsAndHashCode
   public static class UserExportRequest extends StreamRequest<UserExportResponse> {
     @NotNull private String userId;
 
@@ -1035,6 +1067,8 @@ public class User {
   }
 
   @RequiredArgsConstructor
+  @Getter
+  @EqualsAndHashCode
   public static class UserUnbanRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String targetUserId;
 
@@ -1069,6 +1103,8 @@ public class User {
   }
 
   @AllArgsConstructor
+  @Getter
+  @EqualsAndHashCode
   public static class UserRevokeTokensRequest extends StreamRequest<UserPartialUpdateResponse> {
     @NotNull private List<String> userIds = new ArrayList<>();
 
@@ -1436,9 +1472,7 @@ public class User {
       @NotNull String userId,
       @Nullable Date expiresAt,
       @Nullable Date issuedAt) {
-    var signingKey =
-        new SecretKeySpec(
-            apiSecret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
+    var signingKey = Keys.hmacShaKeyFor(apiSecret.getBytes(StandardCharsets.UTF_8));
 
     if (issuedAt == null) {
       GregorianCalendar calendar = new GregorianCalendar();
@@ -1448,11 +1482,11 @@ public class User {
 
     return Jwts.builder()
         .claim("user_id", userId)
-        .setExpiration(expiresAt)
-        .setIssuedAt(issuedAt)
-        .setIssuer("Stream Chat Java SDK")
-        .setSubject("Stream Chat Java SDK")
-        .signWith(signingKey, SignatureAlgorithm.HS256)
+        .expiration(expiresAt)
+        .issuedAt(issuedAt)
+        .issuer("Stream Chat Java SDK")
+        .subject("Stream Chat Java SDK")
+        .signWith(signingKey, Jwts.SIG.HS256)
         .compact();
   }
 }

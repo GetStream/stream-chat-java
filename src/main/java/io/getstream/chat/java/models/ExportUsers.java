@@ -9,6 +9,7 @@ import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
@@ -21,6 +22,8 @@ public class ExportUsers {
       builderClassName = "ExportUsersRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class ExportUsersRequestData {
     @JsonProperty("user_ids")
     private List<String> userIds;

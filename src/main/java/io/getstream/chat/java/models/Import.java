@@ -11,6 +11,7 @@ import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -81,6 +82,8 @@ public class Import {
       builderClassName = "CreateImportUrlRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class CreateImportUrlRequestData {
     @Nullable
     @JsonProperty("filename")
@@ -112,6 +115,8 @@ public class Import {
       builderClassName = "CreateImportRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class CreateImportRequestData {
     @NotNull
     @JsonProperty("path")
@@ -151,6 +156,8 @@ public class Import {
     }
   }
 
+  @Getter
+  @EqualsAndHashCode
   public static class ListImportsRequest extends StreamRequest<Import.ListImportsResponse> {
     private final Integer limit;
     private final Integer offset;
