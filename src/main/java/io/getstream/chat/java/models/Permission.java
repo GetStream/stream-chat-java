@@ -55,6 +55,8 @@ public class Permission {
       builderClassName = "PermissionCreateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class PermissionCreateRequestData {
     @NotNull
     @JsonProperty("id")
@@ -88,6 +90,8 @@ public class Permission {
     }
   }
 
+  @Getter
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class PermissionGetRequest extends StreamRequest<PermissionGetResponse> {
     @NotNull private String id;
@@ -102,6 +106,8 @@ public class Permission {
       builderClassName = "PermissionUpdateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class PermissionUpdateRequestData {
     @Nullable
     @JsonProperty("id")
@@ -145,6 +151,8 @@ public class Permission {
     }
   }
 
+  @Getter
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class PermissionDeleteRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String id;

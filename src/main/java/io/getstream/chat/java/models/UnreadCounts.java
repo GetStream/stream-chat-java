@@ -97,6 +97,8 @@ public class UnreadCounts {
       builderClassName = "UnreadCountsGetRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UnreadCountsGetRequestData {
     @Nullable
     @JsonProperty("user_id")
@@ -127,6 +129,8 @@ public class UnreadCounts {
       builderClassName = "UnreadCountsBatchRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class UnreadCountsBatchRequestData {
     @NotNull
     @JsonProperty("user_ids")

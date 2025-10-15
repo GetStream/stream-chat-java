@@ -149,6 +149,8 @@ public class Draft {
       builderClassName = "CreateDraftRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class CreateDraftRequestData {
     @NotNull
     @JsonProperty("message")
@@ -181,6 +183,8 @@ public class Draft {
   }
 
   /** Request for deleting a draft. */
+  @Getter
+  @EqualsAndHashCode
   public static class DeleteDraftRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String channelType;
     @NotNull private String channelId;
@@ -213,6 +217,8 @@ public class Draft {
   }
 
   /** Request for getting a draft. */
+  @Getter
+  @EqualsAndHashCode
   public static class GetDraftRequest extends StreamRequest<GetDraftResponse> {
     @NotNull private String channelType;
     @NotNull private String channelId;
@@ -249,6 +255,8 @@ public class Draft {
       builderClassName = "QueryDraftsRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class QueryDraftsRequestData {
     @Nullable
     @JsonProperty("filter")

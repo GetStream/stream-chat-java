@@ -46,6 +46,8 @@ public class Command {
       builderClassName = "CommandCreateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class CommandCreateRequestData {
     @Nullable
     @JsonProperty("name")
@@ -71,6 +73,8 @@ public class Command {
     }
   }
 
+  @Getter
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class CommandGetRequest extends StreamRequest<CommandGetResponse> {
     @NotNull private String name;
@@ -85,6 +89,8 @@ public class Command {
       builderClassName = "CommandUpdateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class CommandUpdateRequestData {
     @Nullable
     @JsonProperty("description")
@@ -112,6 +118,8 @@ public class Command {
     }
   }
 
+  @Getter
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class CommandDeleteRequest extends StreamRequest<CommandDeleteResponse> {
     @NotNull private String name;

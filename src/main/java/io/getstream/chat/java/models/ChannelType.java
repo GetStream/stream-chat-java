@@ -17,6 +17,7 @@ import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -258,6 +259,8 @@ public class ChannelType {
 
   @Builder
   @Setter
+  @Getter
+  @EqualsAndHashCode
   public static class ThresholdRequestObject {
     @Nullable
     @JsonProperty("flag")
@@ -275,6 +278,8 @@ public class ChannelType {
 
   @Builder
   @Setter
+  @Getter
+  @EqualsAndHashCode
   public static class PermissionRequestObject {
     @Nullable
     @JsonProperty("name")
@@ -310,6 +315,8 @@ public class ChannelType {
       builderClassName = "ChannelTypeCreateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class ChannelTypeCreateRequestData {
     @Nullable
     @JsonProperty("typing_events")
@@ -439,6 +446,8 @@ public class ChannelType {
     }
   }
 
+  @Getter
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class ChannelTypeGetRequest extends StreamRequest<ChannelTypeGetResponse> {
     @NotNull private String name;
@@ -453,6 +462,8 @@ public class ChannelType {
       builderClassName = "ChannelTypeUpdateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class ChannelTypeUpdateRequestData {
     @Nullable
     @JsonProperty("typing_events")
@@ -570,6 +581,8 @@ public class ChannelType {
     }
   }
 
+  @Getter
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class ChannelTypeDeleteRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String name;

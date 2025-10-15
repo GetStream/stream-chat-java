@@ -27,7 +27,10 @@ public class SharedLocation {
   @JsonProperty("end_at")
   private Date endAt;
 
+  @JsonProperty("latitude")
   private Double latitude;
+
+  @JsonProperty("longitude")
   private Double longitude;
 
   @JsonProperty("message_id")
@@ -52,9 +55,13 @@ public class SharedLocation {
     @JsonProperty("end_at")
     private String endAt;
 
-    @Nullable private Double latitude;
+    @Nullable
+    @JsonProperty("latitude")
+    private Double latitude;
 
-    @Nullable private Double longitude;
+    @Nullable
+    @JsonProperty("longitude")
+    private Double longitude;
 
     @JsonProperty("user_id")
     private String userId;
@@ -70,7 +77,10 @@ public class SharedLocation {
     @JsonProperty("end_at")
     private String endAt;
 
+    @JsonProperty("latitude")
     private Double latitude;
+
+    @JsonProperty("longitude")
     private Double longitude;
   }
 
@@ -82,6 +92,7 @@ public class SharedLocation {
     private List<SharedLocation> activeLiveLocations;
   }
 
+  @EqualsAndHashCode
   public static class UpdateLocationRequestData {
     @NotNull
     @JsonProperty("request")
@@ -101,6 +112,8 @@ public class SharedLocation {
       this.request = request;
     }
 
+    @Getter
+    @EqualsAndHashCode
     public static class UpdateLocationRequest extends StreamRequest<SharedLocationResponse> {
       private SharedLocationRequest request;
       private String userId;
@@ -128,6 +141,8 @@ public class SharedLocation {
     }
   }
 
+  @Getter
+  @EqualsAndHashCode
   public static class GetLocationsRequestData {
     public static class GetLocationsRequest extends StreamRequest<ActiveLiveLocationsResponse> {
       private String userId;

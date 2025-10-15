@@ -23,6 +23,8 @@ public class MessageHistory {
       builderClassName = "MessageHistoryQueryRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class MessageHistoryQueryRequestData {
     @Nullable
     @JsonProperty("filter")

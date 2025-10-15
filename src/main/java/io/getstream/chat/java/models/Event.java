@@ -126,6 +126,8 @@ public class Event {
 
   @Builder
   @Setter
+  @Getter
+  @EqualsAndHashCode
   public static class EventRequestObject {
     @Nullable
     @JsonProperty("type")
@@ -226,6 +228,8 @@ public class Event {
   }
 
   @Builder
+  @Getter
+  @EqualsAndHashCode
   public static class EventUserCustomRequestObject {
     @Nullable
     @JsonProperty("type")
@@ -252,6 +256,8 @@ public class Event {
       builderClassName = "EventSendRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class EventSendRequestData {
     @Nullable
     @JsonProperty("event")
@@ -278,6 +284,8 @@ public class Event {
       builderClassName = "EventSendUserCustomRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class EventSendUserCustomRequestData {
     @Nullable
     @JsonProperty("event")

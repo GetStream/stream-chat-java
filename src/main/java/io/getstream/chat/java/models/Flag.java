@@ -211,6 +211,8 @@ public class Flag {
       builderClassName = "FlagCreateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class FlagCreateRequestData {
     @Nullable
     @JsonProperty("target_message_id")
@@ -240,6 +242,8 @@ public class Flag {
       builderClassName = "FlagDeleteRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class FlagDeleteRequestData {
     @Nullable
     @JsonProperty("target_message_id")
@@ -269,6 +273,8 @@ public class Flag {
       builderClassName = "FlagMessageQueryRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class FlagMessageQueryRequestData {
     @Nullable
     @JsonProperty("filter_conditions")
@@ -303,6 +309,8 @@ public class Flag {
       builderClassName = "QueryFlagReportsRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class QueryFlagReportsRequestData {
     @Nullable
     @JsonProperty("filter_conditions")
@@ -337,6 +345,8 @@ public class Flag {
       builderClassName = "ReviewFlagReportRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
   public static class ReviewFlagReportRequestData {
     @NotNull
     @JsonProperty("review_result")
