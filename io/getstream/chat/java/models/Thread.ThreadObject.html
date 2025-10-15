@@ -27,6 +27,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10,"i40":10,"i41":10,"i42":10,"i43":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "../../../../../";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -91,7 +97,7 @@ loadScripts(document, 'script');</script>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.top">
@@ -166,12 +172,240 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Integer</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getActiveParticipantCount()">getActiveParticipantCount</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Integer</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAppPk()">getAppPk</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>@Nullable <a href="Channel.html" title="class in io.getstream.chat.java.models">Channel</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getChannel()">getChannel</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getChannelCid()">getChannelCid</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>@NotNull java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCreatedAt()">getCreatedAt</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>@Nullable <a href="User.html" title="class in io.getstream.chat.java.models">User</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCreatedBy()">getCreatedBy</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCreatedByUserId()">getCreatedByUserId</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCustom()">getCustom</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeletedAt()">getDeletedAt</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code><a href="Draft.DraftObject.html" title="class in io.getstream.chat.java.models">Draft.DraftObject</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDraft()">getDraft</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLastMessageAt()">getLastMessageAt</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;<a href="Message.html" title="class in io.getstream.chat.java.models">Message</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLatestReplies()">getLatestReplies</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>@Nullable <a href="Message.html" title="class in io.getstream.chat.java.models">Message</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getParentMessage()">getParentMessage</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getParentMessageId()">getParentMessageId</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Integer</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getParticipantCount()">getParticipantCount</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;<a href="Thread.ThreadParticipant.html" title="class in io.getstream.chat.java.models">Thread.ThreadParticipant</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getParticipants()">getParticipants</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;<a href="Channel.ChannelRead.html" title="class in io.getstream.chat.java.models">Channel.ChannelRead</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRead()">getRead</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Integer</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getReplyCount()">getReplyCount</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTitle()">getTitle</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i21" class="rowColor">
+<td class="colFirst"><code>@NotNull java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUpdatedAt()">getUpdatedAt</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i22" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setActiveParticipantCount(java.lang.Integer)">setActiveParticipantCount</a></span>&#8203;(@Nullable java.lang.Integer&nbsp;activeParticipantCount)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i24" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAppPk(java.lang.Integer)">setAppPk</a></span>&#8203;(@Nullable java.lang.Integer&nbsp;appPk)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i25" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setChannel(io.getstream.chat.java.models.Channel)">setChannel</a></span>&#8203;(@Nullable <a href="Channel.html" title="class in io.getstream.chat.java.models">Channel</a>&nbsp;channel)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i26" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setChannelCid(java.lang.String)">setChannelCid</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelCid)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i27" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCreatedAt(java.util.Date)">setCreatedAt</a></span>&#8203;(@NotNull java.util.Date&nbsp;createdAt)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i28" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCreatedBy(io.getstream.chat.java.models.User)">setCreatedBy</a></span>&#8203;(@Nullable <a href="User.html" title="class in io.getstream.chat.java.models">User</a>&nbsp;createdBy)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i29" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCreatedByUserId(java.lang.String)">setCreatedByUserId</a></span>&#8203;(@NotNull java.lang.String&nbsp;createdByUserId)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i30" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCustom(java.util.Map)">setCustom</a></span>&#8203;(@Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;custom)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i31" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDeletedAt(java.util.Date)">setDeletedAt</a></span>&#8203;(@Nullable java.util.Date&nbsp;deletedAt)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i32" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDraft(io.getstream.chat.java.models.Draft.DraftObject)">setDraft</a></span>&#8203;(<a href="Draft.DraftObject.html" title="class in io.getstream.chat.java.models">Draft.DraftObject</a>&nbsp;draft)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i33" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLastMessageAt(java.util.Date)">setLastMessageAt</a></span>&#8203;(@Nullable java.util.Date&nbsp;lastMessageAt)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i34" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLatestReplies(java.util.List)">setLatestReplies</a></span>&#8203;(@Nullable java.util.List&lt;<a href="Message.html" title="class in io.getstream.chat.java.models">Message</a>&gt;&nbsp;latestReplies)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i35" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setParentMessage(io.getstream.chat.java.models.Message)">setParentMessage</a></span>&#8203;(@Nullable <a href="Message.html" title="class in io.getstream.chat.java.models">Message</a>&nbsp;parentMessage)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i36" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setParentMessageId(java.lang.String)">setParentMessageId</a></span>&#8203;(@NotNull java.lang.String&nbsp;parentMessageId)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i37" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setParticipantCount(java.lang.Integer)">setParticipantCount</a></span>&#8203;(@Nullable java.lang.Integer&nbsp;participantCount)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i38" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setParticipants(java.util.List)">setParticipants</a></span>&#8203;(@Nullable java.util.List&lt;<a href="Thread.ThreadParticipant.html" title="class in io.getstream.chat.java.models">Thread.ThreadParticipant</a>&gt;&nbsp;participants)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i39" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setRead(java.util.List)">setRead</a></span>&#8203;(@Nullable java.util.List&lt;<a href="Channel.ChannelRead.html" title="class in io.getstream.chat.java.models">Channel.ChannelRead</a>&gt;&nbsp;read)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i40" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setReplyCount(java.lang.Integer)">setReplyCount</a></span>&#8203;(@Nullable java.lang.Integer&nbsp;replyCount)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i41" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTitle(java.lang.String)">setTitle</a></span>&#8203;(@NotNull java.lang.String&nbsp;title)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i42" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUpdatedAt(java.util.Date)">setUpdatedAt</a></span>&#8203;(@NotNull java.util.Date&nbsp;updatedAt)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i43" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -196,6 +430,464 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>ThreadObject</h4>
 <pre>public&nbsp;ThreadObject()</pre>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<!-- ============ METHOD DETAIL ========== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="method.detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a id="getAppPk()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAppPk</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Integer&nbsp;getAppPk()</pre>
+</li>
+</ul>
+<a id="getChannelCid()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getChannelCid</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getChannelCid()</pre>
+</li>
+</ul>
+<a id="getChannel()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getChannel</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="Channel.html" title="class in io.getstream.chat.java.models">Channel</a>&nbsp;getChannel()</pre>
+</li>
+</ul>
+<a id="getParentMessageId()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getParentMessageId</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getParentMessageId()</pre>
+</li>
+</ul>
+<a id="getParentMessage()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getParentMessage</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="Message.html" title="class in io.getstream.chat.java.models">Message</a>&nbsp;getParentMessage()</pre>
+</li>
+</ul>
+<a id="getCreatedByUserId()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCreatedByUserId</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getCreatedByUserId()</pre>
+</li>
+</ul>
+<a id="getCreatedBy()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCreatedBy</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="User.html" title="class in io.getstream.chat.java.models">User</a>&nbsp;getCreatedBy()</pre>
+</li>
+</ul>
+<a id="getReplyCount()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getReplyCount</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Integer&nbsp;getReplyCount()</pre>
+</li>
+</ul>
+<a id="getParticipantCount()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getParticipantCount</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Integer&nbsp;getParticipantCount()</pre>
+</li>
+</ul>
+<a id="getActiveParticipantCount()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getActiveParticipantCount</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Integer&nbsp;getActiveParticipantCount()</pre>
+</li>
+</ul>
+<a id="getParticipants()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getParticipants</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;<a href="Thread.ThreadParticipant.html" title="class in io.getstream.chat.java.models">Thread.ThreadParticipant</a>&gt;&nbsp;getParticipants()</pre>
+</li>
+</ul>
+<a id="getLastMessageAt()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLastMessageAt</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Date&nbsp;getLastMessageAt()</pre>
+</li>
+</ul>
+<a id="getCreatedAt()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCreatedAt</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.util.Date&nbsp;getCreatedAt()</pre>
+</li>
+</ul>
+<a id="getUpdatedAt()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUpdatedAt</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.util.Date&nbsp;getUpdatedAt()</pre>
+</li>
+</ul>
+<a id="getDeletedAt()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDeletedAt</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Date&nbsp;getDeletedAt()</pre>
+</li>
+</ul>
+<a id="getTitle()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTitle</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getTitle()</pre>
+</li>
+</ul>
+<a id="getCustom()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCustom</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;getCustom()</pre>
+</li>
+</ul>
+<a id="getLatestReplies()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLatestReplies</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;<a href="Message.html" title="class in io.getstream.chat.java.models">Message</a>&gt;&nbsp;getLatestReplies()</pre>
+</li>
+</ul>
+<a id="getRead()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRead</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;<a href="Channel.ChannelRead.html" title="class in io.getstream.chat.java.models">Channel.ChannelRead</a>&gt;&nbsp;getRead()</pre>
+</li>
+</ul>
+<a id="getDraft()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDraft</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;<a href="Draft.DraftObject.html" title="class in io.getstream.chat.java.models">Draft.DraftObject</a>&nbsp;getDraft()</pre>
+</li>
+</ul>
+<a id="setAppPk(java.lang.Integer)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAppPk</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAppPk&#8203;(@Nullable
+                     @Nullable java.lang.Integer&nbsp;appPk)</pre>
+</li>
+</ul>
+<a id="setChannelCid(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setChannelCid</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setChannelCid&#8203;(@NotNull
+                          @NotNull java.lang.String&nbsp;channelCid)</pre>
+</li>
+</ul>
+<a id="setChannel(io.getstream.chat.java.models.Channel)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setChannel</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setChannel&#8203;(@Nullable
+                       @Nullable <a href="Channel.html" title="class in io.getstream.chat.java.models">Channel</a>&nbsp;channel)</pre>
+</li>
+</ul>
+<a id="setParentMessageId(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setParentMessageId</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setParentMessageId&#8203;(@NotNull
+                               @NotNull java.lang.String&nbsp;parentMessageId)</pre>
+</li>
+</ul>
+<a id="setParentMessage(io.getstream.chat.java.models.Message)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setParentMessage</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setParentMessage&#8203;(@Nullable
+                             @Nullable <a href="Message.html" title="class in io.getstream.chat.java.models">Message</a>&nbsp;parentMessage)</pre>
+</li>
+</ul>
+<a id="setCreatedByUserId(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCreatedByUserId</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCreatedByUserId&#8203;(@NotNull
+                               @NotNull java.lang.String&nbsp;createdByUserId)</pre>
+</li>
+</ul>
+<a id="setCreatedBy(io.getstream.chat.java.models.User)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCreatedBy</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCreatedBy&#8203;(@Nullable
+                         @Nullable <a href="User.html" title="class in io.getstream.chat.java.models">User</a>&nbsp;createdBy)</pre>
+</li>
+</ul>
+<a id="setReplyCount(java.lang.Integer)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setReplyCount</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setReplyCount&#8203;(@Nullable
+                          @Nullable java.lang.Integer&nbsp;replyCount)</pre>
+</li>
+</ul>
+<a id="setParticipantCount(java.lang.Integer)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setParticipantCount</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setParticipantCount&#8203;(@Nullable
+                                @Nullable java.lang.Integer&nbsp;participantCount)</pre>
+</li>
+</ul>
+<a id="setActiveParticipantCount(java.lang.Integer)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setActiveParticipantCount</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setActiveParticipantCount&#8203;(@Nullable
+                                      @Nullable java.lang.Integer&nbsp;activeParticipantCount)</pre>
+</li>
+</ul>
+<a id="setParticipants(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setParticipants</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setParticipants&#8203;(@Nullable
+                            @Nullable java.util.List&lt;<a href="Thread.ThreadParticipant.html" title="class in io.getstream.chat.java.models">Thread.ThreadParticipant</a>&gt;&nbsp;participants)</pre>
+</li>
+</ul>
+<a id="setLastMessageAt(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setLastMessageAt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setLastMessageAt&#8203;(@Nullable
+                             @Nullable java.util.Date&nbsp;lastMessageAt)</pre>
+</li>
+</ul>
+<a id="setCreatedAt(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCreatedAt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCreatedAt&#8203;(@NotNull
+                         @NotNull java.util.Date&nbsp;createdAt)</pre>
+</li>
+</ul>
+<a id="setUpdatedAt(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setUpdatedAt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setUpdatedAt&#8203;(@NotNull
+                         @NotNull java.util.Date&nbsp;updatedAt)</pre>
+</li>
+</ul>
+<a id="setDeletedAt(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setDeletedAt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setDeletedAt&#8203;(@Nullable
+                         @Nullable java.util.Date&nbsp;deletedAt)</pre>
+</li>
+</ul>
+<a id="setTitle(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setTitle</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setTitle&#8203;(@NotNull
+                     @NotNull java.lang.String&nbsp;title)</pre>
+</li>
+</ul>
+<a id="setCustom(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCustom</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCustom&#8203;(@Nullable
+                      @Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;custom)</pre>
+</li>
+</ul>
+<a id="setLatestReplies(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setLatestReplies</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setLatestReplies&#8203;(@Nullable
+                             @Nullable java.util.List&lt;<a href="Message.html" title="class in io.getstream.chat.java.models">Message</a>&gt;&nbsp;latestReplies)</pre>
+</li>
+</ul>
+<a id="setRead(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setRead</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setRead&#8203;(@Nullable
+                    @Nullable java.util.List&lt;<a href="Channel.ChannelRead.html" title="class in io.getstream.chat.java.models">Channel.ChannelRead</a>&gt;&nbsp;read)</pre>
+</li>
+</ul>
+<a id="setDraft(io.getstream.chat.java.models.Draft.DraftObject)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setDraft</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setDraft&#8203;(@Nullable
+                     <a href="Draft.DraftObject.html" title="class in io.getstream.chat.java.models">Draft.DraftObject</a>&nbsp;draft)</pre>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -258,7 +950,7 @@ extends java.lang.Object</pre>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.bottom">

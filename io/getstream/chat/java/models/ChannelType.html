@@ -27,8 +27,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9};
-var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":10,"i1":9,"i2":9,"i3":10,"i4":9,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10,"i34":9,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10,"i40":10,"i41":10,"i42":10,"i43":10,"i44":10,"i45":10,"i46":10,"i47":10,"i48":10,"i49":10,"i50":10,"i51":10,"i52":10,"i53":10,"i54":10,"i55":10,"i56":10,"i57":10,"i58":10,"i59":10,"i60":10,"i61":10,"i62":10,"i63":10,"i64":9};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -290,41 +290,341 @@ extends java.lang.Object</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="ChannelType.ChannelTypeCreateRequestData.ChannelTypeCreateRequest.html" title="class in io.getstream.chat.java.models">ChannelType.ChannelTypeCreateRequestData.ChannelTypeCreateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create()">create</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates an create request</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="ChannelType.ChannelTypeDeleteRequest.html" title="class in io.getstream.chat.java.models">ChannelType.ChannelTypeDeleteRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#delete(java.lang.String)">delete</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
 <td class="colLast">
 <div class="block">Creates a delete request</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="ChannelType.ChannelTypeGetRequest.html" title="class in io.getstream.chat.java.models">ChannelType.ChannelTypeGetRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get(java.lang.String)">get</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
 <td class="colLast">
 <div class="block">Creates a get request</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>@Nullable <a href="ChannelType.AutoMod.html" title="enum in io.getstream.chat.java.models">ChannelType.AutoMod</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAutomod()">getAutomod</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>@Nullable <a href="ChannelType.AutoModBehavior.html" title="enum in io.getstream.chat.java.models">ChannelType.AutoModBehavior</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAutomodBehavior()">getAutomodBehavior</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.Map&lt;java.lang.String,&#8203;<a href="ChannelType.Threshold.html" title="class in io.getstream.chat.java.models">ChannelType.Threshold</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAutomodThresholds()">getAutomodThresholds</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBlocklist()">getBlocklist</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>@Nullable <a href="ChannelType.BlocklistBehavior.html" title="enum in io.getstream.chat.java.models">ChannelType.BlocklistBehavior</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBlocklistBehavior()">getBlocklistBehavior</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getConnectEvents()">getConnectEvents</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCountMessages()">getCountMessages</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCreatedAt()">getCreatedAt</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCustomEvents()">getCustomEvents</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.String&gt;&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGrants()">getGrants</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMarkMessagesPending()">getMarkMessagesPending</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Integer</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMaxMessageLength()">getMaxMessageLength</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMessageRetention()">getMessageRetention</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMutes()">getMutes</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getName()">getName</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;<a href="ChannelType.Policy.html" title="class in io.getstream.chat.java.models">ChannelType.Policy</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPermissions()">getPermissions</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i21" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPushNotifications()">getPushNotifications</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i22" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getQuotes()">getQuotes</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getReactions()">getReactions</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i24" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getReadEvents()">getReadEvents</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i25" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getReminders()">getReminders</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i26" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getReplies()">getReplies</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i27" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;<a href="ChannelType.Right.html" title="class in io.getstream.chat.java.models">ChannelType.Right</a>&gt;&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRoles()">getRoles</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i28" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSearch()">getSearch</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i29" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTypingEvents()">getTypingEvents</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i30" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUpdatedAt()">getUpdatedAt</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i31" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUploads()">getUploads</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i32" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUrlEnrichment()">getUrlEnrichment</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i33" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i34" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="ChannelType.ChannelTypeListRequest.html" title="class in io.getstream.chat.java.models">ChannelType.ChannelTypeListRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#list()">list</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a list request</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i35" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAutomod(io.getstream.chat.java.models.ChannelType.AutoMod)">setAutomod</a></span>&#8203;(@Nullable <a href="ChannelType.AutoMod.html" title="enum in io.getstream.chat.java.models">ChannelType.AutoMod</a>&nbsp;automod)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i36" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAutomodBehavior(io.getstream.chat.java.models.ChannelType.AutoModBehavior)">setAutomodBehavior</a></span>&#8203;(@Nullable <a href="ChannelType.AutoModBehavior.html" title="enum in io.getstream.chat.java.models">ChannelType.AutoModBehavior</a>&nbsp;automodBehavior)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i37" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAutomodThresholds(java.util.Map)">setAutomodThresholds</a></span>&#8203;(@Nullable java.util.Map&lt;java.lang.String,&#8203;<a href="ChannelType.Threshold.html" title="class in io.getstream.chat.java.models">ChannelType.Threshold</a>&gt;&nbsp;automodThresholds)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i38" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setBlocklist(java.lang.String)">setBlocklist</a></span>&#8203;(@Nullable java.lang.String&nbsp;blocklist)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i39" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setBlocklistBehavior(io.getstream.chat.java.models.ChannelType.BlocklistBehavior)">setBlocklistBehavior</a></span>&#8203;(@Nullable <a href="ChannelType.BlocklistBehavior.html" title="enum in io.getstream.chat.java.models">ChannelType.BlocklistBehavior</a>&nbsp;blocklistBehavior)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i40" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setConnectEvents(java.lang.Boolean)">setConnectEvents</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;connectEvents)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i41" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCountMessages(java.lang.Boolean)">setCountMessages</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;countMessages)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i42" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCreatedAt(java.util.Date)">setCreatedAt</a></span>&#8203;(@Nullable java.util.Date&nbsp;createdAt)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i43" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCustomEvents(java.lang.Boolean)">setCustomEvents</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;customEvents)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i44" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGrants(java.util.Map)">setGrants</a></span>&#8203;(@Nullable java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.String&gt;&gt;&nbsp;grants)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i45" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMarkMessagesPending(java.lang.Boolean)">setMarkMessagesPending</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;markMessagesPending)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i46" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMaxMessageLength(java.lang.Integer)">setMaxMessageLength</a></span>&#8203;(@Nullable java.lang.Integer&nbsp;maxMessageLength)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i47" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMessageRetention(java.lang.String)">setMessageRetention</a></span>&#8203;(@Nullable java.lang.String&nbsp;messageRetention)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i48" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMutes(java.lang.Boolean)">setMutes</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;mutes)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i49" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setName(java.lang.String)">setName</a></span>&#8203;(@NotNull java.lang.String&nbsp;name)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i50" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPermissions(java.util.List)">setPermissions</a></span>&#8203;(@Nullable java.util.List&lt;<a href="ChannelType.Policy.html" title="class in io.getstream.chat.java.models">ChannelType.Policy</a>&gt;&nbsp;permissions)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i51" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPushNotifications(java.lang.Boolean)">setPushNotifications</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;pushNotifications)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i52" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setQuotes(java.lang.Boolean)">setQuotes</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;quotes)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i53" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setReactions(java.lang.Boolean)">setReactions</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;reactions)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i54" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setReadEvents(java.lang.Boolean)">setReadEvents</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;readEvents)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i55" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setReminders(java.lang.Boolean)">setReminders</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;reminders)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i56" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setReplies(java.lang.Boolean)">setReplies</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;replies)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i57" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setRoles(java.util.Map)">setRoles</a></span>&#8203;(@Nullable java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;<a href="ChannelType.Right.html" title="class in io.getstream.chat.java.models">ChannelType.Right</a>&gt;&gt;&nbsp;roles)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i58" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSearch(java.lang.Boolean)">setSearch</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;search)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i59" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTypingEvents(java.lang.Boolean)">setTypingEvents</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;typingEvents)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i60" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUpdatedAt(java.util.Date)">setUpdatedAt</a></span>&#8203;(@Nullable java.util.Date&nbsp;updatedAt)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i61" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUploads(java.lang.Boolean)">setUploads</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;uploads)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i62" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUrlEnrichment(java.lang.Boolean)">setUrlEnrichment</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;urlEnrichment)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i63" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i64" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="ChannelType.ChannelTypeUpdateRequestData.ChannelTypeUpdateRequest.html" title="class in io.getstream.chat.java.models">ChannelType.ChannelTypeUpdateRequestData.ChannelTypeUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(java.lang.String)">update</a></span>&#8203;(@NotNull java.lang.String&nbsp;name)</code></th>
 <td class="colLast">
@@ -337,7 +637,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -444,7 +744,7 @@ public static&nbsp;@NotNull <a href="ChannelType.ChannelTypeDeleteRequest.html" 
 <a id="list()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>list</h4>
 <pre class="methodSignature">@NotNull
@@ -456,6 +756,614 @@ public static&nbsp;@NotNull <a href="ChannelType.ChannelTypeListRequest.html" ti
 <dd>the channel types in a map</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../exceptions/StreamException.html" title="class in io.getstream.chat.java.exceptions">StreamException</a></code> - when IO problem occurs or the stream API return an error</dd>
+</dl>
+</li>
+</ul>
+<a id="getName()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getName</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getName()</pre>
+</li>
+</ul>
+<a id="getTypingEvents()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTypingEvents</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getTypingEvents()</pre>
+</li>
+</ul>
+<a id="getReadEvents()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getReadEvents</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getReadEvents()</pre>
+</li>
+</ul>
+<a id="getReminders()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getReminders</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getReminders()</pre>
+</li>
+</ul>
+<a id="getConnectEvents()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getConnectEvents</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getConnectEvents()</pre>
+</li>
+</ul>
+<a id="getSearch()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSearch</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getSearch()</pre>
+</li>
+</ul>
+<a id="getReactions()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getReactions</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getReactions()</pre>
+</li>
+</ul>
+<a id="getReplies()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getReplies</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getReplies()</pre>
+</li>
+</ul>
+<a id="getQuotes()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getQuotes</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getQuotes()</pre>
+</li>
+</ul>
+<a id="getUploads()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUploads</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getUploads()</pre>
+</li>
+</ul>
+<a id="getUrlEnrichment()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUrlEnrichment</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getUrlEnrichment()</pre>
+</li>
+</ul>
+<a id="getCustomEvents()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCustomEvents</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getCustomEvents()</pre>
+</li>
+</ul>
+<a id="getMutes()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMutes</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getMutes()</pre>
+</li>
+</ul>
+<a id="getPushNotifications()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPushNotifications</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getPushNotifications()</pre>
+</li>
+</ul>
+<a id="getMessageRetention()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMessageRetention</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getMessageRetention()</pre>
+</li>
+</ul>
+<a id="getMaxMessageLength()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMaxMessageLength</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Integer&nbsp;getMaxMessageLength()</pre>
+</li>
+</ul>
+<a id="getMarkMessagesPending()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMarkMessagesPending</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getMarkMessagesPending()</pre>
+</li>
+</ul>
+<a id="getAutomod()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAutomod</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="ChannelType.AutoMod.html" title="enum in io.getstream.chat.java.models">ChannelType.AutoMod</a>&nbsp;getAutomod()</pre>
+</li>
+</ul>
+<a id="getAutomodBehavior()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAutomodBehavior</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="ChannelType.AutoModBehavior.html" title="enum in io.getstream.chat.java.models">ChannelType.AutoModBehavior</a>&nbsp;getAutomodBehavior()</pre>
+</li>
+</ul>
+<a id="getCreatedAt()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCreatedAt</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Date&nbsp;getCreatedAt()</pre>
+</li>
+</ul>
+<a id="getUpdatedAt()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUpdatedAt</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Date&nbsp;getUpdatedAt()</pre>
+</li>
+</ul>
+<a id="getBlocklist()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getBlocklist</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getBlocklist()</pre>
+</li>
+</ul>
+<a id="getBlocklistBehavior()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getBlocklistBehavior</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="ChannelType.BlocklistBehavior.html" title="enum in io.getstream.chat.java.models">ChannelType.BlocklistBehavior</a>&nbsp;getBlocklistBehavior()</pre>
+</li>
+</ul>
+<a id="getAutomodThresholds()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAutomodThresholds</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Map&lt;java.lang.String,&#8203;<a href="ChannelType.Threshold.html" title="class in io.getstream.chat.java.models">ChannelType.Threshold</a>&gt;&nbsp;getAutomodThresholds()</pre>
+</li>
+</ul>
+<a id="getRoles()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRoles</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;<a href="ChannelType.Right.html" title="class in io.getstream.chat.java.models">ChannelType.Right</a>&gt;&gt;&nbsp;getRoles()</pre>
+</li>
+</ul>
+<a id="getPermissions()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPermissions</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;<a href="ChannelType.Policy.html" title="class in io.getstream.chat.java.models">ChannelType.Policy</a>&gt;&nbsp;getPermissions()</pre>
+</li>
+</ul>
+<a id="getGrants()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getGrants</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.String&gt;&gt;&nbsp;getGrants()</pre>
+</li>
+</ul>
+<a id="getCountMessages()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCountMessages</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getCountMessages()</pre>
+</li>
+</ul>
+<a id="setName(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setName</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setName&#8203;(@NotNull
+                    @NotNull java.lang.String&nbsp;name)</pre>
+</li>
+</ul>
+<a id="setTypingEvents(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setTypingEvents</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setTypingEvents&#8203;(@Nullable
+                            @Nullable java.lang.Boolean&nbsp;typingEvents)</pre>
+</li>
+</ul>
+<a id="setReadEvents(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setReadEvents</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setReadEvents&#8203;(@Nullable
+                          @Nullable java.lang.Boolean&nbsp;readEvents)</pre>
+</li>
+</ul>
+<a id="setReminders(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setReminders</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setReminders&#8203;(@Nullable
+                         @Nullable java.lang.Boolean&nbsp;reminders)</pre>
+</li>
+</ul>
+<a id="setConnectEvents(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setConnectEvents</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setConnectEvents&#8203;(@Nullable
+                             @Nullable java.lang.Boolean&nbsp;connectEvents)</pre>
+</li>
+</ul>
+<a id="setSearch(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSearch</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSearch&#8203;(@Nullable
+                      @Nullable java.lang.Boolean&nbsp;search)</pre>
+</li>
+</ul>
+<a id="setReactions(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setReactions</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setReactions&#8203;(@Nullable
+                         @Nullable java.lang.Boolean&nbsp;reactions)</pre>
+</li>
+</ul>
+<a id="setReplies(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setReplies</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setReplies&#8203;(@Nullable
+                       @Nullable java.lang.Boolean&nbsp;replies)</pre>
+</li>
+</ul>
+<a id="setQuotes(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setQuotes</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setQuotes&#8203;(@Nullable
+                      @Nullable java.lang.Boolean&nbsp;quotes)</pre>
+</li>
+</ul>
+<a id="setUploads(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setUploads</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setUploads&#8203;(@Nullable
+                       @Nullable java.lang.Boolean&nbsp;uploads)</pre>
+</li>
+</ul>
+<a id="setUrlEnrichment(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setUrlEnrichment</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setUrlEnrichment&#8203;(@Nullable
+                             @Nullable java.lang.Boolean&nbsp;urlEnrichment)</pre>
+</li>
+</ul>
+<a id="setCustomEvents(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCustomEvents</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCustomEvents&#8203;(@Nullable
+                            @Nullable java.lang.Boolean&nbsp;customEvents)</pre>
+</li>
+</ul>
+<a id="setMutes(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMutes</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setMutes&#8203;(@Nullable
+                     @Nullable java.lang.Boolean&nbsp;mutes)</pre>
+</li>
+</ul>
+<a id="setPushNotifications(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setPushNotifications</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setPushNotifications&#8203;(@Nullable
+                                 @Nullable java.lang.Boolean&nbsp;pushNotifications)</pre>
+</li>
+</ul>
+<a id="setMessageRetention(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMessageRetention</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setMessageRetention&#8203;(@Nullable
+                                @Nullable java.lang.String&nbsp;messageRetention)</pre>
+</li>
+</ul>
+<a id="setMaxMessageLength(java.lang.Integer)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMaxMessageLength</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setMaxMessageLength&#8203;(@Nullable
+                                @Nullable java.lang.Integer&nbsp;maxMessageLength)</pre>
+</li>
+</ul>
+<a id="setMarkMessagesPending(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMarkMessagesPending</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setMarkMessagesPending&#8203;(@Nullable
+                                   @Nullable java.lang.Boolean&nbsp;markMessagesPending)</pre>
+</li>
+</ul>
+<a id="setAutomod(io.getstream.chat.java.models.ChannelType.AutoMod)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAutomod</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAutomod&#8203;(@Nullable
+                       @Nullable <a href="ChannelType.AutoMod.html" title="enum in io.getstream.chat.java.models">ChannelType.AutoMod</a>&nbsp;automod)</pre>
+</li>
+</ul>
+<a id="setAutomodBehavior(io.getstream.chat.java.models.ChannelType.AutoModBehavior)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAutomodBehavior</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAutomodBehavior&#8203;(@Nullable
+                               @Nullable <a href="ChannelType.AutoModBehavior.html" title="enum in io.getstream.chat.java.models">ChannelType.AutoModBehavior</a>&nbsp;automodBehavior)</pre>
+</li>
+</ul>
+<a id="setCreatedAt(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCreatedAt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCreatedAt&#8203;(@Nullable
+                         @Nullable java.util.Date&nbsp;createdAt)</pre>
+</li>
+</ul>
+<a id="setUpdatedAt(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setUpdatedAt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setUpdatedAt&#8203;(@Nullable
+                         @Nullable java.util.Date&nbsp;updatedAt)</pre>
+</li>
+</ul>
+<a id="setBlocklist(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setBlocklist</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setBlocklist&#8203;(@Nullable
+                         @Nullable java.lang.String&nbsp;blocklist)</pre>
+</li>
+</ul>
+<a id="setBlocklistBehavior(io.getstream.chat.java.models.ChannelType.BlocklistBehavior)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setBlocklistBehavior</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setBlocklistBehavior&#8203;(@Nullable
+                                 @Nullable <a href="ChannelType.BlocklistBehavior.html" title="enum in io.getstream.chat.java.models">ChannelType.BlocklistBehavior</a>&nbsp;blocklistBehavior)</pre>
+</li>
+</ul>
+<a id="setAutomodThresholds(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAutomodThresholds</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAutomodThresholds&#8203;(@Nullable
+                                 @Nullable java.util.Map&lt;java.lang.String,&#8203;<a href="ChannelType.Threshold.html" title="class in io.getstream.chat.java.models">ChannelType.Threshold</a>&gt;&nbsp;automodThresholds)</pre>
+</li>
+</ul>
+<a id="setRoles(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setRoles</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setRoles&#8203;(@Nullable
+                     @Nullable java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;<a href="ChannelType.Right.html" title="class in io.getstream.chat.java.models">ChannelType.Right</a>&gt;&gt;&nbsp;roles)</pre>
+</li>
+</ul>
+<a id="setPermissions(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setPermissions</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setPermissions&#8203;(@Nullable
+                           @Nullable java.util.List&lt;<a href="ChannelType.Policy.html" title="class in io.getstream.chat.java.models">ChannelType.Policy</a>&gt;&nbsp;permissions)</pre>
+</li>
+</ul>
+<a id="setGrants(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setGrants</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setGrants&#8203;(@Nullable
+                      @Nullable java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.String&gt;&gt;&nbsp;grants)</pre>
+</li>
+</ul>
+<a id="setCountMessages(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCountMessages</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCountMessages&#8203;(@Nullable
+                             @Nullable java.lang.Boolean&nbsp;countMessages)</pre>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 </dl>
 </li>
 </ul>

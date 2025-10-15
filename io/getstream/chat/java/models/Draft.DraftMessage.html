@@ -27,6 +27,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "../../../../../";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -91,7 +97,7 @@ loadScripts(document, 'script');</script>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.top">
@@ -166,12 +172,170 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;<a href="Message.Attachment.html" title="class in io.getstream.chat.java.models">Message.Attachment</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAttachments()">getAttachments</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCustom()">getCustom</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getHtml()">getHtml</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getId()">getId</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;<a href="User.html" title="class in io.getstream.chat.java.models">User</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMentionedUsers()">getMentionedUsers</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMml()">getMml</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getParentId()">getParentId</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPollId()">getPollId</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getQuotedMessageId()">getQuotedMessageId</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getShowInChannel()">getShowInChannel</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSilent()">getSilent</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getText()">getText</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getType()">getType</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAttachments(java.util.List)">setAttachments</a></span>&#8203;(@Nullable java.util.List&lt;<a href="Message.Attachment.html" title="class in io.getstream.chat.java.models">Message.Attachment</a>&gt;&nbsp;attachments)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCustom(java.util.Map)">setCustom</a></span>&#8203;(@Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;custom)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setHtml(java.lang.String)">setHtml</a></span>&#8203;(@Nullable java.lang.String&nbsp;html)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setId(java.lang.String)">setId</a></span>&#8203;(@Nullable java.lang.String&nbsp;id)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMentionedUsers(java.util.List)">setMentionedUsers</a></span>&#8203;(@Nullable java.util.List&lt;<a href="User.html" title="class in io.getstream.chat.java.models">User</a>&gt;&nbsp;mentionedUsers)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i21" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMml(java.lang.String)">setMml</a></span>&#8203;(@Nullable java.lang.String&nbsp;mml)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i22" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setParentId(java.lang.String)">setParentId</a></span>&#8203;(@Nullable java.lang.String&nbsp;parentId)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPollId(java.lang.String)">setPollId</a></span>&#8203;(@Nullable java.lang.String&nbsp;pollId)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i24" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setQuotedMessageId(java.lang.String)">setQuotedMessageId</a></span>&#8203;(@Nullable java.lang.String&nbsp;quotedMessageId)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i25" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setShowInChannel(java.lang.Boolean)">setShowInChannel</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;showInChannel)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i26" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSilent(java.lang.Boolean)">setSilent</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;silent)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i27" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setText(java.lang.String)">setText</a></span>&#8203;(@Nullable java.lang.String&nbsp;text)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i28" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setType(java.lang.String)">setType</a></span>&#8203;(@Nullable java.lang.String&nbsp;type)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i29" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -196,6 +360,324 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>DraftMessage</h4>
 <pre>public&nbsp;DraftMessage()</pre>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<!-- ============ METHOD DETAIL ========== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="method.detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a id="getId()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getId</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getId()</pre>
+</li>
+</ul>
+<a id="getText()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getText</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getText()</pre>
+</li>
+</ul>
+<a id="getHtml()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getHtml</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getHtml()</pre>
+</li>
+</ul>
+<a id="getMml()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMml</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getMml()</pre>
+</li>
+</ul>
+<a id="getParentId()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getParentId</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getParentId()</pre>
+</li>
+</ul>
+<a id="getShowInChannel()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getShowInChannel</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getShowInChannel()</pre>
+</li>
+</ul>
+<a id="getAttachments()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAttachments</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;<a href="Message.Attachment.html" title="class in io.getstream.chat.java.models">Message.Attachment</a>&gt;&nbsp;getAttachments()</pre>
+</li>
+</ul>
+<a id="getMentionedUsers()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMentionedUsers</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;<a href="User.html" title="class in io.getstream.chat.java.models">User</a>&gt;&nbsp;getMentionedUsers()</pre>
+</li>
+</ul>
+<a id="getCustom()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCustom</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;getCustom()</pre>
+</li>
+</ul>
+<a id="getQuotedMessageId()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getQuotedMessageId</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getQuotedMessageId()</pre>
+</li>
+</ul>
+<a id="getType()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getType</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getType()</pre>
+</li>
+</ul>
+<a id="getSilent()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSilent</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getSilent()</pre>
+</li>
+</ul>
+<a id="getPollId()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPollId</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getPollId()</pre>
+</li>
+</ul>
+<a id="setId(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setId</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setId&#8203;(@Nullable
+                  @Nullable java.lang.String&nbsp;id)</pre>
+</li>
+</ul>
+<a id="setText(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setText</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setText&#8203;(@Nullable
+                    @Nullable java.lang.String&nbsp;text)</pre>
+</li>
+</ul>
+<a id="setHtml(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setHtml</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setHtml&#8203;(@Nullable
+                    @Nullable java.lang.String&nbsp;html)</pre>
+</li>
+</ul>
+<a id="setMml(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMml</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setMml&#8203;(@Nullable
+                   @Nullable java.lang.String&nbsp;mml)</pre>
+</li>
+</ul>
+<a id="setParentId(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setParentId</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setParentId&#8203;(@Nullable
+                        @Nullable java.lang.String&nbsp;parentId)</pre>
+</li>
+</ul>
+<a id="setShowInChannel(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setShowInChannel</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setShowInChannel&#8203;(@Nullable
+                             @Nullable java.lang.Boolean&nbsp;showInChannel)</pre>
+</li>
+</ul>
+<a id="setAttachments(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAttachments</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAttachments&#8203;(@Nullable
+                           @Nullable java.util.List&lt;<a href="Message.Attachment.html" title="class in io.getstream.chat.java.models">Message.Attachment</a>&gt;&nbsp;attachments)</pre>
+</li>
+</ul>
+<a id="setMentionedUsers(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMentionedUsers</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setMentionedUsers&#8203;(@Nullable
+                              @Nullable java.util.List&lt;<a href="User.html" title="class in io.getstream.chat.java.models">User</a>&gt;&nbsp;mentionedUsers)</pre>
+</li>
+</ul>
+<a id="setCustom(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCustom</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCustom&#8203;(@Nullable
+                      @Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;custom)</pre>
+</li>
+</ul>
+<a id="setQuotedMessageId(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setQuotedMessageId</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setQuotedMessageId&#8203;(@Nullable
+                               @Nullable java.lang.String&nbsp;quotedMessageId)</pre>
+</li>
+</ul>
+<a id="setType(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setType</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setType&#8203;(@Nullable
+                    @Nullable java.lang.String&nbsp;type)</pre>
+</li>
+</ul>
+<a id="setSilent(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSilent</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSilent&#8203;(@Nullable
+                      @Nullable java.lang.Boolean&nbsp;silent)</pre>
+</li>
+</ul>
+<a id="setPollId(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setPollId</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setPollId&#8203;(@Nullable
+                      @Nullable java.lang.String&nbsp;pollId)</pre>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -258,7 +740,7 @@ extends java.lang.Object</pre>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.bottom">

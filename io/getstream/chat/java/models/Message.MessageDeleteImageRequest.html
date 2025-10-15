@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -162,7 +162,9 @@ extends <a href="Message.FileRequest.html" title="class in io.getstream.chat.jav
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">MessageDeleteImageRequest</a></span>()</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,java.lang.String,java.lang.String)">MessageDeleteImageRequest</a></span>&#8203;(@NotNull java.lang.String&nbsp;channelType,
+                         @NotNull java.lang.String&nbsp;channelId,
+                         @NotNull java.lang.String&nbsp;url)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -184,6 +186,36 @@ extends <a href="Message.FileRequest.html" title="class in io.getstream.chat.jav
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getChannelId()">getChannelId</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getChannelType()">getChannelType</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUrl()">getUrl</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>@NotNull <a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#request()">request</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -201,7 +233,7 @@ extends <a href="Message.FileRequest.html" title="class in io.getstream.chat.jav
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, toString, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -219,13 +251,18 @@ extends <a href="Message.FileRequest.html" title="class in io.getstream.chat.jav
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;()">
+<a id="&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>MessageDeleteImageRequest</h4>
-<pre>public&nbsp;MessageDeleteImageRequest()</pre>
+<pre>public&nbsp;MessageDeleteImageRequest&#8203;(@NotNull
+                                 @NotNull java.lang.String&nbsp;channelType,
+                                 @NotNull
+                                 @NotNull java.lang.String&nbsp;channelId,
+                                 @NotNull
+                                 @NotNull java.lang.String&nbsp;url)</pre>
 </li>
 </ul>
 </li>
@@ -241,7 +278,7 @@ extends <a href="Message.FileRequest.html" title="class in io.getstream.chat.jav
 <a id="request()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>request</h4>
 <pre class="methodSignature">@NotNull
@@ -252,6 +289,71 @@ public&nbsp;@NotNull <a href="framework/StreamResponseObject.html" title="class 
 <dd><code><a href="Message.FileRequest.html#request()">request</a></code>&nbsp;in class&nbsp;<code><a href="Message.FileRequest.html" title="class in io.getstream.chat.java.models">Message.FileRequest</a>&lt;<a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../exceptions/StreamException.html" title="class in io.getstream.chat.java.exceptions">StreamException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="getChannelType()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getChannelType</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getChannelType()</pre>
+</li>
+</ul>
+<a id="getChannelId()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getChannelId</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getChannelId()</pre>
+</li>
+</ul>
+<a id="getUrl()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUrl</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getUrl()</pre>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 </dl>
 </li>
 </ul>

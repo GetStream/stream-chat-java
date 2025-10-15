@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":10,"i2":10};
+var data = {"i0":9,"i1":9,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -88,15 +88,15 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
@@ -143,21 +143,23 @@ extends java.lang.Object</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<!-- ======== NESTED CLASS SUMMARY ======== -->
 <section>
 <ul class="blockList">
-<li class="blockList"><a id="constructor.summary">
+<li class="blockList"><a id="nested.class.summary">
 <!--   -->
 </a>
-<h3>Constructor Summary</h3>
+<h3>Nested Class Summary</h3>
 <table class="memberSummary">
-<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<caption><span>Nested Classes</span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
-<th class="colFirst" scope="col">Constructor</th>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Class</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">UserRequestObject</a></span>()</code></th>
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="User.UserRequestObject.UserRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">User.UserRequestObject.UserRequestObjectBuilder</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -179,19 +181,124 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>static <a href="User.UserRequestObject.UserRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">User.UserRequestObject.UserRequestObjectBuilder</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#builder()">builder</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>static @Nullable <a href="User.UserRequestObject.html" title="class in io.getstream.chat.java.models">User.UserRequestObject</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#buildFrom(io.getstream.chat.java.models.User)">buildFrom</a></span>&#8203;(@Nullable <a href="User.html" title="class in io.getstream.chat.java.models">User</a>&nbsp;user)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAdditionalFields()">getAdditionalFields</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBanExpires()">getBanExpires</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBanned()">getBanned</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getId()">getId</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>@Nullable <a href="Language.html" title="enum in io.getstream.chat.java.models">Language</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLanguage()">getLanguage</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getName()">getName</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRole()">getRole</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;java.lang.String&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTeams()">getTeams</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTeamsRole()">getTeamsRole</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAdditionalField(java.lang.String,java.lang.Object)">setAdditionalField</a></span>&#8203;(java.lang.String&nbsp;name,
                   java.lang.Object&nbsp;value)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAdditionalFields(java.util.Map)">setAdditionalFields</a></span>&#8203;(@Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;additionalFields)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setBanExpires(java.lang.String)">setBanExpires</a></span>&#8203;(@Nullable java.lang.String&nbsp;banExpires)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setBanned(java.lang.Boolean)">setBanned</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;banned)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setId(java.lang.String)">setId</a></span>&#8203;(@NotNull java.lang.String&nbsp;id)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLanguage(io.getstream.chat.java.models.Language)">setLanguage</a></span>&#8203;(@Nullable <a href="Language.html" title="enum in io.getstream.chat.java.models">Language</a>&nbsp;language)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setName(java.lang.String)">setName</a></span>&#8203;(@Nullable java.lang.String&nbsp;name)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i21" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setRole(java.lang.String)">setRole</a></span>&#8203;(@Nullable java.lang.String&nbsp;role)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i22" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTeams(java.util.List)">setTeams</a></span>&#8203;(@Nullable java.util.List&lt;java.lang.String&gt;&nbsp;teams)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTeamsRole(java.util.Map)">setTeamsRole</a></span>&#8203;(@Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;&nbsp;teamsRole)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -200,7 +307,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, toString, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -211,25 +318,6 @@ extends java.lang.Object</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="constructor.detail">
-<!--   -->
-</a>
-<h3>Constructor Detail</h3>
-<a id="&lt;init&gt;()">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>UserRequestObject</h4>
-<pre>public&nbsp;UserRequestObject()</pre>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ============ METHOD DETAIL ========== -->
 <section>
 <ul class="blockList">
@@ -259,12 +347,226 @@ extends java.lang.Object</pre>
 <a id="buildFrom(io.getstream.chat.java.models.User)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>buildFrom</h4>
 <pre class="methodSignature">@Nullable
 public static&nbsp;@Nullable <a href="User.UserRequestObject.html" title="class in io.getstream.chat.java.models">User.UserRequestObject</a>&nbsp;buildFrom&#8203;(@Nullable
                                                          @Nullable <a href="User.html" title="class in io.getstream.chat.java.models">User</a>&nbsp;user)</pre>
+</li>
+</ul>
+<a id="builder()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>builder</h4>
+<pre class="methodSignature">public static&nbsp;<a href="User.UserRequestObject.UserRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">User.UserRequestObject.UserRequestObjectBuilder</a>&nbsp;builder()</pre>
+</li>
+</ul>
+<a id="setId(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setId</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setId&#8203;(@NotNull
+                  @NotNull java.lang.String&nbsp;id)</pre>
+</li>
+</ul>
+<a id="setName(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setName</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setName&#8203;(@Nullable
+                    @Nullable java.lang.String&nbsp;name)</pre>
+</li>
+</ul>
+<a id="setRole(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setRole</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setRole&#8203;(@Nullable
+                    @Nullable java.lang.String&nbsp;role)</pre>
+</li>
+</ul>
+<a id="setBanned(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setBanned</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setBanned&#8203;(@Nullable
+                      @Nullable java.lang.Boolean&nbsp;banned)</pre>
+</li>
+</ul>
+<a id="setBanExpires(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setBanExpires</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setBanExpires&#8203;(@Nullable
+                          @Nullable java.lang.String&nbsp;banExpires)</pre>
+</li>
+</ul>
+<a id="setLanguage(io.getstream.chat.java.models.Language)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setLanguage</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setLanguage&#8203;(@Nullable
+                        @Nullable <a href="Language.html" title="enum in io.getstream.chat.java.models">Language</a>&nbsp;language)</pre>
+</li>
+</ul>
+<a id="setTeams(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setTeams</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setTeams&#8203;(@Nullable
+                     @Nullable java.util.List&lt;java.lang.String&gt;&nbsp;teams)</pre>
+</li>
+</ul>
+<a id="setTeamsRole(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setTeamsRole</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setTeamsRole&#8203;(@Nullable
+                         @Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;&nbsp;teamsRole)</pre>
+</li>
+</ul>
+<a id="setAdditionalFields(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAdditionalFields</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAdditionalFields&#8203;(@Nullable
+                                @Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;additionalFields)</pre>
+</li>
+</ul>
+<a id="getId()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getId</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getId()</pre>
+</li>
+</ul>
+<a id="getName()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getName</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getName()</pre>
+</li>
+</ul>
+<a id="getRole()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRole</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getRole()</pre>
+</li>
+</ul>
+<a id="getBanned()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getBanned</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getBanned()</pre>
+</li>
+</ul>
+<a id="getBanExpires()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getBanExpires</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getBanExpires()</pre>
+</li>
+</ul>
+<a id="getLanguage()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLanguage</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="Language.html" title="enum in io.getstream.chat.java.models">Language</a>&nbsp;getLanguage()</pre>
+</li>
+</ul>
+<a id="getTeams()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTeams</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;java.lang.String&gt;&nbsp;getTeams()</pre>
+</li>
+</ul>
+<a id="getTeamsRole()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTeamsRole</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;&nbsp;getTeamsRole()</pre>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -318,15 +620,15 @@ public static&nbsp;@Nullable <a href="User.UserRequestObject.html" title="class 
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>

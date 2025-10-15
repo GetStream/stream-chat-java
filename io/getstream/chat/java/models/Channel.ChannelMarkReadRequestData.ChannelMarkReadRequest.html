@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -167,6 +167,31 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#generateCall(io.getstream.chat.java.services.framework.Client)">generateCall</a></span>&#8203;(<a href="../services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a>&nbsp;client)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code><a href="Channel.ChannelMarkReadRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadRequestData</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#internalBuild()">internalBuild</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#messageId(java.lang.String)">messageId</a></span>&#8203;(@Nullable java.lang.String&nbsp;messageId)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code><a href="Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#user(io.getstream.chat.java.models.User.UserRequestObject)">user</a></span>&#8203;(@Nullable <a href="User.UserRequestObject.html" title="class in io.getstream.chat.java.models">User.UserRequestObject</a>&nbsp;user)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code><a href="Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#userId(java.lang.String)">userId</a></span>&#8203;(@Nullable java.lang.String&nbsp;userId)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.io.getstream.chat.java.models.framework.StreamRequest">
@@ -180,7 +205,7 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -201,13 +226,77 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <a id="generateCall(io.getstream.chat.java.services.framework.Client)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>generateCall</h4>
 <pre class="methodSignature">protected&nbsp;retrofit2.Call&lt;<a href="Channel.ChannelMarkReadResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadResponse</a>&gt;&nbsp;generateCall&#8203;(<a href="../services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a>&nbsp;client)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="framework/StreamRequest.html#generateCall(io.getstream.chat.java.services.framework.Client)">generateCall</a></code>&nbsp;in class&nbsp;<code><a href="framework/StreamRequest.html" title="class in io.getstream.chat.java.models.framework">StreamRequest</a>&lt;<a href="Channel.ChannelMarkReadResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadResponse</a>&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a id="messageId(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>messageId</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest</a>&nbsp;messageId&#8203;(@Nullable
+                                                                           @Nullable java.lang.String&nbsp;messageId)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="userId(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>userId</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest</a>&nbsp;userId&#8203;(@Nullable
+                                                                        @Nullable java.lang.String&nbsp;userId)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="user(io.getstream.chat.java.models.User.UserRequestObject)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>user</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadRequestData.ChannelMarkReadRequest</a>&nbsp;user&#8203;(@Nullable
+                                                                      @Nullable <a href="User.UserRequestObject.html" title="class in io.getstream.chat.java.models">User.UserRequestObject</a>&nbsp;user)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="internalBuild()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>internalBuild</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelMarkReadRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelMarkReadRequestData</a>&nbsp;internalBuild()</pre>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 </dl>
 </li>
 </ul>

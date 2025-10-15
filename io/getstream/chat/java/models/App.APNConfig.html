@@ -27,6 +27,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "../../../../../";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -91,7 +97,7 @@ loadScripts(document, 'script');</script>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.top">
@@ -165,12 +171,130 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>@org.jetbrains.annotations.Nullable byte[]</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAuthKey()">getAuthKey</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>@Nullable <a href="App.AuthenticationType.html" title="enum in io.getstream.chat.java.models">App.AuthenticationType</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAuthType()">getAuthType</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBundleId()">getBundleId</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>@NotNull java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDevelopment()">getDevelopment</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>@NotNull java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEnabled()">getEnabled</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getHost()">getHost</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getKeyId()">getKeyId</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getNotificationTemplate()">getNotificationTemplate</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTeamId()">getTeamId</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAuthKey(@org.jetbrains.annotations.Nullablebyte%5B%5D)">setAuthKey</a></span>&#8203;(@org.jetbrains.annotations.Nullable byte[]&nbsp;authKey)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAuthType(io.getstream.chat.java.models.App.AuthenticationType)">setAuthType</a></span>&#8203;(@Nullable <a href="App.AuthenticationType.html" title="enum in io.getstream.chat.java.models">App.AuthenticationType</a>&nbsp;authType)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setBundleId(java.lang.String)">setBundleId</a></span>&#8203;(@Nullable java.lang.String&nbsp;bundleId)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDevelopment(java.lang.Boolean)">setDevelopment</a></span>&#8203;(@NotNull java.lang.Boolean&nbsp;development)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEnabled(java.lang.Boolean)">setEnabled</a></span>&#8203;(@NotNull java.lang.Boolean&nbsp;enabled)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setHost(java.lang.String)">setHost</a></span>&#8203;(@Nullable java.lang.String&nbsp;host)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setKeyId(java.lang.String)">setKeyId</a></span>&#8203;(@Nullable java.lang.String&nbsp;keyId)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setNotificationTemplate(java.lang.String)">setNotificationTemplate</a></span>&#8203;(@NotNull java.lang.String&nbsp;notificationTemplate)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTeamId(java.lang.String)">setTeamId</a></span>&#8203;(@Nullable java.lang.String&nbsp;teamId)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i21" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -195,6 +319,244 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>APNConfig</h4>
 <pre>public&nbsp;APNConfig()</pre>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<!-- ============ METHOD DETAIL ========== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="method.detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a id="getEnabled()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getEnabled</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.Boolean&nbsp;getEnabled()</pre>
+</li>
+</ul>
+<a id="getDevelopment()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDevelopment</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.Boolean&nbsp;getDevelopment()</pre>
+</li>
+</ul>
+<a id="getAuthType()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAuthType</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="App.AuthenticationType.html" title="enum in io.getstream.chat.java.models">App.AuthenticationType</a>&nbsp;getAuthType()</pre>
+</li>
+</ul>
+<a id="getAuthKey()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAuthKey</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@org.jetbrains.annotations.Nullable byte[]&nbsp;getAuthKey()</pre>
+</li>
+</ul>
+<a id="getNotificationTemplate()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getNotificationTemplate</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getNotificationTemplate()</pre>
+</li>
+</ul>
+<a id="getHost()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getHost</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getHost()</pre>
+</li>
+</ul>
+<a id="getBundleId()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getBundleId</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getBundleId()</pre>
+</li>
+</ul>
+<a id="getTeamId()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTeamId</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getTeamId()</pre>
+</li>
+</ul>
+<a id="getKeyId()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getKeyId</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getKeyId()</pre>
+</li>
+</ul>
+<a id="setEnabled(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setEnabled</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setEnabled&#8203;(@NotNull
+                       @NotNull java.lang.Boolean&nbsp;enabled)</pre>
+</li>
+</ul>
+<a id="setDevelopment(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setDevelopment</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setDevelopment&#8203;(@NotNull
+                           @NotNull java.lang.Boolean&nbsp;development)</pre>
+</li>
+</ul>
+<a id="setAuthType(io.getstream.chat.java.models.App.AuthenticationType)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAuthType</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAuthType&#8203;(@Nullable
+                        @Nullable <a href="App.AuthenticationType.html" title="enum in io.getstream.chat.java.models">App.AuthenticationType</a>&nbsp;authType)</pre>
+</li>
+</ul>
+<a id="setAuthKey(@org.jetbrains.annotations.Nullablebyte[])">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAuthKey</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAuthKey&#8203;(@Nullable
+                       @org.jetbrains.annotations.Nullable byte[]&nbsp;authKey)</pre>
+</li>
+</ul>
+<a id="setNotificationTemplate(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setNotificationTemplate</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setNotificationTemplate&#8203;(@NotNull
+                                    @NotNull java.lang.String&nbsp;notificationTemplate)</pre>
+</li>
+</ul>
+<a id="setHost(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setHost</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setHost&#8203;(@Nullable
+                    @Nullable java.lang.String&nbsp;host)</pre>
+</li>
+</ul>
+<a id="setBundleId(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setBundleId</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setBundleId&#8203;(@Nullable
+                        @Nullable java.lang.String&nbsp;bundleId)</pre>
+</li>
+</ul>
+<a id="setTeamId(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setTeamId</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setTeamId&#8203;(@Nullable
+                      @Nullable java.lang.String&nbsp;teamId)</pre>
+</li>
+</ul>
+<a id="setKeyId(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setKeyId</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setKeyId&#8203;(@Nullable
+                     @Nullable java.lang.String&nbsp;keyId)</pre>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -257,7 +619,7 @@ extends java.lang.Object</pre>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.bottom">

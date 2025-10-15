@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":10,"i11":9,"i12":9};
+var data = {"i0":10,"i1":9,"i2":9,"i3":9,"i4":9,"i5":10,"i6":9,"i7":10,"i8":9,"i9":10,"i10":9,"i11":9,"i12":10,"i13":10,"i14":9,"i15":9,"i16":10,"i17":9,"i18":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -422,27 +422,32 @@ extends <a href="framework/StreamResponseObject.html" title="class in io.getstre
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="App.AppCheckPushRequestData.AppCheckPushRequest.html" title="class in io.getstream.chat.java.models">App.AppCheckPushRequestData.AppCheckPushRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkPush()">checkPush</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a check push request.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="App.AppCheckSnsRequestData.AppCheckSnsRequest.html" title="class in io.getstream.chat.java.models">App.AppCheckSnsRequestData.AppCheckSnsRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkSns()">checkSns</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a check SNS request.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="App.AppCheckSqsRequestData.AppCheckSqsRequest.html" title="class in io.getstream.chat.java.models">App.AppCheckSqsRequestData.AppCheckSqsRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkSqs()">checkSqs</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a check SQS request.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="App.DeletePushProviderRequest.html" title="class in io.getstream.chat.java.models">App.DeletePushProviderRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deletePushProvider(java.lang.String,java.lang.String)">deletePushProvider</a></span>&#8203;(@NotNull java.lang.String&nbsp;providerType,
                   @NotNull java.lang.String&nbsp;name)</code></th>
@@ -450,49 +455,74 @@ extends <a href="framework/StreamResponseObject.html" title="class in io.getstre
 <div class="block">Creates a delete push provider request</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="App.AppGetRequest.html" title="class in io.getstream.chat.java.models">App.AppGetRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get()">get</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a get request.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>@Nullable <a href="App.AppConfig.html" title="class in io.getstream.chat.java.models">App.AppConfig</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getApp()">getApp</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="App.AppGetRateLimitsRequest.html" title="class in io.getstream.chat.java.models">App.AppGetRateLimitsRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRateLimits()">getRateLimits</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a get rate limits request.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="App.ListPushProvidersRequest.html" title="class in io.getstream.chat.java.models">App.ListPushProvidersRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#listPushProviders()">listPushProviders</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a list push providers request</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="App.AppRevokeTokensRequest.html" title="class in io.getstream.chat.java.models">App.AppRevokeTokensRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#revokeTokens(java.util.Date)">revokeTokens</a></span>&#8203;(@Nullable java.util.Date&nbsp;revokeTokensIssuedBefore)</code></th>
 <td class="colLast">
 <div class="block">Creates a revoke tokens request</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setApp(io.getstream.chat.java.models.App.AppConfig)">setApp</a></span>&#8203;(@Nullable <a href="App.AppConfig.html" title="class in io.getstream.chat.java.models">App.AppConfig</a>&nbsp;app)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="App.AppUpdateRequestData.AppUpdateRequest.html" title="class in io.getstream.chat.java.models">App.AppUpdateRequestData.AppUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates an update request.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="App.PushProviderRequestData.PushProviderRequest.html" title="class in io.getstream.chat.java.models">App.PushProviderRequestData.PushProviderRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#upsertPushProvider()">upsertPushProvider</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates an upsert push provider request</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyWebhook(java.lang.String,java.lang.String)">verifyWebhook</a></span>&#8203;(@NotNull java.lang.String&nbsp;body,
              @NotNull java.lang.String&nbsp;signature)</code></th>
@@ -500,7 +530,7 @@ extends <a href="framework/StreamResponseObject.html" title="class in io.getstre
 <div class="block">Validates if hmac signature is correct for message body.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyWebhookSignature(java.lang.String,java.lang.String)">verifyWebhookSignature</a></span>&#8203;(@NotNull java.lang.String&nbsp;body,
                       @NotNull java.lang.String&nbsp;signature)</code></th>
@@ -508,7 +538,7 @@ extends <a href="framework/StreamResponseObject.html" title="class in io.getstre
 <div class="block">Validates if hmac signature is correct for message body.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyWebhookSignature(java.lang.String,java.lang.String,java.lang.String)">verifyWebhookSignature</a></span>&#8203;(@NotNull java.lang.String&nbsp;apiSecret,
                       @NotNull java.lang.String&nbsp;body,
@@ -519,25 +549,18 @@ extends <a href="framework/StreamResponseObject.html" title="class in io.getstre
 </tr>
 </table>
 <ul class="blockList">
+<li class="blockList"><a id="methods.inherited.from.class.io.getstream.chat.java.models.framework.StreamResponseObject">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;io.getstream.chat.java.models.framework.<a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a></h3>
+<code><a href="framework/StreamResponseObject.html#getDuration()">getDuration</a>, <a href="framework/StreamResponseObject.html#getRateLimit()">getRateLimit</a>, <a href="framework/StreamResponseObject.html#setDuration(java.lang.String)">setDuration</a>, <a href="framework/StreamResponseObject.html#setRateLimit(io.getstream.chat.java.models.RateLimit)">setRateLimit</a></code></li>
+</ul>
+<ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.io.getstream.chat.java.models.framework.StreamResponse">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;io.getstream.chat.java.models.framework.<a href="framework/StreamResponse.html" title="interface in io.getstream.chat.java.models.framework">StreamResponse</a></h3>
-<code><a href="framework/StreamResponse.html#getDuration()">getDuration</a>, <a href="framework/StreamResponse.html#setDuration(java.lang.String)">setDuration</a></code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.io.getstream.chat.java.models.framework.StreamResponseWithRateLimit">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;io.getstream.chat.java.models.framework.<a href="framework/StreamResponseWithRateLimit.html" title="interface in io.getstream.chat.java.models.framework">StreamResponseWithRateLimit</a></h3>
-<code><a href="framework/StreamResponseWithRateLimit.html#getRateLimit()">getRateLimit</a>, <a href="framework/StreamResponseWithRateLimit.html#setRateLimit(io.getstream.chat.java.models.RateLimit)">setRateLimit</a></code></li>
+<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -779,7 +802,7 @@ public static&nbsp;@NotNull <a href="App.DeletePushProviderRequest.html" title="
 <a id="verifyWebhookSignature(java.lang.String,java.lang.String)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>verifyWebhookSignature</h4>
 <pre class="methodSignature">public static&nbsp;boolean&nbsp;verifyWebhookSignature&#8203;(@NotNull
@@ -793,6 +816,78 @@ public static&nbsp;@NotNull <a href="App.DeletePushProviderRequest.html" title="
 <dd><code>signature</code> - the signature provided in X-Signature header</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if the signature is valid</dd>
+</dl>
+</li>
+</ul>
+<a id="getApp()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getApp</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="App.AppConfig.html" title="class in io.getstream.chat.java.models">App.AppConfig</a>&nbsp;getApp()</pre>
+</li>
+</ul>
+<a id="setApp(io.getstream.chat.java.models.App.AppConfig)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setApp</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setApp&#8203;(@Nullable
+                   @Nullable <a href="App.AppConfig.html" title="class in io.getstream.chat.java.models">App.AppConfig</a>&nbsp;app)</pre>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="framework/StreamResponseObject.html#toString()">toString</a></code>&nbsp;in class&nbsp;<code><a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="framework/StreamResponseObject.html#equals(java.lang.Object)">equals</a></code>&nbsp;in class&nbsp;<code><a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="framework/StreamResponseObject.html#canEqual(java.lang.Object)">canEqual</a></code>&nbsp;in class&nbsp;<code><a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="framework/StreamResponseObject.html#hashCode()">hashCode</a></code>&nbsp;in class&nbsp;<code><a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a></code></dd>
 </dl>
 </li>
 </ul>

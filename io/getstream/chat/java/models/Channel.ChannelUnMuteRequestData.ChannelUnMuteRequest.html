@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -90,13 +90,13 @@ loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
@@ -148,27 +148,6 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="constructor.summary">
-<!--   -->
-</a>
-<h3>Constructor Summary</h3>
-<table class="memberSummary">
-<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Constructor</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">ChannelUnMuteRequest</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
 <!-- ========== METHOD SUMMARY =========== -->
 <section>
 <ul class="blockList">
@@ -184,8 +163,43 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code><a href="Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#channelCid(java.lang.String)">channelCid</a></span>&#8203;(@Nullable java.lang.String&nbsp;channelCid)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code><a href="Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#channelCids(java.util.List)">channelCids</a></span>&#8203;(@Nullable java.util.List&lt;java.lang.String&gt;&nbsp;channelCids)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#expiration(java.lang.Integer)">expiration</a></span>&#8203;(@Nullable java.lang.Integer&nbsp;expiration)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>protected retrofit2.Call&lt;<a href="Channel.ChannelUnMuteResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#generateCall(io.getstream.chat.java.services.framework.Client)">generateCall</a></span>&#8203;(<a href="../services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a>&nbsp;client)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code><a href="Channel.ChannelUnMuteRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#internalBuild()">internalBuild</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code><a href="Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#user(io.getstream.chat.java.models.User.UserRequestObject)">user</a></span>&#8203;(@Nullable <a href="User.UserRequestObject.html" title="class in io.getstream.chat.java.models">User.UserRequestObject</a>&nbsp;user)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code><a href="Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#userId(java.lang.String)">userId</a></span>&#8203;(@Nullable java.lang.String&nbsp;userId)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -201,7 +215,7 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -212,25 +226,6 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="constructor.detail">
-<!--   -->
-</a>
-<h3>Constructor Detail</h3>
-<a id="&lt;init&gt;()">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>ChannelUnMuteRequest</h4>
-<pre>public&nbsp;ChannelUnMuteRequest()</pre>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ============ METHOD DETAIL ========== -->
 <section>
 <ul class="blockList">
@@ -241,13 +236,105 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <a id="generateCall(io.getstream.chat.java.services.framework.Client)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>generateCall</h4>
 <pre class="methodSignature">protected&nbsp;retrofit2.Call&lt;<a href="Channel.ChannelUnMuteResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteResponse</a>&gt;&nbsp;generateCall&#8203;(<a href="../services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a>&nbsp;client)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="framework/StreamRequest.html#generateCall(io.getstream.chat.java.services.framework.Client)">generateCall</a></code>&nbsp;in class&nbsp;<code><a href="framework/StreamRequest.html" title="class in io.getstream.chat.java.models.framework">StreamRequest</a>&lt;<a href="Channel.ChannelUnMuteResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteResponse</a>&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a id="channelCid(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>channelCid</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest</a>&nbsp;channelCid&#8203;(@Nullable
+                                                                        @Nullable java.lang.String&nbsp;channelCid)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="channelCids(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>channelCids</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest</a>&nbsp;channelCids&#8203;(@Nullable
+                                                                         @Nullable java.util.List&lt;java.lang.String&gt;&nbsp;channelCids)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="expiration(java.lang.Integer)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>expiration</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest</a>&nbsp;expiration&#8203;(@Nullable
+                                                                        @Nullable java.lang.Integer&nbsp;expiration)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="userId(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>userId</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest</a>&nbsp;userId&#8203;(@Nullable
+                                                                    @Nullable java.lang.String&nbsp;userId)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="user(io.getstream.chat.java.models.User.UserRequestObject)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>user</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest</a>&nbsp;user&#8203;(@Nullable
+                                                                  @Nullable <a href="User.UserRequestObject.html" title="class in io.getstream.chat.java.models">User.UserRequestObject</a>&nbsp;user)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="internalBuild()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>internalBuild</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelUnMuteRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelUnMuteRequestData</a>&nbsp;internalBuild()</pre>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 </dl>
 </li>
 </ul>
@@ -304,13 +391,13 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>

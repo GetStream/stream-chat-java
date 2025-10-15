@@ -27,6 +27,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "../../../../../";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -91,7 +97,7 @@ loadScripts(document, 'script');</script>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.top">
@@ -165,12 +171,150 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAction()">getAction</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>@Nullable <a href="Message.Moderation.html" title="class in io.getstream.chat.java.models">Message.Moderation</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAiModerationResponse()">getAiModerationResponse</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBlockedWord()">getBlockedWord</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBlocklistName()">getBlocklistName</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCreatedAt()">getCreatedAt</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMessage_id()">getMessage_id</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getModeratedBy()">getModeratedBy</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>@Nullable <a href="Flag.Thresholds.html" title="class in io.getstream.chat.java.models">Flag.Thresholds</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getModerationThresholds()">getModerationThresholds</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUpdatedAt()">getUpdatedAt</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUserBadKarma()">getUserBadKarma</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Integer</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUserKarma()">getUserKarma</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAction(java.lang.String)">setAction</a></span>&#8203;(@Nullable java.lang.String&nbsp;action)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAiModerationResponse(io.getstream.chat.java.models.Message.Moderation)">setAiModerationResponse</a></span>&#8203;(@Nullable <a href="Message.Moderation.html" title="class in io.getstream.chat.java.models">Message.Moderation</a>&nbsp;aiModerationResponse)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setBlockedWord(java.lang.String)">setBlockedWord</a></span>&#8203;(@Nullable java.lang.String&nbsp;blockedWord)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setBlocklistName(java.lang.String)">setBlocklistName</a></span>&#8203;(@Nullable java.lang.String&nbsp;blocklistName)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCreatedAt(java.util.Date)">setCreatedAt</a></span>&#8203;(@Nullable java.util.Date&nbsp;createdAt)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMessage_id(java.lang.String)">setMessage_id</a></span>&#8203;(@Nullable java.lang.String&nbsp;message_id)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setModeratedBy(java.lang.String)">setModeratedBy</a></span>&#8203;(@Nullable java.lang.String&nbsp;moderatedBy)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i21" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setModerationThresholds(io.getstream.chat.java.models.Flag.Thresholds)">setModerationThresholds</a></span>&#8203;(@Nullable <a href="Flag.Thresholds.html" title="class in io.getstream.chat.java.models">Flag.Thresholds</a>&nbsp;moderationThresholds)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i22" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUpdatedAt(java.util.Date)">setUpdatedAt</a></span>&#8203;(@Nullable java.util.Date&nbsp;updatedAt)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUserBadKarma(java.lang.Boolean)">setUserBadKarma</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;userBadKarma)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i24" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUserKarma(java.lang.Integer)">setUserKarma</a></span>&#8203;(@Nullable java.lang.Integer&nbsp;userKarma)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i25" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -195,6 +339,284 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>MessageModerationResult</h4>
 <pre>public&nbsp;MessageModerationResult()</pre>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<!-- ============ METHOD DETAIL ========== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="method.detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a id="getMessage_id()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMessage_id</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getMessage_id()</pre>
+</li>
+</ul>
+<a id="getAction()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAction</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getAction()</pre>
+</li>
+</ul>
+<a id="getModeratedBy()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getModeratedBy</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getModeratedBy()</pre>
+</li>
+</ul>
+<a id="getBlockedWord()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getBlockedWord</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getBlockedWord()</pre>
+</li>
+</ul>
+<a id="getBlocklistName()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getBlocklistName</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getBlocklistName()</pre>
+</li>
+</ul>
+<a id="getModerationThresholds()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getModerationThresholds</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="Flag.Thresholds.html" title="class in io.getstream.chat.java.models">Flag.Thresholds</a>&nbsp;getModerationThresholds()</pre>
+</li>
+</ul>
+<a id="getAiModerationResponse()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAiModerationResponse</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="Message.Moderation.html" title="class in io.getstream.chat.java.models">Message.Moderation</a>&nbsp;getAiModerationResponse()</pre>
+</li>
+</ul>
+<a id="getUserKarma()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUserKarma</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Integer&nbsp;getUserKarma()</pre>
+</li>
+</ul>
+<a id="getUserBadKarma()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUserBadKarma</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getUserBadKarma()</pre>
+</li>
+</ul>
+<a id="getCreatedAt()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCreatedAt</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Date&nbsp;getCreatedAt()</pre>
+</li>
+</ul>
+<a id="getUpdatedAt()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUpdatedAt</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Date&nbsp;getUpdatedAt()</pre>
+</li>
+</ul>
+<a id="setMessage_id(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMessage_id</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setMessage_id&#8203;(@Nullable
+                          @Nullable java.lang.String&nbsp;message_id)</pre>
+</li>
+</ul>
+<a id="setAction(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAction</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAction&#8203;(@Nullable
+                      @Nullable java.lang.String&nbsp;action)</pre>
+</li>
+</ul>
+<a id="setModeratedBy(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setModeratedBy</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setModeratedBy&#8203;(@Nullable
+                           @Nullable java.lang.String&nbsp;moderatedBy)</pre>
+</li>
+</ul>
+<a id="setBlockedWord(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setBlockedWord</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setBlockedWord&#8203;(@Nullable
+                           @Nullable java.lang.String&nbsp;blockedWord)</pre>
+</li>
+</ul>
+<a id="setBlocklistName(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setBlocklistName</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setBlocklistName&#8203;(@Nullable
+                             @Nullable java.lang.String&nbsp;blocklistName)</pre>
+</li>
+</ul>
+<a id="setModerationThresholds(io.getstream.chat.java.models.Flag.Thresholds)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setModerationThresholds</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setModerationThresholds&#8203;(@Nullable
+                                    @Nullable <a href="Flag.Thresholds.html" title="class in io.getstream.chat.java.models">Flag.Thresholds</a>&nbsp;moderationThresholds)</pre>
+</li>
+</ul>
+<a id="setAiModerationResponse(io.getstream.chat.java.models.Message.Moderation)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAiModerationResponse</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAiModerationResponse&#8203;(@Nullable
+                                    @Nullable <a href="Message.Moderation.html" title="class in io.getstream.chat.java.models">Message.Moderation</a>&nbsp;aiModerationResponse)</pre>
+</li>
+</ul>
+<a id="setUserKarma(java.lang.Integer)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setUserKarma</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setUserKarma&#8203;(@Nullable
+                         @Nullable java.lang.Integer&nbsp;userKarma)</pre>
+</li>
+</ul>
+<a id="setUserBadKarma(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setUserBadKarma</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setUserBadKarma&#8203;(@Nullable
+                            @Nullable java.lang.Boolean&nbsp;userBadKarma)</pre>
+</li>
+</ul>
+<a id="setCreatedAt(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCreatedAt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCreatedAt&#8203;(@Nullable
+                         @Nullable java.util.Date&nbsp;createdAt)</pre>
+</li>
+</ul>
+<a id="setUpdatedAt(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setUpdatedAt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setUpdatedAt&#8203;(@Nullable
+                         @Nullable java.util.Date&nbsp;updatedAt)</pre>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -257,7 +679,7 @@ extends java.lang.Object</pre>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.bottom">

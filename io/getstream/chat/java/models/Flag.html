@@ -27,8 +27,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9};
-var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":10,"i1":9,"i2":9,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":9,"i15":9,"i16":9,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -261,46 +261,156 @@ extends java.lang.Object</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Flag.FlagCreateRequestData.FlagCreateRequest.html" title="class in io.getstream.chat.java.models">Flag.FlagCreateRequestData.FlagCreateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create()">create</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a create request</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Flag.FlagDeleteRequestData.FlagDeleteRequest.html" title="class in io.getstream.chat.java.models">Flag.FlagDeleteRequestData.FlagDeleteRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#delete()">delete</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a delete request</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getApprovedAt()">getApprovedAt</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>@NotNull java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCreatedAt()">getCreatedAt</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>@NotNull java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCreatedByAutomod()">getCreatedByAutomod</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRejectedAt()">getRejectedAt</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getReviewedAt()">getReviewedAt</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTargetMessageId()">getTargetMessageId</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>@Nullable <a href="User.html" title="class in io.getstream.chat.java.models">User</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTargetUser()">getTargetUser</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUpdated_at()">getUpdated_at</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>@Nullable <a href="User.html" title="class in io.getstream.chat.java.models">User</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUser()">getUser</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Flag.QueryFlagReportsRequestData.QueryFlagReportsRequest.html" title="class in io.getstream.chat.java.models">Flag.QueryFlagReportsRequestData.QueryFlagReportsRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#queryFlagReports()">queryFlagReports</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a query flag report request</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="Flag.FlagMessageQueryRequestData.FlagMessageQueryRequest.html" title="class in io.getstream.chat.java.models">Flag.FlagMessageQueryRequestData.FlagMessageQueryRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#queryMessages()">queryMessages</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a query messages request</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="Flag.ReviewFlagReportRequestData.ReviewFlagReportRequest.html" title="class in io.getstream.chat.java.models">Flag.ReviewFlagReportRequestData.ReviewFlagReportRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reviewFlagReport(java.lang.String)">reviewFlagReport</a></span>&#8203;(java.lang.String&nbsp;id)</code></th>
 <td class="colLast">
 <div class="block">Creates a review flag report request</div>
 </td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setApprovedAt(java.util.Date)">setApprovedAt</a></span>&#8203;(@Nullable java.util.Date&nbsp;approvedAt)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCreatedAt(java.util.Date)">setCreatedAt</a></span>&#8203;(@NotNull java.util.Date&nbsp;createdAt)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCreatedByAutomod(java.lang.Boolean)">setCreatedByAutomod</a></span>&#8203;(@NotNull java.lang.Boolean&nbsp;createdByAutomod)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setRejectedAt(java.util.Date)">setRejectedAt</a></span>&#8203;(@Nullable java.util.Date&nbsp;rejectedAt)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i21" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setReviewedAt(java.util.Date)">setReviewedAt</a></span>&#8203;(@Nullable java.util.Date&nbsp;reviewedAt)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i22" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTargetMessageId(java.lang.String)">setTargetMessageId</a></span>&#8203;(@Nullable java.lang.String&nbsp;targetMessageId)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTargetUser(io.getstream.chat.java.models.User)">setTargetUser</a></span>&#8203;(@Nullable <a href="User.html" title="class in io.getstream.chat.java.models">User</a>&nbsp;targetUser)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i24" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUpdated_at(java.util.Date)">setUpdated_at</a></span>&#8203;(@Nullable java.util.Date&nbsp;updated_at)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i25" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUser(io.getstream.chat.java.models.User)">setUser</a></span>&#8203;(@Nullable <a href="User.html" title="class in io.getstream.chat.java.models">User</a>&nbsp;user)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i26" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -308,7 +418,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -408,7 +518,7 @@ public static&nbsp;@NotNull <a href="Flag.QueryFlagReportsRequestData.QueryFlagR
 <a id="reviewFlagReport(java.lang.String)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>reviewFlagReport</h4>
 <pre class="methodSignature">@NotNull
@@ -419,6 +529,234 @@ public static&nbsp;@NotNull <a href="Flag.ReviewFlagReportRequestData.ReviewFlag
 <dd><code>id</code> - the flag report id</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the created request</dd>
+</dl>
+</li>
+</ul>
+<a id="getCreatedByAutomod()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCreatedByAutomod</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.Boolean&nbsp;getCreatedByAutomod()</pre>
+</li>
+</ul>
+<a id="getUser()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUser</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="User.html" title="class in io.getstream.chat.java.models">User</a>&nbsp;getUser()</pre>
+</li>
+</ul>
+<a id="getTargetMessageId()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTargetMessageId</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getTargetMessageId()</pre>
+</li>
+</ul>
+<a id="getTargetUser()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTargetUser</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="User.html" title="class in io.getstream.chat.java.models">User</a>&nbsp;getTargetUser()</pre>
+</li>
+</ul>
+<a id="getCreatedAt()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCreatedAt</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.util.Date&nbsp;getCreatedAt()</pre>
+</li>
+</ul>
+<a id="getUpdated_at()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUpdated_at</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Date&nbsp;getUpdated_at()</pre>
+</li>
+</ul>
+<a id="getReviewedAt()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getReviewedAt</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Date&nbsp;getReviewedAt()</pre>
+</li>
+</ul>
+<a id="getApprovedAt()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getApprovedAt</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Date&nbsp;getApprovedAt()</pre>
+</li>
+</ul>
+<a id="getRejectedAt()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRejectedAt</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Date&nbsp;getRejectedAt()</pre>
+</li>
+</ul>
+<a id="setCreatedByAutomod(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCreatedByAutomod</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCreatedByAutomod&#8203;(@NotNull
+                                @NotNull java.lang.Boolean&nbsp;createdByAutomod)</pre>
+</li>
+</ul>
+<a id="setUser(io.getstream.chat.java.models.User)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setUser</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setUser&#8203;(@Nullable
+                    @Nullable <a href="User.html" title="class in io.getstream.chat.java.models">User</a>&nbsp;user)</pre>
+</li>
+</ul>
+<a id="setTargetMessageId(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setTargetMessageId</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setTargetMessageId&#8203;(@Nullable
+                               @Nullable java.lang.String&nbsp;targetMessageId)</pre>
+</li>
+</ul>
+<a id="setTargetUser(io.getstream.chat.java.models.User)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setTargetUser</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setTargetUser&#8203;(@Nullable
+                          @Nullable <a href="User.html" title="class in io.getstream.chat.java.models">User</a>&nbsp;targetUser)</pre>
+</li>
+</ul>
+<a id="setCreatedAt(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCreatedAt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCreatedAt&#8203;(@NotNull
+                         @NotNull java.util.Date&nbsp;createdAt)</pre>
+</li>
+</ul>
+<a id="setUpdated_at(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setUpdated_at</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setUpdated_at&#8203;(@Nullable
+                          @Nullable java.util.Date&nbsp;updated_at)</pre>
+</li>
+</ul>
+<a id="setReviewedAt(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setReviewedAt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setReviewedAt&#8203;(@Nullable
+                          @Nullable java.util.Date&nbsp;reviewedAt)</pre>
+</li>
+</ul>
+<a id="setApprovedAt(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setApprovedAt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setApprovedAt&#8203;(@Nullable
+                          @Nullable java.util.Date&nbsp;approvedAt)</pre>
+</li>
+</ul>
+<a id="setRejectedAt(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setRejectedAt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setRejectedAt&#8203;(@Nullable
+                          @Nullable java.util.Date&nbsp;rejectedAt)</pre>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 </dl>
 </li>
 </ul>

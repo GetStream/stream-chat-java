@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":10,"i2":10};
+var data = {"i0":9,"i1":9,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -88,7 +88,7 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
@@ -143,6 +143,29 @@ extends java.lang.Object</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="nested.class.summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<table class="memberSummary">
+<caption><span>Nested Classes</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Class</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+</section>
 <!-- ========== METHOD SUMMARY =========== -->
 <section>
 <ul class="blockList">
@@ -158,19 +181,124 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>static <a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#builder()">builder</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>static @Nullable <a href="Channel.ChannelRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#buildFrom(io.getstream.chat.java.models.Channel)">buildFrom</a></span>&#8203;(@Nullable <a href="Channel.html" title="class in io.getstream.chat.java.models">Channel</a>&nbsp;channel)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAdditionalFields()">getAdditionalFields</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAutoTranslationEnabled()">getAutoTranslationEnabled</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>@Nullable <a href="Language.html" title="enum in io.getstream.chat.java.models">Language</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAutoTranslationLanguage()">getAutoTranslationLanguage</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>@Nullable <a href="Channel.ConfigOverridesRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ConfigOverridesRequestObject</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getConfigOverrides()">getConfigOverrides</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>@Nullable <a href="User.UserRequestObject.html" title="class in io.getstream.chat.java.models">User.UserRequestObject</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCreatedBy()">getCreatedBy</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFrozen()">getFrozen</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;<a href="Channel.ChannelMemberRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberRequestObject</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getInvites()">getInvites</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;<a href="Channel.ChannelMemberRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberRequestObject</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMembers()">getMembers</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTeam()">getTeam</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAdditionalField(java.lang.String,java.lang.Object)">setAdditionalField</a></span>&#8203;(java.lang.String&nbsp;name,
                   java.lang.Object&nbsp;value)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAdditionalFields(java.util.Map)">setAdditionalFields</a></span>&#8203;(@Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;additionalFields)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAutoTranslationEnabled(java.lang.Boolean)">setAutoTranslationEnabled</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;autoTranslationEnabled)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAutoTranslationLanguage(io.getstream.chat.java.models.Language)">setAutoTranslationLanguage</a></span>&#8203;(@Nullable <a href="Language.html" title="enum in io.getstream.chat.java.models">Language</a>&nbsp;autoTranslationLanguage)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setConfigOverrides(io.getstream.chat.java.models.Channel.ConfigOverridesRequestObject)">setConfigOverrides</a></span>&#8203;(@Nullable <a href="Channel.ConfigOverridesRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ConfigOverridesRequestObject</a>&nbsp;configOverrides)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCreatedBy(io.getstream.chat.java.models.User.UserRequestObject)">setCreatedBy</a></span>&#8203;(@Nullable <a href="User.UserRequestObject.html" title="class in io.getstream.chat.java.models">User.UserRequestObject</a>&nbsp;createdBy)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setFrozen(java.lang.Boolean)">setFrozen</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;frozen)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i21" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setInvites(java.util.List)">setInvites</a></span>&#8203;(@Nullable java.util.List&lt;<a href="Channel.ChannelMemberRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberRequestObject</a>&gt;&nbsp;invites)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i22" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMembers(java.util.List)">setMembers</a></span>&#8203;(@Nullable java.util.List&lt;<a href="Channel.ChannelMemberRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberRequestObject</a>&gt;&nbsp;members)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTeam(java.lang.String)">setTeam</a></span>&#8203;(@Nullable java.lang.String&nbsp;team)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -179,7 +307,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, toString, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -219,12 +347,226 @@ extends java.lang.Object</pre>
 <a id="buildFrom(io.getstream.chat.java.models.Channel)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>buildFrom</h4>
 <pre class="methodSignature">@Nullable
 public static&nbsp;@Nullable <a href="Channel.ChannelRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject</a>&nbsp;buildFrom&#8203;(@Nullable
                                                                @Nullable <a href="Channel.html" title="class in io.getstream.chat.java.models">Channel</a>&nbsp;channel)</pre>
+</li>
+</ul>
+<a id="builder()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>builder</h4>
+<pre class="methodSignature">public static&nbsp;<a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a>&nbsp;builder()</pre>
+</li>
+</ul>
+<a id="setCreatedBy(io.getstream.chat.java.models.User.UserRequestObject)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCreatedBy</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCreatedBy&#8203;(@Nullable
+                         @Nullable <a href="User.UserRequestObject.html" title="class in io.getstream.chat.java.models">User.UserRequestObject</a>&nbsp;createdBy)</pre>
+</li>
+</ul>
+<a id="setTeam(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setTeam</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setTeam&#8203;(@Nullable
+                    @Nullable java.lang.String&nbsp;team)</pre>
+</li>
+</ul>
+<a id="setAutoTranslationEnabled(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAutoTranslationEnabled</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAutoTranslationEnabled&#8203;(@Nullable
+                                      @Nullable java.lang.Boolean&nbsp;autoTranslationEnabled)</pre>
+</li>
+</ul>
+<a id="setAutoTranslationLanguage(io.getstream.chat.java.models.Language)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAutoTranslationLanguage</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAutoTranslationLanguage&#8203;(@Nullable
+                                       @Nullable <a href="Language.html" title="enum in io.getstream.chat.java.models">Language</a>&nbsp;autoTranslationLanguage)</pre>
+</li>
+</ul>
+<a id="setFrozen(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setFrozen</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setFrozen&#8203;(@Nullable
+                      @Nullable java.lang.Boolean&nbsp;frozen)</pre>
+</li>
+</ul>
+<a id="setMembers(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMembers</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setMembers&#8203;(@Nullable
+                       @Nullable java.util.List&lt;<a href="Channel.ChannelMemberRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberRequestObject</a>&gt;&nbsp;members)</pre>
+</li>
+</ul>
+<a id="setInvites(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setInvites</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setInvites&#8203;(@Nullable
+                       @Nullable java.util.List&lt;<a href="Channel.ChannelMemberRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberRequestObject</a>&gt;&nbsp;invites)</pre>
+</li>
+</ul>
+<a id="setConfigOverrides(io.getstream.chat.java.models.Channel.ConfigOverridesRequestObject)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setConfigOverrides</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setConfigOverrides&#8203;(@Nullable
+                               @Nullable <a href="Channel.ConfigOverridesRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ConfigOverridesRequestObject</a>&nbsp;configOverrides)</pre>
+</li>
+</ul>
+<a id="setAdditionalFields(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAdditionalFields</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAdditionalFields&#8203;(@Nullable
+                                @Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;additionalFields)</pre>
+</li>
+</ul>
+<a id="getCreatedBy()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCreatedBy</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="User.UserRequestObject.html" title="class in io.getstream.chat.java.models">User.UserRequestObject</a>&nbsp;getCreatedBy()</pre>
+</li>
+</ul>
+<a id="getTeam()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTeam</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getTeam()</pre>
+</li>
+</ul>
+<a id="getAutoTranslationEnabled()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAutoTranslationEnabled</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getAutoTranslationEnabled()</pre>
+</li>
+</ul>
+<a id="getAutoTranslationLanguage()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAutoTranslationLanguage</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="Language.html" title="enum in io.getstream.chat.java.models">Language</a>&nbsp;getAutoTranslationLanguage()</pre>
+</li>
+</ul>
+<a id="getFrozen()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getFrozen</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getFrozen()</pre>
+</li>
+</ul>
+<a id="getMembers()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMembers</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;<a href="Channel.ChannelMemberRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberRequestObject</a>&gt;&nbsp;getMembers()</pre>
+</li>
+</ul>
+<a id="getInvites()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getInvites</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;<a href="Channel.ChannelMemberRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberRequestObject</a>&gt;&nbsp;getInvites()</pre>
+</li>
+</ul>
+<a id="getConfigOverrides()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getConfigOverrides</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="Channel.ConfigOverridesRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ConfigOverridesRequestObject</a>&nbsp;getConfigOverrides()</pre>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -278,7 +620,7 @@ public static&nbsp;@Nullable <a href="Channel.ChannelRequestObject.html" title="
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>

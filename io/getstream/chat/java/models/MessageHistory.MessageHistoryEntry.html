@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -179,14 +179,89 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAdditionalFields()">getAdditionalFields</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;<a href="Message.Attachment.html" title="class in io.getstream.chat.java.models">Message.Attachment</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAttachments()">getAttachments</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMessageId()">getMessageId</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>@NotNull java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMessageUpdatedAt()">getMessageUpdatedAt</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMessageUpdatedById()">getMessageUpdatedById</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getText()">getText</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAdditionalField(java.lang.String,java.lang.Object)">setAdditionalField</a></span>&#8203;(java.lang.String&nbsp;name,
                   java.lang.Object&nbsp;value)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAdditionalFields(java.util.Map)">setAdditionalFields</a></span>&#8203;(@NotNull java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;additionalFields)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAttachments(java.util.List)">setAttachments</a></span>&#8203;(@Nullable java.util.List&lt;<a href="Message.Attachment.html" title="class in io.getstream.chat.java.models">Message.Attachment</a>&gt;&nbsp;attachments)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMessageId(java.lang.String)">setMessageId</a></span>&#8203;(@NotNull java.lang.String&nbsp;messageId)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMessageUpdatedAt(java.util.Date)">setMessageUpdatedAt</a></span>&#8203;(@NotNull java.util.Date&nbsp;messageUpdatedAt)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMessageUpdatedById(java.lang.String)">setMessageUpdatedById</a></span>&#8203;(@NotNull java.lang.String&nbsp;messageUpdatedById)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setText(java.lang.String)">setText</a></span>&#8203;(@Nullable java.lang.String&nbsp;text)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -195,7 +270,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -244,11 +319,169 @@ extends java.lang.Object</pre>
 <a id="setAdditionalField(java.lang.String,java.lang.Object)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>setAdditionalField</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setAdditionalField&#8203;(java.lang.String&nbsp;name,
                                java.lang.Object&nbsp;value)</pre>
+</li>
+</ul>
+<a id="getMessageId()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMessageId</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getMessageId()</pre>
+</li>
+</ul>
+<a id="getMessageUpdatedAt()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMessageUpdatedAt</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.util.Date&nbsp;getMessageUpdatedAt()</pre>
+</li>
+</ul>
+<a id="getAttachments()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAttachments</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;<a href="Message.Attachment.html" title="class in io.getstream.chat.java.models">Message.Attachment</a>&gt;&nbsp;getAttachments()</pre>
+</li>
+</ul>
+<a id="getMessageUpdatedById()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMessageUpdatedById</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getMessageUpdatedById()</pre>
+</li>
+</ul>
+<a id="getText()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getText</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getText()</pre>
+</li>
+</ul>
+<a id="setMessageId(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMessageId</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setMessageId&#8203;(@NotNull
+                         @NotNull java.lang.String&nbsp;messageId)</pre>
+</li>
+</ul>
+<a id="setMessageUpdatedAt(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMessageUpdatedAt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setMessageUpdatedAt&#8203;(@NotNull
+                                @NotNull java.util.Date&nbsp;messageUpdatedAt)</pre>
+</li>
+</ul>
+<a id="setAttachments(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAttachments</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAttachments&#8203;(@Nullable
+                           @Nullable java.util.List&lt;<a href="Message.Attachment.html" title="class in io.getstream.chat.java.models">Message.Attachment</a>&gt;&nbsp;attachments)</pre>
+</li>
+</ul>
+<a id="setMessageUpdatedById(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMessageUpdatedById</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setMessageUpdatedById&#8203;(@NotNull
+                                  @NotNull java.lang.String&nbsp;messageUpdatedById)</pre>
+</li>
+</ul>
+<a id="setText(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setText</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setText&#8203;(@Nullable
+                    @Nullable java.lang.String&nbsp;text)</pre>
+</li>
+</ul>
+<a id="setAdditionalFields(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAdditionalFields</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAdditionalFields&#8203;(@NotNull
+                                @NotNull java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;additionalFields)</pre>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
 </li>
 </ul>
 </li>

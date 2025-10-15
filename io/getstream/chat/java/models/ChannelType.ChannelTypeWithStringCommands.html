@@ -27,6 +27,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "../../../../../";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -91,7 +97,7 @@ loadScripts(document, 'script');</script>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.top">
@@ -191,19 +197,57 @@ extends <a href="ChannelType.html" title="class in io.getstream.chat.java.models
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;java.lang.String&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCommands()">getCommands</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCommands(java.util.List)">setCommands</a></span>&#8203;(@Nullable java.util.List&lt;java.lang.String&gt;&nbsp;commands)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.io.getstream.chat.java.models.ChannelType">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;io.getstream.chat.java.models.<a href="ChannelType.html" title="class in io.getstream.chat.java.models">ChannelType</a></h3>
-<code><a href="ChannelType.html#create()">create</a>, <a href="ChannelType.html#delete(java.lang.String)">delete</a>, <a href="ChannelType.html#get(java.lang.String)">get</a>, <a href="ChannelType.html#list()">list</a>, <a href="ChannelType.html#update(java.lang.String)">update</a></code></li>
+<code><a href="ChannelType.html#create()">create</a>, <a href="ChannelType.html#delete(java.lang.String)">delete</a>, <a href="ChannelType.html#get(java.lang.String)">get</a>, <a href="ChannelType.html#getAutomod()">getAutomod</a>, <a href="ChannelType.html#getAutomodBehavior()">getAutomodBehavior</a>, <a href="ChannelType.html#getAutomodThresholds()">getAutomodThresholds</a>, <a href="ChannelType.html#getBlocklist()">getBlocklist</a>, <a href="ChannelType.html#getBlocklistBehavior()">getBlocklistBehavior</a>, <a href="ChannelType.html#getConnectEvents()">getConnectEvents</a>, <a href="ChannelType.html#getCountMessages()">getCountMessages</a>, <a href="ChannelType.html#getCreatedAt()">getCreatedAt</a>, <a href="ChannelType.html#getCustomEvents()">getCustomEvents</a>, <a href="ChannelType.html#getGrants()">getGrants</a>, <a href="ChannelType.html#getMarkMessagesPending()">getMarkMessagesPending</a>, <a href="ChannelType.html#getMaxMessageLength()">getMaxMessageLength</a>, <a href="ChannelType.html#getMessageRetention()">getMessageRetention</a>, <a href="ChannelType.html#getMutes()">getMutes</a>, <a href="ChannelType.html#getName()">getName</a>, <a href="ChannelType.html#getPermissions()">getPermissions</a>, <a href="ChannelType.html#getPushNotifications()">getPushNotifications</a>, <a href="ChannelType.html#getQuotes()">getQuotes</a>, <a href="ChannelType.html#getReactions()">getReactions</a>, <a href="ChannelType.html#getReadEvents()">getReadEvents</a>, <a href="ChannelType.html#getReminders()">getReminders</a>, <a href="ChannelType.html#getReplies()">getReplies</a>, <a href="ChannelType.html#getRoles()">getRoles</a>, <a href="ChannelType.html#getSearch()">getSearch</a>, <a href="ChannelType.html#getTypingEvents()">getTypingEvents</a>, <a href="ChannelType.html#getUpdatedAt()">getUpdatedAt</a>, <a href="ChannelType.html#getUploads()">getUploads</a>, <a href="ChannelType.html#getUrlEnrichment()">getUrlEnrichment</a>, <a href="ChannelType.html#list()">list</a>, <a href="ChannelType.html#setAutomod(io.getstream.chat.java.models.ChannelType.AutoMod)">setAutomod</a>, <a href="ChannelType.html#setAutomodBehavior(io.getstream.chat.java.models.ChannelType.AutoModBehavior)">setAutomodBehavior</a>, <a href="ChannelType.html#setAutomodThresholds(java.util.Map)">setAutomodThresholds</a>, <a href="ChannelType.html#setBlocklist(java.lang.String)">setBlocklist</a>, <a href="ChannelType.html#setBlocklistBehavior(io.getstream.chat.java.models.ChannelType.BlocklistBehavior)">setBlocklistBehavior</a>, <a href="ChannelType.html#setConnectEvents(java.lang.Boolean)">setConnectEvents</a>, <a href="ChannelType.html#setCountMessages(java.lang.Boolean)">setCountMessages</a>, <a href="ChannelType.html#setCreatedAt(java.util.Date)">setCreatedAt</a>, <a href="ChannelType.html#setCustomEvents(java.lang.Boolean)">setCustomEvents</a>, <a href="ChannelType.html#setGrants(java.util.Map)">setGrants</a>, <a href="ChannelType.html#setMarkMessagesPending(java.lang.Boolean)">setMarkMessagesPending</a>, <a href="ChannelType.html#setMaxMessageLength(java.lang.Integer)">setMaxMessageLength</a>, <a href="ChannelType.html#setMessageRetention(java.lang.String)">setMessageRetention</a>, <a href="ChannelType.html#setMutes(java.lang.Boolean)">setMutes</a>, <a href="ChannelType.html#setName(java.lang.String)">setName</a>, <a href="ChannelType.html#setPermissions(java.util.List)">setPermissions</a>, <a href="ChannelType.html#setPushNotifications(java.lang.Boolean)">setPushNotifications</a>, <a href="ChannelType.html#setQuotes(java.lang.Boolean)">setQuotes</a>, <a href="ChannelType.html#setReactions(java.lang.Boolean)">setReactions</a>, <a href="ChannelType.html#setReadEvents(java.lang.Boolean)">setReadEvents</a>, <a href="ChannelType.html#setReminders(java.lang.Boolean)">setReminders</a>, <a href="ChannelType.html#setReplies(java.lang.Boolean)">setReplies</a>, <a href="ChannelType.html#setRoles(java.util.Map)">setRoles</a>, <a href="ChannelType.html#setSearch(java.lang.Boolean)">setSearch</a>, <a href="ChannelType.html#setTypingEvents(java.lang.Boolean)">setTypingEvents</a>, <a href="ChannelType.html#setUpdatedAt(java.util.Date)">setUpdatedAt</a>, <a href="ChannelType.html#setUploads(java.lang.Boolean)">setUploads</a>, <a href="ChannelType.html#setUrlEnrichment(java.lang.Boolean)">setUrlEnrichment</a>, <a href="ChannelType.html#update(java.lang.String)">update</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -228,6 +272,88 @@ extends <a href="ChannelType.html" title="class in io.getstream.chat.java.models
 <li class="blockList">
 <h4>ChannelTypeWithStringCommands</h4>
 <pre>public&nbsp;ChannelTypeWithStringCommands()</pre>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<!-- ============ METHOD DETAIL ========== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="method.detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a id="getCommands()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCommands</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;java.lang.String&gt;&nbsp;getCommands()</pre>
+</li>
+</ul>
+<a id="setCommands(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCommands</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCommands&#8203;(@Nullable
+                        @Nullable java.util.List&lt;java.lang.String&gt;&nbsp;commands)</pre>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="ChannelType.html#toString()">toString</a></code>&nbsp;in class&nbsp;<code><a href="ChannelType.html" title="class in io.getstream.chat.java.models">ChannelType</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="ChannelType.html#equals(java.lang.Object)">equals</a></code>&nbsp;in class&nbsp;<code><a href="ChannelType.html" title="class in io.getstream.chat.java.models">ChannelType</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="ChannelType.html#canEqual(java.lang.Object)">canEqual</a></code>&nbsp;in class&nbsp;<code><a href="ChannelType.html" title="class in io.getstream.chat.java.models">ChannelType</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="ChannelType.html#hashCode()">hashCode</a></code>&nbsp;in class&nbsp;<code><a href="ChannelType.html" title="class in io.getstream.chat.java.models">ChannelType</a></code></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -290,7 +416,7 @@ extends <a href="ChannelType.html" title="class in io.getstream.chat.java.models
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.bottom">

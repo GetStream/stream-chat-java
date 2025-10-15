@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -163,8 +163,48 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code><a href="Message.MessageSendRequestData.MessageSendRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSendRequestData.MessageSendRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#forceModeration(java.lang.Boolean)">forceModeration</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;forceModeration)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>protected retrofit2.Call&lt;<a href="Message.MessageSendResponse.html" title="class in io.getstream.chat.java.models">Message.MessageSendResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#generateCall(io.getstream.chat.java.services.framework.Client)">generateCall</a></span>&#8203;(<a href="../services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a>&nbsp;client)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="Message.MessageSendRequestData.html" title="class in io.getstream.chat.java.models">Message.MessageSendRequestData</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#internalBuild()">internalBuild</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code><a href="Message.MessageSendRequestData.MessageSendRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSendRequestData.MessageSendRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isPendingMessage(java.lang.Boolean)">isPendingMessage</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;isPendingMessage)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code><a href="Message.MessageSendRequestData.MessageSendRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSendRequestData.MessageSendRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#message(io.getstream.chat.java.models.Message.MessageRequestObject)">message</a></span>&#8203;(@Nullable <a href="Message.MessageRequestObject.html" title="class in io.getstream.chat.java.models">Message.MessageRequestObject</a>&nbsp;message)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code><a href="Message.MessageSendRequestData.MessageSendRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSendRequestData.MessageSendRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pending(java.lang.Boolean)">pending</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;pending)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code><a href="Message.MessageSendRequestData.MessageSendRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSendRequestData.MessageSendRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pendingMessageMetadata(java.util.Map)">pendingMessageMetadata</a></span>&#8203;(@Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;pendingMessageMetadata)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code><a href="Message.MessageSendRequestData.MessageSendRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSendRequestData.MessageSendRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#skipPush(java.lang.Boolean)">skipPush</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;skipPush)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -180,7 +220,7 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -201,13 +241,119 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <a id="generateCall(io.getstream.chat.java.services.framework.Client)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>generateCall</h4>
 <pre class="methodSignature">protected&nbsp;retrofit2.Call&lt;<a href="Message.MessageSendResponse.html" title="class in io.getstream.chat.java.models">Message.MessageSendResponse</a>&gt;&nbsp;generateCall&#8203;(<a href="../services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a>&nbsp;client)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="framework/StreamRequest.html#generateCall(io.getstream.chat.java.services.framework.Client)">generateCall</a></code>&nbsp;in class&nbsp;<code><a href="framework/StreamRequest.html" title="class in io.getstream.chat.java.models.framework">StreamRequest</a>&lt;<a href="Message.MessageSendResponse.html" title="class in io.getstream.chat.java.models">Message.MessageSendResponse</a>&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a id="message(io.getstream.chat.java.models.Message.MessageRequestObject)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>message</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSendRequestData.MessageSendRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSendRequestData.MessageSendRequest</a>&nbsp;message&#8203;(@Nullable
+                                                                 @Nullable <a href="Message.MessageRequestObject.html" title="class in io.getstream.chat.java.models">Message.MessageRequestObject</a>&nbsp;message)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="skipPush(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>skipPush</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSendRequestData.MessageSendRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSendRequestData.MessageSendRequest</a>&nbsp;skipPush&#8203;(@Nullable
+                                                                  @Nullable java.lang.Boolean&nbsp;skipPush)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="isPendingMessage(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isPendingMessage</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSendRequestData.MessageSendRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSendRequestData.MessageSendRequest</a>&nbsp;isPendingMessage&#8203;(@Nullable
+                                                                          @Nullable java.lang.Boolean&nbsp;isPendingMessage)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="pending(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>pending</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSendRequestData.MessageSendRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSendRequestData.MessageSendRequest</a>&nbsp;pending&#8203;(@Nullable
+                                                                 @Nullable java.lang.Boolean&nbsp;pending)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="forceModeration(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>forceModeration</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSendRequestData.MessageSendRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSendRequestData.MessageSendRequest</a>&nbsp;forceModeration&#8203;(@Nullable
+                                                                         @Nullable java.lang.Boolean&nbsp;forceModeration)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="pendingMessageMetadata(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>pendingMessageMetadata</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSendRequestData.MessageSendRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSendRequestData.MessageSendRequest</a>&nbsp;pendingMessageMetadata&#8203;(@Nullable
+                                                                                @Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;pendingMessageMetadata)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="internalBuild()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>internalBuild</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSendRequestData.html" title="class in io.getstream.chat.java.models">Message.MessageSendRequestData</a>&nbsp;internalBuild()</pre>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 </dl>
 </li>
 </ul>

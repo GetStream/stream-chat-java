@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -90,13 +90,13 @@ loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
@@ -148,27 +148,6 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="constructor.summary">
-<!--   -->
-</a>
-<h3>Constructor Summary</h3>
-<table class="memberSummary">
-<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Constructor</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">ChannelExportRequest</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
 <!-- ========== METHOD SUMMARY =========== -->
 <section>
 <ul class="blockList">
@@ -184,8 +163,53 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code><a href="Channel.ChannelExportRequestData.ChannelExportRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData.ChannelExportRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#channel(io.getstream.chat.java.models.Channel.ChannelExportRequestObject)">channel</a></span>&#8203;(<a href="Channel.ChannelExportRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestObject</a>&nbsp;channel)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code><a href="Channel.ChannelExportRequestData.ChannelExportRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData.ChannelExportRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#channels(java.util.Collection)">channels</a></span>&#8203;(java.util.Collection&lt;? extends <a href="Channel.ChannelExportRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestObject</a>&gt;&nbsp;channels)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="Channel.ChannelExportRequestData.ChannelExportRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData.ChannelExportRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clearChannels()">clearChannels</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code><a href="Channel.ChannelExportRequestData.ChannelExportRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData.ChannelExportRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clearDeletedMessageText(java.lang.Boolean)">clearDeletedMessageText</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;clearDeletedMessageText)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code><a href="Channel.ChannelExportRequestData.ChannelExportRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData.ChannelExportRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#exportUsers(java.lang.Boolean)">exportUsers</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;exportUsers)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>protected retrofit2.Call&lt;<a href="Channel.ChannelExportResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#generateCall(io.getstream.chat.java.services.framework.Client)">generateCall</a></span>&#8203;(<a href="../services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a>&nbsp;client)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code><a href="Channel.ChannelExportRequestData.ChannelExportRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData.ChannelExportRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#includeTruncatedMessages(java.lang.Boolean)">includeTruncatedMessages</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;includeTruncatedMessages)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code><a href="Channel.ChannelExportRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#internalBuild()">internalBuild</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code><a href="Channel.ChannelExportRequestData.ChannelExportRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData.ChannelExportRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#version(java.lang.String)">version</a></span>&#8203;(@Nullable java.lang.String&nbsp;version)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -201,7 +225,7 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -212,25 +236,6 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="constructor.detail">
-<!--   -->
-</a>
-<h3>Constructor Detail</h3>
-<a id="&lt;init&gt;()">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>ChannelExportRequest</h4>
-<pre>public&nbsp;ChannelExportRequest()</pre>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ============ METHOD DETAIL ========== -->
 <section>
 <ul class="blockList">
@@ -241,13 +246,118 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <a id="generateCall(io.getstream.chat.java.services.framework.Client)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>generateCall</h4>
 <pre class="methodSignature">protected&nbsp;retrofit2.Call&lt;<a href="Channel.ChannelExportResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportResponse</a>&gt;&nbsp;generateCall&#8203;(<a href="../services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a>&nbsp;client)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="framework/StreamRequest.html#generateCall(io.getstream.chat.java.services.framework.Client)">generateCall</a></code>&nbsp;in class&nbsp;<code><a href="framework/StreamRequest.html" title="class in io.getstream.chat.java.models.framework">StreamRequest</a>&lt;<a href="Channel.ChannelExportResponse.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportResponse</a>&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a id="channel(io.getstream.chat.java.models.Channel.ChannelExportRequestObject)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>channel</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelExportRequestData.ChannelExportRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData.ChannelExportRequest</a>&nbsp;channel&#8203;(<a href="Channel.ChannelExportRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestObject</a>&nbsp;channel)</pre>
+</li>
+</ul>
+<a id="channels(java.util.Collection)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>channels</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelExportRequestData.ChannelExportRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData.ChannelExportRequest</a>&nbsp;channels&#8203;(java.util.Collection&lt;? extends <a href="Channel.ChannelExportRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestObject</a>&gt;&nbsp;channels)</pre>
+</li>
+</ul>
+<a id="clearChannels()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>clearChannels</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelExportRequestData.ChannelExportRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData.ChannelExportRequest</a>&nbsp;clearChannels()</pre>
+</li>
+</ul>
+<a id="version(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>version</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelExportRequestData.ChannelExportRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData.ChannelExportRequest</a>&nbsp;version&#8203;(@Nullable
+                                                                     @Nullable java.lang.String&nbsp;version)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="clearDeletedMessageText(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>clearDeletedMessageText</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelExportRequestData.ChannelExportRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData.ChannelExportRequest</a>&nbsp;clearDeletedMessageText&#8203;(@Nullable
+                                                                                     @Nullable java.lang.Boolean&nbsp;clearDeletedMessageText)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="includeTruncatedMessages(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>includeTruncatedMessages</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelExportRequestData.ChannelExportRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData.ChannelExportRequest</a>&nbsp;includeTruncatedMessages&#8203;(@Nullable
+                                                                                      @Nullable java.lang.Boolean&nbsp;includeTruncatedMessages)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="exportUsers(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>exportUsers</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelExportRequestData.ChannelExportRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData.ChannelExportRequest</a>&nbsp;exportUsers&#8203;(@Nullable
+                                                                         @Nullable java.lang.Boolean&nbsp;exportUsers)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="internalBuild()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>internalBuild</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelExportRequestData.html" title="class in io.getstream.chat.java.models">Channel.ChannelExportRequestData</a>&nbsp;internalBuild()</pre>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 </dl>
 </li>
 </ul>
@@ -304,13 +414,13 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>

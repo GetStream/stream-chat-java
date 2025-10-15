@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -90,13 +90,13 @@ loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
@@ -148,27 +148,6 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="constructor.summary">
-<!--   -->
-</a>
-<h3>Constructor Summary</h3>
-<table class="memberSummary">
-<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Constructor</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">PermissionCreateRequest</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
 <!-- ========== METHOD SUMMARY =========== -->
 <section>
 <ul class="blockList">
@@ -184,8 +163,48 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code><a href="Permission.PermissionCreateRequestData.PermissionCreateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData.PermissionCreateRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#action(java.lang.String)">action</a></span>&#8203;(@NotNull java.lang.String&nbsp;action)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code><a href="Permission.PermissionCreateRequestData.PermissionCreateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData.PermissionCreateRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#condition(java.util.Map)">condition</a></span>&#8203;(@Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;condition)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>protected retrofit2.Call&lt;<a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#generateCall(io.getstream.chat.java.services.framework.Client)">generateCall</a></span>&#8203;(<a href="../services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a>&nbsp;client)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code><a href="Permission.PermissionCreateRequestData.PermissionCreateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData.PermissionCreateRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#id(java.lang.String)">id</a></span>&#8203;(@NotNull java.lang.String&nbsp;id)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code><a href="Permission.PermissionCreateRequestData.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#internalBuild()">internalBuild</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code><a href="Permission.PermissionCreateRequestData.PermissionCreateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData.PermissionCreateRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#name(java.lang.String)">name</a></span>&#8203;(@NotNull java.lang.String&nbsp;name)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code><a href="Permission.PermissionCreateRequestData.PermissionCreateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData.PermissionCreateRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#owner(java.lang.Boolean)">owner</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;owner)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code><a href="Permission.PermissionCreateRequestData.PermissionCreateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData.PermissionCreateRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sameTeam(java.lang.Boolean)">sameTeam</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;sameTeam)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -201,7 +220,7 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -212,25 +231,6 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="constructor.detail">
-<!--   -->
-</a>
-<h3>Constructor Detail</h3>
-<a id="&lt;init&gt;()">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>PermissionCreateRequest</h4>
-<pre>public&nbsp;PermissionCreateRequest()</pre>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ============ METHOD DETAIL ========== -->
 <section>
 <ul class="blockList">
@@ -241,13 +241,119 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <a id="generateCall(io.getstream.chat.java.services.framework.Client)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>generateCall</h4>
 <pre class="methodSignature">protected&nbsp;retrofit2.Call&lt;<a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;&nbsp;generateCall&#8203;(<a href="../services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a>&nbsp;client)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="framework/StreamRequest.html#generateCall(io.getstream.chat.java.services.framework.Client)">generateCall</a></code>&nbsp;in class&nbsp;<code><a href="framework/StreamRequest.html" title="class in io.getstream.chat.java.models.framework">StreamRequest</a>&lt;<a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a id="id(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>id</h4>
+<pre class="methodSignature">public&nbsp;<a href="Permission.PermissionCreateRequestData.PermissionCreateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData.PermissionCreateRequest</a>&nbsp;id&#8203;(@NotNull
+                                                                         @NotNull java.lang.String&nbsp;id)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="name(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>name</h4>
+<pre class="methodSignature">public&nbsp;<a href="Permission.PermissionCreateRequestData.PermissionCreateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData.PermissionCreateRequest</a>&nbsp;name&#8203;(@NotNull
+                                                                           @NotNull java.lang.String&nbsp;name)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="action(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>action</h4>
+<pre class="methodSignature">public&nbsp;<a href="Permission.PermissionCreateRequestData.PermissionCreateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData.PermissionCreateRequest</a>&nbsp;action&#8203;(@NotNull
+                                                                             @NotNull java.lang.String&nbsp;action)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="owner(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>owner</h4>
+<pre class="methodSignature">public&nbsp;<a href="Permission.PermissionCreateRequestData.PermissionCreateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData.PermissionCreateRequest</a>&nbsp;owner&#8203;(@Nullable
+                                                                            @Nullable java.lang.Boolean&nbsp;owner)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="sameTeam(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sameTeam</h4>
+<pre class="methodSignature">public&nbsp;<a href="Permission.PermissionCreateRequestData.PermissionCreateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData.PermissionCreateRequest</a>&nbsp;sameTeam&#8203;(@Nullable
+                                                                               @Nullable java.lang.Boolean&nbsp;sameTeam)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="condition(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>condition</h4>
+<pre class="methodSignature">public&nbsp;<a href="Permission.PermissionCreateRequestData.PermissionCreateRequest.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData.PermissionCreateRequest</a>&nbsp;condition&#8203;(@Nullable
+                                                                                @Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;condition)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="internalBuild()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>internalBuild</h4>
+<pre class="methodSignature">public&nbsp;<a href="Permission.PermissionCreateRequestData.html" title="class in io.getstream.chat.java.models">Permission.PermissionCreateRequestData</a>&nbsp;internalBuild()</pre>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 </dl>
 </li>
 </ul>
@@ -304,13 +410,13 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>

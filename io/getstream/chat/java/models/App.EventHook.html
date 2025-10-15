@@ -27,6 +27,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10,"i40":10,"i41":10,"i42":10,"i43":10,"i44":10,"i45":10,"i46":10,"i47":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "../../../../../";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -91,7 +97,7 @@ loadScripts(document, 'script');</script>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.top">
@@ -165,12 +171,260 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>@Nullable <a href="App.PendingMessageCallback.html" title="class in io.getstream.chat.java.models">App.PendingMessageCallback</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCallback()">getCallback</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCreatedAt()">getCreatedAt</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEnabled()">getEnabled</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;java.lang.String&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEventTypes()">getEventTypes</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>@Nullable <a href="App.HookType.html" title="enum in io.getstream.chat.java.models">App.HookType</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getHookType()">getHookType</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getId()">getId</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>@Nullable <a href="App.Product.html" title="enum in io.getstream.chat.java.models">App.Product</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getProduct()">getProduct</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>@Nullable <a href="App.AuthType.html" title="enum in io.getstream.chat.java.models">App.AuthType</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSnsAuthType()">getSnsAuthType</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSnsKey()">getSnsKey</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSnsRegion()">getSnsRegion</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSnsRoleARN()">getSnsRoleARN</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSnsSecret()">getSnsSecret</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSnsTopicARN()">getSnsTopicARN</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>@Nullable <a href="App.AuthType.html" title="enum in io.getstream.chat.java.models">App.AuthType</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSqsAuthType()">getSqsAuthType</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSqsKey()">getSqsKey</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSqsQueueURL()">getSqsQueueURL</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSqsRegion()">getSqsRegion</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSqsRoleARN()">getSqsRoleARN</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSqsSecret()">getSqsSecret</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i21" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Number</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTimeoutMs()">getTimeoutMs</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i22" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUpdatedAt()">getUpdatedAt</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getWebhookURL()">getWebhookURL</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i24" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i25" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCallback(io.getstream.chat.java.models.App.PendingMessageCallback)">setCallback</a></span>&#8203;(@Nullable <a href="App.PendingMessageCallback.html" title="class in io.getstream.chat.java.models">App.PendingMessageCallback</a>&nbsp;callback)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i26" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCreatedAt(java.util.Date)">setCreatedAt</a></span>&#8203;(@Nullable java.util.Date&nbsp;createdAt)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i27" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEnabled(java.lang.Boolean)">setEnabled</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;enabled)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i28" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEventTypes(java.util.List)">setEventTypes</a></span>&#8203;(@Nullable java.util.List&lt;java.lang.String&gt;&nbsp;eventTypes)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i29" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setHookType(io.getstream.chat.java.models.App.HookType)">setHookType</a></span>&#8203;(@Nullable <a href="App.HookType.html" title="enum in io.getstream.chat.java.models">App.HookType</a>&nbsp;hookType)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i30" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setId(java.lang.String)">setId</a></span>&#8203;(@Nullable java.lang.String&nbsp;id)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i31" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setProduct(io.getstream.chat.java.models.App.Product)">setProduct</a></span>&#8203;(@Nullable <a href="App.Product.html" title="enum in io.getstream.chat.java.models">App.Product</a>&nbsp;product)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i32" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSnsAuthType(io.getstream.chat.java.models.App.AuthType)">setSnsAuthType</a></span>&#8203;(@Nullable <a href="App.AuthType.html" title="enum in io.getstream.chat.java.models">App.AuthType</a>&nbsp;snsAuthType)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i33" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSnsKey(java.lang.String)">setSnsKey</a></span>&#8203;(@Nullable java.lang.String&nbsp;snsKey)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i34" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSnsRegion(java.lang.String)">setSnsRegion</a></span>&#8203;(@Nullable java.lang.String&nbsp;snsRegion)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i35" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSnsRoleARN(java.lang.String)">setSnsRoleARN</a></span>&#8203;(@Nullable java.lang.String&nbsp;snsRoleARN)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i36" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSnsSecret(java.lang.String)">setSnsSecret</a></span>&#8203;(@Nullable java.lang.String&nbsp;snsSecret)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i37" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSnsTopicARN(java.lang.String)">setSnsTopicARN</a></span>&#8203;(@Nullable java.lang.String&nbsp;snsTopicARN)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i38" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSqsAuthType(io.getstream.chat.java.models.App.AuthType)">setSqsAuthType</a></span>&#8203;(@Nullable <a href="App.AuthType.html" title="enum in io.getstream.chat.java.models">App.AuthType</a>&nbsp;sqsAuthType)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i39" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSqsKey(java.lang.String)">setSqsKey</a></span>&#8203;(@Nullable java.lang.String&nbsp;sqsKey)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i40" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSqsQueueURL(java.lang.String)">setSqsQueueURL</a></span>&#8203;(@Nullable java.lang.String&nbsp;sqsQueueURL)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i41" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSqsRegion(java.lang.String)">setSqsRegion</a></span>&#8203;(@Nullable java.lang.String&nbsp;sqsRegion)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i42" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSqsRoleARN(java.lang.String)">setSqsRoleARN</a></span>&#8203;(@Nullable java.lang.String&nbsp;sqsRoleARN)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i43" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSqsSecret(java.lang.String)">setSqsSecret</a></span>&#8203;(@Nullable java.lang.String&nbsp;sqsSecret)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i44" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTimeoutMs(java.lang.Number)">setTimeoutMs</a></span>&#8203;(@Nullable java.lang.Number&nbsp;timeoutMs)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i45" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUpdatedAt(java.util.Date)">setUpdatedAt</a></span>&#8203;(@Nullable java.util.Date&nbsp;updatedAt)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i46" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setWebhookURL(java.lang.String)">setWebhookURL</a></span>&#8203;(@Nullable java.lang.String&nbsp;webhookURL)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i47" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -195,6 +449,504 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>EventHook</h4>
 <pre>public&nbsp;EventHook()</pre>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<!-- ============ METHOD DETAIL ========== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="method.detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a id="getId()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getId</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getId()</pre>
+</li>
+</ul>
+<a id="getHookType()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getHookType</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="App.HookType.html" title="enum in io.getstream.chat.java.models">App.HookType</a>&nbsp;getHookType()</pre>
+</li>
+</ul>
+<a id="getEnabled()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getEnabled</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getEnabled()</pre>
+</li>
+</ul>
+<a id="getProduct()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getProduct</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="App.Product.html" title="enum in io.getstream.chat.java.models">App.Product</a>&nbsp;getProduct()</pre>
+</li>
+</ul>
+<a id="getEventTypes()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getEventTypes</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;java.lang.String&gt;&nbsp;getEventTypes()</pre>
+</li>
+</ul>
+<a id="getWebhookURL()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getWebhookURL</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getWebhookURL()</pre>
+</li>
+</ul>
+<a id="getSqsQueueURL()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSqsQueueURL</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getSqsQueueURL()</pre>
+</li>
+</ul>
+<a id="getSqsRegion()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSqsRegion</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getSqsRegion()</pre>
+</li>
+</ul>
+<a id="getSqsAuthType()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSqsAuthType</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="App.AuthType.html" title="enum in io.getstream.chat.java.models">App.AuthType</a>&nbsp;getSqsAuthType()</pre>
+</li>
+</ul>
+<a id="getSqsKey()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSqsKey</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getSqsKey()</pre>
+</li>
+</ul>
+<a id="getSqsSecret()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSqsSecret</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getSqsSecret()</pre>
+</li>
+</ul>
+<a id="getSqsRoleARN()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSqsRoleARN</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getSqsRoleARN()</pre>
+</li>
+</ul>
+<a id="getSnsTopicARN()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSnsTopicARN</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getSnsTopicARN()</pre>
+</li>
+</ul>
+<a id="getSnsRegion()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSnsRegion</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getSnsRegion()</pre>
+</li>
+</ul>
+<a id="getSnsAuthType()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSnsAuthType</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="App.AuthType.html" title="enum in io.getstream.chat.java.models">App.AuthType</a>&nbsp;getSnsAuthType()</pre>
+</li>
+</ul>
+<a id="getSnsKey()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSnsKey</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getSnsKey()</pre>
+</li>
+</ul>
+<a id="getSnsSecret()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSnsSecret</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getSnsSecret()</pre>
+</li>
+</ul>
+<a id="getSnsRoleARN()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSnsRoleARN</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getSnsRoleARN()</pre>
+</li>
+</ul>
+<a id="getTimeoutMs()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTimeoutMs</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Number&nbsp;getTimeoutMs()</pre>
+</li>
+</ul>
+<a id="getCallback()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCallback</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="App.PendingMessageCallback.html" title="class in io.getstream.chat.java.models">App.PendingMessageCallback</a>&nbsp;getCallback()</pre>
+</li>
+</ul>
+<a id="getCreatedAt()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCreatedAt</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Date&nbsp;getCreatedAt()</pre>
+</li>
+</ul>
+<a id="getUpdatedAt()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUpdatedAt</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Date&nbsp;getUpdatedAt()</pre>
+</li>
+</ul>
+<a id="setId(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setId</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setId&#8203;(@Nullable
+                  @Nullable java.lang.String&nbsp;id)</pre>
+</li>
+</ul>
+<a id="setHookType(io.getstream.chat.java.models.App.HookType)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setHookType</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setHookType&#8203;(@Nullable
+                        @Nullable <a href="App.HookType.html" title="enum in io.getstream.chat.java.models">App.HookType</a>&nbsp;hookType)</pre>
+</li>
+</ul>
+<a id="setEnabled(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setEnabled</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setEnabled&#8203;(@Nullable
+                       @Nullable java.lang.Boolean&nbsp;enabled)</pre>
+</li>
+</ul>
+<a id="setProduct(io.getstream.chat.java.models.App.Product)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setProduct</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setProduct&#8203;(@Nullable
+                       @Nullable <a href="App.Product.html" title="enum in io.getstream.chat.java.models">App.Product</a>&nbsp;product)</pre>
+</li>
+</ul>
+<a id="setEventTypes(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setEventTypes</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setEventTypes&#8203;(@Nullable
+                          @Nullable java.util.List&lt;java.lang.String&gt;&nbsp;eventTypes)</pre>
+</li>
+</ul>
+<a id="setWebhookURL(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setWebhookURL</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setWebhookURL&#8203;(@Nullable
+                          @Nullable java.lang.String&nbsp;webhookURL)</pre>
+</li>
+</ul>
+<a id="setSqsQueueURL(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSqsQueueURL</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSqsQueueURL&#8203;(@Nullable
+                           @Nullable java.lang.String&nbsp;sqsQueueURL)</pre>
+</li>
+</ul>
+<a id="setSqsRegion(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSqsRegion</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSqsRegion&#8203;(@Nullable
+                         @Nullable java.lang.String&nbsp;sqsRegion)</pre>
+</li>
+</ul>
+<a id="setSqsAuthType(io.getstream.chat.java.models.App.AuthType)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSqsAuthType</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSqsAuthType&#8203;(@Nullable
+                           @Nullable <a href="App.AuthType.html" title="enum in io.getstream.chat.java.models">App.AuthType</a>&nbsp;sqsAuthType)</pre>
+</li>
+</ul>
+<a id="setSqsKey(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSqsKey</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSqsKey&#8203;(@Nullable
+                      @Nullable java.lang.String&nbsp;sqsKey)</pre>
+</li>
+</ul>
+<a id="setSqsSecret(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSqsSecret</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSqsSecret&#8203;(@Nullable
+                         @Nullable java.lang.String&nbsp;sqsSecret)</pre>
+</li>
+</ul>
+<a id="setSqsRoleARN(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSqsRoleARN</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSqsRoleARN&#8203;(@Nullable
+                          @Nullable java.lang.String&nbsp;sqsRoleARN)</pre>
+</li>
+</ul>
+<a id="setSnsTopicARN(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSnsTopicARN</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSnsTopicARN&#8203;(@Nullable
+                           @Nullable java.lang.String&nbsp;snsTopicARN)</pre>
+</li>
+</ul>
+<a id="setSnsRegion(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSnsRegion</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSnsRegion&#8203;(@Nullable
+                         @Nullable java.lang.String&nbsp;snsRegion)</pre>
+</li>
+</ul>
+<a id="setSnsAuthType(io.getstream.chat.java.models.App.AuthType)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSnsAuthType</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSnsAuthType&#8203;(@Nullable
+                           @Nullable <a href="App.AuthType.html" title="enum in io.getstream.chat.java.models">App.AuthType</a>&nbsp;snsAuthType)</pre>
+</li>
+</ul>
+<a id="setSnsKey(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSnsKey</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSnsKey&#8203;(@Nullable
+                      @Nullable java.lang.String&nbsp;snsKey)</pre>
+</li>
+</ul>
+<a id="setSnsSecret(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSnsSecret</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSnsSecret&#8203;(@Nullable
+                         @Nullable java.lang.String&nbsp;snsSecret)</pre>
+</li>
+</ul>
+<a id="setSnsRoleARN(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSnsRoleARN</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSnsRoleARN&#8203;(@Nullable
+                          @Nullable java.lang.String&nbsp;snsRoleARN)</pre>
+</li>
+</ul>
+<a id="setTimeoutMs(java.lang.Number)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setTimeoutMs</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setTimeoutMs&#8203;(@Nullable
+                         @Nullable java.lang.Number&nbsp;timeoutMs)</pre>
+</li>
+</ul>
+<a id="setCallback(io.getstream.chat.java.models.App.PendingMessageCallback)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCallback</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCallback&#8203;(@Nullable
+                        @Nullable <a href="App.PendingMessageCallback.html" title="class in io.getstream.chat.java.models">App.PendingMessageCallback</a>&nbsp;callback)</pre>
+</li>
+</ul>
+<a id="setCreatedAt(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCreatedAt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCreatedAt&#8203;(@Nullable
+                         @Nullable java.util.Date&nbsp;createdAt)</pre>
+</li>
+</ul>
+<a id="setUpdatedAt(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setUpdatedAt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setUpdatedAt&#8203;(@Nullable
+                         @Nullable java.util.Date&nbsp;updatedAt)</pre>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -257,7 +1009,7 @@ extends java.lang.Object</pre>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.bottom">

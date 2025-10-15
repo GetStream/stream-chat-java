@@ -27,8 +27,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":41,"i3":9};
-var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
+var data = {"i0":9,"i1":9,"i2":41,"i3":9,"i4":10};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -219,7 +219,7 @@ extends java.lang.Exception</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -252,6 +252,11 @@ extends java.lang.Exception</pre>
 <td class="colLast">
 <div class="block">Builds a StreamException based on response from the server and http code</div>
 </td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code><a href="StreamException.ResponseData.html" title="class in io.getstream.chat.java.exceptions">StreamException.ResponseData</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getResponseData()">getResponseData</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -376,7 +381,7 @@ public static&nbsp;<a href="StreamException.html" title="class in io.getstream.c
 <a id="build(java.lang.Throwable)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>build</h4>
 <pre class="methodSignature">public static&nbsp;<a href="StreamException.html" title="class in io.getstream.chat.java.exceptions">StreamException</a>&nbsp;build&#8203;(java.lang.Throwable&nbsp;t)</pre>
@@ -387,6 +392,15 @@ public static&nbsp;<a href="StreamException.html" title="class in io.getstream.c
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the StreamException</dd>
 </dl>
+</li>
+</ul>
+<a id="getResponseData()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getResponseData</h4>
+<pre class="methodSignature">public&nbsp;<a href="StreamException.ResponseData.html" title="class in io.getstream.chat.java.exceptions">StreamException.ResponseData</a>&nbsp;getResponseData()</pre>
 </li>
 </ul>
 </li>

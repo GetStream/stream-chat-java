@@ -27,6 +27,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "../../../../../";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -91,7 +97,7 @@ loadScripts(document, 'script');</script>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.top">
@@ -204,19 +210,57 @@ extends <a href="Message.html" title="class in io.getstream.chat.java.models">Me
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>@NotNull <a href="Channel.html" title="class in io.getstream.chat.java.models">Channel</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getChannel()">getChannel</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setChannel(io.getstream.chat.java.models.Channel)">setChannel</a></span>&#8203;(@NotNull <a href="Channel.html" title="class in io.getstream.chat.java.models">Channel</a>&nbsp;channel)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.io.getstream.chat.java.models.Message">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;io.getstream.chat.java.models.<a href="Message.html" title="class in io.getstream.chat.java.models">Message</a></h3>
-<code><a href="Message.html#commit(java.lang.String)">commit</a>, <a href="Message.html#delete(java.lang.String)">delete</a>, <a href="Message.html#deleteFile(java.lang.String,java.lang.String,java.lang.String)">deleteFile</a>, <a href="Message.html#deleteForMe(java.lang.String,java.lang.String)">deleteForMe</a>, <a href="Message.html#deleteImage(java.lang.String,java.lang.String,java.lang.String)">deleteImage</a>, <a href="Message.html#flag(java.lang.String)">flag</a>, <a href="Message.html#get(java.lang.String)">get</a>, <a href="Message.html#getAdditionalFields()">getAdditionalFields</a>, <a href="Message.html#getMany(java.lang.String,java.lang.String,java.util.List)">getMany</a>, <a href="Message.html#getReplies(java.lang.String)">getReplies</a>, <a href="Message.html#hardDelete(java.lang.String)">hardDelete</a>, <a href="Message.html#partialUpdate(java.lang.String)">partialUpdate</a>, <a href="Message.html#pinMessage(java.lang.String,java.lang.String)">pinMessage</a>, <a href="Message.html#pinMessage(java.lang.String,java.lang.String,java.util.Date)">pinMessage</a>, <a href="Message.html#queryFlags()">queryFlags</a>, <a href="Message.html#runCommandAction(java.lang.String)">runCommandAction</a>, <a href="Message.html#search()">search</a>, <a href="Message.html#send(java.lang.String,java.lang.String)">send</a>, <a href="Message.html#setAdditionalField(java.lang.String,java.lang.Object)">setAdditionalField</a>, <a href="Message.html#translate(java.lang.String)">translate</a>, <a href="Message.html#unblock(java.lang.String)">unblock</a>, <a href="Message.html#unflag(java.lang.String)">unflag</a>, <a href="Message.html#unpinMessage(java.lang.String,java.lang.String)">unpinMessage</a>, <a href="Message.html#update(java.lang.String)">update</a>, <a href="Message.html#uploadFile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">uploadFile</a>, <a href="Message.html#uploadImage(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">uploadImage</a></code></li>
+<code><a href="Message.html#commit(java.lang.String)">commit</a>, <a href="Message.html#delete(java.lang.String)">delete</a>, <a href="Message.html#deleteFile(java.lang.String,java.lang.String,java.lang.String)">deleteFile</a>, <a href="Message.html#deleteForMe(java.lang.String,java.lang.String)">deleteForMe</a>, <a href="Message.html#deleteImage(java.lang.String,java.lang.String,java.lang.String)">deleteImage</a>, <a href="Message.html#flag(java.lang.String)">flag</a>, <a href="Message.html#get(java.lang.String)">get</a>, <a href="Message.html#getAdditionalFields()">getAdditionalFields</a>, <a href="Message.html#getAttachments()">getAttachments</a>, <a href="Message.html#getBefore_message_send_failed()">getBefore_message_send_failed</a>, <a href="Message.html#getCid()">getCid</a>, <a href="Message.html#getCommand()">getCommand</a>, <a href="Message.html#getCreatedAt()">getCreatedAt</a>, <a href="Message.html#getDeletedAt()">getDeletedAt</a>, <a href="Message.html#getDeletedReplyCount()">getDeletedReplyCount</a>, <a href="Message.html#getHtml()">getHtml</a>, <a href="Message.html#getI18n()">getI18n</a>, <a href="Message.html#getId()">getId</a>, <a href="Message.html#getImageLabels()">getImageLabels</a>, <a href="Message.html#getLatestReactions()">getLatestReactions</a>, <a href="Message.html#getMany(java.lang.String,java.lang.String,java.util.List)">getMany</a>, <a href="Message.html#getMember()">getMember</a>, <a href="Message.html#getMentionedUsers()">getMentionedUsers</a>, <a href="Message.html#getMml()">getMml</a>, <a href="Message.html#getOwnReactions()">getOwnReactions</a>, <a href="Message.html#getParentId()">getParentId</a>, <a href="Message.html#getPinExpires()">getPinExpires</a>, <a href="Message.html#getPinned()">getPinned</a>, <a href="Message.html#getPinnedAt()">getPinnedAt</a>, <a href="Message.html#getPinnedBy()">getPinnedBy</a>, <a href="Message.html#getQuoted_message()">getQuoted_message</a>, <a href="Message.html#getQuotedMessageId()">getQuotedMessageId</a>, <a href="Message.html#getReactionCounts()">getReactionCounts</a>, <a href="Message.html#getReactionScores()">getReactionScores</a>, <a href="Message.html#getReplies(java.lang.String)">getReplies</a>, <a href="Message.html#getReplyCount()">getReplyCount</a>, <a href="Message.html#getRestrictedVisibility()">getRestrictedVisibility</a>, <a href="Message.html#getShadowed()">getShadowed</a>, <a href="Message.html#getSharedLocation()">getSharedLocation</a>, <a href="Message.html#getShowInChannel()">getShowInChannel</a>, <a href="Message.html#getSilent()">getSilent</a>, <a href="Message.html#getText()">getText</a>, <a href="Message.html#getThreadParticipants()">getThreadParticipants</a>, <a href="Message.html#getType()">getType</a>, <a href="Message.html#getUpdatedAt()">getUpdatedAt</a>, <a href="Message.html#getUser()">getUser</a>, <a href="Message.html#hardDelete(java.lang.String)">hardDelete</a>, <a href="Message.html#partialUpdate(java.lang.String)">partialUpdate</a>, <a href="Message.html#pinMessage(java.lang.String,java.lang.String)">pinMessage</a>, <a href="Message.html#pinMessage(java.lang.String,java.lang.String,java.util.Date)">pinMessage</a>, <a href="Message.html#queryFlags()">queryFlags</a>, <a href="Message.html#runCommandAction(java.lang.String)">runCommandAction</a>, <a href="Message.html#search()">search</a>, <a href="Message.html#send(java.lang.String,java.lang.String)">send</a>, <a href="Message.html#setAdditionalField(java.lang.String,java.lang.Object)">setAdditionalField</a>, <a href="Message.html#setAdditionalFields(java.util.Map)">setAdditionalFields</a>, <a href="Message.html#setAttachments(java.util.List)">setAttachments</a>, <a href="Message.html#setBefore_message_send_failed(java.lang.Boolean)">setBefore_message_send_failed</a>, <a href="Message.html#setCid(java.lang.String)">setCid</a>, <a href="Message.html#setCommand(java.lang.String)">setCommand</a>, <a href="Message.html#setCreatedAt(java.util.Date)">setCreatedAt</a>, <a href="Message.html#setDeletedAt(java.util.Date)">setDeletedAt</a>, <a href="Message.html#setDeletedReplyCount(java.lang.Integer)">setDeletedReplyCount</a>, <a href="Message.html#setHtml(java.lang.String)">setHtml</a>, <a href="Message.html#setI18n(java.util.Map)">setI18n</a>, <a href="Message.html#setId(java.lang.String)">setId</a>, <a href="Message.html#setImageLabels(java.util.Map)">setImageLabels</a>, <a href="Message.html#setLatestReactions(java.util.List)">setLatestReactions</a>, <a href="Message.html#setMember(io.getstream.chat.java.models.Channel.ChannelMember)">setMember</a>, <a href="Message.html#setMentionedUsers(java.util.List)">setMentionedUsers</a>, <a href="Message.html#setMml(java.lang.String)">setMml</a>, <a href="Message.html#setOwnReactions(java.util.List)">setOwnReactions</a>, <a href="Message.html#setParentId(java.lang.String)">setParentId</a>, <a href="Message.html#setPinExpires(java.util.Date)">setPinExpires</a>, <a href="Message.html#setPinned(java.lang.Boolean)">setPinned</a>, <a href="Message.html#setPinnedAt(java.util.Date)">setPinnedAt</a>, <a href="Message.html#setPinnedBy(io.getstream.chat.java.models.User)">setPinnedBy</a>, <a href="Message.html#setQuoted_message(io.getstream.chat.java.models.Message)">setQuoted_message</a>, <a href="Message.html#setQuotedMessageId(java.lang.String)">setQuotedMessageId</a>, <a href="Message.html#setReactionCounts(java.util.Map)">setReactionCounts</a>, <a href="Message.html#setReactionScores(java.util.Map)">setReactionScores</a>, <a href="Message.html#setReplyCount(java.lang.Integer)">setReplyCount</a>, <a href="Message.html#setRestrictedVisibility(java.util.List)">setRestrictedVisibility</a>, <a href="Message.html#setShadowed(java.lang.Boolean)">setShadowed</a>, <a href="Message.html#setSharedLocation(io.getstream.chat.java.models.SharedLocation)">setSharedLocation</a>, <a href="Message.html#setShowInChannel(java.lang.Boolean)">setShowInChannel</a>, <a href="Message.html#setSilent(java.lang.Boolean)">setSilent</a>, <a href="Message.html#setText(java.lang.String)">setText</a>, <a href="Message.html#setThreadParticipants(java.util.List)">setThreadParticipants</a>, <a href="Message.html#setType(io.getstream.chat.java.models.Message.MessageType)">setType</a>, <a href="Message.html#setUpdatedAt(java.util.Date)">setUpdatedAt</a>, <a href="Message.html#setUser(io.getstream.chat.java.models.User)">setUser</a>, <a href="Message.html#translate(java.lang.String)">translate</a>, <a href="Message.html#unblock(java.lang.String)">unblock</a>, <a href="Message.html#unflag(java.lang.String)">unflag</a>, <a href="Message.html#unpinMessage(java.lang.String,java.lang.String)">unpinMessage</a>, <a href="Message.html#update(java.lang.String)">update</a>, <a href="Message.html#uploadFile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">uploadFile</a>, <a href="Message.html#uploadImage(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">uploadImage</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -241,6 +285,88 @@ extends <a href="Message.html" title="class in io.getstream.chat.java.models">Me
 <li class="blockList">
 <h4>SearchResultMessage</h4>
 <pre>public&nbsp;SearchResultMessage()</pre>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<!-- ============ METHOD DETAIL ========== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="method.detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a id="getChannel()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getChannel</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull <a href="Channel.html" title="class in io.getstream.chat.java.models">Channel</a>&nbsp;getChannel()</pre>
+</li>
+</ul>
+<a id="setChannel(io.getstream.chat.java.models.Channel)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setChannel</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setChannel&#8203;(@NotNull
+                       @NotNull <a href="Channel.html" title="class in io.getstream.chat.java.models">Channel</a>&nbsp;channel)</pre>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="Message.html#toString()">toString</a></code>&nbsp;in class&nbsp;<code><a href="Message.html" title="class in io.getstream.chat.java.models">Message</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="Message.html#equals(java.lang.Object)">equals</a></code>&nbsp;in class&nbsp;<code><a href="Message.html" title="class in io.getstream.chat.java.models">Message</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="Message.html#canEqual(java.lang.Object)">canEqual</a></code>&nbsp;in class&nbsp;<code><a href="Message.html" title="class in io.getstream.chat.java.models">Message</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="Message.html#hashCode()">hashCode</a></code>&nbsp;in class&nbsp;<code><a href="Message.html" title="class in io.getstream.chat.java.models">Message</a></code></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -303,7 +429,7 @@ extends <a href="Message.html" title="class in io.getstream.chat.java.models">Me
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.bottom">

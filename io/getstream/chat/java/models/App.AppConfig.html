@@ -27,6 +27,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10,"i40":10,"i41":10,"i42":10,"i43":10,"i44":10,"i45":10,"i46":10,"i47":10,"i48":10,"i49":10,"i50":10,"i51":10,"i52":10,"i53":10,"i54":10,"i55":10,"i56":10,"i57":10,"i58":10,"i59":10,"i60":10,"i61":10,"i62":10,"i63":10,"i64":10,"i65":10,"i66":10,"i67":10,"i68":10,"i69":10,"i70":10,"i71":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "../../../../../";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -91,7 +97,7 @@ loadScripts(document, 'script');</script>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.top">
@@ -165,12 +171,380 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>@NotNull java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAsyncURLEnrichEnabled()">getAsyncURLEnrichEnabled</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAutoTranslationEnabled()">getAutoTranslationEnabled</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBeforeMessageSendHookUrl()">getBeforeMessageSendHookUrl</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>@NotNull java.util.Map&lt;java.lang.String,&#8203;<a href="ChannelType.ChannelTypeWithStringCommands.html" title="class in io.getstream.chat.java.models">ChannelType.ChannelTypeWithStringCommands</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getChannelConfigs()">getChannelConfigs</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCustomActionHandlerUrl()">getCustomActionHandlerUrl</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>@NotNull java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDisableAuth()">getDisableAuth</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>@NotNull java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDisablePermissions()">getDisablePermissions</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>@Nullable <a href="App.EnforceUniqueUsernames.html" title="enum in io.getstream.chat.java.models">App.EnforceUniqueUsernames</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEnforceUniqueUsernames()">getEnforceUniqueUsernames</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;<a href="App.EventHook.html" title="class in io.getstream.chat.java.models">App.EventHook</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEventHooks()">getEventHooks</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>@Nullable <a href="App.FileUploadConfig.html" title="class in io.getstream.chat.java.models">App.FileUploadConfig</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFileUploadConfig()">getFileUploadConfig</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.String&gt;&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGrants()">getGrants</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>@NotNull java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getImageModerationEnabled()">getImageModerationEnabled</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;java.lang.String&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getImageModerationLabels()">getImageModerationLabels</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>@Nullable <a href="App.FileUploadConfig.html" title="class in io.getstream.chat.java.models">App.FileUploadConfig</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getImageUploadConfig()">getImageUploadConfig</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>@NotNull java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMultiTenantEnabled()">getMultiTenantEnabled</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getName()">getName</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOrganizationName()">getOrganizationName</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPermissionVersion()">getPermissionVersion</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>@NotNull java.util.Map&lt;java.lang.String,&#8203;<a href="App.Policy.html" title="class in io.getstream.chat.java.models">App.Policy</a>[]&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPolicies()">getPolicies</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i21" class="rowColor">
+<td class="colFirst"><code>@NotNull <a href="App.PushNotificationFields.html" title="class in io.getstream.chat.java.models">App.PushNotificationFields</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPushNotifications()">getPushNotifications</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i22" class="altColor">
+<td class="colFirst"><code>@org.jetbrains.annotations.NotNull int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRemindersInterval()">getRemindersInterval</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRevokeTokensIssuedBefore()">getRevokeTokensIssuedBefore</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i24" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSnsKey()">getSnsKey</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i25" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSnsSecret()">getSnsSecret</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i26" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSnsTopicArn()">getSnsTopicArn</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i27" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSqsKey()">getSqsKey</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i28" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSqsSecret()">getSqsSecret</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i29" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSqsUrl()">getSqsUrl</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i30" class="altColor">
+<td class="colFirst"><code>@NotNull java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSuspended()">getSuspended</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i31" class="rowColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSuspendedExplanation()">getSuspendedExplanation</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i32" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUserResponseTimeEnabled()">getUserResponseTimeEnabled</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i33" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;java.lang.String&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUserSearchDisallowedRoles()">getUserSearchDisallowedRoles</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i34" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;java.lang.String&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getWebhookEvents()">getWebhookEvents</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i35" class="rowColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getWebhookURL()">getWebhookURL</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i36" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i37" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAsyncURLEnrichEnabled(java.lang.Boolean)">setAsyncURLEnrichEnabled</a></span>&#8203;(@NotNull java.lang.Boolean&nbsp;asyncURLEnrichEnabled)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i38" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAutoTranslationEnabled(java.lang.Boolean)">setAutoTranslationEnabled</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;autoTranslationEnabled)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i39" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setBeforeMessageSendHookUrl(java.lang.String)">setBeforeMessageSendHookUrl</a></span>&#8203;(@Nullable java.lang.String&nbsp;beforeMessageSendHookUrl)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i40" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setChannelConfigs(java.util.Map)">setChannelConfigs</a></span>&#8203;(@NotNull java.util.Map&lt;java.lang.String,&#8203;<a href="ChannelType.ChannelTypeWithStringCommands.html" title="class in io.getstream.chat.java.models">ChannelType.ChannelTypeWithStringCommands</a>&gt;&nbsp;channelConfigs)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i41" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCustomActionHandlerUrl(java.lang.String)">setCustomActionHandlerUrl</a></span>&#8203;(@Nullable java.lang.String&nbsp;customActionHandlerUrl)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i42" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDisableAuth(java.lang.Boolean)">setDisableAuth</a></span>&#8203;(@NotNull java.lang.Boolean&nbsp;disableAuth)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i43" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDisablePermissions(java.lang.Boolean)">setDisablePermissions</a></span>&#8203;(@NotNull java.lang.Boolean&nbsp;disablePermissions)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i44" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEnforceUniqueUsernames(io.getstream.chat.java.models.App.EnforceUniqueUsernames)">setEnforceUniqueUsernames</a></span>&#8203;(@Nullable <a href="App.EnforceUniqueUsernames.html" title="enum in io.getstream.chat.java.models">App.EnforceUniqueUsernames</a>&nbsp;enforceUniqueUsernames)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i45" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEventHooks(java.util.List)">setEventHooks</a></span>&#8203;(@Nullable java.util.List&lt;<a href="App.EventHook.html" title="class in io.getstream.chat.java.models">App.EventHook</a>&gt;&nbsp;eventHooks)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i46" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setFileUploadConfig(io.getstream.chat.java.models.App.FileUploadConfig)">setFileUploadConfig</a></span>&#8203;(@Nullable <a href="App.FileUploadConfig.html" title="class in io.getstream.chat.java.models">App.FileUploadConfig</a>&nbsp;fileUploadConfig)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i47" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGrants(java.util.Map)">setGrants</a></span>&#8203;(@Nullable java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.String&gt;&gt;&nbsp;grants)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i48" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setImageModerationEnabled(java.lang.Boolean)">setImageModerationEnabled</a></span>&#8203;(@NotNull java.lang.Boolean&nbsp;imageModerationEnabled)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i49" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setImageModerationLabels(java.util.List)">setImageModerationLabels</a></span>&#8203;(@Nullable java.util.List&lt;java.lang.String&gt;&nbsp;imageModerationLabels)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i50" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setImageUploadConfig(io.getstream.chat.java.models.App.FileUploadConfig)">setImageUploadConfig</a></span>&#8203;(@Nullable <a href="App.FileUploadConfig.html" title="class in io.getstream.chat.java.models">App.FileUploadConfig</a>&nbsp;imageUploadConfig)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i51" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMultiTenantEnabled(java.lang.Boolean)">setMultiTenantEnabled</a></span>&#8203;(@NotNull java.lang.Boolean&nbsp;multiTenantEnabled)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i52" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setName(java.lang.String)">setName</a></span>&#8203;(@NotNull java.lang.String&nbsp;name)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i53" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setOrganizationName(java.lang.String)">setOrganizationName</a></span>&#8203;(@NotNull java.lang.String&nbsp;organizationName)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i54" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPermissionVersion(java.lang.String)">setPermissionVersion</a></span>&#8203;(@NotNull java.lang.String&nbsp;permissionVersion)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i55" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPolicies(java.util.Map)">setPolicies</a></span>&#8203;(@NotNull java.util.Map&lt;java.lang.String,&#8203;<a href="App.Policy.html" title="class in io.getstream.chat.java.models">App.Policy</a>[]&gt;&nbsp;policies)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i56" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPushNotifications(io.getstream.chat.java.models.App.PushNotificationFields)">setPushNotifications</a></span>&#8203;(@NotNull <a href="App.PushNotificationFields.html" title="class in io.getstream.chat.java.models">App.PushNotificationFields</a>&nbsp;pushNotifications)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i57" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setRemindersInterval(@org.jetbrains.annotations.NotNullint)">setRemindersInterval</a></span>&#8203;(@org.jetbrains.annotations.NotNull int&nbsp;remindersInterval)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i58" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setRevokeTokensIssuedBefore(java.util.Date)">setRevokeTokensIssuedBefore</a></span>&#8203;(@Nullable java.util.Date&nbsp;revokeTokensIssuedBefore)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i59" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSnsKey(java.lang.String)">setSnsKey</a></span>&#8203;(@Nullable java.lang.String&nbsp;snsKey)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i60" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSnsSecret(java.lang.String)">setSnsSecret</a></span>&#8203;(@Nullable java.lang.String&nbsp;snsSecret)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i61" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSnsTopicArn(java.lang.String)">setSnsTopicArn</a></span>&#8203;(@Nullable java.lang.String&nbsp;snsTopicArn)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i62" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSqsKey(java.lang.String)">setSqsKey</a></span>&#8203;(@Nullable java.lang.String&nbsp;sqsKey)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i63" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSqsSecret(java.lang.String)">setSqsSecret</a></span>&#8203;(@Nullable java.lang.String&nbsp;sqsSecret)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i64" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSqsUrl(java.lang.String)">setSqsUrl</a></span>&#8203;(@Nullable java.lang.String&nbsp;sqsUrl)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i65" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSuspended(java.lang.Boolean)">setSuspended</a></span>&#8203;(@NotNull java.lang.Boolean&nbsp;suspended)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i66" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSuspendedExplanation(java.lang.String)">setSuspendedExplanation</a></span>&#8203;(@NotNull java.lang.String&nbsp;suspendedExplanation)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i67" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUserResponseTimeEnabled(java.lang.Boolean)">setUserResponseTimeEnabled</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;userResponseTimeEnabled)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i68" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUserSearchDisallowedRoles(java.util.List)">setUserSearchDisallowedRoles</a></span>&#8203;(@Nullable java.util.List&lt;java.lang.String&gt;&nbsp;userSearchDisallowedRoles)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i69" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setWebhookEvents(java.util.List)">setWebhookEvents</a></span>&#8203;(@Nullable java.util.List&lt;java.lang.String&gt;&nbsp;webhookEvents)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i70" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setWebhookURL(java.lang.String)">setWebhookURL</a></span>&#8203;(@NotNull java.lang.String&nbsp;webhookURL)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i71" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -195,6 +569,744 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>AppConfig</h4>
 <pre>public&nbsp;AppConfig()</pre>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<!-- ============ METHOD DETAIL ========== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="method.detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a id="getName()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getName</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getName()</pre>
+</li>
+</ul>
+<a id="getOrganizationName()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getOrganizationName</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getOrganizationName()</pre>
+</li>
+</ul>
+<a id="getWebhookURL()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getWebhookURL</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getWebhookURL()</pre>
+</li>
+</ul>
+<a id="getSuspendedExplanation()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSuspendedExplanation</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getSuspendedExplanation()</pre>
+</li>
+</ul>
+<a id="getPushNotifications()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPushNotifications</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull <a href="App.PushNotificationFields.html" title="class in io.getstream.chat.java.models">App.PushNotificationFields</a>&nbsp;getPushNotifications()</pre>
+</li>
+</ul>
+<a id="getChannelConfigs()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getChannelConfigs</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.util.Map&lt;java.lang.String,&#8203;<a href="ChannelType.ChannelTypeWithStringCommands.html" title="class in io.getstream.chat.java.models">ChannelType.ChannelTypeWithStringCommands</a>&gt;&nbsp;getChannelConfigs()</pre>
+</li>
+</ul>
+<a id="getPolicies()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPolicies</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.util.Map&lt;java.lang.String,&#8203;<a href="App.Policy.html" title="class in io.getstream.chat.java.models">App.Policy</a>[]&gt;&nbsp;getPolicies()</pre>
+</li>
+</ul>
+<a id="getSuspended()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSuspended</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.Boolean&nbsp;getSuspended()</pre>
+</li>
+</ul>
+<a id="getDisableAuth()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDisableAuth</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.Boolean&nbsp;getDisableAuth()</pre>
+</li>
+</ul>
+<a id="getDisablePermissions()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDisablePermissions</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.Boolean&nbsp;getDisablePermissions()</pre>
+</li>
+</ul>
+<a id="getMultiTenantEnabled()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMultiTenantEnabled</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.Boolean&nbsp;getMultiTenantEnabled()</pre>
+</li>
+</ul>
+<a id="getPermissionVersion()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPermissionVersion</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getPermissionVersion()</pre>
+</li>
+</ul>
+<a id="getUserSearchDisallowedRoles()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUserSearchDisallowedRoles</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;java.lang.String&gt;&nbsp;getUserSearchDisallowedRoles()</pre>
+</li>
+</ul>
+<a id="getImageModerationEnabled()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getImageModerationEnabled</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.Boolean&nbsp;getImageModerationEnabled()</pre>
+</li>
+</ul>
+<a id="getImageModerationLabels()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getImageModerationLabels</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;java.lang.String&gt;&nbsp;getImageModerationLabels()</pre>
+</li>
+</ul>
+<a id="getCustomActionHandlerUrl()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCustomActionHandlerUrl</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getCustomActionHandlerUrl()</pre>
+</li>
+</ul>
+<a id="getAsyncURLEnrichEnabled()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAsyncURLEnrichEnabled</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.Boolean&nbsp;getAsyncURLEnrichEnabled()</pre>
+</li>
+</ul>
+<a id="getRemindersInterval()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRemindersInterval</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@org.jetbrains.annotations.NotNull int&nbsp;getRemindersInterval()</pre>
+</li>
+</ul>
+<a id="getEnforceUniqueUsernames()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getEnforceUniqueUsernames</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="App.EnforceUniqueUsernames.html" title="enum in io.getstream.chat.java.models">App.EnforceUniqueUsernames</a>&nbsp;getEnforceUniqueUsernames()</pre>
+</li>
+</ul>
+<a id="getSqsUrl()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSqsUrl</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getSqsUrl()</pre>
+</li>
+</ul>
+<a id="getSqsKey()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSqsKey</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getSqsKey()</pre>
+</li>
+</ul>
+<a id="getSqsSecret()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSqsSecret</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getSqsSecret()</pre>
+</li>
+</ul>
+<a id="getSnsTopicArn()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSnsTopicArn</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getSnsTopicArn()</pre>
+</li>
+</ul>
+<a id="getSnsKey()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSnsKey</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getSnsKey()</pre>
+</li>
+</ul>
+<a id="getSnsSecret()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSnsSecret</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getSnsSecret()</pre>
+</li>
+</ul>
+<a id="getFileUploadConfig()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getFileUploadConfig</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="App.FileUploadConfig.html" title="class in io.getstream.chat.java.models">App.FileUploadConfig</a>&nbsp;getFileUploadConfig()</pre>
+</li>
+</ul>
+<a id="getImageUploadConfig()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getImageUploadConfig</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="App.FileUploadConfig.html" title="class in io.getstream.chat.java.models">App.FileUploadConfig</a>&nbsp;getImageUploadConfig()</pre>
+</li>
+</ul>
+<a id="getBeforeMessageSendHookUrl()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getBeforeMessageSendHookUrl</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getBeforeMessageSendHookUrl()</pre>
+</li>
+</ul>
+<a id="getAutoTranslationEnabled()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAutoTranslationEnabled</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getAutoTranslationEnabled()</pre>
+</li>
+</ul>
+<a id="getRevokeTokensIssuedBefore()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRevokeTokensIssuedBefore</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Date&nbsp;getRevokeTokensIssuedBefore()</pre>
+</li>
+</ul>
+<a id="getGrants()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getGrants</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.String&gt;&gt;&nbsp;getGrants()</pre>
+</li>
+</ul>
+<a id="getWebhookEvents()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getWebhookEvents</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;java.lang.String&gt;&nbsp;getWebhookEvents()</pre>
+</li>
+</ul>
+<a id="getUserResponseTimeEnabled()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUserResponseTimeEnabled</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getUserResponseTimeEnabled()</pre>
+</li>
+</ul>
+<a id="getEventHooks()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getEventHooks</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;<a href="App.EventHook.html" title="class in io.getstream.chat.java.models">App.EventHook</a>&gt;&nbsp;getEventHooks()</pre>
+</li>
+</ul>
+<a id="setName(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setName</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setName&#8203;(@NotNull
+                    @NotNull java.lang.String&nbsp;name)</pre>
+</li>
+</ul>
+<a id="setOrganizationName(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setOrganizationName</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setOrganizationName&#8203;(@NotNull
+                                @NotNull java.lang.String&nbsp;organizationName)</pre>
+</li>
+</ul>
+<a id="setWebhookURL(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setWebhookURL</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setWebhookURL&#8203;(@NotNull
+                          @NotNull java.lang.String&nbsp;webhookURL)</pre>
+</li>
+</ul>
+<a id="setSuspendedExplanation(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSuspendedExplanation</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSuspendedExplanation&#8203;(@NotNull
+                                    @NotNull java.lang.String&nbsp;suspendedExplanation)</pre>
+</li>
+</ul>
+<a id="setPushNotifications(io.getstream.chat.java.models.App.PushNotificationFields)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setPushNotifications</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setPushNotifications&#8203;(@NotNull
+                                 @NotNull <a href="App.PushNotificationFields.html" title="class in io.getstream.chat.java.models">App.PushNotificationFields</a>&nbsp;pushNotifications)</pre>
+</li>
+</ul>
+<a id="setChannelConfigs(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setChannelConfigs</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setChannelConfigs&#8203;(@NotNull
+                              @NotNull java.util.Map&lt;java.lang.String,&#8203;<a href="ChannelType.ChannelTypeWithStringCommands.html" title="class in io.getstream.chat.java.models">ChannelType.ChannelTypeWithStringCommands</a>&gt;&nbsp;channelConfigs)</pre>
+</li>
+</ul>
+<a id="setPolicies(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setPolicies</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setPolicies&#8203;(@NotNull
+                        @NotNull java.util.Map&lt;java.lang.String,&#8203;<a href="App.Policy.html" title="class in io.getstream.chat.java.models">App.Policy</a>[]&gt;&nbsp;policies)</pre>
+</li>
+</ul>
+<a id="setSuspended(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSuspended</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSuspended&#8203;(@NotNull
+                         @NotNull java.lang.Boolean&nbsp;suspended)</pre>
+</li>
+</ul>
+<a id="setDisableAuth(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setDisableAuth</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setDisableAuth&#8203;(@NotNull
+                           @NotNull java.lang.Boolean&nbsp;disableAuth)</pre>
+</li>
+</ul>
+<a id="setDisablePermissions(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setDisablePermissions</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setDisablePermissions&#8203;(@NotNull
+                                  @NotNull java.lang.Boolean&nbsp;disablePermissions)</pre>
+</li>
+</ul>
+<a id="setMultiTenantEnabled(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMultiTenantEnabled</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setMultiTenantEnabled&#8203;(@NotNull
+                                  @NotNull java.lang.Boolean&nbsp;multiTenantEnabled)</pre>
+</li>
+</ul>
+<a id="setPermissionVersion(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setPermissionVersion</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setPermissionVersion&#8203;(@NotNull
+                                 @NotNull java.lang.String&nbsp;permissionVersion)</pre>
+</li>
+</ul>
+<a id="setUserSearchDisallowedRoles(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setUserSearchDisallowedRoles</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setUserSearchDisallowedRoles&#8203;(@Nullable
+                                         @Nullable java.util.List&lt;java.lang.String&gt;&nbsp;userSearchDisallowedRoles)</pre>
+</li>
+</ul>
+<a id="setImageModerationEnabled(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setImageModerationEnabled</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setImageModerationEnabled&#8203;(@NotNull
+                                      @NotNull java.lang.Boolean&nbsp;imageModerationEnabled)</pre>
+</li>
+</ul>
+<a id="setImageModerationLabels(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setImageModerationLabels</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setImageModerationLabels&#8203;(@Nullable
+                                     @Nullable java.util.List&lt;java.lang.String&gt;&nbsp;imageModerationLabels)</pre>
+</li>
+</ul>
+<a id="setCustomActionHandlerUrl(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCustomActionHandlerUrl</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCustomActionHandlerUrl&#8203;(@Nullable
+                                      @Nullable java.lang.String&nbsp;customActionHandlerUrl)</pre>
+</li>
+</ul>
+<a id="setAsyncURLEnrichEnabled(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAsyncURLEnrichEnabled</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAsyncURLEnrichEnabled&#8203;(@NotNull
+                                     @NotNull java.lang.Boolean&nbsp;asyncURLEnrichEnabled)</pre>
+</li>
+</ul>
+<a id="setRemindersInterval(@org.jetbrains.annotations.NotNullint)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setRemindersInterval</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setRemindersInterval&#8203;(@NotNull
+                                 @org.jetbrains.annotations.NotNull int&nbsp;remindersInterval)</pre>
+</li>
+</ul>
+<a id="setEnforceUniqueUsernames(io.getstream.chat.java.models.App.EnforceUniqueUsernames)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setEnforceUniqueUsernames</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setEnforceUniqueUsernames&#8203;(@Nullable
+                                      @Nullable <a href="App.EnforceUniqueUsernames.html" title="enum in io.getstream.chat.java.models">App.EnforceUniqueUsernames</a>&nbsp;enforceUniqueUsernames)</pre>
+</li>
+</ul>
+<a id="setSqsUrl(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSqsUrl</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSqsUrl&#8203;(@Nullable
+                      @Nullable java.lang.String&nbsp;sqsUrl)</pre>
+</li>
+</ul>
+<a id="setSqsKey(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSqsKey</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSqsKey&#8203;(@Nullable
+                      @Nullable java.lang.String&nbsp;sqsKey)</pre>
+</li>
+</ul>
+<a id="setSqsSecret(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSqsSecret</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSqsSecret&#8203;(@Nullable
+                         @Nullable java.lang.String&nbsp;sqsSecret)</pre>
+</li>
+</ul>
+<a id="setSnsTopicArn(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSnsTopicArn</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSnsTopicArn&#8203;(@Nullable
+                           @Nullable java.lang.String&nbsp;snsTopicArn)</pre>
+</li>
+</ul>
+<a id="setSnsKey(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSnsKey</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSnsKey&#8203;(@Nullable
+                      @Nullable java.lang.String&nbsp;snsKey)</pre>
+</li>
+</ul>
+<a id="setSnsSecret(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSnsSecret</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSnsSecret&#8203;(@Nullable
+                         @Nullable java.lang.String&nbsp;snsSecret)</pre>
+</li>
+</ul>
+<a id="setFileUploadConfig(io.getstream.chat.java.models.App.FileUploadConfig)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setFileUploadConfig</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setFileUploadConfig&#8203;(@Nullable
+                                @Nullable <a href="App.FileUploadConfig.html" title="class in io.getstream.chat.java.models">App.FileUploadConfig</a>&nbsp;fileUploadConfig)</pre>
+</li>
+</ul>
+<a id="setImageUploadConfig(io.getstream.chat.java.models.App.FileUploadConfig)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setImageUploadConfig</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setImageUploadConfig&#8203;(@Nullable
+                                 @Nullable <a href="App.FileUploadConfig.html" title="class in io.getstream.chat.java.models">App.FileUploadConfig</a>&nbsp;imageUploadConfig)</pre>
+</li>
+</ul>
+<a id="setBeforeMessageSendHookUrl(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setBeforeMessageSendHookUrl</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setBeforeMessageSendHookUrl&#8203;(@Nullable
+                                        @Nullable java.lang.String&nbsp;beforeMessageSendHookUrl)</pre>
+</li>
+</ul>
+<a id="setAutoTranslationEnabled(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAutoTranslationEnabled</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAutoTranslationEnabled&#8203;(@Nullable
+                                      @Nullable java.lang.Boolean&nbsp;autoTranslationEnabled)</pre>
+</li>
+</ul>
+<a id="setRevokeTokensIssuedBefore(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setRevokeTokensIssuedBefore</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setRevokeTokensIssuedBefore&#8203;(@Nullable
+                                        @Nullable java.util.Date&nbsp;revokeTokensIssuedBefore)</pre>
+</li>
+</ul>
+<a id="setGrants(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setGrants</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setGrants&#8203;(@Nullable
+                      @Nullable java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.String&gt;&gt;&nbsp;grants)</pre>
+</li>
+</ul>
+<a id="setWebhookEvents(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setWebhookEvents</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setWebhookEvents&#8203;(@Nullable
+                             @Nullable java.util.List&lt;java.lang.String&gt;&nbsp;webhookEvents)</pre>
+</li>
+</ul>
+<a id="setUserResponseTimeEnabled(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setUserResponseTimeEnabled</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setUserResponseTimeEnabled&#8203;(@Nullable
+                                       @Nullable java.lang.Boolean&nbsp;userResponseTimeEnabled)</pre>
+</li>
+</ul>
+<a id="setEventHooks(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setEventHooks</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setEventHooks&#8203;(@Nullable
+                          @Nullable java.util.List&lt;<a href="App.EventHook.html" title="class in io.getstream.chat.java.models">App.EventHook</a>&gt;&nbsp;eventHooks)</pre>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -257,7 +1369,7 @@ extends java.lang.Object</pre>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.bottom">

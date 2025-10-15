@@ -27,6 +27,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "../../../../../";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -84,14 +90,14 @@ loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.top">
@@ -298,27 +304,6 @@ extends java.lang.Object</pre>
 </li>
 </ul>
 </section>
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="constructor.summary">
-<!--   -->
-</a>
-<h3>Constructor Summary</h3>
-<table class="memberSummary">
-<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Constructor</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">ChannelTypeUpdateRequestData</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
 <!-- ========== METHOD SUMMARY =========== -->
 <section>
 <ul class="blockList">
@@ -326,12 +311,160 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>@Nullable <a href="ChannelType.AutoMod.html" title="enum in io.getstream.chat.java.models">ChannelType.AutoMod</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAutomod()">getAutomod</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>@Nullable <a href="ChannelType.AutoModBehavior.html" title="enum in io.getstream.chat.java.models">ChannelType.AutoModBehavior</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAutomodBehavior()">getAutomodBehavior</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.Map&lt;java.lang.String,&#8203;<a href="ChannelType.ThresholdRequestObject.html" title="class in io.getstream.chat.java.models">ChannelType.ThresholdRequestObject</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAutomodThresholds()">getAutomodThresholds</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBlocklist()">getBlocklist</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>@Nullable <a href="ChannelType.BlocklistBehavior.html" title="enum in io.getstream.chat.java.models">ChannelType.BlocklistBehavior</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBlocklistBehavior()">getBlocklistBehavior</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;java.lang.String&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCommands()">getCommands</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getConnectEvents()">getConnectEvents</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCountMessages()">getCountMessages</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCustomEvents()">getCustomEvents</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.String&gt;&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGrants()">getGrants</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMarkMessagesPending()">getMarkMessagesPending</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Integer</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMaxMessageLength()">getMaxMessageLength</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMessageRetention()">getMessageRetention</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMutes()">getMutes</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;<a href="ChannelType.PermissionRequestObject.html" title="class in io.getstream.chat.java.models">ChannelType.PermissionRequestObject</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPermissions()">getPermissions</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPushNotifications()">getPushNotifications</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getQuotes()">getQuotes</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getReactions()">getReactions</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getReadEvents()">getReadEvents</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i21" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getReminders()">getReminders</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i22" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getReplies()">getReplies</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSearch()">getSearch</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i24" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTypingEvents()">getTypingEvents</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i25" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUploads()">getUploads</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i26" class="altColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUrlEnrichment()">getUrlEnrichment</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i27" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, toString, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -592,20 +725,296 @@ protected&nbsp;@Nullable java.util.Map&lt;java.lang.String,&#8203;java.util.List
 </li>
 </ul>
 </section>
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<!-- ============ METHOD DETAIL ========== -->
 <section>
 <ul class="blockList">
-<li class="blockList"><a id="constructor.detail">
+<li class="blockList"><a id="method.detail">
 <!--   -->
 </a>
-<h3>Constructor Detail</h3>
-<a id="&lt;init&gt;()">
+<h3>Method Detail</h3>
+<a id="getTypingEvents()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTypingEvents</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getTypingEvents()</pre>
+</li>
+</ul>
+<a id="getReadEvents()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getReadEvents</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getReadEvents()</pre>
+</li>
+</ul>
+<a id="getReminders()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getReminders</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getReminders()</pre>
+</li>
+</ul>
+<a id="getConnectEvents()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getConnectEvents</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getConnectEvents()</pre>
+</li>
+</ul>
+<a id="getSearch()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSearch</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getSearch()</pre>
+</li>
+</ul>
+<a id="getReactions()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getReactions</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getReactions()</pre>
+</li>
+</ul>
+<a id="getReplies()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getReplies</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getReplies()</pre>
+</li>
+</ul>
+<a id="getQuotes()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getQuotes</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getQuotes()</pre>
+</li>
+</ul>
+<a id="getUploads()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUploads</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getUploads()</pre>
+</li>
+</ul>
+<a id="getUrlEnrichment()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUrlEnrichment</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getUrlEnrichment()</pre>
+</li>
+</ul>
+<a id="getCustomEvents()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCustomEvents</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getCustomEvents()</pre>
+</li>
+</ul>
+<a id="getMutes()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMutes</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getMutes()</pre>
+</li>
+</ul>
+<a id="getPushNotifications()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPushNotifications</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getPushNotifications()</pre>
+</li>
+</ul>
+<a id="getMessageRetention()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMessageRetention</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getMessageRetention()</pre>
+</li>
+</ul>
+<a id="getMaxMessageLength()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMaxMessageLength</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Integer&nbsp;getMaxMessageLength()</pre>
+</li>
+</ul>
+<a id="getMarkMessagesPending()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMarkMessagesPending</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getMarkMessagesPending()</pre>
+</li>
+</ul>
+<a id="getAutomod()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAutomod</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="ChannelType.AutoMod.html" title="enum in io.getstream.chat.java.models">ChannelType.AutoMod</a>&nbsp;getAutomod()</pre>
+</li>
+</ul>
+<a id="getAutomodBehavior()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAutomodBehavior</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="ChannelType.AutoModBehavior.html" title="enum in io.getstream.chat.java.models">ChannelType.AutoModBehavior</a>&nbsp;getAutomodBehavior()</pre>
+</li>
+</ul>
+<a id="getBlocklist()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getBlocklist</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.String&nbsp;getBlocklist()</pre>
+</li>
+</ul>
+<a id="getBlocklistBehavior()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getBlocklistBehavior</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable <a href="ChannelType.BlocklistBehavior.html" title="enum in io.getstream.chat.java.models">ChannelType.BlocklistBehavior</a>&nbsp;getBlocklistBehavior()</pre>
+</li>
+</ul>
+<a id="getAutomodThresholds()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAutomodThresholds</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Map&lt;java.lang.String,&#8203;<a href="ChannelType.ThresholdRequestObject.html" title="class in io.getstream.chat.java.models">ChannelType.ThresholdRequestObject</a>&gt;&nbsp;getAutomodThresholds()</pre>
+</li>
+</ul>
+<a id="getCommands()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCommands</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;java.lang.String&gt;&nbsp;getCommands()</pre>
+</li>
+</ul>
+<a id="getPermissions()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPermissions</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;<a href="ChannelType.PermissionRequestObject.html" title="class in io.getstream.chat.java.models">ChannelType.PermissionRequestObject</a>&gt;&nbsp;getPermissions()</pre>
+</li>
+</ul>
+<a id="getGrants()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getGrants</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Map&lt;java.lang.String,&#8203;java.util.List&lt;java.lang.String&gt;&gt;&nbsp;getGrants()</pre>
+</li>
+</ul>
+<a id="getCountMessages()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCountMessages</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getCountMessages()</pre>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+</li>
+</ul>
+<a id="hashCode()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>ChannelTypeUpdateRequestData</h4>
-<pre>public&nbsp;ChannelTypeUpdateRequestData()</pre>
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -661,14 +1070,14 @@ protected&nbsp;@Nullable java.util.Map&lt;java.lang.String,&#8203;java.util.List
 <li>Summary:&nbsp;</li>
 <li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.bottom">

@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -90,13 +90,13 @@ loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
@@ -148,27 +148,6 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="constructor.summary">
-<!--   -->
-</a>
-<h3>Constructor Summary</h3>
-<table class="memberSummary">
-<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Constructor</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">MessageSearchRequest</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
 <!-- ========== METHOD SUMMARY =========== -->
 <section>
 <ul class="blockList">
@@ -184,8 +163,85 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code><a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clearFilterConditions()">clearFilterConditions</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code><a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clearMessageFilterConditions()">clearMessageFilterConditions</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clearSorts()">clearSorts</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code><a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#filterCondition(java.lang.String,java.lang.Object)">filterCondition</a></span>&#8203;(java.lang.String&nbsp;filterConditionKey,
+               java.lang.Object&nbsp;filterConditionValue)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code><a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#filterConditions(java.util.Map)">filterConditions</a></span>&#8203;(java.util.Map&lt;? extends java.lang.String,&#8203;? extends java.lang.Object&gt;&nbsp;filterConditions)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>protected retrofit2.Call&lt;<a href="Message.MessageSearchResponse.html" title="class in io.getstream.chat.java.models">Message.MessageSearchResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#generateCall(io.getstream.chat.java.services.framework.Client)">generateCall</a></span>&#8203;(<a href="../services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a>&nbsp;client)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code><a href="Message.MessageSearchRequestData.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#internalBuild()">internalBuild</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code><a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#limit(java.lang.Integer)">limit</a></span>&#8203;(@Nullable java.lang.Integer&nbsp;limit)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code><a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#messageFilterCondition(java.lang.String,java.lang.Object)">messageFilterCondition</a></span>&#8203;(java.lang.String&nbsp;messageFilterConditionKey,
+                      java.lang.Object&nbsp;messageFilterConditionValue)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code><a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#messageFilterConditions(java.util.Map)">messageFilterConditions</a></span>&#8203;(java.util.Map&lt;? extends java.lang.String,&#8203;? extends java.lang.Object&gt;&nbsp;messageFilterConditions)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code><a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#next(java.lang.String)">next</a></span>&#8203;(@Nullable java.lang.String&nbsp;next)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code><a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#offset(java.lang.Integer)">offset</a></span>&#8203;(@Nullable java.lang.Integer&nbsp;offset)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code><a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#query(java.lang.String)">query</a></span>&#8203;(@Nullable java.lang.String&nbsp;query)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code><a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sort(io.getstream.chat.java.models.Sort)">sort</a></span>&#8203;(<a href="Sort.html" title="class in io.getstream.chat.java.models">Sort</a>&nbsp;sort)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code><a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sorts(java.util.Collection)">sorts</a></span>&#8203;(java.util.Collection&lt;? extends <a href="Sort.html" title="class in io.getstream.chat.java.models">Sort</a>&gt;&nbsp;sorts)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -201,7 +257,7 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -212,25 +268,6 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="constructor.detail">
-<!--   -->
-</a>
-<h3>Constructor Detail</h3>
-<a id="&lt;init&gt;()">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>MessageSearchRequest</h4>
-<pre>public&nbsp;MessageSearchRequest()</pre>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ============ METHOD DETAIL ========== -->
 <section>
 <ul class="blockList">
@@ -241,13 +278,174 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <a id="generateCall(io.getstream.chat.java.services.framework.Client)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>generateCall</h4>
 <pre class="methodSignature">protected&nbsp;retrofit2.Call&lt;<a href="Message.MessageSearchResponse.html" title="class in io.getstream.chat.java.models">Message.MessageSearchResponse</a>&gt;&nbsp;generateCall&#8203;(<a href="../services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a>&nbsp;client)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="framework/StreamRequest.html#generateCall(io.getstream.chat.java.services.framework.Client)">generateCall</a></code>&nbsp;in class&nbsp;<code><a href="framework/StreamRequest.html" title="class in io.getstream.chat.java.models.framework">StreamRequest</a>&lt;<a href="Message.MessageSearchResponse.html" title="class in io.getstream.chat.java.models">Message.MessageSearchResponse</a>&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a id="query(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>query</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a>&nbsp;query&#8203;(@Nullable
+                                                                   @Nullable java.lang.String&nbsp;query)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="filterCondition(java.lang.String,java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>filterCondition</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a>&nbsp;filterCondition&#8203;(java.lang.String&nbsp;filterConditionKey,
+                                                                             java.lang.Object&nbsp;filterConditionValue)</pre>
+</li>
+</ul>
+<a id="filterConditions(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>filterConditions</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a>&nbsp;filterConditions&#8203;(java.util.Map&lt;? extends java.lang.String,&#8203;? extends java.lang.Object&gt;&nbsp;filterConditions)</pre>
+</li>
+</ul>
+<a id="clearFilterConditions()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>clearFilterConditions</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a>&nbsp;clearFilterConditions()</pre>
+</li>
+</ul>
+<a id="messageFilterCondition(java.lang.String,java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>messageFilterCondition</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a>&nbsp;messageFilterCondition&#8203;(java.lang.String&nbsp;messageFilterConditionKey,
+                                                                                    java.lang.Object&nbsp;messageFilterConditionValue)</pre>
+</li>
+</ul>
+<a id="messageFilterConditions(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>messageFilterConditions</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a>&nbsp;messageFilterConditions&#8203;(java.util.Map&lt;? extends java.lang.String,&#8203;? extends java.lang.Object&gt;&nbsp;messageFilterConditions)</pre>
+</li>
+</ul>
+<a id="clearMessageFilterConditions()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>clearMessageFilterConditions</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a>&nbsp;clearMessageFilterConditions()</pre>
+</li>
+</ul>
+<a id="limit(java.lang.Integer)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>limit</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a>&nbsp;limit&#8203;(@Nullable
+                                                                   @Nullable java.lang.Integer&nbsp;limit)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="offset(java.lang.Integer)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>offset</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a>&nbsp;offset&#8203;(@Nullable
+                                                                    @Nullable java.lang.Integer&nbsp;offset)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="next(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>next</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a>&nbsp;next&#8203;(@Nullable
+                                                                  @Nullable java.lang.String&nbsp;next)</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd><code>this</code>.</dd>
+</dl>
+</li>
+</ul>
+<a id="sort(io.getstream.chat.java.models.Sort)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sort</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a>&nbsp;sort&#8203;(<a href="Sort.html" title="class in io.getstream.chat.java.models">Sort</a>&nbsp;sort)</pre>
+</li>
+</ul>
+<a id="sorts(java.util.Collection)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sorts</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a>&nbsp;sorts&#8203;(java.util.Collection&lt;? extends <a href="Sort.html" title="class in io.getstream.chat.java.models">Sort</a>&gt;&nbsp;sorts)</pre>
+</li>
+</ul>
+<a id="clearSorts()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>clearSorts</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSearchRequestData.MessageSearchRequest.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData.MessageSearchRequest</a>&nbsp;clearSorts()</pre>
+</li>
+</ul>
+<a id="internalBuild()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>internalBuild</h4>
+<pre class="methodSignature">public&nbsp;<a href="Message.MessageSearchRequestData.html" title="class in io.getstream.chat.java.models">Message.MessageSearchRequestData</a>&nbsp;internalBuild()</pre>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 </dl>
 </li>
 </ul>
@@ -304,13 +502,13 @@ extends <a href="framework/StreamRequest.html" title="class in io.getstream.chat
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>

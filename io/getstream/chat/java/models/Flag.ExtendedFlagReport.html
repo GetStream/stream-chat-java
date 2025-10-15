@@ -27,6 +27,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "../../../../../";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -91,7 +97,7 @@ loadScripts(document, 'script');</script>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.top">
@@ -170,12 +176,67 @@ extends <a href="Flag.FlagReport.html" title="class in io.getstream.chat.java.mo
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getReviewDetails()">getReviewDetails</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getReviewResult()">getReviewResult</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setReviewDetails(java.util.Map)">setReviewDetails</a></span>&#8203;(@Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;reviewDetails)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setReviewResult(java.lang.String)">setReviewResult</a></span>&#8203;(@NotNull java.lang.String&nbsp;reviewResult)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a id="methods.inherited.from.class.io.getstream.chat.java.models.Flag.FlagReport">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;io.getstream.chat.java.models.<a href="Flag.FlagReport.html" title="class in io.getstream.chat.java.models">Flag.FlagReport</a></h3>
+<code><a href="Flag.FlagReport.html#getChannelCid()">getChannelCid</a>, <a href="Flag.FlagReport.html#getCreatedAt()">getCreatedAt</a>, <a href="Flag.FlagReport.html#getFlagsCount()">getFlagsCount</a>, <a href="Flag.FlagReport.html#getId()">getId</a>, <a href="Flag.FlagReport.html#getMessage()">getMessage</a>, <a href="Flag.FlagReport.html#getMessageUserId()">getMessageUserId</a>, <a href="Flag.FlagReport.html#getUpdatedAt()">getUpdatedAt</a>, <a href="Flag.FlagReport.html#setChannelCid(java.lang.String)">setChannelCid</a>, <a href="Flag.FlagReport.html#setCreatedAt(java.util.Date)">setCreatedAt</a>, <a href="Flag.FlagReport.html#setFlagsCount(java.lang.Integer)">setFlagsCount</a>, <a href="Flag.FlagReport.html#setId(java.lang.String)">setId</a>, <a href="Flag.FlagReport.html#setMessage(io.getstream.chat.java.models.Message)">setMessage</a>, <a href="Flag.FlagReport.html#setMessageUserId(java.lang.String)">setMessageUserId</a>, <a href="Flag.FlagReport.html#setUpdatedAt(java.util.Date)">setUpdatedAt</a></code></li>
+</ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -200,6 +261,108 @@ extends <a href="Flag.FlagReport.html" title="class in io.getstream.chat.java.mo
 <li class="blockList">
 <h4>ExtendedFlagReport</h4>
 <pre>public&nbsp;ExtendedFlagReport()</pre>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<!-- ============ METHOD DETAIL ========== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="method.detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a id="getReviewResult()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getReviewResult</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getReviewResult()</pre>
+</li>
+</ul>
+<a id="getReviewDetails()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getReviewDetails</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;getReviewDetails()</pre>
+</li>
+</ul>
+<a id="setReviewResult(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setReviewResult</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setReviewResult&#8203;(@NotNull
+                            @NotNull java.lang.String&nbsp;reviewResult)</pre>
+</li>
+</ul>
+<a id="setReviewDetails(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setReviewDetails</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setReviewDetails&#8203;(@Nullable
+                             @Nullable java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;reviewDetails)</pre>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="Flag.FlagReport.html#toString()">toString</a></code>&nbsp;in class&nbsp;<code><a href="Flag.FlagReport.html" title="class in io.getstream.chat.java.models">Flag.FlagReport</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="Flag.FlagReport.html#equals(java.lang.Object)">equals</a></code>&nbsp;in class&nbsp;<code><a href="Flag.FlagReport.html" title="class in io.getstream.chat.java.models">Flag.FlagReport</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="Flag.FlagReport.html#canEqual(java.lang.Object)">canEqual</a></code>&nbsp;in class&nbsp;<code><a href="Flag.FlagReport.html" title="class in io.getstream.chat.java.models">Flag.FlagReport</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="Flag.FlagReport.html#hashCode()">hashCode</a></code>&nbsp;in class&nbsp;<code><a href="Flag.FlagReport.html" title="class in io.getstream.chat.java.models">Flag.FlagReport</a></code></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -262,7 +425,7 @@ extends <a href="Flag.FlagReport.html" title="class in io.getstream.chat.java.mo
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.bottom">

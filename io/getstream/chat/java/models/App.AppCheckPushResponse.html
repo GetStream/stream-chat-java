@@ -27,6 +27,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "../../../../../";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -91,7 +97,7 @@ loadScripts(document, 'script');</script>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.top">
@@ -174,26 +180,107 @@ extends <a href="framework/StreamResponseObject.html" title="class in io.getstre
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canEqual(java.lang.Object)">canEqual</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>@Nullable java.util.Map&lt;java.lang.String,&#8203;<a href="App.DeviceError.html" title="class in io.getstream.chat.java.models">App.DeviceError</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceErrors()">getDeviceErrors</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>@Nullable java.util.List&lt;java.lang.String&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGeneralErrors()">getGeneralErrors</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRenderedApnTemplate()">getRenderedApnTemplate</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRenderedFirebaseTemplate()">getRenderedFirebaseTemplate</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>@NotNull java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRenderedMessage()">getRenderedMessage</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>@Nullable java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSkipDevices()">getSkipDevices</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDeviceErrors(java.util.Map)">setDeviceErrors</a></span>&#8203;(@Nullable java.util.Map&lt;java.lang.String,&#8203;<a href="App.DeviceError.html" title="class in io.getstream.chat.java.models">App.DeviceError</a>&gt;&nbsp;deviceErrors)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGeneralErrors(java.util.List)">setGeneralErrors</a></span>&#8203;(@Nullable java.util.List&lt;java.lang.String&gt;&nbsp;generalErrors)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setRenderedApnTemplate(java.lang.String)">setRenderedApnTemplate</a></span>&#8203;(@NotNull java.lang.String&nbsp;renderedApnTemplate)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setRenderedFirebaseTemplate(java.lang.String)">setRenderedFirebaseTemplate</a></span>&#8203;(@NotNull java.lang.String&nbsp;renderedFirebaseTemplate)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setRenderedMessage(java.util.Map)">setRenderedMessage</a></span>&#8203;(@NotNull java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;&nbsp;renderedMessage)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSkipDevices(java.lang.Boolean)">setSkipDevices</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;skipDevices)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a id="methods.inherited.from.class.io.getstream.chat.java.models.framework.StreamResponseObject">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;io.getstream.chat.java.models.framework.<a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a></h3>
+<code><a href="framework/StreamResponseObject.html#getDuration()">getDuration</a>, <a href="framework/StreamResponseObject.html#getRateLimit()">getRateLimit</a>, <a href="framework/StreamResponseObject.html#setDuration(java.lang.String)">setDuration</a>, <a href="framework/StreamResponseObject.html#setRateLimit(io.getstream.chat.java.models.RateLimit)">setRateLimit</a></code></li>
+</ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.io.getstream.chat.java.models.framework.StreamResponse">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;io.getstream.chat.java.models.framework.<a href="framework/StreamResponse.html" title="interface in io.getstream.chat.java.models.framework">StreamResponse</a></h3>
-<code><a href="framework/StreamResponse.html#getDuration()">getDuration</a>, <a href="framework/StreamResponse.html#setDuration(java.lang.String)">setDuration</a></code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.io.getstream.chat.java.models.framework.StreamResponseWithRateLimit">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;io.getstream.chat.java.models.framework.<a href="framework/StreamResponseWithRateLimit.html" title="interface in io.getstream.chat.java.models.framework">StreamResponseWithRateLimit</a></h3>
-<code><a href="framework/StreamResponseWithRateLimit.html#getRateLimit()">getRateLimit</a>, <a href="framework/StreamResponseWithRateLimit.html#setRateLimit(io.getstream.chat.java.models.RateLimit)">setRateLimit</a></code></li>
+<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -218,6 +305,188 @@ extends <a href="framework/StreamResponseObject.html" title="class in io.getstre
 <li class="blockList">
 <h4>AppCheckPushResponse</h4>
 <pre>public&nbsp;AppCheckPushResponse()</pre>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<!-- ============ METHOD DETAIL ========== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="method.detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a id="getDeviceErrors()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDeviceErrors</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.Map&lt;java.lang.String,&#8203;<a href="App.DeviceError.html" title="class in io.getstream.chat.java.models">App.DeviceError</a>&gt;&nbsp;getDeviceErrors()</pre>
+</li>
+</ul>
+<a id="getGeneralErrors()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getGeneralErrors</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.util.List&lt;java.lang.String&gt;&nbsp;getGeneralErrors()</pre>
+</li>
+</ul>
+<a id="getSkipDevices()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSkipDevices</h4>
+<pre class="methodSignature">@Nullable
+public&nbsp;@Nullable java.lang.Boolean&nbsp;getSkipDevices()</pre>
+</li>
+</ul>
+<a id="getRenderedApnTemplate()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRenderedApnTemplate</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getRenderedApnTemplate()</pre>
+</li>
+</ul>
+<a id="getRenderedFirebaseTemplate()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRenderedFirebaseTemplate</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.lang.String&nbsp;getRenderedFirebaseTemplate()</pre>
+</li>
+</ul>
+<a id="getRenderedMessage()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRenderedMessage</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;&nbsp;getRenderedMessage()</pre>
+</li>
+</ul>
+<a id="setDeviceErrors(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setDeviceErrors</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setDeviceErrors&#8203;(@Nullable
+                            @Nullable java.util.Map&lt;java.lang.String,&#8203;<a href="App.DeviceError.html" title="class in io.getstream.chat.java.models">App.DeviceError</a>&gt;&nbsp;deviceErrors)</pre>
+</li>
+</ul>
+<a id="setGeneralErrors(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setGeneralErrors</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setGeneralErrors&#8203;(@Nullable
+                             @Nullable java.util.List&lt;java.lang.String&gt;&nbsp;generalErrors)</pre>
+</li>
+</ul>
+<a id="setSkipDevices(java.lang.Boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSkipDevices</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSkipDevices&#8203;(@Nullable
+                           @Nullable java.lang.Boolean&nbsp;skipDevices)</pre>
+</li>
+</ul>
+<a id="setRenderedApnTemplate(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setRenderedApnTemplate</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setRenderedApnTemplate&#8203;(@NotNull
+                                   @NotNull java.lang.String&nbsp;renderedApnTemplate)</pre>
+</li>
+</ul>
+<a id="setRenderedFirebaseTemplate(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setRenderedFirebaseTemplate</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setRenderedFirebaseTemplate&#8203;(@NotNull
+                                        @NotNull java.lang.String&nbsp;renderedFirebaseTemplate)</pre>
+</li>
+</ul>
+<a id="setRenderedMessage(java.util.Map)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setRenderedMessage</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setRenderedMessage&#8203;(@NotNull
+                               @NotNull java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;&nbsp;renderedMessage)</pre>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="framework/StreamResponseObject.html#toString()">toString</a></code>&nbsp;in class&nbsp;<code><a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="framework/StreamResponseObject.html#equals(java.lang.Object)">equals</a></code>&nbsp;in class&nbsp;<code><a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="canEqual(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>canEqual</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;canEqual&#8203;(java.lang.Object&nbsp;other)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="framework/StreamResponseObject.html#canEqual(java.lang.Object)">canEqual</a></code>&nbsp;in class&nbsp;<code><a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="hashCode()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="framework/StreamResponseObject.html#hashCode()">hashCode</a></code>&nbsp;in class&nbsp;<code><a href="framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a></code></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -280,7 +549,7 @@ extends <a href="framework/StreamResponseObject.html" title="class in io.getstre
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.bottom">
