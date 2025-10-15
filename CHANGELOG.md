@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.35.0](https://github.com/GetStream/stream-chat-java/compare/1.34.0...1.35.0) (2025-10-15)
+
+
+### Features
+
+* [CHA-1300] add count messages to channel type ([#207](https://github.com/GetStream/stream-chat-java/issues/207)) ([4dcd6e0](https://github.com/GetStream/stream-chat-java/commit/4dcd6e0b94946b2164bda79dd3a9cb75d51d2c21))
+
 ## [1.34.0](https://github.com/GetStream/stream-chat-java/compare/1.33.2...1.34.0) (2025-10-06)
 
 ### [1.33.2](https://github.com/GetStream/stream-chat-java/compare/1.33.1...1.33.2) (2025-09-24)
