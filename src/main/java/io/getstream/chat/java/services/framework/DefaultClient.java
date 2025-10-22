@@ -104,8 +104,9 @@ public class DefaultClient implements Client {
           return chain.proceed(request);
         });
     final ObjectMapper mapper = new ObjectMapper();
-    // do not encode getter methods in json
-    mapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE);
+    // Use field-based serialization but respect @JsonProperty and @JsonAnyGetter annotations
+    mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
+    mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
     mapper.configure(
         DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
         hasFailOnUnknownProperties(extendedProperties));
