@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.36.0](https://github.com/GetStream/stream-chat-java/compare/1.35.0...1.36.0) (2025-10-22)
+
+
+### Bug Fixes
+
+* restore @JsonAnyGetter functionality for additionalFields serialization ([#209](https://github.com/GetStream/stream-chat-java/issues/209)) ([cfbc54f](https://github.com/GetStream/stream-chat-java/commit/cfbc54f30e31505dc36983ddf6150e1cc003ccc4)), closes [#205](https://github.com/GetStream/stream-chat-java/issues/205) [#205](https://github.com/GetStream/stream-chat-java/issues/205) [#205](https://github.com/GetStream/stream-chat-java/issues/205)
+
 ## [1.35.0](https://github.com/GetStream/stream-chat-java/compare/1.34.0...1.35.0) (2025-10-15)
 
 
