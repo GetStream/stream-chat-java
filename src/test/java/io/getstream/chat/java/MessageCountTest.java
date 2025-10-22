@@ -3,8 +3,6 @@ package io.getstream.chat.java;
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.Channel.ChannelGetResponse;
 import io.getstream.chat.java.models.Channel.ChannelRequestObject;
-import io.getstream.chat.java.models.ChannelType.ChannelTypeCreateResponse;
-import io.getstream.chat.java.models.ChannelType.ChannelTypeGetResponse;
 import io.getstream.chat.java.models.ChannelType;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
@@ -21,7 +19,8 @@ public class MessageCountTest extends BasicTest {
   @Test
   void whenCountMessagesEnabled_thenMessagesCount() {
     // Enable count_messages on the built-in "messaging" channel type
-    Assertions.assertDoesNotThrow(() -> ChannelType.update("messaging").countMessages(true).request());
+    Assertions.assertDoesNotThrow(
+        () -> ChannelType.update("messaging").countMessages(true).request());
     pause();
 
     ChannelGetResponse channelGetResponse =
