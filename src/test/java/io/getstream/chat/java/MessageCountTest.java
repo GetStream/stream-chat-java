@@ -3,6 +3,9 @@ package io.getstream.chat.java;
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.Channel.ChannelGetResponse;
 import io.getstream.chat.java.models.Channel.ChannelRequestObject;
+import io.getstream.chat.java.models.ChannelType.ChannelTypeCreateResponse;
+import io.getstream.chat.java.models.ChannelType.ChannelTypeGetResponse;
+import io.getstream.chat.java.models.ChannelType;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
 import java.util.HashMap;
@@ -17,11 +20,14 @@ public class MessageCountTest extends BasicTest {
   @DisplayName("Message count is present when feature enabled")
   @Test
   void whenCountMessagesEnabled_thenMessagesCount() {
-    // Create a fresh channel with default configuration (count_messages enabled by default)
+    // Enable count_messages on the built-in "messaging" channel type
+    Assertions.assertDoesNotThrow(() -> ChannelType.update("messaging").countMessages(true).request());
+    pause();
+
     ChannelGetResponse channelGetResponse =
         Assertions.assertDoesNotThrow(
             () ->
-                Channel.getOrCreate("team", RandomStringUtils.randomAlphabetic(12))
+                Channel.getOrCreate("messaging", RandomStringUtils.randomAlphabetic(12))
                     .data(
                         ChannelRequestObject.builder()
                             .createdBy(testUserRequestObject)
@@ -47,6 +53,9 @@ public class MessageCountTest extends BasicTest {
     Assertions.assertTrue(
         refreshed.getChannel().getMessageCount() == 1,
         "messages_count should be 1 when count_messages is enabled");
+
+    // Cleanup: delete channel created for this test
+    Assertions.assertDoesNotThrow(() -> Channel.delete(type, id).request());
   }
 
   @DisplayName("Message count is not returned when feature disabled")
@@ -87,5 +96,8 @@ public class MessageCountTest extends BasicTest {
     Integer messagesCount = refreshed.getChannel().getMessageCount();
     Assertions.assertNull(
         messagesCount, "messages_count should not be present when count_messages is disabled");
+
+    // Cleanup: delete channel created for this test
+    Assertions.assertDoesNotThrow(() -> Channel.delete(type, id).request());
   }
 }
