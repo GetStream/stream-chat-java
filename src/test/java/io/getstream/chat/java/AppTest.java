@@ -279,7 +279,8 @@ public class AppTest extends BasicTest {
   void whenEncodingAppConfig_thenNoNullFields() {
     var appConfig = App.update().internalBuild();
     final ObjectMapper mapper = new ObjectMapper();
-    mapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE);
+    mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
+    mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
 
     String json = Assertions.assertDoesNotThrow(() -> mapper.writeValueAsString(appConfig));
 
