@@ -65,7 +65,7 @@ public abstract class StreamRequest<T extends StreamResponse> {
   @NotNull
   protected Client getClient() {
     Client finalClient = (client == null) ? Client.getInstance() : client;
-    if (!"".equals(userToken)) {
+    if (userToken != null && !userToken.isEmpty()) {
       return new UserClient(finalClient, userToken);
     }
     return finalClient;
