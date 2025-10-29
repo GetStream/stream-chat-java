@@ -8,17 +8,19 @@ import com.fasterxml.jackson.databind.util.StdDateFormat;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import javax.crypto.spec.SecretKeySpec;
-import okhttp3.ConnectionPool;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
+
+import okhttp3.*;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.jetbrains.annotations.NotNull;
+import retrofit2.CallAdapter;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -85,23 +87,36 @@ public class DefaultClient implements Client {
     httpClient.interceptors().clear();
 
     HttpLoggingInterceptor loggingInterceptor =
-        new HttpLoggingInterceptor().setLevel(getLogLevel(extendedProperties));
+        new HttpLoggingInterceptor(s -> System.out.printf("OkHttp: %s%n", s)).setLevel(getLogLevel(extendedProperties));
     httpClient.addInterceptor(loggingInterceptor);
 
     httpClient.addInterceptor(
         chain -> {
           Request original = chain.request();
+          
+          // Check for user token tag
+          UserClient.UserToken userToken = original.tag(UserClient.UserToken.class);
+          
           HttpUrl url = original.url().newBuilder().addQueryParameter("api_key", apiKey).build();
-          Request request =
+          Request.Builder builder =
               original
                   .newBuilder()
                   .url(url)
                   .header("Content-Type", "application/json")
                   .header("X-Stream-Client", "stream-java-client-" + sdkVersion)
-                  .header("Stream-Auth-Type", "jwt")
-                  .header("Authorization", jwtToken(apiSecret))
-                  .build();
-          return chain.proceed(request);
+                  .header("Stream-Auth-Type", "jwt");
+          
+          if (userToken != null) {
+              System.out.println("!.!.! Client-Side Auth");
+            // User token present - use user auth
+            builder.header("Authorization", userToken.token);
+          } else {
+              System.out.println("!.!.! Server-Side Auth");
+            // Server-side auth
+            builder.header("Authorization", jwtToken(apiSecret));
+          }
+          
+          return chain.proceed(builder.build());
         });
     final ObjectMapper mapper = new ObjectMapper();
     // Use field-based serialization but respect @JsonProperty and @JsonAnyGetter annotations
@@ -118,6 +133,12 @@ public class DefaultClient implements Client {
         new Retrofit.Builder()
             .baseUrl(getStreamChatBaseUrl(extendedProperties))
             .addConverterFactory(new QueryConverterFactory())
+                // .callFactory(new Call.Factory() {
+                //     @Override
+                //     public @NotNull Call newCall(@NotNull Request request) {
+                //         return null;
+                //     }
+                // })
             .addConverterFactory(JacksonConverterFactory.create(mapper));
     builder.client(httpClient.build());
 
