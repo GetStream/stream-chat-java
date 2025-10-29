@@ -95,7 +95,7 @@ public class DefaultClient implements Client {
           Request original = chain.request();
           
           // Check for user token tag
-          UserClient.UserToken userToken = original.tag(UserClient.UserToken.class);
+          UserToken userToken = original.tag(UserToken.class);
           
           HttpUrl url = original.url().newBuilder().addQueryParameter("api_key", apiKey).build();
           Request.Builder builder =
@@ -107,11 +107,9 @@ public class DefaultClient implements Client {
                   .header("Stream-Auth-Type", "jwt");
           
           if (userToken != null) {
-              System.out.println("!.!.! Client-Side Auth");
             // User token present - use user auth
-            builder.header("Authorization", userToken.token);
+            builder.header("Authorization", userToken.value());
           } else {
-              System.out.println("!.!.! Server-Side Auth");
             // Server-side auth
             builder.header("Authorization", jwtToken(apiSecret));
           }
@@ -149,6 +147,25 @@ public class DefaultClient implements Client {
   @Override
   public <TService> TService create(Class<TService> svcClass) {
     return retrofit.create(svcClass);
+  }
+
+  @Override
+  public <TService> @NotNull TService create(Class<TService> svcClass, UserToken token) {
+    // Create a tagged retrofit instance with a Call.Factory that tags all requests
+    OkHttpClient originalClient = (OkHttpClient) retrofit.callFactory();
+    
+    okhttp3.Call.Factory taggingFactory = request -> {
+      Request taggedRequest = request.newBuilder()
+        .tag(UserToken.class, token)
+        .build();
+      return originalClient.newCall(taggedRequest);
+    };
+    
+    Retrofit taggedRetrofit = retrofit.newBuilder()
+      .callFactory(taggingFactory)
+      .build();
+    
+    return taggedRetrofit.create(svcClass);
   }
 
   @NotNull

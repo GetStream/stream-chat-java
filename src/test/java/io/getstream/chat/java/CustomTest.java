@@ -21,4 +21,20 @@ public class CustomTest {
         var response = User.list().filterCondition("id", userId).withUserToken(userToken).request();
         System.out.println("\n> " + response + "\n");
     }
+
+    @Test
+    void directClientTest() throws Exception {
+        var userId = "han_solo";
+        var userToken = User.createToken("han_solo", null, null);
+        
+        // Test creating a UserClient directly - should use Client-Side auth
+        var defaultClient = io.getstream.chat.java.services.framework.Client.getInstance();
+        var userClient = new io.getstream.chat.java.services.framework.UserClient(defaultClient, userToken);
+        
+        var response = User.list()
+            .filterCondition("id", userId)
+            .withClient(userClient)
+            .request();
+        System.out.println("\n> Direct UserClient: " + response + "\n");
+    }
 }
