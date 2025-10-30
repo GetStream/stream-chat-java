@@ -32,6 +32,8 @@ public class DefaultClient implements Client {
   @NotNull private OkHttpClient okHttpClient;
   @NotNull private Retrofit retrofit;
   @NotNull private UserServiceFactory serviceFactory;
+  @NotNull private UserServiceFactory serviceFactory2;
+  @NotNull private UserServiceFactory serviceFactory3;
   @NotNull private final String apiSecret;
   @NotNull private final String apiKey;
   @NotNull private final Properties extendedProperties;
@@ -77,6 +79,8 @@ public class DefaultClient implements Client {
     this.apiKey = apiKey.toString();
     this.retrofit = buildRetrofitClient();
     this.serviceFactory = new UserServiceFactorySelector(retrofit);
+    this.serviceFactory2 = new UserServiceFactoryTagging(retrofit);
+    this.serviceFactory3 = new UserServiceFactoryCall(retrofit);
   }
 
   private Retrofit buildRetrofitClient() {
@@ -153,7 +157,7 @@ public class DefaultClient implements Client {
     return retrofit.create(svcClass);
   }
 
-  @Override
+//  @Override
   @NotNull
   public <TService> TService create(Class<TService> svcClass, String userToken) {
     return serviceFactory.create(svcClass, new UserToken(userToken));
@@ -161,12 +165,12 @@ public class DefaultClient implements Client {
 
   @NotNull
   public <TService> TService create2(Class<TService> svcClass, String userToken) {
-    return new UserServiceFactoryTagging(retrofit).create(svcClass, new UserToken(userToken));
+    return serviceFactory2.create(svcClass, new UserToken(userToken));
   }
 
   @NotNull
   public <TService> TService create3(Class<TService> svcClass, String userToken) {
-    return new UserServiceFactoryCall(retrofit).create(svcClass, new UserToken(userToken));
+    return serviceFactory3.create(svcClass, new UserToken(userToken));
   }
 
   @NotNull

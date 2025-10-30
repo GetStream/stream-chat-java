@@ -52,6 +52,7 @@ public class CustomTest {
     for (int i = 0; i < 10_000; i++) {
       defaultClient.create(UserService.class, userToken);
       defaultClient.create2(UserService.class, userToken);
+      defaultClient.create3(UserService.class, userToken);
     }
 
     // Get ThreadMXBean for accurate memory allocation tracking
@@ -92,22 +93,45 @@ public class CustomTest {
     System.out.println("> Second loop avg time per call: " + (elapsedTimeInNs2 / (double) iterations) + " ns");
     System.out.println("> Second loop avg memory per call: " + (allocated2 / (double) iterations) + " bytes");
 
-    // Performance comparison
-    if (elapsedTimeInNs1 < elapsedTimeInNs2) {
-      double timesFaster = (double) elapsedTimeInNs2 / elapsedTimeInNs1;
-      System.out.println("> create is " + String.format("%.2fx", timesFaster) + " faster than create2");
-    } else {
-      double timesFaster = (double) elapsedTimeInNs1 / elapsedTimeInNs2;
-      System.out.println("> create2 is " + String.format("%.2fx", timesFaster) + " faster than create");
+    // Measure third test
+    long allocatedBefore3 = threadBean.getCurrentThreadAllocatedBytes();
+    startTime = System.nanoTime();
+    for (int i = 0; i < iterations; i++) {
+      defaultClient.create3(UserService.class, userToken);
     }
+    endTime = System.nanoTime();
+    long allocatedAfter3 = threadBean.getCurrentThreadAllocatedBytes();
+    long elapsedTimeInNs3 = endTime - startTime;
+    long allocated3 = allocatedAfter3 - allocatedBefore3;
+
+    System.out.println("> Third loop elapsed time: " + TimeUnit.NANOSECONDS.toMillis(elapsedTimeInNs3) + " ms");
+    System.out.println("> Third loop memory allocated: " + (allocated3 / 1024 / 1024) + " MB");
+    System.out.println("> Third loop avg time per call: " + (elapsedTimeInNs3 / (double) iterations) + " ns");
+    System.out.println("> Third loop avg memory per call: " + (allocated3 / (double) iterations) + " bytes");
+
+    // Performance comparison - Time
+    long fastestTime = Math.min(elapsedTimeInNs1, Math.min(elapsedTimeInNs2, elapsedTimeInNs3));
+    String fastestMethod = "";
+    if (fastestTime == elapsedTimeInNs1) fastestMethod = "create";
+    else if (fastestTime == elapsedTimeInNs2) fastestMethod = "create2";
+    else fastestMethod = "create3";
     
-    if (allocated1 < allocated2) {
-      double timesLess = (double) allocated2 / allocated1;
-      System.out.println("> create allocates " + String.format("%.2fx", timesLess) + " less memory than create2");
-    } else {
-      double timesLess = (double) allocated1 / allocated2;
-      System.out.println("> create2 allocates " + String.format("%.2fx", timesLess) + " less memory than create");
-    }
+    System.out.println("> Time comparison (fastest: " + fastestMethod + "):");
+    System.out.println("  - create:  " + String.format("%.2fx", (double) elapsedTimeInNs1 / fastestTime));
+    System.out.println("  - create2: " + String.format("%.2fx", (double) elapsedTimeInNs2 / fastestTime));
+    System.out.println("  - create3: " + String.format("%.2fx", (double) elapsedTimeInNs3 / fastestTime));
+    
+    // Performance comparison - Memory
+    long leastMemory = Math.min(allocated1, Math.min(allocated2, allocated3));
+    String mostEfficientMethod = "";
+    if (leastMemory == allocated1) mostEfficientMethod = "create";
+    else if (leastMemory == allocated2) mostEfficientMethod = "create2";
+    else mostEfficientMethod = "create3";
+    
+    System.out.println("> Memory comparison (least: " + mostEfficientMethod + "):");
+    System.out.println("  - create:  " + String.format("%.2fx", (double) allocated1 / leastMemory));
+    System.out.println("  - create2: " + String.format("%.2fx", (double) allocated2 / leastMemory));
+    System.out.println("  - create3: " + String.format("%.2fx", (double) allocated3 / leastMemory));
 
     System.out.println("=========================================================");
   }
