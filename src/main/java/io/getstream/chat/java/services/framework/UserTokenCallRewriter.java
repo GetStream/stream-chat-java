@@ -1,5 +1,6 @@
 package io.getstream.chat.java.services.framework;
 
+import io.getstream.chat.java.services.framework.internal.TokenInjectionException;
 import okhttp3.Call;
 import okhttp3.Request;
 import org.jetbrains.annotations.NotNull;
@@ -36,10 +37,13 @@ class UserTokenCallRewriter<TService> implements InvocationHandler {
       return injectTokenIntoCall((retrofit2.Call<?>) result);
     }
     
-    return result;
+    // All service methods must return Call<?> for token injection
+    throw new TokenInjectionException(
+      "Method " + method.getName() + " on " + delegate.getClass().getName() + 
+      " did not return retrofit2.Call<?>. User token injection requires all service methods to return Call<?>.");
   }
   
-  private retrofit2.Call<?> injectTokenIntoCall(retrofit2.Call<?> originalCall) {
+  private retrofit2.Call<?> injectTokenIntoCall(retrofit2.Call<?> originalCall) throws TokenInjectionException {
     retrofit2.Call<?> clonedCall = originalCall.clone();
     
     try {
@@ -67,11 +71,11 @@ class UserTokenCallRewriter<TService> implements InvocationHandler {
       return clonedCall;
     } catch (NoSuchFieldException e) {
       // If Retrofit's internal structure changes, provide clear error message
-      throw new RuntimeException(
+      throw new TokenInjectionException(
         "Retrofit internal structure changed. Field 'rawCall' not found in " + 
         clonedCall.getClass().getName() + ". Update client implementation.", e);
     } catch (IllegalAccessException e) {
-      throw new RuntimeException("Failed to inject token into call", e);
+      throw new TokenInjectionException("Failed to inject token into call", e);
     }
   }
 }

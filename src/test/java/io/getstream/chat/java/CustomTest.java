@@ -1,11 +1,16 @@
 package io.getstream.chat.java;
 
+import io.getstream.chat.java.exceptions.StreamException;
+import io.getstream.chat.java.models.Thread;
 import io.getstream.chat.java.models.User;
 import io.getstream.chat.java.services.UserService;
 import io.getstream.chat.java.services.framework.DefaultClient;
 import org.junit.jupiter.api.Test;
 import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 public class CustomTest {
 
@@ -20,10 +25,17 @@ public class CustomTest {
 
   @Test
   void userReqTest() throws Exception {
-    var userId = "admin";
-    var userToken = User.createToken(userId, null, null);
-    var response = User.list().filterCondition("id", userId).withUserToken(userToken).request();
-    System.out.println("\n!.!.! " + response + "\n");
+    var userIds = List.of( "admin", "MWRYXIHURH", "SRLOTCPYQS", "IOEXOFYTRH", "RIOPOIGMDQ", "XUXJMHTNOI", "QQASWMJEQI");
+
+    for (var userId : userIds) {
+      var userToken = User.createToken(userId, null, null);
+      User.list().filterCondition("id", userId).withUserToken(userToken).requestAsync(
+          userListResponse -> System.out.println("\n!.!.! " + userListResponse + "\n"),
+          e -> {}
+      );
+    }
+
+    java.lang.Thread.sleep(10000);
   }
 
   @Test
