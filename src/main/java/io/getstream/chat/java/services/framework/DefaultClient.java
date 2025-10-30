@@ -23,7 +23,6 @@ import okhttp3.ConnectionPool;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.logging.HttpLoggingInterceptor;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -69,7 +68,8 @@ public class DefaultClient implements Client {
   }
 
   public DefaultClient(
-      Properties properties, Function<Retrofit, UserServiceFactory> serviceFactoryBuilder) {
+      @NotNull Properties properties,
+      @NotNull Function<Retrofit, UserServiceFactory> serviceFactoryBuilder) {
     extendedProperties = extendProperties(properties);
     var apiKey = extendedProperties.get(API_KEY_PROP_NAME);
     var apiSecret = extendedProperties.get(API_SECRET_PROP_NAME);
