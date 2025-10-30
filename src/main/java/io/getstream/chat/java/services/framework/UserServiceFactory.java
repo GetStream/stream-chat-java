@@ -17,7 +17,7 @@ class UserServiceFactory {
     return (TService) newProxyInstance(
         svcClass.getClassLoader(),
         new Class<?>[] { svcClass },
-        new UserTokenCallProxy(retrofit.callFactory(), retrofit.create(svcClass), userToken)
+        new UserTokenCallProxy<>(retrofit.callFactory(), retrofit.create(svcClass), userToken)
     );
   }
 
