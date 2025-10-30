@@ -55,8 +55,19 @@ final class UserServiceFactoryCall implements UserServiceFactory {
           Object result = method.invoke(delegate, args);
 
           // If the result is a retrofit2.Call, wrap it with UserCall
-          if (result instanceof retrofit2.Call) {
-            return new UserCall<>((retrofit2.Call<?>) result, userToken);
+          if (result instanceof retrofit2.Call<?>) {
+            // Extract the response type from the method's return type
+            java.lang.reflect.Type returnType = method.getGenericReturnType();
+            java.lang.reflect.Type responseType = Object.class;
+            
+            if (returnType instanceof java.lang.reflect.ParameterizedType) {
+              java.lang.reflect.ParameterizedType paramType = (java.lang.reflect.ParameterizedType) returnType;
+              if (paramType.getActualTypeArguments().length > 0) {
+                responseType = paramType.getActualTypeArguments()[0];
+              }
+            }
+            
+            return new UserCall<>((retrofit2.Call<?>) result, userToken, retrofit, responseType);
           }
 
           return result;

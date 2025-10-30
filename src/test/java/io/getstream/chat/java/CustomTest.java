@@ -18,7 +18,7 @@ public class CustomTest {
   void customTest() throws Exception {
     var userId = "admin";
     var userToken = User.createToken(userId, null, null);
-    var response = User.list().userId(userId).filterCondition("id", userId).request();
+    var response = User.list().filterCondition("id", userId).withUserToken(userToken).request();
     System.out.println(response);
   }
 
