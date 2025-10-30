@@ -3,6 +3,7 @@ package io.getstream.chat.java.models.framework;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.services.framework.Client;
 import io.getstream.chat.java.services.framework.StreamServiceHandler;
+import io.getstream.chat.java.services.framework.UserClient;
 import java.util.function.Consumer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -12,6 +13,8 @@ public abstract class StreamRequest<T extends StreamResponse> {
   protected abstract Call<T> generateCall(Client client) throws StreamException;
 
   private Client client;
+
+  private String userToken;
 
   /**
    * Executes the request
@@ -53,8 +56,17 @@ public abstract class StreamRequest<T extends StreamResponse> {
     return this;
   }
 
+  public StreamRequest<T> withUserToken(final String token) {
+    this.userToken = token;
+    return this;
+  }
+
   @NotNull
   protected Client getClient() {
-    return (client == null) ? Client.getInstance() : client;
+    Client finalClient = (client == null) ? Client.getInstance() : client;
+    if (userToken != null && !userToken.isEmpty()) {
+      return new UserClient(finalClient, userToken);
+    }
+    return finalClient;
   }
 }

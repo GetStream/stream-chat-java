@@ -7,6 +7,10 @@ public interface Client {
   @NotNull
   <TService> TService create(Class<TService> svcClass);
 
+  default @NotNull <TService> TService create(Class<TService> svcClass, String userToken) {
+    return create(svcClass);
+  }
+
   @NotNull
   String getApiKey();
 
