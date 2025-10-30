@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.util.StdDateFormat;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;
-import java.lang.reflect.Proxy;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.time.Duration;
@@ -32,6 +31,7 @@ public class DefaultClient implements Client {
   private static volatile DefaultClient defaultInstance;
   @NotNull private OkHttpClient okHttpClient;
   @NotNull private Retrofit retrofit;
+  @NotNull private UserServiceFactory serviceFactory;
   @NotNull private final String apiSecret;
   @NotNull private final String apiKey;
   @NotNull private final Properties extendedProperties;
@@ -76,6 +76,7 @@ public class DefaultClient implements Client {
     this.apiSecret = apiSecret.toString();
     this.apiKey = apiKey.toString();
     this.retrofit = buildRetrofitClient();
+    this.serviceFactory = new UserServiceFactory(retrofit);
   }
 
   private Retrofit buildRetrofitClient() {
@@ -154,12 +155,7 @@ public class DefaultClient implements Client {
 
   @Override
   public <TService> @NotNull TService create(Class<TService> svcClass, String userToken) {
-     TService service = retrofit.create(svcClass);
-     return (TService) Proxy.newProxyInstance(
-       svcClass.getClassLoader(),
-       new Class<?>[] { svcClass },
-       new UserTokenCallProxy(okHttpClient, service, new UserToken(userToken))
-     );
+    return serviceFactory.create(svcClass, new UserToken(userToken));
   }
 
   public <TService> @NotNull TService create2(Class<TService> svcClass, String userToken) {
@@ -280,58 +276,5 @@ public class DefaultClient implements Client {
     final var propName = "io.getstream.chat.debug.failOnUnknownProperties";
     var hasEnabled = properties.getOrDefault(propName, "false");
     return Boolean.parseBoolean(hasEnabled.toString());
-  }
-
-  private static class UserCall<T> implements retrofit2.Call<T> {
-    private final retrofit2.Call<T> delegate;
-    private final UserToken token;
-
-    UserCall(retrofit2.Call<T> delegate, UserToken token) {
-      this.delegate = delegate;
-      this.token = token;
-    }
-
-    @Override
-    public retrofit2.Response<T> execute() throws IOException {
-      return delegate.execute();
-    }
-
-    @Override
-    public void enqueue(retrofit2.Callback<T> callback) {
-      delegate.enqueue(callback);
-    }
-
-    @Override
-    public boolean isExecuted() {
-      return delegate.isExecuted();
-    }
-
-    @Override
-    public void cancel() {
-      delegate.cancel();
-    }
-
-    @Override
-    public boolean isCanceled() {
-      return delegate.isCanceled();
-    }
-
-    @Override
-    public retrofit2.Call<T> clone() {
-      return new UserCall<>(delegate.clone(), token);
-    }
-
-    @Override
-    public Request request() {
-      Request original = delegate.request();
-      return original.newBuilder()
-        .tag(UserToken.class, token)
-        .build();
-    }
-
-    @Override
-    public okio.Timeout timeout() {
-      return delegate.timeout();
-    }
   }
 }

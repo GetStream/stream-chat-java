@@ -5,13 +5,14 @@ import io.getstream.chat.java.services.UserService;
 import io.getstream.chat.java.services.framework.DefaultClient;
 import org.junit.jupiter.api.Test;
 import java.lang.management.ManagementFactory;
+import java.util.concurrent.TimeUnit;
 
 public class CustomTest {
 
   @Test
   void customTest() throws Exception {
-    var userId = "han_solo";
-    var userToken = User.createToken("han_solo", null, null);
+    var userId = "admin";
+    var userToken = User.createToken(userId, null, null);
     var response = User.list().userId(userId).filterCondition("id", userId).request();
     System.out.println(response);
   }
@@ -19,21 +20,21 @@ public class CustomTest {
 
   @Test
   void userReqTest() throws Exception {
-    var userId = "han_solo";
-    var userToken = User.createToken("han_solo", null, null);
+    var userId = "admin";
+    var userToken = User.createToken(userId, null, null);
     var response = User.list().filterCondition("id", userId).withUserToken(userToken).request();
-    System.out.println("\n> " + response + "\n");
+    System.out.println("\n!.!.! " + response + "\n");
   }
 
   @Test
   void measureClientCreate() throws Exception {
-    var userId = "han_solo";
+    var userId = "admin";
     var userToken = User.createToken(userId, null, null);
 
     // Test creating a UserClient directly - should use Client-Side auth
     var defaultClient = new DefaultClient();
 
-    var iterations = 10_000_000;
+    var iterations = 100_000_000;
 
     // Warm up JVM to avoid cold start effects
     for (int i = 0; i < 10_000; i++) {
@@ -53,14 +54,14 @@ public class CustomTest {
     }
     long endTime = System.nanoTime();
     long allocatedAfter1 = threadBean.getCurrentThreadAllocatedBytes();
-    long elapsedTime1 = endTime - startTime;
+    long elapsedTimeInNs1 = endTime - startTime;
     long allocated1 = allocatedAfter1 - allocatedBefore1;
 
     System.out.println("=========================================================");
 
-    System.out.println("> First loop elapsed time: " + (elapsedTime1 / 1_000_000) + " ms");
+    System.out.println("> First loop elapsed time: " + TimeUnit.NANOSECONDS.toMillis(elapsedTimeInNs1) + " ms");
     System.out.println("> First loop memory allocated: " + (allocated1 / 1024 / 1024) + " MB");
-    System.out.println("> First loop avg time per call: " + (elapsedTime1 / (double) iterations) + " ns");
+    System.out.println("> First loop avg time per call: " + (elapsedTimeInNs1 / (double) iterations) + " ns");
     System.out.println("> First loop avg memory per call: " + (allocated1 / (double) iterations) + " bytes");
 
     // Measure second test
@@ -71,20 +72,20 @@ public class CustomTest {
     }
     endTime = System.nanoTime();
     long allocatedAfter2 = threadBean.getCurrentThreadAllocatedBytes();
-    long elapsedTime2 = endTime - startTime;
+    long elapsedTimeInNs2 = endTime - startTime;
     long allocated2 = allocatedAfter2 - allocatedBefore2;
 
-    System.out.println("> Second loop elapsed time: " + (elapsedTime2 / 1_000_000) + " ms");
+    System.out.println("> Second loop elapsed time: " + TimeUnit.NANOSECONDS.toMillis(elapsedTimeInNs2) + " ms");
     System.out.println("> Second loop memory allocated: " + (allocated2 / 1024 / 1024) + " MB");
-    System.out.println("> Second loop avg time per call: " + (elapsedTime2 / (double) iterations) + " ns");
+    System.out.println("> Second loop avg time per call: " + (elapsedTimeInNs2 / (double) iterations) + " ns");
     System.out.println("> Second loop avg memory per call: " + (allocated2 / (double) iterations) + " bytes");
 
     // Performance comparison
-    if (elapsedTime1 < elapsedTime2) {
-      double timesFaster = (double) elapsedTime2 / elapsedTime1;
+    if (elapsedTimeInNs1 < elapsedTimeInNs2) {
+      double timesFaster = (double) elapsedTimeInNs2 / elapsedTimeInNs1;
       System.out.println("> create is " + String.format("%.2fx", timesFaster) + " faster than create2");
     } else {
-      double timesFaster = (double) elapsedTime1 / elapsedTime2;
+      double timesFaster = (double) elapsedTimeInNs1 / elapsedTimeInNs2;
       System.out.println("> create2 is " + String.format("%.2fx", timesFaster) + " faster than create");
     }
     
@@ -96,6 +97,6 @@ public class CustomTest {
       System.out.println("> create2 allocates " + String.format("%.2fx", timesLess) + " less memory than create");
     }
 
-    System.out.println("======================================================================");
+    System.out.println("=========================================================");
   }
 }
