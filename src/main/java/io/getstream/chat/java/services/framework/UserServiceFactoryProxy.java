@@ -12,15 +12,6 @@ import static java.lang.reflect.Proxy.newProxyInstance;
  * <p>
  * <b>Mechanism:</b> Uses Java reflection {@link java.lang.reflect.Proxy} to wrap the service
  * interface and inject user tokens at method invocation time.
- * <p>
- * <b>Trade-offs:</b>
- * <ul>
- *   <li>Pros: Reuses single Retrofit instance, flexible interception point</li>
- *   <li>Cons: Reflection overhead on every method call, slightly more complex debugging</li>
- * </ul>
- * <p>
- * <b>Thread-safety:</b> Immutable and thread-safe once constructed. The underlying proxy
- * delegation is also thread-safe.
  *
  * @see UserTokenCallRewriter
  */

@@ -9,25 +9,57 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 /**
- * Dynamic proxy that intercepts Retrofit service calls and injects UserToken
- * into the request by modifying the internal rawCall field via reflection.
- * 
- * This approach allows per-call authentication without creating multiple OkHttpClient
- * instances, making it suitable for multi-tenant systems with thousands of users.
+ * Dynamic proxy that intercepts Retrofit service calls and injects {@link UserToken}
+ * into requests for per-user authentication.
+ * <p>
+ * This class uses Java reflection to modify Retrofit's internal {@code Call} objects,
+ * injecting a {@link UserToken} as a request tag. The token is then retrieved by
+ * OkHttp interceptors to add authentication headers.
+ * </p>
+ *
+ * @param <TService> the service interface type being proxied
+ * @see UserToken
+ * @see UserServiceFactory
  */
 class UserTokenCallRewriter<TService> implements InvocationHandler {
+  /**
+   * Cached reference to Retrofit's internal rawCall field.
+   * Uses double-checked locking for thread-safe lazy initialization.
+   */
   private static volatile Field rawCallField;
   
   private final Call.Factory callFactory;
   private final TService delegate;
   private final UserToken token;
 
+  /**
+   * Constructs a new call rewriter that injects the specified token.
+   *
+   * @param callFactory the OkHttp call factory for creating modified calls
+   * @param delegate the original service implementation to proxy
+   * @param token the user token to inject into requests
+   */
   UserTokenCallRewriter(@NotNull Call.Factory callFactory, @NotNull TService delegate, @NotNull UserToken token) {
     this.callFactory = callFactory;
     this.delegate = delegate;
     this.token = token;
   }
   
+  /**
+   * Intercepts service method invocations to inject the user token.
+   * <p>
+   * This method ensures that all service methods return {@code retrofit2.Call<?>}
+   * objects. If a method returns a different type, a {@link TokenInjectionException}
+   * is thrown.
+   * </p>
+   *
+   * @param proxy the proxy instance
+   * @param method the method being invoked
+   * @param args the method arguments
+   * @return the modified Call with token injection
+   * @throws Throwable if the underlying method throws an exception
+   * @throws TokenInjectionException if the method doesn't return retrofit2.Call<?>
+   */
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     Object result = method.invoke(delegate, args);
@@ -43,6 +75,17 @@ class UserTokenCallRewriter<TService> implements InvocationHandler {
       " did not return retrofit2.Call<?>. User token injection requires all service methods to return Call<?>.");
   }
   
+  /**
+   * Injects the user token into a Retrofit call by modifying its internal OkHttp call.
+   * <p>
+   * The token is added as a request tag of type {@link UserToken}, which can be
+   * retrieved by OkHttp interceptors for authentication purposes.
+   * </p>
+   *
+   * @param originalCall the original Retrofit call
+   * @return a cloned call with the user token injected
+   * @throws TokenInjectionException if reflection fails or Retrofit's structure has changed
+   */
   private retrofit2.Call<?> injectTokenIntoCall(retrofit2.Call<?> originalCall) throws TokenInjectionException {
     retrofit2.Call<?> clonedCall = originalCall.clone();
     

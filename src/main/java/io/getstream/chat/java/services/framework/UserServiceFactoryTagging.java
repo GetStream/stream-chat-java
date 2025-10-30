@@ -8,17 +8,11 @@ import retrofit2.Retrofit;
  * <p>
  * This implementation wraps the OkHttp call factory to automatically attach a {@link UserToken}
  * as a request tag. The token can then be retrieved by interceptors for authentication purposes.
+ * </p>
  * <p>
  * <b>Mechanism:</b> Creates a new Retrofit instance with a custom call factory that tags
  * each request before delegating to the underlying call factory.
- * <p>
- * <b>Trade-offs:</b>
- * <ul>
- *   <li>Pros: Clean, type-safe, works with any Retrofit service, no reflection overhead</li>
- *   <li>Cons: Creates a new Retrofit instance per service call (minor memory overhead)</li>
- * </ul>
- * <p>
- * <b>Thread-safety:</b> Immutable and thread-safe once constructed.
+ * </p>
  */
 final class UserServiceFactoryTagging implements UserServiceFactory {
 

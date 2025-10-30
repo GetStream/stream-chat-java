@@ -5,20 +5,9 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Smart user-aware service factory with automatic fallback mechanism.
- * <p>
+ * 
  * This implementation attempts to use {@link UserServiceFactoryProxy} (more efficient)
- * and automatically falls back to {@link UserServiceFactoryTagging} if reflection fails
- * or the Retrofit API has changed.
- * <p>
- * <b>Fallback Strategy:</b>
- * <ol>
- *   <li>First attempt: Use proxy-based approach (reuses Retrofit instance)</li>
- *   <li>On failure: Switch to tagging-based approach (more compatible)</li>
- *   <li>Once switched: All subsequent calls use the fallback implementation</li>
- * </ol>
- * <p>
- * <b>Thread-safety:</b> Thread-safe. Uses atomic reference for fallback state tracking.
- * Multiple threads may attempt fallback simultaneously, but only one will win.
+ * and automatically falls back to {@link UserServiceFactoryTagging} if the proxy approach fails.
  */
 final class UserServiceFactorySelector implements UserServiceFactory {
 
