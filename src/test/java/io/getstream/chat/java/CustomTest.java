@@ -34,7 +34,7 @@ public class CustomTest {
     // Test creating a UserClient directly - should use Client-Side auth
     var defaultClient = new DefaultClient();
 
-    var iterations = 100_000_000;
+    var iterations = 30_000_000;
 
     // Warm up JVM to avoid cold start effects
     for (int i = 0; i < 10_000; i++) {

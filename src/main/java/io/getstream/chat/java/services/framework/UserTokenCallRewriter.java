@@ -14,14 +14,14 @@ import java.lang.reflect.Method;
  * This approach allows per-call authentication without creating multiple OkHttpClient
  * instances, making it suitable for multi-tenant systems with thousands of users.
  */
-class UserTokenCallProxy<TService> implements InvocationHandler {
+class UserTokenCallRewriter<TService> implements InvocationHandler {
   private static volatile Field rawCallField;
   
   private final Call.Factory callFactory;
   private final TService delegate;
   private final UserToken token;
 
-  UserTokenCallProxy(@NotNull Call.Factory callFactory, @NotNull TService delegate, @NotNull UserToken token) {
+  UserTokenCallRewriter(@NotNull Call.Factory callFactory, @NotNull TService delegate, @NotNull UserToken token) {
     this.callFactory = callFactory;
     this.delegate = delegate;
     this.token = token;
@@ -45,7 +45,7 @@ class UserTokenCallProxy<TService> implements InvocationHandler {
     try {
       // Cache field lookup for performance (double-checked locking)
       if (rawCallField == null) {
-        synchronized (UserTokenCallProxy.class) {
+        synchronized (UserTokenCallRewriter.class) {
           if (rawCallField == null) {
             rawCallField = clonedCall.getClass().getDeclaredField("rawCall");
             rawCallField.setAccessible(true);

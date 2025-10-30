@@ -76,7 +76,7 @@ public class DefaultClient implements Client {
     this.apiSecret = apiSecret.toString();
     this.apiKey = apiKey.toString();
     this.retrofit = buildRetrofitClient();
-    this.serviceFactory = new UserServiceFactory(retrofit);
+    this.serviceFactory = new UserServiceFactoryProxy(retrofit);
   }
 
   private Retrofit buildRetrofitClient() {
@@ -159,20 +159,7 @@ public class DefaultClient implements Client {
   }
 
   public <TService> @NotNull TService create2(Class<TService> svcClass, String userToken) {
-    // Create a tagged retrofit instance with a Call.Factory that tags all requests
-
-    okhttp3.Call.Factory taggingFactory = request -> {
-      Request taggedRequest = request.newBuilder()
-          .tag(UserToken.class, new UserToken(userToken))
-          .build();
-      return okHttpClient.newCall(taggedRequest);
-    };
-
-    Retrofit taggedRetrofit = retrofit.newBuilder()
-        .callFactory(taggingFactory)
-        .build();
-
-    return taggedRetrofit.create(svcClass);
+    return new UserServiceFactoryTagging(retrofit).create(svcClass, new UserToken(userToken));
   }
 
   @NotNull
