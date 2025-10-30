@@ -2,14 +2,12 @@ package io.getstream.chat.java.services.framework;
 
 /**
  * Immutable wrapper for a user authentication token.
- * <p>
- * This class encapsulates a user token string that is injected into HTTP requests
- * for per-user authentication in multi-tenant scenarios. The token is stored as a
- * request tag and retrieved by interceptors for adding authorization headers.
- * </p>
- * <p>
- * Package-private to prevent direct instantiation outside the framework.
- * </p>
+ *
+ * <p>This class encapsulates a user token string that is injected into HTTP requests for per-user
+ * authentication in multi-tenant scenarios. The token is stored as a request tag and retrieved by
+ * interceptors for adding authorization headers.
+ *
+ * <p>Package-private to prevent direct instantiation outside the framework.
  */
 final class UserToken {
   private final String value;

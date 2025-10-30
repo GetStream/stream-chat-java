@@ -1,13 +1,13 @@
 package io.getstream.chat.java.services.framework;
 
-import retrofit2.Retrofit;
 import java.util.concurrent.atomic.AtomicReference;
+import retrofit2.Retrofit;
 
 /**
  * Smart user-aware service factory with automatic fallback mechanism.
- * 
- * This implementation attempts to use {@link UserServiceFactoryProxy} (more efficient)
- * and automatically falls back to {@link UserServiceFactoryTagging} if the proxy approach fails.
+ *
+ * <p>This implementation attempts to use {@link UserServiceFactoryProxy} (more efficient) and
+ * automatically falls back to {@link UserServiceFactoryTagging} if the proxy approach fails.
  */
 final class UserServiceFactorySelector implements UserServiceFactory {
 
@@ -23,7 +23,7 @@ final class UserServiceFactorySelector implements UserServiceFactory {
   public UserServiceFactorySelector(Retrofit retrofit) {
     this.proxyFactory = new UserServiceFactoryProxy(retrofit);
     this.taggingFactory = new UserServiceFactoryTagging(retrofit);
-    
+
     // Verify proxy approach is viable before setting default
     UserServiceFactory defaultFactory = proxyFactory;
     try {
@@ -35,18 +35,17 @@ final class UserServiceFactorySelector implements UserServiceFactory {
       // Proxy approach won't work, use tagging as default
       defaultFactory = taggingFactory;
     }
-    
+
     this.activeFactory = new AtomicReference<>(defaultFactory);
   }
 
   /**
    * Creates a user-aware service instance with automatic fallback.
-   * <p>
-   * Attempts to use the proxy implementation first. If it fails (due to reflection issues,
-   * API changes, or other errors), automatically switches to the tagging implementation
-   * and retries.
    *
-   * @param svcClass  the Retrofit service interface class
+   * <p>Attempts to use the proxy implementation first. If it fails (due to reflection issues, API
+   * changes, or other errors), automatically switches to the tagging implementation and retries.
+   *
+   * @param svcClass the Retrofit service interface class
    * @param userToken the user token to inject into all requests from this service
    * @param <TService> the service type
    * @return a service instance that injects the user token
@@ -55,7 +54,7 @@ final class UserServiceFactorySelector implements UserServiceFactory {
   @Override
   public <TService> TService create(Class<TService> svcClass, UserToken userToken) {
     UserServiceFactory factory = activeFactory.get();
-    
+
     try {
       return factory.create(svcClass, userToken);
     } catch (Throwable e) {
@@ -71,10 +70,9 @@ final class UserServiceFactorySelector implements UserServiceFactory {
       try {
         return taggingFactory.create(svcClass, userToken);
       } catch (Throwable fallbackException) {
-        throw new RuntimeException("Failed to create service with both implementations", fallbackException);
+        throw new RuntimeException(
+            "Failed to create service with both implementations", fallbackException);
       }
     }
   }
-
 }
-

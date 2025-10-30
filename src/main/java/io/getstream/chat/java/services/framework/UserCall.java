@@ -1,20 +1,18 @@
 package io.getstream.chat.java.services.framework;
 
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
-
 /**
  * Wrapper for Retrofit {@code Call} objects that injects user authentication tokens.
- * <p>
- * This class creates new OkHttp calls using the tagged request to ensure the {@link UserToken}
+ *
+ * <p>This class creates new OkHttp calls using the tagged request to ensure the {@link UserToken}
  * is properly attached and available to interceptors for adding authorization headers.
- * </p>
  *
  * @param <T> the response body type
  * @see UserToken
@@ -42,9 +40,7 @@ class UserCall<T> implements retrofit2.Call<T> {
     this.responseType = responseType;
   }
 
-  /**
-   * Creates an OkHttp call with the tagged request.
-   */
+  /** Creates an OkHttp call with the tagged request. */
   private okhttp3.Call createRawCall() {
     return retrofit.callFactory().newCall(request());
   }
@@ -64,7 +60,7 @@ class UserCall<T> implements retrofit2.Call<T> {
       rawCall = createRawCall();
       call = rawCall;
     }
-    
+
     okhttp3.Response rawResponse = call.execute();
     return parseResponse(rawResponse);
   }
@@ -84,57 +80,61 @@ class UserCall<T> implements retrofit2.Call<T> {
       call = rawCall;
     }
 
-    call.enqueue(new okhttp3.Callback() {
-      @Override
-      public void onResponse(@NotNull okhttp3.Call call, @NotNull okhttp3.Response rawResponse) {
-        retrofit2.Response<T> response;
-        try {
-          response = parseResponse(rawResponse);
-        } catch (Throwable t) {
-          callFailure(t);
-          return;
-        }
-        callSuccess(response);
-      }
+    call.enqueue(
+        new okhttp3.Callback() {
+          @Override
+          public void onResponse(
+              @NotNull okhttp3.Call call, @NotNull okhttp3.Response rawResponse) {
+            retrofit2.Response<T> response;
+            try {
+              response = parseResponse(rawResponse);
+            } catch (Throwable t) {
+              callFailure(t);
+              return;
+            }
+            callSuccess(response);
+          }
 
-      @Override
-      public void onFailure(@NotNull okhttp3.Call call, @NotNull IOException e) {
-        callFailure(e);
-      }
+          @Override
+          public void onFailure(@NotNull okhttp3.Call call, @NotNull IOException e) {
+            callFailure(e);
+          }
 
-      private void callSuccess(retrofit2.Response<T> response) {
-        try {
-          callback.onResponse(UserCall.this, response);
-        } catch (Throwable t) {
-          t.printStackTrace();
-        }
-      }
+          private void callSuccess(retrofit2.Response<T> response) {
+            try {
+              callback.onResponse(UserCall.this, response);
+            } catch (Throwable t) {
+              t.printStackTrace();
+            }
+          }
 
-      private void callFailure(Throwable t) {
-        try {
-          callback.onFailure(UserCall.this, t);
-        } catch (Throwable t2) {
-          t2.printStackTrace();
-        }
-      }
-    });
+          private void callFailure(Throwable t) {
+            try {
+              callback.onFailure(UserCall.this, t);
+            } catch (Throwable t2) {
+              t2.printStackTrace();
+            }
+          }
+        });
   }
 
   /**
-   * Parses the raw OkHttp response into a Retrofit response using Retrofit's converters.
-   * Based on Retrofit's OkHttpCall.parseResponse() implementation.
+   * Parses the raw OkHttp response into a Retrofit response using Retrofit's converters. Based on
+   * Retrofit's OkHttpCall.parseResponse() implementation.
    */
   @SuppressWarnings("unchecked")
   private retrofit2.Response<T> parseResponse(okhttp3.Response rawResponse) throws IOException {
     ResponseBody rawBody = rawResponse.body();
-    
+
     // Remove the body's source (the only stateful object) so we can pass the response along
-    rawResponse = rawResponse.newBuilder()
-        .body(new NoContentResponseBody(rawBody.contentType(), rawBody.contentLength()))
-        .build();
-    
+    rawResponse =
+        rawResponse
+            .newBuilder()
+            .body(new NoContentResponseBody(rawBody.contentType(), rawBody.contentLength()))
+            .build();
+
     int code = rawResponse.code();
-    
+
     if (code < 200 || code >= 300) {
       try {
         // Buffer the entire body to avoid future I/O
@@ -144,18 +144,18 @@ class UserCall<T> implements retrofit2.Call<T> {
         rawBody.close();
       }
     }
-    
+
     if (code == 204 || code == 205) {
       rawBody.close();
       return retrofit2.Response.success(null, rawResponse);
     }
-    
+
     // Success response - parse body using Retrofit's converter
     try {
-      retrofit2.Converter<ResponseBody, T> converter = 
-          (retrofit2.Converter<ResponseBody, T>) retrofit.responseBodyConverter(
-              responseType, new Annotation[0]);
-      
+      retrofit2.Converter<ResponseBody, T> converter =
+          (retrofit2.Converter<ResponseBody, T>)
+              retrofit.responseBodyConverter(responseType, new Annotation[0]);
+
       T body = converter.convert(rawBody);
       return retrofit2.Response.success(body, rawResponse);
     } catch (RuntimeException e) {
@@ -163,38 +163,34 @@ class UserCall<T> implements retrofit2.Call<T> {
       throw e;
     }
   }
-  
-  /**
-   * Buffers the response body to avoid future I/O operations.
-   */
+
+  /** Buffers the response body to avoid future I/O operations. */
   private static ResponseBody bufferResponseBody(ResponseBody body) throws IOException {
     okio.Buffer buffer = new okio.Buffer();
     body.source().readAll(buffer);
     return ResponseBody.create(buffer.readByteArray(), body.contentType());
   }
-  
-  /**
-   * A response body that returns empty content, used to prevent reading stateful sources.
-   */
+
+  /** A response body that returns empty content, used to prevent reading stateful sources. */
   private static final class NoContentResponseBody extends ResponseBody {
     private final okhttp3.MediaType contentType;
     private final long contentLength;
-    
+
     NoContentResponseBody(okhttp3.MediaType contentType, long contentLength) {
       this.contentType = contentType;
       this.contentLength = contentLength;
     }
-    
+
     @Override
     public okhttp3.MediaType contentType() {
       return contentType;
     }
-    
+
     @Override
     public long contentLength() {
       return contentLength;
     }
-    
+
     @Override
     public okio.BufferedSource source() {
       throw new IllegalStateException("Cannot read raw response body of a converted body.");
@@ -211,9 +207,7 @@ class UserCall<T> implements retrofit2.Call<T> {
     return executed;
   }
 
-  /**
-   * Cancels the request, if possible.
-   */
+  /** Cancels the request, if possible. */
   @Override
   public void cancel() {
     if (rawCall != null) {
@@ -233,9 +227,8 @@ class UserCall<T> implements retrofit2.Call<T> {
 
   /**
    * Creates a new, identical call that can be executed independently.
-   * <p>
-   * The cloned call will also have the user token injected.
-   * </p>
+   *
+   * <p>The cloned call will also have the user token injected.
    *
    * @return a new call instance
    */
@@ -246,19 +239,16 @@ class UserCall<T> implements retrofit2.Call<T> {
 
   /**
    * Returns the original HTTP request with the user token attached as a typed tag.
-   * <p>
-   * The token is stored using {@link Request#tag(Class, Object)} and can be retrieved
-   * by interceptors using {@code request.tag(UserToken.class)}.
-   * </p>
+   *
+   * <p>The token is stored using {@link Request#tag(Class, Object)} and can be retrieved by
+   * interceptors using {@code request.tag(UserToken.class)}.
    *
    * @return the request with the user token tag
    */
   @Override
   public @NotNull Request request() {
     Request original = delegate.request();
-    return original.newBuilder()
-        .tag(UserToken.class, token)
-        .build();
+    return original.newBuilder().tag(UserToken.class, token).build();
   }
 
   /**

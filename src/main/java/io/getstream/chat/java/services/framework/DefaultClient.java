@@ -14,7 +14,6 @@ import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import javax.crypto.spec.SecretKeySpec;
-
 import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.jetbrains.annotations.NotNull;
@@ -93,10 +92,10 @@ public class DefaultClient implements Client {
     httpClient.addInterceptor(
         chain -> {
           Request original = chain.request();
-          
+
           // Check for user token tag
           UserToken userToken = original.tag(UserToken.class);
-          
+
           HttpUrl url = original.url().newBuilder().addQueryParameter("api_key", apiKey).build();
           Request.Builder builder =
               original
@@ -105,7 +104,7 @@ public class DefaultClient implements Client {
                   .header("Content-Type", "application/json")
                   .header("X-Stream-Client", "stream-java-client-" + sdkVersion)
                   .header("Stream-Auth-Type", "jwt");
-          
+
           if (userToken != null) {
             // User token present - use user auth
             builder.header("Authorization", userToken.value());
@@ -113,7 +112,7 @@ public class DefaultClient implements Client {
             // Server-side auth
             builder.header("Authorization", jwtToken(apiSecret));
           }
-          
+
           return chain.proceed(builder.build());
         });
     final ObjectMapper mapper = new ObjectMapper();
@@ -134,13 +133,14 @@ public class DefaultClient implements Client {
             .client(okHttpClient)
             .addConverterFactory(new QueryConverterFactory())
             .addConverterFactory(JacksonConverterFactory.create(mapper))
-            .callFactory(new Call.Factory() {
-              @Override
-              public @NotNull Call newCall(@NotNull Request request) {
-                return okHttpClient.newCall(request);
-              }
-            });
-//    builder.client(httpClient.build());
+            .callFactory(
+                new Call.Factory() {
+                  @Override
+                  public @NotNull Call newCall(@NotNull Request request) {
+                    return okHttpClient.newCall(request);
+                  }
+                });
+    //    builder.client(httpClient.build());
 
     return builder.build();
   }

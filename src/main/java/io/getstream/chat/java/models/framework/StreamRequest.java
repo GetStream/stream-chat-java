@@ -3,9 +3,8 @@ package io.getstream.chat.java.models.framework;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.services.framework.Client;
 import io.getstream.chat.java.services.framework.StreamServiceHandler;
-import java.util.function.Consumer;
-
 import io.getstream.chat.java.services.framework.UserClient;
+import java.util.function.Consumer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
