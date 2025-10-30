@@ -6,7 +6,7 @@ package io.getstream.chat.java.services.framework.internal;
  * - A service method doesn't return retrofit2.Call<?>
  * - Retrofit's internal structure changes and reflection fails
  */
-public class TokenInjectionException extends Exception {
+public class TokenInjectionException extends ReflectiveOperationException {
   public TokenInjectionException(String message) {
     super(message);
   }

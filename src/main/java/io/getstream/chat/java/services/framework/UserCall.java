@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
-public class UserCall<T> implements retrofit2.Call<T> {
+class UserCall<T> implements retrofit2.Call<T> {
   private final retrofit2.Call<T> delegate;
   private final UserToken token;
 

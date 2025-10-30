@@ -1,17 +1,13 @@
 package io.getstream.chat.java.services.framework;
 
-public final class UserToken {
+final class UserToken {
   private final String value;
 
-  public UserToken(String value) {
+  UserToken(String value) {
     this.value = value;
   }
 
-  public String value() {
+  String value() {
     return value;
-  }
-
-  public boolean isBlank() {
-    return value == null || value.isBlank();
   }
 }

@@ -76,7 +76,7 @@ public class DefaultClient implements Client {
     this.apiSecret = apiSecret.toString();
     this.apiKey = apiKey.toString();
     this.retrofit = buildRetrofitClient();
-    this.serviceFactory = new UserServiceFactoryProxy(retrofit);
+    this.serviceFactory = new UserServiceFactorySelector(retrofit);
   }
 
   private Retrofit buildRetrofitClient() {

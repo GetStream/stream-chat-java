@@ -29,7 +29,7 @@ final class UserServiceFactoryTagging implements UserServiceFactory {
    *
    * @param retrofit the base Retrofit instance to derive user-specific instances from
    */
-  public UserServiceFactoryTagging(Retrofit retrofit) {
+  UserServiceFactoryTagging(Retrofit retrofit) {
     this.retrofit = retrofit;
   }
 
