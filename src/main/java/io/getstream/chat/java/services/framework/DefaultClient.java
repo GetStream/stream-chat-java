@@ -154,12 +154,19 @@ public class DefaultClient implements Client {
   }
 
   @Override
-  public <TService> @NotNull TService create(Class<TService> svcClass, String userToken) {
+  @NotNull
+  public <TService> TService create(Class<TService> svcClass, String userToken) {
     return serviceFactory.create(svcClass, new UserToken(userToken));
   }
 
-  public <TService> @NotNull TService create2(Class<TService> svcClass, String userToken) {
+  @NotNull
+  public <TService> TService create2(Class<TService> svcClass, String userToken) {
     return new UserServiceFactoryTagging(retrofit).create(svcClass, new UserToken(userToken));
+  }
+
+  @NotNull
+  public <TService> TService create3(Class<TService> svcClass, String userToken) {
+    return new UserServiceFactoryCall(retrofit).create(svcClass, new UserToken(userToken));
   }
 
   @NotNull
