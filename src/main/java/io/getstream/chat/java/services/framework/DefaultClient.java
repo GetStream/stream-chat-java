@@ -8,8 +8,6 @@ import com.fasterxml.jackson.databind.util.StdDateFormat;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.time.Duration;
@@ -20,7 +18,6 @@ import javax.crypto.spec.SecretKeySpec;
 import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.jetbrains.annotations.NotNull;
-import retrofit2.CallAdapter;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -33,6 +30,7 @@ public class DefaultClient implements Client {
   private static final String API_DEFAULT_URL = "https://chat.stream-io-api.com";
   private static volatile DefaultClient defaultInstance;
   @NotNull private Retrofit retrofit;
+  @NotNull private OkHttpClient okHttpClient;
   @NotNull private final String apiSecret;
   @NotNull private final String apiKey;
   @NotNull private final Properties extendedProperties;
@@ -107,9 +105,11 @@ public class DefaultClient implements Client {
                   .header("Stream-Auth-Type", "jwt");
           
           if (userToken != null) {
+            System.out.println("!.!.! Client-Side");
             // User token present - use user auth
             builder.header("Authorization", userToken.value());
           } else {
+            System.out.println("!.!.! Server-Side");
             // Server-side auth
             builder.header("Authorization", jwtToken(apiSecret));
           }
@@ -127,18 +127,20 @@ public class DefaultClient implements Client {
         new StdDateFormat().withColonInTimeZone(true).withTimeZone(TimeZone.getTimeZone("UTC")));
     mapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
 
+    this.okHttpClient = httpClient.build();
     Retrofit.Builder builder =
         new Retrofit.Builder()
             .baseUrl(getStreamChatBaseUrl(extendedProperties))
+            .client(okHttpClient)
             .addConverterFactory(new QueryConverterFactory())
-                // .callFactory(new Call.Factory() {
-                //     @Override
-                //     public @NotNull Call newCall(@NotNull Request request) {
-                //         return null;
-                //     }
-                // })
-            .addConverterFactory(JacksonConverterFactory.create(mapper));
-    builder.client(httpClient.build());
+            .addConverterFactory(JacksonConverterFactory.create(mapper))
+            .callFactory(new Call.Factory() {
+              @Override
+              public @NotNull Call newCall(@NotNull Request request) {
+                return okHttpClient.newCall(request);
+              }
+            });
+//    builder.client(httpClient.build());
 
     return builder.build();
   }
@@ -151,21 +153,37 @@ public class DefaultClient implements Client {
 
   @Override
   public <TService> @NotNull TService create(Class<TService> svcClass, UserToken token) {
-    // Create a tagged retrofit instance with a Call.Factory that tags all requests
-    OkHttpClient originalClient = (OkHttpClient) retrofit.callFactory();
+    TService service = retrofit.create(svcClass);
     
-    okhttp3.Call.Factory taggingFactory = request -> {
-      Request taggedRequest = request.newBuilder()
-        .tag(UserToken.class, token)
-        .build();
-      return originalClient.newCall(taggedRequest);
-    };
-    
-    Retrofit taggedRetrofit = retrofit.newBuilder()
-      .callFactory(taggingFactory)
-      .build();
-    
-    return taggedRetrofit.create(svcClass);
+    return (TService) java.lang.reflect.Proxy.newProxyInstance(
+      svcClass.getClassLoader(),
+      new Class<?>[] { svcClass },
+      (proxy, method, args) -> {
+        Object result = method.invoke(service, args);
+        
+        // If the result is a Call, wrap it to add the tag
+        if (result instanceof retrofit2.Call) {
+          retrofit2.Call<?> originalCall = (retrofit2.Call<?>) result;
+          retrofit2.Call<?> clonedCall = originalCall.clone();
+          
+          try {
+            // Retrofit's OkHttpCall has a rawCall field
+            var newRequest = originalCall.request().newBuilder().tag(UserToken.class, token).build();
+            okhttp3.Call newOkHttpCall = okHttpClient.newCall(newRequest);
+            
+            java.lang.reflect.Field rawCallField = clonedCall.getClass().getDeclaredField("rawCall");
+            rawCallField.setAccessible(true);
+            rawCallField.set(clonedCall, newOkHttpCall);
+            
+            return clonedCall;
+          } catch (Exception e) {
+            throw new RuntimeException("Failed to modify call", e);
+          }
+        }
+        
+        return result;
+      }
+    );
   }
 
   @NotNull
@@ -269,5 +287,58 @@ public class DefaultClient implements Client {
     final var propName = "io.getstream.chat.debug.failOnUnknownProperties";
     var hasEnabled = properties.getOrDefault(propName, "false");
     return Boolean.parseBoolean(hasEnabled.toString());
+  }
+
+  private static class UserCall<T> implements retrofit2.Call<T> {
+    private final retrofit2.Call<T> delegate;
+    private final UserToken token;
+
+    UserCall(retrofit2.Call<T> delegate, UserToken token) {
+      this.delegate = delegate;
+      this.token = token;
+    }
+
+    @Override
+    public retrofit2.Response<T> execute() throws IOException {
+      return delegate.execute();
+    }
+
+    @Override
+    public void enqueue(retrofit2.Callback<T> callback) {
+      delegate.enqueue(callback);
+    }
+
+    @Override
+    public boolean isExecuted() {
+      return delegate.isExecuted();
+    }
+
+    @Override
+    public void cancel() {
+      delegate.cancel();
+    }
+
+    @Override
+    public boolean isCanceled() {
+      return delegate.isCanceled();
+    }
+
+    @Override
+    public retrofit2.Call<T> clone() {
+      return new UserCall<>(delegate.clone(), token);
+    }
+
+    @Override
+    public Request request() {
+      Request original = delegate.request();
+      return original.newBuilder()
+        .tag(UserToken.class, token)
+        .build();
+    }
+
+    @Override
+    public okio.Timeout timeout() {
+      return delegate.timeout();
+    }
   }
 }
