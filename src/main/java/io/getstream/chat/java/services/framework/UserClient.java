@@ -7,11 +7,11 @@ import java.time.Duration;
 public final class UserClient implements Client {
 
     private final Client delegate;
-    private final UserToken userToken;
+    private final String userToken;
 
     public UserClient(Client delegate, String userToken) {
         this.delegate = delegate;
-        this.userToken = new UserToken(userToken);
+        this.userToken = userToken;
     }
 
     @Override

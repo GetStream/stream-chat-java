@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.util.StdDateFormat;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;
+import java.lang.reflect.Proxy;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.time.Duration;
@@ -29,8 +30,8 @@ public class DefaultClient implements Client {
 
   private static final String API_DEFAULT_URL = "https://chat.stream-io-api.com";
   private static volatile DefaultClient defaultInstance;
-  @NotNull private Retrofit retrofit;
   @NotNull private OkHttpClient okHttpClient;
+  @NotNull private Retrofit retrofit;
   @NotNull private final String apiSecret;
   @NotNull private final String apiKey;
   @NotNull private final Properties extendedProperties;
@@ -152,14 +153,30 @@ public class DefaultClient implements Client {
   }
 
   @Override
-  public <TService> @NotNull TService create(Class<TService> svcClass, UserToken token) {
-    TService service = retrofit.create(svcClass);
-    
-    return (TService) java.lang.reflect.Proxy.newProxyInstance(
-      svcClass.getClassLoader(),
-      new Class<?>[] { svcClass },
-      new UserTokenCallProxy(okHttpClient, service, token)
-    );
+  public <TService> @NotNull TService create(Class<TService> svcClass, String userToken) {
+     TService service = retrofit.create(svcClass);
+     return (TService) Proxy.newProxyInstance(
+       svcClass.getClassLoader(),
+       new Class<?>[] { svcClass },
+       new UserTokenCallProxy(okHttpClient, service, new UserToken(userToken))
+     );
+  }
+
+  public <TService> @NotNull TService create2(Class<TService> svcClass, String userToken) {
+    // Create a tagged retrofit instance with a Call.Factory that tags all requests
+
+    okhttp3.Call.Factory taggingFactory = request -> {
+      Request taggedRequest = request.newBuilder()
+          .tag(UserToken.class, new UserToken(userToken))
+          .build();
+      return okHttpClient.newCall(taggedRequest);
+    };
+
+    Retrofit taggedRetrofit = retrofit.newBuilder()
+        .callFactory(taggingFactory)
+        .build();
+
+    return taggedRetrofit.create(svcClass);
   }
 
   @NotNull
