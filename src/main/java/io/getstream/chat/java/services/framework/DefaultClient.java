@@ -158,31 +158,7 @@ public class DefaultClient implements Client {
     return (TService) java.lang.reflect.Proxy.newProxyInstance(
       svcClass.getClassLoader(),
       new Class<?>[] { svcClass },
-      (proxy, method, args) -> {
-        Object result = method.invoke(service, args);
-        
-        // If the result is a Call, wrap it to add the tag
-        if (result instanceof retrofit2.Call) {
-          retrofit2.Call<?> originalCall = (retrofit2.Call<?>) result;
-          retrofit2.Call<?> clonedCall = originalCall.clone();
-          
-          try {
-            // Retrofit's OkHttpCall has a rawCall field
-            var newRequest = originalCall.request().newBuilder().tag(UserToken.class, token).build();
-            okhttp3.Call newOkHttpCall = okHttpClient.newCall(newRequest);
-            
-            java.lang.reflect.Field rawCallField = clonedCall.getClass().getDeclaredField("rawCall");
-            rawCallField.setAccessible(true);
-            rawCallField.set(clonedCall, newOkHttpCall);
-            
-            return clonedCall;
-          } catch (Exception e) {
-            throw new RuntimeException("Failed to modify call", e);
-          }
-        }
-        
-        return result;
-      }
+      new UserTokenCallProxy(okHttpClient, service, token)
     );
   }
 
