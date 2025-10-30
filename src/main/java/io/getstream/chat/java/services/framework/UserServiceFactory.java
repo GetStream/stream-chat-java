@@ -12,7 +12,7 @@ package io.getstream.chat.java.services.framework;
  * @see UserToken
  * @see UserTokenCallRewriter
  */
-interface UserServiceFactory {
+public interface UserServiceFactory {
 
   /**
    * Creates a service instance that injects the specified user token into all requests.

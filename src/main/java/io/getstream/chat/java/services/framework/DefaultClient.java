@@ -17,8 +17,8 @@ import java.util.GregorianCalendar;
 import java.util.Properties;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import javax.crypto.spec.SecretKeySpec;
-import okhttp3.Call;
 import okhttp3.ConnectionPool;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -36,9 +36,9 @@ public class DefaultClient implements Client {
 
   private static final String API_DEFAULT_URL = "https://chat.stream-io-api.com";
   private static volatile DefaultClient defaultInstance;
-  @NotNull private OkHttpClient okHttpClient;
-  @NotNull private Retrofit retrofit;
-  @NotNull private UserServiceFactory serviceFactory;
+  @NotNull private final OkHttpClient okHttpClient;
+  @NotNull private final Retrofit retrofit;
+  @NotNull private final UserServiceFactory serviceFactory;
   @NotNull private final String apiSecret;
   @NotNull private final String apiKey;
   @NotNull private final Properties extendedProperties;
@@ -64,6 +64,11 @@ public class DefaultClient implements Client {
   }
 
   public DefaultClient(Properties properties) {
+    this(properties, UserServiceFactorySelector::new);
+  }
+
+  public DefaultClient(
+      Properties properties, Function<Retrofit, UserServiceFactory> serviceFactoryBuilder) {
     extendedProperties = extendProperties(properties);
     var apiKey = extendedProperties.get(API_KEY_PROP_NAME);
     var apiSecret = extendedProperties.get(API_SECRET_PROP_NAME);
@@ -82,11 +87,12 @@ public class DefaultClient implements Client {
 
     this.apiSecret = apiSecret.toString();
     this.apiKey = apiKey.toString();
-    this.retrofit = buildRetrofitClient();
-    this.serviceFactory = new UserServiceFactorySelector(retrofit);
+    this.okHttpClient = buildOkHttpClient();
+    this.retrofit = buildRetrofitClient(okHttpClient);
+    this.serviceFactory = serviceFactoryBuilder.apply(retrofit);
   }
 
-  private Retrofit buildRetrofitClient() {
+  private OkHttpClient buildOkHttpClient() {
     OkHttpClient.Builder httpClient =
         new OkHttpClient.Builder()
             .connectionPool(new ConnectionPool(5, 59, TimeUnit.SECONDS))
@@ -123,6 +129,10 @@ public class DefaultClient implements Client {
 
           return chain.proceed(builder.build());
         });
+    return httpClient.build();
+  }
+
+  private Retrofit buildRetrofitClient(OkHttpClient okHttpClient) {
     final ObjectMapper mapper = new ObjectMapper();
     // Use field-based serialization but respect @JsonProperty and @JsonAnyGetter annotations
     mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
@@ -134,22 +144,12 @@ public class DefaultClient implements Client {
         new StdDateFormat().withColonInTimeZone(true).withTimeZone(TimeZone.getTimeZone("UTC")));
     mapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
 
-    this.okHttpClient = httpClient.build();
     Retrofit.Builder builder =
         new Retrofit.Builder()
             .baseUrl(getStreamChatBaseUrl(extendedProperties))
             .client(okHttpClient)
             .addConverterFactory(new QueryConverterFactory())
-            .addConverterFactory(JacksonConverterFactory.create(mapper))
-            .callFactory(
-                new Call.Factory() {
-                  @Override
-                  public @NotNull Call newCall(@NotNull Request request) {
-                    return okHttpClient.newCall(request);
-                  }
-                });
-    //    builder.client(httpClient.build());
-
+            .addConverterFactory(JacksonConverterFactory.create(mapper));
     return builder.build();
   }
 

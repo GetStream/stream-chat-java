@@ -9,7 +9,7 @@ package io.getstream.chat.java.services.framework;
  *
  * <p>Package-private to prevent direct instantiation outside the framework.
  */
-final class UserToken {
+public final class UserToken {
   private final String value;
 
   /**
