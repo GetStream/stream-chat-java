@@ -36,12 +36,13 @@ public class DefaultClient implements Client {
 
   private static final String API_DEFAULT_URL = "https://chat.stream-io-api.com";
   private static volatile DefaultClient defaultInstance;
-  @NotNull private final OkHttpClient okHttpClient;
-  @NotNull private final Retrofit retrofit;
-  @NotNull private final UserServiceFactory serviceFactory;
   @NotNull private final String apiSecret;
   @NotNull private final String apiKey;
   @NotNull private final Properties extendedProperties;
+  @NotNull private final Function<Retrofit, UserServiceFactory> serviceFactoryBuilder;
+
+  @NotNull Retrofit retrofit;
+  @NotNull UserServiceFactory serviceFactory;
 
   public static DefaultClient getInstance() {
     if (defaultInstance == null) {
@@ -87,8 +88,9 @@ public class DefaultClient implements Client {
 
     this.apiSecret = apiSecret.toString();
     this.apiKey = apiKey.toString();
-    this.okHttpClient = buildOkHttpClient();
-    this.retrofit = buildRetrofitClient(okHttpClient);
+    this.serviceFactoryBuilder = serviceFactoryBuilder;
+
+    this.retrofit = buildRetrofitClient(buildOkHttpClient());
     this.serviceFactory = serviceFactoryBuilder.apply(retrofit);
   }
 
@@ -178,7 +180,8 @@ public class DefaultClient implements Client {
   public void setTimeout(@NotNull Duration timeoutDuration) {
     extendedProperties.setProperty(
         API_TIMEOUT_PROP_NAME, Long.toString(timeoutDuration.toMillis()));
-    this.retrofit = buildRetrofitClient();
+    this.retrofit = buildRetrofitClient(buildOkHttpClient());
+    this.serviceFactory = serviceFactoryBuilder.apply(retrofit);
   }
 
   private static @NotNull String jwtToken(String apiSecret) {
