@@ -2041,6 +2041,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/DefaultClient.html#create(java.lang.Class)">create(Class&lt;TService&gt;)</a></span> - Method in class io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/DefaultClient.html" title="class in io.getstream.chat.java.services.framework">DefaultClient</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/UserClient.html#create(java.lang.Class)">create(Class&lt;TService&gt;)</a></span> - Method in class io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/UserClient.html" title="class in io.getstream.chat.java.services.framework">UserClient</a></dt>
+<dd>
+<div class="block">Creates a service proxy that automatically injects the user token into all requests.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/UserServiceFactory.html#create(java.lang.Class,io.getstream.chat.java.services.framework.UserToken)">create(Class&lt;TService&gt;, UserToken)</a></span> - Method in interface io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/UserServiceFactory.html" title="interface in io.getstream.chat.java.services.framework">UserServiceFactory</a></dt>
+<dd>
+<div class="block">Creates a service instance that injects the specified user token into all requests.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/Client.html#create(java.lang.Class,java.lang.String)">create(Class&lt;TService&gt;, String)</a></span> - Method in interface io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/DefaultClient.html#create(java.lang.Class,java.lang.String)">create(Class&lt;TService&gt;, String)</a></span> - Method in class io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/DefaultClient.html" title="class in io.getstream.chat.java.services.framework">DefaultClient</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/ResourceAction.html#CREATE_CHANNEL">CREATE_CHANNEL</a></span> - Static variable in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/ResourceAction.html" title="class in io.getstream.chat.java.models">ResourceAction</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/ResourceAction.html#CREATE_DISTINCT_CHANNEL_FOR_OTHERS">CREATE_DISTINCT_CHANNEL_FOR_OTHERS</a></span> - Static variable in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/ResourceAction.html" title="class in io.getstream.chat.java.models">ResourceAction</a></dt>
@@ -2194,6 +2206,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><a href="io/getstream/chat/java/services/framework/DefaultClient.html" title="class in io.getstream.chat.java.services.framework"><span class="typeNameLink">DefaultClient</span></a> - Class in <a href="io/getstream/chat/java/services/framework/package-summary.html">io.getstream.chat.java.services.framework</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/DefaultClient.html#%3Cinit%3E()">DefaultClient()</a></span> - Constructor for class io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/DefaultClient.html" title="class in io.getstream.chat.java.services.framework">DefaultClient</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/DefaultClient.html#%3Cinit%3E(java.util.Properties,java.util.function.Function)">DefaultClient(Properties, Function&lt;Retrofit, UserServiceFactory&gt;)</a></span> - Constructor for class io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/DefaultClient.html" title="class in io.getstream.chat.java.services.framework">DefaultClient</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/DefaultClient.html#%3Cinit%3E(java.util.Properties)">DefaultClient(Properties)</a></span> - Constructor for class io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/DefaultClient.html" title="class in io.getstream.chat.java.services.framework">DefaultClient</a></dt>
 <dd>&nbsp;</dd>
@@ -3829,10 +3843,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/DefaultClient.html#getApiKey()">getApiKey()</a></span> - Method in class io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/DefaultClient.html" title="class in io.getstream.chat.java.services.framework">DefaultClient</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/UserClient.html#getApiKey()">getApiKey()</a></span> - Method in class io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/UserClient.html" title="class in io.getstream.chat.java.services.framework">UserClient</a></dt>
+<dd>
+<div class="block">Returns the API key from the underlying client.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/Client.html#getApiSecret()">getApiSecret()</a></span> - Method in interface io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/DefaultClient.html#getApiSecret()">getApiSecret()</a></span> - Method in class io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/DefaultClient.html" title="class in io.getstream.chat.java.services.framework">DefaultClient</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/UserClient.html#getApiSecret()">getApiSecret()</a></span> - Method in class io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/UserClient.html" title="class in io.getstream.chat.java.services.framework">UserClient</a></dt>
+<dd>
+<div class="block">Returns the API secret from the underlying client.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.PushProvider.html#getApnAuthKey()">getApnAuthKey()</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.PushProvider.html" title="class in io.getstream.chat.java.models">App.PushProvider</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.AppUpdateRequestData.html#getAPNConfig()">getAPNConfig()</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.AppUpdateRequestData.html" title="class in io.getstream.chat.java.models">App.AppUpdateRequestData</a></dt>
@@ -7703,6 +7725,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><a href="io/getstream/chat/java/services/framework/package-summary.html">io.getstream.chat.java.services.framework</a> - package io.getstream.chat.java.services.framework</dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/getstream/chat/java/services/framework/internal/package-summary.html">io.getstream.chat.java.services.framework.internal</a> - package io.getstream.chat.java.services.framework.internal</dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.AppGetRateLimitsRequest.AppGetRateLimitsRequestBuilder.html#ios(java.lang.Boolean)">ios(Boolean)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.AppGetRateLimitsRequest.AppGetRateLimitsRequestBuilder.html" title="class in io.getstream.chat.java.models">App.AppGetRateLimitsRequest.AppGetRateLimitsRequestBuilder</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/User.UserBanRequestData.UserBanRequest.html#ipBan(java.lang.Boolean)">ipBan(Boolean)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/User.UserBanRequestData.UserBanRequest.html" title="class in io.getstream.chat.java.models">User.UserBanRequestData.UserBanRequest</a></dt>
@@ -10583,6 +10607,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/DefaultClient.html#setTimeout(java.time.Duration)">setTimeout(Duration)</a></span> - Method in class io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/DefaultClient.html" title="class in io.getstream.chat.java.services.framework">DefaultClient</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/UserClient.html#setTimeout(java.time.Duration)">setTimeout(Duration)</a></span> - Method in class io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/UserClient.html" title="class in io.getstream.chat.java.services.framework">UserClient</a></dt>
+<dd>
+<div class="block">Sets the request timeout duration on the underlying client.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.EventHook.html#setTimeoutMs(java.lang.Number)">setTimeoutMs(Number)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.EventHook.html" title="class in io.getstream.chat.java.models">App.EventHook</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Thread.ThreadObject.html#setTitle(java.lang.String)">setTitle(String)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Thread.ThreadObject.html" title="class in io.getstream.chat.java.models">Thread.ThreadObject</a></dt>
@@ -11206,6 +11234,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><a href="io/getstream/chat/java/services/framework/ToJson.html" title="annotation in io.getstream.chat.java.services.framework"><span class="typeNameLink">ToJson</span></a> - Annotation Type in <a href="io/getstream/chat/java/services/framework/package-summary.html">io.getstream.chat.java.services.framework</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.AuthenticationType.html#TOKEN">TOKEN</a></span> - io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.AuthenticationType.html" title="enum in io.getstream.chat.java.models">App.AuthenticationType</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/getstream/chat/java/services/framework/internal/TokenInjectionException.html" title="class in io.getstream.chat.java.services.framework.internal"><span class="typeNameLink">TokenInjectionException</span></a> - Exception in <a href="io/getstream/chat/java/services/framework/internal/package-summary.html">io.getstream.chat.java.services.framework.internal</a></dt>
+<dd>
+<div class="block">Thrown when user token injection into a request fails.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/internal/TokenInjectionException.html#%3Cinit%3E(java.lang.String)">TokenInjectionException(String)</a></span> - Constructor for exception io.getstream.chat.java.services.framework.internal.<a href="io/getstream/chat/java/services/framework/internal/TokenInjectionException.html" title="class in io.getstream.chat.java.services.framework.internal">TokenInjectionException</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/internal/TokenInjectionException.html#%3Cinit%3E(java.lang.String,java.lang.Throwable)">TokenInjectionException(String, Throwable)</a></span> - Constructor for exception io.getstream.chat.java.services.framework.internal.<a href="io/getstream/chat/java/services/framework/internal/TokenInjectionException.html" title="class in io.getstream.chat.java.services.framework.internal">TokenInjectionException</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.Crop.html#TOP">TOP</a></span> - io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.Crop.html" title="enum in io.getstream.chat.java.models">Message.Crop</a></dt>
 <dd>&nbsp;</dd>
@@ -12351,6 +12387,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><a href="io/getstream/chat/java/models/User.UserUpsertResponse.html" title="class in io.getstream.chat.java.models"><span class="typeNameLink">User.UserUpsertResponse</span></a> - Class in <a href="io/getstream/chat/java/models/package-summary.html">io.getstream.chat.java.models</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/getstream/chat/java/services/framework/UserClient.html" title="class in io.getstream.chat.java.services.framework"><span class="typeNameLink">UserClient</span></a> - Class in <a href="io/getstream/chat/java/services/framework/package-summary.html">io.getstream.chat.java.services.framework</a></dt>
+<dd>
+<div class="block">Client implementation for user-scoped API operations.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/UserClient.html#%3Cinit%3E(io.getstream.chat.java.services.framework.Client,java.lang.String)">UserClient(Client, String)</a></span> - Constructor for class io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/UserClient.html" title="class in io.getstream.chat.java.services.framework">UserClient</a></dt>
+<dd>
+<div class="block">Constructs a new UserClient that wraps the provided client with user authentication.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/User.UserCreateGuestResponse.html#%3Cinit%3E()">UserCreateGuestResponse()</a></span> - Constructor for class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/User.UserCreateGuestResponse.html" title="class in io.getstream.chat.java.models">User.UserCreateGuestResponse</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/User.UserDeactivateResponse.html#%3Cinit%3E()">UserDeactivateResponse()</a></span> - Constructor for class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/User.UserDeactivateResponse.html" title="class in io.getstream.chat.java.models">User.UserDeactivateResponse</a></dt>
@@ -12501,6 +12545,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><a href="io/getstream/chat/java/services/UserService.html" title="interface in io.getstream.chat.java.services"><span class="typeNameLink">UserService</span></a> - Interface in <a href="io/getstream/chat/java/services/package-summary.html">io.getstream.chat.java.services</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/getstream/chat/java/services/framework/UserServiceFactory.html" title="interface in io.getstream.chat.java.services.framework"><span class="typeNameLink">UserServiceFactory</span></a> - Interface in <a href="io/getstream/chat/java/services/framework/package-summary.html">io.getstream.chat.java.services.framework</a></dt>
+<dd>
+<div class="block">Factory interface for creating service instances with user-specific authentication.</div>
+</dd>
+<dt><a href="io/getstream/chat/java/services/framework/UserToken.html" title="class in io.getstream.chat.java.services.framework"><span class="typeNameLink">UserToken</span></a> - Class in <a href="io/getstream/chat/java/services/framework/package-summary.html">io.getstream.chat.java.services.framework</a></dt>
+<dd>
+<div class="block">Immutable wrapper for a user authentication token.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/User.UserUnbanRequest.html#%3Cinit%3E(java.lang.String)">UserUnbanRequest(String)</a></span> - Constructor for class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/User.UserUnbanRequest.html" title="class in io.getstream.chat.java.models">User.UserUnbanRequest</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/User.UserUpsertResponse.html#%3Cinit%3E()">UserUpsertResponse()</a></span> - Constructor for class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/User.UserUpsertResponse.html" title="class in io.getstream.chat.java.models">User.UserUpsertResponse</a></dt>
@@ -12823,6 +12875,8 @@ the order they are declared.</div>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/ChannelType.ChannelTypeCreateRequestData.ChannelTypeCreateRequest.html#withDefaultConfig()">withDefaultConfig()</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/ChannelType.ChannelTypeCreateRequestData.ChannelTypeCreateRequest.html" title="class in io.getstream.chat.java.models">ChannelType.ChannelTypeCreateRequestData.ChannelTypeCreateRequest</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.FileRequest.html#withFileHandler(io.getstream.chat.java.models.framework.FileHandler)">withFileHandler(FileHandler)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.FileRequest.html" title="class in io.getstream.chat.java.models">Message.FileRequest</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/framework/StreamRequest.html#withUserToken(java.lang.String)">withUserToken(String)</a></span> - Method in class io.getstream.chat.java.models.framework.<a href="io/getstream/chat/java/models/framework/StreamRequest.html" title="class in io.getstream.chat.java.models.framework">StreamRequest</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Blocklist.BlocklistCreateRequestData.BlocklistCreateRequest.html#words(java.util.List)">words(List&lt;String&gt;)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Blocklist.BlocklistCreateRequestData.BlocklistCreateRequest.html" title="class in io.getstream.chat.java.models">Blocklist.BlocklistCreateRequestData.BlocklistCreateRequest</a></dt>
 <dd>&nbsp;</dd>
