@@ -20,9 +20,9 @@ import java.lang.reflect.Type;
  * @see UserToken
  */
 class UserCall<T> implements retrofit2.Call<T> {
-  private final retrofit2.Call<T> delegate;
-  private final UserToken token;
   private final Retrofit retrofit;
+  private final UserToken token;
+  private final retrofit2.Call<T> delegate;
   private final Type responseType;
   private volatile boolean executed;
   private volatile okhttp3.Call rawCall;
@@ -30,15 +30,15 @@ class UserCall<T> implements retrofit2.Call<T> {
   /**
    * Constructs a new UserCall that wraps the provided call with token injection.
    *
-   * @param delegate the underlying Retrofit call (used for request template)
-   * @param token the user token to inject
    * @param retrofit the Retrofit instance for creating calls and parsing responses
+   * @param token the user token to inject
+   * @param delegate the underlying Retrofit call (used for request template)
    * @param responseType the actual response type for proper deserialization
    */
-  UserCall(retrofit2.Call<T> delegate, UserToken token, Retrofit retrofit, Type responseType) {
-    this.delegate = delegate;
-    this.token = token;
+  UserCall(Retrofit retrofit, UserToken token, retrofit2.Call<T> delegate, Type responseType) {
     this.retrofit = retrofit;
+    this.token = token;
+    this.delegate = delegate;
     this.responseType = responseType;
   }
 
@@ -241,7 +241,7 @@ class UserCall<T> implements retrofit2.Call<T> {
    */
   @Override
   public @NotNull retrofit2.Call<T> clone() {
-    return new UserCall<>(delegate.clone(), token, retrofit, responseType);
+    return new UserCall<>(retrofit, token, delegate.clone(), responseType);
   }
 
   /**
