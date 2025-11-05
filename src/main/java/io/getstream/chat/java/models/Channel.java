@@ -602,6 +602,10 @@ public class Channel {
     private Boolean hideHistory;
 
     @Nullable
+    @JsonProperty("hide_history_before")
+    private Date hideHistoryBefore;
+
+    @Nullable
     @JsonProperty("data")
     private ChannelRequestObject data;
 
