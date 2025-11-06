@@ -12,6 +12,7 @@ import io.getstream.chat.java.models.Sort;
 import io.getstream.chat.java.models.Sort.Direction;
 import io.getstream.chat.java.models.User;
 import io.getstream.chat.java.models.User.ChannelMute;
+import io.getstream.chat.java.models.User.UserRequestObject;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -673,5 +674,46 @@ public class ChannelTest extends BasicTest {
     Assertions.assertTrue(
         json.contains("\"hide_history_before\":\"2025-12-31T15:30:00.000+00:00\""),
         "JSON should contain hide_history_before field with RFC3339-formatted value");
+  }
+
+  @DisplayName("hide_messages_before is set when adding member with hide_history_before")
+  @Test
+  void whenAddingMemberWithHideHistoryBefore_thenHideMessagesBeforeIsSet() {
+    // Create new test user
+    UserRequestObject newMember =
+        UserRequestObject.builder()
+            .id(RandomStringUtils.randomAlphabetic(10))
+            .name("New Member 1")
+            .build();
+
+    Assertions.assertDoesNotThrow(
+        () -> User.upsert().user(newMember).request());
+
+    // Create a static timestamp for hide_history_before
+    Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
+    calendar.set(2025, Calendar.JANUARY, 15, 10, 30, 0);
+    calendar.set(Calendar.MILLISECOND, 0);
+    Date hideBeforeTimestamp = calendar.getTime();
+
+    // Add ember with hide_history_before
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.update(testChannel.getType(), testChannel.getId())
+                .addMember(newMember.getId())
+                .hideHistoryBefore(hideBeforeTimestamp)
+                .request());
+
+    // Query channel with state for newMember - should have hide_messages_before set
+    String userToken = User.createToken(newMember.getId(), null, null);
+    ChannelGetResponse channelResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.getOrCreate(testChannel.getType(), testChannel.getId())
+                    .state(true)
+                    .withUserToken(userToken)
+                    .request());
+
+    Assertions.assertNotNull(channelResponse.getHideMessagesBefore());
+    Assertions.assertEquals(hideBeforeTimestamp, channelResponse.getHideMessagesBefore());
   }
 }
