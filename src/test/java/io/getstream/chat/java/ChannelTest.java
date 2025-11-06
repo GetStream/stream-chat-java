@@ -656,8 +656,10 @@ public class ChannelTest extends BasicTest {
             .name("New Member 1")
             .build();
 
-    Assertions.assertDoesNotThrow(
-        () -> User.upsert().user(newMember).request());
+    Assertions.assertDoesNotThrow(() -> User.upsert().user(newMember).request());
+
+    // Create test channel
+    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
 
     // Create a static timestamp for hide_history_before
     Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
@@ -668,7 +670,7 @@ public class ChannelTest extends BasicTest {
     // Add ember with hide_history_before
     Assertions.assertDoesNotThrow(
         () ->
-            Channel.update(testChannel.getType(), testChannel.getId())
+            Channel.update(channel.getType(), channel.getId())
                 .addMember(newMember.getId())
                 .hideHistoryBefore(hideBeforeTimestamp)
                 .request());
@@ -678,7 +680,7 @@ public class ChannelTest extends BasicTest {
     ChannelGetResponse channelResponse =
         Assertions.assertDoesNotThrow(
             () ->
-                Channel.getOrCreate(testChannel.getType(), testChannel.getId())
+                Channel.getOrCreate(channel.getType(), channel.getId())
                     .state(true)
                     .withUserToken(userToken)
                     .request());
