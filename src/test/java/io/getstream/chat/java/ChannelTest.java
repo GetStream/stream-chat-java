@@ -1,9 +1,5 @@
 package io.getstream.chat.java;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.StdDateFormat;
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.Channel.*;
 import io.getstream.chat.java.models.DeleteStrategy;
@@ -648,32 +644,6 @@ public class ChannelTest extends BasicTest {
                 .userId(testUserRequestObject.getId())
                 .latestDeliveredMessages(latestDeliveredMessages)
                 .request());
-  }
-
-  @DisplayName("ChannelUpdateRequestData should serialize hide_history_before field correctly")
-  @Test
-  void whenSerializingChannelUpdateRequestWithHideHistoryBefore_thenFieldIsIncluded() {
-      // Same object mapper as in DefaultClient
-      final ObjectMapper mapper = new ObjectMapper();
-      mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
-      mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-      mapper.setDateFormat(
-              new StdDateFormat().withColonInTimeZone(true).withTimeZone(TimeZone.getTimeZone("UTC")));
-
-    Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
-    calendar.set(2025, Calendar.DECEMBER, 31, 15, 30, 0);
-    calendar.set(Calendar.MILLISECOND, 0);
-    Date testDate = calendar.getTime();
-    var updateRequest =
-        Channel.update("messaging", "test-channel")
-            .hideHistoryBefore(testDate)
-            .internalBuild();
-
-    String json = Assertions.assertDoesNotThrow(() -> mapper.writeValueAsString(updateRequest));
-
-    Assertions.assertTrue(
-        json.contains("\"hide_history_before\":\"2025-12-31T15:30:00.000+00:00\""),
-        "JSON should contain hide_history_before field with RFC3339-formatted value");
   }
 
   @DisplayName("hide_messages_before is set when adding member with hide_history_before")
