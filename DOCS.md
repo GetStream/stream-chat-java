@@ -365,6 +365,19 @@ Channel.getOrCreate("messaging", "red-general")
     .request();
 ```
 
+Create a channel with filter tags
+
+```java
+Channel.getOrCreate("messaging", "support-channel")
+    .data(
+        ChannelRequestObject.builder()
+            .filterTag("important")
+            .filterTag("urgent")
+            .createdBy(UserRequestObject.builder().id("myuserid").build())
+            .build())
+    .request();
+```
+
 **Get or create channel (type)**
 
 ```java
@@ -486,6 +499,12 @@ Remove overrides and go back to default settings
 Channel.partialUpdate(type, id).setValue("config_overrides", Collections.EMPTY_MAP).request();
 ```
 
+Set filter tags
+
+```java
+Channel.partialUpdate(type, id).setValue("filter_tags", List.of("tag1", "tag2")).request();
+```
+
 **Update channel**
 Full update (overwrite)
 
@@ -537,6 +556,16 @@ Add/remove moderators
 ```java
 Channel.update(type, id).addModerator("thierry").addModerator("josh").request();
 Channel.update(type, id).demoteModerator("tommaso").request();
+```
+
+Add/remove filter tags
+
+```java
+// Add filter tags to a channel
+Channel.update(type, id).addFilterTag("important").addFilterTag("urgent").request();
+
+// Remove filter tags from a channel
+Channel.update(type, id).removeFilterTag("urgent").request();
 ```
 
 Inviting users
