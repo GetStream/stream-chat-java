@@ -421,6 +421,116 @@ public class ChannelTest extends BasicTest {
     Assertions.assertEquals(updatedTeam, updateChannel.getTeam());
   }
 
+  @DisplayName("Can add filter tags to a channel")
+  @Test
+  void whenAddingFilterTags_thenHasFilterTags() {
+    // Create a fresh channel to not modify testChannel
+    ChannelGetResponse channelGetResponse =
+        Assertions.assertDoesNotThrow(() -> createRandomChannel());
+    Channel channel = channelGetResponse.getChannel();
+
+    // Add filter tags
+    ChannelUpdateResponse channelUpdateResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.update(channel.getType(), channel.getId())
+                    .user(testUserRequestObject)
+                    .addFilterTag("tag1")
+                    .addFilterTag("tag2")
+                    .request());
+
+    Channel updatedChannel = channelUpdateResponse.getChannel();
+    Assertions.assertNotNull(updatedChannel.getFilterTags());
+    Assertions.assertEquals(2, updatedChannel.getFilterTags().size());
+    Assertions.assertTrue(updatedChannel.getFilterTags().contains("tag1"));
+    Assertions.assertTrue(updatedChannel.getFilterTags().contains("tag2"));
+  }
+
+  @DisplayName("Can remove filter tags from a channel")
+  @Test
+  void whenRemovingFilterTags_thenFilterTagsRemoved() {
+    // Create a channel and add filter tags via update
+    ChannelGetResponse channelGetResponse =
+        Assertions.assertDoesNotThrow(() -> createRandomChannel());
+    Channel channel = channelGetResponse.getChannel();
+
+    // First add filter tags using update
+    ChannelUpdateResponse addResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.update(channel.getType(), channel.getId())
+                    .user(testUserRequestObject)
+                    .addFilterTag("tag1")
+                    .addFilterTag("tag2")
+                    .addFilterTag("tag3")
+                    .request());
+
+    Channel channelWithTags = addResponse.getChannel();
+    Assertions.assertNotNull(channelWithTags.getFilterTags());
+    Assertions.assertEquals(3, channelWithTags.getFilterTags().size());
+
+    // Now remove some filter tags
+    ChannelUpdateResponse removeResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.update(channel.getType(), channel.getId())
+                    .user(testUserRequestObject)
+                    .removeFilterTag("tag1")
+                    .removeFilterTag("tag2")
+                    .request());
+
+    Channel updatedChannel = removeResponse.getChannel();
+    Assertions.assertNotNull(updatedChannel.getFilterTags());
+    Assertions.assertEquals(1, updatedChannel.getFilterTags().size());
+    Assertions.assertTrue(updatedChannel.getFilterTags().contains("tag3"));
+  }
+
+  @DisplayName("Can create channel with filter tags")
+  @Test
+  void whenCreatingChannelWithFilterTags_thenHasFilterTags() {
+    var channelReq =
+        ChannelRequestObject.builder()
+            .createdBy(testUserRequestObject)
+            .members(buildChannelMembersList())
+            .filterTag("important")
+            .filterTag("urgent")
+            .build();
+    var channelType = "messaging";
+    var channelId = RandomStringUtils.randomAlphabetic(12);
+
+    ChannelGetResponse channelGetResponse =
+        Assertions.assertDoesNotThrow(
+            () -> Channel.getOrCreate(channelType, channelId).data(channelReq).request());
+
+    Channel channel = channelGetResponse.getChannel();
+    Assertions.assertNotNull(channel.getFilterTags());
+    Assertions.assertEquals(2, channel.getFilterTags().size());
+    Assertions.assertTrue(channel.getFilterTags().contains("important"));
+    Assertions.assertTrue(channel.getFilterTags().contains("urgent"));
+  }
+
+  @DisplayName("Can set filter tags using partial update")
+  @Test
+  void whenSettingFilterTagsWithPartialUpdate_thenFilterTagsSet() {
+    // Create a fresh channel
+    Channel channel = Assertions.assertDoesNotThrow(() -> createRandomChannel()).getChannel();
+
+    // Set filter tags using partial update
+    Channel updatedChannel =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.partialUpdate(channel.getType(), channel.getId())
+                    .setValue("filter_tags", List.of("partial1", "partial2"))
+                    .user(testUserRequestObject)
+                    .request()
+                    .getChannel());
+
+    Assertions.assertNotNull(updatedChannel.getFilterTags());
+    Assertions.assertEquals(2, updatedChannel.getFilterTags().size());
+    Assertions.assertTrue(updatedChannel.getFilterTags().contains("partial1"));
+    Assertions.assertTrue(updatedChannel.getFilterTags().contains("partial2"));
+  }
+
   @DisplayName("Can assign roles")
   @Test
   void whenAssigningRole_throwsNoError() {

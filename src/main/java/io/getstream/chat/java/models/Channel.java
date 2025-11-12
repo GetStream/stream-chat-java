@@ -113,6 +113,10 @@ public class Channel {
   @JsonProperty("truncated_by")
   private User truncatedBy;
 
+  @Nullable
+  @JsonProperty("filter_tags")
+  private List<String> filterTags;
+
   @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
 
   @JsonAnyGetter
@@ -289,6 +293,11 @@ public class Channel {
     @JsonProperty("config_overrides")
     private ConfigOverridesRequestObject configOverrides;
 
+    @Singular
+    @Nullable
+    @JsonProperty("filter_tags")
+    private List<String> filterTags;
+
     @Singular @Nullable @JsonIgnore private Map<String, Object> additionalFields;
 
     @JsonAnyGetter
@@ -315,6 +324,7 @@ public class Channel {
         @Nullable List<ChannelMemberRequestObject> members,
         @Nullable List<ChannelMemberRequestObject> invites,
         @Nullable ConfigOverridesRequestObject configOverrides,
+        @Nullable List<String> filterTags,
         Map<String, Object> additionalFields) {
       this.createdBy = createdBy;
       this.team = team;
@@ -324,6 +334,7 @@ public class Channel {
       this.members = members;
       this.invites = invites;
       this.configOverrides = configOverrides;
+      this.filterTags = filterTags;
       this.additionalFields = new HashMap<String, Object>(additionalFields);
     }
   }
@@ -576,6 +587,18 @@ public class Channel {
     @Nullable
     @JsonProperty("invites")
     private List<String> invites;
+
+    // Singular is required because cannot be null
+    @Singular
+    @Nullable
+    @JsonProperty("add_filter_tags")
+    private List<String> addFilterTags;
+
+    // Singular is required because cannot be null
+    @Singular
+    @Nullable
+    @JsonProperty("remove_filter_tags")
+    private List<String> removeFilterTags;
 
     @Nullable
     @JsonProperty("cooldown")
