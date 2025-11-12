@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.37.0](https://github.com/GetStream/stream-chat-java/compare/1.36.0...1.37.0) (2025-11-12)
+
+
+### Features
+
+* add hide_history_before option when adding members ([#214](https://github.com/GetStream/stream-chat-java/issues/214)) ([d5158cd](https://github.com/GetStream/stream-chat-java/commit/d5158cd7125cbe7a361ce2bb11b01ed39f72860e))
+* add support for filter tags to channels ([#215](https://github.com/GetStream/stream-chat-java/issues/215)) ([f6dc4d2](https://github.com/GetStream/stream-chat-java/commit/f6dc4d25407236515e7113f75d4a8d8a3a0d7890))
+
+
+### Bug Fixes
+
+* fix message count test after ff removal ([#212](https://github.com/GetStream/stream-chat-java/issues/212)) ([d99c580](https://github.com/GetStream/stream-chat-java/commit/d99c5804f65905313c3e4e957f00a4ecc69e5f96))
+
 ## [1.36.0](https://github.com/GetStream/stream-chat-java/compare/1.35.0...1.36.0) (2025-10-22)
 
 
