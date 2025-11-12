@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -190,55 +190,70 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clearInvites()">clearInvites</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clearFilterTags()">clearFilterTags</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clearMembers()">clearMembers</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clearInvites()">clearInvites</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#configOverrides(io.getstream.chat.java.models.Channel.ConfigOverridesRequestObject)">configOverrides</a></span>&#8203;(@Nullable <a href="Channel.ConfigOverridesRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ConfigOverridesRequestObject</a>&nbsp;configOverrides)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clearMembers()">clearMembers</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code><a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createdBy(io.getstream.chat.java.models.User.UserRequestObject)">createdBy</a></span>&#8203;(@Nullable <a href="User.UserRequestObject.html" title="class in io.getstream.chat.java.models">User.UserRequestObject</a>&nbsp;createdBy)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#configOverrides(io.getstream.chat.java.models.Channel.ConfigOverridesRequestObject)">configOverrides</a></span>&#8203;(@Nullable <a href="Channel.ConfigOverridesRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ConfigOverridesRequestObject</a>&nbsp;configOverrides)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code><a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#frozen(java.lang.Boolean)">frozen</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;frozen)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createdBy(io.getstream.chat.java.models.User.UserRequestObject)">createdBy</a></span>&#8203;(@Nullable <a href="User.UserRequestObject.html" title="class in io.getstream.chat.java.models">User.UserRequestObject</a>&nbsp;createdBy)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code><a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#invite(io.getstream.chat.java.models.Channel.ChannelMemberRequestObject)">invite</a></span>&#8203;(<a href="Channel.ChannelMemberRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberRequestObject</a>&nbsp;invite)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#filterTag(java.lang.String)">filterTag</a></span>&#8203;(java.lang.String&nbsp;filterTag)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code><a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#invites(java.util.Collection)">invites</a></span>&#8203;(java.util.Collection&lt;? extends <a href="Channel.ChannelMemberRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberRequestObject</a>&gt;&nbsp;invites)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#filterTags(java.util.Collection)">filterTags</a></span>&#8203;(java.util.Collection&lt;? extends java.lang.String&gt;&nbsp;filterTags)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i13" class="rowColor">
 <td class="colFirst"><code><a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#member(io.getstream.chat.java.models.Channel.ChannelMemberRequestObject)">member</a></span>&#8203;(<a href="Channel.ChannelMemberRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberRequestObject</a>&nbsp;member)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#frozen(java.lang.Boolean)">frozen</a></span>&#8203;(@Nullable java.lang.Boolean&nbsp;frozen)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i14" class="altColor">
 <td class="colFirst"><code><a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#members(java.util.Collection)">members</a></span>&#8203;(java.util.Collection&lt;? extends <a href="Channel.ChannelMemberRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberRequestObject</a>&gt;&nbsp;members)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#invite(io.getstream.chat.java.models.Channel.ChannelMemberRequestObject)">invite</a></span>&#8203;(<a href="Channel.ChannelMemberRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberRequestObject</a>&nbsp;invite)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i15" class="rowColor">
 <td class="colFirst"><code><a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#team(java.lang.String)">team</a></span>&#8203;(@Nullable java.lang.String&nbsp;team)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#invites(java.util.Collection)">invites</a></span>&#8203;(java.util.Collection&lt;? extends <a href="Channel.ChannelMemberRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberRequestObject</a>&gt;&nbsp;invites)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i16" class="altColor">
+<td class="colFirst"><code><a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#member(io.getstream.chat.java.models.Channel.ChannelMemberRequestObject)">member</a></span>&#8203;(<a href="Channel.ChannelMemberRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberRequestObject</a>&nbsp;member)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code><a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#members(java.util.Collection)">members</a></span>&#8203;(java.util.Collection&lt;? extends <a href="Channel.ChannelMemberRequestObject.html" title="class in io.getstream.chat.java.models">Channel.ChannelMemberRequestObject</a>&gt;&nbsp;members)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code><a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#team(java.lang.String)">team</a></span>&#8203;(@Nullable java.lang.String&nbsp;team)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -403,6 +418,33 @@ extends java.lang.Object</pre>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd><code>this</code>.</dd>
 </dl>
+</li>
+</ul>
+<a id="filterTag(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>filterTag</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a>&nbsp;filterTag&#8203;(java.lang.String&nbsp;filterTag)</pre>
+</li>
+</ul>
+<a id="filterTags(java.util.Collection)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>filterTags</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a>&nbsp;filterTags&#8203;(java.util.Collection&lt;? extends java.lang.String&gt;&nbsp;filterTags)</pre>
+</li>
+</ul>
+<a id="clearFilterTags()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>clearFilterTags</h4>
+<pre class="methodSignature">public&nbsp;<a href="Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a>&nbsp;clearFilterTags()</pre>
 </li>
 </ul>
 <a id="additionalField(java.lang.String,java.lang.Object)">
