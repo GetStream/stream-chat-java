@@ -161,7 +161,7 @@ public class Reminder {
 
     @Singular
     @Nullable
-    @JsonProperty("filter_conditions")
+    @JsonProperty("filter")
     private Map<String, Object> filterConditions;
 
     @Singular
