@@ -18,7 +18,6 @@ import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Singular;
@@ -81,8 +80,6 @@ public class Reminder {
       builderClassName = "ReminderCreateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
-  @Getter
-  @EqualsAndHashCode
   public static class ReminderCreateRequestData {
     @NotNull
     @JsonProperty("user_id")
@@ -110,8 +107,6 @@ public class Reminder {
       builderClassName = "ReminderUpdateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
-  @Getter
-  @EqualsAndHashCode
   public static class ReminderUpdateRequestData {
     @NotNull
     @JsonProperty("user_id")
@@ -135,8 +130,6 @@ public class Reminder {
     }
   }
 
-  @Getter
-  @EqualsAndHashCode
   @RequiredArgsConstructor
   public static class ReminderDeleteRequest extends StreamRequest<ReminderDeleteResponse> {
     @NotNull private String messageId;
@@ -152,8 +145,6 @@ public class Reminder {
       builderClassName = "ReminderQueryRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
-  @Getter
-  @EqualsAndHashCode
   public static class ReminderQueryRequestData {
     @NotNull
     @JsonProperty("user_id")
@@ -161,7 +152,7 @@ public class Reminder {
 
     @Singular
     @Nullable
-    @JsonProperty("filter_conditions")
+    @JsonProperty("filter")
     private Map<String, Object> filterConditions;
 
     @Singular
