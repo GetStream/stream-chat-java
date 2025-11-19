@@ -186,8 +186,7 @@ public class ChannelTypeTest extends BasicTest {
     pause();
 
     // Retrieve and verify the field is accessible
-    var retrieved =
-        Assertions.assertDoesNotThrow(() -> ChannelType.get(channelTypeName).request());
+    var retrieved = Assertions.assertDoesNotThrow(() -> ChannelType.get(channelTypeName).request());
     Assertions.assertEquals(channelTypeName, retrieved.getName());
     // The field should be present in the response (even if false)
     Assertions.assertNotNull(retrieved.getUserMessageReminders());
