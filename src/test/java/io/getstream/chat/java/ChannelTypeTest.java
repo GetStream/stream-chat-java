@@ -168,4 +168,34 @@ public class ChannelTypeTest extends BasicTest {
           return new HashSet<>(actualGrants).equals(new HashSet<>(expectedGrants));
         });
   }
+
+  @DisplayName("Can enable user_message_reminders on channel type")
+  @Test
+  void whenCreatingChannelTypeWithUserMessageReminders_thenCanRetrieveIt() {
+    String channelTypeName = RandomStringUtils.randomAlphabetic(10);
+    Assertions.assertDoesNotThrow(
+        () ->
+            ChannelType.create()
+                .withDefaultConfig()
+                .name(channelTypeName)
+                .userMessageReminders(true)
+                .request());
+    pause();
+    
+    var channelType =
+        Assertions.assertDoesNotThrow(() -> ChannelType.get(channelTypeName).request());
+    Assertions.assertEquals(channelTypeName, channelType.getName());
+    Assertions.assertTrue(channelType.getUserMessageReminders());
+    
+    // Test updating the field
+    Assertions.assertDoesNotThrow(
+        () -> ChannelType.update(channelTypeName).userMessageReminders(false).request());
+    pause();
+    
+    var updatedChannelType =
+        Assertions.assertDoesNotThrow(() -> ChannelType.get(channelTypeName).request());
+    Assertions.assertFalse(updatedChannelType.getUserMessageReminders());
+    
+    Assertions.assertDoesNotThrow(() -> ChannelType.delete(channelTypeName));
+  }
 }
