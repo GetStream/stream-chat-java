@@ -168,4 +168,29 @@ public class ChannelTypeTest extends BasicTest {
           return new HashSet<>(actualGrants).equals(new HashSet<>(expectedGrants));
         });
   }
+
+  @DisplayName("Can set user_message_reminders field on channel type")
+  @Test
+  void whenSettingUserMessageRemindersOnChannelType_thenFieldIsAccessible() {
+    String channelTypeName = RandomStringUtils.randomAlphabetic(10);
+
+    // Create a basic channel type first
+    Assertions.assertDoesNotThrow(
+        () -> ChannelType.create().withDefaultConfig().name(channelTypeName).request());
+    pause();
+
+    // Test that the field can be set (even if Push V3 is not enabled, the field should be settable)
+    // The API will reject enabling it without Push V3, but the field should still be in the model
+    Assertions.assertDoesNotThrow(
+        () -> ChannelType.update(channelTypeName).userMessageReminders(false).request());
+    pause();
+
+    // Retrieve and verify the field is accessible
+    var retrieved = Assertions.assertDoesNotThrow(() -> ChannelType.get(channelTypeName).request());
+    Assertions.assertEquals(channelTypeName, retrieved.getName());
+    // The field should be present in the response (even if false)
+    Assertions.assertNotNull(retrieved.getUserMessageReminders());
+
+    Assertions.assertDoesNotThrow(() -> ChannelType.delete(channelTypeName));
+  }
 }
