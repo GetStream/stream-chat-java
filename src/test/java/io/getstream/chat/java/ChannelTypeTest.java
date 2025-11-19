@@ -181,21 +181,21 @@ public class ChannelTypeTest extends BasicTest {
                 .userMessageReminders(true)
                 .request());
     pause();
-    
+
     var channelType =
         Assertions.assertDoesNotThrow(() -> ChannelType.get(channelTypeName).request());
     Assertions.assertEquals(channelTypeName, channelType.getName());
     Assertions.assertTrue(channelType.getUserMessageReminders());
-    
+
     // Test updating the field
     Assertions.assertDoesNotThrow(
         () -> ChannelType.update(channelTypeName).userMessageReminders(false).request());
     pause();
-    
+
     var updatedChannelType =
         Assertions.assertDoesNotThrow(() -> ChannelType.get(channelTypeName).request());
     Assertions.assertFalse(updatedChannelType.getUserMessageReminders());
-    
+
     Assertions.assertDoesNotThrow(() -> ChannelType.delete(channelTypeName));
   }
 }
