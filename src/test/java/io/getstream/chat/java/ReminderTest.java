@@ -167,9 +167,9 @@ public class ReminderTest extends BasicTest {
 
     // Verify the query returned results
     Assertions.assertNotNull(reminders);
-    // Note: The API might not return any reminders if they were deleted or not indexed yet
-    // So we don't assert that the list is not empty
-
+    Assertions.assertEquals(1, reminders.size());
+    Assertions.assertEquals(message.getId(), reminders.get(0).getMessageId());
+    
     // Check for pagination fields
     Assertions.assertDoesNotThrow(
         () -> {
