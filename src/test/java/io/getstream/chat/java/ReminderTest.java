@@ -169,7 +169,7 @@ public class ReminderTest extends BasicTest {
     Assertions.assertNotNull(reminders);
     Assertions.assertEquals(1, reminders.size());
     Assertions.assertEquals(message.getId(), reminders.get(0).getMessageId());
-    
+
     // Check for pagination fields
     Assertions.assertDoesNotThrow(
         () -> {
