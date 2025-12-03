@@ -928,6 +928,94 @@ public class User {
   }
 
   @Builder(
+      builderClassName = "UserDeactivateManyRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
+  public static class UserDeactivateManyRequestData {
+    @NotNull
+    @JsonProperty("user_ids")
+    private List<String> userIds;
+
+    @Nullable
+    @JsonProperty("created_by_id")
+    private String createdById;
+
+    @Nullable
+    @JsonProperty("mark_channels_deleted")
+    private Boolean markChannelsDeleted;
+
+    @Nullable
+    @JsonProperty("mark_messages_deleted")
+    private Boolean markMessagesDeleted;
+
+    public static class UserDeactivateManyRequest
+        extends StreamRequest<UserDeactivateManyResponse> {
+      @Override
+      protected Call<UserDeactivateManyResponse> generateCall(Client client)
+          throws StreamException {
+        var data = this.internalBuild();
+        return client.create(UserService.class).deactivateUsers(data);
+      }
+    }
+  }
+
+  @Data
+  @EqualsAndHashCode(callSuper = true)
+  public static class UserDeactivateManyResponse extends StreamResponseObject {
+    @JsonProperty("task_id")
+    private String taskId;
+
+    @JsonProperty("duration")
+    private String duration;
+  }
+
+  @Builder(
+      builderClassName = "UserReactivateManyRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
+  public static class UserReactivateManyRequestData {
+    @NotNull
+    @JsonProperty("user_ids")
+    private List<String> userIds;
+
+    @Nullable
+    @JsonProperty("created_by_id")
+    private String createdById;
+
+    @Nullable
+    @JsonProperty("restore_channels")
+    private Boolean restoreChannels;
+
+    @Nullable
+    @JsonProperty("restore_messages")
+    private Boolean restoreMessages;
+
+    public static class UserReactivateManyRequest
+        extends StreamRequest<UserReactivateManyResponse> {
+      @Override
+      protected Call<UserReactivateManyResponse> generateCall(Client client)
+          throws StreamException {
+        var data = this.internalBuild();
+        return client.create(UserService.class).reactivateUsers(data);
+      }
+    }
+  }
+
+  @Data
+  @EqualsAndHashCode(callSuper = true)
+  public static class UserReactivateManyResponse extends StreamResponseObject {
+    @JsonProperty("task_id")
+    private String taskId;
+
+    @JsonProperty("duration")
+    private String duration;
+  }
+
+  @Builder(
       builderClassName = "UserReactivateRequest",
       builderMethodName = "",
       buildMethodName = "internalBuild")
@@ -1334,8 +1422,33 @@ public class User {
    * @return the created request
    */
   @NotNull
-  public static UserDeleteManyRequest deleteMany(@NotNull List<String> userIds) {
-    return new UserDeleteManyRequest().userIds(userIds);
+  public static UserDeleteManyRequestData.UserDeleteManyRequest deleteMany(
+      @NotNull List<String> userIds) {
+    return new UserDeleteManyRequestData.UserDeleteManyRequest().userIds(userIds);
+  }
+
+  /**
+   * Creates a deactivate users request
+   *
+   * @param userIds list of user ids to be deactivated
+   * @return the created request
+   */
+  @NotNull
+  public static UserDeactivateManyRequestData.UserDeactivateManyRequest deactivateUsers(
+      @NotNull List<String> userIds) {
+    return new UserDeactivateManyRequestData.UserDeactivateManyRequest().userIds(userIds);
+  }
+
+  /**
+   * Creates a reactivate users request
+   *
+   * @param userIds list of user ids to be reactivated
+   * @return the created request
+   */
+  @NotNull
+  public static UserReactivateManyRequestData.UserReactivateManyRequest reactivateUsers(
+      @NotNull List<String> userIds) {
+    return new UserReactivateManyRequestData.UserReactivateManyRequest().userIds(userIds);
   }
 
   /**
