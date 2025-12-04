@@ -10,7 +10,6 @@ import io.getstream.chat.java.models.Flag.FlagDeleteRequestData.FlagDeleteReques
 import io.getstream.chat.java.models.User.UserBanRequestData.UserBanRequest;
 import io.getstream.chat.java.models.User.UserCreateGuestRequestData.UserCreateGuestRequest;
 import io.getstream.chat.java.models.User.UserDeactivateRequestData.UserDeactivateRequest;
-import io.getstream.chat.java.models.User.UserDeleteManyRequestData.UserDeleteManyRequest;
 import io.getstream.chat.java.models.User.UserListRequestData.UserListRequest;
 import io.getstream.chat.java.models.User.UserMuteRequestData.UserMuteRequest;
 import io.getstream.chat.java.models.User.UserPartialUpdateRequestData.UserPartialUpdateRequest;
