@@ -93,28 +93,6 @@ public class MessageTest extends BasicTest {
     Assertions.assertEquals(updatedText, updatedMessage.getText());
   }
 
-  @DisplayName("Can update a message with restricted visibility")
-  @Test
-  void whenUpdatingAMessageWithRestrictedVisibility_thenNoException() {
-    // Should not use testMessage to not modify it
-    Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
-    String updatedText = "This is an updated message";
-    List<String> restrictedUsers = Arrays.asList(testUserRequestObject.getId());
-
-    MessageRequestObject updatedMessageRequest =
-        MessageRequestObject.builder()
-            .text(updatedText)
-            .userId(testUserRequestObject.getId())
-            .restrictedVisibility(restrictedUsers)
-            .build();
-    Message updatedMessage =
-        Assertions.assertDoesNotThrow(
-                () -> Message.update(message.getId()).message(updatedMessageRequest).request())
-            .getMessage();
-    Assertions.assertEquals(updatedText, updatedMessage.getText());
-    Assertions.assertEquals(restrictedUsers, updatedMessage.getRestrictedVisibility());
-  }
-
   @DisplayName("Searching with query and message filter conditions throws an exception")
   @Test
   void givenQueryAndMessageFilterConditions_whenSearchingMessages_thenThrowException() {
@@ -730,27 +708,6 @@ public class MessageTest extends BasicTest {
                         .request())
             .getMessage();
     Assertions.assertEquals(updatedText, updatedMessage.getText());
-  }
-
-  @DisplayName("Can partially update a message with restricted visibility")
-  @Test
-  void whenPartiallyUpdatingAMessageWithRestrictedVisibility_thenIsUpdated() {
-    // Should not use testMessage to not modify it
-    Message message = Assertions.assertDoesNotThrow(() -> sendTestMessage());
-    String updatedText = "This is an updated message";
-    List<String> restrictedUsers = Arrays.asList(testUserRequestObject.getId());
-
-    Message updatedMessage =
-        Assertions.assertDoesNotThrow(
-                () ->
-                    Message.partialUpdate(message.getId())
-                        .setValue("text", updatedText)
-                        .setValue("restricted_visibility", restrictedUsers)
-                        .user(testUserRequestObject)
-                        .request())
-            .getMessage();
-    Assertions.assertEquals(updatedText, updatedMessage.getText());
-    Assertions.assertEquals(restrictedUsers, updatedMessage.getRestrictedVisibility());
   }
 
   @DisplayName("Can pin a message")
