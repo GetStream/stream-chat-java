@@ -95,19 +95,32 @@ public class ChannelBatchUpdaterTest extends BasicTest {
                 return "completed".equals(taskStatusResponse.getStatus());
               });
 
-          // Verify members were added by querying channels
+          // Verify members were added to both channels
           waitFor(
               () -> {
                 var ch1State =
                     Assertions.assertDoesNotThrow(
                         () ->
                             Channel.getOrCreate(ch1.getType(), ch1.getId()).request().getChannel());
+                var ch2State =
+                    Assertions.assertDoesNotThrow(
+                        () ->
+                            Channel.getOrCreate(ch2.getType(), ch2.getId()).request().getChannel());
+                if (ch1State.getMembers() == null || ch2State.getMembers() == null) {
+                  return false;
+                }
                 var ch1MemberIds =
                     ch1State.getMembers().stream()
                         .map(ChannelMember::getUserId)
                         .collect(Collectors.toList());
-                return ch1MemberIds.containsAll(
-                    usersToAdd.stream().map(user -> user.getId()).collect(Collectors.toList()));
+                var ch2MemberIds =
+                    ch2State.getMembers().stream()
+                        .map(ChannelMember::getUserId)
+                        .collect(Collectors.toList());
+                var userIdsToAdd =
+                    usersToAdd.stream().map(user -> user.getId()).collect(Collectors.toList());
+                return ch1MemberIds.containsAll(userIdsToAdd)
+                    && ch2MemberIds.containsAll(userIdsToAdd);
               });
         });
   }
@@ -167,6 +180,8 @@ public class ChannelBatchUpdaterTest extends BasicTest {
           // Verify members are present
           var ch1State = Channel.getOrCreate(ch1.getType(), ch1.getId()).request().getChannel();
           var ch2State = Channel.getOrCreate(ch2.getType(), ch2.getId()).request().getChannel();
+          Assertions.assertNotNull(ch1State.getMembers());
+          Assertions.assertNotNull(ch2State.getMembers());
           Assertions.assertTrue(ch1State.getMembers().size() >= 2);
           Assertions.assertTrue(ch2State.getMembers().size() >= 2);
 
@@ -205,18 +220,30 @@ public class ChannelBatchUpdaterTest extends BasicTest {
                 return "completed".equals(taskStatusResponse.getStatus());
               });
 
-          // Verify member was removed
+          // Verify member was removed from both channels
           waitFor(
               () -> {
                 var ch1StateAfter =
                     Assertions.assertDoesNotThrow(
                         () ->
                             Channel.getOrCreate(ch1.getType(), ch1.getId()).request().getChannel());
+                var ch2StateAfter =
+                    Assertions.assertDoesNotThrow(
+                        () ->
+                            Channel.getOrCreate(ch2.getType(), ch2.getId()).request().getChannel());
+                if (ch1StateAfter.getMembers() == null || ch2StateAfter.getMembers() == null) {
+                  return false;
+                }
                 var ch1MemberIdsAfter =
                     ch1StateAfter.getMembers().stream()
                         .map(ChannelMember::getUserId)
                         .collect(Collectors.toList());
-                return !ch1MemberIdsAfter.contains(memberToRemove);
+                var ch2MemberIdsAfter =
+                    ch2StateAfter.getMembers().stream()
+                        .map(ChannelMember::getUserId)
+                        .collect(Collectors.toList());
+                return !ch1MemberIdsAfter.contains(memberToRemove)
+                    && !ch2MemberIdsAfter.contains(memberToRemove);
               });
         });
   }
@@ -294,19 +321,34 @@ public class ChannelBatchUpdaterTest extends BasicTest {
                 return "completed".equals(taskStatusResponse.getStatus());
               });
 
-          // Verify channel was archived
+          // Verify channel was archived for the specified member in both channels
           waitFor(
               () -> {
                 var ch1State =
                     Assertions.assertDoesNotThrow(
                         () ->
                             Channel.getOrCreate(ch1.getType(), ch1.getId()).request().getChannel());
-                var member =
+                var ch2State =
+                    Assertions.assertDoesNotThrow(
+                        () ->
+                            Channel.getOrCreate(ch2.getType(), ch2.getId()).request().getChannel());
+                if (ch1State.getMembers() == null || ch2State.getMembers() == null) {
+                  return false;
+                }
+                var ch1Member =
                     ch1State.getMembers().stream()
                         .filter(m -> m.getUserId().equals(membersId.get(0)))
                         .findFirst()
                         .orElse(null);
-                return member != null && member.getArchivedAt() != null;
+                var ch2Member =
+                    ch2State.getMembers().stream()
+                        .filter(m -> m.getUserId().equals(membersId.get(0)))
+                        .findFirst()
+                        .orElse(null);
+                return ch1Member != null
+                    && ch1Member.getArchivedAt() != null
+                    && ch2Member != null
+                    && ch2Member.getArchivedAt() != null;
               });
         });
   }
