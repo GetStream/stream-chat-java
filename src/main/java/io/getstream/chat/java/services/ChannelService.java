@@ -111,5 +111,5 @@ public interface ChannelService {
 
   @PUT("channels/batch")
   Call<Channel.ChannelsBatchUpdateResponse> updateBatch(
-      @NotNull @Body Channel.ChannelsBatchUpdateRequest request);
+      @NotNull @Body Channel.ChannelsBatchOptions options);
 }

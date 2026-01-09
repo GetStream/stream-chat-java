@@ -2004,7 +2004,7 @@ public class Channel {
 
     @Override
     protected Call<ChannelsBatchUpdateResponse> generateCall(Client client) throws StreamException {
-      return client.create(ChannelService.class).updateBatch(this);
+      return client.create(ChannelService.class).updateBatch(this.options);
     }
   }
 
