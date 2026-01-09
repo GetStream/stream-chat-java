@@ -18,7 +18,6 @@ import io.getstream.chat.java.models.Channel.ChannelTruncateRequestData.ChannelT
 import io.getstream.chat.java.models.Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest;
 import io.getstream.chat.java.models.Channel.ChannelUpdateRequestData.ChannelUpdateRequest;
 import io.getstream.chat.java.models.Channel.MarkDeliveredRequestData.MarkDeliveredRequest;
-import io.getstream.chat.java.models.ChannelBatchUpdater;
 import io.getstream.chat.java.models.ChannelType.BlocklistBehavior;
 import io.getstream.chat.java.models.ChannelType.ChannelTypeWithCommands;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
@@ -1877,9 +1876,7 @@ public class Channel {
     return new MarkDeliveredRequest();
   }
 
-  /**
-   * Channel batch operation types
-   */
+  /** Channel batch operation types */
   public enum ChannelBatchOperation {
     @JsonProperty("addMembers")
     ADD_MEMBERS,
@@ -1909,9 +1906,7 @@ public class Channel {
     REMOVE_FILTER_TAGS
   }
 
-  /**
-   * Represents a member in batch operations
-   */
+  /** Represents a member in batch operations */
   @Data
   @NoArgsConstructor
   @AllArgsConstructor
@@ -1925,9 +1920,7 @@ public class Channel {
     private String channelRole;
   }
 
-  /**
-   * Represents data that can be updated on channels in batch
-   */
+  /** Represents data that can be updated on channels in batch */
   @Data
   @NoArgsConstructor
   public static class ChannelDataUpdate {
@@ -1960,9 +1953,7 @@ public class Channel {
     private String autoTranslationLanguage;
   }
 
-  /**
-   * Represents filters for batch channel updates
-   */
+  /** Represents filters for batch channel updates */
   @Data
   @NoArgsConstructor
   public static class ChannelsBatchFilters {
@@ -1979,9 +1970,7 @@ public class Channel {
     private Object filterTags;
   }
 
-  /**
-   * Represents options for batch channel updates
-   */
+  /** Represents options for batch channel updates */
   @Data
   @NoArgsConstructor
   public static class ChannelsBatchOptions {
@@ -2014,8 +2003,7 @@ public class Channel {
     @NotNull private ChannelsBatchOptions options;
 
     @Override
-    protected Call<ChannelsBatchUpdateResponse> generateCall(Client client)
-        throws StreamException {
+    protected Call<ChannelsBatchUpdateResponse> generateCall(Client client) throws StreamException {
       return client.create(ChannelService.class).updateBatch(this);
     }
   }

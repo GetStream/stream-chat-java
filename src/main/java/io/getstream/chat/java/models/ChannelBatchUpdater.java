@@ -4,9 +4,7 @@ import io.getstream.chat.java.models.Channel.*;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * Provides convenience methods for batch channel operations.
- */
+/** Provides convenience methods for batch channel operations. */
 public class ChannelBatchUpdater {
 
   /**

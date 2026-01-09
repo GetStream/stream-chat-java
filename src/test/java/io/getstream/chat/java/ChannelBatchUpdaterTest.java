@@ -1,9 +1,7 @@
 package io.getstream.chat.java;
 
-import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.Channel.*;
-import io.getstream.chat.java.models.ChannelBatchUpdater;
 import io.getstream.chat.java.models.TaskStatus;
 import io.getstream.chat.java.models.TaskStatus.TaskStatusGetResponse;
 import io.getstream.chat.java.models.User;
@@ -44,8 +42,7 @@ public class ChannelBatchUpdaterTest extends BasicTest {
           var options = new ChannelsBatchOptions();
           options.setOperation(ChannelBatchOperation.ADD_MEMBERS);
           options.setFilter(filter);
-          options.setMembers(
-              List.of(new ChannelBatchMemberRequest(userToAdd.getId(), null)));
+          options.setMembers(List.of(new ChannelBatchMemberRequest(userToAdd.getId(), null)));
 
           var response = Channel.updateBatch(options).request();
           Assertions.assertNotNull(response.getTaskId());
@@ -104,9 +101,7 @@ public class ChannelBatchUpdaterTest extends BasicTest {
                 var ch1State =
                     Assertions.assertDoesNotThrow(
                         () ->
-                            Channel.getOrCreate(ch1.getType(), ch1.getId())
-                                .request()
-                                .getChannel());
+                            Channel.getOrCreate(ch1.getType(), ch1.getId()).request().getChannel());
                 var ch1MemberIds =
                     ch1State.getMembers().stream()
                         .map(ChannelMember::getUserId)
@@ -197,7 +192,8 @@ public class ChannelBatchUpdaterTest extends BasicTest {
 
           var response =
               updater
-                  .removeMembers(filter, List.of(new ChannelBatchMemberRequest(memberToRemove, null)))
+                  .removeMembers(
+                      filter, List.of(new ChannelBatchMemberRequest(memberToRemove, null)))
                   .request();
           Assertions.assertNotNull(response.getTaskId());
           var taskId = response.getTaskId();
@@ -215,9 +211,7 @@ public class ChannelBatchUpdaterTest extends BasicTest {
                 var ch1StateAfter =
                     Assertions.assertDoesNotThrow(
                         () ->
-                            Channel.getOrCreate(ch1.getType(), ch1.getId())
-                                .request()
-                                .getChannel());
+                            Channel.getOrCreate(ch1.getType(), ch1.getId()).request().getChannel());
                 var ch1MemberIdsAfter =
                     ch1StateAfter.getMembers().stream()
                         .map(ChannelMember::getUserId)
@@ -306,9 +300,7 @@ public class ChannelBatchUpdaterTest extends BasicTest {
                 var ch1State =
                     Assertions.assertDoesNotThrow(
                         () ->
-                            Channel.getOrCreate(ch1.getType(), ch1.getId())
-                                .request()
-                                .getChannel());
+                            Channel.getOrCreate(ch1.getType(), ch1.getId()).request().getChannel());
                 var member =
                     ch1State.getMembers().stream()
                         .filter(m -> m.getUserId().equals(membersId.get(0)))
