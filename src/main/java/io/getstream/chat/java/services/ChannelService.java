@@ -108,4 +108,8 @@ public interface ChannelService {
   Call<StreamResponseObject> markDelivered(
       @NotNull @Body MarkDeliveredRequestData markDeliveredOptions,
       @Query("user_id") String userId);
+
+  @PUT("channels/batch")
+  Call<Channel.ChannelsBatchUpdateResponse> updateBatch(
+      @NotNull @Body Channel.ChannelsBatchUpdateRequest request);
 }

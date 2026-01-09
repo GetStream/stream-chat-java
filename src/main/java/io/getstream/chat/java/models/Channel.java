@@ -18,6 +18,7 @@ import io.getstream.chat.java.models.Channel.ChannelTruncateRequestData.ChannelT
 import io.getstream.chat.java.models.Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest;
 import io.getstream.chat.java.models.Channel.ChannelUpdateRequestData.ChannelUpdateRequest;
 import io.getstream.chat.java.models.Channel.MarkDeliveredRequestData.MarkDeliveredRequest;
+import io.getstream.chat.java.models.ChannelBatchUpdater;
 import io.getstream.chat.java.models.ChannelType.BlocklistBehavior;
 import io.getstream.chat.java.models.ChannelType.ChannelTypeWithCommands;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
@@ -1874,5 +1875,178 @@ public class Channel {
   @NotNull
   public static MarkDeliveredRequest markDelivered() {
     return new MarkDeliveredRequest();
+  }
+
+  /**
+   * Channel batch operation types
+   */
+  public enum ChannelBatchOperation {
+    @JsonProperty("addMembers")
+    ADD_MEMBERS,
+    @JsonProperty("removeMembers")
+    REMOVE_MEMBERS,
+    @JsonProperty("inviteMembers")
+    INVITE_MEMBERS,
+    @JsonProperty("assignRoles")
+    ASSIGN_ROLES,
+    @JsonProperty("addModerators")
+    ADD_MODERATORS,
+    @JsonProperty("demoteModerators")
+    DEMOTE_MODERATORS,
+    @JsonProperty("hide")
+    HIDE,
+    @JsonProperty("show")
+    SHOW,
+    @JsonProperty("archive")
+    ARCHIVE,
+    @JsonProperty("unarchive")
+    UNARCHIVE,
+    @JsonProperty("updateData")
+    UPDATE_DATA,
+    @JsonProperty("addFilterTags")
+    ADD_FILTER_TAGS,
+    @JsonProperty("removeFilterTags")
+    REMOVE_FILTER_TAGS
+  }
+
+  /**
+   * Represents a member in batch operations
+   */
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public static class ChannelBatchMemberRequest {
+    @NotNull
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("channel_role")
+    private String channelRole;
+  }
+
+  /**
+   * Represents data that can be updated on channels in batch
+   */
+  @Data
+  @NoArgsConstructor
+  public static class ChannelDataUpdate {
+    @Nullable
+    @JsonProperty("frozen")
+    private Boolean frozen;
+
+    @Nullable
+    @JsonProperty("disabled")
+    private Boolean disabled;
+
+    @Nullable
+    @JsonProperty("custom")
+    private Map<String, Object> custom;
+
+    @Nullable
+    @JsonProperty("team")
+    private String team;
+
+    @Nullable
+    @JsonProperty("config_overrides")
+    private Map<String, Object> configOverrides;
+
+    @Nullable
+    @JsonProperty("auto_translation_enabled")
+    private Boolean autoTranslationEnabled;
+
+    @Nullable
+    @JsonProperty("auto_translation_language")
+    private String autoTranslationLanguage;
+  }
+
+  /**
+   * Represents filters for batch channel updates
+   */
+  @Data
+  @NoArgsConstructor
+  public static class ChannelsBatchFilters {
+    @Nullable
+    @JsonProperty("cids")
+    private Object cids;
+
+    @Nullable
+    @JsonProperty("types")
+    private Object types;
+
+    @Nullable
+    @JsonProperty("filter_tags")
+    private Object filterTags;
+  }
+
+  /**
+   * Represents options for batch channel updates
+   */
+  @Data
+  @NoArgsConstructor
+  public static class ChannelsBatchOptions {
+    @NotNull
+    @JsonProperty("operation")
+    private ChannelBatchOperation operation;
+
+    @NotNull
+    @JsonProperty("filter")
+    private ChannelsBatchFilters filter;
+
+    @Nullable
+    @JsonProperty("members")
+    private List<ChannelBatchMemberRequest> members;
+
+    @Nullable
+    @JsonProperty("data")
+    private ChannelDataUpdate data;
+
+    @Nullable
+    @JsonProperty("filter_tags_update")
+    private List<String> filterTagsUpdate;
+  }
+
+  @Getter
+  @EqualsAndHashCode
+  @RequiredArgsConstructor
+  public static class ChannelsBatchUpdateRequest
+      extends StreamRequest<ChannelsBatchUpdateResponse> {
+    @NotNull private ChannelsBatchOptions options;
+
+    @Override
+    protected Call<ChannelsBatchUpdateResponse> generateCall(Client client)
+        throws StreamException {
+      return client.create(ChannelService.class).updateBatch(this);
+    }
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class ChannelsBatchUpdateResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("task_id")
+    private String taskId;
+  }
+
+  /**
+   * Creates a batch update request
+   *
+   * @param options the batch update options
+   * @return the created request
+   */
+  @NotNull
+  public static ChannelsBatchUpdateRequest updateBatch(@NotNull ChannelsBatchOptions options) {
+    return new ChannelsBatchUpdateRequest(options);
+  }
+
+  /**
+   * Returns a ChannelBatchUpdater instance for batch channel operations.
+   *
+   * @return ChannelBatchUpdater instance
+   */
+  @NotNull
+  public static ChannelBatchUpdater channelBatchUpdater() {
+    return new ChannelBatchUpdater();
   }
 }
