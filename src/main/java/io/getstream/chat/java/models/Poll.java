@@ -531,6 +531,31 @@ public class Poll {
     }
   }
 
+  /** Request for deleting a poll option. */
+  @Getter
+  @EqualsAndHashCode
+  public static class DeletePollOptionRequest extends StreamRequest<StreamResponseObject> {
+    @NotNull private final String pollId;
+    @NotNull private final String optionId;
+    @Nullable private String userId;
+
+    public DeletePollOptionRequest(@NotNull String pollId, @NotNull String optionId) {
+      this.pollId = pollId;
+      this.optionId = optionId;
+    }
+
+    @NotNull
+    public DeletePollOptionRequest userId(@NotNull String userId) {
+      this.userId = userId;
+      return this;
+    }
+
+    @Override
+    protected Call<StreamResponseObject> generateCall(Client client) throws StreamException {
+      return client.create(PollService.class).deleteOption(this.pollId, this.optionId, this.userId);
+    }
+  }
+
   /** Request data for creating a poll. */
   @Builder(
       builderClassName = "CreatePollRequest",
@@ -670,5 +695,18 @@ public class Poll {
   public static UpdatePollOptionRequestData.UpdatePollOptionRequest updateOption(
       @NotNull String pollId) {
     return new UpdatePollOptionRequestData.UpdatePollOptionRequest(pollId);
+  }
+
+  /**
+   * Deletes a poll option.
+   *
+   * @param pollId the poll ID
+   * @param optionId the option ID
+   * @return the created request
+   */
+  @NotNull
+  public static DeletePollOptionRequest deleteOption(
+      @NotNull String pollId, @NotNull String optionId) {
+    return new DeletePollOptionRequest(pollId, optionId);
   }
 }

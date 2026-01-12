@@ -98,4 +98,18 @@ public interface PollService {
   @PUT("polls/{poll_id}/options")
   Call<UpdatePollOptionResponse> updateOption(
       @NotNull @Path("poll_id") String pollId, @NotNull @Body UpdatePollOptionRequestData request);
+
+  /**
+   * Deletes a poll option.
+   *
+   * @param pollId The poll ID
+   * @param optionId The option ID
+   * @param userId Optional user ID
+   * @return A response indicating success
+   */
+  @DELETE("polls/{poll_id}/options/{option_id}")
+  Call<StreamResponseObject> deleteOption(
+      @NotNull @Path("poll_id") String pollId,
+      @NotNull @Path("option_id") String optionId,
+      @Nullable @Query("user_id") String userId);
 }

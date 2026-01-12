@@ -350,4 +350,32 @@ public class PollTest extends BasicTest {
     Assertions.assertNotNull(updateResponse.getPollOption());
     Assertions.assertEquals(newText, updateResponse.getPollOption().getText());
   }
+
+  @DisplayName("Can delete a poll option")
+  @Test
+  void whenDeletingPollOption_thenNoException() {
+    // Create a poll with multiple options
+    CreatePollResponse createResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Poll.create()
+                    .name("Poll for option delete " + UUID.randomUUID())
+                    .userId(testUserRequestObject.getId())
+                    .option(PollOptionRequestObject.builder().text("Option 1").build())
+                    .option(PollOptionRequestObject.builder().text("Option 2").build())
+                    .request());
+
+    String pollId = createResponse.getPoll().getId();
+    String optionId = createResponse.getPoll().getOptions().get(0).getId();
+
+    // Delete the option
+    StreamResponseObject deleteResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Poll.deleteOption(pollId, optionId)
+                    .userId(testUserRequestObject.getId())
+                    .request());
+
+    Assertions.assertNotNull(deleteResponse);
+  }
 }
