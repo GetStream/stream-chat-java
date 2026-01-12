@@ -1,5 +1,7 @@
 package io.getstream.chat.java.services;
 
+import io.getstream.chat.java.models.Poll.CreatePollOptionRequestData;
+import io.getstream.chat.java.models.Poll.CreatePollOptionResponse;
 import io.getstream.chat.java.models.Poll.CreatePollRequestData;
 import io.getstream.chat.java.models.Poll.CreatePollResponse;
 import io.getstream.chat.java.models.Poll.GetPollResponse;
@@ -72,4 +74,15 @@ public interface PollService {
   @DELETE("polls/{poll_id}")
   Call<StreamResponseObject> delete(
       @NotNull @Path("poll_id") String pollId, @Nullable @Query("user_id") String userId);
+
+  /**
+   * Creates a poll option.
+   *
+   * @param pollId The poll ID
+   * @param request The poll option creation request data
+   * @return A response with the created poll option
+   */
+  @POST("polls/{poll_id}/options")
+  Call<CreatePollOptionResponse> createOption(
+      @NotNull @Path("poll_id") String pollId, @NotNull @Body CreatePollOptionRequestData request);
 }

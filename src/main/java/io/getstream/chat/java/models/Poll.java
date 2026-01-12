@@ -427,6 +427,58 @@ public class Poll {
     }
   }
 
+  /** Response for creating a poll option. */
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class CreatePollOptionResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("poll_option")
+    private PollOption pollOption;
+  }
+
+  /** Request data for creating a poll option. */
+  @Builder(
+      builderClassName = "CreatePollOptionRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
+  public static class CreatePollOptionRequestData {
+    @Nullable
+    @JsonProperty("id")
+    private String id;
+
+    @Nullable
+    @JsonProperty("text")
+    private String text;
+
+    @Nullable
+    @JsonProperty("position")
+    private Integer position;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    public static class CreatePollOptionRequest extends StreamRequest<CreatePollOptionResponse> {
+      @NotNull private String pollId;
+
+      private CreatePollOptionRequest(@NotNull String pollId) {
+        this.pollId = pollId;
+      }
+
+      @Override
+      protected Call<CreatePollOptionResponse> generateCall(Client client) throws StreamException {
+        return client.create(PollService.class).createOption(this.pollId, this.internalBuild());
+      }
+    }
+  }
+
   /** Request data for creating a poll. */
   @Builder(
       builderClassName = "CreatePollRequest",
@@ -542,5 +594,17 @@ public class Poll {
   @NotNull
   public static DeletePollRequest delete(@NotNull String pollId) {
     return new DeletePollRequest(pollId);
+  }
+
+  /**
+   * Creates a poll option.
+   *
+   * @param pollId the poll ID
+   * @return the created request
+   */
+  @NotNull
+  public static CreatePollOptionRequestData.CreatePollOptionRequest createOption(
+      @NotNull String pollId) {
+    return new CreatePollOptionRequestData.CreatePollOptionRequest(pollId);
   }
 }

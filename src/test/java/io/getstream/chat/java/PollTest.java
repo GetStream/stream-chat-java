@@ -1,6 +1,7 @@
 package io.getstream.chat.java;
 
 import io.getstream.chat.java.models.Poll;
+import io.getstream.chat.java.models.Poll.CreatePollOptionResponse;
 import io.getstream.chat.java.models.Poll.CreatePollResponse;
 import io.getstream.chat.java.models.Poll.GetPollResponse;
 import io.getstream.chat.java.models.Poll.PollOptionRequestObject;
@@ -284,5 +285,36 @@ public class PollTest extends BasicTest {
             () -> Poll.delete(pollId).userId(testUserRequestObject.getId()).request());
 
     Assertions.assertNotNull(deleteResponse);
+  }
+
+  @DisplayName("Can create a poll option")
+  @Test
+  void whenCreatingPollOption_thenNoException() {
+    // Create a poll first (with allow_user_suggested_options enabled)
+    CreatePollResponse createResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Poll.create()
+                    .name("Poll for options " + UUID.randomUUID())
+                    .allowUserSuggestedOptions(true)
+                    .userId(testUserRequestObject.getId())
+                    .option(PollOptionRequestObject.builder().text("Initial Option").build())
+                    .request());
+
+    String pollId = createResponse.getPoll().getId();
+
+    // Create a new option
+    CreatePollOptionResponse optionResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Poll.createOption(pollId)
+                    .text("New Option " + UUID.randomUUID())
+                    .userId(testUserRequestObject.getId())
+                    .request());
+
+    Assertions.assertNotNull(optionResponse);
+    Assertions.assertNotNull(optionResponse.getPollOption());
+    Assertions.assertNotNull(optionResponse.getPollOption().getId());
+    Assertions.assertNotNull(optionResponse.getPollOption().getText());
   }
 }
