@@ -290,6 +290,83 @@ public class Poll {
     }
   }
 
+  /** Response for updating a poll. */
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class UpdatePollResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("poll")
+    private Poll poll;
+  }
+
+  /** Request data for updating a poll. */
+  @Builder(
+      builderClassName = "UpdatePollRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
+  public static class UpdatePollRequestData {
+    @Nullable
+    @JsonProperty("id")
+    private String id;
+
+    @Nullable
+    @JsonProperty("name")
+    private String name;
+
+    @Nullable
+    @JsonProperty("description")
+    private String description;
+
+    @Nullable
+    @JsonProperty("voting_visibility")
+    private VotingVisibility votingVisibility;
+
+    @Nullable
+    @JsonProperty("enforce_unique_vote")
+    private Boolean enforceUniqueVote;
+
+    @Nullable
+    @JsonProperty("max_votes_allowed")
+    private Integer maxVotesAllowed;
+
+    @Nullable
+    @JsonProperty("allow_user_suggested_options")
+    private Boolean allowUserSuggestedOptions;
+
+    @Nullable
+    @JsonProperty("allow_answers")
+    private Boolean allowAnswers;
+
+    @Nullable
+    @JsonProperty("is_closed")
+    private Boolean isClosed;
+
+    @Singular
+    @Nullable
+    @JsonProperty("options")
+    private List<PollOptionRequestObject> options;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    public static class UpdatePollRequest extends StreamRequest<UpdatePollResponse> {
+      public UpdatePollRequest() {}
+
+      @Override
+      protected Call<UpdatePollResponse> generateCall(Client client) throws StreamException {
+        return client.create(PollService.class).update(this.internalBuild());
+      }
+    }
+  }
+
   /** Request data for creating a poll. */
   @Builder(
       builderClassName = "CreatePollRequest",
@@ -372,5 +449,15 @@ public class Poll {
   @NotNull
   public static GetPollRequest get(@NotNull String pollId) {
     return new GetPollRequest(pollId);
+  }
+
+  /**
+   * Updates a poll (full update).
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static UpdatePollRequestData.UpdatePollRequest update() {
+    return new UpdatePollRequestData.UpdatePollRequest();
   }
 }

@@ -4,6 +4,7 @@ import io.getstream.chat.java.models.Poll;
 import io.getstream.chat.java.models.Poll.CreatePollResponse;
 import io.getstream.chat.java.models.Poll.GetPollResponse;
 import io.getstream.chat.java.models.Poll.PollOptionRequestObject;
+import io.getstream.chat.java.models.Poll.UpdatePollResponse;
 import io.getstream.chat.java.models.Poll.VotingVisibility;
 import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
@@ -135,5 +136,69 @@ public class PollTest extends BasicTest {
                     .request());
 
     Assertions.assertNotNull(getResponse.getPoll());
+  }
+
+  @DisplayName("Can update a poll")
+  @Test
+  void whenUpdatingPoll_thenNoException() {
+    // Create a poll first
+    CreatePollResponse createResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Poll.create()
+                    .name("Original Name")
+                    .userId(testUserRequestObject.getId())
+                    .option(PollOptionRequestObject.builder().text("Option 1").build())
+                    .request());
+
+    String pollId = createResponse.getPoll().getId();
+
+    // Update the poll
+    String newName = "Updated Name " + UUID.randomUUID();
+    UpdatePollResponse updateResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Poll.update()
+                    .id(pollId)
+                    .name(newName)
+                    .description("Updated description")
+                    .userId(testUserRequestObject.getId())
+                    .option(PollOptionRequestObject.builder().text("New Option 1").build())
+                    .option(PollOptionRequestObject.builder().text("New Option 2").build())
+                    .request());
+
+    Assertions.assertNotNull(updateResponse);
+    Assertions.assertEquals(newName, updateResponse.getPoll().getName());
+    Assertions.assertEquals("Updated description", updateResponse.getPoll().getDescription());
+  }
+
+  @DisplayName("Can close a poll via update")
+  @Test
+  void whenClosingPoll_thenNoException() {
+    // Create a poll first
+    CreatePollResponse createResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Poll.create()
+                    .name("Poll to close " + UUID.randomUUID())
+                    .userId(testUserRequestObject.getId())
+                    .option(PollOptionRequestObject.builder().text("A").build())
+                    .request());
+
+    String pollId = createResponse.getPoll().getId();
+
+    // Close the poll
+    UpdatePollResponse updateResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Poll.update()
+                    .id(pollId)
+                    .name("Poll to close")
+                    .isClosed(true)
+                    .userId(testUserRequestObject.getId())
+                    .request());
+
+    Assertions.assertNotNull(updateResponse);
+    Assertions.assertTrue(updateResponse.getPoll().getIsClosed());
   }
 }
