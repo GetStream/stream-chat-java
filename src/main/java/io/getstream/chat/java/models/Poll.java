@@ -260,6 +260,36 @@ public class Poll {
     private Poll poll;
   }
 
+  /** Response for getting a poll. */
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class GetPollResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("poll")
+    private Poll poll;
+  }
+
+  /** Request for getting a poll. */
+  @Getter
+  @EqualsAndHashCode
+  @RequiredArgsConstructor
+  public static class GetPollRequest extends StreamRequest<GetPollResponse> {
+    @NotNull private final String pollId;
+    @Nullable private String userId;
+
+    @NotNull
+    public GetPollRequest userId(@NotNull String userId) {
+      this.userId = userId;
+      return this;
+    }
+
+    @Override
+    protected Call<GetPollResponse> generateCall(Client client) throws StreamException {
+      return client.create(PollService.class).get(this.pollId, this.userId);
+    }
+  }
+
   /** Request data for creating a poll. */
   @Builder(
       builderClassName = "CreatePollRequest",
@@ -331,5 +361,16 @@ public class Poll {
   @NotNull
   public static CreatePollRequest create() {
     return new CreatePollRequest();
+  }
+
+  /**
+   * Gets a poll by ID.
+   *
+   * @param pollId the poll ID
+   * @return the created request
+   */
+  @NotNull
+  public static GetPollRequest get(@NotNull String pollId) {
+    return new GetPollRequest(pollId);
   }
 }
