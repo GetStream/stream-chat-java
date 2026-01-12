@@ -6,6 +6,8 @@ import io.getstream.chat.java.models.Poll.CreatePollRequestData;
 import io.getstream.chat.java.models.Poll.CreatePollResponse;
 import io.getstream.chat.java.models.Poll.GetPollResponse;
 import io.getstream.chat.java.models.Poll.PartialUpdatePollRequestData;
+import io.getstream.chat.java.models.Poll.QueryPollsRequestData;
+import io.getstream.chat.java.models.Poll.QueryPollsResponse;
 import io.getstream.chat.java.models.Poll.UpdatePollOptionRequestData;
 import io.getstream.chat.java.models.Poll.UpdatePollOptionResponse;
 import io.getstream.chat.java.models.Poll.UpdatePollRequestData;
@@ -112,4 +114,13 @@ public interface PollService {
       @NotNull @Path("poll_id") String pollId,
       @NotNull @Path("option_id") String optionId,
       @Nullable @Query("user_id") String userId);
+
+  /**
+   * Queries polls.
+   *
+   * @param request The query polls request data
+   * @return A response with the matching polls
+   */
+  @POST("polls/query")
+  Call<QueryPollsResponse> query(@NotNull @Body QueryPollsRequestData request);
 }

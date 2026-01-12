@@ -556,6 +556,71 @@ public class Poll {
     }
   }
 
+  /** Response for querying polls. */
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class QueryPollsResponse extends StreamResponseObject {
+    @Nullable
+    @JsonProperty("polls")
+    private List<Poll> polls;
+
+    @Nullable
+    @JsonProperty("next")
+    private String next;
+
+    @Nullable
+    @JsonProperty("prev")
+    private String prev;
+  }
+
+  /** Request data for querying polls. */
+  @Builder(
+      builderClassName = "QueryPollsRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
+  public static class QueryPollsRequestData {
+    @Nullable
+    @JsonProperty("filter")
+    private Map<String, Object> filter;
+
+    @Singular
+    @Nullable
+    @JsonProperty("sort")
+    private List<Sort> sorts;
+
+    @Nullable
+    @JsonProperty("limit")
+    private Integer limit;
+
+    @Nullable
+    @JsonProperty("next")
+    private String next;
+
+    @Nullable
+    @JsonProperty("prev")
+    private String prev;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    public static class QueryPollsRequest extends StreamRequest<QueryPollsResponse> {
+      public QueryPollsRequest() {}
+
+      @Override
+      protected Call<QueryPollsResponse> generateCall(Client client) throws StreamException {
+        return client.create(PollService.class).query(this.internalBuild());
+      }
+    }
+  }
+
   /** Request data for creating a poll. */
   @Builder(
       builderClassName = "CreatePollRequest",
@@ -708,5 +773,15 @@ public class Poll {
   public static DeletePollOptionRequest deleteOption(
       @NotNull String pollId, @NotNull String optionId) {
     return new DeletePollOptionRequest(pollId, optionId);
+  }
+
+  /**
+   * Queries polls.
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static QueryPollsRequestData.QueryPollsRequest query() {
+    return new QueryPollsRequestData.QueryPollsRequest();
   }
 }

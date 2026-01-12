@@ -5,10 +5,13 @@ import io.getstream.chat.java.models.Poll.CreatePollOptionResponse;
 import io.getstream.chat.java.models.Poll.CreatePollResponse;
 import io.getstream.chat.java.models.Poll.GetPollResponse;
 import io.getstream.chat.java.models.Poll.PollOptionRequestObject;
+import io.getstream.chat.java.models.Poll.QueryPollsResponse;
 import io.getstream.chat.java.models.Poll.UpdatePollOptionResponse;
 import io.getstream.chat.java.models.Poll.UpdatePollResponse;
 import io.getstream.chat.java.models.Poll.VotingVisibility;
+import io.getstream.chat.java.models.Sort;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
+import java.util.Map;
 import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -377,5 +380,54 @@ public class PollTest extends BasicTest {
                     .request());
 
     Assertions.assertNotNull(deleteResponse);
+  }
+
+  @DisplayName("Can query polls")
+  @Test
+  void whenQueryingPolls_thenNoException() {
+    // Create a poll first
+    Assertions.assertDoesNotThrow(
+        () ->
+            Poll.create()
+                .name("Query Poll " + UUID.randomUUID())
+                .userId(testUserRequestObject.getId())
+                .option(PollOptionRequestObject.builder().text("Option 1").build())
+                .request());
+
+    // Query polls
+    QueryPollsResponse queryResponse =
+        Assertions.assertDoesNotThrow(
+            () -> Poll.query().userId(testUserRequestObject.getId()).request());
+
+    Assertions.assertNotNull(queryResponse);
+    Assertions.assertNotNull(queryResponse.getPolls());
+  }
+
+  @DisplayName("Can query polls with filter and sort")
+  @Test
+  void whenQueryingPollsWithFilterAndSort_thenNoException() {
+    // Create a poll first
+    String pollName = "Filter Poll " + UUID.randomUUID();
+    Assertions.assertDoesNotThrow(
+        () ->
+            Poll.create()
+                .name(pollName)
+                .userId(testUserRequestObject.getId())
+                .option(PollOptionRequestObject.builder().text("Option 1").build())
+                .request());
+
+    // Query polls with filter and sort
+    QueryPollsResponse queryResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Poll.query()
+                    .filter(Map.of("name", pollName))
+                    .sort(Sort.builder().field("created_at").direction(Sort.Direction.DESC).build())
+                    .limit(10)
+                    .userId(testUserRequestObject.getId())
+                    .request());
+
+    Assertions.assertNotNull(queryResponse);
+    Assertions.assertNotNull(queryResponse.getPolls());
   }
 }
