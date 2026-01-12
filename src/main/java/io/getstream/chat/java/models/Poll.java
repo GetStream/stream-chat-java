@@ -407,6 +407,26 @@ public class Poll {
     }
   }
 
+  /** Request for deleting a poll. */
+  @Getter
+  @EqualsAndHashCode
+  @RequiredArgsConstructor
+  public static class DeletePollRequest extends StreamRequest<StreamResponseObject> {
+    @NotNull private final String pollId;
+    @Nullable private String userId;
+
+    @NotNull
+    public DeletePollRequest userId(@NotNull String userId) {
+      this.userId = userId;
+      return this;
+    }
+
+    @Override
+    protected Call<StreamResponseObject> generateCall(Client client) throws StreamException {
+      return client.create(PollService.class).delete(this.pollId, this.userId);
+    }
+  }
+
   /** Request data for creating a poll. */
   @Builder(
       builderClassName = "CreatePollRequest",
@@ -511,5 +531,16 @@ public class Poll {
   public static PartialUpdatePollRequestData.PartialUpdatePollRequest partialUpdate(
       @NotNull String pollId) {
     return new PartialUpdatePollRequestData.PartialUpdatePollRequest(pollId);
+  }
+
+  /**
+   * Deletes a poll.
+   *
+   * @param pollId the poll ID
+   * @return the created request
+   */
+  @NotNull
+  public static DeletePollRequest delete(@NotNull String pollId) {
+    return new DeletePollRequest(pollId);
   }
 }

@@ -6,10 +6,12 @@ import io.getstream.chat.java.models.Poll.GetPollResponse;
 import io.getstream.chat.java.models.Poll.PartialUpdatePollRequestData;
 import io.getstream.chat.java.models.Poll.UpdatePollRequestData;
 import io.getstream.chat.java.models.Poll.UpdatePollResponse;
+import io.getstream.chat.java.models.framework.StreamResponseObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -59,4 +61,15 @@ public interface PollService {
   @PATCH("polls/{poll_id}")
   Call<UpdatePollResponse> partialUpdate(
       @NotNull @Path("poll_id") String pollId, @NotNull @Body PartialUpdatePollRequestData request);
+
+  /**
+   * Deletes a poll.
+   *
+   * @param pollId The poll ID
+   * @param userId Optional user ID
+   * @return A response indicating success
+   */
+  @DELETE("polls/{poll_id}")
+  Call<StreamResponseObject> delete(
+      @NotNull @Path("poll_id") String pollId, @Nullable @Query("user_id") String userId);
 }

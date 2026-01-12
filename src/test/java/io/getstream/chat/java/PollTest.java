@@ -6,6 +6,7 @@ import io.getstream.chat.java.models.Poll.GetPollResponse;
 import io.getstream.chat.java.models.Poll.PollOptionRequestObject;
 import io.getstream.chat.java.models.Poll.UpdatePollResponse;
 import io.getstream.chat.java.models.Poll.VotingVisibility;
+import io.getstream.chat.java.models.framework.StreamResponseObject;
 import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -260,5 +261,28 @@ public class PollTest extends BasicTest {
 
     Assertions.assertNotNull(updateResponse);
     Assertions.assertNull(updateResponse.getPoll().getDescription());
+  }
+
+  @DisplayName("Can delete a poll")
+  @Test
+  void whenDeletingPoll_thenNoException() {
+    // Create a poll first
+    CreatePollResponse createResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Poll.create()
+                    .name("Poll to delete " + UUID.randomUUID())
+                    .userId(testUserRequestObject.getId())
+                    .option(PollOptionRequestObject.builder().text("A").build())
+                    .request());
+
+    String pollId = createResponse.getPoll().getId();
+
+    // Delete the poll
+    StreamResponseObject deleteResponse =
+        Assertions.assertDoesNotThrow(
+            () -> Poll.delete(pollId).userId(testUserRequestObject.getId()).request());
+
+    Assertions.assertNotNull(deleteResponse);
   }
 }
