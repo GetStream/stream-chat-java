@@ -3,6 +3,7 @@ package io.getstream.chat.java.services;
 import io.getstream.chat.java.models.Poll.CreatePollRequestData;
 import io.getstream.chat.java.models.Poll.CreatePollResponse;
 import io.getstream.chat.java.models.Poll.GetPollResponse;
+import io.getstream.chat.java.models.Poll.PartialUpdatePollRequestData;
 import io.getstream.chat.java.models.Poll.UpdatePollRequestData;
 import io.getstream.chat.java.models.Poll.UpdatePollResponse;
 import org.jetbrains.annotations.NotNull;
@@ -10,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -46,4 +48,15 @@ public interface PollService {
    */
   @PUT("polls")
   Call<UpdatePollResponse> update(@NotNull @Body UpdatePollRequestData request);
+
+  /**
+   * Partially updates a poll.
+   *
+   * @param pollId The poll ID
+   * @param request The partial update request data
+   * @return A response with the updated poll
+   */
+  @PATCH("polls/{poll_id}")
+  Call<UpdatePollResponse> partialUpdate(
+      @NotNull @Path("poll_id") String pollId, @NotNull @Body PartialUpdatePollRequestData request);
 }

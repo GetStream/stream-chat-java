@@ -201,4 +201,64 @@ public class PollTest extends BasicTest {
     Assertions.assertNotNull(updateResponse);
     Assertions.assertTrue(updateResponse.getPoll().getIsClosed());
   }
+
+  @DisplayName("Can partially update a poll with set")
+  @Test
+  void whenPartiallyUpdatingPollWithSet_thenNoException() {
+    // Create a poll first
+    CreatePollResponse createResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Poll.create()
+                    .name("Original Partial " + UUID.randomUUID())
+                    .description("Original description")
+                    .userId(testUserRequestObject.getId())
+                    .option(PollOptionRequestObject.builder().text("A").build())
+                    .request());
+
+    String pollId = createResponse.getPoll().getId();
+
+    // Partial update the poll
+    UpdatePollResponse updateResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Poll.partialUpdate(pollId)
+                    .setValue("name", "Partial Updated Name")
+                    .userId(testUserRequestObject.getId())
+                    .request());
+
+    Assertions.assertNotNull(updateResponse);
+    Assertions.assertEquals("Partial Updated Name", updateResponse.getPoll().getName());
+    // Description should remain unchanged
+    Assertions.assertEquals("Original description", updateResponse.getPoll().getDescription());
+  }
+
+  @DisplayName("Can partially update a poll with unset")
+  @Test
+  void whenPartiallyUpdatingPollWithUnset_thenNoException() {
+    // Create a poll first
+    CreatePollResponse createResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Poll.create()
+                    .name("Poll with description " + UUID.randomUUID())
+                    .description("To be removed")
+                    .userId(testUserRequestObject.getId())
+                    .option(PollOptionRequestObject.builder().text("A").build())
+                    .request());
+
+    String pollId = createResponse.getPoll().getId();
+
+    // Partial update to unset description
+    UpdatePollResponse updateResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Poll.partialUpdate(pollId)
+                    .unsetValue("description")
+                    .userId(testUserRequestObject.getId())
+                    .request());
+
+    Assertions.assertNotNull(updateResponse);
+    Assertions.assertNull(updateResponse.getPoll().getDescription());
+  }
 }

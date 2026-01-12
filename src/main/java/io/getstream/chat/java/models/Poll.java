@@ -367,6 +367,46 @@ public class Poll {
     }
   }
 
+  /** Request data for partially updating a poll. */
+  @Builder(
+      builderClassName = "PartialUpdatePollRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
+  public static class PartialUpdatePollRequestData {
+    @Singular
+    @Nullable
+    @JsonProperty("set")
+    private Map<String, Object> setValues;
+
+    @Singular
+    @Nullable
+    @JsonProperty("unset")
+    private List<String> unsetValues;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private UserRequestObject user;
+
+    public static class PartialUpdatePollRequest extends StreamRequest<UpdatePollResponse> {
+      @NotNull private String pollId;
+
+      private PartialUpdatePollRequest(@NotNull String pollId) {
+        this.pollId = pollId;
+      }
+
+      @Override
+      protected Call<UpdatePollResponse> generateCall(Client client) throws StreamException {
+        return client.create(PollService.class).partialUpdate(this.pollId, this.internalBuild());
+      }
+    }
+  }
+
   /** Request data for creating a poll. */
   @Builder(
       builderClassName = "CreatePollRequest",
@@ -459,5 +499,17 @@ public class Poll {
   @NotNull
   public static UpdatePollRequestData.UpdatePollRequest update() {
     return new UpdatePollRequestData.UpdatePollRequest();
+  }
+
+  /**
+   * Partially updates a poll.
+   *
+   * @param pollId the poll ID
+   * @return the created request
+   */
+  @NotNull
+  public static PartialUpdatePollRequestData.PartialUpdatePollRequest partialUpdate(
+      @NotNull String pollId) {
+    return new PartialUpdatePollRequestData.PartialUpdatePollRequest(pollId);
   }
 }
