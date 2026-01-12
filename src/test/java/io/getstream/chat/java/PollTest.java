@@ -5,6 +5,7 @@ import io.getstream.chat.java.models.Poll.CreatePollOptionResponse;
 import io.getstream.chat.java.models.Poll.CreatePollResponse;
 import io.getstream.chat.java.models.Poll.GetPollResponse;
 import io.getstream.chat.java.models.Poll.PollOptionRequestObject;
+import io.getstream.chat.java.models.Poll.UpdatePollOptionResponse;
 import io.getstream.chat.java.models.Poll.UpdatePollResponse;
 import io.getstream.chat.java.models.Poll.VotingVisibility;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
@@ -316,5 +317,37 @@ public class PollTest extends BasicTest {
     Assertions.assertNotNull(optionResponse.getPollOption());
     Assertions.assertNotNull(optionResponse.getPollOption().getId());
     Assertions.assertNotNull(optionResponse.getPollOption().getText());
+  }
+
+  @DisplayName("Can update a poll option")
+  @Test
+  void whenUpdatingPollOption_thenNoException() {
+    // Create a poll first
+    CreatePollResponse createResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Poll.create()
+                    .name("Poll for option update " + UUID.randomUUID())
+                    .userId(testUserRequestObject.getId())
+                    .option(PollOptionRequestObject.builder().text("Original Option").build())
+                    .request());
+
+    String pollId = createResponse.getPoll().getId();
+    String optionId = createResponse.getPoll().getOptions().get(0).getId();
+
+    // Update the option
+    String newText = "Updated Option " + UUID.randomUUID();
+    UpdatePollOptionResponse updateResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Poll.updateOption(pollId)
+                    .id(optionId)
+                    .text(newText)
+                    .userId(testUserRequestObject.getId())
+                    .request());
+
+    Assertions.assertNotNull(updateResponse);
+    Assertions.assertNotNull(updateResponse.getPollOption());
+    Assertions.assertEquals(newText, updateResponse.getPollOption().getText());
   }
 }

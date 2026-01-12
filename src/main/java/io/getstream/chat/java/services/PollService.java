@@ -6,6 +6,8 @@ import io.getstream.chat.java.models.Poll.CreatePollRequestData;
 import io.getstream.chat.java.models.Poll.CreatePollResponse;
 import io.getstream.chat.java.models.Poll.GetPollResponse;
 import io.getstream.chat.java.models.Poll.PartialUpdatePollRequestData;
+import io.getstream.chat.java.models.Poll.UpdatePollOptionRequestData;
+import io.getstream.chat.java.models.Poll.UpdatePollOptionResponse;
 import io.getstream.chat.java.models.Poll.UpdatePollRequestData;
 import io.getstream.chat.java.models.Poll.UpdatePollResponse;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
@@ -85,4 +87,15 @@ public interface PollService {
   @POST("polls/{poll_id}/options")
   Call<CreatePollOptionResponse> createOption(
       @NotNull @Path("poll_id") String pollId, @NotNull @Body CreatePollOptionRequestData request);
+
+  /**
+   * Updates a poll option.
+   *
+   * @param pollId The poll ID
+   * @param request The poll option update request data
+   * @return A response with the updated poll option
+   */
+  @PUT("polls/{poll_id}/options")
+  Call<UpdatePollOptionResponse> updateOption(
+      @NotNull @Path("poll_id") String pollId, @NotNull @Body UpdatePollOptionRequestData request);
 }
