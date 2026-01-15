@@ -243,13 +243,9 @@ public class ChannelBatchUpdaterTest extends BasicTest {
                   return false;
                 }
                 var ch1MemberIdsAfter =
-                    ch1Members.stream()
-                        .map(ChannelMember::getUserId)
-                        .collect(Collectors.toList());
+                    ch1Members.stream().map(ChannelMember::getUserId).collect(Collectors.toList());
                 var ch2MemberIdsAfter =
-                    ch2Members.stream()
-                        .map(ChannelMember::getUserId)
-                        .collect(Collectors.toList());
+                    ch2Members.stream().map(ChannelMember::getUserId).collect(Collectors.toList());
                 return !ch1MemberIdsAfter.contains(memberToRemove)
                     && !ch2MemberIdsAfter.contains(memberToRemove);
               });
@@ -338,17 +334,20 @@ public class ChannelBatchUpdaterTest extends BasicTest {
           // For a more thorough test, we could query members with specific filters
           var ch1State =
               Assertions.assertDoesNotThrow(
-                  () ->
-                      Channel.getOrCreate(ch1.getType(), ch1.getId()).request().getChannel());
+                  () -> Channel.getOrCreate(ch1.getType(), ch1.getId()).request().getChannel());
           Assertions.assertNotNull(ch1State);
-          
+
           // Try to find the member and check if archived
           // If member is not in the list, it might be because archived members are filtered
           var ch1Members = ch1State.getMembers();
           if (ch1Members != null) {
             var ch1Member =
                 ch1Members.stream()
-                    .filter(m -> m != null && m.getUserId() != null && m.getUserId().equals(membersId.get(0)))
+                    .filter(
+                        m ->
+                            m != null
+                                && m.getUserId() != null
+                                && m.getUserId().equals(membersId.get(0)))
                     .findFirst()
                     .orElse(null);
             if (ch1Member != null) {
