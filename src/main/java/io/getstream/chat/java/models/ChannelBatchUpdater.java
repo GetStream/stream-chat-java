@@ -1,6 +1,7 @@
 package io.getstream.chat.java.models;
 
 import io.getstream.chat.java.models.Channel.*;
+import java.util.ArrayList;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +21,7 @@ public class ChannelBatchUpdater {
     ChannelsBatchOptions options = new ChannelsBatchOptions();
     options.setOperation(ChannelBatchOperation.ADD_MEMBERS);
     options.setFilter(filter);
-    options.setMembers(members);
+    options.setMembers(members != null ? new ArrayList<>(members) : null);
     return Channel.updateBatch(options);
   }
 
@@ -37,7 +38,7 @@ public class ChannelBatchUpdater {
     ChannelsBatchOptions options = new ChannelsBatchOptions();
     options.setOperation(ChannelBatchOperation.REMOVE_MEMBERS);
     options.setFilter(filter);
-    options.setMembers(members);
+    options.setMembers(members != null ? new ArrayList<>(members) : null);
     return Channel.updateBatch(options);
   }
 
@@ -54,7 +55,7 @@ public class ChannelBatchUpdater {
     ChannelsBatchOptions options = new ChannelsBatchOptions();
     options.setOperation(ChannelBatchOperation.INVITE_MEMBERS);
     options.setFilter(filter);
-    options.setMembers(members);
+    options.setMembers(members != null ? new ArrayList<>(members) : null);
     return Channel.updateBatch(options);
   }
 
@@ -71,7 +72,7 @@ public class ChannelBatchUpdater {
     ChannelsBatchOptions options = new ChannelsBatchOptions();
     options.setOperation(ChannelBatchOperation.ADD_MODERATORS);
     options.setFilter(filter);
-    options.setMembers(members);
+    options.setMembers(members != null ? new ArrayList<>(members) : null);
     return Channel.updateBatch(options);
   }
 
@@ -88,7 +89,7 @@ public class ChannelBatchUpdater {
     ChannelsBatchOptions options = new ChannelsBatchOptions();
     options.setOperation(ChannelBatchOperation.DEMOTE_MODERATORS);
     options.setFilter(filter);
-    options.setMembers(members);
+    options.setMembers(members != null ? new ArrayList<>(members) : null);
     return Channel.updateBatch(options);
   }
 
@@ -105,7 +106,7 @@ public class ChannelBatchUpdater {
     ChannelsBatchOptions options = new ChannelsBatchOptions();
     options.setOperation(ChannelBatchOperation.ASSIGN_ROLES);
     options.setFilter(filter);
-    options.setMembers(members);
+    options.setMembers(members != null ? new ArrayList<>(members) : null);
     return Channel.updateBatch(options);
   }
 
@@ -122,7 +123,7 @@ public class ChannelBatchUpdater {
     ChannelsBatchOptions options = new ChannelsBatchOptions();
     options.setOperation(ChannelBatchOperation.HIDE);
     options.setFilter(filter);
-    options.setMembers(members);
+    options.setMembers(members != null ? new ArrayList<>(members) : null);
     return Channel.updateBatch(options);
   }
 
@@ -139,7 +140,7 @@ public class ChannelBatchUpdater {
     ChannelsBatchOptions options = new ChannelsBatchOptions();
     options.setOperation(ChannelBatchOperation.SHOW);
     options.setFilter(filter);
-    options.setMembers(members);
+    options.setMembers(members != null ? new ArrayList<>(members) : null);
     return Channel.updateBatch(options);
   }
 
@@ -156,7 +157,7 @@ public class ChannelBatchUpdater {
     ChannelsBatchOptions options = new ChannelsBatchOptions();
     options.setOperation(ChannelBatchOperation.ARCHIVE);
     options.setFilter(filter);
-    options.setMembers(members);
+    options.setMembers(members != null ? new ArrayList<>(members) : null);
     return Channel.updateBatch(options);
   }
 
@@ -173,7 +174,7 @@ public class ChannelBatchUpdater {
     ChannelsBatchOptions options = new ChannelsBatchOptions();
     options.setOperation(ChannelBatchOperation.UNARCHIVE);
     options.setFilter(filter);
-    options.setMembers(members);
+    options.setMembers(members != null ? new ArrayList<>(members) : null);
     return Channel.updateBatch(options);
   }
 
@@ -207,7 +208,7 @@ public class ChannelBatchUpdater {
     ChannelsBatchOptions options = new ChannelsBatchOptions();
     options.setOperation(ChannelBatchOperation.ADD_FILTER_TAGS);
     options.setFilter(filter);
-    options.setFilterTagsUpdate(tags);
+    options.setFilterTagsUpdate(tags != null ? new ArrayList<>(tags) : null);
     return Channel.updateBatch(options);
   }
 
@@ -224,7 +225,7 @@ public class ChannelBatchUpdater {
     ChannelsBatchOptions options = new ChannelsBatchOptions();
     options.setOperation(ChannelBatchOperation.REMOVE_FILTER_TAGS);
     options.setFilter(filter);
-    options.setFilterTagsUpdate(tags);
+    options.setFilterTagsUpdate(tags != null ? new ArrayList<>(tags) : null);
     return Channel.updateBatch(options);
   }
 }
