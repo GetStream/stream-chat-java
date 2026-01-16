@@ -185,6 +185,14 @@ public class Poll {
     @JsonProperty("id")
     private String id;
 
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private User user;
+
     @NotNull
     @JsonProperty("name")
     private String name;
@@ -274,6 +282,14 @@ public class Poll {
     @JsonProperty("id")
     private String id;
 
+    @Nullable
+    @JsonProperty("user")
+    private User user;
+
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
     @NotNull
     @JsonProperty("name")
     private String name;
@@ -354,6 +370,10 @@ public class Poll {
   @Getter
   @EqualsAndHashCode(callSuper = false)
   public static class PollUpdatePartialRequestData {
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
     @Nullable
     @JsonProperty("set")
     private Map<String, Object> set;
@@ -436,6 +456,14 @@ public class Poll {
   @Getter
   @EqualsAndHashCode(callSuper = false)
   public static class PollOptionCreateRequestData {
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private User user;
+
     @NotNull
     @JsonProperty("text")
     private String text;
@@ -478,6 +506,14 @@ public class Poll {
   @Getter
   @EqualsAndHashCode(callSuper = false)
   public static class PollOptionUpdateRequestData {
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private User user;
+
     @NotNull
     @JsonProperty("id")
     private String id;
@@ -570,6 +606,14 @@ public class Poll {
   @Getter
   @EqualsAndHashCode(callSuper = false)
   public static class PollVoteCastRequestData {
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("user")
+    private User user;
+
     @Nullable
     @JsonProperty("vote")
     private VoteData vote;

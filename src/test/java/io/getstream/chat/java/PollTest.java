@@ -27,6 +27,7 @@ public class PollTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Poll.create()
+                        .userId(testUserRequestObject.getId())
                         .name(pollName)
                         .description("Test description")
                         .options(List.of(option1, option2))
@@ -57,6 +58,7 @@ public class PollTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Poll.create()
+                        .userId(testUserRequestObject.getId())
                         .name(originalName)
                         .description("Original description")
                         .options(List.of(option1, option2))
@@ -87,6 +89,7 @@ public class PollTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Poll.update(pollId)
+                        .userId(testUserRequestObject.getId())
                         .name(updatedName)
                         .description("Updated description")
                         .options(List.of(updatedOption1, updatedOption2))
@@ -102,7 +105,12 @@ public class PollTest extends BasicTest {
     Map<String, Object> setFields = new HashMap<>();
     setFields.put("name", "partially updated name");
     Poll partiallyUpdated =
-        Assertions.assertDoesNotThrow(() -> Poll.updatePartial(pollId).set(setFields).request())
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Poll.updatePartial(pollId)
+                        .userId(testUserRequestObject.getId())
+                        .set(setFields)
+                        .request())
             .getPoll();
     Assertions.assertEquals("partially updated name", partiallyUpdated.getName());
 
@@ -122,6 +130,7 @@ public class PollTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Poll.create()
+                        .userId(testUserRequestObject.getId())
                         .name("poll with options")
                         .description("Test poll")
                         .options(List.of(option1))
@@ -135,7 +144,12 @@ public class PollTest extends BasicTest {
 
     // Create option
     Poll.PollOption newOption =
-        Assertions.assertDoesNotThrow(() -> Poll.createOption(pollId).text("New Option").request())
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Poll.createOption(pollId)
+                        .userId(testUserRequestObject.getId())
+                        .text("New Option")
+                        .request())
             .getPollOption();
     Assertions.assertNotNull(newOption.getId());
     Assertions.assertEquals("New Option", newOption.getText());
@@ -153,6 +167,7 @@ public class PollTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Poll.updateOption(pollId)
+                        .userId(testUserRequestObject.getId())
                         .id(newOption.getId())
                         .text("Updated Option Text")
                         .request())
@@ -178,6 +193,7 @@ public class PollTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Poll.create()
+                        .userId(testUserRequestObject.getId())
                         .name("query test poll")
                         .description("Test poll for query")
                         .options(List.of(option1))
@@ -222,6 +238,7 @@ public class PollTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Poll.create()
+                        .userId(testUserRequestObject.getId())
                         .name("auto id poll")
                         .description("Test poll")
                         .options(List.of(option1))
@@ -248,6 +265,7 @@ public class PollTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Poll.create()
+                        .userId(testUserRequestObject.getId())
                         .name("poll for votes")
                         .description("Test poll")
                         .options(List.of(option1, option2))
