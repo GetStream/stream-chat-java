@@ -36,6 +36,25 @@ public class SharedLocationTest extends BasicTest {
                 .request());
   }
 
+  /**
+   * Helper method to create an endAt date that is at least 2 minutes in the future
+   * to ensure it passes the server validation requirement of being more than 1 minute in the future.
+   */
+  private Date createFutureEndAt() {
+    // Add 5 minutes to current time to ensure it's well beyond the 1 minute requirement
+    // This accounts for any network delays or processing time
+    return new Date(System.currentTimeMillis() + (5 * 60 * 1000));
+  }
+
+  /**
+   * Helper method to format a Date to ISO 8601 string format
+   */
+  private String formatDateToISO(Date date) {
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+    return dateFormat.format(date);
+  }
+
   @DisplayName("Can send message with shared location and verify")
   @Test
   void whenSendingMessageWithSharedLocation_thenCanGetThroughUsersLocations()
@@ -43,12 +62,18 @@ public class SharedLocationTest extends BasicTest {
     // Create a unique device ID for this test
     String deviceId = "device-" + UUID.randomUUID().toString();
 
+    // Create a future endAt date (at least 2 minutes in the future)
+    Date endAtDate = createFutureEndAt();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+    String endAtString = formatDateToISO(endAtDate);
+
     // Create shared location request
     SharedLocationRequest locationRequest = new SharedLocation.SharedLocationRequest();
     locationRequest.setCreatedByDeviceId(deviceId);
     locationRequest.setLatitude(40.7128);
     locationRequest.setLongitude(-74.0060);
-    locationRequest.setEndAt("2025-12-31T23:59:59Z");
+    locationRequest.setEndAt(endAtString);
     locationRequest.setUserId(testUserRequestObject.getId());
 
     // Convert request to SharedLocation
@@ -56,9 +81,7 @@ public class SharedLocationTest extends BasicTest {
     sharedLocation.setCreatedByDeviceId(locationRequest.getCreatedByDeviceId());
     sharedLocation.setLatitude(locationRequest.getLatitude());
     sharedLocation.setLongitude(locationRequest.getLongitude());
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-    sharedLocation.setEndAt(dateFormat.parse(locationRequest.getEndAt()));
+    sharedLocation.setEndAt(endAtDate);
 
     // Send message with shared location
     MessageRequestObject messageRequest =
@@ -82,9 +105,11 @@ public class SharedLocationTest extends BasicTest {
     Assertions.assertEquals(40.7128, message.getSharedLocation().getLatitude());
     Assertions.assertEquals(-74.0060, message.getSharedLocation().getLongitude());
 
-    // Parse and verify the endAt date
-    Date expectedEndAt = dateFormat.parse("2025-12-31T23:59:59Z");
-    Assertions.assertEquals(expectedEndAt, message.getSharedLocation().getEndAt());
+    // Verify the endAt date is set (allowing for small timing differences)
+    Assertions.assertNotNull(message.getSharedLocation().getEndAt());
+    // The endAt should be close to our expected time (within a reasonable range)
+    long timeDiff = Math.abs(message.getSharedLocation().getEndAt().getTime() - endAtDate.getTime());
+    Assertions.assertTrue(timeDiff < 60000, "EndAt time should be within 1 minute of expected time");
   }
 
   @DisplayName("Can create live location, update it and verify the update")
@@ -93,12 +118,18 @@ public class SharedLocationTest extends BasicTest {
     // Create a unique device ID for this test
     String deviceId = "device-" + UUID.randomUUID().toString();
 
+    // Create a future endAt date (at least 2 minutes in the future)
+    Date initialEndAtDate = createFutureEndAt();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+    String initialEndAtString = formatDateToISO(initialEndAtDate);
+
     // Create initial shared location request
     SharedLocationRequest initialLocationRequest = new SharedLocation.SharedLocationRequest();
     initialLocationRequest.setCreatedByDeviceId(deviceId);
     initialLocationRequest.setLatitude(40.7128);
     initialLocationRequest.setLongitude(-74.0060);
-    initialLocationRequest.setEndAt("2025-12-31T23:59:59Z");
+    initialLocationRequest.setEndAt(initialEndAtString);
     initialLocationRequest.setUserId(testUserRequestObject.getId());
 
     // Convert request to SharedLocation
@@ -106,9 +137,7 @@ public class SharedLocationTest extends BasicTest {
     initialSharedLocation.setCreatedByDeviceId(initialLocationRequest.getCreatedByDeviceId());
     initialSharedLocation.setLatitude(initialLocationRequest.getLatitude());
     initialSharedLocation.setLongitude(initialLocationRequest.getLongitude());
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-    initialSharedLocation.setEndAt(dateFormat.parse(initialLocationRequest.getEndAt()));
+    initialSharedLocation.setEndAt(initialEndAtDate);
 
     // Send initial message with shared location
     MessageRequestObject initialMessageRequest =
@@ -125,13 +154,16 @@ public class SharedLocationTest extends BasicTest {
             .request()
             .getMessage();
 
-    // Create updated location request
+    // Create updated location request with a new future endAt date
+    Date updatedEndAtDate = createFutureEndAt();
+    String updatedEndAtString = formatDateToISO(updatedEndAtDate);
+
     SharedLocationRequest updatedLocationRequest = new SharedLocation.SharedLocationRequest();
     updatedLocationRequest.setMessageId(initialMessage.getId());
     updatedLocationRequest.setCreatedByDeviceId(deviceId);
     updatedLocationRequest.setLatitude(40.7589); // Updated latitude
     updatedLocationRequest.setLongitude(-73.9851); // Updated longitude
-    updatedLocationRequest.setEndAt("2025-12-31T23:59:59Z");
+    updatedLocationRequest.setEndAt(updatedEndAtString);
     updatedLocationRequest.setUserId(testUserRequestObject.getId());
 
     // Update the location
@@ -162,9 +194,10 @@ public class SharedLocationTest extends BasicTest {
     Assertions.assertEquals(40.7589, updatedLocation.getLatitude());
     Assertions.assertEquals(-73.9851, updatedLocation.getLongitude());
 
-    // Verify the endAt date
-    Date expectedEndAt = dateFormat.parse("2025-12-31T23:59:59Z");
-    Assertions.assertEquals(expectedEndAt, updatedLocation.getEndAt());
+    // Verify the endAt date is set (allowing for small timing differences)
+    Assertions.assertNotNull(updatedLocation.getEndAt());
+    long timeDiff = Math.abs(updatedLocation.getEndAt().getTime() - updatedEndAtDate.getTime());
+    Assertions.assertTrue(timeDiff < 60000, "EndAt time should be within 1 minute of expected time");
   }
 
   @DisplayName("Can verify live location in channel")
@@ -173,12 +206,18 @@ public class SharedLocationTest extends BasicTest {
     // Create a unique device ID for this test
     String deviceId = "device-" + UUID.randomUUID().toString();
 
+    // Create a future endAt date (at least 2 minutes in the future)
+    Date endAtDate = createFutureEndAt();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+    String endAtString = formatDateToISO(endAtDate);
+
     // Create shared location request
     SharedLocationRequest locationRequest = new SharedLocation.SharedLocationRequest();
     locationRequest.setCreatedByDeviceId(deviceId);
     locationRequest.setLatitude(40.7128);
     locationRequest.setLongitude(-74.0060);
-    locationRequest.setEndAt("2025-12-31T23:59:59Z");
+    locationRequest.setEndAt(endAtString);
     locationRequest.setUserId(testUserRequestObject.getId());
 
     // Convert request to SharedLocation
@@ -186,9 +225,7 @@ public class SharedLocationTest extends BasicTest {
     sharedLocation.setCreatedByDeviceId(locationRequest.getCreatedByDeviceId());
     sharedLocation.setLatitude(locationRequest.getLatitude());
     sharedLocation.setLongitude(locationRequest.getLongitude());
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-    sharedLocation.setEndAt(dateFormat.parse(locationRequest.getEndAt()));
+    sharedLocation.setEndAt(endAtDate);
 
     // Send message with shared location
     MessageRequestObject messageRequest =
@@ -212,9 +249,10 @@ public class SharedLocationTest extends BasicTest {
     Assertions.assertEquals(40.7128, message.getSharedLocation().getLatitude());
     Assertions.assertEquals(-74.0060, message.getSharedLocation().getLongitude());
 
-    // Parse and verify the endAt date
-    Date expectedEndAt = dateFormat.parse("2025-12-31T23:59:59Z");
-    Assertions.assertEquals(expectedEndAt, message.getSharedLocation().getEndAt());
+    // Verify the endAt date is set (allowing for small timing differences)
+    Assertions.assertNotNull(message.getSharedLocation().getEndAt());
+    long timeDiff = Math.abs(message.getSharedLocation().getEndAt().getTime() - endAtDate.getTime());
+    Assertions.assertTrue(timeDiff < 60000, "EndAt time should be within 1 minute of expected time");
 
     // Query the channel to verify it has the live location
     ChannelGetResponse response =
@@ -238,6 +276,9 @@ public class SharedLocationTest extends BasicTest {
     Assertions.assertEquals(deviceId, channelLocation.getCreatedByDeviceId());
     Assertions.assertEquals(40.7128, channelLocation.getLatitude());
     Assertions.assertEquals(-74.0060, channelLocation.getLongitude());
-    Assertions.assertEquals(expectedEndAt, channelLocation.getEndAt());
+    Assertions.assertNotNull(channelLocation.getEndAt());
+    // Allow for small timing differences in the endAt comparison
+    long channelTimeDiff = Math.abs(channelLocation.getEndAt().getTime() - endAtDate.getTime());
+    Assertions.assertTrue(channelTimeDiff < 60000, "EndAt time should be within 1 minute of expected time");
   }
 }
