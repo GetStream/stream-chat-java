@@ -1,6 +1,8 @@
 package io.getstream.chat.java;
 
 import io.getstream.chat.java.models.FilterCondition;
+import io.getstream.chat.java.models.Message;
+import io.getstream.chat.java.models.Message.MessageRequestObject;
 import io.getstream.chat.java.models.Poll;
 import io.getstream.chat.java.models.Poll.PollCreateRequestData.PollOptionInput;
 import io.getstream.chat.java.models.Poll.PollUpdateRequestData.PollOptionRequest;
@@ -284,6 +286,21 @@ public class PollTest extends BasicTest {
                         .request())
             .getPoll();
     String pollId = created.getId();
+
+    pause();
+
+    // Attach poll to a message (required before querying votes)
+    MessageRequestObject messageRequest =
+        MessageRequestObject.builder()
+            .text("Message with poll")
+            .userId(testUserRequestObject.getId())
+            .build();
+    messageRequest.setAdditionalField("poll_id", pollId);
+    Assertions.assertDoesNotThrow(
+        () ->
+            Message.send(testChannel.getType(), testChannel.getId())
+                .message(messageRequest)
+                .request());
 
     pause();
 
