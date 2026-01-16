@@ -294,8 +294,8 @@ public class PollTest extends BasicTest {
         MessageRequestObject.builder()
             .text("Message with poll")
             .userId(testUserRequestObject.getId())
+            .additionalField("poll_id", pollId)
             .build();
-    messageRequest.setAdditionalField("poll_id", pollId);
     Assertions.assertDoesNotThrow(
         () ->
             Message.send(testChannel.getType(), testChannel.getId())
