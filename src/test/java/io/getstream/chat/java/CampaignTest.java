@@ -116,10 +116,7 @@ public class CampaignTest extends BasicTest {
     Campaign started =
         Assertions.assertDoesNotThrow(
                 () ->
-                    Campaign.start(campaignId)
-                        .scheduledFor(scheduledFor)
-                        .stopAt(stopAt)
-                        .request())
+                    Campaign.start(campaignId).scheduledFor(scheduledFor).stopAt(stopAt).request())
             .getCampaign();
     Assertions.assertNotNull(started.getScheduledFor());
 
