@@ -1,6 +1,7 @@
 package io.getstream.chat.java;
 
 import io.getstream.chat.java.models.Channel;
+import io.getstream.chat.java.models.ChannelType;
 import io.getstream.chat.java.models.FilterCondition;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
@@ -20,6 +21,11 @@ public class PollTest extends BasicTest {
 
   @BeforeAll
   static void setupPolls() {
+    // Enable polls on the channel type
+    Assertions.assertDoesNotThrow(
+        () -> ChannelType.update(testChannel.getType()).polls(true).request());
+
+    // Also enable polls on the channel via config_overrides
     Map<String, Object> configOverrides = new HashMap<>();
     configOverrides.put("polls", true);
 
@@ -28,6 +34,13 @@ public class PollTest extends BasicTest {
             Channel.partialUpdate(testChannel.getType(), testChannel.getId())
                 .setValue("config_overrides", configOverrides)
                 .request());
+
+    // Wait for changes to propagate
+    try {
+      Thread.sleep(6000);
+    } catch (InterruptedException e) {
+      // Do nothing
+    }
   }
 
   @DisplayName("Can create poll")
