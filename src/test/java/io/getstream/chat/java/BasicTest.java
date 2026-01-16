@@ -205,6 +205,8 @@ public class BasicTest {
     System.setProperty(
         "java.util.logging.SimpleFormatter.format",
         "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s %2$s %5$s%6$s%n");
+    // Enable HTTP request/response logging for debugging test failures.
+    System.setProperty("io.getstream.chat.debug.logLevel", "BODY");
   }
 
   protected static List<ChannelMemberRequestObject> buildChannelMembersList() {
@@ -259,6 +261,42 @@ public class BasicTest {
 
       if (Assertions.assertDoesNotThrow(predicate::get)) {
         return;
+      }
+
+      Assertions.assertDoesNotThrow(() -> java.lang.Thread.sleep(askInterval));
+    }
+  }
+
+  protected static void waitForTaskCompletion(String taskId) {
+    var start = System.currentTimeMillis();
+    TaskStatusGetResponse lastResponse = null;
+    var askInterval = 500L;
+    var timeout = 15000L;
+
+    System.out.printf("Waiting for task %s to complete...\n", taskId);
+
+    while (true) {
+      if (timeout < (System.currentTimeMillis() - start)) {
+        var status = lastResponse != null ? lastResponse.getStatus() : "unknown";
+        var result = lastResponse != null ? lastResponse.getResult() : null;
+        Assertions.fail(
+            new TimeoutException(
+                String.format(
+                    "Timed out waiting for task %s to complete. status=%s result=%s",
+                    taskId, status, result)));
+      }
+
+      lastResponse = Assertions.assertDoesNotThrow(() -> TaskStatus.get(taskId).request());
+      var status = lastResponse.getStatus();
+      System.out.printf(
+          "Task %s status=%s result=%s\n", taskId, status, lastResponse.getResult());
+      if ("completed".equals(status) || "ok".equals(status)) {
+        return;
+      }
+      if ("failed".equals(status) || "error".equals(status)) {
+        Assertions.fail(
+            String.format(
+                "Task %s failed with status=%s result=%s", taskId, status, lastResponse.getResult()));
       }
 
       Assertions.assertDoesNotThrow(() -> java.lang.Thread.sleep(askInterval));

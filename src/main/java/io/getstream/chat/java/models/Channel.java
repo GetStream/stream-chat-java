@@ -1956,6 +1956,7 @@ public class Channel {
   /** Represents filters for batch channel updates */
   @Data
   @NoArgsConstructor
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public static class ChannelsBatchFilters {
     @Nullable
     @JsonProperty("cids")
