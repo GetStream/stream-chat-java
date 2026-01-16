@@ -288,15 +288,15 @@ public class BasicTest {
 
       lastResponse = Assertions.assertDoesNotThrow(() -> TaskStatus.get(taskId).request());
       var status = lastResponse.getStatus();
-      System.out.printf(
-          "Task %s status=%s result=%s\n", taskId, status, lastResponse.getResult());
+      System.out.printf("Task %s status=%s result=%s\n", taskId, status, lastResponse.getResult());
       if ("completed".equals(status) || "ok".equals(status)) {
         return;
       }
       if ("failed".equals(status) || "error".equals(status)) {
         Assertions.fail(
             String.format(
-                "Task %s failed with status=%s result=%s", taskId, status, lastResponse.getResult()));
+                "Task %s failed with status=%s result=%s",
+                taskId, status, lastResponse.getResult()));
       }
 
       Assertions.assertDoesNotThrow(() -> java.lang.Thread.sleep(askInterval));

@@ -2,8 +2,6 @@ package io.getstream.chat.java;
 
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.Channel.*;
-import io.getstream.chat.java.models.TaskStatus;
-import io.getstream.chat.java.models.TaskStatus.TaskStatusGetResponse;
 import io.getstream.chat.java.models.User;
 import io.getstream.chat.java.models.User.UserRequestObject;
 import java.util.HashMap;
