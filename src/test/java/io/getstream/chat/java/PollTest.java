@@ -41,7 +41,8 @@ public class PollTest extends BasicTest {
     Assertions.assertEquals(2, poll.getOptions().size());
 
     // Cleanup
-    Assertions.assertDoesNotThrow(() -> Poll.delete(poll.getId()).request());
+    Assertions.assertDoesNotThrow(
+        () -> Poll.delete(poll.getId()).userId(testUserRequestObject.getId()).request());
   }
 
   @DisplayName("Can perform poll CRUD operations")
@@ -117,7 +118,8 @@ public class PollTest extends BasicTest {
     pause();
 
     // Delete
-    Assertions.assertDoesNotThrow(() -> Poll.delete(pollId).request());
+    Assertions.assertDoesNotThrow(
+        () -> Poll.delete(pollId).userId(testUserRequestObject.getId()).request());
   }
 
   @DisplayName("Can perform poll option CRUD operations")
@@ -177,10 +179,15 @@ public class PollTest extends BasicTest {
     pause();
 
     // Delete option
-    Assertions.assertDoesNotThrow(() -> Poll.deleteOption(pollId, updatedOption.getId()).request());
+    Assertions.assertDoesNotThrow(
+        () ->
+            Poll.deleteOption(pollId, updatedOption.getId())
+                .userId(testUserRequestObject.getId())
+                .request());
 
     // Cleanup
-    Assertions.assertDoesNotThrow(() -> Poll.delete(pollId).request());
+    Assertions.assertDoesNotThrow(
+        () -> Poll.delete(pollId).userId(testUserRequestObject.getId()).request());
   }
 
   @DisplayName("Can query polls")
@@ -210,6 +217,7 @@ public class PollTest extends BasicTest {
         Assertions.assertDoesNotThrow(
                 () ->
                     Poll.query()
+                        .userId(testUserRequestObject.getId())
                         .filter(FilterCondition.eq("id", pollId))
                         .sorts(
                             List.of(
@@ -225,7 +233,8 @@ public class PollTest extends BasicTest {
         "Created poll should be found in query results");
 
     // Cleanup
-    Assertions.assertDoesNotThrow(() -> Poll.delete(pollId).request());
+    Assertions.assertDoesNotThrow(
+        () -> Poll.delete(pollId).userId(testUserRequestObject.getId()).request());
   }
 
   @DisplayName("Can create poll without ID")
@@ -250,7 +259,8 @@ public class PollTest extends BasicTest {
     Assertions.assertFalse(poll.getId().isEmpty());
 
     // Cleanup
-    Assertions.assertDoesNotThrow(() -> Poll.delete(poll.getId()).request());
+    Assertions.assertDoesNotThrow(
+        () -> Poll.delete(poll.getId()).userId(testUserRequestObject.getId()).request());
   }
 
   @DisplayName("Can query poll votes")
@@ -279,10 +289,17 @@ public class PollTest extends BasicTest {
 
     // Query votes (should be empty initially)
     List<Poll.PollVote> votes =
-        Assertions.assertDoesNotThrow(() -> Poll.queryVotes(pollId).limit(10).request()).getVotes();
+        Assertions.assertDoesNotThrow(
+                () ->
+                    Poll.queryVotes(pollId)
+                        .userId(testUserRequestObject.getId())
+                        .limit(10)
+                        .request())
+            .getVotes();
     Assertions.assertNotNull(votes);
 
     // Cleanup
-    Assertions.assertDoesNotThrow(() -> Poll.delete(pollId).request());
+    Assertions.assertDoesNotThrow(
+        () -> Poll.delete(pollId).userId(testUserRequestObject.getId()).request());
   }
 }

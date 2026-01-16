@@ -278,7 +278,7 @@ public class Poll {
   @Setter
   @EqualsAndHashCode(callSuper = false)
   public static class PollUpdateRequestData {
-    @NotNull
+    @Nullable
     @JsonProperty("id")
     private String id;
 
@@ -399,13 +399,22 @@ public class Poll {
 
   @Getter
   @EqualsAndHashCode(callSuper = false)
-  @RequiredArgsConstructor
   public static class PollDeleteRequest extends StreamRequest<PollDeleteResponse> {
     @NotNull private String pollId;
+    @Nullable private String userId;
+
+    public PollDeleteRequest(@NotNull String pollId) {
+      this.pollId = pollId;
+    }
+
+    public PollDeleteRequest userId(@NotNull String userId) {
+      this.userId = userId;
+      return this;
+    }
 
     @Override
     protected Call<PollDeleteResponse> generateCall(Client client) {
-      return client.create(PollService.class).delete(pollId);
+      return client.create(PollService.class).delete(pollId, userId);
     }
   }
 
@@ -442,9 +451,16 @@ public class Poll {
     private String prev;
 
     public static class PollQueryRequest extends StreamRequest<PollQueryResponse> {
+      @Nullable private String userId;
+
+      public PollQueryRequest userId(@NotNull String userId) {
+        this.userId = userId;
+        return this;
+      }
+
       @Override
       protected Call<PollQueryResponse> generateCall(Client client) {
-        return client.create(PollService.class).query(this.internalBuild());
+        return client.create(PollService.class).query(this.internalBuild(), userId);
       }
     }
   }
@@ -542,14 +558,24 @@ public class Poll {
 
   @Getter
   @EqualsAndHashCode(callSuper = false)
-  @RequiredArgsConstructor
   public static class PollOptionDeleteRequest extends StreamRequest<PollOptionDeleteResponse> {
     @NotNull private String pollId;
     @NotNull private String optionId;
+    @Nullable private String userId;
+
+    public PollOptionDeleteRequest(@NotNull String pollId, @NotNull String optionId) {
+      this.pollId = pollId;
+      this.optionId = optionId;
+    }
+
+    public PollOptionDeleteRequest userId(@NotNull String userId) {
+      this.userId = userId;
+      return this;
+    }
 
     @Override
     protected Call<PollOptionDeleteResponse> generateCall(Client client) {
-      return client.create(PollService.class).deleteOption(pollId, optionId);
+      return client.create(PollService.class).deleteOption(pollId, optionId, userId);
     }
   }
 
@@ -587,14 +613,20 @@ public class Poll {
 
     public static class PollVoteQueryRequest extends StreamRequest<PollVoteQueryResponse> {
       @NotNull private String pollId;
+      @Nullable private String userId;
 
       private PollVoteQueryRequest(@NotNull String pollId) {
         this.pollId = pollId;
       }
 
+      public PollVoteQueryRequest userId(@NotNull String userId) {
+        this.userId = userId;
+        return this;
+      }
+
       @Override
       protected Call<PollVoteQueryResponse> generateCall(Client client) {
-        return client.create(PollService.class).queryVotes(pollId, this.internalBuild());
+        return client.create(PollService.class).queryVotes(pollId, this.internalBuild(), userId);
       }
     }
   }

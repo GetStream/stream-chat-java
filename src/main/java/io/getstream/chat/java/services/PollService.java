@@ -2,6 +2,7 @@ package io.getstream.chat.java.services;
 
 import io.getstream.chat.java.models.Poll.*;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -28,11 +29,14 @@ public interface PollService {
 
   @DELETE("polls/{poll_id}")
   @NotNull
-  Call<PollDeleteResponse> delete(@NotNull @Path("poll_id") String pollId);
+  Call<PollDeleteResponse> delete(
+      @NotNull @Path("poll_id") String pollId, @Nullable @Query("user_id") String userId);
 
   @POST("polls/query")
   @NotNull
-  Call<PollQueryResponse> query(@NotNull @Body PollQueryRequestData pollQueryRequestData);
+  Call<PollQueryResponse> query(
+      @NotNull @Body PollQueryRequestData pollQueryRequestData,
+      @Nullable @Query("user_id") String userId);
 
   // PollOption CRUD endpoints
   @POST("polls/{poll_id}/options")
@@ -55,14 +59,17 @@ public interface PollService {
   @DELETE("polls/{poll_id}/options/{option_id}")
   @NotNull
   Call<PollOptionDeleteResponse> deleteOption(
-      @NotNull @Path("poll_id") String pollId, @NotNull @Path("option_id") String optionId);
+      @NotNull @Path("poll_id") String pollId,
+      @NotNull @Path("option_id") String optionId,
+      @Nullable @Query("user_id") String userId);
 
   // PollVote endpoints
   @POST("polls/{poll_id}/votes")
   @NotNull
   Call<PollVoteQueryResponse> queryVotes(
       @NotNull @Path("poll_id") String pollId,
-      @NotNull @Body PollVoteQueryRequestData pollVoteQueryRequestData);
+      @NotNull @Body PollVoteQueryRequestData pollVoteQueryRequestData,
+      @Nullable @Query("user_id") String userId);
 
   @POST("messages/{message_id}/polls/{poll_id}/vote")
   @NotNull
