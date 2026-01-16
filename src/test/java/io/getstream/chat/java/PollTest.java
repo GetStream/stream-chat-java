@@ -1,5 +1,6 @@
 package io.getstream.chat.java;
 
+import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.FilterCondition;
 import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
@@ -11,10 +12,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class PollTest extends BasicTest {
+
+  @BeforeAll
+  static void setupPolls() {
+    Map<String, Object> configOverrides = new HashMap<>();
+    configOverrides.put("polls", true);
+
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.partialUpdate(testChannel.getType(), testChannel.getId())
+                .setValue("config_overrides", configOverrides)
+                .request());
+  }
 
   @DisplayName("Can create poll")
   @Test
