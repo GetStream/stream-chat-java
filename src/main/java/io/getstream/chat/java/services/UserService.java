@@ -65,5 +65,10 @@ public interface UserService {
       @NotNull @Query("target_user_id") String targetUserId,
       @Nullable @Query("type") String channelType,
       @Nullable @Query("id") String channelId,
-      @Nullable @Query("shadow") Boolean shadow);
+      @Nullable @Query("shadow") Boolean shadow,
+      @Nullable @Query("remove_future_channels_ban") Boolean removeFutureChannelsBan);
+
+  @GET("query_future_channel_bans")
+  Call<UserQueryFutureChannelBansResponse> queryFutureChannelBans(
+      @NotNull @ToJson @Query("payload") UserQueryFutureChannelBansRequestData requestData);
 }
