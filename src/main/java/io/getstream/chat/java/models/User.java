@@ -1135,7 +1135,9 @@ public class User {
 
     @Override
     protected Call<StreamResponseObject> generateCall(Client client) {
-      return client.create(UserService.class).unban(targetUserId, type, id, shadow, removeFutureChannelsBan);
+      return client
+          .create(UserService.class)
+          .unban(targetUserId, type, id, shadow, removeFutureChannelsBan);
     }
   }
 
@@ -1231,7 +1233,8 @@ public class User {
     @JsonProperty("offset")
     private Integer offset;
 
-    public static class UserQueryFutureChannelBansRequest extends StreamRequest<UserQueryFutureChannelBansResponse> {
+    public static class UserQueryFutureChannelBansRequest
+        extends StreamRequest<UserQueryFutureChannelBansResponse> {
       @Override
       protected Call<UserQueryFutureChannelBansResponse> generateCall(Client client) {
         return client.create(UserService.class).queryFutureChannelBans(this.internalBuild());
