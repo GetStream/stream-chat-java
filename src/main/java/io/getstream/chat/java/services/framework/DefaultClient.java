@@ -32,6 +32,7 @@ public class DefaultClient implements Client {
   public static final String API_SECRET_PROP_NAME = "io.getstream.chat.apiSecret";
   public static final String API_TIMEOUT_PROP_NAME = "io.getstream.chat.timeout";
   public static final String API_URL_PROP_NAME = "io.getstream.chat.url";
+  public static final String X_STREAM_EXT_PROP_NAME = "io.getstream.chat.xStreamExt";
 
   private static final String API_DEFAULT_URL = "https://chat.stream-io-api.com";
   private static volatile DefaultClient defaultInstance;
@@ -120,6 +121,12 @@ public class DefaultClient implements Client {
                   .header("Content-Type", "application/json")
                   .header("X-Stream-Client", "stream-java-client-" + sdkVersion)
                   .header("Stream-Auth-Type", "jwt");
+
+          // Add x-stream-ext header if configured
+          String xStreamExt = getXStreamExt(extendedProperties);
+          if (xStreamExt != null && !xStreamExt.isEmpty()) {
+            builder.header("X-Stream-Ext", xStreamExt);
+          }
 
           if (userToken != null) {
             // User token present - use user auth
@@ -231,6 +238,13 @@ public class DefaultClient implements Client {
       canformedProperties.put(API_URL_PROP_NAME, envApiUrl);
     }
 
+    var envXStreamExt =
+        env.getOrDefault(
+            "STREAM_CHAT_X_STREAM_EXT", System.getProperty("STREAM_CHAT_X_STREAM_EXT"));
+    if (envXStreamExt != null) {
+      canformedProperties.put(X_STREAM_EXT_PROP_NAME, envXStreamExt);
+    }
+
     canformedProperties.putAll(System.getProperties());
     canformedProperties.putAll(properties);
     return canformedProperties;
@@ -244,6 +258,11 @@ public class DefaultClient implements Client {
   private static String getStreamChatBaseUrl(@NotNull Properties properties) {
     var url = properties.getOrDefault(API_URL_PROP_NAME, API_DEFAULT_URL);
     return url.toString();
+  }
+
+  private static String getXStreamExt(@NotNull Properties properties) {
+    var xStreamExt = properties.get(X_STREAM_EXT_PROP_NAME);
+    return xStreamExt != null ? xStreamExt.toString() : null;
   }
 
   private static final @NotNull String sdkVersion = getSdkVersion();
