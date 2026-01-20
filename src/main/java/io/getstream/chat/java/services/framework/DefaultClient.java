@@ -239,7 +239,8 @@ public class DefaultClient implements Client {
     }
 
     var envXStreamExt =
-        env.getOrDefault("STREAM_CHAT_X_STREAM_EXT", System.getProperty("STREAM_CHAT_X_STREAM_EXT"));
+        env.getOrDefault(
+            "STREAM_CHAT_X_STREAM_EXT", System.getProperty("STREAM_CHAT_X_STREAM_EXT"));
     if (envXStreamExt != null) {
       canformedProperties.put(X_STREAM_EXT_PROP_NAME, envXStreamExt);
     }
