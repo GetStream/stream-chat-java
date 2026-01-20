@@ -1222,6 +1222,10 @@ public class User {
     private String userId;
 
     @Nullable
+    @JsonProperty("target_user_id")
+    private String targetUserId;
+
+    @Nullable
     @JsonProperty("exclude_expired_bans")
     private Boolean excludeExpiredBans;
 
