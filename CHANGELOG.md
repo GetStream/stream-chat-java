@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.39.0](https://github.com/GetStream/stream-chat-java/compare/1.38.0...1.39.0) (2026-01-21)
+
+
+### Features
+
+* add channel batch updates support ([#224](https://github.com/GetStream/stream-chat-java/issues/224)) ([fc13f5c](https://github.com/GetStream/stream-chat-java/commit/fc13f5c308a1d53367994e5f98b04dde7b4bbcb3))
+
 ## [1.38.0](https://github.com/GetStream/stream-chat-java/compare/1.37.2...1.38.0) (2026-01-20)
 
 ### [1.37.2](https://github.com/GetStream/stream-chat-java/compare/1.37.1...1.37.2) (2025-11-19)
