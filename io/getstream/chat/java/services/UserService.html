@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6,"i14":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -199,25 +199,32 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i10" class="altColor">
+<td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/User.UserQueryFutureChannelBansResponse.html" title="class in io.getstream.chat.java.models">User.UserQueryFutureChannelBansResponse</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#queryFutureChannelBans(io.getstream.chat.java.models.User.UserQueryFutureChannelBansRequestData)">queryFutureChannelBans</a></span>&#8203;(@NotNull <a href="../models/User.UserQueryFutureChannelBansRequestData.html" title="class in io.getstream.chat.java.models">User.UserQueryFutureChannelBansRequestData</a>&nbsp;requestData)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/User.UserReactivateResponse.html" title="class in io.getstream.chat.java.models">User.UserReactivateResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reactivate(java.lang.String,io.getstream.chat.java.models.User.UserReactivateRequestData)">reactivate</a></span>&#8203;(@NotNull java.lang.String&nbsp;userId,
           @NotNull <a href="../models/User.UserReactivateRequestData.html" title="class in io.getstream.chat.java.models">User.UserReactivateRequestData</a>&nbsp;userReactivateRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unban(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)">unban</a></span>&#8203;(@NotNull java.lang.String&nbsp;targetUserId,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unban(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean,java.lang.Boolean,java.lang.String)">unban</a></span>&#8203;(@NotNull java.lang.String&nbsp;targetUserId,
      @Nullable java.lang.String&nbsp;channelType,
      @Nullable java.lang.String&nbsp;channelId,
-     @Nullable java.lang.Boolean&nbsp;shadow)</code></th>
+     @Nullable java.lang.Boolean&nbsp;shadow,
+     @Nullable java.lang.Boolean&nbsp;removeFutureChannelsBan,
+     @Nullable java.lang.String&nbsp;createdBy)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title="class in io.getstream.chat.java.models.framework">StreamResponseObject</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unmute(io.getstream.chat.java.models.User.UserUnmuteRequestData)">unmute</a></span>&#8203;(@NotNull <a href="../models/User.UserUnmuteRequestData.html" title="class in io.getstream.chat.java.models">User.UserUnmuteRequestData</a>&nbsp;userUnmuteRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>retrofit2.Call&lt;<a href="../models/User.UserUpsertResponse.html" title="class in io.getstream.chat.java.models">User.UserUpsertResponse</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#upsert(io.getstream.chat.java.models.User.UserUpsertRequestData)">upsert</a></span>&#8203;(@NotNull <a href="../models/User.UserUpsertRequestData.html" title="class in io.getstream.chat.java.models">User.UserUpsertRequestData</a>&nbsp;userUpsertRequestData)</code></th>
 <td class="colLast">&nbsp;</td>
@@ -392,10 +399,10 @@ retrofit2.Call&lt;<a href="../models/User.UserCreateGuestResponse.html" title="c
                                                          @NotNull <a href="../models/User.UserCreateGuestRequestData.html" title="class in io.getstream.chat.java.models">User.UserCreateGuestRequestData</a>&nbsp;userCreateGuestRequestData)</pre>
 </li>
 </ul>
-<a id="unban(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean)">
+<a id="unban(java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean,java.lang.Boolean,java.lang.String)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>unban</h4>
 <pre class="methodSignature">@DELETE("moderation/ban")
@@ -406,7 +413,22 @@ retrofit2.Call&lt;<a href="../models/framework/StreamResponseObject.html" title=
                                            @Nullable @Query("id")
                                            @Nullable java.lang.String&nbsp;channelId,
                                            @Nullable @Query("shadow")
-                                           @Nullable java.lang.Boolean&nbsp;shadow)</pre>
+                                           @Nullable java.lang.Boolean&nbsp;shadow,
+                                           @Nullable @Query("remove_future_channels_ban")
+                                           @Nullable java.lang.Boolean&nbsp;removeFutureChannelsBan,
+                                           @Nullable @Query("created_by")
+                                           @Nullable java.lang.String&nbsp;createdBy)</pre>
+</li>
+</ul>
+<a id="queryFutureChannelBans(io.getstream.chat.java.models.User.UserQueryFutureChannelBansRequestData)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>queryFutureChannelBans</h4>
+<pre class="methodSignature">@GET("query_future_channel_bans")
+retrofit2.Call&lt;<a href="../models/User.UserQueryFutureChannelBansResponse.html" title="class in io.getstream.chat.java.models">User.UserQueryFutureChannelBansResponse</a>&gt;&nbsp;queryFutureChannelBans&#8203;(@NotNull @Query("payload")
+                                                                               @NotNull <a href="../models/User.UserQueryFutureChannelBansRequestData.html" title="class in io.getstream.chat.java.models">User.UserQueryFutureChannelBansRequestData</a>&nbsp;requestData)</pre>
 </li>
 </ul>
 </li>
