@@ -543,14 +543,16 @@ public class UserTest extends BasicTest {
     // Query with target_user_id filter - should only return the specific target
     var response =
         Assertions.assertDoesNotThrow(
-            () -> User.queryFutureChannelBans().userId(creatorId).targetUserId(targetId1).request());
+            () ->
+                User.queryFutureChannelBans().userId(creatorId).targetUserId(targetId1).request());
     Assertions.assertEquals(1, response.getBans().size());
     Assertions.assertEquals(targetId1, response.getBans().get(0).getUser().getId());
 
     // Query for the other target
     response =
         Assertions.assertDoesNotThrow(
-            () -> User.queryFutureChannelBans().userId(creatorId).targetUserId(targetId2).request());
+            () ->
+                User.queryFutureChannelBans().userId(creatorId).targetUserId(targetId2).request());
     Assertions.assertEquals(1, response.getBans().size());
     Assertions.assertEquals(targetId2, response.getBans().get(0).getUser().getId());
 
