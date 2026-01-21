@@ -15,6 +15,7 @@ import io.getstream.chat.java.models.User.UserListRequestData.UserListRequest;
 import io.getstream.chat.java.models.User.UserMuteRequestData.UserMuteRequest;
 import io.getstream.chat.java.models.User.UserPartialUpdateRequestData.UserPartialUpdateRequest;
 import io.getstream.chat.java.models.User.UserQueryBannedRequestData.UserQueryBannedRequest;
+import io.getstream.chat.java.models.User.UserQueryFutureChannelBansRequestData.UserQueryFutureChannelBansRequest;
 import io.getstream.chat.java.models.User.UserReactivateRequestData.UserReactivateRequest;
 import io.getstream.chat.java.models.User.UserUnmuteRequestData.UserUnmuteRequest;
 import io.getstream.chat.java.models.User.UserUpsertRequestData.UserUpsertRequest;
@@ -208,6 +209,34 @@ public class User {
     @NotNull
     @JsonProperty("banned_by")
     private User bannedBy;
+
+    @NotNull
+    @JsonProperty("created_at")
+    private Date createdAt;
+  }
+
+  @Data
+  @NoArgsConstructor
+  public static class FutureChannelBan {
+    @Nullable
+    @JsonProperty("user")
+    private User user;
+
+    @Nullable
+    @JsonProperty("banned_by")
+    private User bannedBy;
+
+    @Nullable
+    @JsonProperty("expires")
+    private Date expires;
+
+    @Nullable
+    @JsonProperty("reason")
+    private String reason;
+
+    @Nullable
+    @JsonProperty("shadow")
+    private Boolean shadow;
 
     @NotNull
     @JsonProperty("created_at")
@@ -799,6 +828,14 @@ public class User {
     @JsonProperty("user")
     private UserRequestObject user;
 
+    @Nullable
+    @JsonProperty("ban_from_future_channels")
+    private Boolean banFromFutureChannels;
+
+    @Nullable
+    @JsonProperty("channel_cid")
+    private String channelCid;
+
     public static class UserBanRequest extends StreamRequest<StreamResponseObject> {
       @Override
       protected Call<StreamResponseObject> generateCall(Client client) {
@@ -1078,6 +1115,10 @@ public class User {
 
     @Nullable private Boolean shadow;
 
+    @Nullable private Boolean removeFutureChannelsBan;
+
+    @Nullable private String createdBy;
+
     @NotNull
     public UserUnbanRequest type(@NotNull String type) {
       this.type = type;
@@ -1096,9 +1137,23 @@ public class User {
       return this;
     }
 
+    @NotNull
+    public UserUnbanRequest removeFutureChannelsBan(@NotNull Boolean removeFutureChannelsBan) {
+      this.removeFutureChannelsBan = removeFutureChannelsBan;
+      return this;
+    }
+
+    @NotNull
+    public UserUnbanRequest createdBy(@NotNull String createdBy) {
+      this.createdBy = createdBy;
+      return this;
+    }
+
     @Override
     protected Call<StreamResponseObject> generateCall(Client client) {
-      return client.create(UserService.class).unban(targetUserId, type, id, shadow);
+      return client
+          .create(UserService.class)
+          .unban(targetUserId, type, id, shadow, removeFutureChannelsBan, createdBy);
     }
   }
 
@@ -1169,6 +1224,51 @@ public class User {
     @NotNull
     @JsonProperty("bans")
     private List<Ban> bans;
+  }
+
+  @Builder(
+      builderClassName = "UserQueryFutureChannelBansRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode
+  public static class UserQueryFutureChannelBansRequestData {
+    @Nullable
+    @JsonProperty("user_id")
+    private String userId;
+
+    @Nullable
+    @JsonProperty("target_user_id")
+    private String targetUserId;
+
+    @Nullable
+    @JsonProperty("exclude_expired_bans")
+    private Boolean excludeExpiredBans;
+
+    @Nullable
+    @JsonProperty("limit")
+    private Integer limit;
+
+    @Nullable
+    @JsonProperty("offset")
+    private Integer offset;
+
+    public static class UserQueryFutureChannelBansRequest
+        extends StreamRequest<UserQueryFutureChannelBansResponse> {
+      @Override
+      protected Call<UserQueryFutureChannelBansResponse> generateCall(Client client) {
+        return client.create(UserService.class).queryFutureChannelBans(this.internalBuild());
+      }
+    }
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  public static class UserQueryFutureChannelBansResponse extends StreamResponseObject {
+    @NotNull
+    @JsonProperty("bans")
+    private List<FutureChannelBan> bans;
   }
 
   @Data
@@ -1303,6 +1403,16 @@ public class User {
   @NotNull
   public static UserQueryBannedRequest queryBanned() {
     return new UserQueryBannedRequest();
+  }
+
+  /**
+   * Creates a query future channel bans request
+   *
+   * @return the created request
+   */
+  @NotNull
+  public static UserQueryFutureChannelBansRequest queryFutureChannelBans() {
+    return new UserQueryFutureChannelBansRequest();
   }
 
   /**

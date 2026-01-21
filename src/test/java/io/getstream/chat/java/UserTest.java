@@ -506,4 +506,72 @@ public class UserTest extends BasicTest {
 
     Assertions.assertEquals(197, token.length());
   }
+
+  @DisplayName("Can query future channel bans with target_user_id filter")
+  @Test
+  void whenQueryingFutureChannelBansWithTargetUserId_thenFiltersCorrectly() {
+    String creatorId = RandomStringUtils.randomAlphabetic(10);
+    String targetId1 = RandomStringUtils.randomAlphabetic(10);
+    String targetId2 = RandomStringUtils.randomAlphabetic(10);
+
+    // Create users
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.user(UserRequestObject.builder().id(creatorId).name("Creator").build());
+    usersUpsertRequest.user(UserRequestObject.builder().id(targetId1).name("Target 1").build());
+    usersUpsertRequest.user(UserRequestObject.builder().id(targetId2).name("Target 2").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+
+    // Use the test channel's CID for banning from future channels
+    String channelCid = testChannel.getType() + ":" + testChannel.getId();
+
+    // Ban both targets from future channels created by creator
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.ban()
+                .userId(creatorId)
+                .targetUserId(targetId1)
+                .channelCid(channelCid)
+                .banFromFutureChannels(true)
+                .reason("test ban 1")
+                .request());
+
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.ban()
+                .userId(creatorId)
+                .targetUserId(targetId2)
+                .channelCid(channelCid)
+                .banFromFutureChannels(true)
+                .reason("test ban 2")
+                .request());
+
+    // Query with target_user_id filter - should only return the specific target
+    var response =
+        Assertions.assertDoesNotThrow(
+            () ->
+                User.queryFutureChannelBans().userId(creatorId).targetUserId(targetId1).request());
+    Assertions.assertEquals(1, response.getBans().size());
+    // For future channel bans, banned_by contains the creator (userId)
+    Assertions.assertEquals(creatorId, response.getBans().get(0).getBannedBy().getId());
+
+    // Query for the other target
+    response =
+        Assertions.assertDoesNotThrow(
+            () ->
+                User.queryFutureChannelBans().userId(creatorId).targetUserId(targetId2).request());
+    Assertions.assertEquals(1, response.getBans().size());
+    Assertions.assertEquals(creatorId, response.getBans().get(0).getBannedBy().getId());
+
+    // Query all future channel bans by creator (without target filter)
+    response =
+        Assertions.assertDoesNotThrow(
+            () -> User.queryFutureChannelBans().userId(creatorId).request());
+    Assertions.assertTrue(response.getBans().size() >= 2);
+
+    // Cleanup - unban both users (createdBy is required when removing future channel bans)
+    Assertions.assertDoesNotThrow(
+        () -> User.unban(targetId1).removeFutureChannelsBan(true).createdBy(creatorId).request());
+    Assertions.assertDoesNotThrow(
+        () -> User.unban(targetId2).removeFutureChannelsBan(true).createdBy(creatorId).request());
+  }
 }
