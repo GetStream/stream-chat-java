@@ -223,6 +223,10 @@ public class User {
     private User user;
 
     @Nullable
+    @JsonProperty("banned_by")
+    private User bannedBy;
+
+    @Nullable
     @JsonProperty("expires")
     private Date expires;
 
@@ -828,6 +832,10 @@ public class User {
     @JsonProperty("ban_from_future_channels")
     private Boolean banFromFutureChannels;
 
+    @Nullable
+    @JsonProperty("channel_cid")
+    private String channelCid;
+
     public static class UserBanRequest extends StreamRequest<StreamResponseObject> {
       @Override
       protected Call<StreamResponseObject> generateCall(Client client) {
@@ -1109,6 +1117,8 @@ public class User {
 
     @Nullable private Boolean removeFutureChannelsBan;
 
+    @Nullable private String createdBy;
+
     @NotNull
     public UserUnbanRequest type(@NotNull String type) {
       this.type = type;
@@ -1133,11 +1143,17 @@ public class User {
       return this;
     }
 
+    @NotNull
+    public UserUnbanRequest createdBy(@NotNull String createdBy) {
+      this.createdBy = createdBy;
+      return this;
+    }
+
     @Override
     protected Call<StreamResponseObject> generateCall(Client client) {
       return client
           .create(UserService.class)
-          .unban(targetUserId, type, id, shadow, removeFutureChannelsBan);
+          .unban(targetUserId, type, id, shadow, removeFutureChannelsBan, createdBy);
     }
   }
 
