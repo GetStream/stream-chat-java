@@ -53,7 +53,6 @@ public interface ModerationService {
       @Nullable @Query("include_user_blocks") Boolean includeUserBlocks,
       @Nullable @Query("include_user_mutes") Boolean includeUserMutes);
 
-  // Phase 2: Additional V2 Endpoints
   @POST("api/v2/moderation/block")
   Call<BlockResponse> block(@NotNull @Body BlockRequestData blockRequestData);
 
@@ -114,7 +113,6 @@ public interface ModerationService {
   Call<BulkSubmitActionResponse> bulkSubmitAction(
       @NotNull @Body BulkSubmitActionRequestData bulkSubmitActionRequestData);
 
-  // Phase 3: Feeds Moderation & Rules
   @POST("api/v2/moderation/feeds_moderation_template")
   Call<UpsertTemplateResponse> upsertTemplate(
       @NotNull @Body UpsertTemplateRequestData upsertTemplateRequestData);

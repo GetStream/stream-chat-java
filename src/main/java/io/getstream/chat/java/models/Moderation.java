@@ -199,7 +199,6 @@ public class Moderation {
     }
   }
 
-  // Phase 1: Core Moderation Actions - Flag
   @Builder(
       builderClassName = "FlagRequest",
       builderMethodName = "",
@@ -246,11 +245,8 @@ public class Moderation {
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
-  public static class FlagResponse extends StreamResponseObject {
-    // Response typically contains duration and other metadata
-  }
+  public static class FlagResponse extends StreamResponseObject {}
 
-  // Phase 1: Core Moderation Actions - Mute
   @Builder(
       builderClassName = "MuteRequest",
       builderMethodName = "",
@@ -287,7 +283,6 @@ public class Moderation {
     private List<User.Mute> mutes;
   }
 
-  // Phase 1: Core Moderation Actions - Unmute
   @Builder(
       builderClassName = "UnmuteRequest",
       builderMethodName = "",
@@ -314,11 +309,8 @@ public class Moderation {
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
-  public static class UnmuteResponse extends StreamResponseObject {
-    // Response typically contains duration and other metadata
-  }
+  public static class UnmuteResponse extends StreamResponseObject {}
 
-  // Phase 1: Core Moderation Actions - Check
   @Builder(
       builderClassName = "CheckRequest",
       builderMethodName = "",
@@ -423,7 +415,6 @@ public class Moderation {
     private String value;
   }
 
-  // Phase 1: Core Moderation Actions - Custom Check
   @Builder(
       builderClassName = "CustomCheckRequest",
       builderMethodName = "",
@@ -462,11 +453,8 @@ public class Moderation {
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
-  public static class CustomCheckResponse extends StreamResponseObject {
-    // Response typically contains duration and other metadata
-  }
+  public static class CustomCheckResponse extends StreamResponseObject {}
 
-  // Phase 1: Core Moderation Actions - Query Review Queue
   @Builder(
       builderClassName = "QueryReviewQueueRequest",
       builderMethodName = "",
@@ -567,7 +555,6 @@ public class Moderation {
     private Date updatedAt;
   }
 
-  // Phase 1: Core Moderation Actions - Query Configs
   @Builder(
       builderClassName = "QueryConfigsRequest",
       builderMethodName = "",
@@ -624,7 +611,6 @@ public class Moderation {
     private String prev;
   }
 
-  // Phase 1: Core Moderation Actions - Submit Action
   @Builder(
       builderClassName = "SubmitActionRequest",
       builderMethodName = "",
@@ -659,11 +645,8 @@ public class Moderation {
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
-  public static class SubmitActionResponse extends StreamResponseObject {
-    // Response typically contains duration and other metadata
-  }
+  public static class SubmitActionResponse extends StreamResponseObject {}
 
-  // Phase 1: Core Moderation Actions - Get User Report
   @Getter
   @EqualsAndHashCode(callSuper = false)
   public static class GetUserReportRequest extends StreamRequest<GetUserReportResponse> {
@@ -716,7 +699,6 @@ public class Moderation {
     private List<User.Mute> mutes;
   }
 
-  // Phase 2: Additional V2 Endpoints - Block
   @Builder(
       builderClassName = "BlockRequest",
       builderMethodName = "",
@@ -743,11 +725,8 @@ public class Moderation {
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
-  public static class BlockResponse extends StreamResponseObject {
-    // Response typically contains duration and other metadata
-  }
+  public static class BlockResponse extends StreamResponseObject {}
 
-  // Phase 2: Additional V2 Endpoints - Ban
   @Builder(
       builderClassName = "BanRequest",
       builderMethodName = "",
@@ -796,7 +775,6 @@ public class Moderation {
     private List<User.Ban> bans;
   }
 
-  // Phase 2: Additional V2 Endpoints - Unban
   @Builder(
       builderClassName = "UnbanRequest",
       builderMethodName = "",
@@ -827,11 +805,8 @@ public class Moderation {
   @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
-  public static class UnbanResponse extends StreamResponseObject {
-    // Response typically contains duration and other metadata
-  }
+  public static class UnbanResponse extends StreamResponseObject {}
 
-  // Phase 2: Additional V2 Endpoints - Appeal
   @Builder(
       builderClassName = "AppealRequest",
       builderMethodName = "",
@@ -896,7 +871,6 @@ public class Moderation {
     private Date createdAt;
   }
 
-  // Phase 2: Additional V2 Endpoints - Get Appeal
   @Getter
   @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
@@ -918,7 +892,6 @@ public class Moderation {
     private Appeal appeal;
   }
 
-  // Phase 2: Additional V2 Endpoints - Query Appeals
   @Builder(
       builderClassName = "QueryAppealsRequest",
       builderMethodName = "",
@@ -975,7 +948,6 @@ public class Moderation {
     private String prev;
   }
 
-  // Phase 2: Additional V2 Endpoints - Query Moderation Flags
   @Builder(
       builderClassName = "QueryModerationFlagsRequest",
       builderMethodName = "",
@@ -1033,7 +1005,6 @@ public class Moderation {
     private String prev;
   }
 
-  // Phase 2: Additional V2 Endpoints - Query Moderation Logs
   @Builder(
       builderClassName = "QueryModerationLogsRequest",
       builderMethodName = "",
@@ -1111,7 +1082,6 @@ public class Moderation {
     private Date createdAt;
   }
 
-  // Phase 2: Additional V2 Endpoints - Query Usage Stats
   @Builder(
       builderClassName = "QueryUsageStatsRequest",
       builderMethodName = "",
@@ -1148,7 +1118,6 @@ public class Moderation {
     private java.util.Map<String, Object> stats;
   }
 
-  // Phase 2: Additional V2 Endpoints - Get Moderation Analytics
   @Builder(
       builderClassName = "GetModerationAnalyticsRequest",
       builderMethodName = "",
@@ -1186,7 +1155,6 @@ public class Moderation {
     private java.util.Map<String, Object> analytics;
   }
 
-  // Phase 2: Additional V2 Endpoints - Get Review Queue Item
   @Getter
   @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
@@ -1208,7 +1176,6 @@ public class Moderation {
     private ReviewQueueItem item;
   }
 
-  // Phase 2: Additional V2 Endpoints - Get Moderator Stats
   @Getter
   @EqualsAndHashCode(callSuper = false)
   public static class GetModeratorStatsRequest extends StreamRequest<ModeratorStatsResponse> {
@@ -1240,7 +1207,6 @@ public class Moderation {
     private java.util.Map<String, Object> stats;
   }
 
-  // Phase 2: Additional V2 Endpoints - Get Queue Stats
   @Getter
   @EqualsAndHashCode(callSuper = false)
   public static class GetQueueStatsRequest extends StreamRequest<QueueStatsResponse> {
@@ -1267,7 +1233,6 @@ public class Moderation {
     private java.util.Map<String, Object> stats;
   }
 
-  // Phase 2: Additional V2 Endpoints - Export Moderation Logs
   @Builder(
       builderClassName = "ExportModerationLogsRequest",
       builderMethodName = "",
@@ -1301,7 +1266,6 @@ public class Moderation {
     private String taskId;
   }
 
-  // Phase 2: Additional V2 Endpoints - Bulk Image Moderation
   @Builder(
       builderClassName = "BulkImageModerationRequest",
       builderMethodName = "",
@@ -1335,7 +1299,6 @@ public class Moderation {
     private List<CheckResponse> results;
   }
 
-  // Phase 2: Additional V2 Endpoints - Bulk Submit Action
   @Builder(
       builderClassName = "BulkSubmitActionRequest",
       builderMethodName = "",
@@ -1386,7 +1349,6 @@ public class Moderation {
     private List<SubmitActionResponse> results;
   }
 
-  // Phase 3: Feeds Moderation & Rules - Upsert Template
   @Builder(
       builderClassName = "UpsertTemplateRequest",
       builderMethodName = "",
@@ -1447,7 +1409,6 @@ public class Moderation {
     private Date updatedAt;
   }
 
-  // Phase 3: Feeds Moderation & Rules - Query Templates
   @Getter
   @EqualsAndHashCode(callSuper = false)
   public static class QueryFeedModerationTemplatesRequest
@@ -1480,7 +1441,6 @@ public class Moderation {
     private List<FeedModerationTemplate> templates;
   }
 
-  // Phase 3: Feeds Moderation & Rules - Delete Template
   @Getter
   @EqualsAndHashCode(callSuper = false)
   public static class DeleteModerationTemplateRequest extends StreamRequest<StreamResponseObject> {
@@ -1498,7 +1458,6 @@ public class Moderation {
     }
   }
 
-  // Phase 3: Feeds Moderation & Rules - Upsert Moderation Rule
   @Builder(
       builderClassName = "UpsertModerationRuleRequest",
       builderMethodName = "",
@@ -1584,7 +1543,6 @@ public class Moderation {
     private Date updatedAt;
   }
 
-  // Phase 3: Feeds Moderation & Rules - Query Moderation Rules
   @Builder(
       builderClassName = "QueryModerationRulesRequest",
       builderMethodName = "",
@@ -1642,7 +1600,6 @@ public class Moderation {
     private String prev;
   }
 
-  // Phase 3: Feeds Moderation & Rules - Get Moderation Rule
   @Getter
   @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
@@ -1664,7 +1621,6 @@ public class Moderation {
     private ModerationRule rule;
   }
 
-  // Phase 3: Feeds Moderation & Rules - Delete Moderation Rule
   @Getter
   @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
@@ -1820,7 +1776,6 @@ public class Moderation {
         userId, createUserIfNotExists, includeUserBlocks, includeUserMutes);
   }
 
-  // Phase 2: Additional V2 Endpoints Factory Methods
   /**
    * Creates a block request
    *
@@ -2011,7 +1966,6 @@ public class Moderation {
     return new BulkSubmitActionRequestData.BulkSubmitActionRequest();
   }
 
-  // Phase 3: Feeds Moderation & Rules Factory Methods
   /**
    * Creates an upsert template request
    *
