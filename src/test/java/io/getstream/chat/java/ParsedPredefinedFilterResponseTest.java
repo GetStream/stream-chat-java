@@ -14,17 +14,15 @@ public class ParsedPredefinedFilterResponseTest {
   @Test
   void whenDeserializingPredefinedFilterResponse_thenCorrectlyParsed() throws Exception {
     String json =
-        """
-        {
-          "channels": [],
-          "predefined_filter": {
-            "name": "user_messaging",
-            "filter": {"type": "messaging", "members": {"$in": ["user123"]}},
-            "sort": [{"field": "last_message_at", "direction": -1}]
-          },
-          "duration": "0.01s"
-        }
-        """;
+        "{"
+            + "\"channels\": [],"
+            + "\"predefined_filter\": {"
+            + "\"name\": \"user_messaging\","
+            + "\"filter\": {\"type\": \"messaging\", \"members\": {\"$in\": [\"user123\"]}},"
+            + "\"sort\": [{\"field\": \"last_message_at\", \"direction\": -1}]"
+            + "},"
+            + "\"duration\": \"0.01s\""
+            + "}";
 
     ChannelListResponse response = objectMapper.readValue(json, ChannelListResponse.class);
 
@@ -41,13 +39,7 @@ public class ParsedPredefinedFilterResponseTest {
   @DisplayName("Can deserialize response without predefined_filter")
   @Test
   void whenDeserializingResponseWithoutPredefinedFilter_thenNullField() throws Exception {
-    String json =
-        """
-        {
-          "channels": [],
-          "duration": "0.01s"
-        }
-        """;
+    String json = "{" + "\"channels\": []," + "\"duration\": \"0.01s\"" + "}";
 
     ChannelListResponse response = objectMapper.readValue(json, ChannelListResponse.class);
 
@@ -58,16 +50,14 @@ public class ParsedPredefinedFilterResponseTest {
   @Test
   void whenDeserializingPredefinedFilterWithoutSort_thenSortIsNull() throws Exception {
     String json =
-        """
-        {
-          "channels": [],
-          "predefined_filter": {
-            "name": "simple_filter",
-            "filter": {"type": "messaging"}
-          },
-          "duration": "0.01s"
-        }
-        """;
+        "{"
+            + "\"channels\": [],"
+            + "\"predefined_filter\": {"
+            + "\"name\": \"simple_filter\","
+            + "\"filter\": {\"type\": \"messaging\"}"
+            + "},"
+            + "\"duration\": \"0.01s\""
+            + "}";
 
     ChannelListResponse response = objectMapper.readValue(json, ChannelListResponse.class);
 
