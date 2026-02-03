@@ -34,7 +34,8 @@ public class ParsedPredefinedFilterResponseTest {
     Assertions.assertEquals("messaging", response.getPredefinedFilter().getFilter().get("type"));
     Assertions.assertNotNull(response.getPredefinedFilter().getSort());
     Assertions.assertEquals(1, response.getPredefinedFilter().getSort().size());
-    Assertions.assertEquals("last_message_at", response.getPredefinedFilter().getSort().get(0).getField());
+    Assertions.assertEquals(
+        "last_message_at", response.getPredefinedFilter().getSort().get(0).getField());
   }
 
   @DisplayName("Can deserialize response without predefined_filter")
