@@ -2,7 +2,6 @@ package io.getstream.chat.java;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.getstream.chat.java.models.Channel.ChannelListResponse;
-import io.getstream.chat.java.models.Channel.ParsedPredefinedFilterResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,8 @@ public class ParsedPredefinedFilterResponseTest {
   @DisplayName("Can deserialize ParsedPredefinedFilterResponse from JSON")
   @Test
   void whenDeserializingPredefinedFilterResponse_thenCorrectlyParsed() throws Exception {
-    String json = """
+    String json =
+        """
         {
           "channels": [],
           "predefined_filter": {
@@ -40,7 +40,8 @@ public class ParsedPredefinedFilterResponseTest {
   @DisplayName("Can deserialize response without predefined_filter")
   @Test
   void whenDeserializingResponseWithoutPredefinedFilter_thenNullField() throws Exception {
-    String json = """
+    String json =
+        """
         {
           "channels": [],
           "duration": "0.01s"
@@ -55,7 +56,8 @@ public class ParsedPredefinedFilterResponseTest {
   @DisplayName("Can deserialize predefined_filter without sort")
   @Test
   void whenDeserializingPredefinedFilterWithoutSort_thenSortIsNull() throws Exception {
-    String json = """
+    String json =
+        """
         {
           "channels": [],
           "predefined_filter": {
