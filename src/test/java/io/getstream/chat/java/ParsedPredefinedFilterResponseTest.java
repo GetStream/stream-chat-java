@@ -1,5 +1,8 @@
 package io.getstream.chat.java;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.getstream.chat.java.models.Channel.ChannelListResponse;
 import org.junit.jupiter.api.Assertions;
@@ -8,7 +11,14 @@ import org.junit.jupiter.api.Test;
 
 public class ParsedPredefinedFilterResponseTest {
 
-  private static final ObjectMapper objectMapper = new ObjectMapper();
+  private static final ObjectMapper objectMapper;
+
+  static {
+    objectMapper = new ObjectMapper();
+    objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
+    objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+  }
 
   @DisplayName("Can deserialize ParsedPredefinedFilterResponse from JSON")
   @Test
