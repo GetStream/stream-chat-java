@@ -1396,11 +1396,31 @@ public class Channel {
 
   @Data
   @NoArgsConstructor
+  public static class ParsedPredefinedFilterResponse {
+    @Nullable
+    @JsonProperty("name")
+    private String name;
+
+    @Nullable
+    @JsonProperty("filter")
+    private Map<String, Object> filter;
+
+    @Nullable
+    @JsonProperty("sort")
+    private List<Sort> sort;
+  }
+
+  @Data
+  @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class ChannelListResponse extends StreamResponseObject {
     @Nullable
     @JsonProperty("channels")
     private List<ChannelGetResponse> channels;
+
+    @Nullable
+    @JsonProperty("predefined_filter")
+    private ParsedPredefinedFilterResponse predefinedFilter;
   }
 
   @Data
