@@ -1,5 +1,6 @@
 package io.getstream.chat.java.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.getstream.chat.java.models.TeamUsageStats.QueryTeamUsageStatsRequestData.QueryTeamUsageStatsRequest;
 import io.getstream.chat.java.models.framework.StreamRequest;
@@ -148,6 +149,7 @@ public class TeamUsageStats {
       buildMethodName = "internalBuild")
   @Getter
   @EqualsAndHashCode
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public static class QueryTeamUsageStatsRequestData {
     /**
      * Month in YYYY-MM format (e.g., '2026-01'). Mutually exclusive with start_date/end_date.
