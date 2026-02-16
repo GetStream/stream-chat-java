@@ -438,13 +438,23 @@ public class Message {
     @JsonProperty("image_harms")
     private List<String> imageHarms;
 
+    /** @deprecated Use {@link #blocklistsMatched} instead. Kept for backward compatibility. */
+    @Deprecated
     @Nullable
     @JsonProperty("blocklist_matched")
-    private List<String> blocklistMatched;
+    private String blocklistMatched;
+
+    @Nullable
+    @JsonProperty("blocklists_matched")
+    private List<String> blocklistsMatched;
 
     @Nullable
     @JsonProperty("semantic_filter_matched")
     private String semanticFilterMatched;
+
+    @Nullable
+    @JsonProperty("platform_circumvented")
+    private Boolean platformCircumvented;
   }
 
   @Builder
