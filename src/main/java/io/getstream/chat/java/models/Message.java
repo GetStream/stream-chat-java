@@ -438,7 +438,9 @@ public class Message {
     @JsonProperty("image_harms")
     private List<String> imageHarms;
 
-    /** @deprecated Use {@link #blocklistsMatched} instead. Kept for backward compatibility. */
+    /**
+     * @deprecated Use {@link #blocklistsMatched} instead. Kept for backward compatibility.
+     */
     @Deprecated
     @Nullable
     @JsonProperty("blocklist_matched")
