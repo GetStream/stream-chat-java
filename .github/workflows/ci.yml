@@ -20,6 +20,8 @@ jobs:
         env:
           STREAM_KEY: ${{ secrets.STREAM_KEY }}
           STREAM_SECRET: ${{ secrets.STREAM_SECRET }}
+          STREAM_MULTI_TENANT_KEY: ${{ secrets.STREAM_MULTI_TENANT_KEY }}
+          STREAM_MULTI_TENANT_SECRET: ${{ secrets.STREAM_MULTI_TENANT_SECRET }}
         run: |
           ./gradlew spotlessCheck --no-daemon
           ./gradlew javadoc --no-daemon
