@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.TeamUsageStats;
-import io.getstream.chat.java.models.TeamUsageStats.MetricStats;
 import io.getstream.chat.java.models.TeamUsageStats.QueryTeamUsageStatsResponse;
 import io.getstream.chat.java.services.framework.DefaultClient;
 import java.util.Properties;
@@ -196,8 +195,7 @@ public class TeamUsageStatsIntegrationTest {
       // Verify no overlap between pages
       for (var t1 : page1.getTeams()) {
         for (var t2 : page2.getTeams()) {
-          assertNotEquals(
-              t1.getTeam(), t2.getTeam(), "Pages should not have overlapping teams");
+          assertNotEquals(t1.getTeam(), t2.getTeam(), "Pages should not have overlapping teams");
         }
       }
     }
@@ -283,7 +281,8 @@ public class TeamUsageStatsIntegrationTest {
       assertNotNull(team.getUsersLast24Hours(), "users_last_24_hours should be present");
       assertNotNull(team.getUsersLast30Days(), "users_last_30_days should be present");
       assertNotNull(team.getUsersMonthToDate(), "users_month_to_date should be present");
-      assertNotNull(team.getUsersEngagedLast30Days(), "users_engaged_last_30_days should be present");
+      assertNotNull(
+          team.getUsersEngagedLast30Days(), "users_engaged_last_30_days should be present");
       assertNotNull(
           team.getUsersEngagedMonthToDate(), "users_engaged_month_to_date should be present");
       assertNotNull(team.getMessagesTotal(), "messages_total should be present");
@@ -325,13 +324,15 @@ public class TeamUsageStatsIntegrationTest {
      * Verifies exact metric values for sdk-test-team-1/2/3 using date range query.
      *
      * <p>Expected values for each sdk-test-team-N:
+     *
      * <ul>
-     *   <li>users_daily: 0, messages_daily: 100</li>
-     *   <li>translations_daily: 0, image_moderations_daily: 0</li>
-     *   <li>concurrent_users: 0, concurrent_connections: 0</li>
-     *   <li>users_total: 5, users_last_24_hours: 5, users_last_30_days: 5, users_month_to_date: 5</li>
-     *   <li>users_engaged_last_30_days: 0, users_engaged_month_to_date: 0</li>
-     *   <li>messages_total: 100, messages_last_24_hours: 100, messages_last_30_days: 100, messages_month_to_date: 100</li>
+     *   <li>users_daily: 0, messages_daily: 100
+     *   <li>translations_daily: 0, image_moderations_daily: 0
+     *   <li>concurrent_users: 0, concurrent_connections: 0
+     *   <li>users_total: 5, users_last_24_hours: 5, users_last_30_days: 5, users_month_to_date: 5
+     *   <li>users_engaged_last_30_days: 0, users_engaged_month_to_date: 0
+     *   <li>messages_total: 100, messages_last_24_hours: 100, messages_last_30_days: 100,
+     *       messages_month_to_date: 100
      * </ul>
      */
     @Test
@@ -535,16 +536,13 @@ public class TeamUsageStatsIntegrationTest {
     assertEquals(
         0, team.getUsersEngagedLast30Days().getTotal(), teamName + " users_engaged_last_30_days");
     assertEquals(
-        0,
-        team.getUsersEngagedMonthToDate().getTotal(),
-        teamName + " users_engaged_month_to_date");
+        0, team.getUsersEngagedMonthToDate().getTotal(), teamName + " users_engaged_month_to_date");
 
     // Message rolling/cumulative metrics
     assertEquals(100, team.getMessagesTotal().getTotal(), teamName + " messages_total");
     assertEquals(
         100, team.getMessagesLast24Hours().getTotal(), teamName + " messages_last_24_hours");
-    assertEquals(
-        100, team.getMessagesLast30Days().getTotal(), teamName + " messages_last_30_days");
+    assertEquals(100, team.getMessagesLast30Days().getTotal(), teamName + " messages_last_30_days");
     assertEquals(
         100, team.getMessagesMonthToDate().getTotal(), teamName + " messages_month_to_date");
   }
