@@ -327,7 +327,7 @@ public class TeamUsageStatsIntegrationTest {
   class DataCorrectnessDateRange {
 
     /**
-     * Verifies exact metric values for sdk-test-team-1/2/3 using date range query.
+     * Verifies exact metric values for sdk-test-team-1/2 using date range query.
      *
      * <p>Expected values for each sdk-test-team-N:
      *
