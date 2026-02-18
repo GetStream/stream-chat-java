@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
- * Integration tests for Team Usage Stats API. Uses dedicated test credentials from
- * STREAM_USAGE_STATS_KEY and STREAM_USAGE_STATS_SECRET environment variables.
+ * Integration tests for Team Usage Stats API. Uses dedicated multi-tenant test app credentials from
+ * STREAM_MULTI_TENANT_KEY and STREAM_MULTI_TENANT_SECRET environment variables.
  *
  * <p>These tests verify that the SDK correctly parses all response data from the backend.
  */
@@ -22,22 +22,13 @@ public class TeamUsageStatsIntegrationTest {
 
   @BeforeAll
   static void setup() {
-    // Use dedicated credentials for usage stats testing
-    String apiKey = System.getenv("STREAM_USAGE_STATS_KEY");
-    String apiSecret = System.getenv("STREAM_USAGE_STATS_SECRET");
+    String apiKey = System.getenv("STREAM_MULTI_TENANT_KEY");
+    String apiSecret = System.getenv("STREAM_MULTI_TENANT_SECRET");
 
-    // Fall back to standard credentials if usage stats specific ones aren't set
-    if (apiKey == null || apiKey.isEmpty()) {
-      apiKey = System.getenv("STREAM_KEY");
-    }
-    if (apiSecret == null || apiSecret.isEmpty()) {
-      apiSecret = System.getenv("STREAM_SECRET");
-    }
-
-    if (apiKey == null || apiSecret == null) {
+    if (apiKey == null || apiKey.isEmpty() || apiSecret == null || apiSecret.isEmpty()) {
       throw new IllegalStateException(
-          "Missing credentials. Set STREAM_USAGE_STATS_KEY/STREAM_USAGE_STATS_SECRET or"
-              + " STREAM_KEY/STREAM_SECRET");
+          "Multi-tenant test app credentials are missing. "
+              + "Set STREAM_MULTI_TENANT_KEY and STREAM_MULTI_TENANT_SECRET environment variables.");
     }
 
     Properties props = new Properties();
