@@ -7,6 +7,7 @@ import io.getstream.chat.java.models.TeamUsageStats;
 import io.getstream.chat.java.models.TeamUsageStats.QueryTeamUsageStatsResponse;
 import io.getstream.chat.java.services.framework.DefaultClient;
 import java.util.Properties;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -20,8 +21,13 @@ import org.junit.jupiter.api.Test;
  */
 public class TeamUsageStatsIntegrationTest {
 
+  private static DefaultClient originalClient;
+
   @BeforeAll
   static void setup() {
+    // Save the original client to restore after tests
+    originalClient = DefaultClient.getInstance();
+
     String apiKey = System.getenv("STREAM_MULTI_TENANT_KEY");
     String apiSecret = System.getenv("STREAM_MULTI_TENANT_SECRET");
 
@@ -36,6 +42,14 @@ public class TeamUsageStatsIntegrationTest {
     props.setProperty("io.getstream.chat.apiSecret", apiSecret);
 
     DefaultClient.setInstance(new DefaultClient(props));
+  }
+
+  @AfterAll
+  static void teardown() {
+    // Restore the original client so other tests use the correct credentials
+    if (originalClient != null) {
+      DefaultClient.setInstance(originalClient);
+    }
   }
 
   @Nested
