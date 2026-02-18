@@ -212,7 +212,7 @@ public class TeamUsageStats {
   /**
    * Queries team-level usage statistics from the warehouse database.
    *
-   * <p>Returns all 16 metrics grouped by team with cursor-based pagination.
+   * <p>Returns usage metrics grouped by team with cursor-based pagination.
    *
    * <p>Date Range Options (mutually exclusive):
    *

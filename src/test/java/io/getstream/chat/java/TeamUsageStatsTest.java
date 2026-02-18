@@ -1,7 +1,7 @@
 package io.getstream.chat.java;
 
-import io.getstream.chat.java.models.TeamUsageStats.QueryTeamUsageStatsResponse;
 import io.getstream.chat.java.models.TeamUsageStats;
+import io.getstream.chat.java.models.TeamUsageStats.QueryTeamUsageStatsResponse;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.Assertions;
@@ -9,9 +9,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * Basic tests for Team Usage Stats API using regular (non-multi-tenant) app credentials.
- * Since the regular app doesn't have multi-tenant enabled, teams will always be empty.
- * Full data verification is done in TeamUsageStatsIntegrationTest with multi-tenant credentials.
+ * Basic tests for Team Usage Stats API using regular (non-multi-tenant) app credentials. Since the
+ * regular app doesn't have multi-tenant enabled, teams will always be empty. Full data verification
+ * is done in TeamUsageStatsIntegrationTest with multi-tenant credentials.
  */
 public class TeamUsageStatsTest {
 
