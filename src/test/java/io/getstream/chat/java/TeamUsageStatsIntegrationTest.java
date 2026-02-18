@@ -318,39 +318,25 @@ public class TeamUsageStatsIntegrationTest {
   }
 
   @Nested
-  @DisplayName("Data Correctness")
-  class DataCorrectness {
+  @DisplayName("Data Correctness - Date Range Query")
+  class DataCorrectnessDateRange {
 
     /**
-     * Verifies exact metric values for sdk-test-team-1, sdk-test-team-2, sdk-test-team-3.
-     *
-     * <p>This test queries a fixed date range (2026-02-17 to 2026-02-18) and asserts exact values
-     * for all 16 metrics. This ensures the SDK correctly parses the API response and catches any
-     * API/SDK regressions.
+     * Verifies exact metric values for sdk-test-team-1/2/3 using date range query.
      *
      * <p>Expected values for each sdk-test-team-N:
      * <ul>
-     *   <li>users_daily: 0</li>
-     *   <li>messages_daily: 100</li>
-     *   <li>translations_daily: 0</li>
-     *   <li>image_moderations_daily: 0</li>
-     *   <li>concurrent_users: 0</li>
-     *   <li>concurrent_connections: 0</li>
-     *   <li>users_total: 5</li>
-     *   <li>users_last_24_hours: 5</li>
-     *   <li>users_last_30_days: 5</li>
-     *   <li>users_month_to_date: 5</li>
-     *   <li>users_engaged_last_30_days: 0</li>
-     *   <li>users_engaged_month_to_date: 0</li>
-     *   <li>messages_total: 100</li>
-     *   <li>messages_last_24_hours: 100</li>
-     *   <li>messages_last_30_days: 100</li>
-     *   <li>messages_month_to_date: 100</li>
+     *   <li>users_daily: 0, messages_daily: 100</li>
+     *   <li>translations_daily: 0, image_moderations_daily: 0</li>
+     *   <li>concurrent_users: 0, concurrent_connections: 0</li>
+     *   <li>users_total: 5, users_last_24_hours: 5, users_last_30_days: 5, users_month_to_date: 5</li>
+     *   <li>users_engaged_last_30_days: 0, users_engaged_month_to_date: 0</li>
+     *   <li>messages_total: 100, messages_last_24_hours: 100, messages_last_30_days: 100, messages_month_to_date: 100</li>
      * </ul>
      */
     @Test
-    @DisplayName("sdk-test-team-1 has exact expected values for all 16 metrics")
-    void sdkTestTeam1HasExactValues() throws StreamException {
+    @DisplayName("Date range: sdk-test-team-1 exact values")
+    void dateRangeSdkTestTeam1() throws StreamException {
       QueryTeamUsageStatsResponse response =
           TeamUsageStats.queryTeamUsageStats()
               .startDate("2026-02-17")
@@ -359,13 +345,12 @@ public class TeamUsageStatsIntegrationTest {
 
       TeamUsageStats team = findTeamByName(response, "sdk-test-team-1");
       assertNotNull(team, "sdk-test-team-1 should exist");
-
       assertAllMetricsExact(team, "sdk-test-team-1");
     }
 
     @Test
-    @DisplayName("sdk-test-team-2 has exact expected values for all 16 metrics")
-    void sdkTestTeam2HasExactValues() throws StreamException {
+    @DisplayName("Date range: sdk-test-team-2 exact values")
+    void dateRangeSdkTestTeam2() throws StreamException {
       QueryTeamUsageStatsResponse response =
           TeamUsageStats.queryTeamUsageStats()
               .startDate("2026-02-17")
@@ -374,13 +359,12 @@ public class TeamUsageStatsIntegrationTest {
 
       TeamUsageStats team = findTeamByName(response, "sdk-test-team-2");
       assertNotNull(team, "sdk-test-team-2 should exist");
-
       assertAllMetricsExact(team, "sdk-test-team-2");
     }
 
     @Test
-    @DisplayName("sdk-test-team-3 has exact expected values for all 16 metrics")
-    void sdkTestTeam3HasExactValues() throws StreamException {
+    @DisplayName("Date range: sdk-test-team-3 exact values")
+    void dateRangeSdkTestTeam3() throws StreamException {
       QueryTeamUsageStatsResponse response =
           TeamUsageStats.queryTeamUsageStats()
               .startDate("2026-02-17")
@@ -389,52 +373,179 @@ public class TeamUsageStatsIntegrationTest {
 
       TeamUsageStats team = findTeamByName(response, "sdk-test-team-3");
       assertNotNull(team, "sdk-test-team-3 should exist");
+      assertAllMetricsExact(team, "sdk-test-team-3");
+    }
+  }
 
+  @Nested
+  @DisplayName("Data Correctness - Month Query")
+  class DataCorrectnessMonth {
+
+    @Test
+    @DisplayName("Month query: sdk-test-team-1 exact values")
+    void monthQuerySdkTestTeam1() throws StreamException {
+      QueryTeamUsageStatsResponse response =
+          TeamUsageStats.queryTeamUsageStats().month("2026-02").request();
+
+      TeamUsageStats team = findTeamByName(response, "sdk-test-team-1");
+      assertNotNull(team, "sdk-test-team-1 should exist");
+      assertAllMetricsExact(team, "sdk-test-team-1");
+    }
+
+    @Test
+    @DisplayName("Month query: sdk-test-team-2 exact values")
+    void monthQuerySdkTestTeam2() throws StreamException {
+      QueryTeamUsageStatsResponse response =
+          TeamUsageStats.queryTeamUsageStats().month("2026-02").request();
+
+      TeamUsageStats team = findTeamByName(response, "sdk-test-team-2");
+      assertNotNull(team, "sdk-test-team-2 should exist");
+      assertAllMetricsExact(team, "sdk-test-team-2");
+    }
+
+    @Test
+    @DisplayName("Month query: sdk-test-team-3 exact values")
+    void monthQuerySdkTestTeam3() throws StreamException {
+      QueryTeamUsageStatsResponse response =
+          TeamUsageStats.queryTeamUsageStats().month("2026-02").request();
+
+      TeamUsageStats team = findTeamByName(response, "sdk-test-team-3");
+      assertNotNull(team, "sdk-test-team-3 should exist");
+      assertAllMetricsExact(team, "sdk-test-team-3");
+    }
+  }
+
+  @Nested
+  @DisplayName("Data Correctness - No Parameters Query")
+  class DataCorrectnessNoParams {
+
+    @Test
+    @DisplayName("No params: sdk-test-team-1 exact values")
+    void noParamsSdkTestTeam1() throws StreamException {
+      QueryTeamUsageStatsResponse response = TeamUsageStats.queryTeamUsageStats().request();
+
+      TeamUsageStats team = findTeamByName(response, "sdk-test-team-1");
+      assertNotNull(team, "sdk-test-team-1 should exist");
+      assertAllMetricsExact(team, "sdk-test-team-1");
+    }
+
+    @Test
+    @DisplayName("No params: sdk-test-team-2 exact values")
+    void noParamsSdkTestTeam2() throws StreamException {
+      QueryTeamUsageStatsResponse response = TeamUsageStats.queryTeamUsageStats().request();
+
+      TeamUsageStats team = findTeamByName(response, "sdk-test-team-2");
+      assertNotNull(team, "sdk-test-team-2 should exist");
+      assertAllMetricsExact(team, "sdk-test-team-2");
+    }
+
+    @Test
+    @DisplayName("No params: sdk-test-team-3 exact values")
+    void noParamsSdkTestTeam3() throws StreamException {
+      QueryTeamUsageStatsResponse response = TeamUsageStats.queryTeamUsageStats().request();
+
+      TeamUsageStats team = findTeamByName(response, "sdk-test-team-3");
+      assertNotNull(team, "sdk-test-team-3 should exist");
+      assertAllMetricsExact(team, "sdk-test-team-3");
+    }
+  }
+
+  @Nested
+  @DisplayName("Data Correctness - Pagination Query")
+  class DataCorrectnessPagination {
+
+    @Test
+    @DisplayName("Pagination: finds sdk-test-team-1 with exact values across pages")
+    void paginationFindsSdkTestTeam1() throws StreamException {
+      TeamUsageStats team = findTeamAcrossPages("sdk-test-team-1");
+      assertNotNull(team, "sdk-test-team-1 should exist across paginated results");
+      assertAllMetricsExact(team, "sdk-test-team-1");
+    }
+
+    @Test
+    @DisplayName("Pagination: finds sdk-test-team-2 with exact values across pages")
+    void paginationFindsSdkTestTeam2() throws StreamException {
+      TeamUsageStats team = findTeamAcrossPages("sdk-test-team-2");
+      assertNotNull(team, "sdk-test-team-2 should exist across paginated results");
+      assertAllMetricsExact(team, "sdk-test-team-2");
+    }
+
+    @Test
+    @DisplayName("Pagination: finds sdk-test-team-3 with exact values across pages")
+    void paginationFindsSdkTestTeam3() throws StreamException {
+      TeamUsageStats team = findTeamAcrossPages("sdk-test-team-3");
+      assertNotNull(team, "sdk-test-team-3 should exist across paginated results");
       assertAllMetricsExact(team, "sdk-test-team-3");
     }
 
-    private TeamUsageStats findTeamByName(QueryTeamUsageStatsResponse response, String teamName) {
-      for (TeamUsageStats team : response.getTeams()) {
-        if (teamName.equals(team.getTeam())) {
-          return team;
+    private TeamUsageStats findTeamAcrossPages(String teamName) throws StreamException {
+      String nextCursor = null;
+      int maxPages = 10; // Safety limit
+
+      for (int page = 0; page < maxPages; page++) {
+        var requestBuilder = TeamUsageStats.queryTeamUsageStats().limit(5);
+        if (nextCursor != null) {
+          requestBuilder = requestBuilder.next(nextCursor);
+        }
+
+        QueryTeamUsageStatsResponse response = requestBuilder.request();
+        TeamUsageStats found = findTeamByName(response, teamName);
+        if (found != null) {
+          return found;
+        }
+
+        nextCursor = response.getNext();
+        if (nextCursor == null || nextCursor.isEmpty()) {
+          break; // No more pages
         }
       }
       return null;
     }
+  }
 
-    private void assertAllMetricsExact(TeamUsageStats team, String teamName) {
-      // Daily activity metrics
-      assertEquals(0, team.getUsersDaily().getTotal(), teamName + " users_daily");
-      assertEquals(100, team.getMessagesDaily().getTotal(), teamName + " messages_daily");
-      assertEquals(0, team.getTranslationsDaily().getTotal(), teamName + " translations_daily");
-      assertEquals(
-          0, team.getImageModerationDaily().getTotal(), teamName + " image_moderations_daily");
-
-      // Peak metrics
-      assertEquals(0, team.getConcurrentUsers().getTotal(), teamName + " concurrent_users");
-      assertEquals(
-          0, team.getConcurrentConnections().getTotal(), teamName + " concurrent_connections");
-
-      // User rolling/cumulative metrics
-      assertEquals(5, team.getUsersTotal().getTotal(), teamName + " users_total");
-      assertEquals(5, team.getUsersLast24Hours().getTotal(), teamName + " users_last_24_hours");
-      assertEquals(5, team.getUsersLast30Days().getTotal(), teamName + " users_last_30_days");
-      assertEquals(5, team.getUsersMonthToDate().getTotal(), teamName + " users_month_to_date");
-      assertEquals(
-          0, team.getUsersEngagedLast30Days().getTotal(), teamName + " users_engaged_last_30_days");
-      assertEquals(
-          0,
-          team.getUsersEngagedMonthToDate().getTotal(),
-          teamName + " users_engaged_month_to_date");
-
-      // Message rolling/cumulative metrics
-      assertEquals(100, team.getMessagesTotal().getTotal(), teamName + " messages_total");
-      assertEquals(
-          100, team.getMessagesLast24Hours().getTotal(), teamName + " messages_last_24_hours");
-      assertEquals(
-          100, team.getMessagesLast30Days().getTotal(), teamName + " messages_last_30_days");
-      assertEquals(
-          100, team.getMessagesMonthToDate().getTotal(), teamName + " messages_month_to_date");
+  // Helper methods shared across nested classes
+  private static TeamUsageStats findTeamByName(
+      QueryTeamUsageStatsResponse response, String teamName) {
+    for (TeamUsageStats team : response.getTeams()) {
+      if (teamName.equals(team.getTeam())) {
+        return team;
+      }
     }
+    return null;
+  }
+
+  private static void assertAllMetricsExact(TeamUsageStats team, String teamName) {
+    // Daily activity metrics
+    assertEquals(0, team.getUsersDaily().getTotal(), teamName + " users_daily");
+    assertEquals(100, team.getMessagesDaily().getTotal(), teamName + " messages_daily");
+    assertEquals(0, team.getTranslationsDaily().getTotal(), teamName + " translations_daily");
+    assertEquals(
+        0, team.getImageModerationDaily().getTotal(), teamName + " image_moderations_daily");
+
+    // Peak metrics
+    assertEquals(0, team.getConcurrentUsers().getTotal(), teamName + " concurrent_users");
+    assertEquals(
+        0, team.getConcurrentConnections().getTotal(), teamName + " concurrent_connections");
+
+    // User rolling/cumulative metrics
+    assertEquals(5, team.getUsersTotal().getTotal(), teamName + " users_total");
+    assertEquals(5, team.getUsersLast24Hours().getTotal(), teamName + " users_last_24_hours");
+    assertEquals(5, team.getUsersLast30Days().getTotal(), teamName + " users_last_30_days");
+    assertEquals(5, team.getUsersMonthToDate().getTotal(), teamName + " users_month_to_date");
+    assertEquals(
+        0, team.getUsersEngagedLast30Days().getTotal(), teamName + " users_engaged_last_30_days");
+    assertEquals(
+        0,
+        team.getUsersEngagedMonthToDate().getTotal(),
+        teamName + " users_engaged_month_to_date");
+
+    // Message rolling/cumulative metrics
+    assertEquals(100, team.getMessagesTotal().getTotal(), teamName + " messages_total");
+    assertEquals(
+        100, team.getMessagesLast24Hours().getTotal(), teamName + " messages_last_24_hours");
+    assertEquals(
+        100, team.getMessagesLast30Days().getTotal(), teamName + " messages_last_30_days");
+    assertEquals(
+        100, team.getMessagesMonthToDate().getTotal(), teamName + " messages_month_to_date");
   }
 }
