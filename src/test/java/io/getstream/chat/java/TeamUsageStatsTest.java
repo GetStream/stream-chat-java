@@ -109,49 +109,49 @@ public class TeamUsageStatsTest {
     Assertions.assertNotNull(response);
     Assertions.assertNotNull(response.getTeams());
 
-    // Verify response structure
+    // Verify response structure - require at least one team to validate assertions
     List<TeamUsageStats> teams = response.getTeams();
-    if (!teams.isEmpty()) {
-      TeamUsageStats team = teams.get(0);
+    Assertions.assertFalse(
+        teams.isEmpty(),
+        "Expected at least one team in usage stats to verify response structure. "
+            + "If this test account has no historical data, use a different test account.");
 
-      // Verify all 16 metrics are present
-      Assertions.assertNotNull(team.getTeam(), "Team identifier should not be null");
+    TeamUsageStats team = teams.get(0);
 
-      // Daily activity metrics
-      Assertions.assertNotNull(team.getUsersDaily(), "users_daily should not be null");
-      Assertions.assertNotNull(team.getMessagesDaily(), "messages_daily should not be null");
-      Assertions.assertNotNull(
-          team.getTranslationsDaily(), "translations_daily should not be null");
-      Assertions.assertNotNull(
-          team.getImageModerationDaily(), "image_moderations_daily should not be null");
+    // Verify all 16 metrics are present
+    Assertions.assertNotNull(team.getTeam(), "Team identifier should not be null");
 
-      // Peak metrics
-      Assertions.assertNotNull(team.getConcurrentUsers(), "concurrent_users should not be null");
-      Assertions.assertNotNull(
-          team.getConcurrentConnections(), "concurrent_connections should not be null");
+    // Daily activity metrics
+    Assertions.assertNotNull(team.getUsersDaily(), "users_daily should not be null");
+    Assertions.assertNotNull(team.getMessagesDaily(), "messages_daily should not be null");
+    Assertions.assertNotNull(team.getTranslationsDaily(), "translations_daily should not be null");
+    Assertions.assertNotNull(
+        team.getImageModerationDaily(), "image_moderations_daily should not be null");
 
-      // Rolling/cumulative metrics
-      Assertions.assertNotNull(team.getUsersTotal(), "users_total should not be null");
-      Assertions.assertNotNull(
-          team.getUsersLast24Hours(), "users_last_24_hours should not be null");
-      Assertions.assertNotNull(team.getUsersLast30Days(), "users_last_30_days should not be null");
-      Assertions.assertNotNull(
-          team.getUsersMonthToDate(), "users_month_to_date should not be null");
-      Assertions.assertNotNull(
-          team.getUsersEngagedLast30Days(), "users_engaged_last_30_days should not be null");
-      Assertions.assertNotNull(
-          team.getUsersEngagedMonthToDate(), "users_engaged_month_to_date should not be null");
-      Assertions.assertNotNull(team.getMessagesTotal(), "messages_total should not be null");
-      Assertions.assertNotNull(
-          team.getMessagesLast24Hours(), "messages_last_24_hours should not be null");
-      Assertions.assertNotNull(
-          team.getMessagesLast30Days(), "messages_last_30_days should not be null");
-      Assertions.assertNotNull(
-          team.getMessagesMonthToDate(), "messages_month_to_date should not be null");
+    // Peak metrics
+    Assertions.assertNotNull(team.getConcurrentUsers(), "concurrent_users should not be null");
+    Assertions.assertNotNull(
+        team.getConcurrentConnections(), "concurrent_connections should not be null");
 
-      // Verify MetricStats structure
-      Assertions.assertNotNull(
-          team.getUsersDaily().getTotal(), "MetricStats total should not be null");
-    }
+    // Rolling/cumulative metrics
+    Assertions.assertNotNull(team.getUsersTotal(), "users_total should not be null");
+    Assertions.assertNotNull(team.getUsersLast24Hours(), "users_last_24_hours should not be null");
+    Assertions.assertNotNull(team.getUsersLast30Days(), "users_last_30_days should not be null");
+    Assertions.assertNotNull(team.getUsersMonthToDate(), "users_month_to_date should not be null");
+    Assertions.assertNotNull(
+        team.getUsersEngagedLast30Days(), "users_engaged_last_30_days should not be null");
+    Assertions.assertNotNull(
+        team.getUsersEngagedMonthToDate(), "users_engaged_month_to_date should not be null");
+    Assertions.assertNotNull(team.getMessagesTotal(), "messages_total should not be null");
+    Assertions.assertNotNull(
+        team.getMessagesLast24Hours(), "messages_last_24_hours should not be null");
+    Assertions.assertNotNull(
+        team.getMessagesLast30Days(), "messages_last_30_days should not be null");
+    Assertions.assertNotNull(
+        team.getMessagesMonthToDate(), "messages_month_to_date should not be null");
+
+    // Verify MetricStats structure
+    Assertions.assertNotNull(
+        team.getUsersDaily().getTotal(), "MetricStats total should not be null");
   }
 }
