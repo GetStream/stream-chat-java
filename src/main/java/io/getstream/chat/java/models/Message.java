@@ -177,6 +177,10 @@ public class Message {
   @JsonProperty("member")
   private ChannelMember member;
 
+  @Nullable
+  @JsonProperty("moderation")
+  private ModerationV2Response moderation;
+
   @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
 
   @JsonAnyGetter
@@ -413,6 +417,46 @@ public class Message {
     @Nullable
     @JsonProperty("spam")
     private Integer spam;
+  }
+
+  @Data
+  @NoArgsConstructor
+  public static class ModerationV2Response {
+    @Nullable
+    @JsonProperty("action")
+    private String action;
+
+    @Nullable
+    @JsonProperty("original_text")
+    private String originalText;
+
+    @Nullable
+    @JsonProperty("text_harms")
+    private List<String> textHarms;
+
+    @Nullable
+    @JsonProperty("image_harms")
+    private List<String> imageHarms;
+
+    /**
+     * @deprecated Use {@link #blocklistsMatched} instead. Kept for backward compatibility.
+     */
+    @Deprecated
+    @Nullable
+    @JsonProperty("blocklist_matched")
+    private String blocklistMatched;
+
+    @Nullable
+    @JsonProperty("blocklists_matched")
+    private List<String> blocklistsMatched;
+
+    @Nullable
+    @JsonProperty("semantic_filter_matched")
+    private String semanticFilterMatched;
+
+    @Nullable
+    @JsonProperty("platform_circumvented")
+    private Boolean platformCircumvented;
   }
 
   @Builder
