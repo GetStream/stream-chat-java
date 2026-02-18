@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.41.2](https://github.com/GetStream/stream-chat-java/compare/1.41.1...1.41.2) (2026-02-18)
+
+
+### Bug Fixes
+
+* only assert exact metric values in date-bounded tests ([f6878c9](https://github.com/GetStream/stream-chat-java/commit/f6878c9329be03d8ad8dcfcefa817cad0fd18022))
+
 ### [1.41.1](https://github.com/GetStream/stream-chat-java/compare/1.41.0...1.41.1) (2026-02-18)
 
 
