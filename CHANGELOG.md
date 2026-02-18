@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.41.1](https://github.com/GetStream/stream-chat-java/compare/1.41.0...1.41.1) (2026-02-18)
+
+
+### Features
+
+* add queryTeamUsageStats API for multi-tenant metrics ([#236](https://github.com/GetStream/stream-chat-java/issues/236)) ([bfc9936](https://github.com/GetStream/stream-chat-java/commit/bfc9936bdccc32e5d13e4fd4415457059ad59062))
+
 ## [1.41.0](https://github.com/GetStream/stream-chat-java/compare/1.40.0...1.41.0) (2026-02-16)
 
 ## [1.40.0](https://github.com/GetStream/stream-chat-java/compare/1.39.0...1.40.0) (2026-01-22)
