@@ -1919,11 +1919,7 @@ public class Channel {
     @JsonProperty("unarchive")
     UNARCHIVE,
     @JsonProperty("updateData")
-    UPDATE_DATA,
-    @JsonProperty("addFilterTags")
-    ADD_FILTER_TAGS,
-    @JsonProperty("removeFilterTags")
-    REMOVE_FILTER_TAGS
+    UPDATE_DATA
   }
 
   /** Represents a member in batch operations */
@@ -1985,10 +1981,6 @@ public class Channel {
     @Nullable
     @JsonProperty("types")
     private Object types;
-
-    @Nullable
-    @JsonProperty("filter_tags")
-    private Object filterTags;
   }
 
   /** Represents options for batch channel updates */
@@ -2010,10 +2002,6 @@ public class Channel {
     @Nullable
     @JsonProperty("data")
     private ChannelDataUpdate data;
-
-    @Nullable
-    @JsonProperty("filter_tags_update")
-    private List<String> filterTagsUpdate;
   }
 
   @Getter

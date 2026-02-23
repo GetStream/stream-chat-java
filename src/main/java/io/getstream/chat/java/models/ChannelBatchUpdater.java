@@ -195,37 +195,4 @@ public class ChannelBatchUpdater {
     return Channel.updateBatch(options);
   }
 
-  /**
-   * Adds filter tags to channels matching the filter.
-   *
-   * @param filter the filter to match channels
-   * @param tags list of filter tags to add
-   * @return the batch update request
-   */
-  @NotNull
-  public ChannelsBatchUpdateRequest addFilterTags(
-      @NotNull ChannelsBatchFilters filter, @NotNull List<String> tags) {
-    ChannelsBatchOptions options = new ChannelsBatchOptions();
-    options.setOperation(ChannelBatchOperation.ADD_FILTER_TAGS);
-    options.setFilter(filter);
-    options.setFilterTagsUpdate(tags != null ? new ArrayList<>(tags) : null);
-    return Channel.updateBatch(options);
-  }
-
-  /**
-   * Removes filter tags from channels matching the filter.
-   *
-   * @param filter the filter to match channels
-   * @param tags list of filter tags to remove
-   * @return the batch update request
-   */
-  @NotNull
-  public ChannelsBatchUpdateRequest removeFilterTags(
-      @NotNull ChannelsBatchFilters filter, @NotNull List<String> tags) {
-    ChannelsBatchOptions options = new ChannelsBatchOptions();
-    options.setOperation(ChannelBatchOperation.REMOVE_FILTER_TAGS);
-    options.setFilter(filter);
-    options.setFilterTagsUpdate(tags != null ? new ArrayList<>(tags) : null);
-    return Channel.updateBatch(options);
-  }
 }
