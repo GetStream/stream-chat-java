@@ -194,5 +194,4 @@ public class ChannelBatchUpdater {
     options.setData(data);
     return Channel.updateBatch(options);
   }
-
 }
