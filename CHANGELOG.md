@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.42.0](https://github.com/GetStream/stream-chat-java/compare/1.41.2...1.42.0) (2026-02-26)
+
+
+### Features
+
+* remove filterTags from channel batch update API ([#242](https://github.com/GetStream/stream-chat-java/issues/242)) ([e5c358c](https://github.com/GetStream/stream-chat-java/commit/e5c358ce071778f04525d6d33732ae396d374924))
+
 ### [1.41.2](https://github.com/GetStream/stream-chat-java/compare/1.41.1...1.41.2) (2026-02-18)
 
 
