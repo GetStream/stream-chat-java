@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -177,21 +177,13 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchUpdateRequest</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addFilterTags(io.getstream.chat.java.models.Channel.ChannelsBatchFilters,java.util.List)">addFilterTags</a></span>&#8203;(@NotNull <a href="Channel.ChannelsBatchFilters.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchFilters</a>&nbsp;filter,
-             @NotNull java.util.List&lt;java.lang.String&gt;&nbsp;tags)</code></th>
-<td class="colLast">
-<div class="block">Adds filter tags to channels matching the filter.</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addMembers(io.getstream.chat.java.models.Channel.ChannelsBatchFilters,java.util.List)">addMembers</a></span>&#8203;(@NotNull <a href="Channel.ChannelsBatchFilters.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchFilters</a>&nbsp;filter,
           @NotNull java.util.List&lt;<a href="Channel.ChannelBatchMemberRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelBatchMemberRequest</a>&gt;&nbsp;members)</code></th>
 <td class="colLast">
 <div class="block">Adds members to channels matching the filter.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addModerators(io.getstream.chat.java.models.Channel.ChannelsBatchFilters,java.util.List)">addModerators</a></span>&#8203;(@NotNull <a href="Channel.ChannelsBatchFilters.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchFilters</a>&nbsp;filter,
              @NotNull java.util.List&lt;<a href="Channel.ChannelBatchMemberRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelBatchMemberRequest</a>&gt;&nbsp;members)</code></th>
@@ -199,7 +191,7 @@ extends java.lang.Object</pre>
 <div class="block">Adds moderators to channels matching the filter.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#archive(io.getstream.chat.java.models.Channel.ChannelsBatchFilters,java.util.List)">archive</a></span>&#8203;(@NotNull <a href="Channel.ChannelsBatchFilters.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchFilters</a>&nbsp;filter,
        @NotNull java.util.List&lt;<a href="Channel.ChannelBatchMemberRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelBatchMemberRequest</a>&gt;&nbsp;members)</code></th>
@@ -207,7 +199,7 @@ extends java.lang.Object</pre>
 <div class="block">Archives channels matching the filter for the specified members.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#assignRoles(io.getstream.chat.java.models.Channel.ChannelsBatchFilters,java.util.List)">assignRoles</a></span>&#8203;(@NotNull <a href="Channel.ChannelsBatchFilters.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchFilters</a>&nbsp;filter,
            @NotNull java.util.List&lt;<a href="Channel.ChannelBatchMemberRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelBatchMemberRequest</a>&gt;&nbsp;members)</code></th>
@@ -215,7 +207,7 @@ extends java.lang.Object</pre>
 <div class="block">Assigns roles to members in channels matching the filter.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#demoteModerators(io.getstream.chat.java.models.Channel.ChannelsBatchFilters,java.util.List)">demoteModerators</a></span>&#8203;(@NotNull <a href="Channel.ChannelsBatchFilters.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchFilters</a>&nbsp;filter,
                 @NotNull java.util.List&lt;<a href="Channel.ChannelBatchMemberRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelBatchMemberRequest</a>&gt;&nbsp;members)</code></th>
@@ -223,7 +215,7 @@ extends java.lang.Object</pre>
 <div class="block">Removes moderator role from members in channels matching the filter.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hide(io.getstream.chat.java.models.Channel.ChannelsBatchFilters,java.util.List)">hide</a></span>&#8203;(@NotNull <a href="Channel.ChannelsBatchFilters.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchFilters</a>&nbsp;filter,
     @NotNull java.util.List&lt;<a href="Channel.ChannelBatchMemberRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelBatchMemberRequest</a>&gt;&nbsp;members)</code></th>
@@ -231,7 +223,7 @@ extends java.lang.Object</pre>
 <div class="block">Hides channels matching the filter for the specified members.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#inviteMembers(io.getstream.chat.java.models.Channel.ChannelsBatchFilters,java.util.List)">inviteMembers</a></span>&#8203;(@NotNull <a href="Channel.ChannelsBatchFilters.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchFilters</a>&nbsp;filter,
              @NotNull java.util.List&lt;<a href="Channel.ChannelBatchMemberRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelBatchMemberRequest</a>&gt;&nbsp;members)</code></th>
@@ -239,15 +231,7 @@ extends java.lang.Object</pre>
 <div class="block">Invites members to channels matching the filter.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
-<td class="colFirst"><code>@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchUpdateRequest</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeFilterTags(io.getstream.chat.java.models.Channel.ChannelsBatchFilters,java.util.List)">removeFilterTags</a></span>&#8203;(@NotNull <a href="Channel.ChannelsBatchFilters.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchFilters</a>&nbsp;filter,
-                @NotNull java.util.List&lt;java.lang.String&gt;&nbsp;tags)</code></th>
-<td class="colLast">
-<div class="block">Removes filter tags from channels matching the filter.</div>
-</td>
-</tr>
-<tr id="i9" class="rowColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeMembers(io.getstream.chat.java.models.Channel.ChannelsBatchFilters,java.util.List)">removeMembers</a></span>&#8203;(@NotNull <a href="Channel.ChannelsBatchFilters.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchFilters</a>&nbsp;filter,
              @NotNull java.util.List&lt;<a href="Channel.ChannelBatchMemberRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelBatchMemberRequest</a>&gt;&nbsp;members)</code></th>
@@ -255,7 +239,7 @@ extends java.lang.Object</pre>
 <div class="block">Removes members from channels matching the filter.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#show(io.getstream.chat.java.models.Channel.ChannelsBatchFilters,java.util.List)">show</a></span>&#8203;(@NotNull <a href="Channel.ChannelsBatchFilters.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchFilters</a>&nbsp;filter,
     @NotNull java.util.List&lt;<a href="Channel.ChannelBatchMemberRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelBatchMemberRequest</a>&gt;&nbsp;members)</code></th>
@@ -263,7 +247,7 @@ extends java.lang.Object</pre>
 <div class="block">Shows channels matching the filter for the specified members.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unarchive(io.getstream.chat.java.models.Channel.ChannelsBatchFilters,java.util.List)">unarchive</a></span>&#8203;(@NotNull <a href="Channel.ChannelsBatchFilters.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchFilters</a>&nbsp;filter,
          @NotNull java.util.List&lt;<a href="Channel.ChannelBatchMemberRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelBatchMemberRequest</a>&gt;&nbsp;members)</code></th>
@@ -271,7 +255,7 @@ extends java.lang.Object</pre>
 <div class="block">Unarchives channels matching the filter for the specified members.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateData(io.getstream.chat.java.models.Channel.ChannelsBatchFilters,io.getstream.chat.java.models.Channel.ChannelDataUpdate)">updateData</a></span>&#8203;(@NotNull <a href="Channel.ChannelsBatchFilters.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchFilters</a>&nbsp;filter,
           @NotNull <a href="Channel.ChannelDataUpdate.html" title="class in io.getstream.chat.java.models">Channel.ChannelDataUpdate</a>&nbsp;data)</code></th>
@@ -535,7 +519,7 @@ public&nbsp;@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="cl
 <a id="updateData(io.getstream.chat.java.models.Channel.ChannelsBatchFilters,io.getstream.chat.java.models.Channel.ChannelDataUpdate)">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>updateData</h4>
 <pre class="methodSignature">@NotNull
@@ -548,48 +532,6 @@ public&nbsp;@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="cl
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>filter</code> - the filter to match channels</dd>
 <dd><code>data</code> - channel data to update</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the batch update request</dd>
-</dl>
-</li>
-</ul>
-<a id="addFilterTags(io.getstream.chat.java.models.Channel.ChannelsBatchFilters,java.util.List)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>addFilterTags</h4>
-<pre class="methodSignature">@NotNull
-public&nbsp;@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchUpdateRequest</a>&nbsp;addFilterTags&#8203;(@NotNull
-                                                                 @NotNull <a href="Channel.ChannelsBatchFilters.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchFilters</a>&nbsp;filter,
-                                                                 @NotNull
-                                                                 @NotNull java.util.List&lt;java.lang.String&gt;&nbsp;tags)</pre>
-<div class="block">Adds filter tags to channels matching the filter.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>filter</code> - the filter to match channels</dd>
-<dd><code>tags</code> - list of filter tags to add</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the batch update request</dd>
-</dl>
-</li>
-</ul>
-<a id="removeFilterTags(io.getstream.chat.java.models.Channel.ChannelsBatchFilters,java.util.List)">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>removeFilterTags</h4>
-<pre class="methodSignature">@NotNull
-public&nbsp;@NotNull <a href="Channel.ChannelsBatchUpdateRequest.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchUpdateRequest</a>&nbsp;removeFilterTags&#8203;(@NotNull
-                                                                    @NotNull <a href="Channel.ChannelsBatchFilters.html" title="class in io.getstream.chat.java.models">Channel.ChannelsBatchFilters</a>&nbsp;filter,
-                                                                    @NotNull
-                                                                    @NotNull java.util.List&lt;java.lang.String&gt;&nbsp;tags)</pre>
-<div class="block">Removes filter tags from channels matching the filter.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>filter</code> - the filter to match channels</dd>
-<dd><code>tags</code> - list of filter tags to remove</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the batch update request</dd>
 </dl>
