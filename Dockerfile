@@ -3,10 +3,8 @@ FROM amazoncorretto:11
 WORKDIR /code
 
 # Copy the Gradle wrapper files
-COPY gradlew .
-COPY gradle gradle/
-COPY build.gradle .
-COPY settings.gradle .
+COPY gradlew build.gradle settings.gradle ./
+COPY gradle/ gradle/
 
 # Make gradlew executable
 RUN chmod +x gradlew
