@@ -1,0 +1,33 @@
+Channel members can pin a channel for themselves. This is a per-user setting that does not affect other members.
+
+Pinned channels function identically to regular channels via the API, but your UI can display them separately. When a channel is pinned, the timestamp is recorded and returned as `pinned_at` in the response.
+
+When querying channels, filter by `pinned: true` to retrieve only pinned channels, or `pinned: false` to exclude them. You can also sort by `pinned_at` to display pinned channels first.
+
+## Pin a Channel
+
+```java
+// Pin the channel for user amy.
+Channel.pin(channel.getType(), channel.getId(), "amy").request()
+
+// Query for amy's channels that are pinned.
+Channel.list()
+    .userId("amy")
+    .filterCondition(FilterCondition.in("members", "amy"))
+    .filterCondition("pinned", true)
+    .request();
+
+// Query for channels for specific members and show pinned first.
+Channel.list()
+    .userId("amy")
+    .filterConditions(FilterCondition.in("members", "amy", "ali"))
+    .sort(Sort.builder().field("pinned_at").direction(Direction.DESC).build())
+    .request();
+
+// Unpin
+Channel.unpin(channel.getType(), channel.getId(), "amy").request()
+```
+
+## Global Pinning
+
+Channels are pinned for a specific member. If the channel should instead be pinned for all users, this can be stored as custom data in the channel itself. The value cannot collide with existing fields, so use a value such as `globally_pinned: true`.

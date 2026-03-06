@@ -38,3 +38,4 @@ secring.gpg
 .project
 .settings/
 gradle.properties
+.DS_Store
