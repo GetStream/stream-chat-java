@@ -356,6 +356,68 @@ public class UserTest extends BasicTest {
         });
   }
 
+  @Test
+  @DisplayName("Can deactivate many users")
+  void whenDeactivateManyUsers_thenTaskIdIsReturned() {
+    var userIds = new ArrayList<String>();
+
+    for (var i = 0; i < 3; i++) {
+      String userId = RandomStringUtils.randomAlphabetic(10);
+      UserUpsertRequest usersUpsertRequest = User.upsert();
+      var userObject = UserRequestObject.builder().id(userId).name("User to deactivate").build();
+      usersUpsertRequest.user(userObject);
+      Assertions.assertDoesNotThrow(
+          (ThrowingSupplier<UserUpsertResponse>) usersUpsertRequest::request);
+      userIds.add(userId);
+    }
+
+    Assertions.assertDoesNotThrow(
+        () -> {
+          var taskId =
+              User.deactivateUsers(userIds)
+                  .createdById(testUserRequestObject.getId())
+                  .request()
+                  .getTaskId();
+
+          Assertions.assertNotNull(taskId);
+        });
+  }
+
+  @Test
+  @DisplayName("Can reactivate many users")
+  void whenReactivateManyUsers_thenTaskIdIsReturned() {
+    var userIds = new ArrayList<String>();
+
+    for (var i = 0; i < 3; i++) {
+      String userId = RandomStringUtils.randomAlphabetic(10);
+      UserUpsertRequest usersUpsertRequest = User.upsert();
+      var userObject = UserRequestObject.builder().id(userId).name("User to reactivate").build();
+      usersUpsertRequest.user(userObject);
+      Assertions.assertDoesNotThrow(
+          (ThrowingSupplier<UserUpsertResponse>) usersUpsertRequest::request);
+      userIds.add(userId);
+    }
+
+    // First deactivate them in bulk so they can be reactivated
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.deactivateUsers(userIds)
+                .createdById(testUserRequestObject.getId())
+                .request()
+                .getTaskId());
+
+    Assertions.assertDoesNotThrow(
+        () -> {
+          var taskId =
+              User.reactivateUsers(userIds)
+                  .createdById(testUserRequestObject.getId())
+                  .request()
+                  .getTaskId();
+
+          Assertions.assertNotNull(taskId);
+        });
+  }
+
   @DisplayName("Can mute user")
   @Test
   void whenMutingUser_thenIsMuted() {

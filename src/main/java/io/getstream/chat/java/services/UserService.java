@@ -39,6 +39,10 @@ public interface UserService {
       @Nullable @Query("hard_delete") Boolean hardDelete,
       @Nullable @Query("delete_conversation_channels") Boolean deleteConversationChannels);
 
+  @POST("users/deactivate")
+  Call<UserDeactivateManyResponse> deactivateUsers(
+      @NotNull @Body UserDeactivateManyRequestData userDeactivateManyRequestData);
+
   @POST("users/delete")
   Call<UserDeleteManyResponse> deleteMany(@NotNull @Body UserDeleteManyRequestData data);
 
@@ -46,6 +50,10 @@ public interface UserService {
   Call<UserReactivateResponse> reactivate(
       @NotNull @Path("user_id") String userId,
       @NotNull @Body UserReactivateRequestData userReactivateRequestData);
+
+  @POST("users/reactivate")
+  Call<UserReactivateManyResponse> reactivateUsers(
+      @NotNull @Body UserReactivateManyRequestData userReactivateManyRequestData);
 
   @POST("moderation/mute")
   Call<UserMuteResponse> mute(@NotNull @Body UserMuteRequestData userMuteRequestData);
