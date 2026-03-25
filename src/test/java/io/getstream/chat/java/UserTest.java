@@ -4,6 +4,8 @@ import static io.getstream.chat.java.models.User.*;
 
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Channel;
+import io.getstream.chat.java.models.Channel.ChannelMemberRequestObject;
+import io.getstream.chat.java.models.Channel.ChannelRequestObject;
 import io.getstream.chat.java.models.DeleteStrategy;
 import io.getstream.chat.java.models.FilterCondition;
 import io.getstream.chat.java.models.Language;
@@ -505,6 +507,191 @@ public class UserTest extends BasicTest {
     String token = createToken(userId, null, null);
 
     Assertions.assertEquals(197, token.length());
+  }
+
+  @DisplayName("Can ban from future channels without channel CID")
+  @Test
+  void whenBanFromFutureChannelsWithoutChannelCid_thenSucceeds() {
+    String bannerId = RandomStringUtils.randomAlphabetic(10);
+    String targetId = RandomStringUtils.randomAlphabetic(10);
+
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.user(UserRequestObject.builder().id(bannerId).name("Banner").build());
+    usersUpsertRequest.user(UserRequestObject.builder().id(targetId).name("Target").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.ban()
+                .targetUserId(targetId)
+                .bannedById(bannerId)
+                .banFromFutureChannels(true)
+                .reason("FCB without channel CID")
+                .request());
+
+    var response =
+        Assertions.assertDoesNotThrow(
+            () -> User.queryFutureChannelBans().userId(bannerId).targetUserId(targetId).request());
+    Assertions.assertEquals(1, response.getBans().size());
+    Assertions.assertEquals(bannerId, response.getBans().get(0).getBannedBy().getId());
+    Assertions.assertEquals("FCB without channel CID", response.getBans().get(0).getReason());
+
+    var usersResponse =
+        Assertions.assertDoesNotThrow(
+            () -> User.list().filterCondition("id", targetId).request());
+    Assertions.assertFalse(usersResponse.getUsers().get(0).getBanned());
+
+    Assertions.assertDoesNotThrow(
+        () -> User.unban(targetId).removeFutureChannelsBan(true).createdBy(bannerId).request());
+  }
+
+  @DisplayName("FCB without CID auto-bans target in new channels created by banner")
+  @Test
+  void whenBanFromFutureChannelsWithoutCid_thenAutoAppliedToNewChannels() {
+    String bannerId = RandomStringUtils.randomAlphabetic(10);
+    String targetId = RandomStringUtils.randomAlphabetic(10);
+    String channelId = "fcb-auto-" + RandomStringUtils.randomAlphabetic(10);
+
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.user(UserRequestObject.builder().id(bannerId).name("Banner").build());
+    usersUpsertRequest.user(UserRequestObject.builder().id(targetId).name("Target").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.ban()
+                .targetUserId(targetId)
+                .bannedById(bannerId)
+                .banFromFutureChannels(true)
+                .reason("auto-ban test")
+                .request());
+
+    String channelCid = "messaging:" + channelId;
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.getOrCreate("messaging", channelId)
+                .data(
+                    ChannelRequestObject.builder()
+                        .createdBy(UserRequestObject.builder().id(bannerId).build())
+                        .member(ChannelMemberRequestObject.builder()
+                            .user(UserRequestObject.builder().id(bannerId).build())
+                            .build())
+                        .member(ChannelMemberRequestObject.builder()
+                            .user(UserRequestObject.builder().id(targetId).build())
+                            .build())
+                        .build())
+                .request());
+
+    var bannedResponse =
+        Assertions.assertDoesNotThrow(
+            () ->
+                User.queryBanned()
+                    .filterCondition("channel_cid", channelCid)
+                    .filterCondition("user_id", targetId)
+                    .request());
+    Assertions.assertTrue(
+        bannedResponse.getBans().stream()
+            .anyMatch(ban -> ban.getUser().getId().equals(targetId)));
+
+    Assertions.assertDoesNotThrow(
+        () -> User.unban(targetId).removeFutureChannelsBan(true).createdBy(bannerId).request());
+  }
+
+  @DisplayName("FCB without CID with shadow ban preserves shadow property")
+  @Test
+  void whenBanFromFutureChannelsWithoutCidAndShadow_thenPreservesShadow() {
+    String bannerId = RandomStringUtils.randomAlphabetic(10);
+    String targetId = RandomStringUtils.randomAlphabetic(10);
+
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.user(UserRequestObject.builder().id(bannerId).name("Banner").build());
+    usersUpsertRequest.user(UserRequestObject.builder().id(targetId).name("Target").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.ban()
+                .targetUserId(targetId)
+                .bannedById(bannerId)
+                .banFromFutureChannels(true)
+                .shadow(true)
+                .reason("shadow FCB without CID")
+                .request());
+
+    var response =
+        Assertions.assertDoesNotThrow(
+            () -> User.queryFutureChannelBans().userId(bannerId).targetUserId(targetId).request());
+    Assertions.assertEquals(1, response.getBans().size());
+    Assertions.assertTrue(response.getBans().get(0).getShadow());
+    Assertions.assertEquals("shadow FCB without CID", response.getBans().get(0).getReason());
+
+    Assertions.assertDoesNotThrow(
+        () -> User.unban(targetId).removeFutureChannelsBan(true).createdBy(bannerId).request());
+  }
+
+  @DisplayName("Can remove future channel ban created without CID")
+  @Test
+  void whenRemovingFutureChannelBanWithoutCid_thenBanIsRemoved() {
+    String bannerId = RandomStringUtils.randomAlphabetic(10);
+    String targetId = RandomStringUtils.randomAlphabetic(10);
+
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.user(UserRequestObject.builder().id(bannerId).name("Banner").build());
+    usersUpsertRequest.user(UserRequestObject.builder().id(targetId).name("Target").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.ban()
+                .targetUserId(targetId)
+                .bannedById(bannerId)
+                .banFromFutureChannels(true)
+                .reason("to be removed")
+                .request());
+
+    var beforeRemoval =
+        Assertions.assertDoesNotThrow(
+            () -> User.queryFutureChannelBans().userId(bannerId).targetUserId(targetId).request());
+    Assertions.assertEquals(1, beforeRemoval.getBans().size());
+
+    Assertions.assertDoesNotThrow(
+        () -> User.unban(targetId).removeFutureChannelsBan(true).createdBy(bannerId).request());
+
+    var afterRemoval =
+        Assertions.assertDoesNotThrow(
+            () -> User.queryFutureChannelBans().userId(bannerId).targetUserId(targetId).request());
+    Assertions.assertEquals(0, afterRemoval.getBans().size());
+  }
+
+  @DisplayName("FCB without CID with timeout preserves expiration")
+  @Test
+  void whenBanFromFutureChannelsWithoutCidAndTimeout_thenExpirationSet() {
+    String bannerId = RandomStringUtils.randomAlphabetic(10);
+    String targetId = RandomStringUtils.randomAlphabetic(10);
+
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.user(UserRequestObject.builder().id(bannerId).name("Banner").build());
+    usersUpsertRequest.user(UserRequestObject.builder().id(targetId).name("Target").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.ban()
+                .targetUserId(targetId)
+                .bannedById(bannerId)
+                .banFromFutureChannels(true)
+                .timeout(60)
+                .reason("timed FCB without CID")
+                .request());
+
+    var response =
+        Assertions.assertDoesNotThrow(
+            () -> User.queryFutureChannelBans().userId(bannerId).targetUserId(targetId).request());
+    Assertions.assertEquals(1, response.getBans().size());
+    Assertions.assertNotNull(response.getBans().get(0).getExpires());
+
+    Assertions.assertDoesNotThrow(
+        () -> User.unban(targetId).removeFutureChannelsBan(true).createdBy(bannerId).request());
   }
 
   @DisplayName("Can query future channel bans with target_user_id filter")
