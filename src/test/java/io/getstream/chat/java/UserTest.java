@@ -191,6 +191,25 @@ public class UserTest extends BasicTest {
     Assertions.assertTrue(bans.stream().anyMatch(ban -> ban.getUser().getId().equals(userId)));
   }
 
+  @DisplayName("Can ban user with delete reactions")
+  @Test
+  void whenBanUserWithDeleteReactions_thenIsBanned() {
+    String userId = RandomStringUtils.randomAlphabetic(10);
+    UserUpsertRequest usersUpsertRequest = User.upsert();
+    usersUpsertRequest.user(
+        UserRequestObject.builder().id(userId).name("User to ban with delete reactions").build());
+    Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
+    Assertions.assertDoesNotThrow(
+        () ->
+            User.ban()
+                .userId(testUserRequestObject.getId())
+                .targetUserId(userId)
+                .deleteReactions(true)
+                .request());
+    List<Ban> bans = Assertions.assertDoesNotThrow(() -> User.queryBanned().request()).getBans();
+    Assertions.assertTrue(bans.stream().anyMatch(ban -> ban.getUser().getId().equals(userId)));
+  }
+
   @DisplayName("Can shadow ban user")
   @Test
   void whenShadowBanUser_thenIsShadowBanned() {

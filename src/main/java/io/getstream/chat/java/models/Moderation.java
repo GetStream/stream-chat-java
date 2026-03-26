@@ -758,6 +758,10 @@ public class Moderation {
     @JsonProperty("ip_ban")
     private Boolean ipBan;
 
+    @Nullable
+    @JsonProperty("delete_reactions")
+    private Boolean deleteReactions;
+
     public static class BanRequest extends StreamRequest<BanResponse> {
       @Override
       protected Call<BanResponse> generateCall(Client client) {
