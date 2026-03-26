@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.43.0](https://github.com/GetStream/stream-chat-java/compare/1.42.0...1.43.0) (2026-03-26)
+
+
+### Features
+
+* add delete_reactions support for ban user ([#248](https://github.com/GetStream/stream-chat-java/issues/248)) ([5d80e94](https://github.com/GetStream/stream-chat-java/commit/5d80e9410392fdfee92c38146b270ae404a1bab2))
+
 ## [1.42.0](https://github.com/GetStream/stream-chat-java/compare/1.41.2...1.42.0) (2026-02-26)
 
 
