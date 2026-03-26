@@ -836,6 +836,10 @@ public class User {
     @JsonProperty("channel_cid")
     private String channelCid;
 
+    @Nullable
+    @JsonProperty("delete_reactions")
+    private Boolean deleteReactions;
+
     public static class UserBanRequest extends StreamRequest<StreamResponseObject> {
       @Override
       protected Call<StreamResponseObject> generateCall(Client client) {
