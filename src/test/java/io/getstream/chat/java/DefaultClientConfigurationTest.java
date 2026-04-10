@@ -14,31 +14,104 @@ import retrofit2.Retrofit;
 public class DefaultClientConfigurationTest {
 
   @Test
-  @DisplayName("DefaultClient uses configured connection pool properties")
-  void givenConnectionPoolProperties_whenCreatingClient_thenUsesConfiguredPool() {
+  @DisplayName("DefaultClient uses doubled throughput defaults")
+  void whenCreatingClientWithoutOverrides_thenUsesDoubledDefaults() {
+    var client = new DefaultClient(baseProperties());
+    var okHttpClient = getOkHttpClient(client);
+    var pool = okHttpClient.connectionPool();
+
+    Assertions.assertEquals(10, readIntField(poolDelegate(pool), "maxIdleConnections"));
+    Assertions.assertEquals(
+        Duration.ofSeconds(118).toNanos(),
+        readLongField(poolDelegate(pool), "keepAliveDurationNs"));
+    Assertions.assertEquals(128, readIntField(okHttpClient.dispatcher(), "maxRequests"));
+    Assertions.assertEquals(10, readIntField(okHttpClient.dispatcher(), "maxRequestsPerHost"));
+    Assertions.assertEquals(20_000, okHttpClient.connectTimeoutMillis());
+    Assertions.assertEquals(20_000, okHttpClient.readTimeoutMillis());
+    Assertions.assertEquals(20_000, okHttpClient.writeTimeoutMillis());
+    Assertions.assertEquals(20_000, okHttpClient.callTimeoutMillis());
+  }
+
+  @Test
+  @DisplayName("DefaultClient uses configured HTTP properties")
+  void givenHttpProperties_whenCreatingClient_thenUsesConfiguredValues() {
     var properties = baseProperties();
+    properties.put(DefaultClient.DISPATCHER_MAX_REQUESTS_PROP_NAME, "80");
+    properties.put(DefaultClient.DISPATCHER_MAX_REQUESTS_PER_HOST_PROP_NAME, "24");
     properties.put(DefaultClient.CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME, "20");
     properties.put(DefaultClient.CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME, "120000");
+    properties.put(DefaultClient.API_CONNECT_TIMEOUT_PROP_NAME, "5000");
+    properties.put(DefaultClient.API_READ_TIMEOUT_PROP_NAME, "15000");
+    properties.put(DefaultClient.API_WRITE_TIMEOUT_PROP_NAME, "25000");
+    properties.put(DefaultClient.API_TIMEOUT_PROP_NAME, "30000");
 
     var client = new DefaultClient(properties);
-    var pool = getConnectionPool(client);
+    var okHttpClient = getOkHttpClient(client);
+    var pool = okHttpClient.connectionPool();
 
     Assertions.assertEquals(20, readIntField(poolDelegate(pool), "maxIdleConnections"));
     Assertions.assertEquals(
         Duration.ofMinutes(2).toNanos(), readLongField(poolDelegate(pool), "keepAliveDurationNs"));
+    Assertions.assertEquals(80, readIntField(okHttpClient.dispatcher(), "maxRequests"));
+    Assertions.assertEquals(24, readIntField(okHttpClient.dispatcher(), "maxRequestsPerHost"));
+    Assertions.assertEquals(5_000, okHttpClient.connectTimeoutMillis());
+    Assertions.assertEquals(15_000, okHttpClient.readTimeoutMillis());
+    Assertions.assertEquals(25_000, okHttpClient.writeTimeoutMillis());
+    Assertions.assertEquals(30_000, okHttpClient.callTimeoutMillis());
   }
 
   @Test
-  @DisplayName("DefaultClient can update connection pool at runtime")
-  void whenSettingConnectionPool_thenRebuildsClientWithNewPool() {
+  @DisplayName("DefaultClient uses option-based HTTP configuration")
+  void givenHttpOptions_whenCreatingClient_thenUsesConfiguredValues() {
+    var options =
+        DefaultClient.HttpClientOptions.builder()
+            .dispatcher(96, 32)
+            .connectionPool(30, Duration.ofSeconds(90))
+            .connectTimeout(Duration.ofSeconds(3))
+            .readTimeout(Duration.ofSeconds(12))
+            .writeTimeout(Duration.ofSeconds(18))
+            .callTimeout(Duration.ofSeconds(25))
+            .build();
+
+    var client = new DefaultClient(baseProperties(), options);
+    var okHttpClient = getOkHttpClient(client);
+    var pool = okHttpClient.connectionPool();
+
+    Assertions.assertEquals(30, readIntField(poolDelegate(pool), "maxIdleConnections"));
+    Assertions.assertEquals(
+        Duration.ofSeconds(90).toNanos(), readLongField(poolDelegate(pool), "keepAliveDurationNs"));
+    Assertions.assertEquals(96, readIntField(okHttpClient.dispatcher(), "maxRequests"));
+    Assertions.assertEquals(32, readIntField(okHttpClient.dispatcher(), "maxRequestsPerHost"));
+    Assertions.assertEquals(3_000, okHttpClient.connectTimeoutMillis());
+    Assertions.assertEquals(12_000, okHttpClient.readTimeoutMillis());
+    Assertions.assertEquals(18_000, okHttpClient.writeTimeoutMillis());
+    Assertions.assertEquals(25_000, okHttpClient.callTimeoutMillis());
+  }
+
+  @Test
+  @DisplayName("DefaultClient can update connection pool dispatcher and timeouts at runtime")
+  void whenSettingHttpConfiguration_thenRebuildsClientWithNewValues() {
     var client = new DefaultClient(baseProperties());
 
     client.setConnectionPool(15, Duration.ofSeconds(30));
+    client.setDispatcher(72, 16);
+    client.setTimeouts(
+        Duration.ofSeconds(4),
+        Duration.ofSeconds(14),
+        Duration.ofSeconds(16),
+        Duration.ofSeconds(22));
 
-    var pool = getConnectionPool(client);
+    var okHttpClient = getOkHttpClient(client);
+    var pool = okHttpClient.connectionPool();
     Assertions.assertEquals(15, readIntField(poolDelegate(pool), "maxIdleConnections"));
     Assertions.assertEquals(
         Duration.ofSeconds(30).toNanos(), readLongField(poolDelegate(pool), "keepAliveDurationNs"));
+    Assertions.assertEquals(72, readIntField(okHttpClient.dispatcher(), "maxRequests"));
+    Assertions.assertEquals(16, readIntField(okHttpClient.dispatcher(), "maxRequestsPerHost"));
+    Assertions.assertEquals(4_000, okHttpClient.connectTimeoutMillis());
+    Assertions.assertEquals(14_000, okHttpClient.readTimeoutMillis());
+    Assertions.assertEquals(16_000, okHttpClient.writeTimeoutMillis());
+    Assertions.assertEquals(22_000, okHttpClient.callTimeoutMillis());
   }
 
   private static Properties baseProperties() {
@@ -48,10 +121,9 @@ public class DefaultClientConfigurationTest {
     return properties;
   }
 
-  private static ConnectionPool getConnectionPool(DefaultClient client) {
+  private static OkHttpClient getOkHttpClient(DefaultClient client) {
     Retrofit retrofit = (Retrofit) readField(client, "retrofit");
-    OkHttpClient okHttpClient = (OkHttpClient) readField(retrofit, "callFactory");
-    return okHttpClient.connectionPool();
+    return (OkHttpClient) readField(retrofit, "callFactory");
   }
 
   private static Object poolDelegate(ConnectionPool pool) {

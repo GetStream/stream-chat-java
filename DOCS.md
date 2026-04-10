@@ -55,11 +55,43 @@ You can override this behavior by explicitly passing in the API key and secret a
 var properties = new Properties();
 properties.put(DefaultClient.API_KEY_PROP_NAME, "<api-key>");
 properties.put(DefaultClient.API_SECRET_PROP_NAME, "<api-secret>");
+properties.put(DefaultClient.DISPATCHER_MAX_REQUESTS_PROP_NAME, "128");
+properties.put(DefaultClient.DISPATCHER_MAX_REQUESTS_PER_HOST_PROP_NAME, "32");
 properties.put(DefaultClient.CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME, "20");
+properties.put(DefaultClient.CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME, "59000");
+properties.put(DefaultClient.API_CONNECT_TIMEOUT_PROP_NAME, "10000");
+properties.put(DefaultClient.API_READ_TIMEOUT_PROP_NAME, "30000");
+properties.put(DefaultClient.API_WRITE_TIMEOUT_PROP_NAME, "30000");
+properties.put(DefaultClient.API_TIMEOUT_PROP_NAME, "30000");
 var client = new DefaultClient(properties);
+client.setDispatcher(128, 32);
 client.setConnectionPool(20, Duration.ofSeconds(59));
+client.setTimeouts(
+    Duration.ofSeconds(10),
+    Duration.ofSeconds(30),
+    Duration.ofSeconds(30),
+    Duration.ofSeconds(30));
 DefaultClient.setInstance(client);
 ```
+
+You can also pass the same configuration through explicit HTTP options:
+
+```java
+var options =
+    DefaultClient.HttpClientOptions.builder()
+        .dispatcher(128, 32)
+        .connectionPool(20, Duration.ofSeconds(59))
+        .connectTimeout(Duration.ofSeconds(10))
+        .readTimeout(Duration.ofSeconds(30))
+        .writeTimeout(Duration.ofSeconds(30))
+        .callTimeout(Duration.ofSeconds(30))
+        .build();
+
+var client = new DefaultClient(properties, options);
+```
+
+For high traffic workloads, `dispatcher.maxRequests` and
+`dispatcher.maxRequestsPerHost` are usually the first values to tune.
 
 ### Simple Example
 **Synchronous:**

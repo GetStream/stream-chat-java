@@ -130,10 +130,15 @@ To configure the SDK you need to provide required properties
 | --------------------------- | ------------------- | ------------------------------ | -------- |
 | io.getstream.chat.apiKey    | STREAM_KEY          | -                              | Yes      |
 | io.getstream.chat.apiSecret | STREAM_SECRET       | -                              | Yes      |
-| io.getstream.chat.timeout   | STREAM_CHAT_TIMEOUT | 10000                          | No       |
+| io.getstream.chat.timeout   | STREAM_CHAT_TIMEOUT | 20000                          | No       |
+| io.getstream.chat.connectTimeout | STREAM_CHAT_CONNECT_TIMEOUT | 20000 | No |
+| io.getstream.chat.readTimeout | STREAM_CHAT_READ_TIMEOUT | 20000 | No |
+| io.getstream.chat.writeTimeout | STREAM_CHAT_WRITE_TIMEOUT | 20000 | No |
 | io.getstream.chat.url       | STREAM_CHAT_URL     | https://chat.stream-io-api.com | No       |
-| io.getstream.chat.connectionPool.maxIdleConnections | STREAM_CHAT_CONNECTION_POOL_MAX_IDLE_CONNECTIONS | 5 | No |
-| io.getstream.chat.connectionPool.keepAliveDurationMs | STREAM_CHAT_CONNECTION_POOL_KEEP_ALIVE_DURATION_MS | 59000 | No |
+| io.getstream.chat.connectionPool.maxIdleConnections | STREAM_CHAT_CONNECTION_POOL_MAX_IDLE_CONNECTIONS | 10 | No |
+| io.getstream.chat.connectionPool.keepAliveDurationMs | STREAM_CHAT_CONNECTION_POOL_KEEP_ALIVE_DURATION_MS | 118000 | No |
+| io.getstream.chat.dispatcher.maxRequests | STREAM_CHAT_DISPATCHER_MAX_REQUESTS | 128 | No |
+| io.getstream.chat.dispatcher.maxRequestsPerHost | STREAM_CHAT_DISPATCHER_MAX_REQUESTS_PER_HOST | 10 | No |
 
 You can also use your own CDN by creating an implementation of FileHandler and setting it this way
 
@@ -149,13 +154,60 @@ You can also tune the underlying OkHttp connection pool explicitly:
 var properties = new Properties();
 properties.put(DefaultClient.API_KEY_PROP_NAME, "<api-key>");
 properties.put(DefaultClient.API_SECRET_PROP_NAME, "<api-secret>");
+properties.put(DefaultClient.DISPATCHER_MAX_REQUESTS_PROP_NAME, "128");
+properties.put(DefaultClient.DISPATCHER_MAX_REQUESTS_PER_HOST_PROP_NAME, "32");
 properties.put(DefaultClient.CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME, "20");
 properties.put(DefaultClient.CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME, "59000");
+properties.put(DefaultClient.API_CONNECT_TIMEOUT_PROP_NAME, "10000");
+properties.put(DefaultClient.API_READ_TIMEOUT_PROP_NAME, "30000");
+properties.put(DefaultClient.API_WRITE_TIMEOUT_PROP_NAME, "30000");
+properties.put(DefaultClient.API_TIMEOUT_PROP_NAME, "30000");
 
 var client = new DefaultClient(properties);
+client.setDispatcher(128, 32);
 client.setConnectionPool(20, Duration.ofSeconds(59));
+client.setTimeouts(
+    Duration.ofSeconds(10),
+    Duration.ofSeconds(30),
+    Duration.ofSeconds(30),
+    Duration.ofSeconds(30));
 DefaultClient.setInstance(client);
 ```
+
+Or configure the same values through options:
+
+```java
+var options =
+    DefaultClient.HttpClientOptions.builder()
+        .dispatcher(128, 32)
+        .connectionPool(20, Duration.ofSeconds(59))
+        .connectTimeout(Duration.ofSeconds(10))
+        .readTimeout(Duration.ofSeconds(30))
+        .writeTimeout(Duration.ofSeconds(30))
+        .callTimeout(Duration.ofSeconds(30))
+        .build();
+
+var client = new DefaultClient(properties, options);
+```
+
+### High traffic
+
+For high traffic backends, a good starting point is:
+
+```java
+var options =
+    DefaultClient.HttpClientOptions.builder()
+        .dispatcher(128, 32)
+        .connectionPool(20, Duration.ofSeconds(59))
+        .connectTimeout(Duration.ofSeconds(10))
+        .readTimeout(Duration.ofSeconds(30))
+        .writeTimeout(Duration.ofSeconds(30))
+        .callTimeout(Duration.ofSeconds(30))
+        .build();
+```
+
+Start there and load test. In practice, `dispatcher.maxRequests` and
+`dispatcher.maxRequestsPerHost` usually affect throughput more than connection-pool size.
 
 ## Print Chat app configuration
 
