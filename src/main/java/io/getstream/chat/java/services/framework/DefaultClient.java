@@ -209,8 +209,7 @@ public class DefaultClient implements Client {
     extendedProperties.setProperty(
         CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME, Integer.toString(maxIdleConnections));
     extendedProperties.setProperty(
-        CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME,
-        Long.toString(keepAliveDuration.toMillis()));
+        CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME, Long.toString(keepAliveDuration.toMillis()));
     this.retrofit = buildRetrofitClient(buildOkHttpClient());
     this.serviceFactory = serviceFactoryBuilder.apply(retrofit);
   }
