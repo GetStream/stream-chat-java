@@ -33,8 +33,14 @@ public class DefaultClient implements Client {
   public static final String API_TIMEOUT_PROP_NAME = "io.getstream.chat.timeout";
   public static final String API_URL_PROP_NAME = "io.getstream.chat.url";
   public static final String X_STREAM_EXT_PROP_NAME = "io.getstream.chat.xStreamExt";
+  public static final String CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME =
+      "io.getstream.chat.connectionPool.maxIdleConnections";
+  public static final String CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME =
+      "io.getstream.chat.connectionPool.keepAliveDurationMs";
 
   private static final String API_DEFAULT_URL = "https://chat.stream-io-api.com";
+  private static final int DEFAULT_MAX_IDLE_CONNECTIONS = 5;
+  private static final long DEFAULT_KEEP_ALIVE_DURATION_MS = 59_000L;
   private static volatile DefaultClient defaultInstance;
   @NotNull private final String apiSecret;
   @NotNull private final String apiKey;
@@ -98,7 +104,7 @@ public class DefaultClient implements Client {
   private OkHttpClient buildOkHttpClient() {
     OkHttpClient.Builder httpClient =
         new OkHttpClient.Builder()
-            .connectionPool(new ConnectionPool(5, 59, TimeUnit.SECONDS))
+            .connectionPool(buildConnectionPool(extendedProperties))
             .callTimeout(getStreamChatTimeout(extendedProperties), TimeUnit.MILLISECONDS);
     httpClient.interceptors().clear();
 
@@ -191,6 +197,24 @@ public class DefaultClient implements Client {
     this.serviceFactory = serviceFactoryBuilder.apply(retrofit);
   }
 
+  @Override
+  public void setConnectionPool(int maxIdleConnections, @NotNull Duration keepAliveDuration) {
+    if (maxIdleConnections < 0) {
+      throw new IllegalArgumentException("maxIdleConnections must be >= 0");
+    }
+    if (keepAliveDuration.isNegative()) {
+      throw new IllegalArgumentException("keepAliveDuration must be >= 0");
+    }
+
+    extendedProperties.setProperty(
+        CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME, Integer.toString(maxIdleConnections));
+    extendedProperties.setProperty(
+        CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME,
+        Long.toString(keepAliveDuration.toMillis()));
+    this.retrofit = buildRetrofitClient(buildOkHttpClient());
+    this.serviceFactory = serviceFactoryBuilder.apply(retrofit);
+  }
+
   private static @NotNull String jwtToken(String apiSecret) {
     Key signingKey =
         new SecretKeySpec(
@@ -233,6 +257,24 @@ public class DefaultClient implements Client {
       canformedProperties.put(API_TIMEOUT_PROP_NAME, envTimeout);
     }
 
+    var envConnectionPoolMaxIdleConnections =
+        env.getOrDefault(
+            "STREAM_CHAT_CONNECTION_POOL_MAX_IDLE_CONNECTIONS",
+            System.getProperty("STREAM_CHAT_CONNECTION_POOL_MAX_IDLE_CONNECTIONS"));
+    if (envConnectionPoolMaxIdleConnections != null) {
+      canformedProperties.put(
+          CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME, envConnectionPoolMaxIdleConnections);
+    }
+
+    var envConnectionPoolKeepAliveDuration =
+        env.getOrDefault(
+            "STREAM_CHAT_CONNECTION_POOL_KEEP_ALIVE_DURATION_MS",
+            System.getProperty("STREAM_CHAT_CONNECTION_POOL_KEEP_ALIVE_DURATION_MS"));
+    if (envConnectionPoolKeepAliveDuration != null) {
+      canformedProperties.put(
+          CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME, envConnectionPoolKeepAliveDuration);
+    }
+
     var envApiUrl = env.getOrDefault("STREAM_CHAT_URL", System.getProperty("STREAM_CHAT_URL"));
     if (envApiUrl != null) {
       canformedProperties.put(API_URL_PROP_NAME, envApiUrl);
@@ -253,6 +295,37 @@ public class DefaultClient implements Client {
   private static long getStreamChatTimeout(@NotNull Properties properties) {
     var timeout = properties.getOrDefault(API_TIMEOUT_PROP_NAME, 10000);
     return Long.parseLong(timeout.toString());
+  }
+
+  private static @NotNull ConnectionPool buildConnectionPool(@NotNull Properties properties) {
+    return new ConnectionPool(
+        getConnectionPoolMaxIdleConnections(properties),
+        getConnectionPoolKeepAliveDurationMs(properties),
+        TimeUnit.MILLISECONDS);
+  }
+
+  private static int getConnectionPoolMaxIdleConnections(@NotNull Properties properties) {
+    var maxIdleConnections =
+        properties.getOrDefault(
+            CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME, DEFAULT_MAX_IDLE_CONNECTIONS);
+    int parsedMaxIdleConnections = Integer.parseInt(maxIdleConnections.toString());
+    if (parsedMaxIdleConnections < 0) {
+      throw new IllegalArgumentException(
+          CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME + " must be >= 0");
+    }
+    return parsedMaxIdleConnections;
+  }
+
+  private static long getConnectionPoolKeepAliveDurationMs(@NotNull Properties properties) {
+    var keepAliveDuration =
+        properties.getOrDefault(
+            CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME, DEFAULT_KEEP_ALIVE_DURATION_MS);
+    long parsedKeepAliveDuration = Long.parseLong(keepAliveDuration.toString());
+    if (parsedKeepAliveDuration < 0) {
+      throw new IllegalArgumentException(
+          CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME + " must be >= 0");
+    }
+    return parsedKeepAliveDuration;
   }
 
   private static String getStreamChatBaseUrl(@NotNull Properties properties) {

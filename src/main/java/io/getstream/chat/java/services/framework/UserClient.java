@@ -69,4 +69,15 @@ public final class UserClient implements Client {
   public void setTimeout(@NotNull Duration timeoutDuration) {
     delegate.setTimeout(timeoutDuration);
   }
+
+  /**
+   * Sets the HTTP connection pool configuration on the underlying client.
+   *
+   * @param maxIdleConnections the maximum number of idle connections to keep in the pool
+   * @param keepAliveDuration how long idle connections should be kept alive
+   */
+  @Override
+  public void setConnectionPool(int maxIdleConnections, @NotNull Duration keepAliveDuration) {
+    delegate.setConnectionPool(maxIdleConnections, keepAliveDuration);
+  }
 }

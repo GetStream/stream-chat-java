@@ -19,6 +19,8 @@ public interface Client {
 
   void setTimeout(@NotNull Duration timeoutDuration);
 
+  void setConnectionPool(int maxIdleConnections, @NotNull Duration keepAliveDuration);
+
   static Client getInstance() {
     return DefaultClient.getInstance();
   }

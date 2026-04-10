@@ -132,6 +132,8 @@ To configure the SDK you need to provide required properties
 | io.getstream.chat.apiSecret | STREAM_SECRET       | -                              | Yes      |
 | io.getstream.chat.timeout   | STREAM_CHAT_TIMEOUT | 10000                          | No       |
 | io.getstream.chat.url       | STREAM_CHAT_URL     | https://chat.stream-io-api.com | No       |
+| io.getstream.chat.connectionPool.maxIdleConnections | STREAM_CHAT_CONNECTION_POOL_MAX_IDLE_CONNECTIONS | 5 | No |
+| io.getstream.chat.connectionPool.keepAliveDurationMs | STREAM_CHAT_CONNECTION_POOL_KEEP_ALIVE_DURATION_MS | 59000 | No |
 
 You can also use your own CDN by creating an implementation of FileHandler and setting it this way
 
@@ -140,6 +142,20 @@ Message.fileHandlerClass = MyFileHandler.class
 ```
 
 All setup must be done prior to any request to the API.
+
+You can also tune the underlying OkHttp connection pool explicitly:
+
+```java
+var properties = new Properties();
+properties.put(DefaultClient.API_KEY_PROP_NAME, "<api-key>");
+properties.put(DefaultClient.API_SECRET_PROP_NAME, "<api-secret>");
+properties.put(DefaultClient.CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME, "20");
+properties.put(DefaultClient.CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME, "59000");
+
+var client = new DefaultClient(properties);
+client.setConnectionPool(20, Duration.ofSeconds(59));
+DefaultClient.setInstance(client);
+```
 
 ## Print Chat app configuration
 

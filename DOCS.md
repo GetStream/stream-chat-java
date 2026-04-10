@@ -55,7 +55,9 @@ You can override this behavior by explicitly passing in the API key and secret a
 var properties = new Properties();
 properties.put(DefaultClient.API_KEY_PROP_NAME, "<api-key>");
 properties.put(DefaultClient.API_SECRET_PROP_NAME, "<api-secret>");
+properties.put(DefaultClient.CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME, "20");
 var client = new DefaultClient(properties);
+client.setConnectionPool(20, Duration.ofSeconds(59));
 DefaultClient.setInstance(client);
 ```
 
