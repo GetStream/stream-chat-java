@@ -33,59 +33,74 @@ public class DefaultClientConfigurationTest {
   }
 
   @Test
-  @DisplayName("DefaultClient uses configured HTTP properties")
-  void givenHttpProperties_whenCreatingClient_thenUsesConfiguredValues() {
-    var properties = baseProperties();
-    properties.put(DefaultClient.DISPATCHER_MAX_REQUESTS_PROP_NAME, "80");
-    properties.put(DefaultClient.DISPATCHER_MAX_REQUESTS_PER_HOST_PROP_NAME, "24");
-    properties.put(DefaultClient.CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME, "20");
-    properties.put(DefaultClient.CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME, "120000");
-    properties.put(DefaultClient.API_CONNECT_TIMEOUT_PROP_NAME, "5000");
-    properties.put(DefaultClient.API_READ_TIMEOUT_PROP_NAME, "15000");
-    properties.put(DefaultClient.API_WRITE_TIMEOUT_PROP_NAME, "25000");
-    properties.put(DefaultClient.API_TIMEOUT_PROP_NAME, "30000");
+  @DisplayName("README and DOCS property snippet configures the documented settings")
+  void docsPropertySnippetConfiguresDocumentedSettings() {
+    var originalInstance = getDefaultClientInstance();
+    try {
+      var properties = new Properties();
+      properties.put(DefaultClient.API_KEY_PROP_NAME, "test-key");
+      properties.put(DefaultClient.API_SECRET_PROP_NAME, "test-secret");
+      properties.put(DefaultClient.DISPATCHER_MAX_REQUESTS_PROP_NAME, "128");
+      properties.put(DefaultClient.DISPATCHER_MAX_REQUESTS_PER_HOST_PROP_NAME, "32");
+      properties.put(DefaultClient.CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME, "20");
+      properties.put(DefaultClient.CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME, "59000");
+      properties.put(DefaultClient.API_CONNECT_TIMEOUT_PROP_NAME, "10000");
+      properties.put(DefaultClient.API_READ_TIMEOUT_PROP_NAME, "30000");
+      properties.put(DefaultClient.API_WRITE_TIMEOUT_PROP_NAME, "30000");
+      properties.put(DefaultClient.API_TIMEOUT_PROP_NAME, "30000");
 
-    var client = new DefaultClient(properties);
-    var okHttpClient = getOkHttpClient(client);
-    var pool = okHttpClient.connectionPool();
+      var client = new DefaultClient(properties);
+      client.setDispatcher(128, 32);
+      client.setConnectionPool(20, Duration.ofSeconds(59));
+      client.setTimeouts(
+          Duration.ofSeconds(10),
+          Duration.ofSeconds(30),
+          Duration.ofSeconds(30),
+          Duration.ofSeconds(30));
+      DefaultClient.setInstance(client);
 
-    Assertions.assertEquals(20, readIntField(poolDelegate(pool), "maxIdleConnections"));
-    Assertions.assertEquals(
-        Duration.ofMinutes(2).toNanos(), readLongField(poolDelegate(pool), "keepAliveDurationNs"));
-    Assertions.assertEquals(80, readIntField(okHttpClient.dispatcher(), "maxRequests"));
-    Assertions.assertEquals(24, readIntField(okHttpClient.dispatcher(), "maxRequestsPerHost"));
-    Assertions.assertEquals(5_000, okHttpClient.connectTimeoutMillis());
-    Assertions.assertEquals(15_000, okHttpClient.readTimeoutMillis());
-    Assertions.assertEquals(25_000, okHttpClient.writeTimeoutMillis());
-    Assertions.assertEquals(30_000, okHttpClient.callTimeoutMillis());
+      Assertions.assertSame(client, DefaultClient.getInstance());
+      assertConfiguredHttpClient(client, 128, 32, 20, 59, 10_000, 30_000, 30_000, 30_000);
+    } finally {
+      setDefaultClientInstance(originalInstance);
+    }
   }
 
   @Test
-  @DisplayName("DefaultClient uses option-based HTTP configuration")
-  void givenHttpOptions_whenCreatingClient_thenUsesConfiguredValues() {
+  @DisplayName("README and DOCS options plus client snippet configures the documented settings")
+  void docsOptionsAndClientSnippetConfiguresDocumentedSettings() {
+    var properties = baseProperties();
     var options =
         DefaultClient.HttpClientOptions.builder()
-            .dispatcher(96, 32)
-            .connectionPool(30, Duration.ofSeconds(90))
-            .connectTimeout(Duration.ofSeconds(3))
-            .readTimeout(Duration.ofSeconds(12))
-            .writeTimeout(Duration.ofSeconds(18))
-            .callTimeout(Duration.ofSeconds(25))
+            .dispatcher(128, 32)
+            .connectionPool(20, Duration.ofSeconds(59))
+            .connectTimeout(Duration.ofSeconds(10))
+            .readTimeout(Duration.ofSeconds(30))
+            .writeTimeout(Duration.ofSeconds(30))
+            .callTimeout(Duration.ofSeconds(30))
+            .build();
+
+    var client = new DefaultClient(properties, options);
+
+    assertConfiguredHttpClient(client, 128, 32, 20, 59, 10_000, 30_000, 30_000, 30_000);
+  }
+
+  @Test
+  @DisplayName("README and DOCS options builder snippet builds the documented settings")
+  void docsOptionsBuilderSnippetBuildsDocumentedSettings() {
+    var options =
+        DefaultClient.HttpClientOptions.builder()
+            .dispatcher(128, 32)
+            .connectionPool(20, Duration.ofSeconds(59))
+            .connectTimeout(Duration.ofSeconds(10))
+            .readTimeout(Duration.ofSeconds(30))
+            .writeTimeout(Duration.ofSeconds(30))
+            .callTimeout(Duration.ofSeconds(30))
             .build();
 
     var client = new DefaultClient(baseProperties(), options);
-    var okHttpClient = getOkHttpClient(client);
-    var pool = okHttpClient.connectionPool();
 
-    Assertions.assertEquals(30, readIntField(poolDelegate(pool), "maxIdleConnections"));
-    Assertions.assertEquals(
-        Duration.ofSeconds(90).toNanos(), readLongField(poolDelegate(pool), "keepAliveDurationNs"));
-    Assertions.assertEquals(96, readIntField(okHttpClient.dispatcher(), "maxRequests"));
-    Assertions.assertEquals(32, readIntField(okHttpClient.dispatcher(), "maxRequestsPerHost"));
-    Assertions.assertEquals(3_000, okHttpClient.connectTimeoutMillis());
-    Assertions.assertEquals(12_000, okHttpClient.readTimeoutMillis());
-    Assertions.assertEquals(18_000, okHttpClient.writeTimeoutMillis());
-    Assertions.assertEquals(25_000, okHttpClient.callTimeoutMillis());
+    assertConfiguredHttpClient(client, 128, 32, 20, 59, 10_000, 30_000, 30_000, 30_000);
   }
 
   @Test
@@ -101,17 +116,7 @@ public class DefaultClientConfigurationTest {
         Duration.ofSeconds(16),
         Duration.ofSeconds(22));
 
-    var okHttpClient = getOkHttpClient(client);
-    var pool = okHttpClient.connectionPool();
-    Assertions.assertEquals(15, readIntField(poolDelegate(pool), "maxIdleConnections"));
-    Assertions.assertEquals(
-        Duration.ofSeconds(30).toNanos(), readLongField(poolDelegate(pool), "keepAliveDurationNs"));
-    Assertions.assertEquals(72, readIntField(okHttpClient.dispatcher(), "maxRequests"));
-    Assertions.assertEquals(16, readIntField(okHttpClient.dispatcher(), "maxRequestsPerHost"));
-    Assertions.assertEquals(4_000, okHttpClient.connectTimeoutMillis());
-    Assertions.assertEquals(14_000, okHttpClient.readTimeoutMillis());
-    Assertions.assertEquals(16_000, okHttpClient.writeTimeoutMillis());
-    Assertions.assertEquals(22_000, okHttpClient.callTimeoutMillis());
+    assertConfiguredHttpClient(client, 72, 16, 15, 30, 4_000, 14_000, 16_000, 22_000);
   }
 
   private static Properties baseProperties() {
@@ -124,6 +129,41 @@ public class DefaultClientConfigurationTest {
   private static OkHttpClient getOkHttpClient(DefaultClient client) {
     Retrofit retrofit = (Retrofit) readField(client, "retrofit");
     return (OkHttpClient) readField(retrofit, "callFactory");
+  }
+
+  private static DefaultClient getDefaultClientInstance() {
+    return (DefaultClient) readStaticField(DefaultClient.class, "defaultInstance");
+  }
+
+  private static void setDefaultClientInstance(DefaultClient client) {
+    writeStaticField(DefaultClient.class, "defaultInstance", client);
+  }
+
+  private static void assertConfiguredHttpClient(
+      DefaultClient client,
+      int maxRequests,
+      int maxRequestsPerHost,
+      int maxIdleConnections,
+      long keepAliveSeconds,
+      int connectTimeoutMillis,
+      int readTimeoutMillis,
+      int writeTimeoutMillis,
+      int callTimeoutMillis) {
+    var okHttpClient = getOkHttpClient(client);
+    var pool = okHttpClient.connectionPool();
+
+    Assertions.assertEquals(
+        maxIdleConnections, readIntField(poolDelegate(pool), "maxIdleConnections"));
+    Assertions.assertEquals(
+        Duration.ofSeconds(keepAliveSeconds).toNanos(),
+        readLongField(poolDelegate(pool), "keepAliveDurationNs"));
+    Assertions.assertEquals(maxRequests, readIntField(okHttpClient.dispatcher(), "maxRequests"));
+    Assertions.assertEquals(
+        maxRequestsPerHost, readIntField(okHttpClient.dispatcher(), "maxRequestsPerHost"));
+    Assertions.assertEquals(connectTimeoutMillis, okHttpClient.connectTimeoutMillis());
+    Assertions.assertEquals(readTimeoutMillis, okHttpClient.readTimeoutMillis());
+    Assertions.assertEquals(writeTimeoutMillis, okHttpClient.writeTimeoutMillis());
+    Assertions.assertEquals(callTimeoutMillis, okHttpClient.callTimeoutMillis());
   }
 
   private static Object poolDelegate(ConnectionPool pool) {
@@ -154,5 +194,25 @@ public class DefaultClientConfigurationTest {
 
     throw new IllegalStateException(
         String.format("Field '%s' not found on %s", fieldName, target.getClass().getName()));
+  }
+
+  private static Object readStaticField(Class<?> type, String fieldName) {
+    try {
+      Field field = type.getDeclaredField(fieldName);
+      field.setAccessible(true);
+      return field.get(null);
+    } catch (NoSuchFieldException | IllegalAccessException ex) {
+      throw new IllegalStateException(ex);
+    }
+  }
+
+  private static void writeStaticField(Class<?> type, String fieldName, Object value) {
+    try {
+      Field field = type.getDeclaredField(fieldName);
+      field.setAccessible(true);
+      field.set(null, value);
+    } catch (NoSuchFieldException | IllegalAccessException ex) {
+      throw new IllegalStateException(ex);
+    }
   }
 }
