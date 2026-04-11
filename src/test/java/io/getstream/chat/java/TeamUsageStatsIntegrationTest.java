@@ -22,6 +22,9 @@ import org.junit.jupiter.api.Test;
  */
 public class TeamUsageStatsIntegrationTest {
 
+  /** Month containing seeded test data (sdk-test-team-1/2/3). */
+  private static final String TEST_DATA_MONTH = "2026-02";
+
   private static DefaultClient originalClient;
 
   @BeforeAll
@@ -58,9 +61,10 @@ public class TeamUsageStatsIntegrationTest {
   class BasicQueries {
 
     @Test
-    @DisplayName("No parameters returns teams")
-    void noParametersReturnsTeams() throws StreamException {
-      QueryTeamUsageStatsResponse response = TeamUsageStats.queryTeamUsageStats().request();
+    @DisplayName("Month query returns teams")
+    void monthQueryReturnsTeams() throws StreamException {
+      QueryTeamUsageStatsResponse response =
+          TeamUsageStats.queryTeamUsageStats().month(TEST_DATA_MONTH).request();
 
       assertNotNull(response);
       assertNotNull(response.getTeams());
@@ -176,7 +180,7 @@ public class TeamUsageStatsIntegrationTest {
     @DisplayName("limit=3 returns exactly 3 teams")
     void limitReturnsCorrectCount() throws StreamException {
       QueryTeamUsageStatsResponse response =
-          TeamUsageStats.queryTeamUsageStats().limit(3).request();
+          TeamUsageStats.queryTeamUsageStats().month(TEST_DATA_MONTH).limit(3).request();
 
       assertEquals(3, response.getTeams().size());
     }
@@ -185,7 +189,7 @@ public class TeamUsageStatsIntegrationTest {
     @DisplayName("limit returns next cursor when more data exists")
     void limitReturnsNextCursor() throws StreamException {
       QueryTeamUsageStatsResponse response =
-          TeamUsageStats.queryTeamUsageStats().limit(3).request();
+          TeamUsageStats.queryTeamUsageStats().month(TEST_DATA_MONTH).limit(3).request();
 
       assertNotNull(response.getNext());
       assertFalse(response.getNext().isEmpty());
@@ -194,9 +198,14 @@ public class TeamUsageStatsIntegrationTest {
     @Test
     @DisplayName("Pagination with next cursor returns different teams")
     void paginationReturnsDifferentTeams() throws StreamException {
-      QueryTeamUsageStatsResponse page1 = TeamUsageStats.queryTeamUsageStats().limit(3).request();
+      QueryTeamUsageStatsResponse page1 =
+          TeamUsageStats.queryTeamUsageStats().month(TEST_DATA_MONTH).limit(3).request();
       QueryTeamUsageStatsResponse page2 =
-          TeamUsageStats.queryTeamUsageStats().limit(3).next(page1.getNext()).request();
+          TeamUsageStats.queryTeamUsageStats()
+              .month(TEST_DATA_MONTH)
+              .limit(3)
+              .next(page1.getNext())
+              .request();
 
       // Verify no overlap between pages
       for (var t1 : page1.getTeams()) {
@@ -260,7 +269,8 @@ public class TeamUsageStatsIntegrationTest {
     @Test
     @DisplayName("Teams have team field")
     void teamsHaveTeamField() throws StreamException {
-      QueryTeamUsageStatsResponse response = TeamUsageStats.queryTeamUsageStats().request();
+      QueryTeamUsageStatsResponse response =
+          TeamUsageStats.queryTeamUsageStats().month(TEST_DATA_MONTH).request();
 
       // team field exists (may be empty string for default team)
       assertDoesNotThrow(() -> response.getTeams().get(0).getTeam());
@@ -269,7 +279,8 @@ public class TeamUsageStatsIntegrationTest {
     @Test
     @DisplayName("All 16 metrics are present and parseable")
     void allMetricsPresent() throws StreamException {
-      QueryTeamUsageStatsResponse response = TeamUsageStats.queryTeamUsageStats().request();
+      QueryTeamUsageStatsResponse response =
+          TeamUsageStats.queryTeamUsageStats().month(TEST_DATA_MONTH).request();
       var team = response.getTeams().get(0);
 
       // Daily activity metrics
@@ -300,7 +311,8 @@ public class TeamUsageStatsIntegrationTest {
     @Test
     @DisplayName("Metrics have total field with valid value")
     void metricsHaveTotal() throws StreamException {
-      QueryTeamUsageStatsResponse response = TeamUsageStats.queryTeamUsageStats().request();
+      QueryTeamUsageStatsResponse response =
+          TeamUsageStats.queryTeamUsageStats().month(TEST_DATA_MONTH).request();
       var team = response.getTeams().get(0);
 
       // Verify total field is present and non-null
@@ -403,23 +415,6 @@ public class TeamUsageStatsIntegrationTest {
   }
 
   @Nested
-  @DisplayName("Data Correctness - No Parameters Query")
-  class DataCorrectnessNoParams {
-
-    @Test
-    @DisplayName("No params: test teams exist with valid metrics")
-    void noParamsTestTeamsExist() throws StreamException {
-      QueryTeamUsageStatsResponse response = TeamUsageStats.queryTeamUsageStats().request();
-
-      for (String teamName : List.of("sdk-test-team-1", "sdk-test-team-2", "sdk-test-team-3")) {
-        TeamUsageStats team = findTeamByName(response, teamName);
-        assertNotNull(team, teamName + " should exist");
-        assertMetricsNonNegative(team, teamName);
-      }
-    }
-  }
-
-  @Nested
   @DisplayName("Data Correctness - Pagination Query")
   class DataCorrectnessPagination {
 
@@ -438,7 +433,7 @@ public class TeamUsageStatsIntegrationTest {
       int maxPages = 10; // Safety limit
 
       for (int page = 0; page < maxPages; page++) {
-        var requestBuilder = TeamUsageStats.queryTeamUsageStats().limit(5);
+        var requestBuilder = TeamUsageStats.queryTeamUsageStats().month(TEST_DATA_MONTH).limit(5);
         if (nextCursor != null) {
           requestBuilder = requestBuilder.next(nextCursor);
         }

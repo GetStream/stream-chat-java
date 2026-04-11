@@ -47,7 +47,7 @@ public class Command {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class CommandCreateRequestData {
     @Nullable
     @JsonProperty("name")
@@ -74,7 +74,7 @@ public class Command {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class CommandGetRequest extends StreamRequest<CommandGetResponse> {
     @NotNull private String name;
@@ -90,7 +90,7 @@ public class Command {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class CommandUpdateRequestData {
     @Nullable
     @JsonProperty("description")
@@ -119,7 +119,7 @@ public class Command {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class CommandDeleteRequest extends StreamRequest<CommandDeleteResponse> {
     @NotNull private String name;

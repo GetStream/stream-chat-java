@@ -268,7 +268,7 @@ public class ChannelType {
   @Builder
   @Setter
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ThresholdRequestObject {
     @Nullable
     @JsonProperty("flag")
@@ -287,7 +287,7 @@ public class ChannelType {
   @Builder
   @Setter
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class PermissionRequestObject {
     @Nullable
     @JsonProperty("name")
@@ -324,7 +324,7 @@ public class ChannelType {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ChannelTypeCreateRequestData {
     @Nullable
     @JsonProperty("typing_events")
@@ -463,7 +463,7 @@ public class ChannelType {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class ChannelTypeGetRequest extends StreamRequest<ChannelTypeGetResponse> {
     @NotNull private String name;
@@ -479,7 +479,7 @@ public class ChannelType {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ChannelTypeUpdateRequestData {
     @Nullable
     @JsonProperty("typing_events")
@@ -606,7 +606,7 @@ public class ChannelType {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class ChannelTypeDeleteRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String name;

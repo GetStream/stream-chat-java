@@ -83,7 +83,7 @@ public class Import {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class CreateImportUrlRequestData {
     @Nullable
     @JsonProperty("filename")
@@ -116,7 +116,7 @@ public class Import {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class CreateImportRequestData {
     @NotNull
     @JsonProperty("path")
@@ -157,7 +157,7 @@ public class Import {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ListImportsRequest extends StreamRequest<Import.ListImportsResponse> {
     private final Integer limit;
     private final Integer offset;

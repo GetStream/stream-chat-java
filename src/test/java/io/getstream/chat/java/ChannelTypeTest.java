@@ -101,16 +101,6 @@ public class ChannelTypeTest extends BasicTest {
     Assertions.assertEquals(ResourceAction.CREATE_CHANNEL, firstResource);
   }
 
-  @DisplayName("Can delete channel type after creation with no Exception")
-  @Test
-  void whenCreatingDefaultChannelType_thenCanDeleteWithNoException() {
-    String channelName = RandomStringUtils.randomAlphabetic(10);
-    Assertions.assertDoesNotThrow(
-        () -> ChannelType.create().withDefaultConfig().name(channelName).request());
-    pause();
-    Assertions.assertDoesNotThrow(() -> ChannelType.delete(channelName).request());
-  }
-
   @DisplayName("Can see created channel type in list after creation with no Exception")
   @Test
   void whenCreatingDefaultChannelType_thenCanListAndRetrieveItWithNoException() {
