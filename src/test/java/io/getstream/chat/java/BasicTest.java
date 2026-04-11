@@ -208,7 +208,7 @@ public class BasicTest {
     // Keep CI logs readable by default; callers can still override this for local debugging.
     System.setProperty(
         "io.getstream.chat.debug.logLevel",
-        System.getProperty("io.getstream.chat.debug.logLevel", "BASIC"));
+        System.getProperty("io.getstream.chat.debug.logLevel", "NONE"));
   }
 
   protected static List<ChannelMemberRequestObject> buildChannelMembersList() {
