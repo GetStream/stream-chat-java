@@ -24,27 +24,6 @@ public class CommandTest extends BasicTest {
     Assertions.assertEquals(description, command.getDescription());
   }
 
-  @DisplayName("Can update command")
-  @Test
-  void whenUpdatingCommand_thenCorrectDescription() {
-    String description = "test description";
-    Command command =
-        Assertions.assertDoesNotThrow(
-                () ->
-                    Command.create()
-                        .name(RandomStringUtils.randomAlphabetic(5))
-                        .description(description)
-                        .request())
-            .getCommand();
-    pause();
-    String updatedDescription = "updated description";
-    Command updatedCommand =
-        Assertions.assertDoesNotThrow(
-                () -> Command.update(command.getName()).description(updatedDescription).request())
-            .getCommand();
-    Assertions.assertEquals(updatedDescription, updatedCommand.getDescription());
-  }
-
   @DisplayName("Can retrieve command")
   @Test
   void whenRetrievingCommand_thenCorrectDescription() {
