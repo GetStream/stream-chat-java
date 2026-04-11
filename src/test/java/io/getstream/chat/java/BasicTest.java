@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 
 public class BasicTest {
+  private static boolean environmentInitialized;
   protected static UserRequestObject testUserRequestObject;
   protected static List<UserRequestObject> testUsersRequestObjects = new ArrayList<>();
   protected static ChannelGetResponse testChannelGetResponse;
@@ -27,14 +28,18 @@ public class BasicTest {
   protected static Message testMessage;
 
   @BeforeAll
-  static void setup() throws StreamException, SecurityException, IllegalArgumentException {
+  static synchronized void setup()
+      throws StreamException, SecurityException, IllegalArgumentException {
     // failOnUnknownProperties();
     setProperties();
-    cleanChannels();
-    cleanChannelTypes();
-    cleanBlocklists();
-    cleanCommands();
-    cleanUsers();
+    if (!environmentInitialized) {
+      cleanChannels();
+      cleanChannelTypes();
+      cleanBlocklists();
+      cleanCommands();
+      cleanUsers();
+      environmentInitialized = true;
+    }
     upsertUsers();
     createTestChannel();
     createTestMessage();
@@ -74,6 +79,11 @@ public class BasicTest {
         // wait for the channels to delete
         Assertions.assertDoesNotThrow(() -> java.lang.Thread.sleep(500));
       }
+
+      waitFor(
+          () -> Assertions.assertDoesNotThrow(() -> Channel.list().request().getChannels().isEmpty()),
+          1000L,
+          60000L);
     }
   }
 
@@ -111,6 +121,11 @@ public class BasicTest {
         // wait for the channels to delete
         Assertions.assertDoesNotThrow(() -> java.lang.Thread.sleep(500));
       }
+
+      waitFor(
+          () -> Assertions.assertDoesNotThrow(() -> User.list().request().getUsers().isEmpty()),
+          1000L,
+          60000L);
     }
   }
 
@@ -165,12 +180,32 @@ public class BasicTest {
   }
 
   private static void createTestMessage() throws StreamException {
-    testMessage = sendTestMessage();
+    waitFor(
+        () -> {
+          try {
+            testMessage = sendTestMessage();
+            return testMessage != null;
+          } catch (StreamException e) {
+            return false;
+          }
+        },
+        1000L,
+        60000L);
   }
 
   private static void createTestChannel() throws StreamException {
-    testChannelGetResponse = createRandomChannel();
-    testChannel = testChannelGetResponse.getChannel();
+    waitFor(
+        () -> {
+          try {
+            testChannelGetResponse = createRandomChannel();
+            testChannel = testChannelGetResponse.getChannel();
+            return testChannel != null;
+          } catch (StreamException e) {
+            return false;
+          }
+        },
+        1000L,
+        60000L);
   }
 
   static void upsertUsers() throws StreamException {
@@ -199,6 +234,20 @@ public class BasicTest {
     UserUpsertRequest usersUpsertRequest = User.upsert();
     testUsersRequestObjects.forEach(user -> usersUpsertRequest.user(user));
     usersUpsertRequest.request();
+    waitFor(
+        () -> {
+          var existingUsers = Assertions.assertDoesNotThrow(() -> User.list().request().getUsers());
+          return testUsersRequestObjects.stream()
+              .allMatch(
+                  expectedUser ->
+                      existingUsers.stream()
+                          .anyMatch(
+                              existingUser ->
+                                  expectedUser.getId().equals(existingUser.getId())
+                                      && existingUser.getDeletedAt() == null));
+        },
+        1000L,
+        60000L);
   }
 
   static void setProperties() {
@@ -255,14 +304,23 @@ public class BasicTest {
 
   protected static void waitFor(Supplier<Boolean> predicate, Long askInterval, Long timeout) {
     var start = System.currentTimeMillis();
+    Throwable lastError = null;
 
     while (true) {
       if (timeout < (System.currentTimeMillis() - start)) {
+        if (lastError != null) {
+          Assertions.fail(lastError);
+        }
         Assertions.fail(new TimeoutException());
       }
 
-      if (Assertions.assertDoesNotThrow(predicate::get)) {
-        return;
+      try {
+        if (predicate.get()) {
+          return;
+        }
+        lastError = null;
+      } catch (Throwable t) {
+        lastError = t;
       }
 
       Assertions.assertDoesNotThrow(() -> java.lang.Thread.sleep(askInterval));
@@ -273,7 +331,7 @@ public class BasicTest {
     var start = System.currentTimeMillis();
     TaskStatusGetResponse lastResponse = null;
     var askInterval = 500L;
-    var timeout = 15000L;
+    var timeout = 120000L;
 
     System.out.printf("Waiting for task %s to complete...\n", taskId);
 
@@ -291,9 +349,6 @@ public class BasicTest {
       lastResponse = Assertions.assertDoesNotThrow(() -> TaskStatus.get(taskId).request());
       var status = lastResponse.getStatus();
       System.out.printf("Task %s status=%s result=%s\n", taskId, status, lastResponse.getResult());
-      if ("completed".equals(status) || "ok".equals(status)) {
-        return;
-      }
       if ("failed".equals(status) || "error".equals(status)) {
         Assertions.fail(
             String.format(
@@ -301,7 +356,46 @@ public class BasicTest {
                 taskId, status, lastResponse.getResult()));
       }
 
+      if (isTaskResultFailed(lastResponse)) {
+        Assertions.fail(
+            String.format(
+                "Task %s failed with status=%s result=%s",
+                taskId, status, lastResponse.getResult()));
+      }
+
+      if (("completed".equals(status) || "ok".equals(status)) && isTaskResultTerminal(lastResponse)) {
+        return;
+      }
+
       Assertions.assertDoesNotThrow(() -> java.lang.Thread.sleep(askInterval));
     }
+  }
+
+  private static boolean isTaskResultTerminal(TaskStatusGetResponse response) {
+    if (response == null || response.getResult() == null || response.getResult().isEmpty()) {
+      return true;
+    }
+
+    var resultStatus = response.getResult().get("status");
+    if (!(resultStatus instanceof String)) {
+      return true;
+    }
+
+    var normalizedStatus = ((String) resultStatus).toLowerCase();
+    return !"started".equals(normalizedStatus) && !"pending".equals(normalizedStatus);
+  }
+
+  private static boolean isTaskResultFailed(TaskStatusGetResponse response) {
+    if (response == null || response.getResult() == null) {
+      return false;
+    }
+
+    var resultStatus = response.getResult().get("status");
+    if (!(resultStatus instanceof String)) {
+      return false;
+    }
+
+    var normalizedStatus = ((String) resultStatus).toLowerCase();
+    return "failed".equals(normalizedStatus) || "error".equals(normalizedStatus);
   }
 }
