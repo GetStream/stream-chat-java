@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":9,"i5":9,"i6":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":9,"i5":10,"i6":10,"i7":9,"i8":10,"i9":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -88,7 +88,7 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
@@ -144,6 +144,29 @@ implements <a href="Client.html" title="interface in io.getstream.chat.java.serv
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="nested.class.summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<table class="memberSummary">
+<caption><span>Nested Classes</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Class</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="DefaultClient.HttpClientOptions.html" title="class in io.getstream.chat.java.services.framework">DefaultClient.HttpClientOptions</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+</section>
 <!-- =========== FIELD SUMMARY =========== -->
 <section>
 <ul class="blockList">
@@ -160,7 +183,17 @@ implements <a href="Client.html" title="interface in io.getstream.chat.java.serv
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#API_CONNECT_TIMEOUT_PROP_NAME">API_CONNECT_TIMEOUT_PROP_NAME</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#API_KEY_PROP_NAME">API_KEY_PROP_NAME</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#API_READ_TIMEOUT_PROP_NAME">API_READ_TIMEOUT_PROP_NAME</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
@@ -179,6 +212,31 @@ implements <a href="Client.html" title="interface in io.getstream.chat.java.serv
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#API_WRITE_TIMEOUT_PROP_NAME">API_WRITE_TIMEOUT_PROP_NAME</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME">CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME">CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#DISPATCHER_MAX_REQUESTS_PER_HOST_PROP_NAME">DISPATCHER_MAX_REQUESTS_PER_HOST_PROP_NAME</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#DISPATCHER_MAX_REQUESTS_PROP_NAME">DISPATCHER_MAX_REQUESTS_PROP_NAME</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#X_STREAM_EXT_PROP_NAME">X_STREAM_EXT_PROP_NAME</a></span></code></th>
 <td class="colLast">&nbsp;</td>
@@ -205,12 +263,23 @@ implements <a href="Client.html" title="interface in io.getstream.chat.java.serv
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.util.Properties,java.util.function.Function)">DefaultClient</a></span>&#8203;(@NotNull java.util.Properties&nbsp;properties,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.util.Properties,io.getstream.chat.java.services.framework.DefaultClient.HttpClientOptions,java.util.function.Function)">DefaultClient</a></span>&#8203;(@NotNull java.util.Properties&nbsp;properties,
+             @NotNull <a href="DefaultClient.HttpClientOptions.html" title="class in io.getstream.chat.java.services.framework">DefaultClient.HttpClientOptions</a>&nbsp;httpClientOptions,
              @NotNull java.util.function.Function&lt;retrofit2.Retrofit,&#8203;<a href="UserServiceFactory.html" title="interface in io.getstream.chat.java.services.framework">UserServiceFactory</a>&gt;&nbsp;serviceFactoryBuilder)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.util.Properties,java.util.function.Function)">DefaultClient</a></span>&#8203;(@NotNull java.util.Properties&nbsp;properties,
+             @NotNull java.util.function.Function&lt;retrofit2.Retrofit,&#8203;<a href="UserServiceFactory.html" title="interface in io.getstream.chat.java.services.framework">UserServiceFactory</a>&gt;&nbsp;serviceFactoryBuilder)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.util.Properties)">DefaultClient</a></span>&#8203;(java.util.Properties&nbsp;properties)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.util.Properties,io.getstream.chat.java.services.framework.DefaultClient.HttpClientOptions)">DefaultClient</a></span>&#8203;(java.util.Properties&nbsp;properties,
+             @NotNull <a href="DefaultClient.HttpClientOptions.html" title="class in io.getstream.chat.java.services.framework">DefaultClient.HttpClientOptions</a>&nbsp;httpClientOptions)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -258,13 +327,33 @@ implements <a href="Client.html" title="interface in io.getstream.chat.java.serv
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setInstance(io.getstream.chat.java.services.framework.DefaultClient)">setInstance</a></span>&#8203;(@NotNull <a href="DefaultClient.html" title="class in io.getstream.chat.java.services.framework">DefaultClient</a>&nbsp;instance)</code></th>
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setConnectionPool(int,java.time.Duration)">setConnectionPool</a></span>&#8203;(int&nbsp;maxIdleConnections,
+                 @NotNull java.time.Duration&nbsp;keepAliveDuration)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDispatcher(int,int)">setDispatcher</a></span>&#8203;(int&nbsp;maxRequests,
+             int&nbsp;maxRequestsPerHost)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setInstance(io.getstream.chat.java.services.framework.DefaultClient)">setInstance</a></span>&#8203;(@NotNull <a href="DefaultClient.html" title="class in io.getstream.chat.java.services.framework">DefaultClient</a>&nbsp;instance)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTimeout(java.time.Duration)">setTimeout</a></span>&#8203;(@NotNull java.time.Duration&nbsp;timeoutDuration)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTimeouts(java.time.Duration,java.time.Duration,java.time.Duration,java.time.Duration)">setTimeouts</a></span>&#8203;(@NotNull java.time.Duration&nbsp;connectTimeout,
+           @NotNull java.time.Duration&nbsp;readTimeout,
+           @NotNull java.time.Duration&nbsp;writeTimeout,
+           @NotNull java.time.Duration&nbsp;callTimeout)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -330,6 +419,45 @@ implements <a href="Client.html" title="interface in io.getstream.chat.java.serv
 </dl>
 </li>
 </ul>
+<a id="API_CONNECT_TIMEOUT_PROP_NAME">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>API_CONNECT_TIMEOUT_PROP_NAME</h4>
+<pre>public static final&nbsp;java.lang.String API_CONNECT_TIMEOUT_PROP_NAME</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../constant-values.html#io.getstream.chat.java.services.framework.DefaultClient.API_CONNECT_TIMEOUT_PROP_NAME">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="API_READ_TIMEOUT_PROP_NAME">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>API_READ_TIMEOUT_PROP_NAME</h4>
+<pre>public static final&nbsp;java.lang.String API_READ_TIMEOUT_PROP_NAME</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../constant-values.html#io.getstream.chat.java.services.framework.DefaultClient.API_READ_TIMEOUT_PROP_NAME">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="API_WRITE_TIMEOUT_PROP_NAME">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>API_WRITE_TIMEOUT_PROP_NAME</h4>
+<pre>public static final&nbsp;java.lang.String API_WRITE_TIMEOUT_PROP_NAME</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../constant-values.html#io.getstream.chat.java.services.framework.DefaultClient.API_WRITE_TIMEOUT_PROP_NAME">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
 <a id="API_URL_PROP_NAME">
 <!--   -->
 </a>
@@ -346,13 +474,65 @@ implements <a href="Client.html" title="interface in io.getstream.chat.java.serv
 <a id="X_STREAM_EXT_PROP_NAME">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>X_STREAM_EXT_PROP_NAME</h4>
 <pre>public static final&nbsp;java.lang.String X_STREAM_EXT_PROP_NAME</pre>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../../../constant-values.html#io.getstream.chat.java.services.framework.DefaultClient.X_STREAM_EXT_PROP_NAME">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME</h4>
+<pre>public static final&nbsp;java.lang.String CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../constant-values.html#io.getstream.chat.java.services.framework.DefaultClient.CONNECTION_POOL_MAX_IDLE_CONNECTIONS_PROP_NAME">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME</h4>
+<pre>public static final&nbsp;java.lang.String CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../constant-values.html#io.getstream.chat.java.services.framework.DefaultClient.CONNECTION_POOL_KEEP_ALIVE_DURATION_PROP_NAME">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="DISPATCHER_MAX_REQUESTS_PROP_NAME">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>DISPATCHER_MAX_REQUESTS_PROP_NAME</h4>
+<pre>public static final&nbsp;java.lang.String DISPATCHER_MAX_REQUESTS_PROP_NAME</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../constant-values.html#io.getstream.chat.java.services.framework.DefaultClient.DISPATCHER_MAX_REQUESTS_PROP_NAME">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a id="DISPATCHER_MAX_REQUESTS_PER_HOST_PROP_NAME">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>DISPATCHER_MAX_REQUESTS_PER_HOST_PROP_NAME</h4>
+<pre>public static final&nbsp;java.lang.String DISPATCHER_MAX_REQUESTS_PER_HOST_PROP_NAME</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../constant-values.html#io.getstream.chat.java.services.framework.DefaultClient.DISPATCHER_MAX_REQUESTS_PER_HOST_PROP_NAME">Constant Field Values</a></dd>
 </dl>
 </li>
 </ul>
@@ -382,6 +562,31 @@ implements <a href="Client.html" title="interface in io.getstream.chat.java.serv
 <li class="blockList">
 <h4>DefaultClient</h4>
 <pre>public&nbsp;DefaultClient&#8203;(java.util.Properties&nbsp;properties)</pre>
+</li>
+</ul>
+<a id="&lt;init&gt;(java.util.Properties,io.getstream.chat.java.services.framework.DefaultClient.HttpClientOptions)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>DefaultClient</h4>
+<pre>public&nbsp;DefaultClient&#8203;(java.util.Properties&nbsp;properties,
+                     @NotNull
+                     @NotNull <a href="DefaultClient.HttpClientOptions.html" title="class in io.getstream.chat.java.services.framework">DefaultClient.HttpClientOptions</a>&nbsp;httpClientOptions)</pre>
+</li>
+</ul>
+<a id="&lt;init&gt;(java.util.Properties,io.getstream.chat.java.services.framework.DefaultClient.HttpClientOptions,java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>DefaultClient</h4>
+<pre>public&nbsp;DefaultClient&#8203;(@NotNull
+                     @NotNull java.util.Properties&nbsp;properties,
+                     @NotNull
+                     @NotNull <a href="DefaultClient.HttpClientOptions.html" title="class in io.getstream.chat.java.services.framework">DefaultClient.HttpClientOptions</a>&nbsp;httpClientOptions,
+                     @NotNull
+                     @NotNull java.util.function.Function&lt;retrofit2.Retrofit,&#8203;<a href="UserServiceFactory.html" title="interface in io.getstream.chat.java.services.framework">UserServiceFactory</a>&gt;&nbsp;serviceFactoryBuilder)</pre>
 </li>
 </ul>
 <a id="&lt;init&gt;(java.util.Properties,java.util.function.Function)">
@@ -485,7 +690,7 @@ public&nbsp;@NotNull java.lang.String&nbsp;getApiKey()</pre>
 <a id="setTimeout(java.time.Duration)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>setTimeout</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setTimeout&#8203;(@NotNull
@@ -494,6 +699,43 @@ public&nbsp;@NotNull java.lang.String&nbsp;getApiKey()</pre>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Client.html#setTimeout(java.time.Duration)">setTimeout</a></code>&nbsp;in interface&nbsp;<code><a href="Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a></code></dd>
 </dl>
+</li>
+</ul>
+<a id="setConnectionPool(int,java.time.Duration)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setConnectionPool</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setConnectionPool&#8203;(int&nbsp;maxIdleConnections,
+                              @NotNull
+                              @NotNull java.time.Duration&nbsp;keepAliveDuration)</pre>
+</li>
+</ul>
+<a id="setDispatcher(int,int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setDispatcher</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setDispatcher&#8203;(int&nbsp;maxRequests,
+                          int&nbsp;maxRequestsPerHost)</pre>
+</li>
+</ul>
+<a id="setTimeouts(java.time.Duration,java.time.Duration,java.time.Duration,java.time.Duration)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>setTimeouts</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setTimeouts&#8203;(@NotNull
+                        @NotNull java.time.Duration&nbsp;connectTimeout,
+                        @NotNull
+                        @NotNull java.time.Duration&nbsp;readTimeout,
+                        @NotNull
+                        @NotNull java.time.Duration&nbsp;writeTimeout,
+                        @NotNull
+                        @NotNull java.time.Duration&nbsp;callTimeout)</pre>
 </li>
 </ul>
 </li>
@@ -547,7 +789,7 @@ public&nbsp;@NotNull java.lang.String&nbsp;getApiKey()</pre>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>

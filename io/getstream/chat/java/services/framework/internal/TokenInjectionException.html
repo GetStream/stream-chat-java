@@ -146,8 +146,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">TokenInjectionException</span>
 extends java.lang.ReflectiveOperationException</pre>
-<div class="block">Thrown when user token injection into a request fails. This can happen if: - A service method
- doesn't return retrofit2.Call<?> - Retrofit's internal structure changes and reflection fails</div>
+<div class="block">Thrown when user token injection into a request fails.
+
+ <p>This can happen if:
+
+ <ul>
+   <li>A service method does not return <code>retrofit2.Call&lt;?&gt;</code>.
+   <li>Retrofit internal structure changes and reflection fails.
+ </ul></div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../../../../serialized-form.html#io.getstream.chat.java.services.framework.internal.TokenInjectionException">Serialized Form</a></dd>
