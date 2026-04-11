@@ -81,7 +81,8 @@ public class BasicTest {
       }
 
       waitFor(
-          () -> Assertions.assertDoesNotThrow(() -> Channel.list().request().getChannels().isEmpty()),
+          () ->
+              Assertions.assertDoesNotThrow(() -> Channel.list().request().getChannels().isEmpty()),
           1000L,
           60000L);
     }
@@ -363,7 +364,8 @@ public class BasicTest {
                 taskId, status, lastResponse.getResult()));
       }
 
-      if (("completed".equals(status) || "ok".equals(status)) && isTaskResultTerminal(lastResponse)) {
+      if (("completed".equals(status) || "ok".equals(status))
+          && isTaskResultTerminal(lastResponse)) {
         return;
       }
 
