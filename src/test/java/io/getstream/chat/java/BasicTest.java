@@ -205,8 +205,10 @@ public class BasicTest {
     System.setProperty(
         "java.util.logging.SimpleFormatter.format",
         "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s %2$s %5$s%6$s%n");
-    // Enable HTTP request/response logging for debugging test failures.
-    System.setProperty("io.getstream.chat.debug.logLevel", "BODY");
+    // Keep CI logs readable by default; callers can still override this for local debugging.
+    System.setProperty(
+        "io.getstream.chat.debug.logLevel",
+        System.getProperty("io.getstream.chat.debug.logLevel", "BASIC"));
   }
 
   protected static List<ChannelMemberRequestObject> buildChannelMembersList() {
