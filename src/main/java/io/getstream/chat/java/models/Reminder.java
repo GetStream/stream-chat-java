@@ -82,7 +82,7 @@ public class Reminder {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ReminderCreateRequestData {
     @NotNull
     @JsonProperty("user_id")
@@ -111,7 +111,7 @@ public class Reminder {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ReminderUpdateRequestData {
     @NotNull
     @JsonProperty("user_id")
@@ -136,7 +136,7 @@ public class Reminder {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class ReminderDeleteRequest extends StreamRequest<ReminderDeleteResponse> {
     @NotNull private String messageId;
@@ -153,7 +153,7 @@ public class Reminder {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ReminderQueryRequestData {
     @NotNull
     @JsonProperty("user_id")

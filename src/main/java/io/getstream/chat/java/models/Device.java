@@ -50,7 +50,7 @@ public class Device {
   @Builder
   @Setter
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class DeviceRequestObject {
     @Nullable
     @JsonProperty("push_provider")
@@ -91,7 +91,7 @@ public class Device {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class DeviceCreateRequestData {
     @Nullable
     @JsonProperty("push_provider")
