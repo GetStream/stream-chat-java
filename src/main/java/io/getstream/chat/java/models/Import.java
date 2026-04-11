@@ -157,7 +157,7 @@ public class Import {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ListImportsRequest extends StreamRequest<Import.ListImportsResponse> {
     private final Integer limit;
     private final Integer offset;

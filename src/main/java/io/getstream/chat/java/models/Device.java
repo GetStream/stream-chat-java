@@ -122,7 +122,7 @@ public class Device {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class DeviceDeleteRequest extends StreamRequest<StreamResponseObject> {
     @NotNull private String id;
@@ -148,7 +148,7 @@ public class Device {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class DeviceListRequest extends StreamRequest<DeviceListResponse> {
     @NotNull private String userId;

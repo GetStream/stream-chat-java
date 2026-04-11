@@ -257,7 +257,7 @@ public class Channel {
   @Builder
   @Setter
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ChannelRequestObject {
     @Nullable
     @JsonProperty("created_by")
@@ -342,7 +342,7 @@ public class Channel {
   @Builder
   @Setter
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ChannelMemberRequestObject {
     @Nullable
     @JsonProperty("user_id")
@@ -416,7 +416,7 @@ public class Channel {
 
   @Builder
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ConfigOverridesRequestObject {
     @Nullable
     @JsonProperty("typing_events")
@@ -469,7 +469,7 @@ public class Channel {
 
   @Builder
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ChannelExportRequestObject {
     @Nullable
     @JsonProperty("type")
@@ -493,7 +493,7 @@ public class Channel {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ChannelGetRequestData {
     @Nullable
     @JsonProperty("connection_id")
@@ -556,7 +556,7 @@ public class Channel {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ChannelUpdateRequestData {
     // Singular is required because cannot be null
     @Singular
@@ -664,7 +664,7 @@ public class Channel {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class AssignRoleRequestData {
     @Singular
     @Nullable
@@ -695,7 +695,7 @@ public class Channel {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class ChannelDeleteRequest extends StreamRequest<ChannelDeleteResponse> {
     @NotNull private String channelType;
@@ -709,7 +709,7 @@ public class Channel {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class ChannelDeleteManyRequest extends StreamRequest<ChannelDeleteManyResponse> {
     @JsonProperty("cids")
@@ -738,7 +738,7 @@ public class Channel {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ChannelListRequestData {
     @Singular
     @Nullable
@@ -803,7 +803,7 @@ public class Channel {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ChannelTruncateRequestData {
     @Nullable
     @JsonProperty("hard_delete")
@@ -853,7 +853,7 @@ public class Channel {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ChannelQueryMembersRequestData {
     @Nullable
     @JsonProperty("type")
@@ -940,7 +940,7 @@ public class Channel {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ChannelExportRequestData {
     @Singular
     @Nullable
@@ -972,7 +972,7 @@ public class Channel {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class ChannelExportStatusRequest
       extends StreamRequest<ChannelExportStatusResponse> {
@@ -989,7 +989,7 @@ public class Channel {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ChannelHideRequestData {
     @Nullable
     @JsonProperty("clear_history")
@@ -1027,7 +1027,7 @@ public class Channel {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ChannelMarkAllReadRequestData {
     @Nullable
     @JsonProperty("user_id")
@@ -1050,7 +1050,7 @@ public class Channel {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ChannelMarkReadRequestData {
     @Nullable
     @JsonProperty("message_id")
@@ -2005,7 +2005,7 @@ public class Channel {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class ChannelsBatchUpdateRequest
       extends StreamRequest<ChannelsBatchUpdateResponse> {

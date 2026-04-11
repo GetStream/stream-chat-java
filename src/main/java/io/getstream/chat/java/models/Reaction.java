@@ -136,7 +136,7 @@ public class Reaction {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class ReactionDeleteRequest extends StreamRequest<ReactionDeleteResponse> {
     @NotNull private String messageId;
@@ -157,7 +157,7 @@ public class Reaction {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class ReactionListRequest extends StreamRequest<ReactionListResponse> {
     @NotNull private String messageId;

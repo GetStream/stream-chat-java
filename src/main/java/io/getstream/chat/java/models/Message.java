@@ -462,7 +462,7 @@ public class Message {
   @Builder
   @Setter
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class MessageRequestObject {
     @Nullable
     @JsonProperty("id")
@@ -577,7 +577,7 @@ public class Message {
   @Builder
   @Setter
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class AttachmentRequestObject {
     @Nullable
     @JsonProperty("type")
@@ -674,7 +674,7 @@ public class Message {
   @Builder
   @Setter
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ActionRequestObject {
     @Nullable
     @JsonProperty("name")
@@ -705,7 +705,7 @@ public class Message {
   @Builder
   @Setter
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class FieldRequestObject {
     @Nullable
     @JsonProperty("type")
@@ -728,7 +728,7 @@ public class Message {
   @Builder
   @Setter
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ImageSizeRequestObject {
     @Nullable
     @JsonProperty("crop")
@@ -755,7 +755,7 @@ public class Message {
   @Builder
   @Setter
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class ModerationRequestObject {
     @Nullable
     @JsonProperty("toxic")
@@ -780,7 +780,7 @@ public class Message {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class MessageSendRequestData {
     @Nullable
     @JsonProperty("message")
@@ -826,7 +826,7 @@ public class Message {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class MessageGetRequest extends StreamRequest<MessageGetResponse> {
     @NotNull private String id;
@@ -849,7 +849,7 @@ public class Message {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class MessageUpdateRequestData {
     @Nullable
     @JsonProperty("message")
@@ -870,7 +870,7 @@ public class Message {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class MessageDeleteRequest extends StreamRequest<MessageDeleteResponse> {
     @NotNull private String id;
@@ -913,7 +913,7 @@ public class Message {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class MessageSearchRequestData {
     @Nullable
     @JsonProperty("query")
@@ -1031,7 +1031,7 @@ public class Message {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   // We do not use @RequiredArgsConstructor here for uniformity with MessageUploadImageRequest
   public static class MessageUploadFileRequest extends FileRequest<MessageUploadFileResponse> {
     @NotNull private String channelType;
@@ -1068,7 +1068,7 @@ public class Message {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class MessageUploadImageRequest extends FileRequest<MessageUploadImageResponse> {
     @Nullable private File file;
@@ -1104,7 +1104,7 @@ public class Message {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class MessageDeleteFileRequest extends FileRequest<StreamResponseObject> {
     @NotNull private String channelType;
@@ -1120,7 +1120,7 @@ public class Message {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class MessageDeleteImageRequest extends FileRequest<StreamResponseObject> {
     @NotNull private String channelType;
@@ -1136,7 +1136,7 @@ public class Message {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class MessageGetManyRequest extends StreamRequest<MessageGetManyResponse> {
     @NotNull private String channelType;
@@ -1154,7 +1154,7 @@ public class Message {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @RequiredArgsConstructor
   public static class MessageGetRepliesRequest extends StreamRequest<MessageGetRepliesResponse> {
     @NotNull private String parentId;

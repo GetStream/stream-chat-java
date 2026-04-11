@@ -586,7 +586,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class AsyncModerationCallback {
     @Nullable
     @JsonProperty("mode")
@@ -599,7 +599,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class AsyncModerationConfigRequestObject {
     @Nullable
     @JsonProperty("callback")
@@ -612,7 +612,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class FileUploadConfigRequestObject {
 
     @Nullable
@@ -644,7 +644,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class APNConfigRequestObject {
     @Nullable
     @JsonProperty("development")
@@ -690,7 +690,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class FirebaseConfigRequestObject {
     @Nullable
     @JsonProperty("server_key")
@@ -720,7 +720,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class HuaweiConfigRequestObject {
     @Nullable
     @JsonProperty("id")
@@ -733,7 +733,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class PushConfigRequestObject {
     @Nullable
     @JsonProperty("version")
@@ -764,7 +764,7 @@ public class App extends StreamResponseObject {
   }
 
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class DeletePushProviderRequest extends StreamRequest<StreamResponseObject> {
     private String providerType;
     private String name;
@@ -785,7 +785,7 @@ public class App extends StreamResponseObject {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class AppUpdateRequestData {
     @Nullable
     @JsonProperty("disable_auth_checks")
@@ -976,7 +976,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   @NoArgsConstructor
   @AllArgsConstructor
   public static class AppGetRateLimitsRequest extends StreamRequest<AppGetRateLimitsResponse> {
@@ -1008,7 +1008,7 @@ public class App extends StreamResponseObject {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class AppCheckSqsRequestData {
     @Nullable
     @JsonProperty("sqs_url")
@@ -1035,7 +1035,7 @@ public class App extends StreamResponseObject {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class AppCheckSnsRequestData {
     @Nullable
     @JsonProperty("sns_topic_arn")
@@ -1062,7 +1062,7 @@ public class App extends StreamResponseObject {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class AppCheckPushRequestData {
     @Nullable
     @JsonProperty("message_id")
@@ -1110,7 +1110,7 @@ public class App extends StreamResponseObject {
 
   @AllArgsConstructor
   @Getter
-  @EqualsAndHashCode
+  @EqualsAndHashCode(callSuper = false)
   public static class AppRevokeTokensRequest extends StreamRequest<StreamResponseObject> {
     @Nullable private Date revokeTokensIssuedBefore;
 
