@@ -15,12 +15,10 @@ import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 
 public class BasicTest {
-  private static boolean environmentInitialized;
   protected static UserRequestObject testUserRequestObject;
   protected static List<UserRequestObject> testUsersRequestObjects = new ArrayList<>();
   protected static ChannelGetResponse testChannelGetResponse;
@@ -28,156 +26,11 @@ public class BasicTest {
   protected static Message testMessage;
 
   @BeforeAll
-  static synchronized void setup()
-      throws StreamException, SecurityException, IllegalArgumentException {
-    // failOnUnknownProperties();
+  static void setup() throws StreamException, SecurityException, IllegalArgumentException {
     setProperties();
-    if (!environmentInitialized) {
-      cleanChannels();
-      cleanChannelTypes();
-      cleanBlocklists();
-      cleanCommands();
-      cleanUsers();
-      environmentInitialized = true;
-    }
     upsertUsers();
     createTestChannel();
     createTestMessage();
-  }
-
-  private static void cleanChannels() throws StreamException {
-    while (true) {
-      List<String> channels =
-          Channel.list().request().getChannels().stream()
-              .map(channel -> channel.getChannel().getCId())
-              .collect(Collectors.toList());
-
-      if (channels.size() == 0) {
-        break;
-      }
-
-      var deleteManyResponse =
-          Channel.deleteMany(channels).setDeleteStrategy(DeleteStrategy.HARD).request();
-      String taskId = deleteManyResponse.getTaskId();
-      Assertions.assertNotNull(taskId);
-
-      System.out.printf("Waiting for channel deletion task %s to complete...\n", taskId);
-
-      while (true) {
-        TaskStatusGetResponse response = TaskStatus.get(taskId).request();
-        String status = response.getStatus();
-
-        if (status.equals("completed") || status.equals("ok")) {
-          break;
-        }
-        if (status.equals("failed") || status.equals("error")) {
-          throw new StreamException(
-              String.format("Failed to delete channel(task_id: %s): %s", response.getId(), status),
-              (Throwable) null);
-        }
-
-        // wait for the channels to delete
-        Assertions.assertDoesNotThrow(() -> java.lang.Thread.sleep(500));
-      }
-
-      waitFor(
-          () ->
-              Assertions.assertDoesNotThrow(() -> Channel.list().request().getChannels().isEmpty()),
-          1000L,
-          60000L);
-    }
-  }
-
-  private static void cleanUsers() throws StreamException {
-    while (true) {
-      List<String> users =
-          User.list().request().getUsers().stream()
-              .map(user -> user.getId())
-              .collect(Collectors.toList());
-
-      if (users.size() == 0) {
-        break;
-      }
-
-      var deleteManyResponse =
-          User.deleteMany(users).deleteUserStrategy(DeleteStrategy.HARD).request();
-      String taskId = deleteManyResponse.getTaskId();
-      Assertions.assertNotNull(taskId);
-
-      System.out.printf("Waiting for user deletion task %s to complete...\n", taskId);
-
-      while (true) {
-        TaskStatusGetResponse response = TaskStatus.get(taskId).request();
-        String status = response.getStatus();
-
-        if (status.equals("completed") || status.equals("ok")) {
-          break;
-        }
-        if (status.equals("failed") || status.equals("error")) {
-          throw new StreamException(
-              String.format("Failed to delete user(task_id: %s): %s", response.getId(), status),
-              (Throwable) null);
-        }
-
-        // wait for the channels to delete
-        Assertions.assertDoesNotThrow(() -> java.lang.Thread.sleep(500));
-      }
-
-      waitFor(
-          () -> Assertions.assertDoesNotThrow(() -> User.list().request().getUsers().isEmpty()),
-          1000L,
-          60000L);
-    }
-  }
-
-  private static void cleanChannelTypes() throws StreamException {
-    ChannelType.list()
-        .request()
-        .getChannelTypes()
-        .values()
-        .forEach(
-            channelType -> {
-              try {
-                ChannelType.delete(channelType.getName()).request();
-              } catch (StreamException e) {
-                // Do nothing. Happens when there are channels of that type
-              }
-            });
-  }
-
-  private static void cleanBlocklists() throws StreamException {
-    Blocklist.list()
-        .request()
-        .getBlocklists()
-        .forEach(
-            blocklist -> {
-              try {
-                Blocklist.delete(blocklist.getName()).request();
-              } catch (StreamException e) {
-                // Do nothing this happens for built in
-              }
-            });
-  }
-
-  private static void cleanCommands() throws StreamException {
-    Command.list()
-        .request()
-        .getCommands()
-        .forEach(
-            command -> {
-              try {
-                Command.delete(command.getName()).request();
-              } catch (StreamException e) {
-                // Do nothing
-              }
-            });
-
-    waitFor(
-        () -> {
-          var commands =
-              Assertions.assertDoesNotThrow(() -> Command.list().request().getCommands());
-          return commands.size() == 5; // Built-in 5 commands
-        });
   }
 
   private static void createTestMessage() throws StreamException {
@@ -212,26 +65,14 @@ public class BasicTest {
   static void upsertUsers() throws StreamException {
     testUsersRequestObjects.clear();
     testUserRequestObject =
-        UserRequestObject.builder()
-            .id(RandomStringUtils.randomAlphabetic(10))
-            .name("Gandalf the Grey")
-            .build();
+        UserRequestObject.builder().id(uniqueId("gandalf")).name("Gandalf the Grey").build();
     testUsersRequestObjects.add(testUserRequestObject);
     testUsersRequestObjects.add(
-        UserRequestObject.builder()
-            .id(RandomStringUtils.randomAlphabetic(10))
-            .name("Frodo Baggins")
-            .build());
+        UserRequestObject.builder().id(uniqueId("frodo")).name("Frodo Baggins").build());
     testUsersRequestObjects.add(
-        UserRequestObject.builder()
-            .id(RandomStringUtils.randomAlphabetic(10))
-            .name("Frodo Baggins")
-            .build());
+        UserRequestObject.builder().id(uniqueId("pippin")).name("Frodo Baggins").build());
     testUsersRequestObjects.add(
-        UserRequestObject.builder()
-            .id(RandomStringUtils.randomAlphabetic(10))
-            .name("Samwise Gamgee")
-            .build());
+        UserRequestObject.builder().id(uniqueId("sam")).name("Samwise Gamgee").build());
     UserUpsertRequest usersUpsertRequest = User.upsert();
     testUsersRequestObjects.forEach(user -> usersUpsertRequest.user(user));
     usersUpsertRequest.request();
@@ -268,13 +109,17 @@ public class BasicTest {
   }
 
   protected static ChannelGetResponse createRandomChannel() throws StreamException {
-    return Channel.getOrCreate("team", RandomStringUtils.randomAlphabetic(12))
+    return Channel.getOrCreate("team", uniqueId("channel"))
         .data(
             ChannelRequestObject.builder()
                 .createdBy(testUserRequestObject)
                 .members(buildChannelMembersList())
                 .build())
         .request();
+  }
+
+  protected static String uniqueId(String prefix) {
+    return prefix + "-" + UUID.randomUUID();
   }
 
   protected static Message sendTestMessage() throws StreamException {
