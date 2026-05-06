@@ -22,14 +22,20 @@ import io.getstream.chat.java.models.framework.StreamResponse;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.AppService;
 import io.getstream.chat.java.services.framework.Client;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.Key;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.zip.GZIPInputStream;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import lombok.*;
@@ -1460,17 +1466,7 @@ public class App extends StreamResponseObject {
    */
   public static boolean verifyWebhookSignature(
       @NotNull String apiSecret, @NotNull String body, @NotNull String signature) {
-    try {
-      Key sk = new SecretKeySpec(apiSecret.getBytes(), "HmacSHA256");
-      Mac mac = Mac.getInstance(sk.getAlgorithm());
-      mac.init(sk);
-      final byte[] hmac = mac.doFinal(body.getBytes(StandardCharsets.UTF_8));
-      return bytesToHex(hmac).equals(signature);
-    } catch (NoSuchAlgorithmException e) {
-      throw new IllegalStateException("Should not happen. Could not find HmacSHA256", e);
-    } catch (InvalidKeyException e) {
-      throw new IllegalStateException("error building signature, invalid key", e);
-    }
+    return verifyWebhookSignature(apiSecret, body.getBytes(StandardCharsets.UTF_8), signature);
   }
 
   /**
@@ -1483,6 +1479,127 @@ public class App extends StreamResponseObject {
   public static boolean verifyWebhookSignature(@NotNull String body, @NotNull String signature) {
     String apiSecret = Client.getInstance().getApiSecret();
     return verifyWebhookSignature(apiSecret, body, signature);
+  }
+
+  /**
+   * Validates if hmac signature is correct for the raw (uncompressed) body bytes.
+   *
+   * <p>Stream computes {@code X-Signature} over the uncompressed JSON, so when webhook compression
+   * is enabled callers must decompress the request body first (see {@link
+   * #decompressWebhookBody(byte[], String)}) and pass the resulting bytes here.
+   *
+   * @param apiSecret the app's API secret
+   * @param body the uncompressed JSON body bytes
+   * @param signature the signature provided in {@code X-Signature} header
+   * @return true if the signature matches
+   */
+  public static boolean verifyWebhookSignature(
+      @NotNull String apiSecret, @NotNull byte[] body, @NotNull String signature) {
+    try {
+      Key sk = new SecretKeySpec(apiSecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+      Mac mac = Mac.getInstance(sk.getAlgorithm());
+      mac.init(sk);
+      final byte[] hmac = mac.doFinal(body);
+      return constantTimeEquals(bytesToHex(hmac), signature);
+    } catch (NoSuchAlgorithmException e) {
+      throw new IllegalStateException("Should not happen. Could not find HmacSHA256", e);
+    } catch (InvalidKeyException e) {
+      throw new IllegalStateException("error building signature, invalid key", e);
+    }
+  }
+
+  /**
+   * Decompresses an outbound webhook body according to the {@code Content-Encoding} header.
+   *
+   * <p>This SDK only supports {@code gzip} compression. A {@code null} or empty encoding returns
+   * the body unchanged. Any other value (including {@code br} / {@code zstd}) raises an {@link
+   * IllegalStateException} so callers can surface a clear error and the operator can flip the app
+   * back to {@code gzip} on the dashboard.
+   *
+   * @param body raw HTTP request body
+   * @param contentEncoding value of the {@code Content-Encoding} header (case-insensitive); pass
+   *     {@code null} or {@code ""} when no encoding was set
+   * @return uncompressed body bytes
+   */
+  public static byte[] decompressWebhookBody(
+      @NotNull byte[] body, @Nullable String contentEncoding) {
+    if (contentEncoding == null || contentEncoding.isEmpty()) {
+      return body;
+    }
+    String encoding = contentEncoding.trim().toLowerCase(Locale.ROOT);
+    if (encoding.isEmpty()) {
+      return body;
+    }
+    if (!"gzip".equals(encoding)) {
+      throw new IllegalStateException(
+          "unsupported webhook Content-Encoding: "
+              + contentEncoding
+              + ". This SDK only supports gzip; set webhook_compression_algorithm to \"gzip\" on"
+              + " the app config.");
+    }
+    try (GZIPInputStream in = new GZIPInputStream(new ByteArrayInputStream(body))) {
+      return readAll(in);
+    } catch (IOException e) {
+      throw new IllegalStateException(
+          "failed to decompress webhook body (Content-Encoding: " + contentEncoding + ")", e);
+    }
+  }
+
+  /**
+   * Decompresses (when {@code Content-Encoding} is set) and verifies the HMAC signature of an
+   * outbound webhook request, returning the raw JSON bytes when the signature matches.
+   *
+   * <p>This is the recommended entry point for webhook handlers: it handles every value of {@code
+   * Content-Encoding} Stream may send and keeps signature verification on the uncompressed body.
+   *
+   * @param apiSecret the app's API secret
+   * @param body raw HTTP request body bytes
+   * @param signature value of the {@code X-Signature} header
+   * @param contentEncoding value of the {@code Content-Encoding} header; {@code null} when absent
+   * @return the uncompressed JSON body bytes
+   * @throws SecurityException if the signature does not match
+   */
+  public static byte[] verifyAndDecodeWebhook(
+      @NotNull String apiSecret,
+      @NotNull byte[] body,
+      @NotNull String signature,
+      @Nullable String contentEncoding) {
+    byte[] decompressed = decompressWebhookBody(body, contentEncoding);
+    if (!verifyWebhookSignature(apiSecret, decompressed, signature)) {
+      throw new SecurityException("invalid webhook signature");
+    }
+    return decompressed;
+  }
+
+  /**
+   * Decompresses and verifies a webhook using the API secret of the configured singleton {@link
+   * Client}.
+   *
+   * @param body raw HTTP request body bytes
+   * @param signature value of the {@code X-Signature} header
+   * @param contentEncoding value of the {@code Content-Encoding} header; {@code null} when absent
+   * @return the uncompressed JSON body bytes
+   * @throws SecurityException if the signature does not match
+   */
+  public static byte[] verifyAndDecodeWebhook(
+      @NotNull byte[] body, @NotNull String signature, @Nullable String contentEncoding) {
+    return verifyAndDecodeWebhook(
+        Client.getInstance().getApiSecret(), body, signature, contentEncoding);
+  }
+
+  private static byte[] readAll(InputStream in) throws IOException {
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    byte[] buf = new byte[4096];
+    int n;
+    while ((n = in.read(buf)) != -1) {
+      out.write(buf, 0, n);
+    }
+    return out.toByteArray();
+  }
+
+  private static boolean constantTimeEquals(@NotNull String a, @NotNull String b) {
+    return MessageDigest.isEqual(
+        a.getBytes(StandardCharsets.UTF_8), b.getBytes(StandardCharsets.UTF_8));
   }
 
   private static String bytesToHex(byte[] hash) {
