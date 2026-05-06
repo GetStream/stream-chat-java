@@ -85,6 +85,32 @@ All webhook requests contain these headers:
 | X-Webhook-Attempt | Number of webhook request attempt starting from 1                                                                    | 1                                                                |
 | X-Api-Key         | Your application’s API key. Should be used to validate request signature                                             | a1b23cdefgh4                                                     |
 | X-Signature       | HMAC signature of the request body. See Signature section                                                            | ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb |
+| Content-Encoding  | Compression algorithm applied to the request body. Only set when webhook compression is enabled on the app           | `gzip`                                                           |
+
+### Compressed webhook bodies
+
+When webhook compression is enabled on your app (`webhook_compression_algorithm` set to `gzip`), Stream sends the request body gzipped and adds `Content-Encoding: gzip`. The `X-Signature` value is always computed over the **uncompressed** JSON, so handlers must decompress before verifying the signature.
+
+Use `App.verifyAndDecodeWebhook` to do both in one call. It decompresses (when needed), verifies the HMAC, and returns the raw JSON bytes ready to parse:
+
+```java
+// rawBody — bytes read straight from the HTTP request body
+// signature — value of the X-Signature header
+// contentEncoding — value of the Content-Encoding header (null when absent)
+byte[] json = App.verifyAndDecodeWebhook(rawBody, signature, contentEncoding);
+// json now contains the uncompressed JSON; parse it as usual.
+```
+
+If you prefer to handle the steps yourself, the primitives are also exposed:
+
+```java
+byte[] json = App.decompressWebhookBody(rawBody, contentEncoding);
+boolean valid = App.verifyWebhookSignature(apiSecret, json, signature);
+```
+
+This SDK supports `gzip` only — gzip uses the JDK and adds no external dependencies. Any other `Content-Encoding` value raises an `IllegalStateException`; if you see one in production, set `webhook_compression_algorithm` back to `gzip` (or `""` to disable compression) on the app via `App.update()` or the dashboard.
+
+Webservers and frameworks that auto-decompress request bodies (for example nginx with `gunzip on;`, Cloud Run, Spring Boot with `server.compression.enabled`, ASP.NET `RequestDecompression`) typically strip the `Content-Encoding` header before your handler runs. In that case the body you see is already raw JSON and the existing `App.verifyWebhook(body, signature)` call works unchanged.
 
 ## Webhook types
 
