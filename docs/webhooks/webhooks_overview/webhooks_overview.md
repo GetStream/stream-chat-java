@@ -89,9 +89,17 @@ All webhook requests contain these headers:
 
 ### Compressed webhook bodies
 
-When webhook compression is enabled on your app (`webhook_compression_algorithm` set to `gzip`), Stream sends the request body gzipped and adds `Content-Encoding: gzip`. The `X-Signature` value is always computed over the **uncompressed** JSON, so handlers must decompress before verifying the signature.
+GZIP compression can be enabled for hooks payloads from the Dashboard. Enabling compression reduces the payload size significantly (often 70–90% smaller) reducing your bandwidth usage on Stream. The computation overhead introduced by the decompression step is usually negligible and offset by the much smaller payload.
 
-Use `App.verifyAndDecodeWebhook` to do both in one call. It decompresses (when needed), verifies the HMAC, and returns the raw JSON bytes ready to parse:
+When payload compression is enabled, webhook HTTP requests will include the `Content-Encoding: gzip` header and the request body will be compressed with GZIP. Some HTTP servers and middleware (Rails, Django, Laravel, Spring Boot, ASP.NET) handle this transparently and strip the header before your handler runs — in that case the body you see is already raw JSON.
+
+Before enabling compression, make sure that:
+
+* Your backend integration is using a recent version of our official SDKs with compression support
+* If you don't use an official SDK, make sure that your code supports receiving compressed payloads
+* The payload signature check is done on the **uncompressed** payload
+
+Use `App.verifyAndDecodeWebhook` to handle decompression and signature verification in one call. It returns the raw JSON bytes ready to parse:
 
 ```java
 // rawBody — bytes read straight from the HTTP request body
@@ -110,7 +118,19 @@ boolean valid = App.verifyWebhookSignature(apiSecret, json, signature);
 
 This SDK supports `gzip` only — gzip uses the JDK and adds no external dependencies. Any other `Content-Encoding` value raises an `IllegalStateException`; if you see one in production, set `webhook_compression_algorithm` back to `gzip` (or `""` to disable compression) on the app via `App.update()` or the dashboard.
 
-Webservers and frameworks that auto-decompress request bodies (for example nginx with `gunzip on;`, Cloud Run, Spring Boot with `server.compression.enabled`, ASP.NET `RequestDecompression`) typically strip the `Content-Encoding` header before your handler runs. In that case the body you see is already raw JSON and the existing `App.verifyWebhook(body, signature)` call works unchanged.
+#### SQS / SNS payloads
+
+The same helper handles compressed messages delivered through SQS or SNS. There the compressed body is base64-wrapped so it stays valid UTF-8 over the queue. Pass the encoding values that arrived with the message (typically as message attributes such as `Content-Encoding`, `payload_encoding`, and `X-Signature`) as the extra `payloadEncoding` argument:
+
+```java
+// body              — the SQS Body / SNS Message string, decoded to bytes
+// signature         — X-Signature attribute value
+// contentEncoding   — "gzip" when compression is enabled, otherwise null
+// payloadEncoding   — "base64" for SQS / SNS firehose payloads
+byte[] json = App.verifyAndDecodeWebhook(body, signature, contentEncoding, payloadEncoding);
+```
+
+The signature is always computed over the innermost (uncompressed, base64-decoded) JSON, regardless of transport.
 
 ## Webhook types
 

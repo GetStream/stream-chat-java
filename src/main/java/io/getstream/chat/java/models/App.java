@@ -31,6 +31,7 @@ import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -592,7 +593,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class AsyncModerationCallback {
     @Nullable
     @JsonProperty("mode")
@@ -605,7 +606,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class AsyncModerationConfigRequestObject {
     @Nullable
     @JsonProperty("callback")
@@ -618,7 +619,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class FileUploadConfigRequestObject {
 
     @Nullable
@@ -650,7 +651,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class APNConfigRequestObject {
     @Nullable
     @JsonProperty("development")
@@ -696,7 +697,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class FirebaseConfigRequestObject {
     @Nullable
     @JsonProperty("server_key")
@@ -726,7 +727,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class HuaweiConfigRequestObject {
     @Nullable
     @JsonProperty("id")
@@ -739,7 +740,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class PushConfigRequestObject {
     @Nullable
     @JsonProperty("version")
@@ -770,7 +771,7 @@ public class App extends StreamResponseObject {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class DeletePushProviderRequest extends StreamRequest<StreamResponseObject> {
     private String providerType;
     private String name;
@@ -791,7 +792,7 @@ public class App extends StreamResponseObject {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class AppUpdateRequestData {
     @Nullable
     @JsonProperty("disable_auth_checks")
@@ -982,7 +983,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   @NoArgsConstructor
   @AllArgsConstructor
   public static class AppGetRateLimitsRequest extends StreamRequest<AppGetRateLimitsResponse> {
@@ -1014,7 +1015,7 @@ public class App extends StreamResponseObject {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class AppCheckSqsRequestData {
     @Nullable
     @JsonProperty("sqs_url")
@@ -1041,7 +1042,7 @@ public class App extends StreamResponseObject {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class AppCheckSnsRequestData {
     @Nullable
     @JsonProperty("sns_topic_arn")
@@ -1068,7 +1069,7 @@ public class App extends StreamResponseObject {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class AppCheckPushRequestData {
     @Nullable
     @JsonProperty("message_id")
@@ -1116,7 +1117,7 @@ public class App extends StreamResponseObject {
 
   @AllArgsConstructor
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class AppRevokeTokensRequest extends StreamRequest<StreamResponseObject> {
     @Nullable private Date revokeTokensIssuedBefore;
 
@@ -1509,26 +1510,69 @@ public class App extends StreamResponseObject {
   }
 
   /**
-   * Decompresses an outbound webhook body according to the {@code Content-Encoding} header.
-   *
-   * <p>This SDK only supports {@code gzip} compression. A {@code null} or empty encoding returns
-   * the body unchanged. Any other value (including {@code br} / {@code zstd}) raises an {@link
-   * IllegalStateException} so callers can surface a clear error and the operator can flip the app
-   * back to {@code gzip} on the dashboard.
-   *
-   * @param body raw HTTP request body
-   * @param contentEncoding value of the {@code Content-Encoding} header (case-insensitive); pass
-   *     {@code null} or {@code ""} when no encoding was set
-   * @return uncompressed body bytes
+   * Decompresses an outbound webhook body. Equivalent to {@link #decompressWebhookBody(byte[],
+   * String, String)} with {@code payloadEncoding == null}.
    */
   public static byte[] decompressWebhookBody(
       @NotNull byte[] body, @Nullable String contentEncoding) {
+    return decompressWebhookBody(body, contentEncoding, null);
+  }
+
+  /**
+   * Decompresses an outbound webhook body, optionally undoing a transport-level wrapper first.
+   *
+   * <p>The returned bytes are the uncompressed JSON the server signed. Decode order matches the
+   * inverse of how the server built the message:
+   *
+   * <ol>
+   *   <li>If {@code payloadEncoding} is {@code "base64"}, base64-decode the body. This is the
+   *       wrapper Stream uses for SQS / SNS firehose so the message stays valid UTF-8 over
+   *       transport.
+   *   <li>If {@code contentEncoding} is {@code "gzip"}, gunzip the result.
+   * </ol>
+   *
+   * <p>This SDK only supports {@code gzip} for compression and {@code base64} for the transport
+   * wrapper. Any other value (including {@code br} / {@code zstd}) raises {@link
+   * IllegalStateException} so callers can surface a clear error and the operator can flip the app
+   * back to {@code gzip} on the dashboard. {@code null} / {@code ""} for either argument is a
+   * no-op, which keeps the HTTP webhook path identical to before this method existed.
+   *
+   * @param body raw HTTP request body / SQS message body / SNS notification message
+   * @param contentEncoding value of the {@code Content-Encoding} header / message attribute
+   *     (case-insensitive); {@code null} when absent
+   * @param payloadEncoding transport wrapper applied after compression (today: {@code "base64"} for
+   *     SQS / SNS firehose, {@code null} for HTTP webhooks)
+   * @return uncompressed body bytes (the JSON Stream signed)
+   */
+  public static byte[] decompressWebhookBody(
+      @NotNull byte[] body, @Nullable String contentEncoding, @Nullable String payloadEncoding) {
+    byte[] working = body;
+
+    if (payloadEncoding != null) {
+      String pe = payloadEncoding.trim().toLowerCase(Locale.ROOT);
+      if (!pe.isEmpty()) {
+        if (!"base64".equals(pe) && !"b64".equals(pe)) {
+          throw new IllegalStateException(
+              "unsupported webhook payload_encoding: "
+                  + payloadEncoding
+                  + ". This SDK only supports base64.");
+        }
+        try {
+          working = Base64.getDecoder().decode(working);
+        } catch (IllegalArgumentException e) {
+          throw new IllegalStateException(
+              "failed to base64-decode webhook body (payload_encoding: " + payloadEncoding + ")",
+              e);
+        }
+      }
+    }
+
     if (contentEncoding == null || contentEncoding.isEmpty()) {
-      return body;
+      return working;
     }
     String encoding = contentEncoding.trim().toLowerCase(Locale.ROOT);
     if (encoding.isEmpty()) {
-      return body;
+      return working;
     }
     if (!"gzip".equals(encoding)) {
       throw new IllegalStateException(
@@ -1537,7 +1581,7 @@ public class App extends StreamResponseObject {
               + ". This SDK only supports gzip; set webhook_compression_algorithm to \"gzip\" on"
               + " the app config.");
     }
-    try (GZIPInputStream in = new GZIPInputStream(new ByteArrayInputStream(body))) {
+    try (GZIPInputStream in = new GZIPInputStream(new ByteArrayInputStream(working))) {
       return readAll(in);
     } catch (IOException e) {
       throw new IllegalStateException(
@@ -1546,16 +1590,42 @@ public class App extends StreamResponseObject {
   }
 
   /**
-   * Decompresses (when {@code Content-Encoding} is set) and verifies the HMAC signature of an
-   * outbound webhook request, returning the raw JSON bytes when the signature matches.
+   * Convenience overload of {@link #verifyAndDecodeWebhook(String, byte[], String, String, String)}
+   * for HTTP webhooks (no transport wrapper).
+   */
+  public static byte[] verifyAndDecodeWebhook(
+      @NotNull String apiSecret,
+      @NotNull byte[] body,
+      @NotNull String signature,
+      @Nullable String contentEncoding) {
+    return verifyAndDecodeWebhook(apiSecret, body, signature, contentEncoding, null);
+  }
+
+  /**
+   * Decompresses (when {@code Content-Encoding} / {@code payload_encoding} are set) and verifies
+   * the HMAC signature of an outbound Stream message, returning the raw JSON bytes when the
+   * signature matches.
    *
-   * <p>This is the recommended entry point for webhook handlers: it handles every value of {@code
-   * Content-Encoding} Stream may send and keeps signature verification on the uncompressed body.
+   * <p>This is the recommended entry point for handlers, regardless of transport:
+   *
+   * <ul>
+   *   <li><b>HTTP webhooks</b>: {@code body} is the request body, {@code signature} comes from
+   *       {@code X-Signature}, {@code contentEncoding} from {@code Content-Encoding}, {@code
+   *       payloadEncoding} is {@code null}.
+   *   <li><b>SQS / SNS firehose</b>: {@code body} is the SQS {@code Body} or SNS {@code Message},
+   *       {@code signature} / {@code contentEncoding} / {@code payloadEncoding} come from the
+   *       corresponding message attributes.
+   * </ul>
+   *
+   * The signature is always computed over the innermost (uncompressed, base64-decoded) JSON, so the
+   * verification rule is invariant across transports.
    *
    * @param apiSecret the app's API secret
-   * @param body raw HTTP request body bytes
-   * @param signature value of the {@code X-Signature} header
-   * @param contentEncoding value of the {@code Content-Encoding} header; {@code null} when absent
+   * @param body raw transport bytes
+   * @param signature value of the {@code X-Signature} header / message attribute
+   * @param contentEncoding compression applied before transport ({@code "gzip"} or {@code null})
+   * @param payloadEncoding transport wrapper applied after compression ({@code "base64"} or {@code
+   *     null})
    * @return the uncompressed JSON body bytes
    * @throws SecurityException if the signature does not match
    */
@@ -1563,8 +1633,9 @@ public class App extends StreamResponseObject {
       @NotNull String apiSecret,
       @NotNull byte[] body,
       @NotNull String signature,
-      @Nullable String contentEncoding) {
-    byte[] decompressed = decompressWebhookBody(body, contentEncoding);
+      @Nullable String contentEncoding,
+      @Nullable String payloadEncoding) {
+    byte[] decompressed = decompressWebhookBody(body, contentEncoding, payloadEncoding);
     if (!verifyWebhookSignature(apiSecret, decompressed, signature)) {
       throw new SecurityException("invalid webhook signature");
     }
@@ -1572,19 +1643,26 @@ public class App extends StreamResponseObject {
   }
 
   /**
-   * Decompresses and verifies a webhook using the API secret of the configured singleton {@link
-   * Client}.
-   *
-   * @param body raw HTTP request body bytes
-   * @param signature value of the {@code X-Signature} header
-   * @param contentEncoding value of the {@code Content-Encoding} header; {@code null} when absent
-   * @return the uncompressed JSON body bytes
-   * @throws SecurityException if the signature does not match
+   * Convenience overload of {@link #verifyAndDecodeWebhook(byte[], String, String, String)} for
+   * HTTP webhooks (no transport wrapper). Uses the configured singleton {@link Client} secret.
    */
   public static byte[] verifyAndDecodeWebhook(
       @NotNull byte[] body, @NotNull String signature, @Nullable String contentEncoding) {
     return verifyAndDecodeWebhook(
-        Client.getInstance().getApiSecret(), body, signature, contentEncoding);
+        Client.getInstance().getApiSecret(), body, signature, contentEncoding, null);
+  }
+
+  /**
+   * Verifies and decodes a Stream message using the API secret of the configured singleton {@link
+   * Client}, supporting both HTTP webhooks and SQS / SNS envelopes via {@code payloadEncoding}.
+   */
+  public static byte[] verifyAndDecodeWebhook(
+      @NotNull byte[] body,
+      @NotNull String signature,
+      @Nullable String contentEncoding,
+      @Nullable String payloadEncoding) {
+    return verifyAndDecodeWebhook(
+        Client.getInstance().getApiSecret(), body, signature, contentEncoding, payloadEncoding);
   }
 
   private static byte[] readAll(InputStream in) throws IOException {

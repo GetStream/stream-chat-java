@@ -3,6 +3,7 @@ package io.getstream.chat.java;
 import io.getstream.chat.java.models.App;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.zip.GZIPOutputStream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -155,5 +156,80 @@ public class WebhookCompressionTest {
     Assertions.assertThrows(
         SecurityException.class,
         () -> App.verifyAndDecodeWebhook(API_SECRET, compressed, sigOverCompressed, "gzip"));
+  }
+
+  @Test
+  @DisplayName("decompressWebhookBody round-trips base64+gzip (SQS / SNS firehose envelope)")
+  void decompressWebhookBody_base64GzipRoundTrip() throws Exception {
+    byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
+    byte[] compressed = gzip(raw);
+    byte[] wrapped = Base64.getEncoder().encode(compressed);
+
+    Assertions.assertArrayEquals(raw, App.decompressWebhookBody(wrapped, "gzip", "base64"));
+    Assertions.assertArrayEquals(raw, App.decompressWebhookBody(wrapped, "GZIP", "BASE64"));
+    Assertions.assertArrayEquals(raw, App.decompressWebhookBody(wrapped, "gzip", "b64"));
+  }
+
+  @Test
+  @DisplayName("decompressWebhookBody round-trips base64-only payloads (no compression)")
+  void decompressWebhookBody_base64OnlyRoundTrip() {
+    byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
+    byte[] wrapped = Base64.getEncoder().encode(raw);
+
+    Assertions.assertArrayEquals(raw, App.decompressWebhookBody(wrapped, null, "base64"));
+    Assertions.assertArrayEquals(raw, App.decompressWebhookBody(wrapped, "", "base64"));
+  }
+
+  @Test
+  @DisplayName("decompressWebhookBody rejects unsupported payload_encoding values")
+  void decompressWebhookBody_unsupportedPayloadEncoding() {
+    byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
+    for (String pe : new String[] {"hex", "url", "ascii85", "binary"}) {
+      IllegalStateException ex =
+          Assertions.assertThrows(
+              IllegalStateException.class,
+              () -> App.decompressWebhookBody(raw, null, pe),
+              "payload_encoding " + pe + " should be rejected");
+      Assertions.assertTrue(
+          ex.getMessage().contains("payload_encoding"),
+          "error for " + pe + " should mention payload_encoding; got: " + ex.getMessage());
+    }
+  }
+
+  @Test
+  @DisplayName("decompressWebhookBody throws when base64 input is malformed")
+  void decompressWebhookBody_invalidBase64() {
+    byte[] notBase64 = "not!valid!base64".getBytes(StandardCharsets.UTF_8);
+    IllegalStateException ex =
+        Assertions.assertThrows(
+            IllegalStateException.class,
+            () -> App.decompressWebhookBody(notBase64, null, "base64"));
+    Assertions.assertTrue(ex.getMessage().contains("base64-decode"));
+  }
+
+  @Test
+  @DisplayName("verifyAndDecodeWebhook decodes SQS/SNS-style base64+gzip payloads end-to-end")
+  void verifyAndDecodeWebhook_base64GzipHappyPath() throws Exception {
+    byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
+    byte[] compressed = gzip(raw);
+    byte[] wrapped = Base64.getEncoder().encode(compressed);
+    String sig = hmacSHA256Hex(API_SECRET, raw);
+
+    byte[] decoded = App.verifyAndDecodeWebhook(API_SECRET, wrapped, sig, "gzip", "base64");
+    Assertions.assertArrayEquals(raw, decoded);
+  }
+
+  @Test
+  @DisplayName(
+      "verifyAndDecodeWebhook rejects base64+gzip body when signature is computed over wrapped bytes")
+  void verifyAndDecodeWebhook_signatureMustBeOverInnermost() throws Exception {
+    byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
+    byte[] compressed = gzip(raw);
+    byte[] wrapped = Base64.getEncoder().encode(compressed);
+    String sigOverWrapped = hmacSHA256Hex(API_SECRET, wrapped);
+
+    Assertions.assertThrows(
+        SecurityException.class,
+        () -> App.verifyAndDecodeWebhook(API_SECRET, wrapped, sigOverWrapped, "gzip", "base64"));
   }
 }
