@@ -1601,9 +1601,7 @@ public class App extends StreamResponseObject {
     return verifyAndParseInternal(ungzipPayload(body), signature, secret);
   }
 
-  /**
-   * Singleton-secret overload: uses the API secret of the configured {@link Client} singleton.
-   */
+  /** Singleton-secret overload: uses the API secret of the configured {@link Client} singleton. */
   public static @NotNull Event verifyAndParseWebhook(
       @NotNull byte[] body, @NotNull String signature) {
     return verifyAndParseWebhook(body, signature, Client.getInstance().getApiSecret());
@@ -1618,27 +1616,22 @@ public class App extends StreamResponseObject {
     return verifyAndParseInternal(decodeSqsPayload(messageBody), signature, secret);
   }
 
-  /**
-   * Singleton-secret overload of {@link #verifyAndParseSqs(String, String, String)}.
-   */
+  /** Singleton-secret overload of {@link #verifyAndParseSqs(String, String, String)}. */
   public static @NotNull Event verifyAndParseSqs(
       @NotNull String messageBody, @NotNull String signature) {
     return verifyAndParseSqs(messageBody, signature, Client.getInstance().getApiSecret());
   }
 
   /**
-   * Decode the SNS notification {@code Message} (identical to SQS handling), verify the HMAC
-   * {@code signature} from the {@code X-Signature} message attribute, and return the parsed {@link
-   * Event}.
+   * Decode the SNS notification {@code Message} (identical to SQS handling), verify the HMAC {@code
+   * signature} from the {@code X-Signature} message attribute, and return the parsed {@link Event}.
    */
   public static @NotNull Event verifyAndParseSns(
       @NotNull String message, @NotNull String signature, @NotNull String secret) {
     return verifyAndParseInternal(decodeSnsPayload(message), signature, secret);
   }
 
-  /**
-   * Singleton-secret overload of {@link #verifyAndParseSns(String, String, String)}.
-   */
+  /** Singleton-secret overload of {@link #verifyAndParseSns(String, String, String)}. */
   public static @NotNull Event verifyAndParseSns(
       @NotNull String message, @NotNull String signature) {
     return verifyAndParseSns(message, signature, Client.getInstance().getApiSecret());
