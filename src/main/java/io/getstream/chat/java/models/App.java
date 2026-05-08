@@ -1516,20 +1516,17 @@ public class App extends StreamResponseObject {
     }
   }
 
-  private static final byte[] GZIP_MAGIC = new byte[] {0x1f, (byte) 0x8b, 0x08};
+  private static final byte[] GZIP_MAGIC = new byte[] {0x1f, (byte) 0x8b};
 
   /**
-   * Returns {@code body} unchanged unless it starts with the gzip magic ({@code 1f 8b 08}), in
-   * which case the gzip stream is inflated and the decompressed bytes are returned.
+   * Returns {@code body} unchanged unless it starts with the gzip magic ({@code 1f 8b}, per RFC
+   * 1952), in which case the gzip stream is inflated and the decompressed bytes are returned.
    *
    * <p>Magic-byte detection (rather than relying on a header) lets the same handler stay correct
    * when middleware auto-decompresses the request before your code sees it.
    */
   public static byte[] ungzipPayload(@NotNull byte[] body) {
-    if (body.length < 3
-        || body[0] != GZIP_MAGIC[0]
-        || body[1] != GZIP_MAGIC[1]
-        || body[2] != GZIP_MAGIC[2]) {
+    if (body.length < 2 || body[0] != GZIP_MAGIC[0] || body[1] != GZIP_MAGIC[1]) {
       return body;
     }
     try (GZIPInputStream in = new GZIPInputStream(new ByteArrayInputStream(body))) {
@@ -1604,7 +1601,9 @@ public class App extends StreamResponseObject {
     return verifyAndParseInternal(ungzipPayload(body), signature, secret);
   }
 
-  /** Singleton-secret overload: uses the API secret of the configured {@link Client} singleton. */
+  /**
+   * Singleton-secret overload: uses the API secret of the configured {@link Client} singleton.
+   */
   public static @NotNull Event verifyAndParseWebhook(
       @NotNull byte[] body, @NotNull String signature) {
     return verifyAndParseWebhook(body, signature, Client.getInstance().getApiSecret());
@@ -1619,22 +1618,27 @@ public class App extends StreamResponseObject {
     return verifyAndParseInternal(decodeSqsPayload(messageBody), signature, secret);
   }
 
-  /** Singleton-secret overload of {@link #verifyAndParseSqs(String, String, String)}. */
+  /**
+   * Singleton-secret overload of {@link #verifyAndParseSqs(String, String, String)}.
+   */
   public static @NotNull Event verifyAndParseSqs(
       @NotNull String messageBody, @NotNull String signature) {
     return verifyAndParseSqs(messageBody, signature, Client.getInstance().getApiSecret());
   }
 
   /**
-   * Decode the SNS notification {@code Message} (identical to SQS handling), verify the HMAC {@code
-   * signature} from the {@code X-Signature} message attribute, and return the parsed {@link Event}.
+   * Decode the SNS notification {@code Message} (identical to SQS handling), verify the HMAC
+   * {@code signature} from the {@code X-Signature} message attribute, and return the parsed {@link
+   * Event}.
    */
   public static @NotNull Event verifyAndParseSns(
       @NotNull String message, @NotNull String signature, @NotNull String secret) {
     return verifyAndParseInternal(decodeSnsPayload(message), signature, secret);
   }
 
-  /** Singleton-secret overload of {@link #verifyAndParseSns(String, String, String)}. */
+  /**
+   * Singleton-secret overload of {@link #verifyAndParseSns(String, String, String)}.
+   */
   public static @NotNull Event verifyAndParseSns(
       @NotNull String message, @NotNull String signature) {
     return verifyAndParseSns(message, signature, Client.getInstance().getApiSecret());
