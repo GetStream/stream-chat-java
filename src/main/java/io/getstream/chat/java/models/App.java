@@ -34,7 +34,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
 import javax.crypto.Mac;
@@ -1447,7 +1446,11 @@ public class App extends StreamResponseObject {
   }
 
   /**
-   * Validates if hmac signature is correct for message body.
+   * Validates if hmac signature is correct for the message body.
+   *
+   * <p>Kept for backward compatibility. New integrations should call {@link
+   * #verifyAndParseWebhook(byte[], String)} (or the SQS / SNS variants), which also handle gzip
+   * payload compression.
    *
    * @param body raw body from http request converted to a string.
    * @param signature the signature provided in X-Signature header
@@ -1458,7 +1461,8 @@ public class App extends StreamResponseObject {
   }
 
   /**
-   * Validates if hmac signature is correct for message body.
+   * Validates if hmac signature is correct for message body. Backward-compatible alias for {@link
+   * #verifySignature(byte[], String, String)}.
    *
    * @param apiSecret the secret key
    * @param body raw body from http request converted to a string.
@@ -1467,41 +1471,44 @@ public class App extends StreamResponseObject {
    */
   public static boolean verifyWebhookSignature(
       @NotNull String apiSecret, @NotNull String body, @NotNull String signature) {
-    return verifyWebhookSignature(apiSecret, body.getBytes(StandardCharsets.UTF_8), signature);
+    return verifySignature(body.getBytes(StandardCharsets.UTF_8), signature, apiSecret);
   }
 
   /**
-   * Validates if hmac signature is correct for message body.
+   * Validates if hmac signature is correct for the message body using the singleton client's API
+   * secret.
    *
    * @param body the message body
    * @param signature the signature provided in X-Signature header
    * @return true if the signature is valid
    */
   public static boolean verifyWebhookSignature(@NotNull String body, @NotNull String signature) {
-    String apiSecret = Client.getInstance().getApiSecret();
-    return verifyWebhookSignature(apiSecret, body, signature);
+    return verifySignature(
+        body.getBytes(StandardCharsets.UTF_8), signature, Client.getInstance().getApiSecret());
   }
 
   /**
-   * Validates if hmac signature is correct for the raw (uncompressed) body bytes.
+   * Constant-time HMAC-SHA256 verification of {@code signature} against the digest of {@code body}
+   * using {@code secret} as the key.
    *
-   * <p>Stream computes {@code X-Signature} over the uncompressed JSON, so when webhook compression
-   * is enabled callers must decompress the request body first (see {@link
-   * #decompressWebhookBody(byte[], String)}) and pass the resulting bytes here.
+   * <p>The signature is always computed over the <b>uncompressed</b> JSON bytes, so callers that
+   * decoded a gzipped or base64-wrapped payload must pass the inflated bytes here.
    *
-   * @param apiSecret the app's API secret
-   * @param body the uncompressed JSON body bytes
-   * @param signature the signature provided in {@code X-Signature} header
+   * @param body the uncompressed body bytes
+   * @param signature the signature provided in {@code X-Signature}
+   * @param secret the app's API secret
    * @return true if the signature matches
    */
-  public static boolean verifyWebhookSignature(
-      @NotNull String apiSecret, @NotNull byte[] body, @NotNull String signature) {
+  public static boolean verifySignature(
+      @NotNull byte[] body, @NotNull String signature, @NotNull String secret) {
     try {
-      Key sk = new SecretKeySpec(apiSecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+      Key sk = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
       Mac mac = Mac.getInstance(sk.getAlgorithm());
       mac.init(sk);
       final byte[] hmac = mac.doFinal(body);
-      return constantTimeEquals(bytesToHex(hmac), signature);
+      return MessageDigest.isEqual(
+          bytesToHex(hmac).getBytes(StandardCharsets.UTF_8),
+          signature.getBytes(StandardCharsets.UTF_8));
     } catch (NoSuchAlgorithmException e) {
       throw new IllegalStateException("Should not happen. Could not find HmacSHA256", e);
     } catch (InvalidKeyException e) {
@@ -1509,160 +1516,128 @@ public class App extends StreamResponseObject {
     }
   }
 
-  /**
-   * Decompresses an outbound webhook body. Equivalent to {@link #decompressWebhookBody(byte[],
-   * String, String)} with {@code payloadEncoding == null}.
-   */
-  public static byte[] decompressWebhookBody(
-      @NotNull byte[] body, @Nullable String contentEncoding) {
-    return decompressWebhookBody(body, contentEncoding, null);
-  }
+  private static final byte[] GZIP_MAGIC = new byte[] {0x1f, (byte) 0x8b, 0x08};
 
   /**
-   * Decompresses an outbound webhook body, optionally undoing a transport-level wrapper first.
+   * Returns {@code body} unchanged unless it starts with the gzip magic ({@code 1f 8b 08}), in
+   * which case the gzip stream is inflated and the decompressed bytes are returned.
    *
-   * <p>The returned bytes are the uncompressed JSON the server signed. Decode order matches the
-   * inverse of how the server built the message:
-   *
-   * <ol>
-   *   <li>If {@code payloadEncoding} is {@code "base64"}, base64-decode the body. This is the
-   *       wrapper Stream uses for SQS / SNS firehose so the message stays valid UTF-8 over
-   *       transport.
-   *   <li>If {@code contentEncoding} is {@code "gzip"}, gunzip the result.
-   * </ol>
-   *
-   * <p>This SDK only supports {@code gzip} for compression and {@code base64} for the transport
-   * wrapper. Any other value (including {@code br} / {@code zstd}) raises {@link
-   * IllegalStateException} so callers can surface a clear error and the operator can flip the app
-   * back to {@code gzip} on the dashboard. {@code null} / {@code ""} for either argument is a
-   * no-op, which keeps the HTTP webhook path identical to before this method existed.
-   *
-   * @param body raw HTTP request body / SQS message body / SNS notification message
-   * @param contentEncoding value of the {@code Content-Encoding} header / message attribute
-   *     (case-insensitive); {@code null} when absent
-   * @param payloadEncoding transport wrapper applied after compression (today: {@code "base64"} for
-   *     SQS / SNS firehose, {@code null} for HTTP webhooks)
-   * @return uncompressed body bytes (the JSON Stream signed)
+   * <p>Magic-byte detection (rather than relying on a header) lets the same handler stay correct
+   * when middleware auto-decompresses the request before your code sees it.
    */
-  public static byte[] decompressWebhookBody(
-      @NotNull byte[] body, @Nullable String contentEncoding, @Nullable String payloadEncoding) {
-    byte[] working = body;
-
-    if (payloadEncoding != null) {
-      String pe = payloadEncoding.trim().toLowerCase(Locale.ROOT);
-      if (!pe.isEmpty()) {
-        if (!"base64".equals(pe) && !"b64".equals(pe)) {
-          throw new IllegalStateException(
-              "unsupported webhook payload_encoding: "
-                  + payloadEncoding
-                  + ". This SDK only supports base64.");
-        }
-        try {
-          working = Base64.getDecoder().decode(working);
-        } catch (IllegalArgumentException e) {
-          throw new IllegalStateException(
-              "failed to base64-decode webhook body (payload_encoding: " + payloadEncoding + ")",
-              e);
-        }
-      }
+  public static byte[] ungzipPayload(@NotNull byte[] body) {
+    if (body.length < 3
+        || body[0] != GZIP_MAGIC[0]
+        || body[1] != GZIP_MAGIC[1]
+        || body[2] != GZIP_MAGIC[2]) {
+      return body;
     }
-
-    if (contentEncoding == null || contentEncoding.isEmpty()) {
-      return working;
-    }
-    String encoding = contentEncoding.trim().toLowerCase(Locale.ROOT);
-    if (encoding.isEmpty()) {
-      return working;
-    }
-    if (!"gzip".equals(encoding)) {
-      throw new IllegalStateException(
-          "unsupported webhook Content-Encoding: "
-              + contentEncoding
-              + ". This SDK only supports gzip; set webhook_compression_algorithm to \"gzip\" on"
-              + " the app config.");
-    }
-    try (GZIPInputStream in = new GZIPInputStream(new ByteArrayInputStream(working))) {
+    try (GZIPInputStream in = new GZIPInputStream(new ByteArrayInputStream(body))) {
       return readAll(in);
     } catch (IOException e) {
-      throw new IllegalStateException(
-          "failed to decompress webhook body (Content-Encoding: " + contentEncoding + ")", e);
+      throw new IllegalStateException("failed to decompress gzip payload", e);
     }
   }
 
   /**
-   * Convenience overload of {@link #verifyAndDecodeWebhook(String, byte[], String, String, String)}
-   * for HTTP webhooks (no transport wrapper).
+   * Reverses the SQS firehose envelope: the message {@code Body} is base64-decoded and, when the
+   * result begins with the gzip magic, it is gzip-decompressed. The same call works whether or not
+   * Stream is currently compressing payloads.
+   *
+   * @param body the SQS message {@code Body}
+   * @return the raw JSON bytes Stream signed
    */
-  public static byte[] verifyAndDecodeWebhook(
-      @NotNull String apiSecret,
-      @NotNull byte[] body,
-      @NotNull String signature,
-      @Nullable String contentEncoding) {
-    return verifyAndDecodeWebhook(apiSecret, body, signature, contentEncoding, null);
+  public static byte[] decodeSqsPayload(@NotNull String body) {
+    byte[] decoded;
+    try {
+      decoded = Base64.getDecoder().decode(body);
+    } catch (IllegalArgumentException e) {
+      throw new IllegalStateException("failed to base64-decode payload", e);
+    }
+    return ungzipPayload(decoded);
   }
 
   /**
-   * Decompresses (when {@code Content-Encoding} / {@code payload_encoding} are set) and verifies
-   * the HMAC signature of an outbound Stream message, returning the raw JSON bytes when the
-   * signature matches.
-   *
-   * <p>This is the recommended entry point for handlers, regardless of transport:
-   *
-   * <ul>
-   *   <li><b>HTTP webhooks</b>: {@code body} is the request body, {@code signature} comes from
-   *       {@code X-Signature}, {@code contentEncoding} from {@code Content-Encoding}, {@code
-   *       payloadEncoding} is {@code null}.
-   *   <li><b>SQS / SNS firehose</b>: {@code body} is the SQS {@code Body} or SNS {@code Message},
-   *       {@code signature} / {@code contentEncoding} / {@code payloadEncoding} come from the
-   *       corresponding message attributes.
-   * </ul>
-   *
-   * The signature is always computed over the innermost (uncompressed, base64-decoded) JSON, so the
-   * verification rule is invariant across transports.
-   *
-   * @param apiSecret the app's API secret
-   * @param body raw transport bytes
-   * @param signature value of the {@code X-Signature} header / message attribute
-   * @param contentEncoding compression applied before transport ({@code "gzip"} or {@code null})
-   * @param payloadEncoding transport wrapper applied after compression ({@code "base64"} or {@code
-   *     null})
-   * @return the uncompressed JSON body bytes
-   * @throws SecurityException if the signature does not match
+   * Byte-for-byte identical to {@link #decodeSqsPayload(String)}; exposed under both names so call
+   * sites read intent.
    */
-  public static byte[] verifyAndDecodeWebhook(
-      @NotNull String apiSecret,
-      @NotNull byte[] body,
-      @NotNull String signature,
-      @Nullable String contentEncoding,
-      @Nullable String payloadEncoding) {
-    byte[] decompressed = decompressWebhookBody(body, contentEncoding, payloadEncoding);
-    if (!verifyWebhookSignature(apiSecret, decompressed, signature)) {
+  public static byte[] decodeSnsPayload(@NotNull String message) {
+    return decodeSqsPayload(message);
+  }
+
+  /**
+   * Parse a JSON-encoded webhook event into a typed {@link Event}. Unknown event types still parse
+   * successfully because {@link Event#getType()} is a free-form string.
+   *
+   * @throws IllegalStateException when the bytes are not valid JSON
+   */
+  public static @NotNull Event parseEvent(@NotNull byte[] payload) {
+    try {
+      return new com.fasterxml.jackson.databind.ObjectMapper().readValue(payload, Event.class);
+    } catch (IOException e) {
+      throw new IllegalStateException("failed to parse webhook event", e);
+    }
+  }
+
+  private static @NotNull Event verifyAndParseInternal(
+      @NotNull byte[] payload, @NotNull String signature, @NotNull String secret) {
+    if (!verifySignature(payload, signature, secret)) {
       throw new SecurityException("invalid webhook signature");
     }
-    return decompressed;
+    return parseEvent(payload);
   }
 
   /**
-   * Convenience overload of {@link #verifyAndDecodeWebhook(byte[], String, String, String)} for
-   * HTTP webhooks (no transport wrapper). Uses the configured singleton {@link Client} secret.
+   * Decompresses {@code body} when gzipped, verifies the HMAC {@code signature}, and returns the
+   * parsed {@link Event}. Works for HTTP webhooks regardless of whether payload compression is
+   * enabled.
+   *
+   * @param body raw HTTP request body bytes Stream signed
+   * @param signature value of the {@code X-Signature} header
+   * @param secret the app's API secret
+   * @return the parsed event
+   * @throws SecurityException when the signature does not match
+   * @throws IllegalStateException when the gzip envelope is malformed or the payload is not JSON
    */
-  public static byte[] verifyAndDecodeWebhook(
-      @NotNull byte[] body, @NotNull String signature, @Nullable String contentEncoding) {
-    return verifyAndDecodeWebhook(
-        Client.getInstance().getApiSecret(), body, signature, contentEncoding, null);
+  public static @NotNull Event verifyAndParseWebhook(
+      @NotNull byte[] body, @NotNull String signature, @NotNull String secret) {
+    return verifyAndParseInternal(ungzipPayload(body), signature, secret);
+  }
+
+  /** Singleton-secret overload: uses the API secret of the configured {@link Client} singleton. */
+  public static @NotNull Event verifyAndParseWebhook(
+      @NotNull byte[] body, @NotNull String signature) {
+    return verifyAndParseWebhook(body, signature, Client.getInstance().getApiSecret());
   }
 
   /**
-   * Verifies and decodes a Stream message using the API secret of the configured singleton {@link
-   * Client}, supporting both HTTP webhooks and SQS / SNS envelopes via {@code payloadEncoding}.
+   * Decode the SQS {@code Body} (base64, then gzip-if-magic), verify the HMAC {@code signature}
+   * from the {@code X-Signature} message attribute, and return the parsed {@link Event}.
    */
-  public static byte[] verifyAndDecodeWebhook(
-      @NotNull byte[] body,
-      @NotNull String signature,
-      @Nullable String contentEncoding,
-      @Nullable String payloadEncoding) {
-    return verifyAndDecodeWebhook(
-        Client.getInstance().getApiSecret(), body, signature, contentEncoding, payloadEncoding);
+  public static @NotNull Event verifyAndParseSqs(
+      @NotNull String messageBody, @NotNull String signature, @NotNull String secret) {
+    return verifyAndParseInternal(decodeSqsPayload(messageBody), signature, secret);
+  }
+
+  /** Singleton-secret overload of {@link #verifyAndParseSqs(String, String, String)}. */
+  public static @NotNull Event verifyAndParseSqs(
+      @NotNull String messageBody, @NotNull String signature) {
+    return verifyAndParseSqs(messageBody, signature, Client.getInstance().getApiSecret());
+  }
+
+  /**
+   * Decode the SNS notification {@code Message} (identical to SQS handling), verify the HMAC {@code
+   * signature} from the {@code X-Signature} message attribute, and return the parsed {@link Event}.
+   */
+  public static @NotNull Event verifyAndParseSns(
+      @NotNull String message, @NotNull String signature, @NotNull String secret) {
+    return verifyAndParseInternal(decodeSnsPayload(message), signature, secret);
+  }
+
+  /** Singleton-secret overload of {@link #verifyAndParseSns(String, String, String)}. */
+  public static @NotNull Event verifyAndParseSns(
+      @NotNull String message, @NotNull String signature) {
+    return verifyAndParseSns(message, signature, Client.getInstance().getApiSecret());
   }
 
   private static byte[] readAll(InputStream in) throws IOException {
@@ -1673,11 +1648,6 @@ public class App extends StreamResponseObject {
       out.write(buf, 0, n);
     }
     return out.toByteArray();
-  }
-
-  private static boolean constantTimeEquals(@NotNull String a, @NotNull String b) {
-    return MessageDigest.isEqual(
-        a.getBytes(StandardCharsets.UTF_8), b.getBytes(StandardCharsets.UTF_8));
   }
 
   private static String bytesToHex(byte[] hash) {
