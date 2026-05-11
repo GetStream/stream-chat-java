@@ -99,36 +99,45 @@ Before enabling compression, make sure that:
 * If you don't use an official SDK, make sure that your code supports receiving compressed payloads
 * The payload signature check is done on the **uncompressed** payload
 
-Use `App.verifyAndDecodeWebhook` to handle decompression and signature verification in one call. It returns the raw JSON bytes ready to parse:
+Use `App.verifyAndParseWebhook` to handle decompression, signature verification, and JSON parsing in a single call. It returns a typed `Event`:
 
 ```java
 // rawBody — bytes read straight from the HTTP request body
 // signature — value of the X-Signature header
-// contentEncoding — value of the Content-Encoding header (null when absent)
-byte[] json = App.verifyAndDecodeWebhook(rawBody, signature, contentEncoding);
-// json now contains the uncompressed JSON; parse it as usual.
+// apiSecret — your app's API secret
+Event event = App.verifyAndParseWebhook(rawBody, signature, apiSecret);
+```
+
+Or, if you already have a configured client, call the instance overload (it picks up the secret from the client):
+
+```java
+Event event = client.verifyAndParseWebhook(rawBody, signature);
 ```
 
 If you prefer to handle the steps yourself, the primitives are also exposed:
 
 ```java
-byte[] json = App.decompressWebhookBody(rawBody, contentEncoding);
-boolean valid = App.verifyWebhookSignature(apiSecret, json, signature);
+byte[] json = App.ungzipPayload(rawBody); // pass-through when the bytes aren't gzipped
+boolean valid = App.verifySignature(json, signature, apiSecret);
+Event event = App.parseEvent(json);
 ```
 
-This SDK supports `gzip` only — gzip uses the JDK and adds no external dependencies. Any other `Content-Encoding` value raises an `IllegalStateException`; if you see one in production, set `webhook_compression_algorithm` back to `gzip` (or `""` to disable compression) on the app via `App.update()` or the dashboard.
+Detection is done via the gzip magic bytes (`1f 8b`, per RFC 1952), so the same helper stays correct whether or not your HTTP server already decompressed the body for you. Any non-gzip body is passed through unchanged. Malformed gzip envelopes raise an `IllegalStateException`.
 
 #### SQS / SNS payloads
 
-The same helper handles compressed messages delivered through SQS or SNS. There the compressed body is base64-wrapped so it stays valid UTF-8 over the queue. Pass the encoding values that arrived with the message (typically as message attributes such as `Content-Encoding`, `payload_encoding`, and `X-Signature`) as the extra `payloadEncoding` argument:
+The same helper handles compressed messages delivered through SQS or SNS. There the compressed body is base64-wrapped so it stays valid UTF-8 over the queue. Pass the SQS `Body` (or SNS `Message`) string directly — no manual base64 decoding required:
 
 ```java
-// body              — the SQS Body / SNS Message string, decoded to bytes
-// signature         — X-Signature attribute value
-// contentEncoding   — "gzip" when compression is enabled, otherwise null
-// payloadEncoding   — "base64" for SQS / SNS firehose payloads
-byte[] json = App.verifyAndDecodeWebhook(body, signature, contentEncoding, payloadEncoding);
+// messageBody — the SQS Body / SNS Message string (base64-encoded)
+// signature   — X-Signature message attribute value
+// apiSecret   — your app's API secret
+Event event = App.verifyAndParseSqs(messageBody, signature, apiSecret);
+// or, for SNS:
+Event event = App.verifyAndParseSns(messageBody, signature, apiSecret);
 ```
+
+Instance-method counterparts on `client` (`client.verifyAndParseSqs(...)`, `client.verifyAndParseSns(...)`) work the same way, using the configured client's API secret.
 
 The signature is always computed over the innermost (uncompressed, base64-decoded) JSON, regardless of transport.
 
