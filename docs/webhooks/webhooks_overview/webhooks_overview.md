@@ -117,7 +117,7 @@ Event event = client.verifyAndParseWebhook(rawBody, signature);
 If you prefer to handle the steps yourself, the primitives are also exposed:
 
 ```java
-byte[] json = App.ungzipPayload(rawBody); // pass-through when the bytes aren't gzipped
+byte[] json = App.gunzipPayload(rawBody); // pass-through when the bytes aren't gzipped
 boolean valid = App.verifySignature(json, signature, apiSecret);
 Event event = App.parseEvent(json);
 ```

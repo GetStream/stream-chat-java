@@ -1532,7 +1532,7 @@ public class App extends StreamResponseObject {
    * <p>Magic-byte detection (rather than relying on a header) lets the same handler stay correct
    * when middleware auto-decompresses the request before your code sees it.
    */
-  public static byte[] ungzipPayload(@NotNull byte[] body) {
+  public static byte[] gunzipPayload(@NotNull byte[] body) {
     if (body.length < 2 || body[0] != GZIP_MAGIC[0] || body[1] != GZIP_MAGIC[1]) {
       return body;
     }
@@ -1558,7 +1558,7 @@ public class App extends StreamResponseObject {
     } catch (IllegalArgumentException e) {
       throw new IllegalStateException("failed to base64-decode payload", e);
     }
-    return ungzipPayload(decoded);
+    return gunzipPayload(decoded);
   }
 
   /**
@@ -1655,7 +1655,7 @@ public class App extends StreamResponseObject {
    */
   public static @NotNull Event verifyAndParseWebhook(
       @NotNull byte[] body, @NotNull String signature, @NotNull String secret) {
-    return verifyAndParseInternal(ungzipPayload(body), signature, secret);
+    return verifyAndParseInternal(gunzipPayload(body), signature, secret);
   }
 
   /** Singleton-secret overload: uses the API secret of the configured {@link Client} singleton. */

@@ -11,6 +11,7 @@ import java.util.zip.GZIPOutputStream;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class WebhookCompressionTest {
@@ -48,30 +49,30 @@ public class WebhookCompressionTest {
   }
 
   @Test
-  @DisplayName("ungzipPayload passes through plain bytes unchanged")
-  void ungzipPayload_passthroughPlainBytes() {
+  @DisplayName("gunzipPayload passes through plain bytes unchanged")
+  void gunzipPayload_passthroughPlainBytes() {
     byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
-    Assertions.assertArrayEquals(raw, App.ungzipPayload(raw));
+    Assertions.assertArrayEquals(raw, App.gunzipPayload(raw));
   }
 
   @Test
-  @DisplayName("ungzipPayload inflates gzip-magic bytes")
-  void ungzipPayload_inflatesGzip() throws Exception {
+  @DisplayName("gunzipPayload inflates gzip-magic bytes")
+  void gunzipPayload_inflatesGzip() throws Exception {
     byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
-    Assertions.assertArrayEquals(raw, App.ungzipPayload(gzip(raw)));
+    Assertions.assertArrayEquals(raw, App.gunzipPayload(gzip(raw)));
   }
 
   @Test
-  @DisplayName("ungzipPayload returns empty input unchanged")
-  void ungzipPayload_emptyInput() {
-    Assertions.assertArrayEquals(new byte[0], App.ungzipPayload(new byte[0]));
+  @DisplayName("gunzipPayload returns empty input unchanged")
+  void gunzipPayload_emptyInput() {
+    Assertions.assertArrayEquals(new byte[0], App.gunzipPayload(new byte[0]));
   }
 
   @Test
-  @DisplayName("ungzipPayload throws on truncated gzip with magic")
-  void ungzipPayload_truncatedGzipThrows() {
+  @DisplayName("gunzipPayload throws on truncated gzip with magic")
+  void gunzipPayload_truncatedGzipThrows() {
     byte[] bad = new byte[] {0x1f, (byte) 0x8b, 0x08, 0, 0, 0};
-    Assertions.assertThrows(IllegalStateException.class, () -> App.ungzipPayload(bad));
+    Assertions.assertThrows(IllegalStateException.class, () -> App.gunzipPayload(bad));
   }
 
   @Test
@@ -93,6 +94,21 @@ public class WebhookCompressionTest {
   void decodeSqsPayload_malformedBase64() {
     Assertions.assertThrows(
         IllegalStateException.class, () -> App.decodeSqsPayload("!!!not-base64!!!"));
+  }
+
+  @Test
+  @DisplayName("decodeSqsPayload decodes Tommaso's plain helloworld fixture")
+  void decodeSqsPayload_helloworldBase64Fixture() {
+    Assertions.assertArrayEquals(
+        "helloworld".getBytes(StandardCharsets.UTF_8), App.decodeSqsPayload("aGVsbG93b3JsZA=="));
+  }
+
+  @Test
+  @DisplayName("decodeSqsPayload decodes Tommaso's gzipped helloworld fixture")
+  void decodeSqsPayload_helloworldBase64GzipFixture() {
+    Assertions.assertArrayEquals(
+        "helloworld".getBytes(StandardCharsets.UTF_8),
+        App.decodeSqsPayload("H4sIAGrYAWoAA8tIzcnJL88vykkBAK0g6/kKAAAA"));
   }
 
   @Test
@@ -365,5 +381,19 @@ public class WebhookCompressionTest {
     byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
     Assertions.assertThrows(
         SecurityException.class, () -> client.verifyAndParseWebhook(raw, "0".repeat(64)));
+  }
+
+  @Nested
+  @DisplayName("gunzipPayload golden fixtures")
+  class GunzipPayloadTest {
+
+    @Test
+    @DisplayName("gunzipPayload inflates Tommaso's helloworld gzip fixture")
+    void gunzipPayload_helloworldFixture() {
+      Assertions.assertArrayEquals(
+          "helloworld".getBytes(StandardCharsets.UTF_8),
+          App.gunzipPayload(
+              Base64.getDecoder().decode("H4sIAGrYAWoAA8tIzcnJL88vykkBAK0g6/kKAAAA")));
+    }
   }
 }
