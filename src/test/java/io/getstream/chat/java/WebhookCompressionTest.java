@@ -2,10 +2,13 @@ package io.getstream.chat.java;
 
 import io.getstream.chat.java.models.App;
 import io.getstream.chat.java.models.Event;
+import io.getstream.chat.java.services.framework.Client;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.Base64;
 import java.util.zip.GZIPOutputStream;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -241,5 +244,72 @@ public class WebhookCompressionTest {
     String sig = hmacSHA256Hex(API_SECRET, JSON_BODY.getBytes(StandardCharsets.UTF_8));
     Assertions.assertTrue(App.verifyWebhookSignature(API_SECRET, JSON_BODY, sig));
     Assertions.assertFalse(App.verifyWebhookSignature(API_SECRET, JSON_BODY, "0".repeat(64)));
+  }
+
+  private static final class StubClient implements Client {
+    private final String apiSecret;
+
+    StubClient(String apiSecret) {
+      this.apiSecret = apiSecret;
+    }
+
+    @Override
+    public @NotNull <TService> TService create(Class<TService> svcClass) {
+      throw new UnsupportedOperationException("stub client does not create services");
+    }
+
+    @Override
+    public @NotNull String getApiKey() {
+      return "stub-key";
+    }
+
+    @Override
+    public @NotNull String getApiSecret() {
+      return apiSecret;
+    }
+
+    @Override
+    public void setTimeout(@NotNull Duration timeoutDuration) {}
+  }
+
+  @Test
+  @DisplayName("Client.verifyAndParseWebhook delegates to static helper with client secret")
+  void clientInstance_verifyAndParseWebhook() throws Exception {
+    Client client = new StubClient(API_SECRET);
+    byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
+    String sig = hmacSHA256Hex(API_SECRET, raw);
+    Event viaInstance = client.verifyAndParseWebhook(gzip(raw), sig);
+    Event viaStatic = App.verifyAndParseWebhook(gzip(raw), sig, API_SECRET);
+    Assertions.assertEquals(viaStatic.getType(), viaInstance.getType());
+    Assertions.assertEquals("message.new", viaInstance.getType());
+  }
+
+  @Test
+  @DisplayName("Client.verifyAndParseSqs delegates to static helper with client secret")
+  void clientInstance_verifyAndParseSqs() throws Exception {
+    Client client = new StubClient(API_SECRET);
+    byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
+    String sig = hmacSHA256Hex(API_SECRET, raw);
+    Event ev = client.verifyAndParseSqs(base64(gzip(raw)), sig);
+    Assertions.assertEquals("message.new", ev.getType());
+  }
+
+  @Test
+  @DisplayName("Client.verifyAndParseSns delegates to static helper with client secret")
+  void clientInstance_verifyAndParseSns() throws Exception {
+    Client client = new StubClient(API_SECRET);
+    byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
+    String sig = hmacSHA256Hex(API_SECRET, raw);
+    Event ev = client.verifyAndParseSns(base64(gzip(raw)), sig);
+    Assertions.assertEquals("message.new", ev.getType());
+  }
+
+  @Test
+  @DisplayName("Client.verifyAndParseWebhook rejects mismatched signature")
+  void clientInstance_verifyAndParseWebhook_rejectsMismatch() {
+    Client client = new StubClient(API_SECRET);
+    byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
+    Assertions.assertThrows(
+        SecurityException.class, () -> client.verifyAndParseWebhook(raw, "0".repeat(64)));
   }
 }
