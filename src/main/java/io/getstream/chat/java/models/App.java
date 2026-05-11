@@ -1,14 +1,19 @@
 package io.getstream.chat.java.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.util.StdDateFormat;
 import io.getstream.chat.java.models.App.AppCheckPushRequestData.AppCheckPushRequest;
 import io.getstream.chat.java.models.App.AppCheckSnsRequestData.AppCheckSnsRequest;
 import io.getstream.chat.java.models.App.AppCheckSqsRequestData.AppCheckSqsRequest;
@@ -35,6 +40,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.zip.GZIPInputStream;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -1563,14 +1569,36 @@ public class App extends StreamResponseObject {
   }
 
   /**
+   * Shared {@link ObjectMapper} for webhook payload deserialization. Configured to match the
+   * Retrofit mapper in {@code DefaultClient}: tolerant of unknown JSON properties and unknown enum
+   * values, with the Stream-side ISO-8601 date format. This makes a webhook handler accept new
+   * fields / enum values added server-side without redeploys, and gives {@link Event} the same date
+   * parsing behavior as the rest of the SDK.
+   */
+  private static final ObjectMapper WEBHOOK_OBJECT_MAPPER = buildWebhookObjectMapper();
+
+  private static ObjectMapper buildWebhookObjectMapper() {
+    final ObjectMapper mapper = new ObjectMapper();
+    mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
+    mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    mapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
+    mapper.setDateFormat(
+        new StdDateFormat().withColonInTimeZone(true).withTimeZone(TimeZone.getTimeZone("UTC")));
+    return mapper;
+  }
+
+  /**
    * Parse a JSON-encoded webhook event into a typed {@link Event}. Unknown event types still parse
-   * successfully because {@link Event#getType()} is a free-form string.
+   * successfully because {@link Event#getType()} is a free-form string; unknown nested fields and
+   * unknown enum values are tolerated so the handler stays forward-compatible with new Stream
+   * server releases.
    *
    * @throws IllegalStateException when the bytes are not valid JSON
    */
   public static @NotNull Event parseEvent(@NotNull byte[] payload) {
     try {
-      return new com.fasterxml.jackson.databind.ObjectMapper().readValue(payload, Event.class);
+      return WEBHOOK_OBJECT_MAPPER.readValue(payload, Event.class);
     } catch (IOException e) {
       throw new IllegalStateException("failed to parse webhook event", e);
     }
