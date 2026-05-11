@@ -96,11 +96,43 @@ public class WebhookCompressionTest {
   }
 
   @Test
-  @DisplayName("decodeSnsPayload aliases decodeSqsPayload")
-  void decodeSnsPayload_aliasesSqs() throws Exception {
+  @DisplayName("decodeSnsPayload treats pre-extracted Message identically to decodeSqsPayload")
+  void decodeSnsPayload_preExtractedMessage() throws Exception {
     byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
     String wrapped = base64(gzip(raw));
     Assertions.assertArrayEquals(App.decodeSqsPayload(wrapped), App.decodeSnsPayload(wrapped));
+  }
+
+  @Test
+  @DisplayName("decodeSnsPayload unwraps a full SNS HTTP notification envelope")
+  void decodeSnsPayload_fullEnvelope() throws Exception {
+    byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
+    String wrapped = base64(gzip(raw));
+    String envelope = snsEnvelope(wrapped);
+    Assertions.assertArrayEquals(raw, App.decodeSnsPayload(envelope));
+  }
+
+  @Test
+  @DisplayName("decodeSnsPayload handles whitespace before envelope JSON")
+  void decodeSnsPayload_envelopeWithLeadingWhitespace() throws Exception {
+    byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
+    String wrapped = base64(gzip(raw));
+    String envelope = "\n  " + snsEnvelope(wrapped);
+    Assertions.assertArrayEquals(raw, App.decodeSnsPayload(envelope));
+  }
+
+  private static String snsEnvelope(String innerMessage) {
+    return "{"
+        + "\"Type\":\"Notification\","
+        + "\"MessageId\":\"22b80b92-fdea-4c2c-8f9d-bdfb0c7bf324\","
+        + "\"TopicArn\":\"arn:aws:sns:us-east-1:123456789012:stream-webhooks\","
+        + "\"Message\":\""
+        + innerMessage
+        + "\","
+        + "\"Timestamp\":\"2026-05-11T10:00:00.000Z\","
+        + "\"SignatureVersion\":\"1\","
+        + "\"MessageAttributes\":{\"X-Signature\":{\"Type\":\"String\",\"Value\":\"placeholder\"}}"
+        + "}";
   }
 
   @Test
@@ -228,7 +260,8 @@ public class WebhookCompressionTest {
   }
 
   @Test
-  @DisplayName("verifyAndParseSns and verifyAndParseSqs return identical events")
+  @DisplayName(
+      "verifyAndParseSns and verifyAndParseSqs return identical events for pre-extracted Message")
   void verifyAndParseSns_matchesSqs() throws Exception {
     byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
     String sig = hmacSHA256Hex(API_SECRET, raw);
@@ -236,6 +269,27 @@ public class WebhookCompressionTest {
     Event sns = App.verifyAndParseSns(wrapped, sig, API_SECRET);
     Event sqs = App.verifyAndParseSqs(wrapped, sig, API_SECRET);
     Assertions.assertEquals(sqs.getType(), sns.getType());
+  }
+
+  @Test
+  @DisplayName("verifyAndParseSns parses a full SNS HTTP notification envelope")
+  void verifyAndParseSns_fullEnvelope() throws Exception {
+    byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
+    String sig = hmacSHA256Hex(API_SECRET, raw);
+    String envelope = snsEnvelope(base64(gzip(raw)));
+    Event ev = App.verifyAndParseSns(envelope, sig, API_SECRET);
+    Assertions.assertEquals("message.new", ev.getType());
+  }
+
+  @Test
+  @DisplayName("verifyAndParseSns rejects signature computed over the envelope JSON")
+  void verifyAndParseSns_rejectsSignatureOverEnvelope() throws Exception {
+    byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
+    String envelope = snsEnvelope(base64(gzip(raw)));
+    String sigOverEnvelope = hmacSHA256Hex(API_SECRET, envelope.getBytes(StandardCharsets.UTF_8));
+    Assertions.assertThrows(
+        SecurityException.class,
+        () -> App.verifyAndParseSns(envelope, sigOverEnvelope, API_SECRET));
   }
 
   @Test

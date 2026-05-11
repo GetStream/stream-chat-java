@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
@@ -1561,11 +1562,39 @@ public class App extends StreamResponseObject {
   }
 
   /**
-   * Byte-for-byte identical to {@link #decodeSqsPayload(String)}; exposed under both names so call
-   * sites read intent.
+   * Reverses an SNS HTTP notification envelope. When {@code notificationBody} is a JSON envelope
+   * ({@code {"Type":"Notification","Message":"..."}}), the inner {@code Message} field is extracted
+   * and run through the SQS pipeline (base64-decode, then gzip-if-magic). When the input is not a
+   * JSON envelope it is treated as the already-extracted {@code Message} string, so call sites that
+   * pre-unwrap continue to work.
    */
-  public static byte[] decodeSnsPayload(@NotNull String message) {
-    return decodeSqsPayload(message);
+  public static byte[] decodeSnsPayload(@NotNull String notificationBody) {
+    String inner = extractSnsMessage(notificationBody);
+    return decodeSqsPayload(inner != null ? inner : notificationBody);
+  }
+
+  /**
+   * Returns the inner {@code Message} field of an SNS HTTP notification envelope, or {@code null}
+   * when the input is not a JSON object that contains a {@code Message} string.
+   */
+  private static String extractSnsMessage(@NotNull String notificationBody) {
+    int i = 0;
+    while (i < notificationBody.length() && Character.isWhitespace(notificationBody.charAt(i))) {
+      i++;
+    }
+    if (i >= notificationBody.length() || notificationBody.charAt(i) != '{') {
+      return null;
+    }
+    try {
+      JsonNode parsed = WEBHOOK_OBJECT_MAPPER.readTree(notificationBody);
+      if (parsed == null || !parsed.isObject()) {
+        return null;
+      }
+      JsonNode message = parsed.get("Message");
+      return message != null && message.isTextual() ? message.asText() : null;
+    } catch (IOException e) {
+      return null;
+    }
   }
 
   /**
