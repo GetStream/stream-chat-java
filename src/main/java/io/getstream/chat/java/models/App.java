@@ -20,6 +20,7 @@ import io.getstream.chat.java.models.App.AppCheckSnsRequestData.AppCheckSnsReque
 import io.getstream.chat.java.models.App.AppCheckSqsRequestData.AppCheckSqsRequest;
 import io.getstream.chat.java.models.App.AppUpdateRequestData.AppUpdateRequest;
 import io.getstream.chat.java.models.App.PushProviderRequestData.PushProviderRequest;
+import io.getstream.chat.java.exceptions.InvalidWebhookError;
 import io.getstream.chat.java.models.ChannelType.ChannelTypeWithStringCommands;
 import io.getstream.chat.java.models.User.UserRequestObject;
 import io.getstream.chat.java.models.framework.RequestObjectBuilder;
@@ -1532,14 +1533,14 @@ public class App extends StreamResponseObject {
    * <p>Magic-byte detection (rather than relying on a header) lets the same handler stay correct
    * when middleware auto-decompresses the request before your code sees it.
    */
-  public static byte[] ungzipPayload(@NotNull byte[] body) {
+  public static byte[] gunzipPayload(@NotNull byte[] body) {
     if (body.length < 2 || body[0] != GZIP_MAGIC[0] || body[1] != GZIP_MAGIC[1]) {
       return body;
     }
     try (GZIPInputStream in = new GZIPInputStream(new ByteArrayInputStream(body))) {
       return readAll(in);
     } catch (IOException e) {
-      throw new IllegalStateException("failed to decompress gzip payload", e);
+      throw new InvalidWebhookError(InvalidWebhookError.GZIP_FAILED, e);
     }
   }
 
@@ -1556,9 +1557,9 @@ public class App extends StreamResponseObject {
     try {
       decoded = Base64.getDecoder().decode(body);
     } catch (IllegalArgumentException e) {
-      throw new IllegalStateException("failed to base64-decode payload", e);
+      throw new InvalidWebhookError(InvalidWebhookError.INVALID_BASE64, e);
     }
-    return ungzipPayload(decoded);
+    return gunzipPayload(decoded);
   }
 
   /**
@@ -1623,20 +1624,20 @@ public class App extends StreamResponseObject {
    * unknown enum values are tolerated so the handler stays forward-compatible with new Stream
    * server releases.
    *
-   * @throws IllegalStateException when the bytes are not valid JSON
+   * @throws InvalidWebhookError when the bytes are not valid JSON
    */
   public static @NotNull Event parseEvent(@NotNull byte[] payload) {
     try {
       return WEBHOOK_OBJECT_MAPPER.readValue(payload, Event.class);
     } catch (IOException e) {
-      throw new IllegalStateException("failed to parse webhook event", e);
+      throw new InvalidWebhookError(InvalidWebhookError.INVALID_JSON, e);
     }
   }
 
   private static @NotNull Event verifyAndParseInternal(
       @NotNull byte[] payload, @NotNull String signature, @NotNull String secret) {
     if (!verifySignature(payload, signature, secret)) {
-      throw new SecurityException("invalid webhook signature");
+      throw new InvalidWebhookError(InvalidWebhookError.SIGNATURE_MISMATCH);
     }
     return parseEvent(payload);
   }
@@ -1650,12 +1651,12 @@ public class App extends StreamResponseObject {
    * @param signature value of the {@code X-Signature} header
    * @param secret the app's API secret
    * @return the parsed event
-   * @throws SecurityException when the signature does not match
-   * @throws IllegalStateException when the gzip envelope is malformed or the payload is not JSON
+   * @throws InvalidWebhookError when the signature does not match, the gzip envelope is malformed,
+   *     or the payload is not JSON
    */
   public static @NotNull Event verifyAndParseWebhook(
       @NotNull byte[] body, @NotNull String signature, @NotNull String secret) {
-    return verifyAndParseInternal(ungzipPayload(body), signature, secret);
+    return verifyAndParseInternal(gunzipPayload(body), signature, secret);
   }
 
   /** Singleton-secret overload: uses the API secret of the configured {@link Client} singleton. */

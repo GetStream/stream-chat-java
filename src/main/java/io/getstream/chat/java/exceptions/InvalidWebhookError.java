@@ -7,8 +7,11 @@ import org.jetbrains.annotations.Nullable;
  * Raised by every webhook ingestion primitive when the request cannot be safely turned into a typed
  * event. A single exception type lets handler code use one catch arm and, when needed, branch on
  * the failure-mode message constants exposed here.
+ *
+ * <p>Unchecked so webhook handlers don't have to declare {@code throws} on every helper call —
+ * matches the JVM convention for input-validation failures (cf. {@link IllegalArgumentException}).
  */
-public class InvalidWebhookException extends StreamException {
+public class InvalidWebhookError extends RuntimeException {
   private static final long serialVersionUID = 1L;
 
   public static final String SIGNATURE_MISMATCH = "signature mismatch";
@@ -16,11 +19,11 @@ public class InvalidWebhookException extends StreamException {
   public static final String GZIP_FAILED = "gzip decompression failed";
   public static final String INVALID_JSON = "invalid JSON payload";
 
-  public InvalidWebhookException(@NotNull String message) {
-    super(message, (Throwable) null);
+  public InvalidWebhookError(@NotNull String message) {
+    super(message);
   }
 
-  public InvalidWebhookException(@NotNull String message, @Nullable Throwable cause) {
+  public InvalidWebhookError(@NotNull String message, @Nullable Throwable cause) {
     super(message, cause);
   }
 }
