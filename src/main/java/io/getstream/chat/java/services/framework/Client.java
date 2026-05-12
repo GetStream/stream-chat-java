@@ -1,5 +1,6 @@
 package io.getstream.chat.java.services.framework;
 
+import io.getstream.chat.java.exceptions.InvalidWebhookException;
 import io.getstream.chat.java.models.App;
 import io.getstream.chat.java.models.Event;
 import java.time.Duration;
@@ -31,7 +32,8 @@ public interface Client {
    * @param signature value of the {@code X-Signature} header
    * @return parsed {@link Event}
    */
-  default @NotNull Event verifyAndParseWebhook(@NotNull byte[] body, @NotNull String signature) {
+  default @NotNull Event verifyAndParseWebhook(@NotNull byte[] body, @NotNull String signature)
+      throws InvalidWebhookException {
     return App.verifyAndParseWebhook(body, signature, getApiSecret());
   }
 
@@ -44,7 +46,8 @@ public interface Client {
    * @param signature value of the {@code X-Signature} message attribute
    * @return parsed {@link Event}
    */
-  default @NotNull Event verifyAndParseSqs(@NotNull String messageBody, @NotNull String signature) {
+  default @NotNull Event verifyAndParseSqs(@NotNull String messageBody, @NotNull String signature)
+      throws InvalidWebhookException {
     return App.verifyAndParseSqs(messageBody, signature, getApiSecret());
   }
 
@@ -57,7 +60,8 @@ public interface Client {
    * @param signature value of the {@code X-Signature} message attribute
    * @return parsed {@link Event}
    */
-  default @NotNull Event verifyAndParseSns(@NotNull String message, @NotNull String signature) {
+  default @NotNull Event verifyAndParseSns(@NotNull String message, @NotNull String signature)
+      throws InvalidWebhookException {
     return App.verifyAndParseSns(message, signature, getApiSecret());
   }
 

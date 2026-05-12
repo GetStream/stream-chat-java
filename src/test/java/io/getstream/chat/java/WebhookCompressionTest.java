@@ -1,5 +1,8 @@
 package io.getstream.chat.java;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import io.getstream.chat.java.exceptions.InvalidWebhookException;
 import io.getstream.chat.java.models.App;
 import io.getstream.chat.java.models.Event;
 import io.getstream.chat.java.services.framework.Client;
@@ -50,7 +53,7 @@ public class WebhookCompressionTest {
 
   @Test
   @DisplayName("gunzipPayload passes through plain bytes unchanged")
-  void gunzipPayload_passthroughPlainBytes() {
+  void gunzipPayload_passthroughPlainBytes() throws Exception {
     byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
     Assertions.assertArrayEquals(raw, App.gunzipPayload(raw));
   }
@@ -64,20 +67,22 @@ public class WebhookCompressionTest {
 
   @Test
   @DisplayName("gunzipPayload returns empty input unchanged")
-  void gunzipPayload_emptyInput() {
+  void gunzipPayload_emptyInput() throws Exception {
     Assertions.assertArrayEquals(new byte[0], App.gunzipPayload(new byte[0]));
   }
 
   @Test
-  @DisplayName("gunzipPayload throws on truncated gzip with magic")
-  void gunzipPayload_truncatedGzipThrows() {
+  @DisplayName("gunzipPayload throws InvalidWebhookException on corrupt gzip")
+  void gunzipPayload_throwsOnCorruptGzip() {
     byte[] bad = new byte[] {0x1f, (byte) 0x8b, 0x08, 0, 0, 0};
-    Assertions.assertThrows(IllegalStateException.class, () -> App.gunzipPayload(bad));
+    assertThatThrownBy(() -> App.gunzipPayload(bad))
+        .isInstanceOf(InvalidWebhookException.class)
+        .hasMessageContaining("gzip decompression failed");
   }
 
   @Test
   @DisplayName("decodeSqsPayload decodes base64 only when no compression")
-  void decodeSqsPayload_base64Only() {
+  void decodeSqsPayload_base64Only() throws Exception {
     byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
     Assertions.assertArrayEquals(raw, App.decodeSqsPayload(base64(raw)));
   }
@@ -90,22 +95,23 @@ public class WebhookCompressionTest {
   }
 
   @Test
-  @DisplayName("decodeSqsPayload throws on malformed base64")
-  void decodeSqsPayload_malformedBase64() {
-    Assertions.assertThrows(
-        IllegalStateException.class, () -> App.decodeSqsPayload("!!!not-base64!!!"));
+  @DisplayName("decodeSqsPayload throws InvalidWebhookException on invalid base64")
+  void decodeSqsPayload_throwsOnInvalidBase64() {
+    assertThatThrownBy(() -> App.decodeSqsPayload("!!!not-base64!!!"))
+        .isInstanceOf(InvalidWebhookException.class)
+        .hasMessageContaining("invalid base64 encoding");
   }
 
   @Test
   @DisplayName("decodeSqsPayload decodes Tommaso's plain helloworld fixture")
-  void decodeSqsPayload_helloworldBase64Fixture() {
+  void decodeSqsPayload_helloworldBase64Fixture() throws Exception {
     Assertions.assertArrayEquals(
         "helloworld".getBytes(StandardCharsets.UTF_8), App.decodeSqsPayload("aGVsbG93b3JsZA=="));
   }
 
   @Test
   @DisplayName("decodeSqsPayload decodes Tommaso's gzipped helloworld fixture")
-  void decodeSqsPayload_helloworldBase64GzipFixture() {
+  void decodeSqsPayload_helloworldBase64GzipFixture() throws Exception {
     Assertions.assertArrayEquals(
         "helloworld".getBytes(StandardCharsets.UTF_8),
         App.decodeSqsPayload("H4sIAGrYAWoAA8tIzcnJL88vykkBAK0g6/kKAAAA"));
@@ -177,7 +183,7 @@ public class WebhookCompressionTest {
 
   @Test
   @DisplayName("parseEvent parses known event type into typed Event")
-  void parseEvent_known() {
+  void parseEvent_known() throws Exception {
     Event ev = App.parseEvent(JSON_BODY.getBytes(StandardCharsets.UTF_8));
     Assertions.assertEquals("message.new", ev.getType());
     Assertions.assertNotNull(ev.getMessage());
@@ -186,7 +192,7 @@ public class WebhookCompressionTest {
 
   @Test
   @DisplayName("parseEvent handles unknown event types")
-  void parseEvent_unknownType() {
+  void parseEvent_unknownType() throws Exception {
     Event ev =
         App.parseEvent(
             "{\"type\":\"a.future.event\",\"custom\":42}".getBytes(StandardCharsets.UTF_8));
@@ -194,11 +200,11 @@ public class WebhookCompressionTest {
   }
 
   @Test
-  @DisplayName("parseEvent throws on malformed JSON")
-  void parseEvent_malformed() {
-    Assertions.assertThrows(
-        IllegalStateException.class,
-        () -> App.parseEvent("not json".getBytes(StandardCharsets.UTF_8)));
+  @DisplayName("parseEvent throws InvalidWebhookException on invalid JSON")
+  void parseEvent_throwsOnInvalidJson() {
+    assertThatThrownBy(() -> App.parseEvent("not json".getBytes(StandardCharsets.UTF_8)))
+        .isInstanceOf(InvalidWebhookException.class)
+        .hasMessageContaining("invalid JSON payload");
   }
 
   @Test
@@ -220,11 +226,12 @@ public class WebhookCompressionTest {
   }
 
   @Test
-  @DisplayName("verifyAndParseWebhook throws SecurityException on signature mismatch")
+  @DisplayName("verifyAndParseWebhook throws InvalidWebhookException on signature mismatch")
   void verifyAndParseWebhook_signatureMismatch() {
     byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
-    Assertions.assertThrows(
-        SecurityException.class, () -> App.verifyAndParseWebhook(raw, "0".repeat(64), API_SECRET));
+    assertThatThrownBy(() -> App.verifyAndParseWebhook(raw, "0".repeat(64), API_SECRET))
+        .isInstanceOf(InvalidWebhookException.class)
+        .hasMessageContaining("signature mismatch");
   }
 
   @Test
@@ -233,9 +240,9 @@ public class WebhookCompressionTest {
     byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
     byte[] compressed = gzip(raw);
     String sigOverCompressed = hmacSHA256Hex(API_SECRET, compressed);
-    Assertions.assertThrows(
-        SecurityException.class,
-        () -> App.verifyAndParseWebhook(compressed, sigOverCompressed, API_SECRET));
+    assertThatThrownBy(() -> App.verifyAndParseWebhook(compressed, sigOverCompressed, API_SECRET))
+        .isInstanceOf(InvalidWebhookException.class)
+        .hasMessageContaining("signature mismatch");
   }
 
   @Test
@@ -262,8 +269,9 @@ public class WebhookCompressionTest {
     byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
     String wrapped = base64(gzip(raw));
     String sigOverWrapped = hmacSHA256Hex(API_SECRET, wrapped.getBytes(StandardCharsets.UTF_8));
-    Assertions.assertThrows(
-        SecurityException.class, () -> App.verifyAndParseSqs(wrapped, sigOverWrapped, API_SECRET));
+    assertThatThrownBy(() -> App.verifyAndParseSqs(wrapped, sigOverWrapped, API_SECRET))
+        .isInstanceOf(InvalidWebhookException.class)
+        .hasMessageContaining("signature mismatch");
   }
 
   @Test
@@ -303,9 +311,9 @@ public class WebhookCompressionTest {
     byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
     String envelope = snsEnvelope(base64(gzip(raw)));
     String sigOverEnvelope = hmacSHA256Hex(API_SECRET, envelope.getBytes(StandardCharsets.UTF_8));
-    Assertions.assertThrows(
-        SecurityException.class,
-        () -> App.verifyAndParseSns(envelope, sigOverEnvelope, API_SECRET));
+    assertThatThrownBy(() -> App.verifyAndParseSns(envelope, sigOverEnvelope, API_SECRET))
+        .isInstanceOf(InvalidWebhookException.class)
+        .hasMessageContaining("signature mismatch");
   }
 
   @Test
@@ -379,8 +387,9 @@ public class WebhookCompressionTest {
   void clientInstance_verifyAndParseWebhook_rejectsMismatch() {
     Client client = new StubClient(API_SECRET);
     byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
-    Assertions.assertThrows(
-        SecurityException.class, () -> client.verifyAndParseWebhook(raw, "0".repeat(64)));
+    assertThatThrownBy(() -> client.verifyAndParseWebhook(raw, "0".repeat(64)))
+        .isInstanceOf(InvalidWebhookException.class)
+        .hasMessageContaining("signature mismatch");
   }
 
   @Nested
@@ -389,7 +398,7 @@ public class WebhookCompressionTest {
 
     @Test
     @DisplayName("gunzipPayload inflates Tommaso's helloworld gzip fixture")
-    void gunzipPayload_helloworldFixture() {
+    void gunzipPayload_helloworldFixture() throws Exception {
       Assertions.assertArrayEquals(
           "helloworld".getBytes(StandardCharsets.UTF_8),
           App.gunzipPayload(

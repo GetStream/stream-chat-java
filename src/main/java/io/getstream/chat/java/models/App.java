@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
+import io.getstream.chat.java.exceptions.InvalidWebhookException;
 import io.getstream.chat.java.models.App.AppCheckPushRequestData.AppCheckPushRequest;
 import io.getstream.chat.java.models.App.AppCheckSnsRequestData.AppCheckSnsRequest;
 import io.getstream.chat.java.models.App.AppCheckSqsRequestData.AppCheckSqsRequest;
@@ -1532,14 +1533,14 @@ public class App extends StreamResponseObject {
    * <p>Magic-byte detection (rather than relying on a header) lets the same handler stay correct
    * when middleware auto-decompresses the request before your code sees it.
    */
-  public static byte[] gunzipPayload(@NotNull byte[] body) {
+  public static byte[] gunzipPayload(@NotNull byte[] body) throws InvalidWebhookException {
     if (body.length < 2 || body[0] != GZIP_MAGIC[0] || body[1] != GZIP_MAGIC[1]) {
       return body;
     }
     try (GZIPInputStream in = new GZIPInputStream(new ByteArrayInputStream(body))) {
       return readAll(in);
     } catch (IOException e) {
-      throw new IllegalStateException("failed to decompress gzip payload", e);
+      throw new InvalidWebhookException(InvalidWebhookException.GZIP_FAILED, e);
     }
   }
 
@@ -1551,12 +1552,12 @@ public class App extends StreamResponseObject {
    * @param body the SQS message {@code Body}
    * @return the raw JSON bytes Stream signed
    */
-  public static byte[] decodeSqsPayload(@NotNull String body) {
+  public static byte[] decodeSqsPayload(@NotNull String body) throws InvalidWebhookException {
     byte[] decoded;
     try {
       decoded = Base64.getDecoder().decode(body);
     } catch (IllegalArgumentException e) {
-      throw new IllegalStateException("failed to base64-decode payload", e);
+      throw new InvalidWebhookException(InvalidWebhookException.INVALID_BASE64, e);
     }
     return gunzipPayload(decoded);
   }
@@ -1568,7 +1569,8 @@ public class App extends StreamResponseObject {
    * JSON envelope it is treated as the already-extracted {@code Message} string, so call sites that
    * pre-unwrap continue to work.
    */
-  public static byte[] decodeSnsPayload(@NotNull String notificationBody) {
+  public static byte[] decodeSnsPayload(@NotNull String notificationBody)
+      throws InvalidWebhookException {
     String inner = extractSnsMessage(notificationBody);
     return decodeSqsPayload(inner != null ? inner : notificationBody);
   }
@@ -1623,20 +1625,21 @@ public class App extends StreamResponseObject {
    * unknown enum values are tolerated so the handler stays forward-compatible with new Stream
    * server releases.
    *
-   * @throws IllegalStateException when the bytes are not valid JSON
+   * @throws InvalidWebhookException when the bytes are not valid JSON
    */
-  public static @NotNull Event parseEvent(@NotNull byte[] payload) {
+  public static @NotNull Event parseEvent(@NotNull byte[] payload) throws InvalidWebhookException {
     try {
       return WEBHOOK_OBJECT_MAPPER.readValue(payload, Event.class);
     } catch (IOException e) {
-      throw new IllegalStateException("failed to parse webhook event", e);
+      throw new InvalidWebhookException(InvalidWebhookException.INVALID_JSON, e);
     }
   }
 
   private static @NotNull Event verifyAndParseInternal(
-      @NotNull byte[] payload, @NotNull String signature, @NotNull String secret) {
+      @NotNull byte[] payload, @NotNull String signature, @NotNull String secret)
+      throws InvalidWebhookException {
     if (!verifySignature(payload, signature, secret)) {
-      throw new SecurityException("invalid webhook signature");
+      throw new InvalidWebhookException(InvalidWebhookException.SIGNATURE_MISMATCH);
     }
     return parseEvent(payload);
   }
@@ -1650,17 +1653,18 @@ public class App extends StreamResponseObject {
    * @param signature value of the {@code X-Signature} header
    * @param secret the app's API secret
    * @return the parsed event
-   * @throws SecurityException when the signature does not match
-   * @throws IllegalStateException when the gzip envelope is malformed or the payload is not JSON
+   * @throws InvalidWebhookException when the signature does not match, the gzip envelope is
+   *     malformed, or the payload is not JSON
    */
   public static @NotNull Event verifyAndParseWebhook(
-      @NotNull byte[] body, @NotNull String signature, @NotNull String secret) {
+      @NotNull byte[] body, @NotNull String signature, @NotNull String secret)
+      throws InvalidWebhookException {
     return verifyAndParseInternal(gunzipPayload(body), signature, secret);
   }
 
   /** Singleton-secret overload: uses the API secret of the configured {@link Client} singleton. */
   public static @NotNull Event verifyAndParseWebhook(
-      @NotNull byte[] body, @NotNull String signature) {
+      @NotNull byte[] body, @NotNull String signature) throws InvalidWebhookException {
     return verifyAndParseWebhook(body, signature, Client.getInstance().getApiSecret());
   }
 
@@ -1669,13 +1673,14 @@ public class App extends StreamResponseObject {
    * from the {@code X-Signature} message attribute, and return the parsed {@link Event}.
    */
   public static @NotNull Event verifyAndParseSqs(
-      @NotNull String messageBody, @NotNull String signature, @NotNull String secret) {
+      @NotNull String messageBody, @NotNull String signature, @NotNull String secret)
+      throws InvalidWebhookException {
     return verifyAndParseInternal(decodeSqsPayload(messageBody), signature, secret);
   }
 
   /** Singleton-secret overload of {@link #verifyAndParseSqs(String, String, String)}. */
   public static @NotNull Event verifyAndParseSqs(
-      @NotNull String messageBody, @NotNull String signature) {
+      @NotNull String messageBody, @NotNull String signature) throws InvalidWebhookException {
     return verifyAndParseSqs(messageBody, signature, Client.getInstance().getApiSecret());
   }
 
@@ -1684,13 +1689,14 @@ public class App extends StreamResponseObject {
    * signature} from the {@code X-Signature} message attribute, and return the parsed {@link Event}.
    */
   public static @NotNull Event verifyAndParseSns(
-      @NotNull String message, @NotNull String signature, @NotNull String secret) {
+      @NotNull String message, @NotNull String signature, @NotNull String secret)
+      throws InvalidWebhookException {
     return verifyAndParseInternal(decodeSnsPayload(message), signature, secret);
   }
 
   /** Singleton-secret overload of {@link #verifyAndParseSns(String, String, String)}. */
-  public static @NotNull Event verifyAndParseSns(
-      @NotNull String message, @NotNull String signature) {
+  public static @NotNull Event verifyAndParseSns(@NotNull String message, @NotNull String signature)
+      throws InvalidWebhookException {
     return verifyAndParseSns(message, signature, Client.getInstance().getApiSecret());
   }
 

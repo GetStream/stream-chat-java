@@ -122,7 +122,7 @@ boolean valid = App.verifySignature(json, signature, apiSecret);
 Event event = App.parseEvent(json);
 ```
 
-Detection is done via the gzip magic bytes (`1f 8b`, per RFC 1952), so the same helper stays correct whether or not your HTTP server already decompressed the body for you. Any non-gzip body is passed through unchanged. Malformed gzip envelopes raise an `IllegalStateException`.
+Detection is done via the gzip magic bytes (`1f 8b`, per RFC 1952), so the same helper stays correct whether or not your HTTP server already decompressed the body for you. Any non-gzip body is passed through unchanged. Every webhook ingestion primitive (`gunzipPayload`, `decodeSqsPayload`, `decodeSnsPayload`, `parseEvent`, and the `verifyAndParse*` helpers) raises `InvalidWebhookException` on failure — one catch arm covers signature mismatches, malformed gzip envelopes, invalid base64, and invalid JSON; the failure-mode message constants on the exception class let callers branch when needed.
 
 #### SQS / SNS payloads
 
