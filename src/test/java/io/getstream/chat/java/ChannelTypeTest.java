@@ -15,6 +15,36 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.*;
 
 public class ChannelTypeTest extends BasicTest {
+
+  private static final java.util.Set<String> SYSTEM_CHANNEL_TYPES =
+      java.util.Set.of("messaging", "livestream", "gaming", "commerce", "team");
+
+  /**
+   * Delete zombie custom channel types left over from prior CI runs that failed mid-test before
+   * their inline {@code ChannelType.delete(...)} could fire. The shared test app caps custom
+   * channel types at 50; without this sweep new branches hit the quota as soon as enough zombie
+   * types accumulate. Only deletes types not in {@link #SYSTEM_CHANNEL_TYPES}.
+   */
+  @BeforeAll
+  static void cleanupLeftoverChannelTypes() {
+    try {
+      var resp = ChannelType.list().request();
+      if (resp == null || resp.getChannelTypes() == null) return;
+      resp.getChannelTypes().keySet().stream()
+          .filter(name -> !SYSTEM_CHANNEL_TYPES.contains(name))
+          .forEach(
+              name -> {
+                try {
+                  ChannelType.delete(name).request();
+                } catch (StreamException ignored) {
+                  // Best-effort: skip types that are in use or already deleted.
+                }
+              });
+    } catch (StreamException ignored) {
+      // Best-effort: if list fails the tests below will surface the real error.
+    }
+  }
+
   @Test
   @DisplayName("Get channel type with populated commands")
   void whenPopulatingCommands_thenFetchChannelTypeWithoutAnyIssues() {

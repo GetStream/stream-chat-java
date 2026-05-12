@@ -23,11 +23,49 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.ThrowingSupplier;
 
 public class UserTest extends BasicTest {
+
+  /**
+   * Clear zombie bans left over from prior CI runs that died before their cleanup could fire.
+   * {@code User.queryBanned().request()} returns a paginated slice; once enough bans accumulate on
+   * the shared test app, the just-created ban under test ends up past the first page and the {@code
+   * assertTrue(bans.stream().anyMatch(...))} assertion fails. Best-effort sweep.
+   */
+  @BeforeAll
+  static void cleanupLeftoverBans() {
+    // queryBanned() returns a paginated slice, so a single pass only clears
+    // the first page. Loop until either the response is empty or we stop
+    // making progress; cap iterations to avoid running forever against a
+    // poisoned app.
+    Set<String> seen = new HashSet<>();
+    for (int round = 0; round < 20; round++) {
+      List<Ban> bans;
+      try {
+        bans = User.queryBanned().request().getBans();
+      } catch (StreamException ignored) {
+        return; // Best-effort.
+      }
+      if (bans == null || bans.isEmpty()) return;
+      int unbannedThisRound = 0;
+      for (var ban : bans) {
+        if (ban.getUser() == null || ban.getUser().getId() == null) continue;
+        String id = ban.getUser().getId();
+        if (!seen.add(id)) continue;
+        try {
+          User.unban(id).request();
+          unbannedThisRound++;
+        } catch (StreamException ignored) {
+          // In-use or already-deleted; skip.
+        }
+      }
+      if (unbannedThisRound == 0) return; // No progress; bail.
+    }
+  }
 
   @DisplayName("Can list users with no Exception")
   @Test

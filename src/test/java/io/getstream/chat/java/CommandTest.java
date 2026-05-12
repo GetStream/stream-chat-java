@@ -1,13 +1,44 @@
 package io.getstream.chat.java;
 
+import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Command;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class CommandTest extends BasicTest {
+
+  private static final java.util.Set<String> SYSTEM_COMMANDS =
+      java.util.Set.of("giphy", "imgur", "ban", "unban", "mute", "unmute", "flag", "unflag");
+
+  /**
+   * Delete zombie custom commands left over from prior CI runs that failed mid-test before the
+   * inline {@code Command.delete(...)} could fire. The shared test app caps custom commands at 50.
+   * Only deletes commands not in {@link #SYSTEM_COMMANDS}.
+   */
+  @BeforeAll
+  static void cleanupLeftoverCommands() {
+    try {
+      var resp = Command.list().request();
+      if (resp == null || resp.getCommands() == null) return;
+      resp.getCommands().stream()
+          .map(Command::getName)
+          .filter(name -> name != null && !SYSTEM_COMMANDS.contains(name))
+          .forEach(
+              name -> {
+                try {
+                  Command.delete(name).request();
+                } catch (StreamException ignored) {
+                  // Best-effort: skip commands that are in use or already deleted.
+                }
+              });
+    } catch (StreamException ignored) {
+      // Best-effort.
+    }
+  }
 
   @DisplayName("Can create command")
   @Test
