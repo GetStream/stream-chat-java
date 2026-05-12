@@ -122,25 +122,20 @@ boolean valid = App.verifySignature(json, signature, apiSecret);
 Event event = App.parseEvent(json);
 ```
 
-Detection is done via the gzip magic bytes (`1f 8b`, per RFC 1952), so the same helper stays correct whether or not your HTTP server already decompressed the body for you. Any non-gzip body is passed through unchanged. Every webhook ingestion primitive (`gunzipPayload`, `decodeSqsPayload`, `decodeSnsPayload`, `parseEvent`, and the `verifyAndParse*` helpers) raises `InvalidWebhookException` on failure — one catch arm covers signature mismatches, malformed gzip envelopes, invalid base64, and invalid JSON; the failure-mode message constants on the exception class let callers branch when needed.
+Detection is done via the gzip magic bytes (`1f 8b`, per RFC 1952), so the same helper stays correct whether or not your HTTP server already decompressed the body for you. Any non-gzip body is passed through unchanged. `gunzipPayload`, `decodeSqsPayload`, `decodeSnsPayload`, `parseEvent`, and `verifyAndParseWebhook` raise `InvalidWebhookException` on failure paths that involve those primitives. `parseSqs` / `parseSns` decode and parse only (no HMAC) — they raise the same exception class for malformed base64, gzip, or JSON.
 
 #### SQS / SNS payloads
 
-The same helper handles compressed messages delivered through SQS or SNS. There the compressed body is base64-wrapped so it stays valid UTF-8 over the queue. Pass the SQS `Body` (or SNS `Message`) string directly — no manual base64 decoding required:
+The same gzip + base64 wire format applies. Pass the SQS message `Body` string, or the SNS notification body (full JSON envelope or pre-extracted `Message`). Stream does **not** ship an application-level `X-Signature` on these channels — IAM and AWS SNS authenticity cover the transport.
 
 ```java
-// messageBody — the SQS Body / SNS Message string (base64-encoded)
-// signature   — X-Signature message attribute value
-// apiSecret   — your app's API secret
-Event event = App.verifyAndParseSqs(messageBody, signature, apiSecret);
-// or, for SNS:
-Event event = App.verifyAndParseSns(messageBody, signature, apiSecret);
+// SQS Body (string)
+Event event = client.parseSqs(message.body());
+// SNS: envelope or Message field
+event = client.parseSns(notificationBody);
 ```
 
-Instance-method counterparts on `client` (`client.verifyAndParseSqs(...)`, `client.verifyAndParseSns(...)`) work the same way, using the configured client's API secret.
-
-The signature is always computed over the innermost (uncompressed, base64-decoded) JSON, regardless of transport.
-
+Instance methods delegate to `App.parseSqs` / `App.parseSns` — no API secret is used for decoding.
 ## Webhook types
 
 In addition to the above there are 3 special webhooks.

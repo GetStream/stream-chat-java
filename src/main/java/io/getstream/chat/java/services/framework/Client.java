@@ -1,6 +1,5 @@
 package io.getstream.chat.java.services.framework;
 
-import io.getstream.chat.java.exceptions.InvalidWebhookException;
 import io.getstream.chat.java.models.App;
 import io.getstream.chat.java.models.Event;
 import java.time.Duration;
@@ -32,37 +31,32 @@ public interface Client {
    * @param signature value of the {@code X-Signature} header
    * @return parsed {@link Event}
    */
-  default @NotNull Event verifyAndParseWebhook(@NotNull byte[] body, @NotNull String signature)
-      throws InvalidWebhookException {
+  default @NotNull Event verifyAndParseWebhook(@NotNull byte[] body, @NotNull String signature) {
     return App.verifyAndParseWebhook(body, signature, getApiSecret());
   }
 
   /**
-   * Verify and parse an SQS firehose webhook event using this client's API secret.
+   * Parse an SQS-delivered webhook body (decode only).
    *
-   * <p>Instance-method counterpart to {@link App#verifyAndParseSqs(String, String, String)}.
+   * <p>Instance-method counterpart to {@link App#parseSqs(String)}.
    *
-   * @param messageBody SQS message {@code Body} (UTF-8 string)
-   * @param signature value of the {@code X-Signature} message attribute
+   * @param body SQS message {@code Body} string
    * @return parsed {@link Event}
    */
-  default @NotNull Event verifyAndParseSqs(@NotNull String messageBody, @NotNull String signature)
-      throws InvalidWebhookException {
-    return App.verifyAndParseSqs(messageBody, signature, getApiSecret());
+  default @NotNull Event parseSqs(@NotNull String body) {
+    return App.parseSqs(body);
   }
 
   /**
-   * Verify and parse an SNS firehose webhook event using this client's API secret.
+   * Parse an SNS-delivered webhook body (unwrap envelope when needed).
    *
-   * <p>Instance-method counterpart to {@link App#verifyAndParseSns(String, String, String)}.
+   * <p>Instance-method counterpart to {@link App#parseSns(String)}.
    *
-   * @param message SNS notification {@code Message} field (UTF-8 string)
-   * @param signature value of the {@code X-Signature} message attribute
+   * @param notificationBody raw SNS POST body or pre-extracted {@code Message}
    * @return parsed {@link Event}
    */
-  default @NotNull Event verifyAndParseSns(@NotNull String message, @NotNull String signature)
-      throws InvalidWebhookException {
-    return App.verifyAndParseSns(message, signature, getApiSecret());
+  default @NotNull Event parseSns(@NotNull String notificationBody) {
+    return App.parseSns(notificationBody);
   }
 
   static Client getInstance() {
