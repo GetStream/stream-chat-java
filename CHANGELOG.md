@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.45.0](https://github.com/GetStream/stream-chat-java/compare/1.44.0...1.45.0) (2026-05-13)
+
+
+### Features
+
+* **webhooks:** verifyAndParse* API for compressed payloads (CHA-3071) ([#255](https://github.com/GetStream/stream-chat-java/issues/255)) ([69a48f3](https://github.com/GetStream/stream-chat-java/commit/69a48f36b5b0688a3df9201f5308ed55b1172590)), closes [GetStream/chat#13222](https://github.com/GetStream/chat/issues/13222)
+
 ## [1.44.0](https://github.com/GetStream/stream-chat-java/compare/1.43.0...1.44.0) (2026-04-11)
 
 ## [1.44.0](https://github.com/GetStream/stream-chat-java/compare/1.43.0...1.44.0) (2026-04-11)
