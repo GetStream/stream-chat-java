@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":9,"i2":9,"i3":9,"i4":9,"i5":10,"i6":9,"i7":10,"i8":9,"i9":10,"i10":9,"i11":9,"i12":10,"i13":10,"i14":9,"i15":9,"i16":10,"i17":9,"i18":9};
+var data = {"i0":10,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":10,"i8":9,"i9":10,"i10":9,"i11":9,"i12":10,"i13":9,"i14":9,"i15":9,"i16":9,"i17":9,"i18":10,"i19":10,"i20":9,"i21":9,"i22":9,"i23":9,"i24":9,"i25":10,"i26":9,"i27":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -448,6 +448,21 @@ extends <a href="framework/StreamResponseObject.html" title="class in io.getstre
 </td>
 </tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><code>static byte[]</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#decodeSnsPayload(java.lang.String)">decodeSnsPayload</a></span>&#8203;(@NotNull java.lang.String&nbsp;notificationBody)</code></th>
+<td class="colLast">
+<div class="block">Reverses an SNS HTTP notification envelope.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>static byte[]</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#decodeSqsPayload(java.lang.String)">decodeSqsPayload</a></span>&#8203;(@NotNull java.lang.String&nbsp;body)</code></th>
+<td class="colLast">
+<div class="block">Reverses the SQS firehose envelope: the message <code>Body</code> is base64-decoded and, when the
+ result begins with the gzip magic, it is gzip-decompressed.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="App.DeletePushProviderRequest.html" title="class in io.getstream.chat.java.models">App.DeletePushProviderRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deletePushProvider(java.lang.String,java.lang.String)">deletePushProvider</a></span>&#8203;(@NotNull java.lang.String&nbsp;providerType,
                   @NotNull java.lang.String&nbsp;name)</code></th>
@@ -455,90 +470,149 @@ extends <a href="framework/StreamResponseObject.html" title="class in io.getstre
 <div class="block">Creates a delete push provider request</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="App.AppGetRequest.html" title="class in io.getstream.chat.java.models">App.AppGetRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get()">get</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a get request.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>@Nullable <a href="App.AppConfig.html" title="class in io.getstream.chat.java.models">App.AppConfig</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getApp()">getApp</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="App.AppGetRateLimitsRequest.html" title="class in io.getstream.chat.java.models">App.AppGetRateLimitsRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRateLimits()">getRateLimits</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a get rate limits request.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>static byte[]</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#gunzipPayload(@org.jetbrains.annotations.NotNullbyte%5B%5D)">gunzipPayload</a></span>&#8203;(@org.jetbrains.annotations.NotNull byte[]&nbsp;body)</code></th>
+<td class="colLast">
+<div class="block">Returns <code>body</code> unchanged unless it starts with the gzip magic (<code>1f 8b</code>, per RFC
+ 1952), in which case the gzip stream is inflated and the decompressed bytes are returned.</div>
+</td>
+</tr>
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="App.ListPushProvidersRequest.html" title="class in io.getstream.chat.java.models">App.ListPushProvidersRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#listPushProviders()">listPushProviders</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a list push providers request</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>static @NotNull <a href="Event.html" title="class in io.getstream.chat.java.models">Event</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parseEvent(@org.jetbrains.annotations.NotNullbyte%5B%5D)">parseEvent</a></span>&#8203;(@org.jetbrains.annotations.NotNull byte[]&nbsp;payload)</code></th>
+<td class="colLast">
+<div class="block">Parse a JSON-encoded webhook event into a typed <a href="Event.html" title="class in io.getstream.chat.java.models"><code>Event</code></a>.</div>
+</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>static @NotNull <a href="Event.html" title="class in io.getstream.chat.java.models">Event</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parseSns(java.lang.String)">parseSns</a></span>&#8203;(@NotNull java.lang.String&nbsp;notificationBody)</code></th>
+<td class="colLast">
+<div class="block">Decode an SNS-delivered payload (unwraps envelope JSON when needed) and return the parsed
+ <a href="Event.html" title="class in io.getstream.chat.java.models"><code>Event</code></a>.</div>
+</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>static @NotNull <a href="Event.html" title="class in io.getstream.chat.java.models">Event</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parseSqs(java.lang.String)">parseSqs</a></span>&#8203;(@NotNull java.lang.String&nbsp;messageBody)</code></th>
+<td class="colLast">
+<div class="block">Decode the SQS <code>Body</code> (base64, then gzip-if-magic) and return the parsed <a href="Event.html" title="class in io.getstream.chat.java.models"><code>Event</code></a>.</div>
+</td>
+</tr>
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="App.AppRevokeTokensRequest.html" title="class in io.getstream.chat.java.models">App.AppRevokeTokensRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#revokeTokens(java.util.Date)">revokeTokens</a></span>&#8203;(@Nullable java.util.Date&nbsp;revokeTokensIssuedBefore)</code></th>
 <td class="colLast">
 <div class="block">Creates a revoke tokens request</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setApp(io.getstream.chat.java.models.App.AppConfig)">setApp</a></span>&#8203;(@Nullable <a href="App.AppConfig.html" title="class in io.getstream.chat.java.models">App.AppConfig</a>&nbsp;app)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>static @NotNull <a href="App.AppUpdateRequestData.AppUpdateRequest.html" title="class in io.getstream.chat.java.models">App.AppUpdateRequestData.AppUpdateRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates an update request.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>static @NotNull <a href="App.PushProviderRequestData.PushProviderRequest.html" title="class in io.getstream.chat.java.models">App.PushProviderRequestData.PushProviderRequest</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#upsertPushProvider()">upsertPushProvider</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates an upsert push provider request</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i22" class="altColor">
+<td class="colFirst"><code>static @NotNull <a href="Event.html" title="class in io.getstream.chat.java.models">Event</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyAndParseWebhook(@org.jetbrains.annotations.NotNullbyte%5B%5D,java.lang.String)">verifyAndParseWebhook</a></span>&#8203;(@org.jetbrains.annotations.NotNull byte[]&nbsp;body,
+                     @NotNull java.lang.String&nbsp;signature)</code></th>
+<td class="colLast">
+<div class="block">Singleton-secret overload: uses the API secret of the configured <a href="../services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework"><code>Client</code></a> singleton.</div>
+</td>
+</tr>
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>static @NotNull <a href="Event.html" title="class in io.getstream.chat.java.models">Event</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyAndParseWebhook(@org.jetbrains.annotations.NotNullbyte%5B%5D,java.lang.String,java.lang.String)">verifyAndParseWebhook</a></span>&#8203;(@org.jetbrains.annotations.NotNull byte[]&nbsp;body,
+                     @NotNull java.lang.String&nbsp;signature,
+                     @NotNull java.lang.String&nbsp;secret)</code></th>
+<td class="colLast">
+<div class="block">Decompresses <code>body</code> when gzipped, verifies the HMAC <code>signature</code>, and returns the
+ parsed <a href="Event.html" title="class in io.getstream.chat.java.models"><code>Event</code></a>.</div>
+</td>
+</tr>
+<tr id="i24" class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifySignature(@org.jetbrains.annotations.NotNullbyte%5B%5D,java.lang.String,java.lang.String)">verifySignature</a></span>&#8203;(@org.jetbrains.annotations.NotNull byte[]&nbsp;body,
+               @NotNull java.lang.String&nbsp;signature,
+               @NotNull java.lang.String&nbsp;secret)</code></th>
+<td class="colLast">
+<div class="block">Constant-time HMAC-SHA256 verification of <code>signature</code> against the digest of <code>body</code>
+ using <code>secret</code> as the key.</div>
+</td>
+</tr>
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyWebhook(java.lang.String,java.lang.String)">verifyWebhook</a></span>&#8203;(@NotNull java.lang.String&nbsp;body,
              @NotNull java.lang.String&nbsp;signature)</code></th>
 <td class="colLast">
-<div class="block">Validates if hmac signature is correct for message body.</div>
+<div class="block">Validates if hmac signature is correct for the message body.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyWebhookSignature(java.lang.String,java.lang.String)">verifyWebhookSignature</a></span>&#8203;(@NotNull java.lang.String&nbsp;body,
                       @NotNull java.lang.String&nbsp;signature)</code></th>
 <td class="colLast">
-<div class="block">Validates if hmac signature is correct for message body.</div>
+<div class="block">Validates if hmac signature is correct for the message body using the singleton client's API
+ secret.</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i27" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyWebhookSignature(java.lang.String,java.lang.String,java.lang.String)">verifyWebhookSignature</a></span>&#8203;(@NotNull java.lang.String&nbsp;apiSecret,
                       @NotNull java.lang.String&nbsp;body,
@@ -766,7 +840,10 @@ public static&nbsp;@NotNull <a href="App.DeletePushProviderRequest.html" title="
                              @NotNull java.lang.String&nbsp;body,
                              @NotNull
                              @NotNull java.lang.String&nbsp;signature)</pre>
-<div class="block">Validates if hmac signature is correct for message body.</div>
+<div class="block">Validates if hmac signature is correct for the message body.
+
+ <p>Kept for backward compatibility. New integrations should call <a href="#verifyAndParseWebhook(@org.jetbrains.annotations.NotNullbyte%5B%5D,java.lang.String)"><code>verifyAndParseWebhook(byte[], String)</code></a> (or the SQS / SNS variants), which also handle gzip
+ payload compression.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>body</code> - raw body from http request converted to a string.</dd>
@@ -788,7 +865,7 @@ public static&nbsp;@NotNull <a href="App.DeletePushProviderRequest.html" title="
                                              @NotNull java.lang.String&nbsp;body,
                                              @NotNull
                                              @NotNull java.lang.String&nbsp;signature)</pre>
-<div class="block">Validates if hmac signature is correct for message body.</div>
+<div class="block">Validates if hmac signature is correct for message body. Backward-compatible alias for <a href="#verifySignature(@org.jetbrains.annotations.NotNullbyte%5B%5D,java.lang.String,java.lang.String)"><code>verifySignature(byte[], String, String)</code></a>.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>apiSecret</code> - the secret key</dd>
@@ -809,7 +886,8 @@ public static&nbsp;@NotNull <a href="App.DeletePushProviderRequest.html" title="
                                              @NotNull java.lang.String&nbsp;body,
                                              @NotNull
                                              @NotNull java.lang.String&nbsp;signature)</pre>
-<div class="block">Validates if hmac signature is correct for message body.</div>
+<div class="block">Validates if hmac signature is correct for the message body using the singleton client's API
+ secret.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>body</code> - the message body</dd>
@@ -817,6 +895,170 @@ public static&nbsp;@NotNull <a href="App.DeletePushProviderRequest.html" title="
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if the signature is valid</dd>
 </dl>
+</li>
+</ul>
+<a id="verifySignature(@org.jetbrains.annotations.NotNullbyte[],java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>verifySignature</h4>
+<pre class="methodSignature">public static&nbsp;boolean&nbsp;verifySignature&#8203;(@NotNull
+                                      @org.jetbrains.annotations.NotNull byte[]&nbsp;body,
+                                      @NotNull
+                                      @NotNull java.lang.String&nbsp;signature,
+                                      @NotNull
+                                      @NotNull java.lang.String&nbsp;secret)</pre>
+<div class="block">Constant-time HMAC-SHA256 verification of <code>signature</code> against the digest of <code>body</code>
+ using <code>secret</code> as the key.
+
+ <p>The signature is always computed over the <b>uncompressed</b> JSON bytes, so callers that
+ decoded a gzipped or base64-wrapped payload must pass the inflated bytes here.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>body</code> - the uncompressed body bytes</dd>
+<dd><code>signature</code> - the signature provided in <code>X-Signature</code></dd>
+<dd><code>secret</code> - the app's API secret</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the signature matches</dd>
+</dl>
+</li>
+</ul>
+<a id="gunzipPayload(@org.jetbrains.annotations.NotNullbyte[])">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>gunzipPayload</h4>
+<pre class="methodSignature">public static&nbsp;byte[]&nbsp;gunzipPayload&#8203;(@NotNull
+                                   @org.jetbrains.annotations.NotNull byte[]&nbsp;body)</pre>
+<div class="block">Returns <code>body</code> unchanged unless it starts with the gzip magic (<code>1f 8b</code>, per RFC
+ 1952), in which case the gzip stream is inflated and the decompressed bytes are returned.
+
+ <p>Magic-byte detection (rather than relying on a header) lets the same handler stay correct
+ when middleware auto-decompresses the request before your code sees it.</div>
+</li>
+</ul>
+<a id="decodeSqsPayload(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>decodeSqsPayload</h4>
+<pre class="methodSignature">public static&nbsp;byte[]&nbsp;decodeSqsPayload&#8203;(@NotNull
+                                      @NotNull java.lang.String&nbsp;body)</pre>
+<div class="block">Reverses the SQS firehose envelope: the message <code>Body</code> is base64-decoded and, when the
+ result begins with the gzip magic, it is gzip-decompressed. The same call works whether or not
+ Stream is currently compressing payloads.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>body</code> - the SQS message <code>Body</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the raw JSON bytes Stream signed</dd>
+</dl>
+</li>
+</ul>
+<a id="decodeSnsPayload(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>decodeSnsPayload</h4>
+<pre class="methodSignature">public static&nbsp;byte[]&nbsp;decodeSnsPayload&#8203;(@NotNull
+                                      @NotNull java.lang.String&nbsp;notificationBody)</pre>
+<div class="block">Reverses an SNS HTTP notification envelope. When <code>notificationBody</code> is a JSON envelope
+ (<code>{"Type":"Notification","Message":"..."}</code>), the inner <code>Message</code> field is extracted
+ and run through the SQS pipeline (base64-decode, then gzip-if-magic). When the input is not a
+ JSON envelope it is treated as the already-extracted <code>Message</code> string, so call sites that
+ pre-unwrap continue to work.</div>
+</li>
+</ul>
+<a id="parseEvent(@org.jetbrains.annotations.NotNullbyte[])">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>parseEvent</h4>
+<pre class="methodSignature">@NotNull
+public static&nbsp;@NotNull <a href="Event.html" title="class in io.getstream.chat.java.models">Event</a>&nbsp;parseEvent&#8203;(@NotNull
+                                        @org.jetbrains.annotations.NotNull byte[]&nbsp;payload)</pre>
+<div class="block">Parse a JSON-encoded webhook event into a typed <a href="Event.html" title="class in io.getstream.chat.java.models"><code>Event</code></a>. Unknown event types still parse
+ successfully because <a href="Event.html#getType()"><code>Event.getType()</code></a> is a free-form string; unknown nested fields and
+ unknown enum values are tolerated so the handler stays forward-compatible with new Stream
+ server releases.</div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../exceptions/InvalidWebhookError.html" title="class in io.getstream.chat.java.exceptions">InvalidWebhookError</a></code> - when the bytes are not valid JSON</dd>
+</dl>
+</li>
+</ul>
+<a id="verifyAndParseWebhook(@org.jetbrains.annotations.NotNullbyte[],java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>verifyAndParseWebhook</h4>
+<pre class="methodSignature">@NotNull
+public static&nbsp;@NotNull <a href="Event.html" title="class in io.getstream.chat.java.models">Event</a>&nbsp;verifyAndParseWebhook&#8203;(@NotNull
+                                                   @org.jetbrains.annotations.NotNull byte[]&nbsp;body,
+                                                   @NotNull
+                                                   @NotNull java.lang.String&nbsp;signature,
+                                                   @NotNull
+                                                   @NotNull java.lang.String&nbsp;secret)</pre>
+<div class="block">Decompresses <code>body</code> when gzipped, verifies the HMAC <code>signature</code>, and returns the
+ parsed <a href="Event.html" title="class in io.getstream.chat.java.models"><code>Event</code></a>. Works for HTTP webhooks regardless of whether payload compression is
+ enabled.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>body</code> - raw HTTP request body bytes Stream signed</dd>
+<dd><code>signature</code> - value of the <code>X-Signature</code> header</dd>
+<dd><code>secret</code> - the app's API secret</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the parsed event</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../exceptions/InvalidWebhookError.html" title="class in io.getstream.chat.java.exceptions">InvalidWebhookError</a></code> - when the signature does not match, the gzip envelope is malformed,
+     or the payload is not JSON</dd>
+</dl>
+</li>
+</ul>
+<a id="verifyAndParseWebhook(@org.jetbrains.annotations.NotNullbyte[],java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>verifyAndParseWebhook</h4>
+<pre class="methodSignature">@NotNull
+public static&nbsp;@NotNull <a href="Event.html" title="class in io.getstream.chat.java.models">Event</a>&nbsp;verifyAndParseWebhook&#8203;(@NotNull
+                                                   @org.jetbrains.annotations.NotNull byte[]&nbsp;body,
+                                                   @NotNull
+                                                   @NotNull java.lang.String&nbsp;signature)</pre>
+<div class="block">Singleton-secret overload: uses the API secret of the configured <a href="../services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework"><code>Client</code></a> singleton.</div>
+</li>
+</ul>
+<a id="parseSqs(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>parseSqs</h4>
+<pre class="methodSignature">@NotNull
+public static&nbsp;@NotNull <a href="Event.html" title="class in io.getstream.chat.java.models">Event</a>&nbsp;parseSqs&#8203;(@NotNull
+                                      @NotNull java.lang.String&nbsp;messageBody)</pre>
+<div class="block">Decode the SQS <code>Body</code> (base64, then gzip-if-magic) and return the parsed <a href="Event.html" title="class in io.getstream.chat.java.models"><code>Event</code></a>.
+ Stream does not HMAC-sign SQS message bodies.</div>
+</li>
+</ul>
+<a id="parseSns(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>parseSns</h4>
+<pre class="methodSignature">@NotNull
+public static&nbsp;@NotNull <a href="Event.html" title="class in io.getstream.chat.java.models">Event</a>&nbsp;parseSns&#8203;(@NotNull
+                                      @NotNull java.lang.String&nbsp;notificationBody)</pre>
+<div class="block">Decode an SNS-delivered payload (unwraps envelope JSON when needed) and return the parsed
+ <a href="Event.html" title="class in io.getstream.chat.java.models"><code>Event</code></a>. No HMAC verification.</div>
 </li>
 </ul>
 <a id="getApp()">

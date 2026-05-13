@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":18,"i2":6,"i3":6,"i4":1,"i5":6};
+var data = {"i0":6,"i1":18,"i2":6,"i3":6,"i4":1,"i5":18,"i6":18,"i7":6,"i8":18};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -175,9 +175,31 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i5" class="rowColor">
+<td class="colFirst"><code>default @NotNull <a href="../../models/Event.html" title="class in io.getstream.chat.java.models">Event</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parseSns(java.lang.String)">parseSns</a></span>&#8203;(@NotNull java.lang.String&nbsp;notificationBody)</code></th>
+<td class="colLast">
+<div class="block">Parse an SNS-delivered webhook body (unwrap envelope when needed).</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>default @NotNull <a href="../../models/Event.html" title="class in io.getstream.chat.java.models">Event</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parseSqs(java.lang.String)">parseSqs</a></span>&#8203;(@NotNull java.lang.String&nbsp;body)</code></th>
+<td class="colLast">
+<div class="block">Parse an SQS-delivered webhook body (decode only).</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTimeout(java.time.Duration)">setTimeout</a></span>&#8203;(@NotNull java.time.Duration&nbsp;timeoutDuration)</code></th>
 <td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>default @NotNull <a href="../../models/Event.html" title="class in io.getstream.chat.java.models">Event</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyAndParseWebhook(@org.jetbrains.annotations.NotNullbyte%5B%5D,java.lang.String)">verifyAndParseWebhook</a></span>&#8203;(@org.jetbrains.annotations.NotNull byte[]&nbsp;body,
+                     @NotNull java.lang.String&nbsp;signature)</code></th>
+<td class="colLast">
+<div class="block">Verify and parse an HTTP webhook event using this client's API secret.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -245,6 +267,70 @@ default&nbsp;&lt;TService&gt;&nbsp;TService&nbsp;create&#8203;(java.lang.Class&l
 <h4>setTimeout</h4>
 <pre class="methodSignature">void&nbsp;setTimeout&#8203;(@NotNull
                 @NotNull java.time.Duration&nbsp;timeoutDuration)</pre>
+</li>
+</ul>
+<a id="verifyAndParseWebhook(@org.jetbrains.annotations.NotNullbyte[],java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>verifyAndParseWebhook</h4>
+<pre class="methodSignature">@NotNull
+default&nbsp;@NotNull <a href="../../models/Event.html" title="class in io.getstream.chat.java.models">Event</a>&nbsp;verifyAndParseWebhook&#8203;(@NotNull
+                                             @org.jetbrains.annotations.NotNull byte[]&nbsp;body,
+                                             @NotNull
+                                             @NotNull java.lang.String&nbsp;signature)</pre>
+<div class="block">Verify and parse an HTTP webhook event using this client's API secret.
+
+ <p>Instance-method counterpart to <a href="../../models/App.html#verifyAndParseWebhook(@org.jetbrains.annotations.NotNullbyte%5B%5D,java.lang.String,java.lang.String)"><code>App.verifyAndParseWebhook(byte[], String, String)</code></a>;
+ the call site stays a two-argument one-liner because the secret comes from the client.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>body</code> - raw HTTP request body bytes Stream signed</dd>
+<dd><code>signature</code> - value of the <code>X-Signature</code> header</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>parsed <a href="../../models/Event.html" title="class in io.getstream.chat.java.models"><code>Event</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="parseSqs(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>parseSqs</h4>
+<pre class="methodSignature">@NotNull
+default&nbsp;@NotNull <a href="../../models/Event.html" title="class in io.getstream.chat.java.models">Event</a>&nbsp;parseSqs&#8203;(@NotNull
+                                @NotNull java.lang.String&nbsp;body)</pre>
+<div class="block">Parse an SQS-delivered webhook body (decode only).
+
+ <p>Instance-method counterpart to <a href="../../models/App.html#parseSqs(java.lang.String)"><code>App.parseSqs(String)</code></a>.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>body</code> - SQS message <code>Body</code> string</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>parsed <a href="../../models/Event.html" title="class in io.getstream.chat.java.models"><code>Event</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="parseSns(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>parseSns</h4>
+<pre class="methodSignature">@NotNull
+default&nbsp;@NotNull <a href="../../models/Event.html" title="class in io.getstream.chat.java.models">Event</a>&nbsp;parseSns&#8203;(@NotNull
+                                @NotNull java.lang.String&nbsp;notificationBody)</pre>
+<div class="block">Parse an SNS-delivered webhook body (unwrap envelope when needed).
+
+ <p>Instance-method counterpart to <a href="../../models/App.html#parseSns(java.lang.String)"><code>App.parseSns(String)</code></a>.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>notificationBody</code> - raw SNS POST body or pre-extracted <code>Message</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>parsed <a href="../../models/Event.html" title="class in io.getstream.chat.java.models"><code>Event</code></a></dd>
+</dl>
 </li>
 </ul>
 <a id="getInstance()">

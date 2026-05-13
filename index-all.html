@@ -2817,6 +2817,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/User.OwnUserRequestObject.OwnUserRequestObjectBuilder.html#deactivatedAt(java.util.Date)">deactivatedAt(Date)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/User.OwnUserRequestObject.OwnUserRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">User.OwnUserRequestObject.OwnUserRequestObjectBuilder</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.html#decodeSnsPayload(java.lang.String)">decodeSnsPayload(String)</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.html" title="class in io.getstream.chat.java.models">App</a></dt>
+<dd>
+<div class="block">Reverses an SNS HTTP notification envelope.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.html#decodeSqsPayload(java.lang.String)">decodeSqsPayload(String)</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.html" title="class in io.getstream.chat.java.models">App</a></dt>
+<dd>
+<div class="block">Reverses the SQS firehose envelope: the message <code>Body</code> is base64-decoded and, when the
+ result begins with the gzip magic, it is gzip-decompressed.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/HttpLoggingInterceptor.Logger.html#DEFAULT">DEFAULT</a></span> - Static variable in interface io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/HttpLoggingInterceptor.Logger.html" title="interface in io.getstream.chat.java.services.framework">HttpLoggingInterceptor.Logger</a></dt>
 <dd>
 <div class="block">A <a href="io/getstream/chat/java/services/framework/HttpLoggingInterceptor.Logger.html" title="interface in io.getstream.chat.java.services.framework"><code>HttpLoggingInterceptor.Logger</code></a> defaults output appropriate for the current platform.</div>
@@ -8981,6 +8990,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Moderation.GetModerationAnalyticsRequestData.GetModerationAnalyticsRequest.html#groupBy(java.util.List)">groupBy(List&lt;String&gt;)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Moderation.GetModerationAnalyticsRequestData.GetModerationAnalyticsRequest.html" title="class in io.getstream.chat.java.models">Moderation.GetModerationAnalyticsRequestData.GetModerationAnalyticsRequest</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.html#gunzipPayload(@org.jetbrains.annotations.NotNullbyte%5B%5D)">gunzipPayload(@org.jetbrains.annotations.NotNull byte[])</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.html" title="class in io.getstream.chat.java.models">App</a></dt>
+<dd>
+<div class="block">Returns <code>body</code> unchanged unless it starts with the gzip magic (<code>1f 8b</code>, per RFC
+ 1952), in which case the gzip stream is inflated and the decompressed bytes are returned.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/exceptions/InvalidWebhookError.html#GZIP_FAILED">GZIP_FAILED</a></span> - Static variable in exception io.getstream.chat.java.exceptions.<a href="io/getstream/chat/java/exceptions/InvalidWebhookError.html" title="class in io.getstream.chat.java.exceptions">InvalidWebhookError</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <a id="I:H">
 <!--   -->
@@ -10331,6 +10347,19 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/User.UserUpsertRequestData.UserUpsertRequest.html#internalBuild()">internalBuild()</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/User.UserUpsertRequestData.UserUpsertRequest.html" title="class in io.getstream.chat.java.models">User.UserUpsertRequestData.UserUpsertRequest</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/exceptions/InvalidWebhookError.html#INVALID_BASE64">INVALID_BASE64</a></span> - Static variable in exception io.getstream.chat.java.exceptions.<a href="io/getstream/chat/java/exceptions/InvalidWebhookError.html" title="class in io.getstream.chat.java.exceptions">InvalidWebhookError</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/exceptions/InvalidWebhookError.html#INVALID_JSON">INVALID_JSON</a></span> - Static variable in exception io.getstream.chat.java.exceptions.<a href="io/getstream/chat/java/exceptions/InvalidWebhookError.html" title="class in io.getstream.chat.java.exceptions">InvalidWebhookError</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/getstream/chat/java/exceptions/InvalidWebhookError.html" title="class in io.getstream.chat.java.exceptions"><span class="typeNameLink">InvalidWebhookError</span></a> - Exception in <a href="io/getstream/chat/java/exceptions/package-summary.html">io.getstream.chat.java.exceptions</a></dt>
+<dd>
+<div class="block">Raised by every webhook ingestion primitive when the request cannot be safely turned into a typed
+ event.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/exceptions/InvalidWebhookError.html#%3Cinit%3E(java.lang.String)">InvalidWebhookError(String)</a></span> - Constructor for exception io.getstream.chat.java.exceptions.<a href="io/getstream/chat/java/exceptions/InvalidWebhookError.html" title="class in io.getstream.chat.java.exceptions">InvalidWebhookError</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/exceptions/InvalidWebhookError.html#%3Cinit%3E(java.lang.String,java.lang.Throwable)">InvalidWebhookError(String, Throwable)</a></span> - Constructor for exception io.getstream.chat.java.exceptions.<a href="io/getstream/chat/java/exceptions/InvalidWebhookError.html" title="class in io.getstream.chat.java.exceptions">InvalidWebhookError</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/User.OwnUserRequestObject.OwnUserRequestObjectBuilder.html#invisible(java.lang.Boolean)">invisible(Boolean)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/User.OwnUserRequestObject.OwnUserRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">User.OwnUserRequestObject.OwnUserRequestObjectBuilder</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html#invite(io.getstream.chat.java.models.Channel.ChannelMemberRequestObject)">invite(Channel.ChannelMemberRequestObject)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Channel.ChannelRequestObject.ChannelRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Channel.ChannelRequestObject.ChannelRequestObjectBuilder</a></dt>
@@ -11407,6 +11436,27 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Channel.ParsedPredefinedFilterResponse.html#%3Cinit%3E()">ParsedPredefinedFilterResponse()</a></span> - Constructor for class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Channel.ParsedPredefinedFilterResponse.html" title="class in io.getstream.chat.java.models">Channel.ParsedPredefinedFilterResponse</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.html#parseEvent(@org.jetbrains.annotations.NotNullbyte%5B%5D)">parseEvent(@org.jetbrains.annotations.NotNull byte[])</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.html" title="class in io.getstream.chat.java.models">App</a></dt>
+<dd>
+<div class="block">Parse a JSON-encoded webhook event into a typed <a href="io/getstream/chat/java/models/Event.html" title="class in io.getstream.chat.java.models"><code>Event</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.html#parseSns(java.lang.String)">parseSns(String)</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.html" title="class in io.getstream.chat.java.models">App</a></dt>
+<dd>
+<div class="block">Decode an SNS-delivered payload (unwraps envelope JSON when needed) and return the parsed
+ <a href="io/getstream/chat/java/models/Event.html" title="class in io.getstream.chat.java.models"><code>Event</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/Client.html#parseSns(java.lang.String)">parseSns(String)</a></span> - Method in interface io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a></dt>
+<dd>
+<div class="block">Parse an SNS-delivered webhook body (unwrap envelope when needed).</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.html#parseSqs(java.lang.String)">parseSqs(String)</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.html" title="class in io.getstream.chat.java.models">App</a></dt>
+<dd>
+<div class="block">Decode the SQS <code>Body</code> (base64, then gzip-if-magic) and return the parsed <a href="io/getstream/chat/java/models/Event.html" title="class in io.getstream.chat.java.models"><code>Event</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/Client.html#parseSqs(java.lang.String)">parseSqs(String)</a></span> - Method in interface io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a></dt>
+<dd>
+<div class="block">Parse an SQS-delivered webhook body (decode only).</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/User.html#partialUpdate()">partialUpdate()</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/User.html" title="class in io.getstream.chat.java.models">User</a></dt>
 <dd>
 <div class="block">Creates a partial update request</div>
@@ -14795,6 +14845,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.MessageRequestObject.MessageRequestObjectBuilder.html#showInChannel(java.lang.Boolean)">showInChannel(Boolean)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.MessageRequestObject.MessageRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Message.MessageRequestObject.MessageRequestObjectBuilder</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/exceptions/InvalidWebhookError.html#SIGNATURE_MISMATCH">SIGNATURE_MISMATCH</a></span> - Static variable in exception io.getstream.chat.java.exceptions.<a href="io/getstream/chat/java/exceptions/InvalidWebhookError.html" title="class in io.getstream.chat.java.exceptions">InvalidWebhookError</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/Message.MessageRequestObject.MessageRequestObjectBuilder.html#silent(java.lang.Boolean)">silent(Boolean)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/Message.MessageRequestObject.MessageRequestObjectBuilder.html" title="class in io.getstream.chat.java.models">Message.MessageRequestObject.MessageRequestObjectBuilder</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/ChannelType.AutoMod.html#SIMPLE">SIMPLE</a></span> - io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/ChannelType.AutoMod.html" title="enum in io.getstream.chat.java.models">ChannelType.AutoMod</a></dt>
@@ -17180,13 +17232,32 @@ the order they are declared.</div>
 <div class="block">Returns an array containing the constants of this enum type, in
 the order they are declared.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.html#verifyAndParseWebhook(@org.jetbrains.annotations.NotNullbyte%5B%5D,java.lang.String)">verifyAndParseWebhook(@org.jetbrains.annotations.NotNull byte[], String)</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.html" title="class in io.getstream.chat.java.models">App</a></dt>
+<dd>
+<div class="block">Singleton-secret overload: uses the API secret of the configured <a href="io/getstream/chat/java/services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework"><code>Client</code></a> singleton.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/services/framework/Client.html#verifyAndParseWebhook(@org.jetbrains.annotations.NotNullbyte%5B%5D,java.lang.String)">verifyAndParseWebhook(@org.jetbrains.annotations.NotNull byte[], String)</a></span> - Method in interface io.getstream.chat.java.services.framework.<a href="io/getstream/chat/java/services/framework/Client.html" title="interface in io.getstream.chat.java.services.framework">Client</a></dt>
+<dd>
+<div class="block">Verify and parse an HTTP webhook event using this client's API secret.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.html#verifyAndParseWebhook(@org.jetbrains.annotations.NotNullbyte%5B%5D,java.lang.String,java.lang.String)">verifyAndParseWebhook(@org.jetbrains.annotations.NotNull byte[], String, String)</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.html" title="class in io.getstream.chat.java.models">App</a></dt>
+<dd>
+<div class="block">Decompresses <code>body</code> when gzipped, verifies the HMAC <code>signature</code>, and returns the
+ parsed <a href="io/getstream/chat/java/models/Event.html" title="class in io.getstream.chat.java.models"><code>Event</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.html#verifySignature(@org.jetbrains.annotations.NotNullbyte%5B%5D,java.lang.String,java.lang.String)">verifySignature(@org.jetbrains.annotations.NotNull byte[], String, String)</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.html" title="class in io.getstream.chat.java.models">App</a></dt>
+<dd>
+<div class="block">Constant-time HMAC-SHA256 verification of <code>signature</code> against the digest of <code>body</code>
+ using <code>secret</code> as the key.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.html#verifyWebhook(java.lang.String,java.lang.String)">verifyWebhook(String, String)</a></span> - Method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.html" title="class in io.getstream.chat.java.models">App</a></dt>
 <dd>
-<div class="block">Validates if hmac signature is correct for message body.</div>
+<div class="block">Validates if hmac signature is correct for the message body.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.html#verifyWebhookSignature(java.lang.String,java.lang.String)">verifyWebhookSignature(String, String)</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.html" title="class in io.getstream.chat.java.models">App</a></dt>
 <dd>
-<div class="block">Validates if hmac signature is correct for message body.</div>
+<div class="block">Validates if hmac signature is correct for the message body using the singleton client's API
+ secret.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="io/getstream/chat/java/models/App.html#verifyWebhookSignature(java.lang.String,java.lang.String,java.lang.String)">verifyWebhookSignature(String, String, String)</a></span> - Static method in class io.getstream.chat.java.models.<a href="io/getstream/chat/java/models/App.html" title="class in io.getstream.chat.java.models">App</a></dt>
 <dd>
