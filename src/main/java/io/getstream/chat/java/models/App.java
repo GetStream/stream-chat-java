@@ -1,14 +1,21 @@
 package io.getstream.chat.java.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.util.StdDateFormat;
+import io.getstream.chat.java.exceptions.InvalidWebhookError;
 import io.getstream.chat.java.models.App.AppCheckPushRequestData.AppCheckPushRequest;
 import io.getstream.chat.java.models.App.AppCheckSnsRequestData.AppCheckSnsRequest;
 import io.getstream.chat.java.models.App.AppCheckSqsRequestData.AppCheckSqsRequest;
@@ -22,14 +29,21 @@ import io.getstream.chat.java.models.framework.StreamResponse;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.AppService;
 import io.getstream.chat.java.services.framework.Client;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.Key;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
+import java.util.zip.GZIPInputStream;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import lombok.*;
@@ -586,7 +600,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class AsyncModerationCallback {
     @Nullable
     @JsonProperty("mode")
@@ -599,7 +613,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class AsyncModerationConfigRequestObject {
     @Nullable
     @JsonProperty("callback")
@@ -612,7 +626,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class FileUploadConfigRequestObject {
 
     @Nullable
@@ -644,7 +658,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class APNConfigRequestObject {
     @Nullable
     @JsonProperty("development")
@@ -690,7 +704,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class FirebaseConfigRequestObject {
     @Nullable
     @JsonProperty("server_key")
@@ -720,7 +734,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class HuaweiConfigRequestObject {
     @Nullable
     @JsonProperty("id")
@@ -733,7 +747,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class PushConfigRequestObject {
     @Nullable
     @JsonProperty("version")
@@ -764,7 +778,7 @@ public class App extends StreamResponseObject {
   }
 
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class DeletePushProviderRequest extends StreamRequest<StreamResponseObject> {
     private String providerType;
     private String name;
@@ -785,7 +799,7 @@ public class App extends StreamResponseObject {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class AppUpdateRequestData {
     @Nullable
     @JsonProperty("disable_auth_checks")
@@ -976,7 +990,7 @@ public class App extends StreamResponseObject {
 
   @Builder
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   @NoArgsConstructor
   @AllArgsConstructor
   public static class AppGetRateLimitsRequest extends StreamRequest<AppGetRateLimitsResponse> {
@@ -1008,7 +1022,7 @@ public class App extends StreamResponseObject {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class AppCheckSqsRequestData {
     @Nullable
     @JsonProperty("sqs_url")
@@ -1035,7 +1049,7 @@ public class App extends StreamResponseObject {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class AppCheckSnsRequestData {
     @Nullable
     @JsonProperty("sns_topic_arn")
@@ -1062,7 +1076,7 @@ public class App extends StreamResponseObject {
       builderMethodName = "",
       buildMethodName = "internalBuild")
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class AppCheckPushRequestData {
     @Nullable
     @JsonProperty("message_id")
@@ -1110,7 +1124,7 @@ public class App extends StreamResponseObject {
 
   @AllArgsConstructor
   @Getter
-  @EqualsAndHashCode(callSuper = false)
+  @EqualsAndHashCode
   public static class AppRevokeTokensRequest extends StreamRequest<StreamResponseObject> {
     @Nullable private Date revokeTokensIssuedBefore;
 
@@ -1440,7 +1454,11 @@ public class App extends StreamResponseObject {
   }
 
   /**
-   * Validates if hmac signature is correct for message body.
+   * Validates if hmac signature is correct for the message body.
+   *
+   * <p>Kept for backward compatibility. New integrations should call {@link
+   * #verifyAndParseWebhook(byte[], String)} (or the SQS / SNS variants), which also handle gzip
+   * payload compression.
    *
    * @param body raw body from http request converted to a string.
    * @param signature the signature provided in X-Signature header
@@ -1451,7 +1469,8 @@ public class App extends StreamResponseObject {
   }
 
   /**
-   * Validates if hmac signature is correct for message body.
+   * Validates if hmac signature is correct for message body. Backward-compatible alias for {@link
+   * #verifySignature(byte[], String, String)}.
    *
    * @param apiSecret the secret key
    * @param body raw body from http request converted to a string.
@@ -1460,12 +1479,44 @@ public class App extends StreamResponseObject {
    */
   public static boolean verifyWebhookSignature(
       @NotNull String apiSecret, @NotNull String body, @NotNull String signature) {
+    return verifySignature(body.getBytes(StandardCharsets.UTF_8), signature, apiSecret);
+  }
+
+  /**
+   * Validates if hmac signature is correct for the message body using the singleton client's API
+   * secret.
+   *
+   * @param body the message body
+   * @param signature the signature provided in X-Signature header
+   * @return true if the signature is valid
+   */
+  public static boolean verifyWebhookSignature(@NotNull String body, @NotNull String signature) {
+    return verifySignature(
+        body.getBytes(StandardCharsets.UTF_8), signature, Client.getInstance().getApiSecret());
+  }
+
+  /**
+   * Constant-time HMAC-SHA256 verification of {@code signature} against the digest of {@code body}
+   * using {@code secret} as the key.
+   *
+   * <p>The signature is always computed over the <b>uncompressed</b> JSON bytes, so callers that
+   * decoded a gzipped or base64-wrapped payload must pass the inflated bytes here.
+   *
+   * @param body the uncompressed body bytes
+   * @param signature the signature provided in {@code X-Signature}
+   * @param secret the app's API secret
+   * @return true if the signature matches
+   */
+  public static boolean verifySignature(
+      @NotNull byte[] body, @NotNull String signature, @NotNull String secret) {
     try {
-      Key sk = new SecretKeySpec(apiSecret.getBytes(), "HmacSHA256");
+      Key sk = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
       Mac mac = Mac.getInstance(sk.getAlgorithm());
       mac.init(sk);
-      final byte[] hmac = mac.doFinal(body.getBytes(StandardCharsets.UTF_8));
-      return bytesToHex(hmac).equals(signature);
+      final byte[] hmac = mac.doFinal(body);
+      return MessageDigest.isEqual(
+          bytesToHex(hmac).getBytes(StandardCharsets.UTF_8),
+          signature.getBytes(StandardCharsets.UTF_8));
     } catch (NoSuchAlgorithmException e) {
       throw new IllegalStateException("Should not happen. Could not find HmacSHA256", e);
     } catch (InvalidKeyException e) {
@@ -1473,16 +1524,171 @@ public class App extends StreamResponseObject {
     }
   }
 
+  private static final byte[] GZIP_MAGIC = new byte[] {0x1f, (byte) 0x8b};
+
   /**
-   * Validates if hmac signature is correct for message body.
+   * Returns {@code body} unchanged unless it starts with the gzip magic ({@code 1f 8b}, per RFC
+   * 1952), in which case the gzip stream is inflated and the decompressed bytes are returned.
    *
-   * @param body the message body
-   * @param signature the signature provided in X-Signature header
-   * @return true if the signature is valid
+   * <p>Magic-byte detection (rather than relying on a header) lets the same handler stay correct
+   * when middleware auto-decompresses the request before your code sees it.
    */
-  public static boolean verifyWebhookSignature(@NotNull String body, @NotNull String signature) {
-    String apiSecret = Client.getInstance().getApiSecret();
-    return verifyWebhookSignature(apiSecret, body, signature);
+  public static byte[] gunzipPayload(@NotNull byte[] body) {
+    if (body.length < 2 || body[0] != GZIP_MAGIC[0] || body[1] != GZIP_MAGIC[1]) {
+      return body;
+    }
+    try (GZIPInputStream in = new GZIPInputStream(new ByteArrayInputStream(body))) {
+      return readAll(in);
+    } catch (IOException e) {
+      throw new InvalidWebhookError(InvalidWebhookError.GZIP_FAILED, e);
+    }
+  }
+
+  /**
+   * Reverses the SQS firehose envelope: the message {@code Body} is base64-decoded and, when the
+   * result begins with the gzip magic, it is gzip-decompressed. The same call works whether or not
+   * Stream is currently compressing payloads.
+   *
+   * @param body the SQS message {@code Body}
+   * @return the raw JSON bytes Stream signed
+   */
+  public static byte[] decodeSqsPayload(@NotNull String body) {
+    byte[] decoded;
+    try {
+      decoded = Base64.getDecoder().decode(body);
+    } catch (IllegalArgumentException e) {
+      throw new InvalidWebhookError(InvalidWebhookError.INVALID_BASE64, e);
+    }
+    return gunzipPayload(decoded);
+  }
+
+  /**
+   * Reverses an SNS HTTP notification envelope. When {@code notificationBody} is a JSON envelope
+   * ({@code {"Type":"Notification","Message":"..."}}), the inner {@code Message} field is extracted
+   * and run through the SQS pipeline (base64-decode, then gzip-if-magic). When the input is not a
+   * JSON envelope it is treated as the already-extracted {@code Message} string, so call sites that
+   * pre-unwrap continue to work.
+   */
+  public static byte[] decodeSnsPayload(@NotNull String notificationBody) {
+    String inner = extractSnsMessage(notificationBody);
+    return decodeSqsPayload(inner != null ? inner : notificationBody);
+  }
+
+  /**
+   * Returns the inner {@code Message} field of an SNS HTTP notification envelope, or {@code null}
+   * when the input is not a JSON object that contains a {@code Message} string.
+   */
+  private static String extractSnsMessage(@NotNull String notificationBody) {
+    int i = 0;
+    while (i < notificationBody.length() && Character.isWhitespace(notificationBody.charAt(i))) {
+      i++;
+    }
+    if (i >= notificationBody.length() || notificationBody.charAt(i) != '{') {
+      return null;
+    }
+    try {
+      JsonNode parsed = WEBHOOK_OBJECT_MAPPER.readTree(notificationBody);
+      if (parsed == null || !parsed.isObject()) {
+        return null;
+      }
+      JsonNode message = parsed.get("Message");
+      return message != null && message.isTextual() ? message.asText() : null;
+    } catch (IOException e) {
+      return null;
+    }
+  }
+
+  /**
+   * Shared {@link ObjectMapper} for webhook payload deserialization. Configured to match the
+   * Retrofit mapper in {@code DefaultClient}: tolerant of unknown JSON properties and unknown enum
+   * values, with the Stream-side ISO-8601 date format. This makes a webhook handler accept new
+   * fields / enum values added server-side without redeploys, and gives {@link Event} the same date
+   * parsing behavior as the rest of the SDK.
+   */
+  private static final ObjectMapper WEBHOOK_OBJECT_MAPPER = buildWebhookObjectMapper();
+
+  private static ObjectMapper buildWebhookObjectMapper() {
+    final ObjectMapper mapper = new ObjectMapper();
+    mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
+    mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    mapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
+    mapper.setDateFormat(
+        new StdDateFormat().withColonInTimeZone(true).withTimeZone(TimeZone.getTimeZone("UTC")));
+    return mapper;
+  }
+
+  /**
+   * Parse a JSON-encoded webhook event into a typed {@link Event}. Unknown event types still parse
+   * successfully because {@link Event#getType()} is a free-form string; unknown nested fields and
+   * unknown enum values are tolerated so the handler stays forward-compatible with new Stream
+   * server releases.
+   *
+   * @throws InvalidWebhookError when the bytes are not valid JSON
+   */
+  public static @NotNull Event parseEvent(@NotNull byte[] payload) {
+    try {
+      return WEBHOOK_OBJECT_MAPPER.readValue(payload, Event.class);
+    } catch (IOException e) {
+      throw new InvalidWebhookError(InvalidWebhookError.INVALID_JSON, e);
+    }
+  }
+
+  private static @NotNull Event verifyAndParseInternal(
+      @NotNull byte[] payload, @NotNull String signature, @NotNull String secret) {
+    if (!verifySignature(payload, signature, secret)) {
+      throw new InvalidWebhookError(InvalidWebhookError.SIGNATURE_MISMATCH);
+    }
+    return parseEvent(payload);
+  }
+
+  /**
+   * Decompresses {@code body} when gzipped, verifies the HMAC {@code signature}, and returns the
+   * parsed {@link Event}. Works for HTTP webhooks regardless of whether payload compression is
+   * enabled.
+   *
+   * @param body raw HTTP request body bytes Stream signed
+   * @param signature value of the {@code X-Signature} header
+   * @param secret the app's API secret
+   * @return the parsed event
+   * @throws InvalidWebhookError when the signature does not match, the gzip envelope is malformed,
+   *     or the payload is not JSON
+   */
+  public static @NotNull Event verifyAndParseWebhook(
+      @NotNull byte[] body, @NotNull String signature, @NotNull String secret) {
+    return verifyAndParseInternal(gunzipPayload(body), signature, secret);
+  }
+
+  /** Singleton-secret overload: uses the API secret of the configured {@link Client} singleton. */
+  public static @NotNull Event verifyAndParseWebhook(
+      @NotNull byte[] body, @NotNull String signature) {
+    return verifyAndParseWebhook(body, signature, Client.getInstance().getApiSecret());
+  }
+
+  /**
+   * Decode the SQS {@code Body} (base64, then gzip-if-magic) and return the parsed {@link Event}.
+   * Stream does not HMAC-sign SQS message bodies.
+   */
+  public static @NotNull Event parseSqs(@NotNull String messageBody) {
+    return parseEvent(decodeSqsPayload(messageBody));
+  }
+
+  /**
+   * Decode an SNS-delivered payload (unwraps envelope JSON when needed) and return the parsed
+   * {@link Event}. No HMAC verification.
+   */
+  public static @NotNull Event parseSns(@NotNull String notificationBody) {
+    return parseEvent(decodeSnsPayload(notificationBody));
+  }
+
+  private static byte[] readAll(InputStream in) throws IOException {
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    byte[] buf = new byte[4096];
+    int n;
+    while ((n = in.read(buf)) != -1) {
+      out.write(buf, 0, n);
+    }
+    return out.toByteArray();
   }
 
   private static String bytesToHex(byte[] hash) {

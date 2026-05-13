@@ -85,7 +85,57 @@ All webhook requests contain these headers:
 | X-Webhook-Attempt | Number of webhook request attempt starting from 1                                                                    | 1                                                                |
 | X-Api-Key         | Your application’s API key. Should be used to validate request signature                                             | a1b23cdefgh4                                                     |
 | X-Signature       | HMAC signature of the request body. See Signature section                                                            | ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb |
+| Content-Encoding  | Compression algorithm applied to the request body. Only set when webhook compression is enabled on the app           | `gzip`                                                           |
 
+### Compressed webhook bodies
+
+GZIP compression can be enabled for hooks payloads from the Dashboard. Enabling compression reduces the payload size significantly (often 70–90% smaller) reducing your bandwidth usage on Stream. The computation overhead introduced by the decompression step is usually negligible and offset by the much smaller payload.
+
+When payload compression is enabled, webhook HTTP requests will include the `Content-Encoding: gzip` header and the request body will be compressed with GZIP. Some HTTP servers and middleware (Rails, Django, Laravel, Spring Boot, ASP.NET) handle this transparently and strip the header before your handler runs — in that case the body you see is already raw JSON.
+
+Before enabling compression, make sure that:
+
+* Your backend integration is using a recent version of our official SDKs with compression support
+* If you don't use an official SDK, make sure that your code supports receiving compressed payloads
+* The payload signature check is done on the **uncompressed** payload
+
+Use `App.verifyAndParseWebhook` to handle decompression, signature verification, and JSON parsing in a single call. It returns a typed `Event`:
+
+```java
+// rawBody — bytes read straight from the HTTP request body
+// signature — value of the X-Signature header
+// apiSecret — your app's API secret
+Event event = App.verifyAndParseWebhook(rawBody, signature, apiSecret);
+```
+
+Or, if you already have a configured client, call the instance overload (it picks up the secret from the client):
+
+```java
+Event event = client.verifyAndParseWebhook(rawBody, signature);
+```
+
+If you prefer to handle the steps yourself, the primitives are also exposed:
+
+```java
+byte[] json = App.gunzipPayload(rawBody); // pass-through when the bytes aren't gzipped
+boolean valid = App.verifySignature(json, signature, apiSecret);
+Event event = App.parseEvent(json);
+```
+
+Detection is done via the gzip magic bytes (`1f 8b`, per RFC 1952), so the same helper stays correct whether or not your HTTP server already decompressed the body for you. Any non-gzip body is passed through unchanged. `gunzipPayload`, `decodeSqsPayload`, `decodeSnsPayload`, `parseEvent`, and `verifyAndParseWebhook` raise `InvalidWebhookException` on failure paths that involve those primitives. `parseSqs` / `parseSns` decode and parse only (no HMAC) — they raise the same exception class for malformed base64, gzip, or JSON.
+
+#### SQS / SNS payloads
+
+The same gzip + base64 wire format applies. Pass the SQS message `Body` string, or the SNS notification body (full JSON envelope or pre-extracted `Message`). Stream does **not** ship an application-level `X-Signature` on these channels — IAM and AWS SNS authenticity cover the transport.
+
+```java
+// SQS Body (string)
+Event event = client.parseSqs(message.body());
+// SNS: envelope or Message field
+event = client.parseSns(notificationBody);
+```
+
+Instance methods delegate to `App.parseSqs` / `App.parseSns` — no API secret is used for decoding.
 ## Webhook types
 
 In addition to the above there are 3 special webhooks.
