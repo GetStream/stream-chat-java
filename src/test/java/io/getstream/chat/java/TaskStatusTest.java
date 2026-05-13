@@ -20,12 +20,17 @@ public class TaskStatusTest extends BasicTest {
 
           var cids = List.of(ch1.getCId(), ch2.getCId());
           var taskId = Channel.deleteMany(cids).request().getTaskId();
+          // Shared CI test app: asynq queue can be backed up under load — the
+          // default 5s waitFor is routinely too short. 5 minutes leaves real
+          // headroom without masking a stuck task.
           waitFor(
               () -> {
                 var taskStatusResponse =
                     Assertions.assertDoesNotThrow(() -> TaskStatus.get(taskId).request());
                 return "completed".equals(taskStatusResponse.getStatus());
-              });
+              },
+              1000L,
+              300000L);
         });
   }
 }
