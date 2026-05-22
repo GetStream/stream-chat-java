@@ -317,6 +317,10 @@ public class App extends StreamResponseObject {
     private String beforeMessageSendHookUrl;
 
     @Nullable
+    @JsonProperty("before_message_send_hook_attempt_timeout_ms")
+    private Integer beforeMessageSendHookAttemptTimeoutMs;
+
+    @Nullable
     @JsonProperty("auto_translation_enabled")
     private Boolean autoTranslationEnabled;
 
@@ -870,6 +874,11 @@ public class App extends StreamResponseObject {
     @JsonProperty("before_message_send_hook_url")
     @JsonInclude(Include.NON_NULL)
     private String beforeMessageSendHookUrl;
+
+    @Nullable
+    @JsonProperty("before_message_send_hook_attempt_timeout_ms")
+    @JsonInclude(Include.NON_NULL)
+    private Integer beforeMessageSendHookAttemptTimeoutMs;
 
     @Nullable
     @JsonProperty("auto_translation_enabled")
