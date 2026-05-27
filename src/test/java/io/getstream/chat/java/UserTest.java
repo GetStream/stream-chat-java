@@ -33,17 +33,17 @@ public class UserTest extends BasicTest {
   /**
    * Clear zombie bans left over from prior CI runs that died before their cleanup could fire.
    * {@code User.queryBanned().request()} returns a paginated slice; once enough bans accumulate on
-   * the shared test app, the just-created ban under test ends up past the first page and the {@code
-   * assertTrue(bans.stream().anyMatch(...))} assertion fails. Best-effort sweep.
+   * the shared test app, every page reads back the same zombies and the {@link #findBanFor} lookup
+   * still has to wade through them. Best-effort sweep: regular, shadow, and channel-scoped bans are
+   * each unbanned with the right qualifiers so the queue actually drains.
    */
   @BeforeAll
   static void cleanupLeftoverBans() {
-    // queryBanned() returns a paginated slice, so a single pass only clears
-    // the first page. Loop until either the response is empty or we stop
-    // making progress; cap iterations to avoid running forever against a
-    // poisoned app.
-    Set<String> seen = new HashSet<>();
-    for (int round = 0; round < 20; round++) {
+    // The same (userId, shadow, channelCid) triple is only attempted once across
+    // rounds; we keep looping as long as we're still removing something so the
+    // shared CI app eventually drains regardless of how it was poisoned.
+    Set<String> tried = new HashSet<>();
+    for (int round = 0; round < 50; round++) {
       List<Ban> bans;
       try {
         bans = User.queryBanned().request().getBans();
@@ -55,15 +55,59 @@ public class UserTest extends BasicTest {
       for (var ban : bans) {
         if (ban.getUser() == null || ban.getUser().getId() == null) continue;
         String id = ban.getUser().getId();
-        if (!seen.add(id)) continue;
+        boolean shadow = Boolean.TRUE.equals(ban.getShadow());
+        Channel channel = ban.getChannel();
+        String key = id + "|" + shadow + "|" + (channel == null ? "" : channel.getCId());
+        if (!tried.add(key)) continue;
         try {
-          User.unban(id).request();
+          var req = User.unban(id);
+          if (shadow) req.shadow(true);
+          if (channel != null) req.type(channel.getType()).id(channel.getId());
+          req.request();
           unbannedThisRound++;
         } catch (StreamException ignored) {
           // In-use or already-deleted; skip.
         }
       }
       if (unbannedThisRound == 0) return; // No progress; bail.
+    }
+  }
+
+  /**
+   * Look up the current ban for a specific user via {@code query_banned_users} filtered by {@code
+   * user_id}. Returns an empty {@link Optional} when the user has no recorded ban.
+   *
+   * <p>Used by the moderation tests so their assertions do not depend on which slice of the global
+   * ban list happens to come back on the first page of the shared CI app.
+   */
+  private static Optional<Ban> findBanFor(String userId) {
+    try {
+      return User.queryBanned()
+          .filterCondition("user_id", Map.of("$eq", userId))
+          .request()
+          .getBans()
+          .stream()
+          .filter(ban -> ban.getUser() != null && userId.equals(ban.getUser().getId()))
+          .findFirst();
+    } catch (StreamException e) {
+      return Optional.empty();
+    }
+  }
+
+  /**
+   * Remove any app-wide ban for {@code userId}, regular or shadow. Errors are swallowed so callers
+   * can use this from a {@code finally} block without masking a real test failure.
+   */
+  private static void bestEffortUnban(String userId) {
+    try {
+      User.unban(userId).request();
+    } catch (StreamException ignored) {
+      // Best-effort cleanup; ignore.
+    }
+    try {
+      User.unban(userId).shadow(true).request();
+    } catch (StreamException ignored) {
+      // Best-effort cleanup; ignore.
     }
   }
 
@@ -225,8 +269,11 @@ public class UserTest extends BasicTest {
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     Assertions.assertDoesNotThrow(
         () -> User.ban().userId(testUserRequestObject.getId()).targetUserId(userId).request());
-    List<Ban> bans = Assertions.assertDoesNotThrow(() -> User.queryBanned().request()).getBans();
-    Assertions.assertTrue(bans.stream().anyMatch(ban -> ban.getUser().getId().equals(userId)));
+    try {
+      Assertions.assertTrue(findBanFor(userId).isPresent(), "Expected ban for user " + userId);
+    } finally {
+      bestEffortUnban(userId);
+    }
   }
 
   @DisplayName("Can ban user with delete reactions")
@@ -244,8 +291,11 @@ public class UserTest extends BasicTest {
                 .targetUserId(userId)
                 .deleteReactions(true)
                 .request());
-    List<Ban> bans = Assertions.assertDoesNotThrow(() -> User.queryBanned().request()).getBans();
-    Assertions.assertTrue(bans.stream().anyMatch(ban -> ban.getUser().getId().equals(userId)));
+    try {
+      Assertions.assertTrue(findBanFor(userId).isPresent(), "Expected ban for user " + userId);
+    } finally {
+      bestEffortUnban(userId);
+    }
   }
 
   @DisplayName("Can shadow ban user")
@@ -259,10 +309,14 @@ public class UserTest extends BasicTest {
     Assertions.assertDoesNotThrow(
         () ->
             User.shadowBan().userId(testUserRequestObject.getId()).targetUserId(userId).request());
-    List<Ban> bans = Assertions.assertDoesNotThrow(() -> User.queryBanned().request()).getBans();
-    var banned =
-        bans.stream().filter(ban -> ban.getUser().getId().equals(userId)).findFirst().get();
-    Assertions.assertTrue(banned.getShadow());
+    try {
+      var banned =
+          findBanFor(userId)
+              .orElseThrow(() -> new AssertionError("Expected shadow ban for user " + userId));
+      Assertions.assertTrue(banned.getShadow(), "Expected ban to be a shadow ban");
+    } finally {
+      bestEffortUnban(userId);
+    }
   }
 
   @DisplayName("Can list banned user")
@@ -274,8 +328,11 @@ public class UserTest extends BasicTest {
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     Assertions.assertDoesNotThrow(
         () -> User.ban().userId(testUserRequestObject.getId()).targetUserId(userId).request());
-    List<Ban> bans = Assertions.assertDoesNotThrow(() -> User.queryBanned().request()).getBans();
-    Assertions.assertTrue(bans.stream().anyMatch(ban -> ban.getUser().getId().equals(userId)));
+    try {
+      Assertions.assertTrue(findBanFor(userId).isPresent(), "Expected ban for user " + userId);
+    } finally {
+      bestEffortUnban(userId);
+    }
   }
 
   @DisplayName("Can deactivate user")
@@ -469,11 +526,9 @@ public class UserTest extends BasicTest {
     Assertions.assertDoesNotThrow(() -> usersUpsertRequest.request());
     Assertions.assertDoesNotThrow(
         () -> User.ban().userId(testUserRequestObject.getId()).targetUserId(userId).request());
-    List<Ban> bans = Assertions.assertDoesNotThrow(() -> User.queryBanned().request()).getBans();
-    Assertions.assertTrue(bans.stream().anyMatch(ban -> ban.getUser().getId().equals(userId)));
+    Assertions.assertTrue(findBanFor(userId).isPresent(), "Expected ban for user " + userId);
     Assertions.assertDoesNotThrow(() -> User.unban(userId).request());
-    bans = Assertions.assertDoesNotThrow(() -> User.queryBanned().request()).getBans();
-    Assertions.assertFalse(bans.stream().anyMatch(ban -> ban.getUser().getId().equals(userId)));
+    Assertions.assertTrue(findBanFor(userId).isEmpty(), "Expected ban to be cleared for " + userId);
   }
 
   @DisplayName("Can remove a shadow ban")
