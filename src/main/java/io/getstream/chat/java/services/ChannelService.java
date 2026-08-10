@@ -27,6 +27,14 @@ public interface ChannelService {
       @NotNull @Path("type") String channelType,
       @Nullable @Body ChannelGetRequestData channelGetRequestData);
 
+  // The endpoint reads its options from a JSON `payload` query parameter and fails with 400 without
+  // one, so the request data goes there instead of into flat query parameters.
+  @GET("channels/{type}/{id}")
+  Call<ChannelGetResponse> getChannel(
+      @NotNull @Path("type") String channelType,
+      @NotNull @Path("id") String channelId,
+      @NotNull @ToJson @Query("payload") GetChannelRequestData getChannelRequestData);
+
   @DELETE("channels/{type}/{id}")
   Call<ChannelDeleteResponse> delete(
       @NotNull @Path("type") String channelType, @NotNull @Path("id") String channelId);
