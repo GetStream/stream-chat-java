@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.46.0](https://github.com/GetStream/stream-chat-java/compare/1.45.0...1.46.0) (2026-08-11)
+
+
+### Features
+
+* **app:** expose before_message_send_hook_attempt_timeout_ms (CHA-3267) ([#258](https://github.com/GetStream/stream-chat-java/issues/258)) ([544cc72](https://github.com/GetStream/stream-chat-java/commit/544cc7266509fe4a665051d165cfbc083a0e190f)), closes [GetStream/chat#13541](https://github.com/GetStream/chat/issues/13541)
+* **channel:** add getChannel API (CHA-4634) ([#262](https://github.com/GetStream/stream-chat-java/issues/262)) ([cbe2124](https://github.com/GetStream/stream-chat-java/commit/cbe212419a00691d1be6dba7c80549cce6d29e21))
+
 ## [1.45.0](https://github.com/GetStream/stream-chat-java/compare/1.44.0...1.45.0) (2026-05-13)
 
 
