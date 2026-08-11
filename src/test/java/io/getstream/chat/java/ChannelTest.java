@@ -1,5 +1,6 @@
 package io.getstream.chat.java;
 
+import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.Channel.*;
 import io.getstream.chat.java.models.DeleteStrategy;
@@ -35,6 +36,31 @@ public class ChannelTest extends BasicTest {
                         .members(buildChannelMembersList())
                         .build())
                 .request());
+  }
+
+  @DisplayName("Can get an existing channel")
+  @Test
+  void whenGettingExistingChannel_thenReturnsChannel() {
+    var response =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.getChannel(testChannel.getType(), testChannel.getId())
+                    .state(true)
+                    .request());
+    Assertions.assertNotNull(response.getChannel());
+    Assertions.assertEquals(testChannel.getId(), response.getChannel().getId());
+  }
+
+  @DisplayName("Get channel does not create a missing channel")
+  @Test
+  void whenGettingMissingChannel_thenNotFound() {
+    var exception =
+        Assertions.assertThrows(
+            StreamException.class,
+            () ->
+                Channel.getChannel(testChannel.getType(), RandomStringUtils.randomAlphabetic(12))
+                    .request());
+    Assertions.assertEquals(404, exception.getResponseData().getStatusCode());
   }
 
   @DisplayName("Can create channel with invites")

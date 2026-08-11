@@ -367,6 +367,17 @@ User.list()
             FilterCondition.contains("teams", "red"))));
 ```
 
+**Get channel (type,id)**
+
+Returns the channel without creating it. A channel that does not exist yields a 404, so this also works as an existence check.
+
+```java
+Channel.getChannel("messaging", "travel")
+    .state(true)
+    .messagesLimit(20)
+    .request();
+```
+
 **Get or create channel (type,id)**
 
 Standard

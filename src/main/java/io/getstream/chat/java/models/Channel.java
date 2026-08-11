@@ -17,6 +17,7 @@ import io.getstream.chat.java.models.Channel.ChannelShowRequestData.ChannelShowR
 import io.getstream.chat.java.models.Channel.ChannelTruncateRequestData.ChannelTruncateRequest;
 import io.getstream.chat.java.models.Channel.ChannelUnMuteRequestData.ChannelUnMuteRequest;
 import io.getstream.chat.java.models.Channel.ChannelUpdateRequestData.ChannelUpdateRequest;
+import io.getstream.chat.java.models.Channel.GetChannelRequestData.GetChannelRequest;
 import io.getstream.chat.java.models.Channel.MarkDeliveredRequestData.MarkDeliveredRequest;
 import io.getstream.chat.java.models.ChannelType.BlocklistBehavior;
 import io.getstream.chat.java.models.ChannelType.ChannelTypeWithCommands;
@@ -547,6 +548,48 @@ public class Channel {
         return client
             .create(ChannelService.class)
             .getOrCreateWithoutId(this.channelType, this.internalBuild());
+      }
+    }
+  }
+
+  @Builder(
+      builderClassName = "GetChannelRequest",
+      builderMethodName = "",
+      buildMethodName = "internalBuild")
+  @Getter
+  @EqualsAndHashCode(callSuper = false)
+  public static class GetChannelRequestData {
+    @Nullable
+    @JsonProperty("state")
+    private Boolean state;
+
+    @Nullable
+    @JsonProperty("messages_limit")
+    private Integer messagesLimit;
+
+    @Nullable
+    @JsonProperty("members_limit")
+    private Integer membersLimit;
+
+    @Nullable
+    @JsonProperty("watchers_limit")
+    private Integer watchersLimit;
+
+    public static class GetChannelRequest extends StreamRequest<ChannelGetResponse> {
+      @NotNull private String channelType;
+
+      @NotNull private String channelId;
+
+      private GetChannelRequest(@NotNull String channelType, @NotNull String channelId) {
+        this.channelType = channelType;
+        this.channelId = channelId;
+      }
+
+      @Override
+      protected Call<ChannelGetResponse> generateCall(Client client) {
+        return client
+            .create(ChannelService.class)
+            .getChannel(this.channelType, this.channelId, this.internalBuild());
       }
     }
   }
@@ -1641,6 +1684,19 @@ public class Channel {
   @NotNull
   public static ChannelGetRequest getOrCreate(@NotNull String type) {
     return new ChannelGetRequest(type, null);
+  }
+
+  /**
+   * Creates a get channel request. The channel is never created: a missing, deleted or disabled
+   * channel yields a 404, so this request doubles as an existence check.
+   *
+   * @param type the channel type
+   * @param id the channel id
+   * @return the created request
+   */
+  @NotNull
+  public static GetChannelRequest getChannel(@NotNull String type, @NotNull String id) {
+    return new GetChannelRequest(type, id);
   }
 
   /**
