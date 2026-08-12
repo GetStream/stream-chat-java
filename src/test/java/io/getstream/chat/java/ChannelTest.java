@@ -4,6 +4,7 @@ import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.Channel.*;
 import io.getstream.chat.java.models.DeleteStrategy;
+import io.getstream.chat.java.models.Message;
 import io.getstream.chat.java.models.Message.MessageRequestObject;
 import io.getstream.chat.java.models.Sort;
 import io.getstream.chat.java.models.Sort.Direction;
@@ -49,6 +50,76 @@ public class ChannelTest extends BasicTest {
                     .request());
     Assertions.assertNotNull(response.getChannel());
     Assertions.assertEquals(testChannel.getId(), response.getChannel().getId());
+  }
+
+  @DisplayName("Can page the messages of a channel by message ID")
+  @Test
+  void whenGettingChannelWithMessageCursor_thenPagesMessages() {
+    var channelId = RandomStringUtils.randomAlphabetic(12);
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.getOrCreate(testChannel.getType(), channelId)
+                .data(
+                    ChannelRequestObject.builder()
+                        .createdBy(testUserRequestObject)
+                        .members(buildChannelMembersList())
+                        .build())
+                .request());
+
+    var first = sendMessageToChannel(channelId, "first");
+    var second = sendMessageToChannel(channelId, "second");
+    var third = sendMessageToChannel(channelId, "third");
+
+    var older =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.getChannel(testChannel.getType(), channelId)
+                    .state(true)
+                    .messagesIdLt(third)
+                    .request());
+    Assertions.assertEquals(Arrays.asList(first, second), messageIds(older));
+
+    var newer =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.getChannel(testChannel.getType(), channelId)
+                    .state(true)
+                    .messagesIdGt(first)
+                    .request());
+    Assertions.assertEquals(Arrays.asList(second, third), messageIds(newer));
+  }
+
+  @DisplayName("Get channel rejects a message cursor the channel does not hold")
+  @Test
+  void whenGettingChannelWithUnknownMessageCursor_thenBadRequest() {
+    var exception =
+        Assertions.assertThrows(
+            StreamException.class,
+            () ->
+                Channel.getChannel(testChannel.getType(), testChannel.getId())
+                    .state(true)
+                    .messagesIdLt(RandomStringUtils.randomAlphabetic(12))
+                    .request());
+    Assertions.assertEquals(400, exception.getResponseData().getStatusCode());
+  }
+
+  private String sendMessageToChannel(String channelId, String text) {
+    var message =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Message.send(testChannel.getType(), channelId)
+                    .message(
+                        MessageRequestObject.builder()
+                            .text(text)
+                            .userId(testUserRequestObject.getId())
+                            .build())
+                    .request()
+                    .getMessage());
+    return message.getId();
+  }
+
+  private List<String> messageIds(ChannelGetResponse response) {
+    return response.getMessages().stream().map(Message::getId).collect(Collectors.toList());
   }
 
   @DisplayName("Get channel does not create a missing channel")
