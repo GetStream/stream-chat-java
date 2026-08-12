@@ -28,6 +28,28 @@ public class GetChannelTest {
   }
 
   @Test
+  @DisplayName("Get channel sends its message cursors in the payload query parameter")
+  void whenBuildingGetChannelRequestWithCursors_thenCursorsGoIntoPayloadQueryParameter() {
+    var data =
+        Channel.getChannel("messaging", "abc")
+            .state(true)
+            .messagesLimit(20)
+            .messagesIdLt("message-1")
+            .messagesIdGte("message-2")
+            .messagesIdAround("message-3")
+            .internalBuild();
+
+    var request =
+        client().create(ChannelService.class).getChannel("messaging", "abc", data).request();
+
+    var payload = request.url().queryParameter("payload");
+    Assertions.assertNotNull(payload);
+    Assertions.assertTrue(payload.contains("\"messages_id_lt\":\"message-1\""), payload);
+    Assertions.assertTrue(payload.contains("\"messages_id_gte\":\"message-2\""), payload);
+    Assertions.assertTrue(payload.contains("\"messages_id_around\":\"message-3\""), payload);
+  }
+
+  @Test
   @DisplayName("Get channel sends a payload query parameter even without options")
   void whenBuildingGetChannelRequestWithoutOptions_thenPayloadQueryParameterIsStillSent() {
     var data = Channel.getChannel("messaging", "abc").internalBuild();

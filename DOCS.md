@@ -378,6 +378,16 @@ Channel.getChannel("messaging", "travel")
     .request();
 ```
 
+Message pagination. The cursors are `messagesIdLt`, `messagesIdLte`, `messagesIdGt`, `messagesIdGte` and `messagesIdAround`. They need `state(true)`, and a message ID the channel does not hold yields a 404.
+
+```java
+Channel.getChannel("messaging", "travel")
+    .state(true)
+    .messagesLimit(20)
+    .messagesIdLt(oldestLoadedMessageId)
+    .request();
+```
+
 **Get or create channel (type,id)**
 
 Standard
