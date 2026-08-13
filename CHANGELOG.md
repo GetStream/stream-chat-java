@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.46.1](https://github.com/GetStream/stream-chat-java/compare/1.46.0...1.46.1) (2026-08-13)
+
+
+### Bug Fixes
+
+* **ci:** grant contents write to the release workflow ([#264](https://github.com/GetStream/stream-chat-java/issues/264)) ([4e48de8](https://github.com/GetStream/stream-chat-java/commit/4e48de8c94652894a06e67494b8637de9a4959e4)), closes [#261](https://github.com/GetStream/stream-chat-java/issues/261)
+
 ## [1.46.0](https://github.com/GetStream/stream-chat-java/compare/1.45.0...1.46.0) (2026-08-11)
 
 
