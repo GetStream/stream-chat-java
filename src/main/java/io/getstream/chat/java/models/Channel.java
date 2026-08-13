@@ -575,6 +575,26 @@ public class Channel {
     @JsonProperty("watchers_limit")
     private Integer watchersLimit;
 
+    @Nullable
+    @JsonProperty("messages_id_lt")
+    private String messagesIdLt;
+
+    @Nullable
+    @JsonProperty("messages_id_lte")
+    private String messagesIdLte;
+
+    @Nullable
+    @JsonProperty("messages_id_gt")
+    private String messagesIdGt;
+
+    @Nullable
+    @JsonProperty("messages_id_gte")
+    private String messagesIdGte;
+
+    @Nullable
+    @JsonProperty("messages_id_around")
+    private String messagesIdAround;
+
     public static class GetChannelRequest extends StreamRequest<ChannelGetResponse> {
       @NotNull private String channelType;
 
@@ -1688,7 +1708,8 @@ public class Channel {
 
   /**
    * Creates a get channel request. The channel is never created: a missing, deleted or disabled
-   * channel yields a 404, so this request doubles as an existence check.
+   * channel yields a 404, so this request doubles as an existence check. The messages of the
+   * channel are paged with the messagesId* parameters, which need state to be true.
    *
    * @param type the channel type
    * @param id the channel id
