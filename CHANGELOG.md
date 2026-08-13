@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file. See [standa
 ### [1.46.1](https://github.com/GetStream/stream-chat-java/compare/1.46.0...1.46.1) (2026-08-13)
 
 
+### Features
+
+* **channel:** page getChannel messages by message ID ([#265](https://github.com/GetStream/stream-chat-java/issues/265)) ([ba0a159](https://github.com/GetStream/stream-chat-java/commit/ba0a1593c80665312bd7c1873143b50341a913a2))
+
+
 ### Bug Fixes
 
 * **ci:** grant contents write to the release workflow ([#264](https://github.com/GetStream/stream-chat-java/issues/264)) ([4e48de8](https://github.com/GetStream/stream-chat-java/commit/4e48de8c94652894a06e67494b8637de9a4959e4)), closes [#261](https://github.com/GetStream/stream-chat-java/issues/261)
