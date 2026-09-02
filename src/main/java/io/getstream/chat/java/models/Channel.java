@@ -30,10 +30,12 @@ import io.getstream.chat.java.models.framework.StreamRequest;
 import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.ChannelService;
 import io.getstream.chat.java.services.framework.Client;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -272,9 +274,32 @@ public class Channel {
     @JsonProperty("auto_translation_enabled")
     private Boolean autoTranslationEnabled;
 
+    /**
+     * @deprecated the backend accepts up to five languages, use {@code
+     *     autoTranslationLanguages(List)} instead.
+     */
+    @Nullable @Deprecated @JsonIgnore private Language autoTranslationLanguage;
+
+    /** Up to five languages. Can only be set on channel create or full update. */
+    @Nullable @JsonIgnore private List<Language> autoTranslationLanguages;
+
     @Nullable
     @JsonProperty("auto_translation_language")
-    private Language autoTranslationLanguage;
+    public String getAutoTranslationLanguageValue() {
+      List<Language> languages = autoTranslationLanguages;
+      if (languages == null && autoTranslationLanguage != null) {
+        languages = Collections.singletonList(autoTranslationLanguage);
+      }
+      if (languages == null) {
+        return null;
+      }
+      String value =
+          languages.stream()
+              .filter(language -> language != null && language != Language.UNKNOWN)
+              .map(Language::getValue)
+              .collect(Collectors.joining(","));
+      return value.isEmpty() ? null : value;
+    }
 
     @Nullable
     @JsonProperty("frozen")
@@ -321,6 +346,7 @@ public class Channel {
         @Nullable String team,
         @Nullable Boolean autoTranslationEnabled,
         @Nullable Language autoTranslationLanguage,
+        @Nullable List<Language> autoTranslationLanguages,
         @Nullable Boolean frozen,
         @Nullable List<ChannelMemberRequestObject> members,
         @Nullable List<ChannelMemberRequestObject> invites,
@@ -331,6 +357,7 @@ public class Channel {
       this.team = team;
       this.autoTranslationEnabled = autoTranslationEnabled;
       this.autoTranslationLanguage = autoTranslationLanguage;
+      this.autoTranslationLanguages = autoTranslationLanguages;
       this.frozen = frozen;
       this.members = members;
       this.invites = invites;

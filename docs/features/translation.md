@@ -104,13 +104,25 @@ Channel.update("channeltype", "channelid")
   .data(ChannelRequestObject
     .builder()
     .autoTranslationEnabled(true)
-    .autoTranslationLanguage(Language.EN)
+    .autoTranslationLanguages(List.of(Language.EN))
+    .build())
+  .request();
+
+// translate messages into up to five languages
+Channel.update("channeltype", "channelid")
+  .data(ChannelRequestObject
+    .builder()
+    .autoTranslationEnabled(true)
+    .autoTranslationLanguages(List.of(Language.EN, Language.FR, Language.IT))
     .build())
   .request();
 
 // auto translate messages for all channels
 App.update().autoTranslationEnabled(true).request();
 ```
+
+> [!NOTE]
+> `autoTranslationLanguages` accepts up to five languages and can only be set on channel create or full update. Partial update rejects `auto_translation_language` as a reserved field. The single language `autoTranslationLanguage(Language)` setter is deprecated: calling it more than once keeps only the last language.
 
 ### Set user language
 

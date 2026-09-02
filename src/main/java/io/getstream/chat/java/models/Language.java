@@ -117,5 +117,17 @@ public enum Language {
   @JsonProperty("zh-TW")
   ZH_TW,
   @JsonEnumDefaultValue
-  UNKNOWN
+  UNKNOWN;
+
+  /**
+   * @return the value sent over the wire, e.g. {@code "es-MX"} for {@link Language#ES_MX}
+   */
+  public String getValue() {
+    try {
+      JsonProperty jsonProperty = Language.class.getField(name()).getAnnotation(JsonProperty.class);
+      return jsonProperty == null ? name() : jsonProperty.value();
+    } catch (NoSuchFieldException e) {
+      throw new IllegalStateException("Unknown language constant " + name(), e);
+    }
+  }
 }
