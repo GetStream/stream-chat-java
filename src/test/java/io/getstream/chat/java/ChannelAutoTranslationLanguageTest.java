@@ -59,6 +59,33 @@ public class ChannelAutoTranslationLanguageTest {
     Assertions.assertEquals("fr", channel.getAutoTranslationLanguageValue());
   }
 
+  @DisplayName("An empty list serializes as null")
+  @Test
+  void whenSettingEmptyList_thenSerializedAsNull() throws Exception {
+    ChannelRequestObject channel =
+        ChannelRequestObject.builder().autoTranslationLanguages(Collections.emptyList()).build();
+
+    Assertions.assertNull(channel.getAutoTranslationLanguageValue());
+    Assertions.assertTrue(
+        MAPPER.writeValueAsString(channel).contains("\"auto_translation_language\":null"));
+  }
+
+  @DisplayName("Null and unknown languages are dropped")
+  @Test
+  void whenListHoldsNullOrUnknown_thenTheyAreDropped() {
+    ChannelRequestObject channel =
+        ChannelRequestObject.builder()
+            .autoTranslationLanguages(Arrays.asList(Language.EN, null, Language.UNKNOWN))
+            .build();
+
+    Assertions.assertEquals("en", channel.getAutoTranslationLanguageValue());
+    Assertions.assertNull(
+        ChannelRequestObject.builder()
+            .autoTranslationLanguages(Arrays.asList(null, Language.UNKNOWN))
+            .build()
+            .getAutoTranslationLanguageValue());
+  }
+
   @DisplayName("No language set serializes as null")
   @Test
   void whenSettingNoLanguage_thenSerializedAsNull() throws Exception {

@@ -35,7 +35,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
@@ -294,10 +293,12 @@ public class Channel {
       if (languages == null) {
         return null;
       }
-      return languages.stream()
-          .filter(Objects::nonNull)
-          .map(Language::getValue)
-          .collect(Collectors.joining(","));
+      String value =
+          languages.stream()
+              .filter(language -> language != null && language != Language.UNKNOWN)
+              .map(Language::getValue)
+              .collect(Collectors.joining(","));
+      return value.isEmpty() ? null : value;
     }
 
     @Nullable
