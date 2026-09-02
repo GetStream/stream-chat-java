@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.47.0](https://github.com/GetStream/stream-chat-java/compare/1.46.1...1.47.0) (2026-09-02)
+
+
+### Features
+
+* **channel:** support multiple auto-translation languages (CHA-5060) ([#268](https://github.com/GetStream/stream-chat-java/issues/268)) ([7a3f117](https://github.com/GetStream/stream-chat-java/commit/7a3f1173d9802e4542fed9eb96e176c2c12380a0))
+
 ### [1.46.1](https://github.com/GetStream/stream-chat-java/compare/1.46.0...1.46.1) (2026-08-13)
 
 
