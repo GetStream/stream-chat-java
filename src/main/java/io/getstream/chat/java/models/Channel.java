@@ -2087,6 +2087,33 @@ public class Channel {
     private Object types;
   }
 
+  /**
+   * A patch of individual custom keys for a batch channel update: keys to merge in and keys to
+   * delete, leaving every other custom key untouched.
+   *
+   * <p>This is a helper-level type only and is never serialized. {@link
+   * ChannelBatchUpdater#updateData(ChannelsBatchFilters, ChannelDataUpdate, ChannelCustomPatch)}
+   * unpacks it into {@link ChannelsBatchOptions#setCustomSet(Map)} and {@link
+   * ChannelsBatchOptions#setCustomUnset(List)}, which are the two fields the request carries; the
+   * patch itself never appears in the request body.
+   */
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public static class ChannelCustomPatch {
+    /**
+     * Custom keys to merge into each matched channel's existing custom object. Keys are dot-paths,
+     * so {@code a.b} sets key {@code b} inside object {@code a}.
+     */
+    @Nullable private Map<String, Object> customSet;
+
+    /**
+     * Custom keys to delete from each matched channel's existing custom object. Keys are dot-paths;
+     * deleting a key that does not exist is a no-op.
+     */
+    @Nullable private List<String> customUnset;
+  }
+
   /** Represents options for batch channel updates */
   @Data
   @NoArgsConstructor

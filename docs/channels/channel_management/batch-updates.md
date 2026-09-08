@@ -112,13 +112,24 @@ var updater = Channel.channelBatchUpdater();
 var filter = new ChannelsBatchFilters();
 filter.setCids(Map.of("$in", List.of("messaging:a", "messaging:b")));
 
+var resp = updater.updateCustom(filter, Map.of("group", "old"), List.of("location_id")).request();
+```
+
+Pass `null` for either argument to only set or only delete keys.
+
+To change other channel properties in the same request, use the `updateData` overload that takes a `ChannelCustomPatch` alongside the channel data:
+
+```java
+var data = new ChannelDataUpdate();
+data.setFrozen(true);
+
 var resp =
     updater
-        .updateData(filter, null, Map.of("group", "old"), List.of("location_id"))
+        .updateData(filter, data, new ChannelCustomPatch(Map.of("group", "old"), null))
         .request();
 ```
 
-The same fields are available on `ChannelsBatchOptions` directly, via `setCustomSet` and `setCustomUnset`, and can be combined with the other channel data properties in the same `updateData` request as long as `custom` is not set.
+The same fields are also available on `ChannelsBatchOptions` directly, via `setCustomSet` and `setCustomUnset`.
 
 Most of the operations require additional parameters to be specified, such as the _members_ to add or remove, or the _channelData_ to update.
 
