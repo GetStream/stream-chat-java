@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.getstream.chat.java.models.Channel;
+import io.getstream.chat.java.models.Channel.ChannelBatchDataUpdateOptions;
 import io.getstream.chat.java.models.Channel.ChannelBatchOperation;
-import io.getstream.chat.java.models.Channel.ChannelCustomPatch;
 import io.getstream.chat.java.models.Channel.ChannelDataUpdate;
 import io.getstream.chat.java.models.Channel.ChannelsBatchFilters;
 import io.getstream.chat.java.models.Channel.ChannelsBatchOptions;
@@ -74,12 +74,17 @@ public class ChannelBatchCustomPatchTest {
     Assertions.assertFalse(root.has("custom_unset"));
   }
 
-  @DisplayName("updateCustom carries the custom patch and sends no data")
+  @DisplayName("updateData supports a custom-only patch without a null data placeholder")
   @Test
   void whenUpdatingCustomOnly_thenOptionsCarryTheFieldsWithoutData() {
     var options =
         Channel.channelBatchUpdater()
-            .updateCustom(filterByCids(), Map.of("group", "old"), List.of("location_id"))
+            .updateData(
+                filterByCids(),
+                ChannelBatchDataUpdateOptions.builder()
+                    .customSet(Map.of("group", "old"))
+                    .customUnset(List.of("location_id"))
+                    .build())
             .getOptions();
 
     Assertions.assertEquals(ChannelBatchOperation.UPDATE_DATA, options.getOperation());
@@ -88,7 +93,7 @@ public class ChannelBatchCustomPatchTest {
     Assertions.assertEquals(List.of("location_id"), options.getCustomUnset());
   }
 
-  @DisplayName("updateData carries channel data and the custom patch together")
+  @DisplayName("updateData carries channel data and custom patches together")
   @Test
   void whenUpdatingDataWithAPatch_thenOptionsCarryBoth() {
     var data = new ChannelDataUpdate();
@@ -98,8 +103,11 @@ public class ChannelBatchCustomPatchTest {
         Channel.channelBatchUpdater()
             .updateData(
                 filterByCids(),
-                data,
-                new ChannelCustomPatch(Map.of("group", "old"), List.of("location_id")))
+                ChannelBatchDataUpdateOptions.builder()
+                    .data(data)
+                    .customSet(Map.of("group", "old"))
+                    .customUnset(List.of("location_id"))
+                    .build())
             .getOptions();
 
     Assertions.assertEquals(ChannelBatchOperation.UPDATE_DATA, options.getOperation());
@@ -120,37 +128,28 @@ public class ChannelBatchCustomPatchTest {
     Assertions.assertNull(options.getCustomUnset());
   }
 
-  @DisplayName("ChannelCustomPatch is unpacked into the two request fields and never serialized")
+  @DisplayName("The helper options are unpacked and never serialized")
   @Test
   void whenUpdatingDataWithAPatch_thenThePatchItselfIsAbsentFromTheRequest() throws Exception {
     var data = new ChannelDataUpdate();
     data.setFrozen(true);
 
-    // ChannelService.updateBatch sends the options object as the request body, so serializing
-    // it is the wire payload.
     var options =
         Channel.channelBatchUpdater()
             .updateData(
                 filterByCids(),
-                data,
-                new ChannelCustomPatch(Map.of("group", "old"), List.of("location_id")))
+                ChannelBatchDataUpdateOptions.builder()
+                    .data(data)
+                    .customSet(Map.of("group", "old"))
+                    .customUnset(List.of("location_id"))
+                    .build())
             .getOptions();
 
-    String body = MAPPER.writeValueAsString(options);
-    JsonNode root = MAPPER.readTree(body);
+    JsonNode root = MAPPER.readTree(MAPPER.writeValueAsString(options));
 
-    // The patch is unpacked into the two flat fields, and no nested patch object survives.
     Assertions.assertEquals("old", root.path("custom_set").path("group").asText());
     Assertions.assertEquals(
         List.of("location_id"), List.of(root.path("custom_unset").get(0).asText()));
-    Assertions.assertFalse(body.contains("customSet"));
-    Assertions.assertFalse(body.contains("customUnset"));
-    Assertions.assertFalse(body.contains("Patch"));
-    for (var name : List.of("patch", "custom_patch", "customPatch", "channelCustomPatch")) {
-      Assertions.assertFalse(root.has(name), "unexpected field " + name);
-    }
-    // The root carries only the fields ChannelsBatchOptions declares; members is serialized as
-    // null because the options object has no class-level NON_NULL inclusion.
     var fields = new ArrayList<String>();
     root.fieldNames().forEachRemaining(fields::add);
     Assertions.assertEquals(

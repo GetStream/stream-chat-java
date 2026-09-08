@@ -2088,19 +2088,17 @@ public class Channel {
   }
 
   /**
-   * A patch of individual custom keys for a batch channel update: keys to merge in and keys to
-   * delete, leaving every other custom key untouched.
-   *
-   * <p>This is a helper-level type only and is never serialized. {@link
-   * ChannelBatchUpdater#updateData(ChannelsBatchFilters, ChannelDataUpdate, ChannelCustomPatch)}
-   * unpacks it into {@link ChannelsBatchOptions#setCustomSet(Map)} and {@link
-   * ChannelsBatchOptions#setCustomUnset(List)}, which are the two fields the request carries; the
-   * patch itself never appears in the request body.
+   * Options for updating channel data in a batch. This helper is unpacked into {@link
+   * ChannelsBatchOptions} and is not serialized itself.
    */
   @Data
   @NoArgsConstructor
   @AllArgsConstructor
-  public static class ChannelCustomPatch {
+  @Builder
+  public static class ChannelBatchDataUpdateOptions {
+    /** Other channel data to update. */
+    @Nullable private ChannelDataUpdate data;
+
     /**
      * Custom keys to merge into each matched channel's existing custom object. Keys are dot-paths,
      * so {@code a.b} sets key {@code b} inside object {@code a}.
