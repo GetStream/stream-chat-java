@@ -2,8 +2,11 @@ package io.getstream.chat.java.models;
 
 import io.getstream.chat.java.models.Channel.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /** Provides convenience methods for batch channel operations. */
 public class ChannelBatchUpdater {
@@ -188,10 +191,37 @@ public class ChannelBatchUpdater {
   @NotNull
   public ChannelsBatchUpdateRequest updateData(
       @NotNull ChannelsBatchFilters filter, @NotNull ChannelDataUpdate data) {
+    return updateData(filter, data, null, null);
+  }
+
+  /**
+   * Updates data on channels matching the filter, patching individual custom keys instead of
+   * replacing the whole custom object.
+   *
+   * <p>{@code customSet} merges its keys into each channel's existing custom object and {@code
+   * customUnset} deletes its keys, both leaving every other custom key untouched. Keys are
+   * dot-paths. They cannot be combined with {@code data.custom}, which replaces the whole object;
+   * the backend validates that and the other combinations it rejects. Pass a null {@code data} to
+   * send a custom patch on its own.
+   *
+   * @param filter the filter to match channels
+   * @param data channel data to update, or null to only patch custom keys
+   * @param customSet custom keys to merge in, or null
+   * @param customUnset custom keys to delete, or null
+   * @return the batch update request
+   */
+  @NotNull
+  public ChannelsBatchUpdateRequest updateData(
+      @NotNull ChannelsBatchFilters filter,
+      @Nullable ChannelDataUpdate data,
+      @Nullable Map<String, Object> customSet,
+      @Nullable List<String> customUnset) {
     ChannelsBatchOptions options = new ChannelsBatchOptions();
     options.setOperation(ChannelBatchOperation.UPDATE_DATA);
     options.setFilter(filter);
     options.setData(data);
+    options.setCustomSet(customSet != null ? new HashMap<>(customSet) : null);
+    options.setCustomUnset(customUnset != null ? new ArrayList<>(customUnset) : null);
     return Channel.updateBatch(options);
   }
 }
