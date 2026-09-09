@@ -44,6 +44,14 @@ public class ChannelDeleteSkipTruncateTest {
     Assertions.assertFalse(url.contains("skip_truncate"), url);
   }
 
+  @DisplayName("The two argument delete overload is still callable")
+  @Test
+  void whenCallingTwoArgumentDelete_thenNoQueryParamIsSent() {
+    String url = service().delete("messaging", "chan").request().url().toString();
+
+    Assertions.assertFalse(url.contains("skip_truncate"), url);
+  }
+
   @DisplayName("Delete request carries the flag to the service call")
   @Test
   void whenSettingSkipTruncateOnRequest_thenFlagIsKept() {

@@ -37,6 +37,10 @@ public interface ChannelService {
 
   @DELETE("channels/{type}/{id}")
   Call<ChannelDeleteResponse> delete(
+      @NotNull @Path("type") String channelType, @NotNull @Path("id") String channelId);
+
+  @DELETE("channels/{type}/{id}")
+  Call<ChannelDeleteResponse> delete(
       @NotNull @Path("type") String channelType,
       @NotNull @Path("id") String channelId,
       @Nullable @Query("skip_truncate") Boolean skipTruncate);
