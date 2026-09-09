@@ -2,6 +2,7 @@ package io.getstream.chat.java.models;
 
 import io.getstream.chat.java.models.Channel.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
@@ -192,6 +193,31 @@ public class ChannelBatchUpdater {
     options.setOperation(ChannelBatchOperation.UPDATE_DATA);
     options.setFilter(filter);
     options.setData(data);
+    return Channel.updateBatch(options);
+  }
+
+  /**
+   * Updates data on channels matching the filter.
+   *
+   * <p>{@code customSet} and {@code customUnset} patch individual custom keys, leaving every other
+   * custom key untouched. They cannot be combined with {@code data.custom}, which replaces the
+   * whole custom object; the backend validates that and the other combinations it rejects.
+   *
+   * @param filter the filter to match channels
+   * @param update options containing channel data and custom keys to update
+   * @return the batch update request
+   */
+  @NotNull
+  public ChannelsBatchUpdateRequest updateData(
+      @NotNull ChannelsBatchFilters filter, @NotNull ChannelBatchDataUpdateOptions update) {
+    ChannelsBatchOptions options = new ChannelsBatchOptions();
+    options.setOperation(ChannelBatchOperation.UPDATE_DATA);
+    options.setFilter(filter);
+    options.setData(update.getData());
+    options.setCustomSet(
+        update.getCustomSet() != null ? new HashMap<>(update.getCustomSet()) : null);
+    options.setCustomUnset(
+        update.getCustomUnset() != null ? new ArrayList<>(update.getCustomUnset()) : null);
     return Channel.updateBatch(options);
   }
 }

@@ -2054,6 +2054,7 @@ public class Channel {
 
     @Nullable
     @JsonProperty("custom")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, Object> custom;
 
     @Nullable
@@ -2087,6 +2088,31 @@ public class Channel {
     private Object types;
   }
 
+  /**
+   * Options for updating channel data in a batch. This helper is unpacked into {@link
+   * ChannelsBatchOptions} and is not serialized itself.
+   */
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  public static class ChannelBatchDataUpdateOptions {
+    /** Other channel data to update. */
+    @Nullable private ChannelDataUpdate data;
+
+    /**
+     * Custom keys to merge into each matched channel's existing custom object. Keys are dot-paths,
+     * so {@code a.b} sets key {@code b} inside object {@code a}.
+     */
+    @Nullable private Map<String, Object> customSet;
+
+    /**
+     * Custom keys to delete from each matched channel's existing custom object. Keys are dot-paths;
+     * deleting a key that does not exist is a no-op.
+     */
+    @Nullable private List<String> customUnset;
+  }
+
   /** Represents options for batch channel updates */
   @Data
   @NoArgsConstructor
@@ -2106,6 +2132,28 @@ public class Channel {
     @Nullable
     @JsonProperty("data")
     private ChannelDataUpdate data;
+
+    /**
+     * Custom keys to merge into each matched channel's existing custom object, leaving every other
+     * custom key untouched. Keys are dot-paths, so {@code a.b} sets key {@code b} inside object
+     * {@code a}. Only valid with {@link ChannelBatchOperation#UPDATE_DATA} and cannot be combined
+     * with {@code data.custom}, which replaces the whole object; the backend validates both.
+     */
+    @Nullable
+    @JsonProperty("custom_set")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Map<String, Object> customSet;
+
+    /**
+     * Custom keys to delete from each matched channel's existing custom object, leaving every other
+     * custom key untouched. Keys are dot-paths; deleting a key that does not exist is a no-op. Only
+     * valid with {@link ChannelBatchOperation#UPDATE_DATA} and cannot be combined with {@code
+     * data.custom}, which replaces the whole object; the backend validates both.
+     */
+    @Nullable
+    @JsonProperty("custom_unset")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<String> customUnset;
   }
 
   @Getter

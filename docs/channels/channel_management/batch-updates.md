@@ -55,7 +55,7 @@ You can perform different operations on the channels but only once at a time. Th
 | show             | Show the channels for members.                        | members     |
 | archive          | Archive the channels for members.                     | members     |
 | unarchive        | Unarchive the channels for members.                   | members     |
-| updateData       | Update the channel data for the channels.             | channelData |
+| updateData       | Update the channel data for the channels.             | channelData, custom_set, custom_unset |
 | assignRoles      | Assign roles to members in the channels.              | members     |
 | inviteMembers    | Send invites to users to join the channels.           | members     |
 
@@ -90,6 +90,55 @@ The `config_overrides` object allows you to override the default channel type co
 | `blocklist_behavior` | string  | Blocklist behavior: `flag` or `block`    |
 | `grants`             | object  | Permission grants modifiers              |
 | `commands`           | array   | List of enabled command names            |
+
+### Partial custom updates
+
+The `custom` property above replaces the whole custom object: every key that is not in the request is deleted. For channels the display `name` lives inside `custom`, so a payload that omits it deletes the channel name.
+
+To change individual keys instead, use `custom_set` and `custom_unset`. Unlike `custom`, these two are sent at the **root** of the request, next to `operation` and `filter`, not inside `data`.
+
+| Property       | Type             | Description                                                                                                                        |
+| -------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `custom_set`   | object           | Merges these keys into each channel's existing custom object, leaving every other custom key untouched.                             |
+| `custom_unset` | array of strings | Deletes these keys from each channel's existing custom object, leaving every other custom key untouched.                            |
+
+Keys in both are dot-paths, so `a.b` addresses key `b` inside object `a`, and the parent object must already exist. Deleting a key that does not exist is a no-op.
+
+Both are only supported for the `updateData` operation, and neither can be combined with `custom` in the same request. The backend validates these rules and returns a `400` before the task is created.
+
+```java
+// Set one custom key and delete another, leaving the rest of the custom object alone
+var updater = Channel.channelBatchUpdater();
+var filter = new ChannelsBatchFilters();
+filter.setCids(Map.of("$in", List.of("messaging:a", "messaging:b")));
+
+var update =
+    ChannelBatchDataUpdateOptions.builder()
+        .customSet(Map.of("group", "old"))
+        .customUnset(List.of("location_id"))
+        .build();
+
+var resp = updater.updateData(filter, update).request();
+```
+
+To change other channel properties in the same request, add `data` to the same options object:
+
+```java
+var data = new ChannelDataUpdate();
+data.setFrozen(true);
+
+var resp =
+    updater
+        .updateData(
+            filter,
+            ChannelBatchDataUpdateOptions.builder()
+                .data(data)
+                .customSet(Map.of("group", "old"))
+                .build())
+        .request();
+```
+
+The same fields are also available on `ChannelsBatchOptions` directly, via `setCustomSet` and `setCustomUnset`.
 
 Most of the operations require additional parameters to be specified, such as the _members_ to add or remove, or the _channelData_ to update.
 
