@@ -2054,6 +2054,7 @@ public class Channel {
 
     @Nullable
     @JsonProperty("custom")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, Object> custom;
 
     @Nullable

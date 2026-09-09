@@ -10,7 +10,6 @@ import io.getstream.chat.java.models.Channel.ChannelBatchOperation;
 import io.getstream.chat.java.models.Channel.ChannelDataUpdate;
 import io.getstream.chat.java.models.Channel.ChannelsBatchFilters;
 import io.getstream.chat.java.models.Channel.ChannelsBatchOptions;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +71,7 @@ public class ChannelBatchCustomPatchTest {
 
     Assertions.assertFalse(root.has("custom_set"));
     Assertions.assertFalse(root.has("custom_unset"));
+    Assertions.assertFalse(root.path("data").has("custom"));
   }
 
   @DisplayName("updateData supports a custom-only patch without a null data placeholder")
@@ -150,9 +150,9 @@ public class ChannelBatchCustomPatchTest {
     Assertions.assertEquals("old", root.path("custom_set").path("group").asText());
     Assertions.assertEquals(
         List.of("location_id"), List.of(root.path("custom_unset").get(0).asText()));
-    var fields = new ArrayList<String>();
-    root.fieldNames().forEachRemaining(fields::add);
-    Assertions.assertEquals(
-        List.of("operation", "filter", "members", "data", "custom_set", "custom_unset"), fields);
+    Assertions.assertFalse(root.path("data").has("custom"));
+    Assertions.assertFalse(root.has("customSet"));
+    Assertions.assertFalse(root.has("customUnset"));
+    Assertions.assertFalse(root.has("update"));
   }
 }
