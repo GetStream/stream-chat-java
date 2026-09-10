@@ -792,9 +792,22 @@ public class Channel {
 
     @NotNull private String channelId;
 
+    @Nullable private Boolean skipTruncate;
+
+    /**
+     * Keeps the messages of a soft deleted channel, so recreating it with the same id restores the
+     * history. Cannot be combined with a hard delete, and only distinct channels are eligible.
+     */
+    public ChannelDeleteRequest setSkipTruncate(boolean skipTruncate) {
+      this.skipTruncate = skipTruncate;
+      return this;
+    }
+
     @Override
     protected Call<ChannelDeleteResponse> generateCall(Client client) {
-      return client.create(ChannelService.class).delete(this.channelType, this.channelId);
+      return client
+          .create(ChannelService.class)
+          .delete(this.channelType, this.channelId, this.skipTruncate);
     }
   }
 
@@ -811,8 +824,20 @@ public class Channel {
     @Setter(AccessLevel.NONE)
     private boolean hardDelete;
 
+    @JsonProperty("skip_truncate")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private Boolean skipTruncate;
+
     public ChannelDeleteManyRequest setDeleteStrategy(DeleteStrategy strategy) {
       hardDelete = strategy == DeleteStrategy.HARD;
+      return this;
+    }
+
+    /** See {@link ChannelDeleteRequest#setSkipTruncate(boolean)}. */
+    public ChannelDeleteManyRequest setSkipTruncate(boolean skipTruncate) {
+      this.skipTruncate = skipTruncate;
       return this;
     }
 

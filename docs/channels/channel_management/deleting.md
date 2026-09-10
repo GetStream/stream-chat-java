@@ -16,6 +16,17 @@ Channel.delete(
 > If you recreate this channel, it will show up empty. Recovering old messages is not supported. Use the disable method if you want a reversible change.
 
 
+### Keeping the messages
+
+Call `setSkipTruncate(true)` to keep the messages of a soft deleted channel, so recreating the channel with the same id restores its history. It cannot be combined with a hard delete, and only distinct channels are eligible.
+
+```java
+Channel.delete("messaging", channelId).setSkipTruncate(true).request();
+
+// same option on the batch endpoint
+Channel.deleteMany(Arrays.asList(cid1, cid2)).setSkipTruncate(true).request();
+```
+
 ## Deleting Many Channels
 
 You can delete up to 100 channels and optionally all of their messages using this method. This can be a large amount of data to delete, so this endpoint processes asynchronously, meaning responses contain a `task ID` which can be polled using the [getTask endpoint](/chat/docs/java#tasks-gettask) to check status of the deletions. Channels will be soft-deleted immediately so that channels no longer return from queries, but permanently deleting the channel and deleting messages takes longer to process.
