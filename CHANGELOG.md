@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.48.0](https://github.com/GetStream/stream-chat-java/compare/1.47.0...1.48.0) (2026-09-10)
+
+
+### Features
+
+* add skip_truncate to channel delete ([#271](https://github.com/GetStream/stream-chat-java/issues/271)) ([4bdab76](https://github.com/GetStream/stream-chat-java/commit/4bdab76f0c2e775ed0f3eac498771bbedb41e9cb))
+
 ## [1.47.0](https://github.com/GetStream/stream-chat-java/compare/1.46.1...1.47.0) (2026-09-02)
 
 
