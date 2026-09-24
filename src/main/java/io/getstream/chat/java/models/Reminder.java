@@ -58,6 +58,10 @@ public class Reminder {
   private Date remindAt;
 
   @Nullable
+  @JsonProperty("expires_at")
+  private Date expiresAt;
+
+  @Nullable
   @JsonProperty("created_at")
   private Date createdAt;
 
@@ -92,6 +96,10 @@ public class Reminder {
     @JsonProperty("remind_at")
     private Date remindAt;
 
+    @Nullable
+    @JsonProperty("expires_at")
+    private Date expiresAt;
+
     public static class ReminderCreateRequest extends StreamRequest<ReminderCreateResponse> {
       @NotNull private String messageId;
 
@@ -120,6 +128,10 @@ public class Reminder {
     @Nullable
     @JsonProperty("remind_at")
     private Date remindAt;
+
+    @Nullable
+    @JsonProperty("expires_at")
+    private Date expiresAt;
 
     public static class ReminderUpdateRequest extends StreamRequest<ReminderUpdateResponse> {
       @NotNull private String messageId;
@@ -242,6 +254,9 @@ public class Reminder {
 
   /**
    * Updates a reminder for a message.
+   *
+   * <p>The update replaces both {@code remind_at} and {@code expires_at}: a field left unset is
+   * cleared, so pass the current value to keep it.
    *
    * @param messageId The ID of the message with the reminder
    * @return A request builder for updating a reminder
