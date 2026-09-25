@@ -61,6 +61,37 @@ MessageReminder updatedReminder = MessageReminder.update("message-id", "user-id"
 MessageReminder updatedReminder = MessageReminder.update("message-id", "user-id", null).request();
 ```
 
+## Expiring a Message Reminder
+
+Set `expiresAt` to have a reminder remove itself. Once that time passes, the reminder no longer shows up in queries, updating or deleting it returns a 404, and it stops counting against the per-user reminder limit. No event is sent when a reminder expires, and creating a reminder on the same message again replaces the expired one.
+
+`expiresAt` must be at least one minute in the future and, when `remindAt` is set, later than `remindAt`.
+
+```java
+// Backend SDK
+
+// Bookmark a message for 30 days
+Date expiresAt = new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 1000);
+
+Reminder.createReminder("message-id")
+    .userId("user-id")
+    .expiresAt(expiresAt)
+    .request();
+```
+
+An update replaces both `remindAt` and `expiresAt`. A field left unset is cleared, so pass the current value of the one you want to keep.
+
+```java
+// Backend SDK
+
+// Move the reminder time and keep the expiry
+Reminder.updateReminder("message-id")
+    .userId("user-id")
+    .remindAt(newRemindAt)
+    .expiresAt(reminder.getExpiresAt())
+    .request();
+```
+
 ## Deleting a Message Reminder
 
 You can delete a reminder for a message when it's no longer needed.
@@ -96,6 +127,7 @@ You can filter the reminders based on different criteria:
 - `remind_at` - Filter by the reminder time.
 - `created_at` - Filter by the creation date.
 - `channel_cid` - Filter by the channel ID.
+- `expires_at` - Filter by the expiry time. It cannot be used for sorting.
 
 The most common use case would be to filter by the reminder time. Like filtering overdue reminders, upcoming reminders, or reminders with no due date (saved for later).
 
