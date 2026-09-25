@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.49.0](https://github.com/GetStream/stream-chat-java/compare/1.48.0...1.49.0) (2026-09-25)
+
+
+### Features
+
+* **reminder:** add expires_at to message reminders ([#273](https://github.com/GetStream/stream-chat-java/issues/273)) ([86407e3](https://github.com/GetStream/stream-chat-java/commit/86407e3f9e5d0dc038c6da92c2f40484f1e2fe5e))
+
 ## [1.48.0](https://github.com/GetStream/stream-chat-java/compare/1.47.0...1.48.0) (2026-09-10)
 
 
