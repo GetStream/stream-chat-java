@@ -40,6 +40,36 @@ For the client-side integrations (web and mobile) have a look at the JavaScript,
 
 > The Stream chat Java SDK is compatible with Groovy, Scala, Kotlin and Clojure.
 
+### Repository
+
+Releases are published to the Stream Maven repository. Add it next to Maven Central.
+
+#### Gradle
+
+```gradle
+repositories {
+    mavenCentral()
+    maven { url "https://stream-io-repo.com" }
+}
+```
+
+#### Maven
+
+```maven
+<repositories>
+  <repository>
+    <id>stream</id>
+    <url>https://stream-io-repo.com</url>
+  </repository>
+</repositories>
+```
+
+#### Leiningen
+
+```leiningen
+:repositories [["stream" "https://stream-io-repo.com"]]
+```
+
 ### Installation for Java
 
 #### Gradle
