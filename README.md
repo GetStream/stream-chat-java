@@ -1,8 +1,5 @@
-> **Note:** [`stream-sdk-java`](https://github.com/GetStream/stream-sdk-java) is the new full-product SDK for Stream, covering Chat, Video, Moderation, and Feeds with long-term support.
->
-> **`stream-chat-java` is now in maintenance mode.** It will continue to receive critical fixes and requested features, so it is safe to keep using. However, we encourage existing users to migrate when convenient and strongly recommend that new projects start with `stream-sdk-java`.
->
-> Check out the [Migration Guide](https://github.com/GetStream/stream-sdk-java/blob/e58921748ba055e6ec9c8b17a71c599e2256e238/docs/migration-from-stream-chat-java/README.md) for side-by-side examples covering common use cases.
+> [!WARNING]
+> **`stream-chat-java` is deprecated.** New projects should use [`stream-sdk-java`](https://github.com/GetStream/stream-sdk-java) (Maven `io.getstream:stream-sdk-java`), which covers Chat, Video, Moderation and Feeds. To move existing code, see the [migration guide](https://github.com/GetStream/stream-sdk-java/tree/main/docs/migration-from-stream-chat-java).
 
 # Official Java SDK for [Stream Chat](https://getstream.io/chat/docs/)
 
