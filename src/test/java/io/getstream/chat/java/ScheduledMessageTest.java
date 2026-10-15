@@ -15,6 +15,7 @@ import io.getstream.chat.java.models.ScheduledMessage.ScheduledMessagesFilter;
 import io.getstream.chat.java.models.Sort;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -42,7 +43,7 @@ public class ScheduledMessageTest {
           + "\"user\":{\"id\":\"gandalf\"},"
           + "\"message\":{\"text\":\"hello\",\"mentioned_users\":[\"frodo\"],"
           + "\"shared_location\":{\"latitude\":1.5,\"longitude\":2.5,"
-          + "\"created_by_device_id\":\"dev\"},\"custom\":{\"color\":\"red\"}},"
+          + "\"created_by_device_id\":\"dev\"},\"color\":\"red\"},"
           + "\"scheduled_at\":\"2030-01-01T00:00:00Z\",\"status\":\"failed\","
           + "\"failure_reason\":\"channel_frozen\","
           + "\"created_at\":\"2029-12-31T00:00:00Z\",\"updated_at\":\"2029-12-31T00:00:00Z\","
@@ -162,7 +163,7 @@ public class ScheduledMessageTest {
     Assertions.assertEquals("hello", sm.getMessage().getText());
     Assertions.assertEquals(List.of("frodo"), sm.getMessage().getMentionedUsers());
     Assertions.assertEquals(1.5, sm.getMessage().getSharedLocation().getLatitude());
-    Assertions.assertEquals("red", sm.getMessage().getCustom().get("color"));
+    Assertions.assertEquals(Map.of("color", "red"), sm.getMessage().getAdditionalFields());
     Assertions.assertEquals("General", sm.getChannel().getName());
     Assertions.assertTrue(sm.getAdditionalFields().isEmpty(), sm.getAdditionalFields().toString());
   }

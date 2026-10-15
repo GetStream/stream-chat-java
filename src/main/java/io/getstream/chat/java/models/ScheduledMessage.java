@@ -197,10 +197,10 @@ public class ScheduledMessage {
     @JsonProperty("shared_location")
     private SharedLocation sharedLocation;
 
-    @Nullable
-    @JsonProperty("custom")
-    private Map<String, Object> custom;
-
+    /**
+     * Custom fields of the message. As on {@link Message}, they are top-level keys of the message
+     * object.
+     */
     @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
 
     @JsonAnyGetter
