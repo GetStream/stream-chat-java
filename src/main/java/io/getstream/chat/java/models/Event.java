@@ -112,6 +112,16 @@ public class Event {
   @JsonProperty("created_at")
   private Date createdAt;
 
+  /** Set on scheduled_message.* events. */
+  @Nullable
+  @JsonProperty("scheduled_message")
+  private ScheduledMessage scheduledMessage;
+
+  /** On scheduled_message.sent, the ID of the message that was sent. */
+  @Nullable
+  @JsonProperty("message_id")
+  private String messageId;
+
   @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
 
   @JsonAnyGetter
