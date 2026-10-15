@@ -40,7 +40,7 @@ import retrofit2.Call;
 @Data
 @NoArgsConstructor
 public class ScheduledMessage {
-  /** Waiting for its send time. Can be edited, canceled or sent now. */
+  /** Waiting for its send time. */
   public static final String STATUS_SCHEDULED = "scheduled";
 
   /** Being sent. Edit, cancel and send now return 409 in this state. */
