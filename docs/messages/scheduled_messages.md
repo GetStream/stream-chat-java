@@ -22,7 +22,7 @@ scheduled.getStatus();      // "scheduled"
 scheduled.getScheduledAt(); // when it will be sent
 ```
 
-`response.getMessage()` holds the message as it will be sent; it is not in the channel yet. Slash commands cannot be scheduled, and `scheduledAt` cannot be combined with `pending`.
+`response.getMessage()` holds the message as it will be sent; it is not in the channel yet. Slash commands cannot be scheduled, and `scheduledAt` cannot be combined with `pending(true)` (`pending(false)` is accepted).
 
 ## Listing Scheduled Messages
 

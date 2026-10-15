@@ -810,8 +810,8 @@ public class Message {
      * When set, the message is not sent now: it is stored and sent at this time, and the response
      * carries {@link MessageSendResponse#getScheduledMessage()}. Must be at least 1 minute and at
      * most the app's maximum lead time (120 days by default) away. Requires the scheduled messages
-     * feature on the app. Cannot be combined with {@code pending}; slash commands cannot be
-     * scheduled.
+     * feature on the app. Cannot be combined with {@code pending(true)}; {@code pending(false)} is
+     * accepted. Slash commands cannot be scheduled.
      */
     @Nullable
     @JsonProperty("scheduled_at")
