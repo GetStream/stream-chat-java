@@ -1,18 +1,18 @@
-> **Note:** [`stream-sdk-java`](https://github.com/GetStream/stream-sdk-java) is the new full-product SDK for Stream, covering Chat, Video, Moderation, and Feeds with long-term support.
+> [!CAUTION]
+> ## ⚠️ This is a legacy SDK. It is deprecated.
 >
-> **`stream-chat-java` is now in maintenance mode.** It will continue to receive critical fixes and requested features, so it is safe to keep using. However, we encourage existing users to migrate when convenient and strongly recommend that new projects start with `stream-sdk-java`.
+> 🚫 **Do not start new projects with `stream-chat-java`.**
 >
-> Check out the [Migration Guide](https://github.com/GetStream/stream-sdk-java/blob/e58921748ba055e6ec9c8b17a71c599e2256e238/docs/migration-from-stream-chat-java/README.md) for side-by-side examples covering common use cases.
+> ✅ **Use [`stream-sdk-java`](https://github.com/GetStream/stream-sdk-java) (Maven `io.getstream:stream-sdk-java`) instead.** It covers Chat, Video, Moderation and Feeds in one SDK.
+>
+> 🔁 **Already using `stream-chat-java`?** Follow the [migration guide](https://github.com/GetStream/stream-sdk-java/tree/main/docs/migration-from-stream-chat-java) to move your code.
 
-# Official Java SDK for [Stream Chat](https://getstream.io/chat/docs/)
+# Legacy Java SDK for [Stream Chat](https://getstream.io/chat/docs/)
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.getstream/stream-chat-java/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/io.getstream/stream-chat-java) [![build](https://github.com/GetStream/stream-chat-java/workflows/Build/badge.svg)](https://github.com/GetStream/stream-chat-java/actions)
 
 <p align="center">
-    <img src="./assets/logo.svg" width="50%" height="50%">
-</p>
-<p align="center">
-    Official Java API client for Stream Chat, a service for building chat applications.
+    Legacy Java API client for Stream Chat, a service for building chat applications.
     <br />
     <a href="https://getstream.io/chat/docs/"><strong>Explore the docs »</strong></a>
     <br />
