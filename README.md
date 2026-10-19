@@ -1,15 +1,18 @@
-> [!WARNING]
-> **`stream-chat-java` is deprecated.** New projects should use [`stream-sdk-java`](https://github.com/GetStream/stream-sdk-java) (Maven `io.getstream:stream-sdk-java`), which covers Chat, Video, Moderation and Feeds. To move existing code, see the [migration guide](https://github.com/GetStream/stream-sdk-java/tree/main/docs/migration-from-stream-chat-java).
+> [!CAUTION]
+> ## ⚠️ This is a legacy SDK. It is deprecated.
+>
+> 🚫 **Do not start new projects with `stream-chat-java`.**
+>
+> ✅ **Use [`stream-sdk-java`](https://github.com/GetStream/stream-sdk-java) (Maven `io.getstream:stream-sdk-java`) instead.** It covers Chat, Video, Moderation and Feeds in one SDK.
+>
+> 🔁 **Already using `stream-chat-java`?** Follow the [migration guide](https://github.com/GetStream/stream-sdk-java/tree/main/docs/migration-from-stream-chat-java) to move your code.
 
-# Official Java SDK for [Stream Chat](https://getstream.io/chat/docs/)
+# Legacy Java SDK for [Stream Chat](https://getstream.io/chat/docs/)
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.getstream/stream-chat-java/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/io.getstream/stream-chat-java) [![build](https://github.com/GetStream/stream-chat-java/workflows/Build/badge.svg)](https://github.com/GetStream/stream-chat-java/actions)
 
 <p align="center">
-    <img src="./assets/logo.svg" width="50%" height="50%">
-</p>
-<p align="center">
-    Official Java API client for Stream Chat, a service for building chat applications.
+    Legacy Java API client for Stream Chat, a service for building chat applications.
     <br />
     <a href="https://getstream.io/chat/docs/"><strong>Explore the docs »</strong></a>
     <br />
