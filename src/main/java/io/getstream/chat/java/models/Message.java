@@ -806,6 +806,17 @@ public class Message {
     @JsonProperty("pending_message_metadata")
     private Map<String, Object> pendingMessageMetadata;
 
+    /**
+     * When set, the message is not sent now: it is stored and sent at this time, and the response
+     * carries {@link MessageSendResponse#getScheduledMessage()}. Must be at least 1 minute and at
+     * most the app's maximum lead time (120 days by default) away. Requires the scheduled messages
+     * feature on the app. Cannot be combined with {@code pending(true)}; {@code pending(false)} is
+     * accepted. Slash commands cannot be scheduled.
+     */
+    @Nullable
+    @JsonProperty("scheduled_at")
+    private Date scheduledAt;
+
     public static class MessageSendRequest extends StreamRequest<MessageSendResponse> {
       @NotNull private String channelId;
 
@@ -1405,9 +1416,18 @@ public class Message {
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   public static class MessageSendResponse extends StreamResponseObject {
+    /**
+     * The sent message. When the request had {@code scheduledAt}, the message as it will be sent;
+     * it is not in the channel yet.
+     */
     @NotNull
     @JsonProperty("message")
     private Message message;
+
+    /** The scheduled message. Set only when the request had {@code scheduledAt}. */
+    @Nullable
+    @JsonProperty("scheduled_message")
+    private ScheduledMessage scheduledMessage;
   }
 
   @Data
