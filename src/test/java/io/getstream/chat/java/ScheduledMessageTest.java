@@ -180,7 +180,25 @@ public class ScheduledMessageTest {
             Event.class);
 
     Assertions.assertEquals("m-1", event.getMessageId());
+    Assertions.assertEquals("m-1", event.getAdditionalFields().get("message_id"));
     Assertions.assertEquals("sm-1", event.getScheduledMessage().getId());
     Assertions.assertFalse(event.getAdditionalFields().containsKey("scheduled_message"));
+  }
+
+  @DisplayName("message.new events keep message_id in additional fields")
+  @Test
+  void whenEventIsMessageNew_thenMessageIdStaysInAdditionalFields() throws Exception {
+    String json =
+        "{\"type\":\"message.new\",\"cid\":\"messaging:general\",\"message_id\":\"m-2\","
+            + "\"message\":{\"id\":\"m-2\",\"text\":\"hi\"}}";
+    Event event = MAPPER.readValue(json, Event.class);
+
+    Assertions.assertEquals("m-2", event.getAdditionalFields().get("message_id"));
+    Assertions.assertEquals("m-2", event.getMessageId());
+    Assertions.assertEquals("m-2", event.getMessage().getId());
+
+    String out = MAPPER.writeValueAsString(event);
+    Assertions.assertEquals(1, out.split("\"message_id\"", -1).length - 1, out);
+    Assertions.assertFalse(out.contains("messageId"), out);
   }
 }

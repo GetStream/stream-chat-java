@@ -117,12 +117,35 @@ public class Event {
   @JsonProperty("scheduled_message")
   private ScheduledMessage scheduledMessage;
 
-  /** On scheduled_message.sent, the ID of the message that was sent. */
-  @Nullable
-  @JsonProperty("message_id")
-  private String messageId;
-
   @NotNull @JsonIgnore private Map<String, Object> additionalFields = new HashMap<>();
+
+  /**
+   * The ID of the message the event is about (on scheduled_message.sent, the message that was
+   * sent). The backend also sends it on message.*, reminder.* and poll.* events.
+   *
+   * <p>Backed by {@link #getAdditionalFields()} so {@code getAdditionalFields().get("message_id")}
+   * keeps working for existing events.
+   */
+  @Nullable
+  @JsonIgnore
+  public String getMessageId() {
+    Object value = this.additionalFields.get("message_id");
+    return value == null ? null : value.toString();
+  }
+
+  /**
+   * Sets the ID of the message the event is about; stored in {@link #getAdditionalFields()}.
+   *
+   * @param messageId the message ID, or null to remove it
+   */
+  @JsonIgnore
+  public void setMessageId(@Nullable String messageId) {
+    if (messageId == null) {
+      this.additionalFields.remove("message_id");
+    } else {
+      this.additionalFields.put("message_id", messageId);
+    }
+  }
 
   @JsonAnyGetter
   public Map<String, Object> getAdditionalFields() {
