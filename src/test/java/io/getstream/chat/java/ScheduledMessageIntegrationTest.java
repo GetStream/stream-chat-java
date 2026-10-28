@@ -11,17 +11,24 @@ import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 /**
- * Runs against a real app. The scheduled messages endpoints are behind a per-app flag, so these
- * tests run only when STREAM_SCHEDULED_MESSAGES_ENABLED=true says the flag is on for the app of
- * STREAM_KEY.
+ * Runs against a real app. The scheduled messages endpoints are behind a per-app flag, which is on
+ * for the app of STREAM_KEY that CI uses.
  */
-@EnabledIfEnvironmentVariable(named = "STREAM_SCHEDULED_MESSAGES_ENABLED", matches = "true")
 public class ScheduledMessageIntegrationTest extends BasicTest {
 
-  private static final long ONE_HOUR = 60 * 60 * 1000L;
+  private static final long ONE_MINUTE = 60 * 1000L;
+  private static final long ONE_HOUR = 60 * ONE_MINUTE;
+
+  /**
+   * Returns a time offsetMillis from now, floored to a whole minute. The server rounds a future
+   * scheduled_at up to the next whole UTC minute, so only a whole-minute time is stored unchanged.
+   */
+  private static Date wholeMinuteFromNow(long offsetMillis) {
+    long t = System.currentTimeMillis() + offsetMillis;
+    return new Date(t - t % ONE_MINUTE);
+  }
 
   private static MessageSendResponse schedule(String text, Date scheduledAt) {
     return Assertions.assertDoesNotThrow(
@@ -40,7 +47,7 @@ public class ScheduledMessageIntegrationTest extends BasicTest {
   @Test
   void whenSchedulingAMessage_thenResponseCarriesTheScheduledMessage() {
     String text = UUID.randomUUID().toString();
-    Date scheduledAt = new Date(System.currentTimeMillis() + ONE_HOUR);
+    Date scheduledAt = wholeMinuteFromNow(ONE_HOUR);
 
     MessageSendResponse response = schedule(text, scheduledAt);
 
@@ -50,7 +57,7 @@ public class ScheduledMessageIntegrationTest extends BasicTest {
     Assertions.assertEquals(testChannel.getType() + ":" + testChannel.getId(), sm.getCid());
     Assertions.assertEquals(testUserRequestObject.getId(), sm.getUser().getId());
     Assertions.assertEquals(text, sm.getMessage().getText());
-    Assertions.assertEquals(scheduledAt.getTime() / 1000, sm.getScheduledAt().getTime() / 1000);
+    Assertions.assertEquals(scheduledAt, sm.getScheduledAt());
   }
 
   @DisplayName("Can query a user's scheduled messages in a channel")
@@ -83,7 +90,7 @@ public class ScheduledMessageIntegrationTest extends BasicTest {
     ScheduledMessage sm =
         schedule(UUID.randomUUID().toString(), new Date(System.currentTimeMillis() + ONE_HOUR))
             .getScheduledMessage();
-    Date newTime = new Date(System.currentTimeMillis() + 2 * ONE_HOUR);
+    Date newTime = wholeMinuteFromNow(2 * ONE_HOUR);
 
     ScheduledMessage updated =
         Assertions.assertDoesNotThrow(
@@ -96,7 +103,7 @@ public class ScheduledMessageIntegrationTest extends BasicTest {
 
     Assertions.assertEquals(sm.getId(), updated.getId());
     Assertions.assertEquals("edited", updated.getMessage().getText());
-    Assertions.assertEquals(newTime.getTime() / 1000, updated.getScheduledAt().getTime() / 1000);
+    Assertions.assertEquals(newTime, updated.getScheduledAt());
   }
 
   @DisplayName("Can cancel a scheduled message")
