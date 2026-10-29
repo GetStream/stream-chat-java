@@ -63,6 +63,19 @@ public class ScheduledMessageTest {
     Assertions.assertTrue(body.contains("\"scheduled_at\":" + SCHEDULED_AT_JSON), body);
   }
 
+  @DisplayName("Send omits reaction_scores when none are set")
+  @Test
+  void whenSendingWithoutReactionScores_thenBodyOmitsThem() throws Exception {
+    String body =
+        MAPPER.writeValueAsString(
+            Message.send("messaging", "general")
+                .message(MessageRequestObject.builder().text("hi").userId("gandalf").build())
+                .scheduledAt(SCHEDULED_AT)
+                .internalBuild());
+
+    Assertions.assertFalse(body.contains("\"reaction_scores\""), body);
+  }
+
   @DisplayName("Send response reads scheduled_message")
   @Test
   void whenSendResponseHasScheduledMessage_thenGetterReturnsIt() throws Exception {
