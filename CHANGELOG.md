@@ -5,9 +5,20 @@ All notable changes to this project will be documented in this file. See [standa
 ## [1.51.0](https://github.com/GetStream/stream-chat-java/compare/1.50.0...1.51.0) (2026-10-29)
 
 
+### Features
+
+* support scheduled messages (CHA-5933) ([#278](https://github.com/GetStream/stream-chat-java/issues/278)) ([b3dad6d](https://github.com/GetStream/stream-chat-java/commit/b3dad6d3bb81e709a9b8efe058ebdbe672dc0406))
+
+
 ### Bug Fixes
 
-* **event:** keep message_id in additional fields ([#279](https://github.com/GetStream/stream-chat-java/issues/279)) ([342f303](https://github.com/GetStream/stream-chat-java/commit/342f303cf1160c739101779aeac9099d1158f01e)), closes [#278](https://github.com/GetStream/stream-chat-java/issues/278)
+* **event:** keep message_id in additional fields ([#279](https://github.com/GetStream/stream-chat-java/issues/279)) ([342f303](https://github.com/GetStream/stream-chat-java/commit/342f303cf1160c739101779aeac9099d1158f01e))
+* omit empty `reaction_scores` from message requests ([#280](https://github.com/GetStream/stream-chat-java/issues/280)) ([b0a32b0](https://github.com/GetStream/stream-chat-java/commit/b0a32b0dd5ab14773f428758a4ab8b3efd76c7fe))
+
+
+### Other
+
+* add deprecation notice to README ([#277](https://github.com/GetStream/stream-chat-java/issues/277)) ([320aa87](https://github.com/GetStream/stream-chat-java/commit/320aa8746f0353c011de0635d04d30564a85a966))
 
 ## [1.50.0](https://github.com/GetStream/stream-chat-java/compare/1.49.0...1.50.0) (2026-10-09)
 
