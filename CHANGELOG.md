@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.51.0](https://github.com/GetStream/stream-chat-java/compare/1.50.0...1.51.0) (2026-10-29)
+
+
+### Bug Fixes
+
+* **event:** keep message_id in additional fields ([#279](https://github.com/GetStream/stream-chat-java/issues/279)) ([342f303](https://github.com/GetStream/stream-chat-java/commit/342f303cf1160c739101779aeac9099d1158f01e)), closes [#278](https://github.com/GetStream/stream-chat-java/issues/278)
+
 ## [1.50.0](https://github.com/GetStream/stream-chat-java/compare/1.49.0...1.50.0) (2026-10-09)
 
 
