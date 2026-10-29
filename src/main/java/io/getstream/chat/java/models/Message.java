@@ -513,8 +513,11 @@ public class Message {
     @JsonProperty("html")
     private String html;
 
+    // @Singular builds an empty map, not null. Sending {} fails scheduled sends on servers
+    // before chat#19652, which stored this legacy field as invalid JSON.
     @Singular
     @Nullable
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("reaction_scores")
     private Map<String, Integer> reactionScores;
 
