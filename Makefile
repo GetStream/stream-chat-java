@@ -12,4 +12,4 @@ test_with_docker:
 
 format_with_docker:
 	docker build -t stream-chat-java-formatter . && \
-	docker run -v $(PWD):/code stream-chat-java-formatter
+	docker run --user $$(id -u):$$(id -g) -v $(PWD):/code stream-chat-java-formatter
