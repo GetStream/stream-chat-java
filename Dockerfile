@@ -18,4 +18,4 @@ RUN yum install -y shadow-utils findutils && yum clean all \
 ENV GRADLE_USER_HOME=/tmp/gradle
 USER formatter
 
-CMD ["sh", "-c", "./gradlew :spotlessApply"] 
+CMD ["sh", "-c", "./gradlew :spotlessApply"]
