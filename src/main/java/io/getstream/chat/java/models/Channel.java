@@ -622,6 +622,10 @@ public class Channel {
     @JsonProperty("messages_id_around")
     private String messagesIdAround;
 
+    @Nullable
+    @JsonProperty("include_soft_deleted_channel")
+    private Boolean includeSoftDeletedChannel;
+
     public static class GetChannelRequest extends StreamRequest<ChannelGetResponse> {
       @NotNull private String channelType;
 
@@ -1761,7 +1765,9 @@ public class Channel {
   /**
    * Creates a get channel request. The channel is never created: a missing, deleted or disabled
    * channel yields a 404, so this request doubles as an existence check. The messages of the
-   * channel are paged with the messagesId* parameters, which need state to be true.
+   * channel are paged with the messagesId* parameters, which need state to be true. Set
+   * includeSoftDeletedChannel to read a soft-deleted channel and the messages its deletion hid; its
+   * members are not returned.
    *
    * @param type the channel type
    * @param id the channel id

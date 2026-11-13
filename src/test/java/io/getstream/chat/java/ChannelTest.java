@@ -122,6 +122,42 @@ public class ChannelTest extends BasicTest {
     return response.getMessages().stream().map(Message::getId).collect(Collectors.toList());
   }
 
+  @DisplayName("Can get a soft-deleted channel and its messages")
+  @Test
+  void whenGettingSoftDeletedChannelWithInclude_thenReturnsChannelAndMessages() {
+    var channelId = RandomStringUtils.randomAlphabetic(12);
+    Assertions.assertDoesNotThrow(
+        () ->
+            Channel.getOrCreate(testChannel.getType(), channelId)
+                .data(
+                    ChannelRequestObject.builder()
+                        .createdBy(testUserRequestObject)
+                        .members(buildChannelMembersList())
+                        .build())
+                .request());
+
+    var first = sendMessageToChannel(channelId, "first");
+    var second = sendMessageToChannel(channelId, "second");
+
+    Assertions.assertDoesNotThrow(() -> Channel.delete(testChannel.getType(), channelId).request());
+
+    var notFound =
+        Assertions.assertThrows(
+            StreamException.class,
+            () -> Channel.getChannel(testChannel.getType(), channelId).state(true).request());
+    Assertions.assertEquals(404, notFound.getResponseData().getStatusCode());
+
+    var response =
+        Assertions.assertDoesNotThrow(
+            () ->
+                Channel.getChannel(testChannel.getType(), channelId)
+                    .state(true)
+                    .includeSoftDeletedChannel(true)
+                    .request());
+    Assertions.assertNotNull(response.getChannel().getDeletedAt());
+    Assertions.assertEquals(Arrays.asList(first, second), messageIds(response));
+  }
+
   @DisplayName("Get channel does not create a missing channel")
   @Test
   void whenGettingMissingChannel_thenNotFound() {
