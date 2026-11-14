@@ -26,6 +26,8 @@ jobs:
         env:
           STREAM_KEY: ${{ vars.STREAM_KEY }}
           STREAM_SECRET: ${{ secrets.STREAM_SECRET }}
+          STREAM_MULTI_TENANT_KEY: ${{ vars.STREAM_MULTI_TENANT_KEY || secrets.STREAM_MULTI_TENANT_KEY }}
+          STREAM_MULTI_TENANT_SECRET: ${{ secrets.STREAM_MULTI_TENANT_SECRET }}
         run: |
           # Retry 3 times because tests can be flaky
           for _ in 1 2 3;
