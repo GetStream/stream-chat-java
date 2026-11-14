@@ -16,10 +16,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set up Java 11
+        uses: actions/setup-java@v4
+        with:
+          distribution: corretto
+          java-version: '11'
+
       - name: Run tests
         env:
           STREAM_KEY: ${{ vars.STREAM_KEY }}
           STREAM_SECRET: ${{ secrets.STREAM_SECRET }}
+          STREAM_MULTI_TENANT_KEY: ${{ vars.STREAM_MULTI_TENANT_KEY || secrets.STREAM_MULTI_TENANT_KEY }}
+          STREAM_MULTI_TENANT_SECRET: ${{ secrets.STREAM_MULTI_TENANT_SECRET }}
         run: |
           # Retry 3 times because tests can be flaky
           for _ in 1 2 3;
