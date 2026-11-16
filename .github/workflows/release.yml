@@ -38,12 +38,19 @@ jobs:
           echo "version=${HEAD_REF#release-}" >> "$GITHUB_OUTPUT"
           echo "stream_repo=${{ contains(env.PUBLISH_TARGETS, 'streamRepo') }}" >> "$GITHUB_OUTPUT"
 
+      - name: Set up Java 11
+        uses: actions/setup-java@v4
+        with:
+          distribution: corretto
+          java-version: '11'
+
+      # Outside the checkout, so the key cannot end up in the staged tree.
       - name: Write the signing keyring
         run: |
-          sudo bash -c "echo '$GPG_KEY_CONTENTS' | base64 -d > '$SIGNING_SECRET_KEY_RING_FILE'"
+          echo "$GPG_KEY_CONTENTS" | base64 -d > "$RUNNER_TEMP/secring.gpg"
+          echo "SIGNING_SECRET_KEY_RING_FILE=$RUNNER_TEMP/secring.gpg" >> "$GITHUB_ENV"
         env:
           GPG_KEY_CONTENTS: ${{ secrets.GPG_KEY_CONTENTS }}
-          SIGNING_SECRET_KEY_RING_FILE: ${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}
 
       # An env var rather than -P, so a value with a space cannot split into a second argument.
       - name: Select publish targets
@@ -58,7 +65,6 @@ jobs:
           STREAM_SECRET: ${{ secrets.STREAM_SECRET }}
           SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-          SIGNING_SECRET_KEY_RING_FILE: ${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}
 
       - name: Publish to MavenCentral
         if: ${{ contains(env.PUBLISH_TARGETS, 'central') }}
@@ -70,8 +76,7 @@ jobs:
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
           SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-          SIGNING_SECRET_KEY_RING_FILE: ${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}
-          SONATYPE_STAGING_PROFILE_ID: ${{ secrets.SONATYPE_STAGING_PROFILE_ID }}
+          SONATYPE_STAGING_PROFILE_ID: ${{ vars.SONATYPE_STAGING_PROFILE_ID }}
 
       # Handed to a job that has never seen the signing key -- the reason Gradle stages to a
       # directory instead of writing to the bucket itself.
