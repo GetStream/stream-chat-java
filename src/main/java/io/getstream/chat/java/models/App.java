@@ -30,9 +30,7 @@ import io.getstream.chat.java.models.framework.StreamResponseObject;
 import io.getstream.chat.java.services.AppService;
 import io.getstream.chat.java.services.framework.Client;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.Key;
@@ -1536,21 +1534,39 @@ public class App extends StreamResponseObject {
   private static final byte[] GZIP_MAGIC = new byte[] {0x1f, (byte) 0x8b};
 
   /**
+   * Maximum decompressed size, in bytes, of a gzip webhook, SQS or SNS payload. Defaults to 10 MiB.
+   * Decompression runs before the signature check, so without a cap an unsigned gzip bomb could
+   * exhaust memory. Raise it if your events are larger.
+   */
+  public static long maxWebhookPayloadBytes = 10L * 1024 * 1024;
+
+  /**
    * Returns {@code body} unchanged unless it starts with the gzip magic ({@code 1f 8b}, per RFC
    * 1952), in which case the gzip stream is inflated and the decompressed bytes are returned.
    *
    * <p>Magic-byte detection (rather than relying on a header) lets the same handler stay correct
    * when middleware auto-decompresses the request before your code sees it.
+   *
+   * @throws InvalidWebhookError when the gzip stream is malformed or decompresses to more than
+   *     {@link #maxWebhookPayloadBytes}
    */
   public static byte[] gunzipPayload(@NotNull byte[] body) {
     if (body.length < 2 || body[0] != GZIP_MAGIC[0] || body[1] != GZIP_MAGIC[1]) {
       return body;
     }
+    long limit = maxWebhookPayloadBytes;
+    byte[] out;
     try (GZIPInputStream in = new GZIPInputStream(new ByteArrayInputStream(body))) {
-      return readAll(in);
+      // One byte past the limit is enough to detect a bomb without inflating the rest of it.
+      out = in.readNBytes((int) Math.min(limit, Integer.MAX_VALUE - 1) + 1);
     } catch (IOException e) {
       throw new InvalidWebhookError(InvalidWebhookError.GZIP_FAILED, e);
     }
+    if (out.length > limit) {
+      throw new InvalidWebhookError(
+          InvalidWebhookError.GZIP_FAILED + ": payload exceeds " + limit + " bytes");
+    }
+    return out;
   }
 
   /**
@@ -1688,16 +1704,6 @@ public class App extends StreamResponseObject {
    */
   public static @NotNull Event parseSns(@NotNull String notificationBody) {
     return parseEvent(decodeSnsPayload(notificationBody));
-  }
-
-  private static byte[] readAll(InputStream in) throws IOException {
-    ByteArrayOutputStream out = new ByteArrayOutputStream();
-    byte[] buf = new byte[4096];
-    int n;
-    while ((n = in.read(buf)) != -1) {
-      out.write(buf, 0, n);
-    }
-    return out.toByteArray();
   }
 
   private static String bytesToHex(byte[] hash) {
