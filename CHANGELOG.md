@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* [APPSEC-327] run Docker formatter without root privileges ([#282](https://github.com/GetStream/stream-chat-java/issues/282)) ([28d8dca](https://github.com/GetStream/stream-chat-java/commit/28d8dcac88833ad90f6b677b697be94a454f9455))
+* run Docker formatter without root privileges ([#282](https://github.com/GetStream/stream-chat-java/issues/282)) ([28d8dca](https://github.com/GetStream/stream-chat-java/commit/28d8dcac88833ad90f6b677b697be94a454f9455))
 * limit decompressed webhook payloads to 10 MiB ([#288](https://github.com/GetStream/stream-chat-java/issues/288)) ([dd27223](https://github.com/GetStream/stream-chat-java/commit/dd27223a46b97696df4dd943bcb819a5f7c4cd4f))
 
 ## [1.51.0](https://github.com/GetStream/stream-chat-java/compare/1.50.0...1.51.0) (2026-10-29)
