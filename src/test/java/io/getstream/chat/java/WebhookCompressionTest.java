@@ -135,6 +135,24 @@ public class WebhookCompressionTest {
   }
 
   @Test
+  @DisplayName("gunzipPayload stops inflating one byte past the limit")
+  void gunzipPayload_stopsReadingPastLimit() throws Exception {
+    long original = App.maxWebhookPayloadBytes;
+    try {
+      byte[] body = gzip(new byte[100]);
+      // A read that inflates to the end hits this corrupt trailer CRC and fails differently.
+      body[body.length - 8] ^= 0x01;
+      App.maxWebhookPayloadBytes = 10;
+      InvalidWebhookError ex =
+          Assertions.assertThrows(InvalidWebhookError.class, () -> App.gunzipPayload(body));
+      Assertions.assertEquals(
+          InvalidWebhookError.GZIP_FAILED + ": payload exceeds 10 bytes", ex.getMessage());
+    } finally {
+      App.maxWebhookPayloadBytes = original;
+    }
+  }
+
+  @Test
   @DisplayName("decodeSqsPayload decodes base64 only when no compression")
   void decodeSqsPayload_base64Only() {
     byte[] raw = JSON_BODY.getBytes(StandardCharsets.UTF_8);
