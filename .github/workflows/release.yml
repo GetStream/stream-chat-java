@@ -19,7 +19,7 @@ jobs:
   Release:
     name: 🚀 Release
     if: github.event.pull_request.merged && startsWith(github.head_ref, 'release-')
-    runs-on: { group: github-public-ubuntu-static }
+    runs-on: { group: github-public-amd64 }
     outputs:
       version: ${{ steps.version.outputs.version }}
       stream_repo: ${{ steps.version.outputs.stream_repo }}
@@ -95,7 +95,7 @@ jobs:
     name: ☁️ Upload to the Stream repository
     needs: Release
     if: ${{ needs.Release.outputs.stream_repo == 'true' }}
-    runs-on: { group: github-public-ubuntu-static }
+    runs-on: { group: github-public-amd64 }
     steps:
       - name: Download the staged tree
         uses: actions/download-artifact@v4
@@ -122,7 +122,7 @@ jobs:
       ${{ always()
           && needs.Release.result == 'success'
           && (needs.Upload.result == 'success' || needs.Upload.result == 'skipped') }}
-    runs-on: { group: github-public-ubuntu-static }
+    runs-on: { group: github-public-amd64 }
     permissions:
       # write is needed to create the tag and the GitHub release
       contents: write
