@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   javadoc:
-    runs-on: { group: github-public-ubuntu-static }
+    runs-on: { group: github-public-amd64 }
     concurrency: docs-${{ github.ref }}
     name: 📚 Docs
     steps:
