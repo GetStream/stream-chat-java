@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.53.0](https://github.com/GetStream/stream-chat-java/compare/1.52.0...1.53.0) (2026-11-25)
+
+
+### Features
+
+* add exclude_channel_cids to delete many users ([#293](https://github.com/GetStream/stream-chat-java/issues/293)) ([232d9da](https://github.com/GetStream/stream-chat-java/commit/232d9da4ab7568d3f6f551f8c2f27f3b57385cfd))
+* add skip_enrich_url to message send and update requests ([#294](https://github.com/GetStream/stream-chat-java/issues/294)) ([181ebf0](https://github.com/GetStream/stream-chat-java/commit/181ebf05c2477bdf092bcf331e0244aca65c708f))
+
 ## [1.52.0](https://github.com/GetStream/stream-chat-java/compare/1.51.0...1.52.0) (2026-11-17)
 
 
