@@ -941,6 +941,15 @@ public class User {
     @JsonInclude(Include.NON_NULL)
     private DeleteStrategy deleteConversationsStrategy;
 
+    /**
+     * Channel CIDs (type:id) to keep intact for every user in the request: their rows, messages,
+     * memberships, thread participation and reactions. At most 1000 entries. The API rejects it
+     * with a hard user delete strategy.
+     */
+    @JsonProperty("exclude_channel_cids")
+    @JsonInclude(Include.NON_NULL)
+    private List<String> excludeChannelCids;
+
     public static class UserDeleteManyRequest extends StreamRequest<UserDeleteManyResponse> {
       @Override
       protected Call<UserDeleteManyResponse> generateCall(Client client) throws StreamException {

@@ -1737,6 +1737,21 @@ var taskStatusResponse = TaskStatus.get(taskId).request();
 // "completed".equals(taskStatusResponse.status);
 ```
 
+**Delete many users and keep some channels intact**
+
+Channels listed in `excludeChannelCids` keep their messages, memberships, thread participation and
+reactions for these users, and are not deleted as conversations (at most 1000 CIDs). It cannot be
+combined with a hard user delete strategy.
+
+```java
+var taskId = User.deleteMany(List.of("u1"))
+        .deleteUserStrategy(DeleteStrategy.SOFT)
+        .deleteMessagesStrategy(DeleteStrategy.HARD)
+        .deleteConversationsStrategy(DeleteStrategy.HARD)
+        .excludeChannelCids(List.of("messaging:held-channel"))
+        .request().getTaskId();
+```
+
 **Translate message**
 
 ```java
