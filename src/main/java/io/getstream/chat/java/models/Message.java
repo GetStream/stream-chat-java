@@ -794,6 +794,10 @@ public class Message {
     private Boolean skipPush;
 
     @Nullable
+    @JsonProperty("skip_enrich_url")
+    private Boolean skipEnrichUrl;
+
+    @Nullable
     @JsonProperty("is_pending_message")
     private Boolean isPendingMessage;
 
@@ -868,6 +872,10 @@ public class Message {
     @Nullable
     @JsonProperty("message")
     private MessageRequestObject message;
+
+    @Nullable
+    @JsonProperty("skip_enrich_url")
+    private Boolean skipEnrichUrl;
 
     public static class MessageUpdateRequest extends StreamRequest<MessageUpdateResponse> {
       @NotNull private String id;
@@ -1376,6 +1384,10 @@ public class Message {
     @Nullable
     @JsonProperty("unset")
     private List<String> unsetValues;
+
+    @Nullable
+    @JsonProperty("skip_enrich_url")
+    private Boolean skipEnrichUrl;
 
     public static class MessagePartialUpdateRequest
         extends StreamRequest<MessagePartialUpdateResponse> {
